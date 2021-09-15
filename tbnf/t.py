@@ -46,7 +46,7 @@ class Forall(TyDynamic):
     ty: TyStatic
 
     def __repr__(self) -> str:
-        return f"forall {set(self.bounds)}. {self.ty}"
+        return f"forall {' '.join(map(repr, self.bounds))}. {self.ty}"
 
 
 @dataclass(order=True, frozen=True)

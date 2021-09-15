@@ -13,8 +13,8 @@ polyrule2 : <a> polyrule { fn (a) -> $2(a) }
 We type inference it:
 
 ```
-polyrule : forall {'a}. ('a) -> (str, token, 'a)
-polyrule2 : forall {'a}. ('a) -> (str, token, 'a)
+polyrule : forall 'a. ('a) -> (str, token, 'a)
+polyrule2 : forall 'a. ('a) -> (str, token, 'a)
 ```
 
 Then we can lower it to a BNF grammar used by other parser framework,
