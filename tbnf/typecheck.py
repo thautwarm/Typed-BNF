@@ -33,9 +33,21 @@ class Check:
         self.field_constraints: dict[str, t.Methods] = {}
         self.field_problems = []
         self.outer_tvars = set()
-        self.execute(stmts)
+        self._execute(stmts)
 
-    def execute(self, stmts):
+    def stmts_for_codegen(self):
+        return self._remove_imports(self.stmts)
+
+    @staticmethod
+    def _remove_imports(stmts):
+        for each in stmts:
+            match each:
+                case r.Import(s):
+                    yield from p.type_parser.parse(open(s).read())
+                case _:
+                    yield each
+
+    def _execute(self, stmts):
         for each in stmts:
             match each:
                 case t.Methods(basename, _, _):

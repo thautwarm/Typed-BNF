@@ -2,6 +2,7 @@ from tbnf import t, unify, typecheck
 from pprint import pprint
 from tbnf import p
 from prettyprinter import install_extras, pprint
+from tbnf.backends import lark
 install_extras(['dataclasses'])
 # uf = unify.Unification()
 
@@ -57,41 +58,7 @@ polyrule  : <a> <b>  { fn (a) -> ($1.lexeme, $2, a) }
 polyrule2 : <a> polyrule { fn (a) -> $2(a) }
 
 """
-# 1. advanced features are not target...
-# 2. distinguish languages(target, object) (definition). ts for target not for object;
-# 3. mutual recur(algo) + polymorphic recur case? 
-# simplicity?
-# *achievement eval
-# r"""
 
-
-# val f : 'a -> 'a * 'a
-# let f x = (x, x)
-
-# ... f<a>(a x){
-#     ('a, 'a) -> 'a  => ('a * 'a) -> 'a
-# }
-# (x: 'a, x: 'a) : 'a * 'a
-
-# f : forall 'a . 'a -> 'a * 'a
-
-
-# let f : 'a . = fun (...) -> 
-#     ... 
-#     (x : 'a)
-#     ...
-
-
-# a : { 1 }
-# b : { "2" }
-# rule: a <b> c  { func1($1, $2, $3) }
-#     | a <e> f  { func2($1, $2, $3) }
-# trailer : <b> c { fn a ->func1(a, $1, $2) 
-# rule: a trailer { $2($1) }
-#     | b trailer { $2($1) }
-
-
-# """
 ]
 """
 
@@ -104,13 +71,18 @@ for grammar in grammars:
 
     for each in p.refs:
         each.set(p.uf.prune(each.get()))
-    pprint(tc.stmts)
+    # pprint(tc.stmts)
+    cg = lark.CG()
+    for each in tc.stmts_for_codegen():
+        cg(each)
+    print(cg.io.getvalue())
+    print(cg.create_python_file('ppp'))
 
     # print(p.type_parser.parse("""
     # val a : forall 'a. list['a]
     # val b : (int, int) -> int
     # val b : (int) -> int
     # """))
-    print('===========')
-    for k, v in tc.global_scopes.items():
-        print(k._, ":", p.uf.prune(v))
+    # print('===========')
+    # for k, v in tc.global_scopes.items():
+    #     print(k._, ":", p.uf.prune(v))

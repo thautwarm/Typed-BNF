@@ -40,6 +40,8 @@ class App(ExDynamic):
     func: Expr
     args: tuple[Expr, ...]
 
+    def __post_init__(self):
+        assert isinstance(self.args, tuple)
 
 @dataclass(order=True, frozen=True)
 class Lam(ExDynamic):

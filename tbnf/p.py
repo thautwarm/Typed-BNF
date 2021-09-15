@@ -16,8 +16,8 @@ def unesc(x, f=py_scanstring):
 _tbnf_parser = r"""
       start : toplevel+ -> many
       
-      manyvars : "'" CNAME ("," "'" CNAME)* -> many 
-               | -> empty
+      manyvars : -> empty 
+               | "'" CNAME ("," "'" CNAME)* -> many
          
       decl : "val" CNAME ":" type -> tdecl
            | "shape" CNAME "[" manyvars "]" "{" manyfieldecls "}" -> structdecl1
