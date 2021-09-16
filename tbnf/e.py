@@ -29,6 +29,9 @@ class Int(ExDynamic):
 class Float(ExDynamic):
     _: float
 
+@dataclass(order=True, frozen=True)
+class Bool(ExDynamic):
+    _: bool
 
 @dataclass(order=True, frozen=True)
 class String(ExDynamic):
@@ -108,4 +111,5 @@ ExStatic = (
     | Slot
     | While
     | Block
+    | Bool
 )

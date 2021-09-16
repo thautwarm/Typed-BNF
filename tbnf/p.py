@@ -1,5 +1,6 @@
 from lark import Lark, Transformer, v_args
-from tbnf import e, t, r, unify
+from tbnf import e, t, r, unify, utils
+from tbnf.utils import Ref
 from tbnf.prims import *
 from json.decoder import py_scanstring
 from pprint import pprint
@@ -100,36 +101,16 @@ uf = unify.Unification()
 methods: dict[str, t.Methods] = {}
 
 
-_undef = object()
 
 
-class Ref:
-    __slots__ = ("_",)
 
-    def __init__(self, _=_undef):
-        self._ = _
 
-    def isdefined(self):
-        return self is not _undef
-
-    def get(self):
-        if self._ is _undef:
-            raise ValueError
-        return self._
-
-    def set(self, v):
-        self._ = v
-
-    def __repr__(self) -> str:
-        if self._ is _undef:
-            return "undef"
-        return "{" + repr(self._) + "}"
 
 
 refs = []
 
 
-def ref(t=_undef):
+def ref(t=utils.undef):
     r = Ref(t)
     refs.append(r)
     return r

@@ -1,8 +1,8 @@
 from tbnf import t, unify, typecheck
 from pprint import pprint
-from tbnf import p
+from tbnf import p, typecheck
 from prettyprinter import install_extras, pprint
-from tbnf.backends import lark
+from tbnf.backends import lark, antlr, codeseg
 install_extras(['dataclasses'])
 # uf = unify.Unification()
 
@@ -50,19 +50,17 @@ json : "[" list "]" { json_list($2) }
 | <STR>             { json_string(unesc_string($1.lexeme)) }
 """,
 
-r"""
-shape token {
-    lexeme : str
-}
-polyrule  : <a> <b>  { fn (a) -> ($1.lexeme, $2, a) }
-polyrule2 : <a> polyrule { fn (a) -> $2(a) }
-
-"""
+# r"""
+# shape token {
+#     lexeme : str
+# }
+# polyrule  : <a> <b>  { fn (a) -> ($1.lexeme, $2, a) }
+# polyrule2 : <a> polyrule { fn (a) -> $2(a) }
+#
+# """
 
 ]
-"""
 
-"""
 for grammar in grammars:
     xs = p.tbnf_parser.parse(grammar)
 
@@ -71,13 +69,19 @@ for grammar in grammars:
 
     for each in p.refs:
         each.set(p.uf.prune(each.get()))
+
     # pprint(tc.stmts)
-    cg = lark.CG()
+    # cg = lark.CG()
+    # for each in tc.stmts_for_codegen():
+    #     cg(each)
+    # cg.declare_tokens_()
+    # print(cg.io.getvalue())
+    # print(cg.create_python_file('ppp'))
+
+    cg = antlr.CG({k._: p.uf.prune(v) for k, v in tc.global_scopes.items() if isinstance(k, typecheck.GName)})
     for each in tc.stmts_for_codegen():
         cg(each)
-    print(cg.io.getvalue())
-    print(cg.create_python_file('ppp'))
-
+    codeseg.show(codeseg.VList(cg.io))
     # print(p.type_parser.parse("""
     # val a : forall 'a. list['a]
     # val b : (int, int) -> int

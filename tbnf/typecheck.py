@@ -98,6 +98,7 @@ class Check:
 
     def infer_inner(self, exp: e.ExStatic, scope, stack):
         match exp:
+
             case e.Var(n):
                 if LName(n) not in scope:
                     raise NameError(n)
@@ -107,6 +108,8 @@ class Check:
                 t1 = uf.newvar()
                 self.outer_tvars.add(t1)
                 self.field_problems.append((None, t_base, attr, t1))
+            case e.Bool():
+                t1 = bool_t
             case e.Int():
                 t1 = int_t
             case e.Float():
