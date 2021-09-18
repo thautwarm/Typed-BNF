@@ -1,6 +1,5 @@
 ## Typed BNF
 
-
 Given a grammar:
 ```bnf
 shape token {
@@ -19,3 +18,15 @@ polyrule2 : forall 'a. ('a) -> (str, token, 'a)
 
 Then we can lower it to a BNF grammar used by other parser framework,
 no matter which programming language is the target.
+
+## Lark Backend
+
+```
+python -m tbnf GRAMMAR.tbnf lark [--outdir OUTDIR=.] [--mod MODULENAME=mylang]  
+```
+
+## Antlr Backend
+
+```
+python -m tbnf GRAMMAR.tbnf antlr [--outdir OUTDIR=.] [--mod MODULENAME=mylang]  
+```

@@ -8,7 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+build-src/
 develop-eggs/
 dist/
 downloads/
@@ -130,3 +130,4 @@ dmypy.json
 
 .idea/
 test/
+Memo.md

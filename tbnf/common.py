@@ -1,7 +1,13 @@
 from typing import Generic, TypeVar
+from tbnf import unify, t
 T = TypeVar('T')
 
 undef = object()
+
+uf = unify.Unification()
+methods: dict[str, t.Methods] = {}
+
+refs = []
 
 class Ref(Generic[T]):
     _: T

@@ -1,0 +1,13 @@
+start:     list  -> start_case0
+list:     -> list_case0
+    | json  A1  list  -> list_case1
+str:     A2  -> str_case0
+pair:     str  A3  json  -> pair_case0
+pair_list:     -> pair_list_case0
+    | pair  A1  pair_list  -> pair_list_case1
+json:     A4  list  A5  -> json_case0
+    | A6  pair_list  A7  -> json_case1
+    | A8  -> json_case2
+    | A9  -> json_case3
+    | A2  -> json_case4
+%declare A1 A2 A3 A4 A5 A6 A7 A8 A9

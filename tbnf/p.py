@@ -1,6 +1,6 @@
 from lark import Lark, Transformer, v_args
-from tbnf import e, t, r, unify, utils
-from tbnf.utils import Ref
+from tbnf import e, t, r, unify, common
+from tbnf.common import Ref, uf, refs, methods
 from tbnf.prims import *
 from json.decoder import py_scanstring
 from pprint import pprint
@@ -97,20 +97,9 @@ _tbnf_parser = r"""
     """
 
 
-uf = unify.Unification()
-methods: dict[str, t.Methods] = {}
 
 
-
-
-
-
-
-
-refs = []
-
-
-def ref(t=utils.undef):
+def ref(t=common.undef):
     r = Ref(t)
     refs.append(r)
     return r

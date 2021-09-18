@@ -23,6 +23,8 @@ grammars = [
 r"""
 shape token {
     lexeme : str
+    line: int
+    col: int
 }
 val nil : forall 'a. () -> list['a]
 val cons : forall 'a. ('a, list['a]) -> list['a]
@@ -39,7 +41,8 @@ val json_string : (str) -> json
 list :               { nil() }
      | json "," list { cons($1, $3) }
 
-pair : <STR> ":" json { ($1.lexeme, $3) }
+str : <STR> { $1.lexeme }
+pair : str ":" json { ($1, $3) }
 pair_list :           { nil() }
 | pair "," pair_list  { cons($1, $3) }
 
@@ -48,7 +51,7 @@ json : "[" list "]" { json_list($2) }
 | <INT>             { json_int(parse_int($1.lexeme)) }
 | <FLOAT>           { json_float(parse_float($1.lexeme)) }
 | <STR>             { json_string(unesc_string($1.lexeme)) }
-""",
+""", # antlr
 
 # r"""
 # shape token {
@@ -71,17 +74,17 @@ for grammar in grammars:
         each.set(p.uf.prune(each.get()))
 
     # pprint(tc.stmts)
-    # cg = lark.CG()
-    # for each in tc.stmts_for_codegen():
-    #     cg(each)
-    # cg.declare_tokens_()
-    # print(cg.io.getvalue())
-    # print(cg.create_python_file('ppp'))
-
-    cg = antlr.CG({k._: p.uf.prune(v) for k, v in tc.global_scopes.items() if isinstance(k, typecheck.GName)})
+    cg = lark.CG()
     for each in tc.stmts_for_codegen():
         cg(each)
-    codeseg.show(codeseg.VList(cg.io))
+    cg.declare_tokens_()
+    cg.out('json')
+
+    # cg = antlr.CG({k._: p.uf.prune(v) for k, v in tc.global_scopes.items() if isinstance(k, typecheck.GName)})
+    # for each in tc.stmts_for_codegen():
+    #     cg(each)
+    # cg.out('json')
+    # codeseg.show(codeseg.VList(cg.io))
     # print(p.type_parser.parse("""
     # val a : forall 'a. list['a]
     # val b : (int, int) -> int

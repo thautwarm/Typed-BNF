@@ -1,11 +1,13 @@
 import json
 from typing import Sequence, Mapping, Optional
-from tbnf import r, t, e
+from tbnf import r, t, e, typecheck
 from collections import ChainMap, OrderedDict
 from contextlib import contextmanager
+from tbnf.backends.io_interface import OutIO
 import ast
 import _ast
 import io
+
 
 Stmt = r.Prod | r.Decl | t.Methods
 UserName = str
@@ -103,7 +105,7 @@ def gentoken():
     return f"A{token_cnt[0]}"
 
 class CG:
-    def __init__(self):
+    def __init__(self, global_scopes: dict[typecheck.NameStatic, t.TyStatic]):
         self.io = io.StringIO()
         self.user_funcs = []
         self.declared_tokens = OrderedDict()
@@ -114,9 +116,13 @@ class CG:
         return self
 
     def declare_tokens_(self):
-        self.io.write(f'%declare {", ".join(each for each in self.declared_tokens.values())}')
+        self.io.write(f'%declare {" ".join(each for each in self.declared_tokens.values())}')
 
-    def create_python_file(self, module):
+    def out(self, module, out_io: OutIO):
+        py = out_io(f"{module}.py")
+        lark = out_io(f"{module}.lark")
+        lark.write(self.io.getvalue())
+
         ast.Module(self.user_funcs)
 
         cls = ast.Module([
@@ -124,14 +130,21 @@ class CG:
                 [])
         ast.fix_missing_locations(cls)
         code = ast.unparse(cls)
-        return (f"from {module} import "
-                f"Lark_StandAlone as _Lark__Standardalone, "
-                f"Lexer as _Lark__Lexer, "
-                f"Transformer as _TBNF__Transformer\n"
-                f"declared_tokens = {list(self.declared_tokens.items())!r}\n"
-                f"class MyLexer(_Lark__Lexer): pass\n"
-                f"{code}\n"
-                f"parser = Lark_StandAlone(transformer=MyTransformer(), lexer=MyLexer)")
+        py.write(
+            f"from {module}_lark import "
+            f"Lark_StandAlone as _Lark__Standardalone, "
+            f"Lexer as _Lark__Lexer, "
+            f"Transformer as _TBNF__Transformer\n"
+            f"declared_tokens = {list(self.declared_tokens.items())!r}\n"
+            f"class MyLexer(_Lark__Lexer):\n"
+            f"    pass\n"
+            f"{code}\n"
+            f"parser = _Lark__Standardalone(transformer=MyTransformer(), lexer=MyLexer)")
+
+    def process(self, stmts: list[Stmt | r.Case | r.Term | r.NonTerm]):
+        for each in stmts:
+            self(each)
+        self.declare_tokens_()
 
     def __call__(self, stmt: Stmt | r.Case | r.Term | r.NonTerm, ident=""):
         match stmt:
@@ -154,7 +167,7 @@ class CG:
 
             case r.Prod():
                 ident = stmt.lhs
-                self << stmt.lhs << ':\n'
+                self << stmt.lhs << ':'
                 hd, *tl = stmt.rhs
                 self << "    "
                 self(hd, f"{ident}_case0")

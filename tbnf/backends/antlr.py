@@ -1,12 +1,12 @@
 import json
 from typing import Sequence, Mapping, Optional
-from tbnf import r, t, e, utils
+from tbnf import r, t, e, common
 from tbnf.backends import codeseg
 from collections import ChainMap, OrderedDict
 from contextlib import contextmanager
 from dataclasses import dataclass
-
-import io
+from tbnf.backends.io_interface import OutIO
+from tbnf import typecheck
 
 Stmt = r.Prod | r.Decl | t.Methods
 UserName = str
@@ -14,9 +14,9 @@ GenName = str
 Scope = Mapping[UserName, GenName]
 lang_ctx = [0]
 func_ctx = [0]
-def gensym(n: str, cnt=lang_ctx):
+def gensym(n: str, cnt=lang_ctx, sep='__'):
     cnt[0] += 1
-    return f"{n}__{cnt[0]}"
+    return f"{n}{sep}{cnt[0]}"
 
 
 def bound_name(i: int):
@@ -33,63 +33,64 @@ def interleave_with(many, sep):
         yield sep
         yield each
 
-tuple_tnames = ["Unit", "Pair",
-    "Triplet",
-    "Quartet",
-    "Quintet",
-    "Sextet",
-    "Septet",
-    "Octet",
-    "Ennead",
-    "Decade"
-]
 
 type_aliases = {
-    'bool': 'Boolean',
-    'int': 'Integer',
-    'float': 'Double',
+    'bool': 'boolean',
+    'int': 'int',
+    'float': 'double',
     'token': 'Token',
-    'list': 'ArrayList',
-    'string': 'String'
+    'str': 'String'
+}
+
+box_types = {
+    'boolean': 'Boolean',
+    'int': 'Int',
+    'double': 'Double'
 }
 @dataclass
 class GlobalInfo:
     methods: dict[str, codeseg.Seg]
     imports: dict[str, codeseg.Seg]
 
-    def type_to_java(self, t1: t.TyStatic):
-
+    def type_to_java(self, t1: t.TyStatic, as_parameter=False):
         """
         Unit<A>
-    Pair<A,B>
-    Triplet<A,B,C>
-    Quartet<A,B,C,D>
-    Quintet<A,B,C,D,E>
-    Sextet<A,B,C,D,E,F>
-    Septet<A,B,C,D,E,F,G>
-    Octet<A,B,C,D,E,F,G,H>
-    Ennead<A,B,C,D,E,F,G,H,I>
-    Decade<A,B,C,D,E,F,G,H,I,J>
+        Pair<A,B>
+        Triplet<A,B,C>
+        Quartet<A,B,C,D>
+        Quintet<A,B,C,D,E>
+        Sextet<A,B,C,D,E,F>
+        Septet<A,B,C,D,E,F,G>
+        Octet<A,B,C,D,E,F,G,H>
+        Ennead<A,B,C,D,E,F,G,H,I>
+        Decade<A,B,C,D,E,F,G,H,I,J>
         """
         match t1:
             case t.Tuple(elts):
-                tname = tuple_tnames[len(elts)]
-                args = ', '.join(map(self.type_to_java, elts))
+                if len(elts) == 1:
+                    raise TypeError
+                tname = f"Tuple{len(elts)}"
+                args = ', '.join([self.type_to_java(e, True) for e in elts])
                 return f'{tname}<{args}>'
             case t.Nom(s):
-                return type_aliases.get(s, s)
+                s = type_aliases.get(s, s)
+                if as_parameter:
+                    s = box_types.get(s, s)
+                return s
             case t.Var():
                 raise TypeError
             case t.App(f, t.Tuple(elts)):
-                args = ', '.join(map(self.type_to_java, elts))
+                args = ', '.join([self.type_to_java(e, True) for e in elts])
                 return f"{self.type_to_java(f)}<{args}>"
-            case t.BoundVar(s):
-                return f'_G_{s}'
+            case t.BoundVar():
+                raise NotImplementedError
             case t.Forall():
                 raise TypeError
             case t.Arrow():
                 raise NotImplementedError
         raise NotImplementedError
+
+rename_local = [0]
 
 class EToJava:
     def __init__(self, g: GlobalInfo, stmts=None, used_slots=None, scope=None):
@@ -103,6 +104,7 @@ class EToJava:
         self.stmts: list[codeseg.Seg] = stmts
         self.used_slots: set[int] = used_slots
         self.scope = scope
+        self.alt_num = '0'
 
     def type_to_java(self, t1: t.TyStatic):
         return self.g.type_to_java(t1)
@@ -127,7 +129,7 @@ class EToJava:
         finally:
             self.scope = old
 
-    def __call__(self, x: e.Expr[utils.Ref[t.TyStatic]], *, target: Optional[GenName] = None) -> str:
+    def __call__(self, x: e.Expr[common.Ref[t.TyStatic]], *, target: Optional[GenName] = None) -> str:
 
         match x._:
             case e.Tuple(elts):
@@ -135,7 +137,7 @@ class EToJava:
                 target = target or gensym('tmp')
                 self.stmts.append(codeseg.Line([
                         tname, target, "=",
-                        "new", tname, "(", *interleave_with(map(self, elts), ","), ")", ";"]))
+                        "new", tname, "(", *interleave_with(map(self, elts), ","), ");"]))
 
             case e.Let(True, binders, body):
                 new_scope = {}
@@ -154,7 +156,7 @@ class EToJava:
                     target = f"{v_expr}.{attr}"
                 else:
                     self.stmts.append(
-                            [tname, target, "=",  f"{v_expr}.{attr}", ';'])
+                            [tname, target, "=",  f"{v_expr}.{attr};"])
 
             case e.App(e.Attr(v, attr), args):
                 tname = self.type_to_java(x.tag.get())
@@ -172,7 +174,7 @@ class EToJava:
                 self.stmts.append(
                         codeseg.Line([
                             tname, target, "=",
-                            f"{f_expr}(", ', '.join(args), ")", ";"
+                            f"{f_expr}(", ', '.join(args), ");"
                         ])
                 )
             case e.Block(seq):
@@ -181,7 +183,7 @@ class EToJava:
             case e.Bool(a):
                 tname = 'boolean'
                 target = target or gensym('tmp')
-                self.stmts.append(codeseg.Line([tname, target, "=", ('false', 'true')[a]]))
+                self.stmts.append(codeseg.Line([tname, target, "=", ('false', 'true')[a], ';']))
             case e.Float(a) | e.String(a) | e.Int(a):
                 target = target or gensym('tmp')
                 tname = self.type_to_java(x.tag.get())
@@ -196,34 +198,11 @@ class EToJava:
                 tname = self.type_to_java(x.tag.get())
                 self.stmts.append(
                     codeseg.Line(
-                        [tname, target, "=", f"${bound_name(i)}", ";"]
+                        [tname, target, "=", f"{bound_name(i)}_{self.alt_num}", ";"]
                     )
                 )
-            # case e.Lam(args, ret_a):
-            #     tname = self.type_to_java(x.tag.get())
-            #     new_scope = {}
-            #     f_args = []
-            #     for a in args:
-            #         a_ = new_scope[a] = gensym(a)
-            #         f_args.append(a_)
-            #     other = self.new(used_slots=self.used_slots, scope=ChainMap(self.scope, new_scope))
-            #     x = other(ret_a)
-            #     other.stmts.append(codeseg.Line(["return", x, ";"]))
-            #     func_name = gensym("lambda", func_ctx)
-            #     self.stmts.append(
-            #         codeseg.Line([tname, target, "=", "(", *interleave_with(f_args, ","), ")", "->", "{"])
-            #     )
-            #     self.stmts.append(codeseg.Indent(codeseg.VList(other.stmts)))
-            #     self.stmts.append(codeseg.Line(["};"]))
-            #
-            #
-            #     codeseg.VList(
-            #         [
-            #             "public", func_name,
-            #         ]
-            #     )
-            #     f_args_ = ast.arguments([], list(map(ast.arg, f_args)), None, [], [], None, [])
-            #     self.stmts.append(ast.FunctionDef(target, f_args_, other.stmts, [], None))
+            case e.Lam():
+                raise NotImplementedError
             case e.Var(s):
                 if not target:
                     target = self.scope[s]
@@ -239,14 +218,17 @@ class EToJava:
 token_cnt = [0]
 def gentoken():
     token_cnt[0] += 1
-    return f"A{token_cnt[0]}"
+    return f"T__{token_cnt[0]}"
 
 class CG:
-    def __init__(self, nonterminal_types: dict[str, t.TyStatic]):
+    def __init__(self, global_scopes: dict[typecheck.NameStatic, t.TyStatic]):
+        from tbnf.common import uf
+        self.nonterminal_types = {k._: uf.prune(v) for k, v in global_scopes.items() if isinstance(k, typecheck.GName)}
         self.io = []
-        self.nonterminal_types = nonterminal_types
         self.user_funcs = []
+        self.lit_set = set()
         self.declared_tokens = OrderedDict()
+        self.real_tokens = OrderedDict()
         self.global_scopes = {}
         self.g = GlobalInfo({}, {})
 
@@ -254,16 +236,43 @@ class CG:
         self.io.append(other)
         return self
 
+    def out(self, module, open_and_write: OutIO):
+        g4 = open_and_write(f"{module}.g4")
+
+        def _p(s):
+            print(s, file=g4)
+
+        def _p2(s):
+            print(s, end='', file=g4)
+
+        _p(f"parser grammar {module};")
+        _p(f"tokens {{{','.join(self.real_tokens.keys())}}}")
+        _p("@members {")
+        token_names = ','.join(map(json.dumps, self.real_tokens.values()))
+        _p("    public static String[] userTokenNames = {%s};" % token_names)
+        token_names = ','.join(map(json.dumps, self.real_tokens.keys()))
+        _p("    public static String[]  sysTokenNames= {%s};" % token_names)
+
+        token_names = ','.join(('false', 'true')[e in self.lit_set] for e in self.real_tokens)
+        _p("    public static boolean[] isLiteralTokens= {%s};" % token_names)
+        _p("}")
+        codeseg.show(codeseg.VList(self.io), print=_p2)
+
+    def process(self, stmts):
+        for each in stmts:
+            self(each)
+
     def __call__(self, stmt: Stmt | r.Case | r.Term | r.NonTerm, ident=""):
 
         match stmt:
             case r.Case(seq, action):
                 segs = [self(each) for each in seq]
                 cg = EToJava(self.g, scope=self.global_scopes)
+                cg.alt_num = ident
                 x = cg(action)
-                cg.stmts.append(codeseg.Line([f'$result = {x}']))
+                cg.stmts.append(codeseg.Line([f'$result = {x};']))
                 for i in cg.used_slots:
-                    segs[i - 1] = f"{bound_name(i)}={segs[i - 1]}"
+                    segs[i - 1] = f"{bound_name(i)}_{ident}={segs[i - 1]}"
                 for seg in segs:
                     self << seg
                 self << "{"
@@ -284,16 +293,21 @@ class CG:
                 for i, case in enumerate(tl):
                     self << "    |"
                     self(case, f"{ident}_case{i + 1}")
+                self << codeseg.Line([";"])
             case r.Term(_, name, is_lit):
+                oname = name
                 if is_lit:
                     name = json.dumps(name)
                 if v := self.declared_tokens.get(name):
                     pass
                 else:
                     v = self.declared_tokens[name] = gentoken()
-                return f" {v} "
+                    self.real_tokens[v] = oname
+                    if is_lit:
+                        self.lit_set.add(v)
+                return v
             case r.NonTerm(_, v):
-                return f" {v} "
+                return v
 
             case r.Decl(n, _):
                 self.global_scopes[n] = n

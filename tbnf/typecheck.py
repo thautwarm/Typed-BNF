@@ -10,13 +10,14 @@ uf = p.uf
     
 
 @dataclass(frozen=True, order=True)
-class LName: # name of common language
+class LName:  # name of common language
     _: str
 
 @dataclass(frozen=True, order=True)
-class GName: # name of grammar nonterminals
+class GName:  # name of grammar nonterminals
     _: str
 
+NameStatic = GName | LName
 
 alphabeta = string.ascii_lowercase
 
@@ -36,7 +37,7 @@ class Check:
         self._execute(stmts)
 
     def stmts_for_codegen(self):
-        return self._remove_imports(self.stmts)
+        return list(self._remove_imports(self.stmts))
 
     @staticmethod
     def _remove_imports(stmts):
