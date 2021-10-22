@@ -155,4 +155,7 @@ UNICODE : "\\u" DIGIT DIGIT DIGIT DIGIT
 %import common.WS
 %import common.DIGIT
 %import common.LETTER
-%ignore WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+%import common.SH_COMMENT
+%ignore WS C_COMMENT CPP_COMMENT SH_COMMENT
