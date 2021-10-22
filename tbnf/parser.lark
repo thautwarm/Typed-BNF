@@ -43,11 +43,15 @@ manyvars : nullable{seplist{",", typevar}} -> manyvars_0
                              
                        
                                  
+
+               
+              
+                                 
   
 decl : "val" CNAME ":" type -> decl_0                                                       
      | "typealias" DOTTED_NAME "=" DOTTED_NAME -> decl_1                                                                                      
-     | "shape" DOTTED_NAME "[" manyvars "]" "{" manyfieldecls "}" -> decl_2                                       
-     | "shape" DOTTED_NAME "{" manyfieldecls "}" -> decl_3                                         
+     | "shape" DOTTED_NAME "[" manyvars "]" "{" manyfieldecls "}" -> decl_2                                           
+     | "shape" DOTTED_NAME "{" manyfieldecls "}" -> decl_3                                             
 
 
 fieldecl : CNAME ":" type -> fieldecl_0                                                      
@@ -68,16 +72,18 @@ vars : list{typevar} -> vars_0
 type : manytypes "->" type -> type_0                                                       
      | "(" nullable{seplist{",", type}} ")" -> type_1                                                                
      | type manytypeargs -> type_2                                                     
-     | "forall" vars "." type -> type_3                                                             
+     | "forall" vars "." type -> type_3                                                         
      | typevar -> type_4                                
-     | DOTTED_NAME -> type_5                                                                       
+     | DOTTED_NAME -> type_5                                                
 
 id : CNAME -> id_0                      
+nonterm : "<" CNAME ">" -> nonterm_0                                   
 toplevel: id ":" cases -> toplevel_0                                                                
         | "%import" ESCAPED_STRING -> toplevel_1                                                              
-        | decl -> toplevel_2                                          
-        | lexerdef -> toplevel_3                                         
-        | id "[" seplist{",", id} "]" ":" cases -> toplevel_4                                                                              
+        | "%ignore" seplist{",", nonterm} -> toplevel_2                                                               
+        | decl -> toplevel_3                                          
+        | lexerdef -> toplevel_4                                         
+        | id "[" seplist{",", id} "]" ":" cases -> toplevel_5                                                                              
 
 cases : seplist{"|", case} -> cases_0                                         
 atoms : nullable{list{atom}} -> atoms_0                                          
@@ -136,7 +142,7 @@ lexer_atomexpr :lexer_atomexpr "+" -> lexer_atomexpr_0
 
 lexer_atom :  ESCAPED_STRING -> lexer_atom_0                                                                               
       | "!" lexer_atom -> lexer_atom_1                                        
-      |  "(" lexer ")" -> lexer_atom_2                              
+      |  "(" lexer ")" -> lexer_atom_2                                          
       |  "\\d" -> lexer_atom_3                                         
       |  "[" UNICODE ".." UNICODE "]" -> lexer_atom_4                                                                                        
       |  "[" /./ ".." /[^]]/ "]" -> lexer_atom_5                                                                                           

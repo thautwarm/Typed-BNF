@@ -80,7 +80,8 @@ class Let(ExDynamic):
 class Var(ExDynamic):
     _: str
 
-    inst_targs: list[t.TyStatic] | None = None
+    inst_targs: dict[t.BoundVar, t.TyStatic] | None = None
+    generic : t.Forall | None = None
 
 
 @dataclass(order=True, frozen=True)

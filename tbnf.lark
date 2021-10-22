@@ -43,13 +43,17 @@ type_aliases = {}
 def mk_type_alias(a, b, pos):
     type_aliases[a] = b
     return r.TypeAlias(a, b, pos)
+
+def s_alias(x):
+    x = str(x)
+    return type_aliases.get(x, x)
 %%
 decl : "val" CNAME ":" type -> r.Decl(str($2), $4, @1)
      | "typealias" DOTTED_NAME "=" DOTTED_NAME -> mk_type_alias(str($2), str($4), @1)
      | "shape" DOTTED_NAME "[" manyvars "]" "{" manyfieldecls "}" ->\
-        t.Methods(str($1), $4, $7, @1)
+        t.Methods(s_alias($1), $4, $7, @1)
      | "shape" DOTTED_NAME "{" manyfieldecls "}" ->\
-        t.Methods(str($2), None, $4, @1)
+        t.Methods(s_alias($2), None, $4, @1)
 
 
 fieldecl : CNAME ":" type      -> (str($1), (@1, $3))
@@ -70,13 +74,15 @@ def maybe_ttuple(args):
 type : manytypes "->" type -> t.Arrow(t.Tuple($1), $3)
      | "(" nullable{seplist{",", type}} ")" -> maybe_ttuple($2)
      | type manytypeargs   -> t.App($1, t.Tuple($2))
-     | "forall" vars "." type -> t.Forall(frozenset($2), $4)
+     | "forall" vars "." type -> t.Forall(tuple($2), $4)
      | typevar            -> $1
-     | DOTTED_NAME        -> t.Nom(type_aliases.get(str($1), str($1)))
+     | DOTTED_NAME        -> t.Nom(s_alias($1))
 
 id : CNAME -> str($1)
+nonterm : "<" CNAME ">" -> str($2)
 toplevel: id ":" cases             -> r.Prod($1, tuple($3), @2)
         | "%import" ESCAPED_STRING -> r.Import(unesc($2), @2)
+        | "%ignore" seplist{",", nonterm}  -> r.Ignore($2, @1)
         | decl                     -> $1 
         | lexerdef                 -> $1
         | id "[" seplist{",", id} "]" ":" cases -> r.MacroDef($1, $3, $6, $5)
@@ -142,7 +148,7 @@ lexer_atomexpr :\
 
 lexer_atom :  ESCAPED_STRING -> r.RegSeq(list(map(r.RegLit, list(unesc($1)))))
       | "!" lexer_atom  -> r.RegNot($2)
-      |  "(" lexer ")"  -> $2
+      |  "(" lexer ")"  -> r.RegGroup($2)
       |  "\\d"          -> r.RegNumber()
       |  "[" UNICODE ".." UNICODE "]" -> r.RegRange(eval_unicode($2), eval_unicode($4))
       |  "[" /./ ".." /[^]]/ "]"   -> r.RegRange(to_unicode(str($2)), to_unicode(str($4)))

@@ -130,7 +130,8 @@ class Check:
                     raise NameError(n)
                 t1, args = uf.inst_with_args(scope[LName(n)])
                 if args:
-                    exp.inst_targs = list(args.values())
+                    exp.inst_targs = args
+                    exp.generic = uf.prune(scope[LName(n)])
             
             case e.Attr(value, attr):
                 t_base = self.infer(value, scope, stack)

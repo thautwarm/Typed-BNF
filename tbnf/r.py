@@ -63,6 +63,11 @@ class TypeAlias:
     nom: str
     pos: Pos
 
+@dataclass(order=True, frozen=True)
+class Ignore:
+    _: list[str]
+    pos: Pos
+
 
 @dataclass(order=True, frozen=True)
 class Import:
@@ -98,7 +103,10 @@ class RegOneOrMore:
 @dataclass(frozen=True, order=True)
 class RegMany:
     _: str
-    pass
+
+@dataclass(frozen=True, order=True)
+class RegGroup:
+    _: Regex
 
 @dataclass(frozen=True, order=True)
 class RegLit:
@@ -106,7 +114,7 @@ class RegLit:
 
 @dataclass(frozen=True, order=True)
 class RegOptional:
-    pass
+    _: Regex
 
 @dataclass(frozen=True, order=True)
 class RegWildcard:
@@ -117,7 +125,7 @@ class RegWildcard:
 class RegRef:
     _: str
 
-Regex = RegOr | RegNot | RegSeq | RegNumber | RegRange | RegOneOrMore | RegMany | RegLit | RegOptional | RegWildcard | RegRef
+Regex = RegOr | RegNot | RegSeq | RegNumber | RegRange | RegOneOrMore | RegMany | RegLit | RegOptional | RegWildcard | RegRef | RegGroup
 
 @dataclass(frozen=True)
 class LexerDef:

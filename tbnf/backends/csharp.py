@@ -37,11 +37,11 @@ def interleave_with(many, sep):
 
 
 type_aliases = {
-    '@bool': 'bool',
-    '@int': 'int',
-    '@float': 'float',
-    '@token': 'Token',
-    '@str': 'string'
+    'bool': 'bool',
+    'int': 'int',
+    'float': 'float',
+    'str': 'string',
+    'token': 'CommonToken'
 }
 
 @dataclass
@@ -81,9 +81,11 @@ rename_local = [0]
 
 
 class EToJava:
-    def __init__(self, g: GlobalInfo, stmts=None, used_slots=None, scope=None):
+    def __init__(self, g: GlobalInfo, is_termianls: dict[int, bool], stmts=None, used_slots=None, scope=None):
         if stmts is None:
             stmts = []
+        
+        self.is_terminals = is_termianls
         if used_slots is None:
             used_slots = set()
         if scope is None:
@@ -99,7 +101,7 @@ class EToJava:
         return self.g.type_to_java(t1)
 
     def new(self, stmts=None, used_slots=None, scope=None):
-        return EToJava(self.g, stmts=stmts, used_slots=used_slots, scope=scope)
+        return EToJava(self.g, self.is_terminals, stmts=stmts, used_slots=used_slots, scope=scope)
 
     @contextmanager
     def enter_scope(self, scope: Scope):
@@ -128,7 +130,7 @@ class EToJava:
                 target = target or gensym('tmp')
                 self.declare(tname, target)
                 self.stmts.append(codeseg.Line([
-                        target, "=", "new", tname, "(", *interleave_with(map(self, elts), ","), ");"]))
+                        target, "=", "(", *interleave_with(map(self, elts), ","), ");"]))
 
             case e.Let(True, binders, body):
                 new_scope = {}
@@ -189,13 +191,18 @@ class EToJava:
                     )
                 )
             case e.Slot(i):
+                
                 target = target or gensym('tmp')
                 self.used_slots.add(i)
                 tname = self.type_to_java(x.tag.get())
                 self.declare(tname, target)
+                if self.is_terminals[i - 1]:
+                    expr = f"_localctx.{bound_name(i)}_{self.alt_num}"
+                else:
+                    expr = f"_localctx.{bound_name(i)}_{self.alt_num}.result"
                 self.stmts.append(
                     codeseg.Line(
-                        [target, "=", f"{bound_name(i)}_{self.alt_num}.value", ";"]
+                        [target, "=", "(", tname, ")", expr, ";"]
                     )
                 )
             case e.Lam(args, body):
@@ -215,10 +222,12 @@ class EToJava:
                             codeseg.Indent(body),
                             codeseg.Line(["}"]),
                         ]))
-            case e.Var(s, targs):
+            case e.Var(s, targs) as exp:
                 if targs is not None:
-                    targs = [uf.prune(each) for each in targs]
-                    targs = "<" + ",".join(map(self.type_to_java, targs)) + ">"
+                    targs_ = []
+                    for each in exp.generic.bounds:
+                        targs_.append(uf.prune(targs[each]))
+                    targs = "<" + ",".join(map(self.type_to_java, targs_)) + ">"
                 else:
                     targs = ""
                 if not target:
@@ -252,6 +261,7 @@ class CG:
         self.g = GlobalInfo()
         self.lexer_defs = {}
         self.is_tokens: set[str] = set()
+        self.ignores = set()
 
     def antlr_lexer(self, lexer: r.Regex):
         antlr_lexer = self.antlr_lexer
@@ -263,13 +273,13 @@ class CG:
                 return repr(c)
 
             case r.RegOr(seq):
-                return "(" + "|".join(map(antlr_lexer, seq)) + ")"
+                return "|".join(map(antlr_lexer, seq))
 
             case r.RegNot(a):
                 return f"~{antlr_lexer(a)}"
 
             case r.RegSeq(seq):
-                return "(" + " ".join(map(antlr_lexer, seq)) + ")"
+                return " ".join(map(antlr_lexer, seq))
 
             case r.RegNumber():
                 return "[0-9]"
@@ -291,6 +301,9 @@ class CG:
             
             case r.RegRef(s):
                 return self.declare_token(s)
+            
+            case r.RegGroup(s):
+                return "(" + antlr_lexer(s) + ")"
 
             case _:
                 raise
@@ -335,7 +348,9 @@ class CG:
         
         _p('\n')
         for k, (real_name, rule) in self.lexer_defs.items():
-            if k in self.is_tokens:
+            if k in self.ignores:
+                _p(f"{real_name} : {rule} -> skip;")            
+            elif k in self.is_tokens:
                 _p(f"{real_name} : {rule};")
             else:
                 _p(f"fragment {real_name} : {rule};")
@@ -358,7 +373,13 @@ class CG:
         match stmt:
             case r.Case(seq, action):
                 segs = [self(each) for each in seq]
-                cg = EToJava(self.g, scope=self.global_scopes)
+                is_terminals = {}
+                for i, each in enumerate(seq):
+                    if isinstance(each, r.NonTerm):
+                        is_terminals[i] = False
+                    else:
+                        is_terminals[i] = True
+                cg = EToJava(self.g, is_terminals, scope=self.global_scopes)
                 cg.alt_num = ident
                 x = cg(action)
                 cg.stmts.append(codeseg.Line([f'$result = {x};']))
@@ -405,4 +426,7 @@ class CG:
             case r.LexerDef(n, rule):
                 rule = self.antlr_lexer(rule)
                 self.lexer_defs[n] = self.declare_token(n), rule
+
+            case r.Ignore(xs):
+                self.ignores.update(xs)
 
