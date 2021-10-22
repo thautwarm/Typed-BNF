@@ -47,6 +47,7 @@ box_types = {
     'int': 'Int',
     'double': 'Double'
 }
+
 @dataclass
 class GlobalInfo:
     methods: dict[str, codeseg.Seg]

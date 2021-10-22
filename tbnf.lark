@@ -128,7 +128,7 @@ lexer_atomexpr :\
       |  lexer_atomexpr "?"            -> r.RegOptional($1)
       |  lexer_atom -> $1
 
-lexer_atom :  ESCAPED_STRING -> r.RegSeq(list(map(r.RegLit, list(str($1)))))
+lexer_atom :  ESCAPED_STRING -> r.RegSeq(list(map(r.RegLit, list(unesc($1)))))
       | "!" lexer_atom  -> r.RegNot($2)
       |  "(" lexer ")"  -> $2
       |  "\\d"          -> r.RegNumber()
