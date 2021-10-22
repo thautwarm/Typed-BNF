@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from typing import Generic, TypeVar
 from json import dumps
 
+from tbnf.common import Pos
+
 Tag = TypeVar("Tag")
 
 
@@ -62,6 +64,7 @@ class Attr:
 class Binder:
     name: str
     value: Expr
+    pos: Pos
 
 
 @dataclass(order=True, frozen=True)
@@ -96,6 +99,8 @@ class Block(ExDynamic):
 class Expr(Generic[Tag]):
     tag: Tag
     _: ExStatic
+
+    pos: Pos
 
 
 ExStatic = (

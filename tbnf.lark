@@ -1,0 +1,118 @@
+%%
+from tbnf import e, t, r, unify, common
+from tbnf.common import Ref, uf, refs, methods
+from tbnf.prims import *
+from json.decoder import py_scanstring
+
+
+def unesc(x, f=py_scanstring):
+    """from the raw form of a double quoted string to a python string,
+    e.g.,
+        unesc('"asd"') == "asd"
+    """
+    return f(x, 1)[0]
+
+def append(xs, x):
+    xs.append(x)
+    return xs
+
+def ref(t=common.undef):
+    r = Ref(t)
+    refs.append(r)
+    return r
+%%
+
+list{e} : e -> [$1]
+        | list{e} e  -> append($1, $2) 
+
+seplist{sep, e} : e -> [$1]
+                | seplist{sep, e} sep e  -> append($1, $3)
+                
+nullable{seq} :     -> ()
+              | seq -> tuple($1)
+
+surround{b, e, content} : b nullable{content} e -> $2
+
+start : list{toplevel} -> $1
+
+typevar : "'" CNAME -> t.BoundVar(str($2))
+
+manyvars : nullable{seplist{",", typevar}} -> tuple($1)
+    
+decl : "val" CNAME ":" type -> r.Decl(str($2), $4, @1)
+     | "shape" CNAME "[" manyvars "]" "{" manyfieldecls "}" ->\
+        t.Methods(str($1), $4, $7, @1)
+     | "shape" CNAME "{" manyfieldecls "}" ->\
+        t.Methods(str($2), None, $4, @1)
+
+
+fieldecl : CNAME ":" type      -> (str($1), (@1, $3))
+manyfieldecls: list{fieldecl}  -> dict($1)
+
+
+manytypes : surround{"(", ")", seplist{",", type}} -> tuple($1)
+manytypeargs : surround{"[", "]", seplist{",", type}} -> tuple($1)
+vars : list{typevar} -> tuple($1)
+
+%%
+def maybe_ttuple(args):
+    if len(args) == 1:
+        return args[0]
+    return t.Tuple(args)
+%%
+
+type : manytypes "->" type -> t.Arrow(t.Tuple($1), $3)
+     | "(" nullable{seplist{",", type}} ")" -> maybe_ttuple($2)
+     | type manytypeargs   -> t.App($1, t.Tuple($2))
+     | "forall" vars "." type -> t.Forall(frozenset($2), $4)
+     | typevar            -> $1
+     | CNAME              -> t.Nom(str($1))
+
+id : CNAME -> str($1)
+toplevel: id ":" cases           -> r.Prod($1, tuple($3), @2)
+        | "import" ESCAPED_STRING -> r.Import(unesc($2), @2)
+        | decl                    -> $1
+
+cases : seplist{"|", case}  -> tuple($1)
+atoms : nullable{list{atom}} -> tuple($1)
+case : atoms "{" exp "}" -> r.Case($1, $3, @2)
+
+atom : "<" CNAME ">"    -> r.Term(ref(), str($2), False, @2)
+     | ESCAPED_STRING   -> r.Term(ref(), unesc($1), True, @1)
+     | CNAME            -> r.NonTerm(ref(), $1, @1)
+
+binder: id "=" exp              -> e.Binder($1, $3, @2)
+binders: seplist{"and", binder} -> tuple($1)
+
+exp : 
+    | "let" binders "in" exp       -> e.Expr(ref(), e.Let(False, $2, $4), @1)
+    | "let" "rec" binders "in" exp -> e.Expr(ref(), e.Let(True, $3, $5), @1)
+    | "fn" args "->" exp           -> e.Expr(ref(), e.Lam($2, $4), @1)
+    | call                         -> $1
+    
+
+call : call "(" seplist{",", exp} ")" -> e.Expr(ref(), e.App($1, tuple($3)), @2)
+     | call "(" ")" -> e.Expr(ref(), e.App($1, ()), @2)
+     | atomexp -> $1
+
+# call : call "(" nullable{seplist{",", exp}} ")" -> e.Expr(ref(), e.App($1, $3), @2)
+#     | atomexp -> $1
+
+atomexp : INT   -> e.Expr(ref(int_t), e.Int(int($1)), @1)
+        | FLOAT -> e.Expr(ref(float_t), e.Float(float($1)), @1)
+        | ESCAPED_STRING -> e.Expr(ref(str_t), e.String(str($1)), @1)
+        | "$" INT        -> e.Expr(ref(), e.Slot(int($2)), @1)
+        | "(" ")"        -> e.Expr(ref(), e.Tuple(()), @1)
+        | "(" seplist{",", exp} ")" -> \
+            $2[0] if len($2) == 1 else e.Expr(ref(), e.Tuple(tuple($2)), @1)
+        | CNAME             -> e.Expr(ref(), e.Var(str($1)), @1)
+        | atomexp "." CNAME -> e.Expr(ref(), e.Attr($1, str(str($3))), @2)
+
+args : "(" nullable{seplist{",", id}} ")" -> $2
+
+%import common.ESCAPED_STRING
+%import common.CNAME
+%import common.FLOAT
+%import common.INT
+%import common.WS
+%ignore WS

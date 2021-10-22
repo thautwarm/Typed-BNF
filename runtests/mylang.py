@@ -1,6 +1,7 @@
 from mylang_lark import Lark_StandAlone as _Lark__Standardalone, Lexer as _Lark__Lexer, Transformer as _TBNF__Transformer
 declared_tokens = [('","', 'A1'), ('STR', 'A2'), ('":"', 'A3'), ('"["', 'A4'), ('"]"', 'A5'), ('"{"', 'A6'), ('"}"', 'A7'), ('INT', 'A8'), ('FLOAT', 'A9')]
-class MyLexer(_Lark__Lexer): pass
+class MyLexer(_Lark__Lexer):
+    pass
 class MyTransformer(_TBNF__Transformer):
 
     @staticmethod
@@ -100,11 +101,10 @@ class MyTransformer(_TBNF__Transformer):
     @staticmethod
     def json_case4(__args):
         _1 = __args[0]
-        tmp__42 = _1
-        tmp__41 = tmp__42.lexeme
-        tmp__43 = unesc_string
-        tmp__40 = tmp__43(tmp__41)
-        tmp__44 = json_string
-        tmp__39 = tmp__44(tmp__40)
+        tmp__41 = _1
+        tmp__42 = unesc_string
+        tmp__40 = tmp__42(tmp__41)
+        tmp__43 = json_string
+        tmp__39 = tmp__43(tmp__40)
         return tmp__39
-parser = Lark_StandAlone(transformer=MyTransformer(), lexer=MyLexer)
+parser = _Lark__Standardalone(transformer=MyTransformer(), lexer=MyLexer)

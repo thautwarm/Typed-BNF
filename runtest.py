@@ -1,6 +1,6 @@
 from tbnf import t, unify, typecheck
 from pprint import pprint
-from tbnf import p, typecheck
+from tbnf import typecheck, parser as p
 from prettyprinter import install_extras, pprint
 from tbnf.backends import lark, antlr, codeseg
 install_extras(['dataclasses'])
@@ -65,7 +65,7 @@ json : "[" list "]" { json_list($2) }
 ]
 
 for grammar in grammars:
-    xs = p.tbnf_parser.parse(grammar)
+    xs = p.parser.parse(grammar)
 
     tc = typecheck.Check(xs)
     tc.check_all()

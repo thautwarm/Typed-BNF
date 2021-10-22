@@ -1,6 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from tbnf.e import Tuple
+from tbnf.common import Pos
 from typing import Optional
 
 
@@ -34,7 +34,6 @@ class App(TyDynamic):
 class Arrow(TyDynamic):
     arg: TyStatic
     ret: TyStatic
-
     def __repr__(self) -> str:
         assert isinstance(self.arg, Tuple)
         return f"({_tuple_string(self.arg._)}) -> {self.ret}"
@@ -44,7 +43,6 @@ class Arrow(TyDynamic):
 class Forall(TyDynamic):
     bounds: frozenset[BoundVar]
     ty: TyStatic
-
     def __repr__(self) -> str:
         return f"forall {' '.join(map(repr, self.bounds))}. {self.ty}"
 
@@ -52,7 +50,6 @@ class Forall(TyDynamic):
 @dataclass(order=True, frozen=True)
 class BoundVar(TyDynamic):
     _: str
-
     def __repr__(self) -> str:
         return "'" + self._
 
@@ -60,7 +57,8 @@ class BoundVar(TyDynamic):
 @dataclass(order=True, frozen=True)
 class Var(TyDynamic):
     ref: int
-
+    
+    pos: Pos
     def __repr__(self) -> str:
         return f"@{self.ref}"
 
@@ -76,7 +74,6 @@ class Var(TyDynamic):
 @dataclass(order=True, frozen=True)
 class Tuple(TyDynamic):
     _: tuple[TyStatic, ...]
-
     def __repr__(self) -> str:
         return f"({_tuple_string(self._)})"
 
@@ -90,4 +87,6 @@ TyLeaf = Var | BoundVar | Nom
 class Methods:
     base: str
     params: Optional[tuple[BoundVar, ...]]
-    methods: dict[str, TyStatic]
+    methods: dict[str, tuple[Pos, TyStatic]]
+
+    pos: Pos

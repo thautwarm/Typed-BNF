@@ -1,15 +1,18 @@
-from __future__ import unicode_literals
-from tbnf import t
+from __future__ import annotations
+from typing import TYPE_CHECKING
 from dataclasses import dataclass
 from collections import defaultdict
 
+if TYPE_CHECKING:
+    from tbnf import t
+
 @dataclass
-class Unmatch:
+class Unmatch(TypeError):
     t1: t.TyStatic
     t2: t.TyStatic
 
 @dataclass
-class IllForm:
+class IllForm(TypeError):
     t1: t.TyStatic
     t2: t.TyStatic
 
@@ -62,6 +65,9 @@ def occur_in(a: t.Var, b: t.TyStatic):
 
 class Unification:
     def __init__(self):
+        global t
+        from tbnf import t
+
         self.tenv = []
         self._current_tvars = set()
         self.current_offset = 0
@@ -168,8 +174,8 @@ class Unification:
     def unify(self, t1: t.TyStatic, t2: t.TyStatic):
         try:
             self._unify(t1, t2)
-        except TypeError:
-            raise Exception(Unmatch(self.prune(t1), self.prune(t2)))
+        except TypeError as e:
+            raise Unmatch(self.prune(t1), self.prune(t2)) from e
 
     def _unify(self, t1: t.TyStatic, t2: t.TyStatic):
         t1 = self.prune(t1)
@@ -178,7 +184,7 @@ class Unification:
         match (t1, t2):
             case (t.Var(i), _):
                 if occur_in(t1, t2):
-                    raise Exception(IllForm(t1, t2))
+                    raise IllForm(t1, t2)
                 self.tenv[i] = t2
                 return
             case (_, t.Var()):

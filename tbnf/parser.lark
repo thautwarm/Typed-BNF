@@ -1,0 +1,115 @@
+   
+                                       
+                                              
+                        
+                                      
+
+
+                              
+                                                                      
+         
+                               
+       
+                     
+
+                  
+                
+             
+
+                        
+              
+                  
+            
+  
+
+list{e} : e -> list_0                    
+        | list{e} e -> list_1                                        
+
+seplist{sep, e} : e -> seplist_0                            
+                | seplist{sep, e} sep e -> seplist_1                                                           
+                
+nullable{seq} : -> nullable_0                          
+              | seq -> nullable_1                                 
+
+surround{b, e, content} : b nullable{content} e -> surround_0                                                      
+
+start : list{toplevel} -> start_0                             
+
+typevar : "'" CNAME -> typevar_0                                           
+
+manyvars : nullable{seplist{",", typevar}} -> manyvars_0                                                        
+    
+decl : "val" CNAME ":" type -> decl_0                                                       
+     | "shape" CNAME "[" manyvars "]" "{" manyfieldecls "}" -> decl_1                                       
+     | "shape" CNAME "{" manyfieldecls "}" -> decl_2                                         
+
+
+fieldecl : CNAME ":" type -> fieldecl_0                                                      
+manyfieldecls: list{fieldecl} -> manyfieldecls_0                                           
+
+
+manytypes : surround{"(", ")", seplist{",", type}} -> manytypes_0                                                                
+manytypeargs : surround{"[", "]", seplist{",", type}} -> manytypeargs_0                                                                   
+vars : list{typevar} -> vars_0                                  
+
+  
+                       
+                      
+                      
+                        
+  
+
+type : manytypes "->" type -> type_0                                                       
+     | "(" nullable{seplist{",", type}} ")" -> type_1                                                                
+     | type manytypeargs -> type_2                                                     
+     | "forall" vars "." type -> type_3                                                             
+     | typevar -> type_4                                
+     | CNAME -> type_5                                            
+
+id : CNAME -> id_0                      
+toplevel: id ":" cases -> toplevel_0                                                              
+        | "import" ESCAPED_STRING -> toplevel_1                                                             
+        | decl -> toplevel_2                                        
+
+cases : seplist{"|", case} -> cases_0                                         
+atoms : nullable{list{atom}} -> atoms_0                                          
+case : atoms "{" exp "}" -> case_0                                               
+
+atom : "<" CNAME ">" -> atom_0                                                             
+     | ESCAPED_STRING -> atom_1                                                              
+     | CNAME -> atom_2                                                    
+
+binder: id "=" exp -> binder_0                                                        
+binders: seplist{"and", binder} -> binders_0                                             
+
+exp : 
+    | "let" binders "in" exp -> exp_0                                                                              
+    | "let" "rec" binders "in" exp -> exp_1                                                                             
+    | "fn" args "->" exp -> exp_2                                                                       
+    | call -> exp_3                                         
+    
+
+call : call "(" seplist{",", exp} ")" -> call_0                                                                                 
+     | call "(" ")" -> call_1                                                        
+     | atomexp -> call_2                     
+
+                                                                                     
+                     
+
+atomexp : INT -> atomexp_0                                                          
+        | FLOAT -> atomexp_1                                                                
+        | ESCAPED_STRING -> atomexp_2                                                                      
+        | "$" INT -> atomexp_3                                                               
+        | "(" ")" -> atomexp_4                                                           
+        | "(" seplist{",", exp} ")" -> atomexp_5                                                                             
+        | CNAME -> atomexp_6                                                                 
+        | atomexp "." CNAME -> atomexp_7                                                                           
+
+args : "(" nullable{seplist{",", id}} ")" -> args_0                                                
+
+%import common.ESCAPED_STRING
+%import common.CNAME
+%import common.FLOAT
+%import common.INT
+%import common.WS
+%ignore WS

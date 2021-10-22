@@ -1,12 +1,11 @@
-from abc import get_cache_token
-from tbnf import e, t, r, p
+from tbnf import e, t, r
 from typing import Sequence, final
 from dataclasses import dataclass
 from collections import ChainMap
 from tbnf.prims import *
+from tbnf.common import uf, Pos
 from contextlib import contextmanager
 import string
-uf = p.uf
     
 
 @dataclass(frozen=True, order=True)
@@ -21,20 +20,32 @@ NameStatic = GName | LName
 
 alphabeta = string.ascii_lowercase
 
-def exception_from(x, msg):
-    match x:
-        case None:
-            raise Exception(msg)
 
 
+class TypeCheckError(SyntaxError):
+    pass
 class Check:
-    def __init__(self, stmts: Sequence[r.Prod | r.Import | r.Decl | t.Methods]):
+    def __init__(self, filename, stmts: Sequence[r.Prod | r.Import | r.Decl | t.Methods]):
+        global parser
+        from tbnf import parser
+        self.filename = filename
         self.stmts = stmts
         self.global_scopes = {}
         self.field_constraints: dict[str, t.Methods] = {}
         self.field_problems = []
         self.outer_tvars = set()
         self._execute(stmts)
+
+    def exception_from(x, msg):
+        match x:
+            case None:
+                raise TypeCheckError(msg)
+            case Pos(l, c):
+                e = TypeCheckError()
+                e.lineno = l
+                e.msg = msg
+                e.filename = self.filename
+                raise e
 
     def stmts_for_codegen(self):
         return list(self._remove_imports(self.stmts))
@@ -44,7 +55,7 @@ class Check:
         for each in stmts:
             match each:
                 case r.Import(s):
-                    yield from p.type_parser.parse(open(s).read())
+                    yield from parser.type_parser.parse(open(s, encoding='utf8').read())
                 case _:
                     yield each
 
@@ -56,7 +67,7 @@ class Check:
                 case r.Prod(n, _):
                     self.global_scopes[GName(n)] = uf.newvar()
                 case r.Import(s):
-                    self.execute(p.type_parser.parse(open(s).read()))
+                    self.execute(parser.type_parser.parse(open(s, encoding='utf8').read()))
                 case r.Decl(n, t1):
                     self.global_scopes[LName(n)] = t1
     
@@ -65,7 +76,6 @@ class Check:
             case r.Term():
                 return token_t
             case r.NonTerm(_, n):
-
                 t1 = uf.inst(self.global_scopes[GName(n)])
                 return t1
     
@@ -93,11 +103,17 @@ class Check:
                 scope[nn] = t.Forall(frozenset(boundvars), lhs)
 
     def infer(self, exp: e.Expr, scope, stack):
-        t1 = self.infer_inner(exp._, scope, stack)
+        try:
+            t1 = self.infer_inner(exp._, scope, exp.pos, stack)
+        except (TypeError, TypeCheckError) as e:
+            e_new = TypeCheckError()
+            e_new.lineno = exp.pos[0]
+            e_new.filename = self.filename
+            raise e_new from e
         exp.tag.set(t1)
         return t1
 
-    def infer_inner(self, exp: e.ExStatic, scope, stack):
+    def infer_inner(self, exp: e.ExStatic, scope, pos, stack):
         match exp:
 
             case e.Var(n):
@@ -108,7 +124,7 @@ class Check:
                 t_base = self.infer(value, scope, stack)
                 t1 = uf.newvar()
                 self.outer_tvars.add(t1)
-                self.field_problems.append((None, t_base, attr, t1))
+                self.field_problems.append((pos, t_base, attr, t1))
             case e.Bool():
                 t1 = bool_t
             case e.Int():
@@ -120,7 +136,7 @@ class Check:
             case e.Tuple(elts):
                 t1 = t.Tuple(tuple(self.infer(e, scope, stack) for e in elts))
             case e.App(f, args):
-                arg_t = self.infer_inner(e.Tuple(args), scope, stack)
+                arg_t = self.infer_inner(e.Tuple(args), scope, pos, stack)
                 ret_t = uf.newvar()
                 t_f = self.infer(f, scope, stack)
                 uf.unify(t.Arrow(arg_t, ret_t), t_f)
@@ -132,6 +148,7 @@ class Check:
             case e.Slot(i):
                 t1 = stack[i-1]
             case e.Let(rec, binders, body):
+                # test let
                 if rec:
                     sub_scope = {LName(each.name): uf.newvar() for each in binders}
                 else:
@@ -141,7 +158,7 @@ class Check:
                     ln = LName(each.name)
                     if ln not in sub_scope:
                         sub_scope[ln] = uf.newvar()
-                    with self.auto_gen(ln, scope, uf.current_tvars.difference({sub_scope[ln]})) as tv:
+                    with self.auto_gen(ln, uf.current_tvars.difference({sub_scope[ln]}), scope) as tv:
                             uf.unify(tv, self.infer(each.value, scope, stack))
                 t1 = self.infer(body, scope, stack)
             case aaa:
@@ -165,21 +182,21 @@ class Check:
             match t_base:
                 case t.App(f, _):
                     if not isinstance(f, t.Nom):
-                        raise exception_from(position, f"functor should be a named type: {t_base}")
+                        raise self.exception_from(position, f"functor should be a named type: {t_base}")
                     basename = f._
                     is_app = True
                 case t.Nom(basename):
                     is_app = False
                     pass
                 case _:
-                    raise exception_from(position, f"not a valid type application {t_base}")
+                    raise self.exception_from(position, f"not a valid type application {t_base}")
 
             methods = self.field_constraints.get(basename)
             if methods is None:
-                raise exception_from(position, f"No method declaration for type {basename}")
+                raise self.exception_from(position, f"No method declaration for type {basename}")
             if attr not in methods.methods:
-                raise exception_from(position, f"No method {attr} for type {basename}")
-            t_attr = methods.methods[attr]
+                raise self.exception_from(position, f"No method {attr} for type {basename}")
+            pos, t_attr = methods.methods[attr]
             if is_app:
                 assert isinstance(methods.params, tuple)
                 t_generic = t.App(t.Nom(basename), t.Tuple(methods.params))

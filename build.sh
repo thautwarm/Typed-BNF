@@ -1,0 +1,1 @@
+python -m lark_action tbnf.lark --package tbnf --module parser

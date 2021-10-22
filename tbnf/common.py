@@ -1,9 +1,14 @@
-from typing import Generic, TypeVar
-from tbnf import unify, t
+from __future__ import annotations
+from dataclasses import dataclass
+from typing import Generic, TypeVar, TYPE_CHECKING
+from tbnf import unify
+
+if TYPE_CHECKING:
+    from tbnf import t
+
 T = TypeVar('T')
 
 undef = object()
-
 uf = unify.Unification()
 methods: dict[str, t.Methods] = {}
 
@@ -30,3 +35,8 @@ class Ref(Generic[T]):
         if self._ is undef:
             return "undef"
         return "{" + repr(self._) + "}"
+
+@dataclass(frozen=True)
+class Pos:
+    lineno: int
+    colno: int

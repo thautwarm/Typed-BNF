@@ -1,7 +1,8 @@
 import wisepy2
 
 from tbnf.backends import lark, antlr
-from tbnf import t, p, unify, typecheck
+from tbnf import parser as p
+from tbnf import t, unify, typecheck
 import os
 
 backends = {"lark": lark, "antlr": antlr}
@@ -17,8 +18,8 @@ def main(
     with open(filename, encoding="utf8") as f:
         grammar_src = f.read()
 
-    stmts = p.tbnf_parser.parse(grammar_src)
-    tc = typecheck.Check(stmts)
+    stmts = p.parser.parse(grammar_src)
+    tc = typecheck.Check(filename, stmts)
     tc.check_all()
     for each in p.refs:
         each.set(p.uf.prune(each.get()))

@@ -1,3 +1,4 @@
+raise
 from lark import Lark, Transformer, v_args
 from tbnf import e, t, r, unify, common
 from tbnf.common import Ref, uf, refs, methods
@@ -276,3 +277,4 @@ type_parser = Lark(
     transformer=TBNFTransformer(),
     debug=True,
 )
+
