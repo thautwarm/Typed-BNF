@@ -309,6 +309,8 @@ class CG:
 
         _p(f"grammar {module};")
 
+        _p("options { language = CSharp; }")
+
         # NOTE: wait for one day C# support first-class generic values
         # then we can use this code to make powerfull parametric parser:
 
