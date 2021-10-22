@@ -3,7 +3,7 @@ from typing import Sequence, final
 from dataclasses import dataclass
 from collections import ChainMap
 from tbnf.prims import *
-from tbnf.common import uf, Pos
+from tbnf.common import uf, Pos, ref
 from contextlib import contextmanager
 import string
     
@@ -42,7 +42,7 @@ class Check:
         match x:
             case None:
                 raise TypeCheckError(msg)
-            case Pos(l, c):
+            case Pos(l, c) | (l, c):
                 e = TypeCheckError()
                 e.lineno = l
                 e.msg = msg
@@ -174,6 +174,7 @@ class Check:
     def check(self, n: str, case: r.Case):
         match case:
             case r.Case(elts, exp):
+                
                 lhs = uf.inst(self.global_scopes[GName(n)])
                 for each in elts:
                     t1 = self.infer_rule(each)

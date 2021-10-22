@@ -2,10 +2,13 @@
 
 
 from tbnf import e, t, r, unify, common
-from tbnf.common import Ref, uf, refs, methods
+from tbnf.common import Ref, uf, ref, methods, Pos
 from tbnf.prims import *
 from json.decoder import py_scanstring
 
+filename = None
+def _get_location(token):
+    return Pos(token.line, token.column, filename)
 
 def unesc(x, f=py_scanstring):
     """from the raw form of a double quoted string to a python string,
@@ -18,16 +21,13 @@ def append(xs, x):
     xs.append(x)
     return xs
 
-def ref(t=common.undef):
-    r = Ref(t)
-    refs.append(r)
-    return r
+if '_get_location' not in globals(): 
+    def _get_location(token):
+        return (token.line, token.column)
 
-def _get_location(token):
-    return (token.line, token.column)
-
-def _get_value(token):
-    return token.value
+if '_get_value' not in globals(): 
+    def _get_value(token):
+        return token.value
 
 
 def maybe_ttuple(args):
@@ -105,6 +105,8 @@ class parser_Transformer(Transformer):
         return  __args[1-1]
     def toplevel_3(self, __args):
         return  __args[1-1]
+    def toplevel_4(self, __args):
+        return  r.MacroDef(__args[1-1], __args[3-1], __args[6-1], __args[5-1])
     def cases_0(self, __args):
         return  tuple(__args[1-1])
     def atoms_0(self, __args):
@@ -112,27 +114,29 @@ class parser_Transformer(Transformer):
     def case_0(self, __args):
         return  r.Case(__args[1-1], __args[3-1], _get_location(__args[2-1]))
     def atom_0(self, __args):
-        return  r.Term(ref(), str(__args[2-1]), False, _get_location(__args[2-1]))
+        return  r.Term(None, str(__args[2-1]), False, _get_location(__args[2-1]))
     def atom_1(self, __args):
-        return  r.Term(ref(), unesc(__args[1-1]), True, _get_location(__args[1-1]))
+        return  r.Term(None, unesc(__args[1-1]), True, _get_location(__args[1-1]))
     def atom_2(self, __args):
-        return  r.NonTerm(ref(), __args[1-1], _get_location(__args[1-1]))
+        return  r.NonTerm(None, __args[1-1], _get_location(__args[1-1]))
+    def atom_3(self, __args):
+        return  r.MacroCall(str(__args[1-1]), __args[3-1], _get_location(__args[2-1]))
     def binder_0(self, __args):
         return  e.Binder(__args[1-1], __args[3-1], _get_location(__args[2-1]))
     def binders_0(self, __args):
         return  tuple(__args[1-1])
     def exp_0(self, __args):
-        return  e.Expr(ref(), e.Let(False, __args[2-1], __args[4-1]), _get_location(__args[1-1]))
+        return  e.Expr(None, e.Let(False, __args[2-1], __args[4-1]), _get_location(__args[1-1]))
     def exp_1(self, __args):
-        return  e.Expr(ref(), e.Let(True, __args[3-1], __args[5-1]), _get_location(__args[1-1]))
+        return  e.Expr(None, e.Let(True, __args[3-1], __args[5-1]), _get_location(__args[1-1]))
     def exp_2(self, __args):
-        return  e.Expr(ref(), e.Lam(__args[2-1], __args[4-1]), _get_location(__args[1-1]))
+        return  e.Expr(None, e.Lam(__args[2-1], __args[4-1]), _get_location(__args[1-1]))
     def exp_3(self, __args):
         return  __args[1-1]
     def call_0(self, __args):
-        return  e.Expr(ref(), e.App(__args[1-1], tuple(__args[3-1])), _get_location(__args[2-1]))
+        return  e.Expr(None, e.App(__args[1-1], tuple(__args[3-1])), _get_location(__args[2-1]))
     def call_1(self, __args):
-        return  e.Expr(ref(), e.App(__args[1-1], ()), _get_location(__args[2-1]))
+        return  e.Expr(None, e.App(__args[1-1], ()), _get_location(__args[2-1]))
     def call_2(self, __args):
         return  __args[1-1]
     def atomexp_0(self, __args):
@@ -142,15 +146,15 @@ class parser_Transformer(Transformer):
     def atomexp_2(self, __args):
         return  e.Expr(ref(str_t), e.String(str(__args[1-1])), _get_location(__args[1-1]))
     def atomexp_3(self, __args):
-        return  e.Expr(ref(), e.Slot(int(__args[2-1])), _get_location(__args[1-1]))
+        return  e.Expr(None, e.Slot(int(__args[2-1])), _get_location(__args[1-1]))
     def atomexp_4(self, __args):
-        return  e.Expr(ref(), e.Tuple(()), _get_location(__args[1-1]))
+        return  e.Expr(None, e.Tuple(()), _get_location(__args[1-1]))
     def atomexp_5(self, __args):
-        return __args[2-1][0] if len(__args[2-1]) == 1 else e.Expr(ref(), e.Tuple(tuple(__args[2-1])), _get_location(__args[1-1]))
+        return __args[2-1][0] if len(__args[2-1]) == 1 else e.Expr(None, e.Tuple(tuple(__args[2-1])), _get_location(__args[1-1]))
     def atomexp_6(self, __args):
-        return  e.Expr(ref(), e.Var(str(__args[1-1])), _get_location(__args[1-1]))
+        return  e.Expr(None, e.Var(str(__args[1-1])), _get_location(__args[1-1]))
     def atomexp_7(self, __args):
-        return  e.Expr(ref(), e.Attr(__args[1-1], str(str(__args[3-1]))), _get_location(__args[2-1]))
+        return  e.Expr(None, e.Attr(__args[1-1], str(str(__args[3-1]))), _get_location(__args[2-1]))
     def args_0(self, __args):
         return  __args[2-1]
     def lexer_0(self, __args):

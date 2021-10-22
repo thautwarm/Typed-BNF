@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Generic, TypeVar
 from json import dumps
 
-from tbnf.common import Pos
+from tbnf.common import Pos, ref, TypeTaggable
 
 Tag = TypeVar("Tag")
 
@@ -95,13 +95,12 @@ class Block(ExDynamic):
     _: tuple[Expr, ...]
 
 
-@dataclass(order=True, frozen=True)
-class Expr(Generic[Tag]):
-    tag: Tag
+@dataclass
+class Expr(TypeTaggable, Generic[Tag]):
+    _tag: Tag
     _: ExStatic
 
     pos: Pos
-
 
 ExStatic = (
     Attr

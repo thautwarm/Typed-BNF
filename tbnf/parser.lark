@@ -1,9 +1,12 @@
    
                                        
-                                              
+                                                  
                         
                                       
 
+               
+                         
+                                                  
 
                               
                                                                       
@@ -15,11 +18,6 @@
                   
                 
              
-
-                        
-              
-                  
-            
   
 
 list{e} : e -> list_0                    
@@ -67,44 +65,46 @@ type : manytypes "->" type -> type_0
      | CNAME -> type_5                                            
 
 id : CNAME -> id_0                      
-toplevel: id ":" cases -> toplevel_0                                                              
+toplevel: id ":" cases -> toplevel_0                                                                
         | "%import" ESCAPED_STRING -> toplevel_1                                                              
-        | decl -> toplevel_2                                         
-        | lexerdef -> toplevel_3                                        
+        | decl -> toplevel_2                                          
+        | lexerdef -> toplevel_3                                         
+        | id "[" seplist{",", id} "]" ":" cases -> toplevel_4                                                                              
 
 cases : seplist{"|", case} -> cases_0                                         
 atoms : nullable{list{atom}} -> atoms_0                                          
 case : atoms "{" exp "}" -> case_0                                               
 
-atom : "<" CNAME ">" -> atom_0                                                             
-     | ESCAPED_STRING -> atom_1                                                              
-     | CNAME -> atom_2                                                    
+atom : "<" CNAME ">" -> atom_0                                                            
+     | ESCAPED_STRING -> atom_1                                                             
+     | CNAME -> atom_2                                                   
+     | CNAME "[" seplist{",", atom} "]" -> atom_3                                                                        
 
 binder: id "=" exp -> binder_0                                                        
 binders: seplist{"and", binder} -> binders_0                                             
 
 exp : 
-    | "let" binders "in" exp -> exp_0                                                                              
-    | "let" "rec" binders "in" exp -> exp_1                                                                             
-    | "fn" args "->" exp -> exp_2                                                                       
+    | "let" binders "in" exp -> exp_0                                                                             
+    | "let" "rec" binders "in" exp -> exp_1                                                                            
+    | "fn" args "->" exp -> exp_2                                                                      
     | call -> exp_3                                         
     
 
-call : call "(" seplist{",", exp} ")" -> call_0                                                                                 
-     | call "(" ")" -> call_1                                                        
+call : call "(" seplist{",", exp} ")" -> call_0                                                                                
+     | call "(" ")" -> call_1                                                       
      | atomexp -> call_2                     
 
-                                                                                     
+                                                                                    
                      
 
 atomexp : INT -> atomexp_0                                                          
         | FLOAT -> atomexp_1                                                                
         | ESCAPED_STRING -> atomexp_2                                                                      
-        | "$" INT -> atomexp_3                                                               
-        | "(" ")" -> atomexp_4                                                           
-        | "(" seplist{",", exp} ")" -> atomexp_5                                                                             
-        | CNAME -> atomexp_6                                                                 
-        | atomexp "." CNAME -> atomexp_7                                                                           
+        | "$" INT -> atomexp_3                                                              
+        | "(" ")" -> atomexp_4                                                          
+        | "(" seplist{",", exp} ")" -> atomexp_5                                                                            
+        | CNAME -> atomexp_6                                                                
+        | atomexp "." CNAME -> atomexp_7                                                                          
 
 args : "(" nullable{seplist{",", id}} ")" -> args_0                                                
 
@@ -151,5 +151,6 @@ UNICODE : "\\u" DIGIT DIGIT DIGIT DIGIT
 %import common.LETTER
 %import common.C_COMMENT
 %import common.CPP_COMMENT
-%import common.SH_COMMENT
-%ignore WS C_COMMENT CPP_COMMENT SH_COMMENT
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT

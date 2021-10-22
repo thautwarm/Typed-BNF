@@ -2,28 +2,33 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 from tbnf import t, e
-from tbnf.common import Pos
+from tbnf.common import Pos, ref, refs, TypeTaggable
 from typing import Generic, TypeVar
 
 
 Tag = TypeVar("Tag")
 
-
-@dataclass(order=True, frozen=True)
-class NonTerm(Generic[Tag]):
-    tag: Tag
+@dataclass
+class NonTerm(TypeTaggable, Generic[Tag]):
+    _tag: Tag
     _: str
     pos: Pos
 
 
-@dataclass(order=True, frozen=True)
-class Term(Generic[Tag]):
-    tag: Tag
+@dataclass
+class Term(TypeTaggable, Generic[Tag]):
+    _tag: Tag
     _: str
     is_lit: bool
     pos: Pos
 
+@dataclass(order=True, frozen=True)
+class MacroCall(Generic[Tag]):
+    _: str
+    args: list[Term | NonTerm | MacroCall]
+    pos: Pos
 
+    
 @dataclass(order=True, frozen=True)
 class Case:
     _: tuple[NonTerm | Term, ...]
@@ -34,6 +39,14 @@ class Case:
 @dataclass(order=True, frozen=True)
 class Prod:
     lhs: str
+    rhs: tuple[Case, ...]
+    pos: Pos
+
+
+@dataclass(order=True, frozen=True)
+class MacroDef:
+    lhs: str
+    params: list[str]
     rhs: tuple[Case, ...]
     pos: Pos
 

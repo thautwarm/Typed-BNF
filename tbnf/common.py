@@ -12,7 +12,12 @@ undef = object()
 uf = unify.Unification()
 methods: dict[str, t.Methods] = {}
 
-refs = []
+refs = set()
+
+def ref(t=undef):
+    r = Ref(t)
+    refs.add(r)
+    return r
 
 class Ref(Generic[T]):
     _: T
@@ -36,7 +41,28 @@ class Ref(Generic[T]):
             return "undef"
         return "{" + repr(self._) + "}"
 
+
+class TypeTaggable:
+    
+    @property
+    def tag(self):
+        if self._tag is None:
+            self._tag = ref()
+        return self._tag
+
 @dataclass(frozen=True)
 class Pos:
     lineno: int
     colno: int
+    filename: str
+
+    def __getitem__(self, i):
+        import warnings
+        warnings.warn(UserWarning("Treated as tuple!"))
+        if i == 0:
+            return self.lineno
+        if i == 1:
+            return self.colno
+        if i == 2:
+            return self.filename
+        raise IndexError
