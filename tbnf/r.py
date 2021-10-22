@@ -49,3 +49,58 @@ class Decl:
 class Import:
     _: str
     pos: Pos
+
+@dataclass(frozen=True, order=True)
+class RegOr:
+    _: list[Regex]
+
+@dataclass(frozen=True, order=True)
+class RegNot:
+    _: Regex
+
+@dataclass(frozen=True, order=True)
+class RegSeq:
+    _: list[Regex]
+
+@dataclass(frozen=True, order=True)
+class RegNumber:
+    pass
+
+@dataclass(frozen=True, order=True)
+class RegRange:
+    start: str
+    end: str
+
+@dataclass(frozen=True, order=True)
+class RegOneOrMore:
+    _: str
+    pass
+
+@dataclass(frozen=True, order=True)
+class RegMany:
+    _: str
+    pass
+
+@dataclass(frozen=True, order=True)
+class RegLit:
+    _: str
+
+@dataclass(frozen=True, order=True)
+class RegOptional:
+    pass
+
+@dataclass(frozen=True, order=True)
+class RegWildcard:
+    pass
+
+
+@dataclass(frozen=True, order=True)
+class RegRef:
+    _: str
+
+Regex = RegOr | RegNot | RegSeq | RegNumber | RegRange | RegOneOrMore | RegMany | RegLit | RegOptional | RegWildcard | RegRef
+
+@dataclass(frozen=True)
+class LexerDef:
+    name: str
+    rule: Regex

@@ -28,3 +28,10 @@ json : "[" list "]" { json_list($2) }
 | <INT>             { json_int(parse_int($1.lexeme)) }
 | <FLOAT>           { json_float(parse_float($1.lexeme)) }
 | str               { json_string(unesc_string($1)) }
+
+
+
+<STR> : "\"" ("\\" _ | !"\"" ) "\""
+<INT> : DIGIT+
+<DIGIT> : [0 .. 9]
+<FLOAT> : INT "." INT

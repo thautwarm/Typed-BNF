@@ -36,6 +36,10 @@ def maybe_ttuple(args):
     return t.Tuple(args)
 
 
+def eval_unicode(ch):
+    return eval("'" + ch + "'")
+
+
 from tbnf.parser_raw import Transformer, Lark_StandAlone, Tree
 class parser_Transformer(Transformer):
 
@@ -95,6 +99,8 @@ class parser_Transformer(Transformer):
         return  r.Import(unesc(__args[2-1]), _get_location(__args[2-1]))
     def toplevel_2(self, __args):
         return  __args[1-1]
+    def toplevel_3(self, __args):
+        return  __args[1-1]
     def cases_0(self, __args):
         return  tuple(__args[1-1])
     def atoms_0(self, __args):
@@ -143,6 +149,36 @@ class parser_Transformer(Transformer):
         return  e.Expr(ref(), e.Attr(__args[1-1], str(str(__args[3-1]))), _get_location(__args[2-1]))
     def args_0(self, __args):
         return  __args[2-1]
+    def lexer_0(self, __args):
+        return __args[1-1][0] if len(__args[1-1]) == 1 else r.RegOr(__args[1-1])
+    def lexer_and_0(self, __args):
+        return __args[1-1][0] if len(__args[1-1]) == 1 else r.RegSeq(__args[1-1])
+    def lexer_atomexpr_0(self, __args):
+        return  r.RegOneOrMore(__args[1-1])
+    def lexer_atomexpr_1(self, __args):
+        return  r.RegMany(__args[1-1])
+    def lexer_atomexpr_2(self, __args):
+        return  r.RegOptional(__args[1-1])
+    def lexer_atomexpr_3(self, __args):
+        return  __args[1-1]
+    def lexer_atom_0(self, __args):
+        return  r.RegSeq(list(map(r.RegLit, list(str(__args[1-1])))))
+    def lexer_atom_1(self, __args):
+        return  r.RegNot(__args[2-1])
+    def lexer_atom_2(self, __args):
+        return  __args[2-1]
+    def lexer_atom_3(self, __args):
+        return  r.RegNumber()
+    def lexer_atom_4(self, __args):
+        return  r.RegRange(eval_unicode(__args[2-1]), eval_unicode(__args[4-1]))
+    def lexer_atom_5(self, __args):
+        return  r.RegRange(ord(str(__args[2-1])), ord(str(__args[4-1])))
+    def lexer_atom_6(self, __args):
+        return  r.RegWildcard()
+    def lexer_atom_7(self, __args):
+        return  r.RegRef(str(__args[1-1]))
+    def lexerdef_0(self, __args):
+        return  r.LexerDef(__args[2-1], __args[5-1])
 
 
 parser = Lark_StandAlone(transformer=parser_Transformer())

@@ -68,8 +68,9 @@ type : manytypes "->" type -> type_0
 
 id : CNAME -> id_0                      
 toplevel: id ":" cases -> toplevel_0                                                              
-        | "import" ESCAPED_STRING -> toplevel_1                                                             
-        | decl -> toplevel_2                                        
+        | "%import" ESCAPED_STRING -> toplevel_1                                                              
+        | decl -> toplevel_2                                         
+        | lexerdef -> toplevel_3                                        
 
 cases : seplist{"|", case} -> cases_0                                         
 atoms : nullable{list{atom}} -> atoms_0                                          
@@ -107,9 +108,41 @@ atomexp : INT -> atomexp_0
 
 args : "(" nullable{seplist{",", id}} ")" -> args_0                                                
 
+
+  
+                     
+                               
+  
+lexer :  seplist{"|", lexer_and} -> lexer_0                                           
+
+lexer_and : list{lexer_atomexpr} -> lexer_and_0                                            
+
+lexer_atomexpr :lexer_atomexpr "+" -> lexer_atomexpr_0                                                             
+      |  lexer_atomexpr "*" -> lexer_atomexpr_1                                                        
+      |  lexer_atomexpr "?" -> lexer_atomexpr_2                                                            
+      |  lexer_atom -> lexer_atomexpr_3                          
+
+lexer_atom :  ESCAPED_STRING -> lexer_atom_0                                                                             
+      | "!" lexer_atom -> lexer_atom_1                                        
+      |  "(" lexer ")" -> lexer_atom_2                              
+      |  "\\d" -> lexer_atom_3                                         
+      |  "[" UNICODE ".." UNICODE "]" -> lexer_atom_4                                                                                        
+      |  "[" /./ ".." /[^]]/ "]" -> lexer_atom_5                                                                             
+      | ("_" | ".") -> lexer_atom_6                                       
+      | CNAME -> lexer_atom_7                                         
+
+      
+
+lexerdef : "<" CNAME ">" ":" lexer -> lexerdef_0                                                         
+
+UNICODE : "\\u" DIGIT DIGIT DIGIT DIGIT
+
+
 %import common.ESCAPED_STRING
 %import common.CNAME
 %import common.FLOAT
 %import common.INT
 %import common.WS
+%import common.DIGIT
+%import common.LETTER
 %ignore WS

@@ -67,18 +67,18 @@ json : "[" list "]" { json_list($2) }
 for grammar in grammars:
     xs = p.parser.parse(grammar)
 
-    tc = typecheck.Check(xs)
+    tc = typecheck.Check(xs, "main")
     tc.check_all()
 
     for each in p.refs:
         each.set(p.uf.prune(each.get()))
 
-    # pprint(tc.stmts)
-    cg = lark.CG()
-    for each in tc.stmts_for_codegen():
-        cg(each)
-    cg.declare_tokens_()
-    cg.out('json')
+    # # pprint(tc.stmts)
+    # cg = lark.CG()
+    # for each in tc.stmts_for_codegen():
+    #     cg(each)
+    # cg.declare_tokens_()
+    # cg.out('json')
 
     # cg = antlr.CG({k._: p.uf.prune(v) for k, v in tc.global_scopes.items() if isinstance(k, typecheck.GName)})
     # for each in tc.stmts_for_codegen():

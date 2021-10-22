@@ -70,8 +70,9 @@ type : manytypes "->" type -> t.Arrow(t.Tuple($1), $3)
 
 id : CNAME -> str($1)
 toplevel: id ":" cases           -> r.Prod($1, tuple($3), @2)
-        | "import" ESCAPED_STRING -> r.Import(unesc($2), @2)
-        | decl                    -> $1
+        | "%import" ESCAPED_STRING -> r.Import(unesc($2), @2)
+        | decl                    -> $1 
+        | lexerdef                -> $1
 
 cases : seplist{"|", case}  -> tuple($1)
 atoms : nullable{list{atom}} -> tuple($1)
@@ -110,9 +111,44 @@ atomexp : INT   -> e.Expr(ref(int_t), e.Int(int($1)), @1)
 
 args : "(" nullable{seplist{",", id}} ")" -> $2
 
+
+%%
+def eval_unicode(ch):
+    return eval("'" + ch + "'")
+%%
+lexer :  seplist{"|", lexer_and} -> \
+    $1[0] if len($1) == 1 else r.RegOr($1)
+
+lexer_and : list{lexer_atomexpr} -> \
+    $1[0] if len($1) == 1 else r.RegSeq($1)
+
+lexer_atomexpr :\
+         lexer_atomexpr "+"            -> r.RegOneOrMore($1)
+      |  lexer_atomexpr "*"            -> r.RegMany($1)
+      |  lexer_atomexpr "?"            -> r.RegOptional($1)
+      |  lexer_atom -> $1
+
+lexer_atom :  ESCAPED_STRING -> r.RegSeq(list(map(r.RegLit, list(str($1)))))
+      | "!" lexer_atom  -> r.RegNot($2)
+      |  "(" lexer ")"  -> $2
+      |  "\\d"          -> r.RegNumber()
+      |  "[" UNICODE ".." UNICODE "]" -> r.RegRange(eval_unicode($2), eval_unicode($4))
+      |  "[" /./ ".." /[^]]/ "]"   -> r.RegRange(ord(str($2)), ord(str($4)))
+      | ("_" | ".") -> r.RegWildcard()
+      | CNAME       -> r.RegRef(str($1))
+
+      
+
+lexerdef : "<" CNAME ">" ":" lexer -> r.LexerDef($2, $5)
+
+UNICODE : "\\u" DIGIT DIGIT DIGIT DIGIT
+
+
 %import common.ESCAPED_STRING
 %import common.CNAME
 %import common.FLOAT
 %import common.INT
 %import common.WS
+%import common.DIGIT
+%import common.LETTER
 %ignore WS
