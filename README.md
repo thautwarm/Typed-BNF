@@ -19,14 +19,11 @@ polyrule2 : forall 'a. ('a) -> (str, token, 'a)
 Then we can lower it to a BNF grammar used by other parser framework,
 no matter which programming language is the target.
 
-## Lark Backend
+## Backends
+
+Tentatively, support for `python-lark` and `antlr-java` are down. Focusing on improving `antlr-csharp`(So far C# has no easy-to-use parser generator.)
 
 ```
-python -m tbnf GRAMMAR.tbnf lark [--outdir OUTDIR=.] [--mod MODULENAME=mylang]  
+python -m tbnf GRAMMAR.tbnf [lark|csharp|antlr] [--outdir OUTDIR=.] [--mod MODULENAME=mylang]  
 ```
 
-## Antlr Backend
-
-```
-python -m tbnf GRAMMAR.tbnf antlr [--outdir OUTDIR=.] [--mod MODULENAME=mylang]  
-```

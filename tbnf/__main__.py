@@ -1,11 +1,11 @@
 import wisepy2
 
-from tbnf.backends import lark, antlr
+from tbnf.backends import lark, antlr, csharp
 from tbnf import parser as p
 from tbnf import t, unify, typecheck
 import os
 
-backends = {"lark": lark, "antlr": antlr}
+backends = {"lark": lark, "antlr": antlr, 'csharp': csharp}
 
 @wisepy2.wise
 def main(
@@ -13,7 +13,7 @@ def main(
 ):
     """
     filename: tbnf grammar
-    backend: lark | antlr
+    backend: lark | antlr | csharp
     """
     with open(filename, encoding="utf8") as f:
         grammar_src = f.read()

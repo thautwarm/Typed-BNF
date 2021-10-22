@@ -114,7 +114,11 @@ args : "(" nullable{seplist{",", id}} ")" -> $2
 
 %%
 def eval_unicode(ch):
-    return eval("'" + ch + "'")
+    return ch
+
+def to_unicode(ch):
+    i = ord(ch)
+    return fr"\u{i:04X}"
 %%
 lexer :  seplist{"|", lexer_and} -> \
     $1[0] if len($1) == 1 else r.RegOr($1)
@@ -133,7 +137,7 @@ lexer_atom :  ESCAPED_STRING -> r.RegSeq(list(map(r.RegLit, list(unesc($1)))))
       |  "(" lexer ")"  -> $2
       |  "\\d"          -> r.RegNumber()
       |  "[" UNICODE ".." UNICODE "]" -> r.RegRange(eval_unicode($2), eval_unicode($4))
-      |  "[" /./ ".." /[^]]/ "]"   -> r.RegRange(ord(str($2)), ord(str($4)))
+      |  "[" /./ ".." /[^]]/ "]"   -> r.RegRange(to_unicode(str($2)), to_unicode(str($4)))
       | ("_" | ".") -> r.RegWildcard()
       | CNAME       -> r.RegRef(str($1))
 

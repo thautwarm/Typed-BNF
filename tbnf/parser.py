@@ -37,7 +37,11 @@ def maybe_ttuple(args):
 
 
 def eval_unicode(ch):
-    return eval("'" + ch + "'")
+    return ch
+
+def to_unicode(ch):
+    i = ord(ch)
+    return fr"\u{i:04X}"
 
 
 from tbnf.parser_raw import Transformer, Lark_StandAlone, Tree
@@ -162,7 +166,7 @@ class parser_Transformer(Transformer):
     def lexer_atomexpr_3(self, __args):
         return  __args[1-1]
     def lexer_atom_0(self, __args):
-        return  r.RegSeq(list(map(r.RegLit, list(str(__args[1-1])))))
+        return  r.RegSeq(list(map(r.RegLit, list(unesc(__args[1-1])))))
     def lexer_atom_1(self, __args):
         return  r.RegNot(__args[2-1])
     def lexer_atom_2(self, __args):
@@ -172,7 +176,7 @@ class parser_Transformer(Transformer):
     def lexer_atom_4(self, __args):
         return  r.RegRange(eval_unicode(__args[2-1]), eval_unicode(__args[4-1]))
     def lexer_atom_5(self, __args):
-        return  r.RegRange(ord(str(__args[2-1])), ord(str(__args[4-1])))
+        return  r.RegRange(to_unicode(str(__args[2-1])), to_unicode(str(__args[4-1])))
     def lexer_atom_6(self, __args):
         return  r.RegWildcard()
     def lexer_atom_7(self, __args):

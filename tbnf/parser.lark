@@ -111,7 +111,11 @@ args : "(" nullable{seplist{",", id}} ")" -> args_0
 
   
                      
-                               
+             
+
+                   
+               
+                        
   
 lexer :  seplist{"|", lexer_and} -> lexer_0                                           
 
@@ -122,12 +126,12 @@ lexer_atomexpr :lexer_atomexpr "+" -> lexer_atomexpr_0
       |  lexer_atomexpr "?" -> lexer_atomexpr_2                                                            
       |  lexer_atom -> lexer_atomexpr_3                          
 
-lexer_atom :  ESCAPED_STRING -> lexer_atom_0                                                                             
+lexer_atom :  ESCAPED_STRING -> lexer_atom_0                                                                               
       | "!" lexer_atom -> lexer_atom_1                                        
       |  "(" lexer ")" -> lexer_atom_2                              
       |  "\\d" -> lexer_atom_3                                         
       |  "[" UNICODE ".." UNICODE "]" -> lexer_atom_4                                                                                        
-      |  "[" /./ ".." /[^]]/ "]" -> lexer_atom_5                                                                             
+      |  "[" /./ ".." /[^]]/ "]" -> lexer_atom_5                                                                                           
       | ("_" | ".") -> lexer_atom_6                                       
       | CNAME -> lexer_atom_7                                         
 
