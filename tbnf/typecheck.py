@@ -37,6 +37,7 @@ class Check:
         self.unnamed_lits = []
         self.regexps = []
         self._execute(stmts)
+        # self.type_aliases = {}
 
     def exception_from(self, x, msg):
         match x:
@@ -74,6 +75,8 @@ class Check:
                     self.global_scopes[LName(n)] = t1
                 case r.LexerDef(n, rule):
                     self.regexps.append((n, rule))
+                case r.TypeAlias(a, b):
+                    pass
 
     def infer_rule(self, x):
         match x:

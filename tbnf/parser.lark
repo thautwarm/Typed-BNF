@@ -37,9 +37,17 @@ typevar : "'" CNAME -> typevar_0
 
 manyvars : nullable{seplist{",", typevar}} -> manyvars_0                                                        
     
+
+  
+                 
+                             
+                       
+                                 
+  
 decl : "val" CNAME ":" type -> decl_0                                                       
-     | "shape" CNAME "[" manyvars "]" "{" manyfieldecls "}" -> decl_1                                       
-     | "shape" CNAME "{" manyfieldecls "}" -> decl_2                                         
+     | "typealias" DOTTED_NAME "=" DOTTED_NAME -> decl_1                                                                                      
+     | "shape" DOTTED_NAME "[" manyvars "]" "{" manyfieldecls "}" -> decl_2                                       
+     | "shape" DOTTED_NAME "{" manyfieldecls "}" -> decl_3                                         
 
 
 fieldecl : CNAME ":" type -> fieldecl_0                                                      
@@ -62,7 +70,7 @@ type : manytypes "->" type -> type_0
      | type manytypeargs -> type_2                                                     
      | "forall" vars "." type -> type_3                                                             
      | typevar -> type_4                                
-     | CNAME -> type_5                                            
+     | DOTTED_NAME -> type_5                                                                       
 
 id : CNAME -> id_0                      
 toplevel: id ":" cases -> toplevel_0                                                                
@@ -141,6 +149,7 @@ lexerdef : "<" CNAME ">" ":" lexer -> lexerdef_0
 
 UNICODE : "\\u" DIGIT DIGIT DIGIT DIGIT
 
+DOTTED_NAME : CNAME ("." CNAME)*
 
 %import common.ESCAPED_STRING
 %import common.CNAME

@@ -1,8 +1,9 @@
 grammar mylang;
+options { language = CSharp; }
 json returns [json result] :
       '[' local__2_json_case0=gen__list_json ']' { 
         json tmp__2 ; 
-        list<json> tmp__1 ; 
+        System.Collections.Generic.List<json> tmp__1 ; 
         tmp__1 = local__2_json_case0.value ; 
         tmp__2 = (json) json_list( tmp__1 ); 
         $result = tmp__2; 
@@ -10,9 +11,9 @@ json returns [json result] :
     | '{' local__2_json_case1=gen__seplist__L44__pair '}' { 
         json tmp__5 ; 
         dict<str, json> tmp__4 ; 
-        list<(str, json)> tmp__3 ; 
+        System.Collections.Generic.List<(str, json)> tmp__3 ; 
         tmp__3 = local__2_json_case1.value ; 
-        tmp__4 = (dict<str, json>) mk_dict<str,json>( tmp__3 ); 
+        tmp__4 = (dict<str, json>) mk_dict<json,str>( tmp__3 ); 
         tmp__5 = (json) json_dict( tmp__4 ); 
         $result = tmp__5; 
       } 
@@ -44,35 +45,35 @@ json returns [json result] :
         $result = tmp__14; 
       } 
 ; 
-gen__seplist__L44__pair returns [list<(str, json)> result] :
+gen__seplist__L44__pair returns [System.Collections.Generic.List<(str, json)> result] :
       { 
-        list<(str, json)> tmp__15 ; 
-        tmp__15 = (list<(str, json)>) nil<(str, json)>(  ); 
+        System.Collections.Generic.List<(str, json)> tmp__15 ; 
+        tmp__15 = (System.Collections.Generic.List<(str, json)>) nil<(str, json)>(  ); 
         $result = tmp__15; 
       } 
     | local__1_gen__seplist__L44__pair_case1=pair ',' local__3_gen__seplist__L44__pair_case1=gen__seplist__L44__pair { 
-        list<(str, json)> tmp__18 ; 
-        list<(str, json)> tmp__17 ; 
+        System.Collections.Generic.List<(str, json)> tmp__18 ; 
+        System.Collections.Generic.List<(str, json)> tmp__17 ; 
         (str, json) tmp__16 ; 
         tmp__16 = local__1_gen__seplist__L44__pair_case1.value ; 
         tmp__17 = local__3_gen__seplist__L44__pair_case1.value ; 
-        tmp__18 = (list<(str, json)>) cons<(str, json)>( tmp__16, tmp__17 ); 
+        tmp__18 = (System.Collections.Generic.List<(str, json)>) cons<(str, json)>( tmp__16, tmp__17 ); 
         $result = tmp__18; 
       } 
 ; 
-gen__list_json returns [list<json> result] :
+gen__list_json returns [System.Collections.Generic.List<json> result] :
       { 
-        list<json> tmp__19 ; 
-        tmp__19 = (list<json>) nil<json>(  ); 
+        System.Collections.Generic.List<json> tmp__19 ; 
+        tmp__19 = (System.Collections.Generic.List<json>) nil<json>(  ); 
         $result = tmp__19; 
       } 
     | local__1_gen__list_json_case1=json ',' local__3_gen__list_json_case1=gen__list_json { 
-        list<json> tmp__22 ; 
-        list<json> tmp__21 ; 
+        System.Collections.Generic.List<json> tmp__22 ; 
+        System.Collections.Generic.List<json> tmp__21 ; 
         json tmp__20 ; 
         tmp__20 = local__1_gen__list_json_case1.value ; 
         tmp__21 = local__3_gen__list_json_case1.value ; 
-        tmp__22 = (list<json>) cons<json>( tmp__20, tmp__21 ); 
+        tmp__22 = (System.Collections.Generic.List<json>) cons<json>( tmp__20, tmp__21 ); 
         $result = tmp__22; 
       } 
 ; 
@@ -94,9 +95,9 @@ str returns [str result] :
         $result = tmp__26.lexeme; 
       } 
 ; 
-start returns [list<json> result] :
+start returns [System.Collections.Generic.List<json> result] :
       local__1_start_case0=gen__list_json { 
-        list<json> tmp__27 ; 
+        System.Collections.Generic.List<json> tmp__27 ; 
         tmp__27 = local__1_start_case0.value ; 
         $result = tmp__27; 
       } 

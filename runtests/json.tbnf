@@ -2,6 +2,8 @@ shape token {
     lexeme : str
 }
 
+typealias list = System.Collections.Generic.List
+
 val nil : forall 'a. () -> list['a]
 val cons : forall 'a. ('a, list['a]) -> list['a]
 val mk_dict: forall 'k 'v. (list[('k, 'v)]) -> dict['k, 'v]

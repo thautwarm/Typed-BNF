@@ -30,6 +30,12 @@ if '_get_value' not in globals():
         return token.value
 
 
+type_aliases = {}
+def mk_type_alias(a, b, pos):
+    type_aliases[a] = b
+    return r.TypeAlias(a, b, pos)
+
+
 def maybe_ttuple(args):
     if len(args) == 1:
         return args[0]
@@ -70,8 +76,10 @@ class parser_Transformer(Transformer):
     def decl_0(self, __args):
         return  r.Decl(str(__args[2-1]), __args[4-1], _get_location(__args[1-1]))
     def decl_1(self, __args):
-        return t.Methods(str(__args[1-1]), __args[4-1], __args[7-1], _get_location(__args[1-1]))
+        return  mk_type_alias(str(__args[2-1]), str(__args[4-1]), _get_location(__args[1-1]))
     def decl_2(self, __args):
+        return t.Methods(str(__args[1-1]), __args[4-1], __args[7-1], _get_location(__args[1-1]))
+    def decl_3(self, __args):
         return t.Methods(str(__args[2-1]), None, __args[4-1], _get_location(__args[1-1]))
     def fieldecl_0(self, __args):
         return  (str(__args[1-1]), (_get_location(__args[1-1]), __args[3-1]))
@@ -94,7 +102,7 @@ class parser_Transformer(Transformer):
     def type_4(self, __args):
         return  __args[1-1]
     def type_5(self, __args):
-        return  t.Nom(str(__args[1-1]))
+        return  t.Nom(type_aliases.get(str(__args[1-1]), str(__args[1-1])))
     def id_0(self, __args):
         return  str(__args[1-1])
     def toplevel_0(self, __args):

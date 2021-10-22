@@ -37,10 +37,18 @@ typevar : "'" CNAME -> t.BoundVar(str($2))
 
 manyvars : nullable{seplist{",", typevar}} -> tuple($1)
     
+
+%%
+type_aliases = {}
+def mk_type_alias(a, b, pos):
+    type_aliases[a] = b
+    return r.TypeAlias(a, b, pos)
+%%
 decl : "val" CNAME ":" type -> r.Decl(str($2), $4, @1)
-     | "shape" CNAME "[" manyvars "]" "{" manyfieldecls "}" ->\
+     | "typealias" DOTTED_NAME "=" DOTTED_NAME -> mk_type_alias(str($2), str($4), @1)
+     | "shape" DOTTED_NAME "[" manyvars "]" "{" manyfieldecls "}" ->\
         t.Methods(str($1), $4, $7, @1)
-     | "shape" CNAME "{" manyfieldecls "}" ->\
+     | "shape" DOTTED_NAME "{" manyfieldecls "}" ->\
         t.Methods(str($2), None, $4, @1)
 
 
@@ -64,7 +72,7 @@ type : manytypes "->" type -> t.Arrow(t.Tuple($1), $3)
      | type manytypeargs   -> t.App($1, t.Tuple($2))
      | "forall" vars "." type -> t.Forall(frozenset($2), $4)
      | typevar            -> $1
-     | CNAME              -> t.Nom(str($1))
+     | DOTTED_NAME        -> t.Nom(type_aliases.get(str($1), str($1)))
 
 id : CNAME -> str($1)
 toplevel: id ":" cases             -> r.Prod($1, tuple($3), @2)
@@ -147,6 +155,7 @@ lexerdef : "<" CNAME ">" ":" lexer -> r.LexerDef($2, $5)
 
 UNICODE : "\\u" DIGIT DIGIT DIGIT DIGIT
 
+DOTTED_NAME : CNAME ("." CNAME)*
 
 %import common.ESCAPED_STRING
 %import common.CNAME

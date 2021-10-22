@@ -57,6 +57,12 @@ class Decl:
     type: t.TyStatic
     pos: Pos
 
+@dataclass(order=True, frozen=True)
+class TypeAlias:
+    alias: str
+    nom: str
+    pos: Pos
+
 
 @dataclass(order=True, frozen=True)
 class Import:
