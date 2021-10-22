@@ -1,6 +1,7 @@
 import json
 from typing import Sequence, Mapping, Optional
 from tbnf import r, t, e, common, prims
+from tbnf.common import uf, Ref
 from tbnf.backends import codeseg
 from collections import ChainMap, OrderedDict
 from contextlib import contextmanager
@@ -214,13 +215,18 @@ class EToJava:
                             codeseg.Indent(body),
                             codeseg.Line(["}"]),
                         ]))
-            case e.Var(s):
+            case e.Var(s, targs):
+                if targs is not None:
+                    targs = [uf.prune(each) for each in targs]
+                    targs = "<" + ",".join(map(self.type_to_java, targs)) + ">"
+                else:
+                    targs = ""
                 if not target:
-                    target = self.scope[s]
+                    target = self.scope[s] + targs
                 else:
                     tname = self.type_to_java(x.tag.get())
                     self.declare(tname, target)
-                    self.stmts.append(codeseg.Line([target, "=", self.scope[s], ";"]))
+                    self.stmts.append(codeseg.Line([target, "=", self.scope[s] + targs, ";"]))
             case e.While():
                 raise NotImplementedError
 

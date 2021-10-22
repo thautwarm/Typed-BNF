@@ -1,9 +1,11 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, TYPE_CHECKING
 from json import dumps
 
-from tbnf.common import Pos, ref, TypeTaggable
+from tbnf.common import Pos, ref, TypeTaggable, Ref
+if TYPE_CHECKING:
+    from tbnf import t
 
 Tag = TypeVar("Tag")
 
@@ -74,9 +76,11 @@ class Let(ExDynamic):
     body: Expr
 
 
-@dataclass(order=True, frozen=True)
+@dataclass
 class Var(ExDynamic):
     _: str
+
+    inst_targs: list[t.TyStatic] | None = None
 
 
 @dataclass(order=True, frozen=True)
@@ -99,7 +103,6 @@ class Block(ExDynamic):
 class Expr(TypeTaggable, Generic[Tag]):
     _tag: Tag
     _: ExStatic
-
     pos: Pos
 
 ExStatic = (

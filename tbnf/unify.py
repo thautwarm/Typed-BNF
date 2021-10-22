@@ -152,6 +152,18 @@ class Unification:
         a = self.prune(a)
         return self._inst(a, {})
 
+    def inst_with_args(self, a: t.TyStatic):
+        a = self.prune(a)
+        args = {}
+        match a:
+            case t.Forall(xs, a):
+                for x in xs:
+                    args[x] = self.newvar()
+                a = self._inst(a, args)
+            case _:
+                a = self._inst(a, args)
+        return a, args
+
     def _inst(self, a: t.TyStatic, d: dict[t.BoundVar, t.TyStatic]):
         match a:
             case t.BoundVar():

@@ -125,7 +125,10 @@ class Check:
             case e.Var(n):
                 if LName(n) not in scope:
                     raise NameError(n)
-                t1 = uf.inst(scope[LName(n)])
+                t1, args = uf.inst_with_args(scope[LName(n)])
+                if args:
+                    exp.inst_targs = list(args.values())
+            
             case e.Attr(value, attr):
                 t_base = self.infer(value, scope, stack)
                 t1 = uf.newvar()

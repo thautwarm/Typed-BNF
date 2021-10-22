@@ -12,7 +12,7 @@ json returns [json result] :
         dict<str, json> tmp__4 ; 
         list<(str, json)> tmp__3 ; 
         tmp__3 = local__2_json_case1.value ; 
-        tmp__4 = (dict<str, json>) mk_dict( tmp__3 ); 
+        tmp__4 = (dict<str, json>) mk_dict<str,json>( tmp__3 ); 
         tmp__5 = (json) json_dict( tmp__4 ); 
         $result = tmp__5; 
       } 
@@ -47,7 +47,7 @@ json returns [json result] :
 gen__seplist__L44__pair returns [list<(str, json)> result] :
       { 
         list<(str, json)> tmp__15 ; 
-        tmp__15 = (list<(str, json)>) nil(  ); 
+        tmp__15 = (list<(str, json)>) nil<(str, json)>(  ); 
         $result = tmp__15; 
       } 
     | local__1_gen__seplist__L44__pair_case1=pair ',' local__3_gen__seplist__L44__pair_case1=gen__seplist__L44__pair { 
@@ -56,14 +56,14 @@ gen__seplist__L44__pair returns [list<(str, json)> result] :
         (str, json) tmp__16 ; 
         tmp__16 = local__1_gen__seplist__L44__pair_case1.value ; 
         tmp__17 = local__3_gen__seplist__L44__pair_case1.value ; 
-        tmp__18 = (list<(str, json)>) cons( tmp__16, tmp__17 ); 
+        tmp__18 = (list<(str, json)>) cons<(str, json)>( tmp__16, tmp__17 ); 
         $result = tmp__18; 
       } 
 ; 
 gen__list_json returns [list<json> result] :
       { 
         list<json> tmp__19 ; 
-        tmp__19 = (list<json>) nil(  ); 
+        tmp__19 = (list<json>) nil<json>(  ); 
         $result = tmp__19; 
       } 
     | local__1_gen__list_json_case1=json ',' local__3_gen__list_json_case1=gen__list_json { 
@@ -72,7 +72,7 @@ gen__list_json returns [list<json> result] :
         json tmp__20 ; 
         tmp__20 = local__1_gen__list_json_case1.value ; 
         tmp__21 = local__3_gen__list_json_case1.value ; 
-        tmp__22 = (list<json>) cons( tmp__20, tmp__21 ); 
+        tmp__22 = (list<json>) cons<json>( tmp__20, tmp__21 ); 
         $result = tmp__22; 
       } 
 ; 
