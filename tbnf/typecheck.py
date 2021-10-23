@@ -228,7 +228,7 @@ class Check:
                 e = TypeCheckError()
                 e.filename = position.filename
                 e.lineno = position.lineno
-                e.msg = f"invalid type when accessing field {attr!r}."
+                e.msg = f"require '{uf.prune(t1)}'; attribute {attr!r} got {t_attr}."
                 raise e from e_inner
 
     def check_all(self):
