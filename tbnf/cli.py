@@ -2,9 +2,12 @@ from wisepy2 import wise
 import traceback
 import sys
 
+show_less = [False]
+
 def format_exceptions(e: Exception):
-    remove_py_traceback(e)
-    return ''.join(traceback.format_exception(type(e), e, None))
+    if show_less[0]:
+        remove_py_traceback(e)
+    return ''.join(traceback.format_exception(type(e), e, e.__traceback__))
 
 def remove_py_traceback(e):
     e.__traceback__ = None
@@ -16,7 +19,7 @@ def remove_py_traceback(e):
 
 
 def command(
-    filename: str, backend: str, outdir: str = ".", mod: str = "mylang"
+    filename: str, backend: str, outdir: str = ".", mod: str = "mylang", less: bool = False
 ):
     """
     filename: tbnf grammar
@@ -28,6 +31,9 @@ def command(
     from tbnf.common import refs
     from tbnf.macroresolve import resolve
     import os
+    
+    show_less[0] = less
+
     backends = {"lark": lark, "antlr": antlr, 'csharp': csharp}
 
     with open(filename, encoding="utf8") as f:
@@ -60,4 +66,6 @@ def main():
         wise(command)()
     except Exception as e:
         print(format_exceptions(e))
+        if not show_less[0]:
+            print("(add --less to remove development errors.)")
         sys.exit(1)
