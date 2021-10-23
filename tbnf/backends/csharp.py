@@ -132,6 +132,19 @@ class EToJava:
                 self.stmts.append(codeseg.Line([
                         target, "=", "(", *interleave_with(map(self, elts), ","), ");"]))
 
+            case e.Let(False, binders, body):
+                scope_ = self.scope
+                new_scope = {}
+                for binder in binders:
+                    sym = gensym(binder.name)
+                    with self.enter_scope(scope_):
+                        self(binder.value, target=sym)
+                    new_scope[binder.name] = sym
+                    scope_ = ChainMap(scope_, new_scope)
+                
+                with self.enter_scope(scope_):
+                    target = self(body, target=target)
+
             case e.Let(True, binders, body):
                 new_scope = {}
                 for binder in binders:
@@ -139,8 +152,9 @@ class EToJava:
                 scope_ = ChainMap(self.scope, new_scope)
                 for binder in binders:
                     with self.enter_scope(scope_):
-                        self(binder.value)
-                target = self(body, target=target)
+                        self(binder.value, target=new_scope[binder.name])
+                with self.enter_scope(scope_):
+                    target = self(body, target=target)
 
             case e.Attr(v, attr):
                 tname = self.type_to_java(x.tag.get())
@@ -153,6 +167,7 @@ class EToJava:
                             [target, "=",  f"{v_expr}.{attr};"])
 
             case e.App(e.Attr(v, attr), args):
+                target = target or gensym("methid")
                 tname = self.type_to_java(x.tag.get())
                 self.declare(tname, target)
                 v_expr = self(v)
@@ -174,6 +189,7 @@ class EToJava:
                         ])
                 )
             case e.Block(seq):
+                target = target or gensym("block")
                 for each in seq:
                     target = self(each, target=target)
             case e.Bool(a):
@@ -236,8 +252,9 @@ class EToJava:
                     tname = self.type_to_java(x.tag.get())
                     self.declare(tname, target)
                     self.stmts.append(codeseg.Line([target, "=", self.scope[s] + targs, ";"]))
-            case e.While():
-                raise NotImplementedError
+
+            case a:
+                raise NotImplementedError(a)
 
         return target
 

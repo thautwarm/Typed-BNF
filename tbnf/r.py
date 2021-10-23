@@ -35,12 +35,16 @@ class Case:
     action: e.Expr
     pos: Pos
 
-
-@dataclass(order=True, frozen=True)
+@dataclass
 class Prod:
     lhs: str
     rhs: tuple[Case, ...]
     pos: Pos
+    user_name : str = ""
+
+    def __post_init__(self):
+        if not self.user_name:
+            self.user_name = self.lhs
 
 
 @dataclass(order=True, frozen=True)

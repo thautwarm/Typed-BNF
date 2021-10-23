@@ -89,12 +89,13 @@ toplevel: id ":" cases             -> r.Prod($1, tuple($3), @2)
 
 cases : seplist{"|", case}  -> tuple($1)
 atoms : nullable{list{atom}} -> tuple($1)
-case : atoms "{" exp "}" -> r.Case($1, $3, @2)
+case : atoms "{" block "}" -> r.Case($1, $3, @2)
 
 atom : "<" CNAME ">"    -> r.Term(None, str($2), False, @2)
      | ESCAPED_STRING   -> r.Term(None, unesc($1), True, @1)
      | CNAME            -> r.NonTerm(None, $1, @1)
      | CNAME "[" seplist{",", atom} "]" -> r.MacroCall(str($1), $3, @2)
+
 
 binder: id "=" exp              -> e.Binder($1, $3, @2)
 binders: seplist{"and", binder} -> tuple($1)
@@ -104,7 +105,10 @@ exp :
     | "let" "rec" binders "in" exp -> e.Expr(None, e.Let(True, $3, $5), @1)
     | "fn" args "->" exp           -> e.Expr(None, e.Lam($2, $4), @1)
     | call                         -> $1
-    
+
+block : blockseq -> $1[0] if len($1) == 1 else e.Expr(None, e.Block($1), $1[0].pos)
+blockseq : blockseq ";" exp -> append($1, $3)
+         | exp              -> [$1]
 
 call : call "(" seplist{",", exp} ")" -> e.Expr(None, e.App($1, tuple($3)), @2)
      | call "(" ")" -> e.Expr(None, e.App($1, ()), @2)
@@ -115,7 +119,7 @@ call : call "(" seplist{",", exp} ")" -> e.Expr(None, e.App($1, tuple($3)), @2)
 
 atomexp : INT   -> e.Expr(ref(int_t), e.Int(int($1)), @1)
         | FLOAT -> e.Expr(ref(float_t), e.Float(float($1)), @1)
-        | ESCAPED_STRING -> e.Expr(ref(str_t), e.String(str($1)), @1)
+        | ESCAPED_STRING -> e.Expr(ref(str_t), e.String(unesc(str($1))), @1)
         | "$" INT        -> e.Expr(None, e.Slot(int($2)), @1)
         | "(" ")"        -> e.Expr(None, e.Tuple(()), @1)
         | "(" seplist{",", exp} ")" -> \
@@ -150,8 +154,8 @@ lexer_atom :  ESCAPED_STRING -> r.RegSeq(list(map(r.RegLit, list(unesc($1)))))
       | "!" lexer_atom  -> r.RegNot($2)
       |  "(" lexer ")"  -> r.RegGroup($2)
       |  "\\d"          -> r.RegNumber()
-      |  "[" UNICODE ".." UNICODE "]" -> r.RegRange(eval_unicode($2), eval_unicode($4))
-      |  "[" /./ ".." /[^]]/ "]"   -> r.RegRange(to_unicode(str($2)), to_unicode(str($4)))
+      |  "[" UNICODE (".." | "-") UNICODE "]" -> r.RegRange(eval_unicode($2), eval_unicode($4))
+      |  "[" /./ (".."|"-") /[^]]/ "]"   -> r.RegRange(to_unicode(str($2)), to_unicode(str($4)))
       | ("_" | ".") -> r.RegWildcard()
       | CNAME       -> r.RegRef(str($1))
 
@@ -159,7 +163,8 @@ lexer_atom :  ESCAPED_STRING -> r.RegSeq(list(map(r.RegLit, list(unesc($1)))))
 
 lexerdef : "<" CNAME ">" ":" lexer -> r.LexerDef($2, $5)
 
-UNICODE : "\\u" DIGIT DIGIT DIGIT DIGIT
+UCODE : DIGIT | /[a-fA-F]/
+UNICODE : "\\" "u" UCODE UCODE UCODE UCODE
 
 DOTTED_NAME : CNAME ("." CNAME)*
 

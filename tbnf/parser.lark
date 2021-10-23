@@ -87,12 +87,13 @@ toplevel: id ":" cases -> toplevel_0
 
 cases : seplist{"|", case} -> cases_0                                         
 atoms : nullable{list{atom}} -> atoms_0                                          
-case : atoms "{" exp "}" -> case_0                                               
+case : atoms "{" block "}" -> case_0                                                 
 
 atom : "<" CNAME ">" -> atom_0                                                            
      | ESCAPED_STRING -> atom_1                                                             
      | CNAME -> atom_2                                                   
      | CNAME "[" seplist{",", atom} "]" -> atom_3                                                                        
+
 
 binder: id "=" exp -> binder_0                                                        
 binders: seplist{"and", binder} -> binders_0                                             
@@ -102,7 +103,10 @@ exp :
     | "let" "rec" binders "in" exp -> exp_1                                                                            
     | "fn" args "->" exp -> exp_2                                                                      
     | call -> exp_3                                         
-    
+
+block : blockseq -> block_0                                                                                    
+blockseq : blockseq ";" exp -> blockseq_0                                              
+         | exp -> blockseq_1                                    
 
 call : call "(" seplist{",", exp} ")" -> call_0                                                                                
      | call "(" ")" -> call_1                                                       
@@ -113,7 +117,7 @@ call : call "(" seplist{",", exp} ")" -> call_0
 
 atomexp : INT -> atomexp_0                                                          
         | FLOAT -> atomexp_1                                                                
-        | ESCAPED_STRING -> atomexp_2                                                                      
+        | ESCAPED_STRING -> atomexp_2                                                                             
         | "$" INT -> atomexp_3                                                              
         | "(" ")" -> atomexp_4                                                          
         | "(" seplist{",", exp} ")" -> atomexp_5                                                                            
@@ -144,8 +148,8 @@ lexer_atom :  ESCAPED_STRING -> lexer_atom_0
       | "!" lexer_atom -> lexer_atom_1                                        
       |  "(" lexer ")" -> lexer_atom_2                                          
       |  "\\d" -> lexer_atom_3                                         
-      |  "[" UNICODE ".." UNICODE "]" -> lexer_atom_4                                                                                        
-      |  "[" /./ ".." /[^]]/ "]" -> lexer_atom_5                                                                                           
+      |  "[" UNICODE (".." | "-") UNICODE "]" -> lexer_atom_4                                                                                                
+      |  "[" /./ (".."|"-") /[^]]/ "]" -> lexer_atom_5                                                                                                 
       | ("_" | ".") -> lexer_atom_6                                       
       | CNAME -> lexer_atom_7                                         
 
@@ -153,7 +157,8 @@ lexer_atom :  ESCAPED_STRING -> lexer_atom_0
 
 lexerdef : "<" CNAME ">" ":" lexer -> lexerdef_0                                                         
 
-UNICODE : "\\u" DIGIT DIGIT DIGIT DIGIT
+UCODE : DIGIT | /[a-fA-F]/
+UNICODE : "\\" "u" UCODE UCODE UCODE UCODE
 
 DOTTED_NAME : CNAME ("." CNAME)*
 

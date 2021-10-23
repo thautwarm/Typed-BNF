@@ -6,6 +6,7 @@ from tbnf.prims import *
 from tbnf.common import uf, Pos, ref
 from contextlib import contextmanager
 import string
+import tbnf.config as config
     
 
 @dataclass(frozen=True, order=True)
@@ -171,9 +172,17 @@ class Check:
                     ln = LName(each.name)
                     if ln not in sub_scope:
                         sub_scope[ln] = uf.newvar()
-                    with self.auto_gen(ln, uf.current_tvars.difference({sub_scope[ln]}), scope) as tv:
-                            uf.unify(tv, self.infer(each.value, scope, stack))
+                    
+                    if config.POLY_VALUE or config.ALLOW_LOCAL_POLY and isinstance(each.value._, e.Lam):
+                        with self.auto_gen(ln, uf.current_tvars.difference({sub_scope[ln]}), scope) as tv:
+                                uf.unify(tv, self.infer(each.value, scope, stack))
+                    else:
+                        uf.unify(sub_scope[ln], self.infer(each.value, scope, stack))
                 t1 = self.infer(body, scope, stack)
+            case e.Block(suite):
+                t1 = t.Tuple(())
+                for each in suite:
+                    t1 = self.infer(each, scope, stack)
             case aaa:
                 raise TypeError(aaa, type(aaa))
         return t1
@@ -254,8 +263,16 @@ class Check:
             gn = GName(prod.lhs)
             me = self.global_scopes[gn]
             with self.auto_gen(gn, uf.current_tvars.difference({me})):
-                for case in prod.rhs:
-                    self.check(prod.lhs, case)
+                for i_case, case in enumerate(prod.rhs):
+                    case: r.Case
+                    try:
+                        self.check(prod.lhs, case)
+                    except Exception as e:
+                        e_new = TypeCheckError()
+                        e_new.lineno = case.pos.lineno
+                        e_new.filename = case.pos.filename
+                        e_new.msg = f"type check failed: branch-{i_case+1} of rule {prod.user_name} failed."
+                        raise e_new from e
 
         for ctx in ctxs:
             ctx.__exit__(None, None, None)

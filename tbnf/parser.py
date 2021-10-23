@@ -149,6 +149,12 @@ class parser_Transformer(Transformer):
         return  e.Expr(None, e.Lam(__args[2-1], __args[4-1]), _get_location(__args[1-1]))
     def exp_3(self, __args):
         return  __args[1-1]
+    def block_0(self, __args):
+        return  __args[1-1][0] if len(__args[1-1]) == 1 else e.Expr(None, e.Block(__args[1-1]), __args[1-1][0].pos)
+    def blockseq_0(self, __args):
+        return  append(__args[1-1], __args[3-1])
+    def blockseq_1(self, __args):
+        return  [__args[1-1]]
     def call_0(self, __args):
         return  e.Expr(None, e.App(__args[1-1], tuple(__args[3-1])), _get_location(__args[2-1]))
     def call_1(self, __args):
@@ -160,7 +166,7 @@ class parser_Transformer(Transformer):
     def atomexp_1(self, __args):
         return  e.Expr(ref(float_t), e.Float(float(__args[1-1])), _get_location(__args[1-1]))
     def atomexp_2(self, __args):
-        return  e.Expr(ref(str_t), e.String(str(__args[1-1])), _get_location(__args[1-1]))
+        return  e.Expr(ref(str_t), e.String(unesc(str(__args[1-1]))), _get_location(__args[1-1]))
     def atomexp_3(self, __args):
         return  e.Expr(None, e.Slot(int(__args[2-1])), _get_location(__args[1-1]))
     def atomexp_4(self, __args):

@@ -1,6 +1,7 @@
 from tbnf.r import *
 from tbnf.common import refs
 from dataclasses import replace
+from json import dumps
 from copy import deepcopy
 def instantiate(new_stmts):
     pass
@@ -29,6 +30,15 @@ def _to_position_independent_string(term):
 def to_position_independent_string(term):
     return "gen__" + _to_position_independent_string(term)
 
+def to_position_independent_repr(term):
+    if isinstance(term, NonTerm):
+        return term._
+    elif isinstance(term, Term):
+        if term.is_lit:
+            return dumps(term._)
+        return "<" + term._ + ">"
+    assert isinstance(term, MacroCall)
+    return term._ + "[" + ', '.join(map(to_position_independent_repr, term.args)) + "]"
 
 class MacroResolveError(SyntaxError):
     pass
@@ -44,7 +54,8 @@ def resolve(stmts):
             for case in prod_def.rhs:
                 seq = tuple( solve_term(each, scope) for each in case._)
                 cases.append(Case(seq, deepcopy(case.action), case.pos))
-            return final_results.append(Prod(prod_def.lhs, tuple(cases), prod_def.pos))
+            final_results.append(
+                replace(prod_def, rhs=tuple(cases)))
 
         def solve_term(term, scope):
             if isinstance(term, Term):
@@ -62,7 +73,6 @@ def resolve(stmts):
             assert isinstance(term, MacroCall)
 
             term = MacroCall(term._, [solve_term(arg, scope) for arg in term.args], term.pos)
-
             key = to_position_independent(term)
             if resolved_name := solved.get(key):
                 pass
@@ -94,8 +104,10 @@ def resolve(stmts):
 
                 solved[key] = resolved_name
 
+                repr_name = to_position_independent_repr(term)
+                
                 stmts.append((
-                    Prod(resolved_name, macro_def.rhs, term.pos),
+                    Prod(resolved_name, macro_def.rhs, term.pos, repr_name),
                     scope
                 ))
 

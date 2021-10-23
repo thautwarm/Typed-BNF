@@ -1,0 +1,2 @@
+ALLOW_LOCAL_POLY = False
+POLY_VALUE = False
