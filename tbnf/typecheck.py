@@ -226,7 +226,8 @@ class Check:
                 uf.unify(t1, t_attr_to_unify)
             except TypeError as e_inner:
                 e = TypeCheckError()
-                e.lineno = pos.lineno
+                e.filename = position.filename
+                e.lineno = position.lineno
                 e.msg = f"invalid type when accessing field {attr!r}."
                 raise e from e_inner
 

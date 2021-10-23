@@ -21,7 +21,7 @@ setup(
     author='thautwarm',
     author_email='twshere@outlook.com',
     packages=find_packages(),
-    entry_points={"console_scripts": []},
+    entry_points={"console_scripts": ["tbnf=tbnf:cli.main"]},
     # above option specifies what commands to install,
     # e.g: entry_points={"console_scripts": ["yapypy=yapypy.cmd:compiler"]}
     install_requires=["wisepy2", "typing_extensions"],  # dependencies
