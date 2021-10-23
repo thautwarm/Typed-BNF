@@ -223,7 +223,7 @@ class EToJava:
                             codeseg.Line(["}"]),
                         ]))
             case e.Var(s, targs) as exp:
-                if targs is not None:
+                if targs is not None and isinstance(x.tag.get(), t.Arrow):
                     targs_ = []
                     for each in exp.generic.bounds:
                         targs_.append(uf.prune(targs[each]))
@@ -409,6 +409,8 @@ class CG:
             case r.Term(_, name, is_lit):
                 if is_lit:
                     name = repr(name)
+                    return name
+                if name in ("EOF", "BOF"):
                     return name
                 self.is_tokens.add(name)
                 return self.declare_token(name)

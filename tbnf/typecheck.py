@@ -221,8 +221,14 @@ class Check:
                 t_generic = t.Nom(basename)
                 t_generic = t.Tuple((t_generic, t_attr))
             t_base_to_unify, t_attr_to_unify = uf.inst(t_generic)._
-            uf.unify(t_base_to_unify, t_base)
-            uf.unify(t1, t_attr_to_unify)
+            try:
+                uf.unify(t_base_to_unify, t_base)
+                uf.unify(t1, t_attr_to_unify)
+            except TypeError as e_inner:
+                e = TypeCheckError()
+                e.lineno = pos.lineno
+                e.msg = f"invalid type when accessing field {attr!r}."
+                raise e from e_inner
 
     def check_all(self):
         # for k, v in self.global_scopes.items():
