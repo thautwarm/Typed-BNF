@@ -27,6 +27,7 @@ def command(
     """
     from tbnf.backends import lark, antlr, csharp
     from tbnf import parser as p
+    from tbnf.parser_utils import using_source_path, remove_imports
     from tbnf import t, unify, typecheck
     from tbnf.common import refs
     from tbnf.macroresolve import resolve
@@ -39,17 +40,19 @@ def command(
     with open(filename, encoding="utf8") as f:
         grammar_src = f.read()
     
-    p.filename = filename
-
-    stmts = p.parser.parse(grammar_src)
+    with using_source_path(filename):
+        stmts = p.parser.parse(grammar_src)
+    
+    stmts = remove_imports(stmts)
     stmts = resolve(stmts)
     # pprint(stmts)
-    tc = typecheck.Check(filename, stmts)
+    tc = typecheck.Check(stmts)
     tc.check_all()
     for each in refs:
         try:
             each.set(p.uf.prune(each.get()))
         except:
+            # TODO: unsolved type
             raise
     # print(tc.global_scopes.keys())
     cg = backends[backend].CG(tc.global_scopes)
@@ -57,7 +60,7 @@ def command(
     def out_io(s):
         return open(os.path.join(outdir, s), "w")
 
-    cg.process(tc.stmts_for_codegen())
+    cg.process(stmts)
     cg.out(mod, out_io)
 
 

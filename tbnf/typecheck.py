@@ -26,10 +26,9 @@ class TypeCheckError(SyntaxError):
     pass
 
 class Check:
-    def __init__(self, filename, stmts: Sequence[r.Prod | r.Import | r.Decl | t.Methods]):
+    def __init__(self, stmts: Sequence[r.Prod | r.Import | r.Decl | t.Methods]):
         global parser
         from tbnf import parser
-        self.filename = filename
         self.stmts = stmts
         self.global_scopes = {}
         self.field_constraints: dict[str, t.Methods] = {}
@@ -44,24 +43,12 @@ class Check:
         match x:
             case None:
                 raise TypeCheckError(msg)
-            case Pos(l, c) | (l, c):
+            case Pos(l, c, filename):
                 e = TypeCheckError()
                 e.lineno = l
                 e.msg = msg
-                e.filename = self.filename
+                e.filename = filename
                 raise e
-
-    def stmts_for_codegen(self):
-        return list(self._remove_imports(self.stmts))
-
-    @staticmethod
-    def _remove_imports(stmts):
-        for each in stmts:
-            match each:
-                case r.Import(s):
-                    yield from parser.type_parser.parse(open(s, encoding='utf8').read())
-                case _:
-                    yield each
 
     def _execute(self, stmts):
         for each in stmts:
@@ -70,14 +57,14 @@ class Check:
                     self.field_constraints[basename] = each
                 case r.Prod(n, _):
                     self.global_scopes[GName(n)] = uf.newvar()
-                case r.Import(s):
-                    self._execute(parser.type_parser.parse(open(s, encoding='utf8').read()))
                 case r.Decl(n, t1):
                     self.global_scopes[LName(n)] = t1
                 case r.LexerDef(n, rule):
                     self.regexps.append((n, rule))
-                case r.TypeAlias(a, b):
+                case r.TypeAlias() | r.Ignore():
                     pass
+                case _:
+                    raise ValueError(each)
 
     def infer_rule(self, x):
         match x:
@@ -117,8 +104,8 @@ class Check:
             t1 = self.infer_inner(exp._, scope, exp.pos, stack)
         except (TypeError, TypeCheckError) as e:
             e_new = TypeCheckError()
-            e_new.lineno = exp.pos[0]
-            e_new.filename = self.filename
+            e_new.lineno = exp.pos.lineno
+            e_new.filename = exp.pos.filename
             raise e_new from e
         exp.tag.set(t1)
         return t1
