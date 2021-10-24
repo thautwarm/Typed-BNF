@@ -136,6 +136,14 @@ class Check:
                 t1 = str_t
             case e.Tuple(elts):
                 t1 = t.Tuple(tuple(self.infer(e, scope, stack) for e in elts))
+            case e.List(elts):
+                last = uf.newvar()
+                for elt in elts:
+                    t_elt = self.infer(elt, scope, stack)
+                    if last is not None:
+                        uf.unify(last, t_elt) 
+                    last = t_elt
+                t1 = t.App(list_t, t.Tuple((last, )))
             case e.App(f, args):
                 arg_t = self.infer_inner(e.Tuple(args), scope, pos, stack)
                 ret_t = uf.newvar()
@@ -172,6 +180,7 @@ class Check:
                     t1 = self.infer(each, scope, stack)
             case aaa:
                 raise TypeError(aaa, type(aaa))
+
         return t1
     
     def check(self, n: str, case: r.Case):

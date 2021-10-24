@@ -177,6 +177,10 @@ class parser_Transformer(Transformer):
         return  e.Expr(None, e.Var(str(__args[1-1])), _get_location(__args[1-1]))
     def atomexp_7(self, __args):
         return  e.Expr(None, e.Attr(__args[1-1], str(str(__args[3-1]))), _get_location(__args[2-1]))
+    def atomexp_8(self, __args):
+        return  e.Expr(None, e.List(()), _get_location(__args[1-1]))
+    def atomexp_9(self, __args):
+        return e.Expr(None, e.List(tuple(__args[2-1])), _get_location(__args[1-1]))
     def args_0(self, __args):
         return  __args[2-1]
     def lexer_0(self, __args):

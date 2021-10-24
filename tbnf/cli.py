@@ -30,7 +30,8 @@ def command(
     from tbnf.parser_utils import using_source_path, remove_imports
     from tbnf import t, unify, typecheck
     from tbnf.common import refs
-    from tbnf.macroresolve import resolve
+    from tbnf.macroresolve import resolve_macro
+    from tbnf.beforecodegen import merge_definitions
     import os
     
     show_less[0] = less
@@ -44,7 +45,7 @@ def command(
         stmts = p.parser.parse(grammar_src)
     
     stmts = remove_imports(stmts)
-    stmts = resolve(stmts)
+    stmts = resolve_macro(stmts)
     # pprint(stmts)
     tc = typecheck.Check(stmts)
     tc.check_all()
@@ -55,11 +56,13 @@ def command(
             # TODO: unsolved type
             raise
     # print(tc.global_scopes.keys())
-    cg = backends[backend].CG(tc.global_scopes)
+    
 
+    cg = backends[backend].CG(tc.global_scopes)
     def out_io(s):
         return open(os.path.join(outdir, s), "w")
-
+    
+    stmts = merge_definitions(stmts)
     cg.process(stmts)
     cg.out(mod, out_io)
 

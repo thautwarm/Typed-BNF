@@ -3,8 +3,6 @@ from tbnf.common import refs
 from dataclasses import replace
 from json import dumps
 from copy import deepcopy
-def instantiate(new_stmts):
-    pass
 
 
 def to_position_independent(term):
@@ -43,7 +41,7 @@ def to_position_independent_repr(term):
 class MacroResolveError(SyntaxError):
     pass
 
-def resolve(stmts):
+def resolve_macro(stmts):
 
     def fixed_point(stmts: list):
         final_results = []

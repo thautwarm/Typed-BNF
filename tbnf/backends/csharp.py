@@ -2,8 +2,9 @@ import json
 from typing import Sequence, Mapping, Optional
 from tbnf import r, t, e, common, prims
 from tbnf.common import uf, Ref
+from tbnf.typecheck import LName
 from tbnf.backends import codeseg
-from collections import ChainMap, OrderedDict
+from collections import ChainMap, OrderedDict, defaultdict
 from contextlib import contextmanager
 from dataclasses import dataclass
 from tbnf.backends.io_interface import OutIO
@@ -41,7 +42,8 @@ type_aliases = {
     'int': 'int',
     'float': 'float',
     'str': 'string',
-    'token': 'CommonToken'
+    'token': 'CommonToken',
+    'list': 'System.Collections.Generic.List'
 }
 
 @dataclass
@@ -125,6 +127,12 @@ class EToJava:
     def __call__(self, x: e.Expr[common.Ref[t.TyStatic]], *, target: Optional[GenName] = None) -> str:
 
         match x._:
+            case e.List(elts):
+                tname = self.type_to_java(x.tag.get())
+                target = target or gensym('tmp')
+                self.declare(tname, target)
+                self.stmts.append(codeseg.Line([
+                        target, "=", "new", tname, "{", *interleave_with(map(self, elts), ","), "};"]))
             case e.Tuple(elts):
                 tname = self.type_to_java(x.tag.get())
                 target = target or gensym('tmp')
@@ -139,7 +147,7 @@ class EToJava:
                     sym = gensym(binder.name)
                     with self.enter_scope(scope_):
                         self(binder.value, target=sym)
-                    new_scope[binder.name] = sym
+                    new_scope[LName(binder.name)] = sym
                     scope_ = ChainMap(scope_, new_scope)
                 
                 with self.enter_scope(scope_):
@@ -148,11 +156,11 @@ class EToJava:
             case e.Let(True, binders, body):
                 new_scope = {}
                 for binder in binders:
-                    new_scope[binder.name] = gensym(binder.name)
+                    new_scope[LName(binder.name)] = gensym(binder.name)
                 scope_ = ChainMap(self.scope, new_scope)
                 for binder in binders:
                     with self.enter_scope(scope_):
-                        self(binder.value, target=new_scope[binder.name])
+                        self(binder.value, target=new_scope[LName(binder.name)])
                 with self.enter_scope(scope_):
                     target = self(body, target=target)
 
@@ -225,7 +233,7 @@ class EToJava:
                 tname = self.type_to_java(x.tag.get())
                 target = target or gensym("lam")
                 self.declare(tname, target)
-                new_scope = {}
+                new_scope = {LName(n): gensym(n) for n in args}
                 scope_ = ChainMap(self.scope, new_scope)
                 new_gen = self.new([], self.used_slots, scope_)
                 ret = new_gen(body)
@@ -247,11 +255,11 @@ class EToJava:
                 else:
                     targs = ""
                 if not target:
-                    target = self.scope[s] + targs
+                    target = self.scope[LName(s)] + targs
                 else:
                     tname = self.type_to_java(x.tag.get())
                     self.declare(tname, target)
-                    self.stmts.append(codeseg.Line([target, "=", self.scope[s] + targs, ";"]))
+                    self.stmts.append(codeseg.Line([target, "=", self.scope[LName(s)] + targs, ";"]))
 
             case a:
                 raise NotImplementedError(a)
@@ -279,6 +287,7 @@ class CG:
         self.lexer_defs = {}
         self.is_tokens: set[str] = set()
         self.ignores = set()
+        self.branch_cnt = defaultdict(int)
 
     def antlr_lexer(self, lexer: r.Regex):
         antlr_lexer = self.antlr_lexer
@@ -416,12 +425,17 @@ class CG:
                 self << stmt.lhs << "returns" << f"[{self.g.type_to_java(t1)} result]" << ':\n'
                 hd, *tl = stmt.rhs
                 self << "    "
-                self(hd, f"{ident}_case0")
+                i_start = self.branch_cnt[ident]
 
+                self(hd, f"{ident}_case{i_start}")
+                i = 0
                 for i, case in enumerate(tl):
                     self << "    |"
-                    self(case, f"{ident}_case{i + 1}")
+                    self(case, f"{ident}_case{i + 1 + i_start}")
                 self << codeseg.Line([";"])
+
+                self.branch_cnt[ident] = i + i_start + 1
+                
             case r.Term(_, name, is_lit):
                 if is_lit:
                     name = repr(name)
@@ -435,7 +449,7 @@ class CG:
                 return v
 
             case r.Decl(n, decl_t):
-                self.global_scopes[n] = n
+                self.global_scopes[LName(n)] = n
                 # self.module_params.append((self.g.type_to_java(decl_t) , n))
 
             case t.Methods():

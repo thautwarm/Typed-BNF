@@ -23,6 +23,9 @@ def custom_show(e, *args):
 class Tuple(ExDynamic):
     _: tuple[Expr]
 
+@dataclass(order=True, frozen=True)
+class List(ExDynamic):
+    _: tuple[Expr]
 
 @dataclass(order=True, frozen=True)
 class Int(ExDynamic):
@@ -120,5 +123,6 @@ ExStatic = (
     | While
     | Block
     | Bool
+    | List
 )
 

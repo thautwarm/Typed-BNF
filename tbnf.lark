@@ -126,7 +126,9 @@ atomexp : INT   -> e.Expr(ref(int_t), e.Int(int($1)), @1)
             $2[0] if len($2) == 1 else e.Expr(None, e.Tuple(tuple($2)), @1)
         | CNAME             -> e.Expr(None, e.Var(str($1)), @1)
         | atomexp "." CNAME -> e.Expr(None, e.Attr($1, str(str($3))), @2)
-
+        | "[" "]" -> e.Expr(None, e.List(()), @1)
+        | "[" seplist{",", exp} "]" -> \
+            e.Expr(None, e.List(tuple($2)), @1)
 args : "(" nullable{seplist{",", id}} ")" -> $2
 
 

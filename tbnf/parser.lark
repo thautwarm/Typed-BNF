@@ -123,7 +123,8 @@ atomexp : INT -> atomexp_0
         | "(" seplist{",", exp} ")" -> atomexp_5                                                                            
         | CNAME -> atomexp_6                                                                
         | atomexp "." CNAME -> atomexp_7                                                                          
-
+        | "[" "]" -> atomexp_8                                                  
+        | "[" seplist{",", exp} "]" -> atomexp_9                                                
 args : "(" nullable{seplist{",", id}} ")" -> args_0                                                
 
 
