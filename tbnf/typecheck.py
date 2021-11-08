@@ -237,9 +237,7 @@ class Check:
                 raise e from e_inner
 
     def check_all(self):
-        # for k, v in self.global_scopes.items():
-        #     print('====')
-        #     print(k, ":", p.uf.prune(v))
+
         prods = []
         for prod in self.stmts:
             match prod:
@@ -250,7 +248,9 @@ class Check:
         for prod in prods:
             gn = GName(prod.lhs)
             me = self.global_scopes[gn]
-            ctxs.append(self.auto_gen(gn, uf.current_tvars.difference({me})))
+            if config.POLY_VALUE or config.ALLOW_LOCAL_POLY:
+                ctxs.append(self.auto_gen(gn, uf.current_tvars.difference({me})))
+
 
         for ctx in ctxs:
             ctx.__enter__()

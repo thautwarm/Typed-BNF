@@ -25,7 +25,7 @@ def command(
     filename: tbnf grammar
     backend: lark | antlr | csharp
     """
-    from tbnf.backends import lark, antlr, csharp
+    from tbnf.backends import lark, antlr, csharp, ocaml
     from tbnf import parser as p
     from tbnf.parser_utils import using_source_path, remove_imports
     from tbnf import t, unify, typecheck
@@ -36,7 +36,7 @@ def command(
     
     show_less[0] = less
 
-    backends = {"lark": lark, "antlr": antlr, 'csharp': csharp}
+    backends = {"lark": lark, "antlr": antlr, 'csharp': csharp, 'ocaml': ocaml}
 
     with open(filename, encoding="utf8") as f:
         grammar_src = f.read()
