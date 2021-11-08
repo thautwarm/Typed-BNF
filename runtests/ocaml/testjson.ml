@@ -1,15 +1,17 @@
-let rule_INT_3 = [%sedlex.regexp? Plus (rule_DIGIT_2)]
-let rule_DIGIT_2 = [%sedlex.regexp? ('0' .. '9')]
+let rule_ESCAPED_QUOTE_1 = [%sedlex.regexp? '\\', '"']
+let rule_DIGIT_4 = [%sedlex.regexp? ('0' .. '9')]
+let rule_INT_5 = [%sedlex.regexp? Plus (rule_DIGIT_4)]
 let rec tokenize lexerbuffer =
     match%sedlex lexerbuffer with
-    | "}" -> LIT__8 (mktoken lexerbuffer)
-    | ":" -> LIT__10 (mktoken lexerbuffer)
-    | "," -> LIT__9 (mktoken lexerbuffer)
-    | "[" -> LIT__5 (mktoken lexerbuffer)
-    | "]" -> LIT__6 (mktoken lexerbuffer)
-    | "{" -> LIT__7 (mktoken lexerbuffer)
-    | '"', Star (('\\', '"'|Compl ('"'))), '"' -> STR_1(mktoken lexerbuffer)
-    | rule_INT_3 -> INT_3(mktoken lexerbuffer)
-    | rule_DIGIT_2 -> DIGIT_2(mktoken lexerbuffer)
-    | rule_INT_3, '.', rule_INT_3 -> FLOAT_4(mktoken lexerbuffer)
+    | "[" -> LIT__7 (mktoken lexerbuffer)
+    | "{" -> LIT__9 (mktoken lexerbuffer)
+    | "]" -> LIT__8 (mktoken lexerbuffer)
+    | "," -> LIT__12 (mktoken lexerbuffer)
+    | ":" -> LIT__13 (mktoken lexerbuffer)
+    | "}" -> LIT__10 (mktoken lexerbuffer)
+    | "null" -> NULL_11 (mktoken lexerbuffer)
+    | '"', Star ((rule_ESCAPED_QUOTE_1|Compl ('"'))), '"' -> STR_2 (mktoken lexerbuffer)
+    | ('\r'|'\t'|'\n'|' ') -> tokenize lexerbuffer
+    | rule_INT_5 -> INT_5 (mktoken lexerbuffer)
+    | rule_INT_5, '.', rule_INT_5 -> FLOAT_6 (mktoken lexerbuffer)
     | eof -> EOF

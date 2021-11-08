@@ -336,22 +336,25 @@ class CG:
         
 
         cases: list[doc.Doc] = []
+
+        def mk_case_body(token_username: str, real_name: str):
+            if token_username in self.ignores:
+                return "tokenize lexerbuffer"
+            return f"{real_name} (mktoken lexerbuffer)"
+            
+        
         for lit in self.lit_set:
             real_name = self.is_tokens[lit, True]
             cases.append(doc.word(f"| {json.dumps(lit, ensure_ascii=False)} -> {real_name} (mktoken lexerbuffer)"))
 
         for ident, (real_name, rule) in self.lexer_defs.items():
             if real_name in self.ref_by_rule:
-                cases.append(doc.word(f"| rule_{real_name} -> {real_name}(mktoken lexerbuffer)"))
+                if ident in self.is_tokens:
+                    cases.append(doc.word(f"| rule_{real_name} -> {mk_case_body(ident[0], real_name)}"))
                 _p(f"let rule_{real_name} = [%sedlex.regexp? {rule}]")
                 continue
-            if ident in self.is_tokens:
-                cases.append(doc.word(f"| {rule} -> {real_name}(mktoken lexerbuffer)"))
-                continue
             
-            _p(f"let rule_{real_name} = [%sedlex.regexp? {rule}]")
-        
-        
+            cases.append(doc.word(f"| {rule} -> {mk_case_body(ident[0], real_name)}"))
 
         cases.append(doc.word(f"| eof -> EOF"))
         doc_obj = doc.vsep (

@@ -2,8 +2,10 @@ shape token {
     lexeme : str
 }
 
+// Some declarations. they specifies what you need to
+// provide for generating this parser.
 val nil : forall 'a. () -> list['a]
-val cons : forall 'a. ('a, list['a]) -> list['a]
+val append : forall 'a. (list['a], 'a) -> list['a]
 val mk_dict: forall 'k 'v. (list[('k, 'v)]) -> dict['k, 'v]
 val parse_int: (str) -> int
 val parse_float: (str) -> float
@@ -13,26 +15,37 @@ val json_dict: (dict[str, json]) -> json
 val json_int : (int) -> json
 val json_float : (float) -> json
 val json_string : (str) -> json
+val json_null : () -> json
 
-start : json <EOF> { $1 }
-list[a] :               { nil() }
-        | a "," list[a] { cons($1, $3) }
+start : json <EOF>      { $1 }
+
+
+// parametric rules!
+list[a] : list[a] a     { append($1, $2) }
+        | a { append(nil(), $1) }
+        |  { nil() }
+
+seplist[sep, elt] : seplist[sep, elt] sep elt  { append($1, $3) }
+                  | elt { append(nil(), $1) }
+                  | { nil() }
 
 str : <str> { $1.lexeme }
 pair : str ":" json   { ($1, $3) }
 
-seplist[sep, elt] :                            { nil() }
-                  | elt sep seplist[sep, elt]  { cons($1, $3) }
 
-json : "[" list[json] "]" { json_list($2) }
+json : "[" seplist[",", json] "]" { json_list($2) }
 | "{" seplist[",", pair] "}" { json_dict(mk_dict($2)) }
 | <int>             { json_int(parse_int($1.lexeme)) }
 | <FLOAT>           { json_float(parse_float($1.lexeme)) }
 | str               { json_string(unesc_string($1)) }
+| "null"            { json_null() }
+
+%ignore <ws>
 
 
-
-<str> : "\"" ("\\\"" | !"\"")* "\""
-<int> : DIGIT+
+<ESCAPED_QUOTE> : "\\\""
+<str> :   "\"" ( ESCAPED_QUOTE | !"\"")* "\""
+<ws> : ("\r" | "\t" | "\n" | " ")
 <DIGIT> : [0 .. 9]
+<int> : DIGIT+
 <FLOAT> : int "." int
