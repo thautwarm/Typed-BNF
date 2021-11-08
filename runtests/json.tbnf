@@ -14,7 +14,7 @@ val json_int : (int) -> json
 val json_float : (float) -> json
 val json_string : (str) -> json
 
-start : list[json]      { $1 }
+start : json <EOF> { $1 }
 list[a] :               { nil() }
         | a "," list[a] { cons($1, $3) }
 

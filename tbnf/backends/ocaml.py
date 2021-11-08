@@ -180,7 +180,7 @@ class EToJava:
                 return doc.align @ doc.VSep(binds)
 
             case e.Attr(v, attr):
-                tname = self.type_to_java(x.tag.get())
+                tname = self.type_to_java(v.tag.get())
                 v_expr = self(v)
                 return doc.parens(v_expr * ":" + tname) * f".{attr}"
 
@@ -251,8 +251,9 @@ class CG:
         self.module_params = []
         self.lit_set = set()
         self.declared_tokens = OrderedDict()
-        self.token_ident_map = OrderedDict()
+        self.token_ident_map: dict[str, TokenIdent] = OrderedDict()
         self.lexer_defs: dict[TokenIdent, tuple[str, str]] = {}
+        self.ref_by_rule: set = set()
         self.global_scopes = {}
         self.g = GlobalInfo()
         self.is_tokens: dict[TokenIdent, str] = {}
@@ -302,7 +303,9 @@ class CG:
                 return '_'
             
             case r.RegRef(s):
-                return "rule_" + self.declare_token(s, False)
+                v = self.declare_token(s, False)
+                self.ref_by_rule.add(v)
+                return "rule_" + v
             
             case r.RegGroup(s):
                 return "(" + ocaml_lexer(s) + ")"
@@ -338,6 +341,10 @@ class CG:
             cases.append(doc.word(f"| {json.dumps(lit, ensure_ascii=False)} -> {real_name} (mktoken lexerbuffer)"))
 
         for ident, (real_name, rule) in self.lexer_defs.items():
+            if real_name in self.ref_by_rule:
+                cases.append(doc.word(f"| rule_{real_name} -> {real_name}(mktoken lexerbuffer)"))
+                _p(f"let rule_{real_name} = [%sedlex.regexp? {rule}]")
+                continue
             if ident in self.is_tokens:
                 cases.append(doc.word(f"| {rule} -> {real_name}(mktoken lexerbuffer)"))
                 continue
