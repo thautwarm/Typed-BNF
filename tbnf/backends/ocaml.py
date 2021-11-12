@@ -313,29 +313,58 @@ class CG:
             case _:
                 raise
 
-    def out(self, module, open_and_write: OutIO):
-        mly = open_and_write(f"{module}.mly")
+    def out(self, module: str, open_and_write: OutIO):
         def _p(s):
-            print(s, file=mly)
-        
-        # _p(f"%parameter <M_{module}: M_{module}_type>")    
+            print(s, file=current_file)
+
+        token_file = current_file = open_and_write(f"{module}_tokens.ml")
+        print(
+            "type tbnf_token = { lexeme : Uchar.t array; lineno: int; colno: int}\n"
+            "let mktoken (buf: Sedlexing.lexbuf): tbnf_token =\n"
+            "  let pos, _ = Sedlexing.lexing_positions buf in\n"
+            "  { lexeme = Sedlexing.lexeme buf;\n"
+            "    lineno = pos.pos_lnum;\n"
+            "    colno =  pos.pos_cnum }\n"
+            r"""
+let unknown_token lexbuf =
+    let start, _ = Sedlexing.lexing_positions lexbuf in
+    let m = List.map (fun x -> string_of_int (Uchar.to_int(x))) @@ Array.to_list (Sedlexing.lexeme lexbuf) in
+    raise (Invalid_argument (Printf.sprintf "%s:%d:%d: codepoints %s not recognised" start.pos_fname start.pos_lnum start.pos_cnum @@ String.concat "," m))
+            """,
+            file=token_file)
+
+        _p("\n")
+        _p(f"type token =")
+        for real_name in self.is_tokens.values():
+            if real_name != "EOF":
+                _p(f"| {real_name} of {TOKEN_TYPE}")
+        _p("| EOF")
         _p('\n')
-    
+        
+        mly = current_file = open_and_write(f"{module}_parser.mly")
+        
+        _p("%{")
+        _p(f"open {module.capitalize()}_tokens;;")
+        _p(f"open {module.capitalize()}_require;;")
+        _p("%}")
+        _p('\n')
+
         for real_name in self.is_tokens.values():
             if real_name != "EOF":
                 _p(f"%token<{TOKEN_TYPE}> {real_name}")
             else:
                 _p("%token EOF")
-        _p('\n')
+        
+        start_type = self.g.type_to_java(self.nonterminal_types['start'])
+        _p(f"%start <{start_type}> {self.nonterm_prefix + 'start'}")
+        _p("%%")
+    
         _p(doc.doc2str(doc.VSep(self.doc_objects)))
 
-        mll = open_and_write(f"{module}.ml")
-        
-        def _p(s):
-            print(s, file=mll)
-        
-
+        mll = current_file = open_and_write(f"{module}_lexer.ml")    
         cases: list[doc.Doc] = []
+
+        _p(f"open {module.capitalize()}_tokens;;")
 
         def mk_case_body(token_username: str, real_name: str):
             if token_username in self.ignores:
@@ -357,6 +386,7 @@ class CG:
             cases.append(doc.word(f"| {rule} -> {mk_case_body(ident[0], real_name)}"))
 
         cases.append(doc.word(f"| eof -> EOF"))
+        cases.append(doc.word(f"| _ -> {module.capitalize()}_tokens.unknown_token(lexerbuffer)"))
         doc_obj = doc.vsep (
             doc.word("let rec tokenize lexerbuffer ="),
             doc.vsep(

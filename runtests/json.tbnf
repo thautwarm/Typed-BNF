@@ -29,7 +29,7 @@ seplist[sep, elt] : seplist[sep, elt] sep elt  { append($1, $3) }
                   | elt { append(nil(), $1) }
                   | { nil() }
 
-str : <str> { $1.lexeme }
+str : <str> { unesc_string($1.lexeme) }
 pair : str ":" json   { ($1, $3) }
 
 
@@ -37,7 +37,7 @@ json : "[" seplist[",", json] "]" { json_list($2) }
 | "{" seplist[",", pair] "}" { json_dict(mk_dict($2)) }
 | <int>             { json_int(parse_int($1.lexeme)) }
 | <FLOAT>           { json_float(parse_float($1.lexeme)) }
-| str               { json_string(unesc_string($1)) }
+| str               { json_string($1) }
 | "null"            { json_null() }
 
 %ignore <ws>
