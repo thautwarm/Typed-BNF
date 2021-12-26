@@ -1,0 +1,181 @@
+%mkrepl
+
+%%
+from tbnf import ty, exp, decl, basic, lexer, psym
+from tbnf.basic import mkpos
+import json.decoder
+def add(xs, x):
+    xs.append(x)
+    return xs
+
+def unesc(x, f=json.decoder.py_scanstring):
+    """from the raw form of a double quoted string to a python string,
+    e.g.,
+        unesc('"asd"') == "asd"
+    """
+    return f(x, 1)[0]
+
+%% 
+
+
+start : list{toplevel} -> $1
+
+tvar         : "'" CNAME -> ty.tvar(mkpos($1), str($2))
+tvar_str     : "'" CNAME -> str($2)
+ident        : CNAME     -> basic.ident(mkpos($1), str($1))
+ty_ident     : CNAME     -> basic.ident(mkpos($1), str($1))
+
+empty{a} :   -> []
+         | a -> $1
+
+slist{sep, a} : a -> [$1]
+              | slist{sep, a} sep a -> add($1, $3)
+
+list{a} : a -> [$1]
+        | list{a} a -> add($1, $2)
+
+# empty or separated list
+eslist{sep, a} : empty{slist{sep, a}} -> $1
+
+# empty or list
+elist{a} : empty{list{a}} -> $1
+
+type_params : slist{",", tvar_str} -> $2 
+
+type_args   : "<" slist{",", typ} ">"  -> $2 
+           | -> []
+
+top_ann : ident ":" top_typ -> decl.top_ann($1, $3)
+
+ann: ident ":" typ        -> decl.ann($1, $3)
+
+nonempty_parameters : "(" eslist{",", ann} ")" -> $2
+
+parameters   : nonempty_parameters -> $1
+             | -> None
+
+constructor : ident type_args parameters -> \
+              decl.constructor($1, $2, $3)
+
+case : "|" constructor -> (mkpos($1), $2)
+
+decl : "extern" "val" top_ann      -> decl.extern_val(mkpos($2), $3)
+     | "extern" "type" constructor -> decl.extern_type(mkpos($1), $3)
+     | "data" ident type_args "=" list{case} -> \
+        decl.datatype(mkpos($1), $2, $3, $5)
+
+typ : arrow_typ -> $1
+
+arrow_typ : param_typ "->" product_typ -> ty.arrow_ty($1, $3)
+          | product_typ -> $1
+
+product_typ: type_product -> \
+             $1[0] if len($1) == 1 else ty.product_ty($1)
+
+typ2 : ident        -> ty.ty_ident($1)
+     | tvar         -> $1
+     | typ2 "<" slist{",", typ} ">" -> ty.generic_ty($1, $3)
+      
+type_product : type_product "*" typ2 -> add($1, $3)
+             | typ2          -> [$1]
+
+param_typ : typ  -> [$1]
+           | "(" eslist{",", typ} ")" -> $2
+
+top_typ : "<" slist{",", tvar_str} ">" typ -> ty.poly_ty($2, $4)
+        | typ                              -> $1
+
+toplevel :def             -> $1
+        | decl            -> $1
+        | lexerdef        -> $1
+        | "%ignore" slist{",", CNAME}  -> decl.ignore(mkpos($1), list(map(str, $2)))
+        
+
+def : CNAME "<" slist{",", CNAME} ">" productions ->\
+        decl.macrodef(mkpos($1), str($1), $3, $5)
+    | CNAME productions -> \
+        decl.ruledef(mkpos($1), str($1), $2)
+
+productions : ":" production -> [(mkpos($1), $2)]
+            | productions "|" production -> add($1, (mkpos($2), $3))
+
+production : elist{psym} "{" expr "}" -> psym.production($1, $3)
+
+psym : "<" CNAME ">"     -> \
+            psym.terminal(mkpos($1), str($1), named=True)
+     | ESCAPED_STRING    -> \
+            psym.terminal(mkpos($1), unesc(str($1)), named=False)
+     | CNAME             -> psym.nonterminal(mkpos($1), $1)
+     | CNAME "<" slist{",", psym} ">" -> psym.macrocall(mkpos($1), str($1), $3)
+
+expr : "let" ident "=" expr "in" expr -> \
+            exp.Let($2, $4, $6, pos=mkpos($1))
+     | "fun" nonempty_parameters "->" expr -> \
+            exp.Fun($2, $4, pos=mkpos($1))
+     | call -> $1
+
+call : call "(" eslist{",", expr} ")" -> exp.Call($1, $3)
+     | atomexp -> $1
+
+atomexp : INT -> exp.Int(int($1), mkpos($1))
+        | FLOAT -> exp.Float(float($1), mkpos($1))
+        | ESCAPED_STRING -> exp.String(unesc($1), mkpos($1))
+        | "$" INT -> exp.Slot(int($2), mkpos($1))
+        | "(" ")" -> exp.Tuple([], mkpos($1))
+        | "(" expr "," slist{",", expr} ")" -> \
+            exp.Tuple([$2, $4], mkpos($1))
+        | ident -> exp.Variable($1)
+        | atomexp "." CNAME -> exp.Field($1, str($3))
+
+
+%%
+def u2i(ch):
+    return int(ch[-4:], 16)
+
+def to_unicode(ch):
+    i = ord(ch)
+    return i
+    # return fr"\u{i:04X}"
+%%
+
+lexer :  slist{"|", lexer_and} -> \
+    $1[0] if len($1) == 1 else lexer.RegOr($1)
+
+lexer_and : list{lexer_atomexpr} -> \
+    $1[0] if len($1) == 1 else lexer.RegSeq($1)
+
+lexer_atomexpr :\
+         lexer_atomexpr "+"            -> lexer.RegOneOrMore($1)
+      |  lexer_atomexpr "*"            -> lexer.RegMany($1)
+      |  lexer_atomexpr "?"            -> lexer.RegOptional($1)
+      |  lexer_atom -> $1
+
+lexer_atom :  ESCAPED_STRING -> lexer.RegSeq(list(map(lexer.RegLit, list(unesc($1)))))
+      | "!" lexer_atom  -> lexer.RegNot($2)
+      |  "(" lexer ")"  -> lexer.RegGroup($2)
+      |  "\\d"          -> lexer.RegNumber()
+      |  UNICODE "-"  UNICODE -> lexer.RegRange(u2i($1), u2i($3))
+      |  /./ "-" /./          -> lexer.RegRange(ord($1), ord($3))
+      | ("_" | ".") -> lexer.RegWildcard()
+      | CNAME       -> lexer.RegRef(str($1))
+
+
+lexerdef : CNAME "=" lexer -> lexer.lexerdef(str($1), $3)
+
+UCODE : DIGIT | /[a-fA-F]/
+UNICODE : "\\" "u" UCODE UCODE UCODE UCODE
+
+DOTTED_NAME : CNAME ("." CNAME)*
+
+%import common.ESCAPED_STRING
+%import common.CNAME
+%import common.FLOAT
+%import common.INT
+%import common.WS
+%import common.DIGIT
+%import common.LETTER
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
