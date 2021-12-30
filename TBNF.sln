@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TBNF", "TBNF.fsproj", "{6E11CD07-B57A-4351-8E8A-29CBDFCEC65D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{726FBA38-7313-4513-8D81-1B7FBB2BC784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{726FBA38-7313-4513-8D81-1B7FBB2BC784}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{726FBA38-7313-4513-8D81-1B7FBB2BC784}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{726FBA38-7313-4513-8D81-1B7FBB2BC784}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E11CD07-B57A-4351-8E8A-29CBDFCEC65D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E11CD07-B57A-4351-8E8A-29CBDFCEC65D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E11CD07-B57A-4351-8E8A-29CBDFCEC65D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E11CD07-B57A-4351-8E8A-29CBDFCEC65D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

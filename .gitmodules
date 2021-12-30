@@ -1,0 +1,3 @@
+[submodule "FableSedlex"]
+	path = FableSedlex
+	url = https://github.com/thautwarm/Fable.Sedlex
