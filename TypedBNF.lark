@@ -1,0 +1,170 @@
+%mkrepl
+
+%%
+from _tbnf.apis import *
+from tbnf.basic import mkpos
+import json.decoder
+def add(xs, x):
+    xs.append(x)
+    return xs
+
+def unesc(x, f=json.decoder.py_scanstring):
+    """from the raw form of a double quoted string to a python string,
+    e.g.,
+        unesc('"asd"') == "asd"
+    """
+    return f(x, 1)[0]
+%% 
+
+start : list{toplevel} -> $1
+
+### MACROS
+empty{a} :   -> []
+         | a -> $1
+
+slist{sep, a} : a -> [$1]
+              | slist{sep, a} sep a -> add($1, $3)
+
+list{a} : a -> [$1]
+        | list{a} a -> add($1, $2)
+
+# empty or separated list
+eslist{sep, a} : empty{slist{sep, a}} -> $1
+
+# empty or list
+elist{a} : empty{list{a}} -> $1
+
+### Common
+
+identstr : CNAME -> str($1)
+
+### Types
+
+typ : arrow_typ -> $1
+
+arrow_typ : typ2 "->" arrow_typ -> MK_TFun([$1], $3)
+          | "(" eslist{",", typ} ")" "->" arrow_typ -> MK_TFun($2, $5)
+          | type_product -> MK_TTuple($1)
+
+typ2 : CNAME        -> MK_TConst(str($1))
+     | tvar         -> $1
+     | typ2 "<" slist{",", typ} ">" -> MK_TApp($1, $3)
+      
+type_product : type_product "*" typ2 -> add($1, $3)
+             | typ2          -> [$1]
+
+top_typ : "<" slist{",", tvar_str} ">" typ -> MK_Poly($2, $4)
+        | typ                              -> MK_Mono($1)
+
+tvar         : "'" CNAME -> MK_TVar(str($2))
+tvar_str     : "'" CNAME -> str($2)
+
+### Toplevels
+
+type_params : "<" slist{",", tvar_str} ">" -> $2 
+            | -> []
+
+field_ann : CNAME ":" typ -> (str($1), $3, mkpos($1))
+
+field_anns : -> []
+           | "(" eslist{",", field_ann} ")" -> $2
+
+decl : "extern" "var" identstr ":" top_typ -> MK_Declvar($3, $5, mkpos($2))
+     | "extern" "type" identstr type_params field_anns ->\
+        MK_Decltype($3, $4, $5, mkpos($1))
+
+toplevel :def             -> $1
+        | decl            -> $1
+        | lexerdef        -> $1
+        | "%ignore" slist{",", identstr}  -> MK_Defignore($2, mkpos($1))
+
+def : CNAME "<" slist{",", identstr} ">" productions ->\
+        MK_Defmacro(str($1), $3, $5, mkpos($1))
+    | CNAME productions -> \
+        MK_Defrule(str($1), $2, mkpos($1))
+
+productions : ":" production -> [(mkpos($1), $2)]
+            | productions "|" production -> add($1, (mkpos($2), $3))
+
+production : elist{psym} "{" expr "}" -> MK_production($1, $3)
+
+psym : "<" identstr ">" -> MK_Term(str($1), False)
+     | ESCAPED_STRING   -> MK_Term(unesc(str($1)), True)
+     | identstr         -> MK_Nonterm($1)
+     | identstr "<" slist{",", psym} ">" -> MK_Macrocall(str($1), $3, mkpos($1))
+
+
+### Simpler language
+
+ann: identstr ":" typ        -> ($1, $3)
+
+func_parameters : "(" eslist{",", ann} ")" -> $2
+
+expr : "let" identstr "=" expr "in" expr -> \
+            MK_expr(MK_ELet($2, $4, $6), mkpos($1))
+     | "fun" func_parameters "->" expr -> \
+            MK_expr(MK_EFun($2, $4), mkpos($1))
+     | call -> $1
+
+call : call "(" eslist{",", expr} ")" -> MK_expr(MK_EApp($1, $3), $1.pos)
+     | atomexp -> $1
+
+snd{a, b} : a b -> $2
+
+atomexp : INT ->   MK_expr(MK_EInt(int($1)), mkpos($1))
+        | FLOAT -> MK_expr(MK_EFlt(float($1)), mkpos($1))
+        | ESCAPED_STRING -> MK_expr(MK_EStr(unesc($1)), mkpos($1))
+        | "$" INT -> MK_expr(MK_ESlot(int($2)), mkpos($1))
+        | "(" ")" -> MK_expr(MK_ETuple([]), mkpos($1))
+        | "(" eslist{",", expr} ")" -> MK_expr(MK_ETuple($2), mkpos($1))
+        | CNAME -> MK_expr(MK_EVar(str($1)), mkpos($1))
+        | atomexp "." CNAME -> MK_expr(MK_EField($1, str($3)), $1.pos)
+
+### Simpler language
+
+%%
+def u2i(ch):
+    return int(ch[-4:], 16)
+
+def to_unicode(ch):
+    i = ord(ch)
+    return i
+    # return fr"\u{i:04X}"
+%%
+
+lexer :  slist{"|", lexer_and} -> MK_LOr($1)
+
+lexer_and : list{lexer_atomexpr} -> MK_LSeq($1)
+
+lexer_atomexpr :\
+         lexer_atomexpr "+"            -> MK_LPlus($1)
+      |  lexer_atomexpr "*"            -> MK_LStar($1)
+      |  lexer_atomexpr "?"            -> MK_LOptional($1)
+      |  lexer_atom -> $1
+
+lexer_atom :  ESCAPED_STRING -> MK_LStr(str($1))
+      | "!" lexer_atom  -> MK_LNot($2)
+      |  "(" lexer ")"  -> MK_LGroup($2)
+      |  "\\d"          -> MK_LNumber
+      | "[" UNICODE "-"  UNICODE "]" -> MK_LRange(u2i($2), u2i($4))
+      | "[" /./ "-" /./ "]"          -> MK_LRange(ord($2), ord($4))
+      | ("_" | ".") -> MK_LWildcard
+      | CNAME       -> MK_LRef(str($1))
+
+lexerdef : CNAME "=" lexer -> MK_Deflexer(str($1), $3, mkpos($1))
+
+UCODE : DIGIT | /[a-fA-F]/
+UNICODE : "\\" "u" UCODE UCODE UCODE UCODE
+
+%import common.ESCAPED_STRING
+%import common.CNAME
+%import common.FLOAT
+%import common.INT
+%import common.WS
+%import common.DIGIT
+%import common.LETTER
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT

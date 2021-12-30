@@ -292,9 +292,9 @@ let build_analyzer(stmts: definition array) =
     
     let rec check_lexerule(x: lexerule) =
         match x with
-        | LNot _ | LRange _ | LNumber | LWildcard -> ()
+        | LNot _ | LRange _ | LNumber | LWildcard | LStr _ -> ()
         | LSeq seq | LOr seq -> List.iter check_lexerule seq
-        | LGroup l | LOptional l | LZeroOrMore l | LOneOrMore l -> check_lexerule l
+        | LGroup l | LOptional l | LStar l | LPlus l -> check_lexerule l
         | LRef n when List.contains n TokenFragments -> ()
         | LRef n -> raise <| UnboundLexer(n)
     

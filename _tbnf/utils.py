@@ -38,7 +38,7 @@ def IdHelper_uniqueIntToCapitalizedString(i: int) -> str:
     return to_string(sb)
 
 
-def expr_32() -> TypeInfo:
+def expr_27() -> TypeInfo:
     return record_type("tbnf.Utils.IdHelper.idEnv", [], IdHelper_idEnv, lambda: [["usedNames", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, int32_type])]])
 
 
@@ -48,15 +48,15 @@ class IdHelper_idEnv(Record):
         self.used_names = used_names
     
 
-IdHelper_idEnv_reflection = expr_32
+IdHelper_idEnv_reflection = expr_27
 
 def IdHelper_newIdEnv() -> IdHelper_idEnv:
-    class ObjectExpr33:
+    class ObjectExpr28:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    return IdHelper_idEnv(empty(ObjectExpr33()))
+    return IdHelper_idEnv(empty(ObjectExpr28()))
 
 
 def IdHelper_getId(id_env: IdHelper_idEnv, s: str) -> int:
@@ -71,7 +71,7 @@ def IdHelper_getId(id_env: IdHelper_idEnv, s: str) -> int:
     
 
 
-def expr_34() -> TypeInfo:
+def expr_32() -> TypeInfo:
     return record_type("tbnf.Utils.NameMangling.nameEnv", [], NameMangling_nameEnv, lambda: [["usedNames", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -81,9 +81,9 @@ class NameMangling_nameEnv(Record):
         self.used_names = used_names
     
 
-NameMangling_nameEnv_reflection = expr_34
+NameMangling_nameEnv_reflection = expr_32
 
-def expr_35() -> TypeInfo:
+def expr_33() -> TypeInfo:
     return record_type("tbnf.Utils.NameMangling.IdentifierDescriptor", [], NameMangling_IdentifierDescriptor, lambda: [["support_no_prefix_digit", bool_type], ["support_unicode", bool_type], ["support_lower_ascii", bool_type], ["support_upper_ascii", bool_type], ["support_underscore", bool_type], ["support_digit", bool_type]])
 
 
@@ -98,7 +98,7 @@ class NameMangling_IdentifierDescriptor(Record):
         self.support_digit = support_digit
     
 
-NameMangling_IdentifierDescriptor_reflection = expr_35
+NameMangling_IdentifierDescriptor_reflection = expr_33
 
 def NameMangling_IdentifierDescriptor__get_SupportNoPrefixDigits(this: NameMangling_IdentifierDescriptor) -> NameMangling_IdentifierDescriptor:
     return NameMangling_IdentifierDescriptor(True, this.support_unicode, this.support_lower_ascii, this.support_upper_ascii, this.support_underscore, this.support_digit)
@@ -252,7 +252,7 @@ def NameMangling_mangle(abandoned_names: Any, name_env: NameMangling_nameEnv, id
     return s
 
 
-def expr_37(gen0) -> TypeInfo:
+def expr_36(gen0) -> TypeInfo:
     return record_type("tbnf.Utils.DocBuilder.block`1", [gen0], DocBuilder_block_1, lambda: [["suite", list_type(Doc_reflection())], ["value", gen0]])
 
 
@@ -263,9 +263,9 @@ class DocBuilder_block_1(Record, Generic[b]):
         self.value = value
     
 
-DocBuilder_block_1_reflection = expr_37
+DocBuilder_block_1_reflection = expr_36
 
-def expr_38() -> TypeInfo:
+def expr_37() -> TypeInfo:
     return class_type("tbnf.Utils.DocBuilder.Builder", None, DocBuilder_Builder)
 
 
@@ -274,7 +274,7 @@ class DocBuilder_Builder:
         pass
     
 
-DocBuilder_Builder_reflection = expr_38
+DocBuilder_Builder_reflection = expr_37
 
 def DocBuilder_Builder__ctor() -> DocBuilder_Builder:
     return DocBuilder_Builder()

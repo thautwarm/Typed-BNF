@@ -1,0 +1,166 @@
+ 
+
+  
+                        
+                            
+                   
+               
+                
+             
+
+                                           
+                                                                      
+         
+                               
+       
+                     
+   
+
+start : list{toplevel} -> start_0                             
+
+          
+empty{a} : -> empty_0                   
+         | a -> empty_1                   
+
+slist{sep, a} : a -> slist_0                          
+              | slist{sep, a} sep a -> slist_1                                                   
+
+list{a} : a -> list_0                    
+        | list{a} a -> list_1                                   
+
+                         
+eslist{sep, a} : empty{slist{sep, a}} -> eslist_0                                            
+
+               
+elist{a} : empty{list{a}} -> elist_0                                
+
+          
+
+identstr : CNAME -> identstr_0                            
+
+         
+
+typ : arrow_typ -> typ_0                      
+
+arrow_typ : typ2 "->" arrow_typ -> arrow_typ_0                                                     
+          | "(" eslist{",", typ} ")" "->" arrow_typ -> arrow_typ_1                                                                       
+          | type_product -> arrow_typ_2                                          
+
+typ2 : CNAME -> typ2_0                                          
+     | tvar -> typ2_1                          
+     | typ2 "<" slist{",", typ} ">" -> typ2_2                                                       
+      
+type_product : type_product "*" typ2 -> type_product_0                                                    
+             | typ2 -> type_product_1                                     
+
+top_typ : "<" slist{",", tvar_str} ">" typ -> top_typ_0                                                              
+        | typ -> top_typ_1                                                          
+
+tvar         : "'" CNAME -> tvar_0                                             
+tvar_str     : "'" CNAME -> tvar_str_0                                    
+
+             
+
+type_params : "<" slist{",", tvar_str} ">" -> type_params_0                                                  
+            | -> type_params_1                    
+
+field_ann : CNAME ":" typ -> field_ann_0                                                      
+
+field_anns : -> field_anns_0                   
+           | "(" eslist{",", field_ann} ")" -> field_anns_1                                                  
+
+decl : "extern" "var" identstr ":" top_typ -> decl_0                                                                            
+     | "extern" "type" identstr type_params field_anns -> decl_1                                           
+
+toplevel :def -> toplevel_0                                
+        | decl -> toplevel_1                                
+        | lexerdef -> toplevel_2                                
+        | "%ignore" slist{",", identstr} -> toplevel_3                                                                         
+
+def : CNAME "<" slist{",", identstr} ">" productions -> def_0                                                
+    | CNAME productions -> def_1                                           
+
+productions : ":" production -> productions_0                                                  
+            | productions "|" production -> productions_1                                                                     
+
+production : elist{psym} "{" expr "}" -> production_0                                                               
+
+psym : "<" identstr ">" -> psym_0                                                   
+     | ESCAPED_STRING -> psym_1                                                         
+     | identstr -> psym_2                                          
+     | identstr "<" slist{",", psym} ">" -> psym_3                                                                                 
+
+
+                    
+
+ann: identstr ":" typ -> ann_0                                         
+
+func_parameters : "(" eslist{",", ann} ")" -> func_parameters_0                                                 
+
+expr : "let" identstr "=" expr "in" expr -> expr_0                                                    
+     | "fun" func_parameters "->" expr -> expr_1                                                
+     | call -> expr_2                  
+
+call : call "(" eslist{",", expr} ")" -> call_0                                                                          
+     | atomexp -> call_1                     
+
+snd{a, b} : a b -> snd_0                      
+
+atomexp : INT -> atomexp_0                                                        
+        | FLOAT -> atomexp_1                                                          
+        | ESCAPED_STRING -> atomexp_2                                                                   
+        | "$" INT -> atomexp_3                                                           
+        | "(" ")" -> atomexp_4                                                       
+        | "(" eslist{",", expr} ")" -> atomexp_5                                                                         
+        | CNAME -> atomexp_6                                                        
+        | atomexp "." CNAME -> atomexp_7                                                                       
+
+                    
+
+  
+            
+                           
+
+                   
+               
+            
+                          
+  
+
+lexer :  slist{"|", lexer_and} -> lexer_0                                             
+
+lexer_and : list{lexer_atomexpr} -> lexer_and_0                                                
+
+lexer_atomexpr :lexer_atomexpr "+" -> lexer_atomexpr_0                                                       
+      |  lexer_atomexpr "*" -> lexer_atomexpr_1                                                       
+      |  lexer_atomexpr "?" -> lexer_atomexpr_2                                                           
+      |  lexer_atom -> lexer_atomexpr_3                          
+
+lexer_atom :  ESCAPED_STRING -> lexer_atom_0                                                 
+      | "!" lexer_atom -> lexer_atom_1                                       
+      |  "(" lexer ")" -> lexer_atom_2                                         
+      |  "\\d" -> lexer_atom_3                                      
+      | "[" UNICODE "-"  UNICODE "]" -> lexer_atom_4                                                                    
+      | "[" /./ "-" /./ "]" -> lexer_atom_5                                                                    
+      | ("_" | ".") -> lexer_atom_6                                    
+      | CNAME -> lexer_atom_7                                        
+
+lexerdef : CNAME "=" lexer -> lexerdef_0                                                                  
+
+UCODE : DIGIT | /[a-fA-F]/
+UNICODE : "\\" "u" UCODE UCODE UCODE UCODE
+
+
+
+%import common.ESCAPED_STRING
+%import common.CNAME
+%import common.FLOAT
+%import common.INT
+%import common.WS
+%import common.DIGIT
+%import common.LETTER
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT

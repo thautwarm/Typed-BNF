@@ -42,6 +42,9 @@ let mk_EFlt s = EFlt s
 [<CompiledName("MK_" + nameof (EBool))>]
 let mk_EBool b = EBool b
 
+[<CompiledName("MK_" + nameof (EField))>]
+let mk_EField value field = EField(value, field)
+
 [<CompiledName("MK_" + nameof (expr))>]
 let mk_Expr node pos =
     { node = node
@@ -70,6 +73,9 @@ let mk_TTuple xs =
 [<CompiledName("MK_" + nameof (TList))>]
 let mk_TList a = TList a
 
+[<CompiledName("MK_" + nameof (LStr))>]
+let mk_LStr s = LStr s
+
 [<CompiledName("MK_" + nameof (LNumber))>]
 let mk_LNumber = LNumber
 
@@ -77,19 +83,25 @@ let mk_LNumber = LNumber
 let mk_LWildcard = LWildcard
 
 [<CompiledName("MK_" + nameof (LSeq))>]
-let mk_LSeq xs = LSeq(Array.toList xs)
+let mk_LSeq xs =
+    match xs with
+    | [|x|] -> x
+    | _ -> LSeq(Array.toList xs)
 
 [<CompiledName("MK_" + nameof (LOr))>]
-let mk_LOr xs = LOr(Array.toList xs)
+let mk_LOr xs = 
+    match xs with
+    | [|x|] -> x
+    | _ -> LOr(Array.toList xs)
 
 [<CompiledName("MK_" + nameof (LNot))>]
 let mk_LNot x = LNot x
 
-[<CompiledName("MK_" + nameof (LOneOrMore))>]
-let mk_LPlus x = LOneOrMore x
+[<CompiledName("MK_" + nameof (LPlus))>]
+let mk_LPlus x = LPlus x
 
-[<CompiledName("MK_" + nameof (LZeroOrMore))>]
-let mk_LStar x = LZeroOrMore x
+[<CompiledName("MK_" + nameof (LStar))>]
+let mk_LStar x = LStar x
 
 [<CompiledName("MK_" + nameof (LOptional))>]
 let mk_LOptional x = LOptional x
@@ -139,8 +151,8 @@ let mk_Declvar ident t pos =
 let mk_Decltype ident parameters fields pos =
     Decltype
         {| ident = ident
-           parameters = parameters
-           fields = fields
+           parameters = Array.toList parameters
+           fields = Array.toList fields
            pos = pos |}
 
 [<CompiledName("MK_" + nameof (production))>]
@@ -158,7 +170,7 @@ let mk_Term define is_literal =
 let mk_Nonterm define = Nonterm define
 
 [<CompiledName("MK_" + nameof (Macrocall))>]
-let mk_Macrocall n syms = Macrocall(n, Array.toList syms)
+let mk_Macrocall n syms position = Macrocall(n, Array.toList syms, position)
 
 [<CompiledName("MK_" + nameof (Poly))>]
 let mk_Poly (bounds, monot) = Poly(Array.toList bounds, monot)

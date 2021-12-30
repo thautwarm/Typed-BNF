@@ -240,11 +240,12 @@ let codegen (analyzer: Analyzer)
     let rec mk_lexer (def: lexerule) : Automata.regexp =
         let (!) = mk_lexer
         match def with
+        | lexerule.LStr s -> pstring s
         | lexerule.LGroup e -> !e
         | lexerule.LNot e -> pcompl (!e)
         | lexerule.LNumber -> pinterval (int '0') (int '9')
-        | lexerule.LOneOrMore e -> pplus (!e)
-        | lexerule.LZeroOrMore e -> pstar (!e)
+        | lexerule.LPlus e -> pplus (!e)
+        | lexerule.LStar e -> pstar (!e)
         | lexerule.LWildcard -> pany
         | lexerule.LRef s ->
             match Map.tryFind s lexerMaps with
@@ -320,18 +321,25 @@ let codegen (analyzer: Analyzer)
     for k in ReferencedNamedTokens do
         let v = lexerMaps.[k]
         if Set.contains k analyzer.IgnoreSet then
-            lexerInfo <- (idx, k, v, Discard) :: lexerInfo
+            lexerInfo <- (v, Discard) :: lexerInfo
         else
-            lexerInfo <- (idx, k, v, Tokenize token_id) :: lexerInfo
-            tokenNames <- k :: tokenNames
+            lexerInfo <- (v, Tokenize token_id) :: lexerInfo
+            tokenNames <- name_of_named_term k :: tokenNames
             token_id <- token_id + 1
         idx <- idx + 1
+    
+    for k in Array.sort (Array.ofSeq analyzer.LiteralTokens) do
+        let v = pstring(k)
+        lexerInfo <- (v, Tokenize token_id) :: lexerInfo
+        tokenNames <- name_of_literal_term k :: tokenNames
+        token_id <- token_id + 1
+        idx <- idx + 1
+
     let lexerInfo = Array.ofList lexerInfo
-    let tokenNames = List.map (name_of_named_term >> escapeString >> word) tokenNames
+    let tokenNames = List.map (escapeString >> word) tokenNames
 
     let file_lexer =
             lexerInfo
-            |> Array.map (fun (_, _, k, d) -> k, d)
             |> Fable.Sedlex.Compiler.build <| "the last branch must be a catch-all error case!"
             |> Fable.Sedlex.CodeGen.Python.codegen_python
 

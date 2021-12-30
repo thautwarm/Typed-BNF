@@ -8,7 +8,7 @@ a_ = TypeVar("a_")
 
 b_ = TypeVar("b_")
 
-def expr_30() -> TypeInfo:
+def expr_39() -> TypeInfo:
     return record_type("tbnf.Backends.Common.CodeGenOptions", [], CodeGenOptions, lambda: [["renamer", lambda_type(string_type, string_type)], ["lang", string_type]])
 
 
@@ -19,7 +19,7 @@ class CodeGenOptions(Record):
         self.lang = lang
     
 
-CodeGenOptions_reflection = expr_30
+CodeGenOptions_reflection = expr_39
 
 def find_fst_with_snd(xs: List[Tuple[a_, b_]], k: b_=None) -> a_:
     def loop(i_mut: int, xs=xs, k=k) -> Any:

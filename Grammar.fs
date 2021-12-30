@@ -119,7 +119,7 @@ and symbol =
     (* parsing symbol *)
     | Term of {| define: string; is_literal: bool |}
     | Nonterm of string
-    | Macrocall of string * symbol list
+    | Macrocall of string * symbol list * position
 
 and definition =
     | Defmacro of
@@ -149,10 +149,11 @@ and definition =
 and lexerule =
     | LNumber | LWildcard
     | LSeq of lexerule list
+    | LStr of string
     | LOr of lexerule list
     | LNot of lexerule
-    | LOneOrMore of lexerule
-    | LZeroOrMore of lexerule
+    | LPlus of lexerule // one or more
+    | LStar of lexerule // zero or more
     | LOptional of lexerule
     | LGroup of lexerule
     | LRange of int * int
