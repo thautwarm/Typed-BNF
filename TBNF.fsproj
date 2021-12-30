@@ -20,6 +20,7 @@
     <Compile Include="Analysis.fs" />
     <Compile Include="Backends.Common.fs" />
     <Compile Include="Backends.PythonLark.fs" />
+    <Compile Include="APIs.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
 

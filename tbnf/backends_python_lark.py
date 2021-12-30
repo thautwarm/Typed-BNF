@@ -30,41 +30,41 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition_1]
     import_names : FSharpList[str] = empty()
     export_parser : str = "parser"
     export_grammar : str = "grammar"
-    class ObjectExpr95:
+    class ObjectExpr96:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    export_names : Any = of_array([export_parser, export_grammar], ObjectExpr95())
-    class ObjectExpr96:
+    export_names : Any = of_array([export_parser, export_grammar], ObjectExpr96())
+    class ObjectExpr97:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare_primitives(x_1, y_1)
         
-    abandoned_names : Any = of_array(["False", "None", "True", "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del", "elif", "else", "except", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "nonlocal", "not", "or", "pass", "raise", "return", "try", "while", "with", "yield", "match", "case"], ObjectExpr96())
-    class ObjectExpr97:
+    abandoned_names : Any = of_array(["False", "None", "True", "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del", "elif", "else", "except", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "nonlocal", "not", "or", "pass", "raise", "return", "try", "while", "with", "yield", "match", "case"], ObjectExpr97())
+    class ObjectExpr98:
         @property
         def Compare(self) -> Any:
             return lambda x_2, y_2: compare(x_2, y_2)
         
-    symmap : Any = empty_1(ObjectExpr97())
+    symmap : Any = empty_1(ObjectExpr98())
     id_env : IdHelper_idEnv = IdHelper_newIdEnv()
     toplevel_transformer : FSharpList[Doc] = empty()
     current_pos : position = analyzer.current_pos
-    class ObjectExpr98:
+    class ObjectExpr99:
         @property
         def Compare(self) -> Any:
             return lambda x_3, y_3: compare_primitives(x_3, y_3)
         
-    lexer_maps : Any = empty_1(ObjectExpr98())
+    lexer_maps : Any = empty_1(ObjectExpr99())
     lark_decls_for_named_terminals : FSharpList[str] = empty()
     global_scope : FSharpList[Tuple[str, str]] = to_list(delay(lambda analyzer=analyzer, _arg1=_arg1, stmts=stmts: map(lambda k: (k[0], renamer(k[0])), Sigma__get_GlobalVariables(analyzer.Sigma))))
-    class ObjectExpr99:
+    class ObjectExpr100:
         @property
         def Compare(self) -> Any:
             return lambda x_4, y_4: compare_primitives(x_4, y_4)
         
-    name_env : NameMangling_nameEnv = NameMangling_nameEnv(of_list(map_1(lambda tuple, analyzer=analyzer, _arg1=_arg1, stmts=stmts: tuple[1], global_scope), ObjectExpr99()))
+    name_env : NameMangling_nameEnv = NameMangling_nameEnv(of_list(map_1(lambda tuple, analyzer=analyzer, _arg1=_arg1, stmts=stmts: tuple[1], global_scope), ObjectExpr100()))
     mangle = None
     abandoned_names_1 : Any = union(abandoned_names, export_names)
     mangle = lambda idr, analyzer=analyzer, _arg1=_arg1, stmts=stmts: lambda n: NameMangling_mangle(abandoned_names_1, name_env, idr, n)
@@ -119,14 +119,14 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition_1]
     TREE_NAME : str = "__tbnf_COMPONENTS"
     def cg_expr(action_name: str, scope: FSharpList[Tuple[str, str]], expr: expr_1, analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> DocBuilder_block_1[Doc]:
         op_dereference : Callable[[expr_1], DocBuilder_block_1[Doc]] = partial_apply(1, cg_expr, [action_name, scope])
-        def arrow_104(action_name=action_name, scope=scope, expr=expr) -> DocBuilder_block_1[Doc]:
+        def arrow_105(action_name=action_name, scope=scope, expr=expr) -> DocBuilder_block_1[Doc]:
             match_value_1 : node = expr.node
             if match_value_1.tag == 6:
                 match_value_2 : Optional[str] = try_lookup(match_value_1.fields[0], scope)
-                def arrow_100(_unit=None) -> Doc:
+                def arrow_101(_unit=None) -> Doc:
                     raise UnboundVariable(match_value_1.fields[0])
                 
-                return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(match_value_2)) if (match_value_2 is not None) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_100()))
+                return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(match_value_2)) if (match_value_2 is not None) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_101()))
             
             elif match_value_1.tag == 11:
                 return DocBuilder_Builder__Return_1505(DocBuilder_cg, word("True")) if (match_value_1.fields[0]) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, word("False")))
@@ -150,22 +150,22 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition_1]
                 return DocBuilder_Builder__Combine_Z44B4C520(DocBuilder_cg, DocBuilder_Builder__Yield_417FD60(DocBuilder_cg, vsep(of_array_1([Doc_op_Addition_Z7CFFAC00(word("def"), Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(word(func_name), parens(seplist(word(","), map_1(lambda s_6: word(s_6), args_3)))), word(":"))), Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([vsep(pattern_input[1]), Doc_op_Addition_Z7CFFAC00(word("return"), pattern_input[0])])), 4)]))), DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__Return_1505(DocBuilder_cg, word(func_name))))
             
             else: 
-                def arrow_101(_arg7: Doc) -> DocBuilder_block_1[Doc]:
+                def arrow_102(_arg7: Doc) -> DocBuilder_block_1[Doc]:
                     m_name : str = mangle(python_identifier_descr)(match_value_1.fields[0])
                     return DocBuilder_Builder__Combine_Z44B4C520(DocBuilder_cg, DocBuilder_Builder__Yield_417FD60(DocBuilder_cg, Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(m_name), word("=")), _arg7)), DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, cg_expr(action_name, cons((match_value_1.fields[0], m_name), scope), match_value_1.fields[2]))))
                 
-                def arrow_102(_unit=None) -> str:
+                def arrow_103(_unit=None) -> str:
                     arg20_1 : int = (match_value_1.fields[0] - 1) or 0
                     return to_text(printf("%s[%d]"))(TREE_NAME)(arg20_1)
                 
-                def arrow_103(_arg11: FSharpList[Doc]) -> DocBuilder_block_1[Doc]:
+                def arrow_104(_arg11: FSharpList[Doc]) -> DocBuilder_block_1[Doc]:
                     elts_0027_1 : FSharpList[Doc] = _arg11
                     return DocBuilder_Builder__Return_1505(DocBuilder_cg, parens(Doc_op_Addition_Z7CFFAC00(seplist(word(","), elts_0027_1), word(",")))) if (is_empty(tail(elts_0027_1))) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, parens(seplist(word(","), elts_0027_1)))) if (not is_empty(elts_0027_1)) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, parens(empty_2)))
                 
-                return DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, op_dereference(match_value_1.fields[1]), arrow_101) if (match_value_1.tag == 4) else (DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_4C40856C(DocBuilder_cg, match_value_1.fields[0], lambda _arg8: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, op_dereference(_arg8))))), lambda _arg9: DocBuilder_Builder__Return_1505(DocBuilder_cg, bracket(seplist(word(","), _arg9)))) if (match_value_1.tag == 2) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, word(arrow_102())) if (match_value_1.tag == 7) else (DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_4C40856C(DocBuilder_cg, match_value_1.fields[0], lambda _arg10: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, op_dereference(_arg10))))), arrow_103) if (match_value_1.tag == 1) else (DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, op_dereference(match_value_1.fields[0]), lambda _arg3: DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_4C40856C(DocBuilder_cg, match_value_1.fields[1], lambda _arg4: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, op_dereference(_arg4))))), lambda _arg5: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Multiply_Z7CFFAC00(_arg3, parens(seplist(word(", "), _arg5))))))))))
+                return DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, op_dereference(match_value_1.fields[1]), arrow_102) if (match_value_1.tag == 4) else (DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_4C40856C(DocBuilder_cg, match_value_1.fields[0], lambda _arg8: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, op_dereference(_arg8))))), lambda _arg9: DocBuilder_Builder__Return_1505(DocBuilder_cg, bracket(seplist(word(","), _arg9)))) if (match_value_1.tag == 2) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, word(arrow_103())) if (match_value_1.tag == 7) else (DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_4C40856C(DocBuilder_cg, match_value_1.fields[0], lambda _arg10: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, op_dereference(_arg10))))), arrow_104) if (match_value_1.tag == 1) else (DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, op_dereference(match_value_1.fields[0]), lambda _arg3: DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_4C40856C(DocBuilder_cg, match_value_1.fields[1], lambda _arg4: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, op_dereference(_arg4))))), lambda _arg5: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Multiply_Z7CFFAC00(_arg3, parens(seplist(word(", "), _arg5))))))))))
             
         
-        return DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, arrow_104))
+        return DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, arrow_105))
     
     def mk_lexer(def__1: lexerule, analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> Callable[[Automata_node], Automata_node]:
         op_dereference_1 : Callable[[lexerule, Automata_node], Automata_node] = mk_lexer
@@ -245,15 +245,15 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition_1]
             current_pos = decl["pos"]
             ntname_1 : str = cg_symbol(symbol(1, decl["lhs"]))
             idx_1 : int = 0
-            def arrow_107(stmt=stmt) -> Any:
-                def arrow_106(match_value_3: Tuple[position, production_1]) -> Any:
+            def arrow_108(stmt=stmt) -> Any:
+                def arrow_107(match_value_3: Tuple[position, production_1]) -> Any:
                     nonlocal current_pos
                     production : production_1 = match_value_3[1]
                     current_pos = match_value_3[0]
                     action_name_2 = None
                     idx : int = idx_1 or 0
                     action_name_2 = to_text(printf("%s_%i"))(ntname_1)(idx)
-                    def arrow_105(_unit=None) -> Any:
+                    def arrow_106(_unit=None) -> Any:
                         nonlocal toplevel_transformer, idx_1
                         pattern_input_1 : Tuple[Doc, FSharpList[Doc]] = DocBuilder_runCG(cg_expr(action_name_2, global_scope, production.action))
                         a : Doc = define_py_func(word(action_name_2), of_array_1([word("self"), word(TREE_NAME)]), vsep(of_array_1([vsep(pattern_input_1[1]), Doc_op_Addition_Z7CFFAC00(word("return"), pattern_input_1[0])])))
@@ -261,11 +261,11 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition_1]
                         idx_1 = (idx_1 + 1) or 0
                         return empty_3()
                     
-                    return append_1(singleton(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(seplist(word(" "), map_1(lambda arg_2: word(cg_symbol(arg_2)), production.symbols)), word("-\u003e")), word(action_name_2))), delay(arrow_105))
+                    return append_1(singleton(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(seplist(word(" "), map_1(lambda arg_2: word(cg_symbol(arg_2)), production.symbols)), word("-\u003e")), word(action_name_2))), delay(arrow_106))
                 
-                return collect(arrow_106, decl["define"])
+                return collect(arrow_107, decl["define"])
             
-            body_4 : Doc = align(vsep(map_indexed(lambda i_2, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_2 == 0) else (word("|")), e_1), to_list(delay(arrow_107)))))
+            body_4 : Doc = align(vsep(map_indexed(lambda i_2, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_2 == 0) else (word("|")), e_1), to_list(delay(arrow_108)))))
             return Doc_op_Addition_Z7CFFAC00(word(ntname_1), body_4)
         
     
@@ -288,12 +288,12 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition_1]
     idx_2 : int = 0
     token_id : int = 0
     ReferencedNamedTokens : List[str] = list(analyzer.ReferencedNamedTokens)
-    class ObjectExpr108:
+    class ObjectExpr109:
         @property
         def Compare(self) -> Any:
             return lambda x_7, y_6: compare_primitives(x_7, y_6)
         
-    sort_in_place_by(lambda k_1, analyzer=analyzer, _arg1=_arg1, stmts=stmts: find_index(lambda y_5: k_1 == y_5, analyzer.TokenFragments), ReferencedNamedTokens, ObjectExpr108())
+    sort_in_place_by(lambda k_1, analyzer=analyzer, _arg1=_arg1, stmts=stmts: find_index(lambda y_5: k_1 == y_5, analyzer.TokenFragments), ReferencedNamedTokens, ObjectExpr109())
     for idx_3 in range(0, (len(ReferencedNamedTokens) - 1) + 1, 1):
         k_2 : str = ReferencedNamedTokens[idx_3]
         v_3 : Callable[[Automata_node], Automata_node] = FSharpMap__get_Item(lexer_maps, k_2)
@@ -308,34 +308,34 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition_1]
         idx_2 = (idx_2 + 1) or 0
     lexer_info_1 : List[Tuple[int, str, Callable[[Automata_node], Automata_node], keep_token]] = to_array(lexer_info)
     token_names_1 : FSharpList[Doc] = map_1(lambda arg_4, analyzer=analyzer, _arg1=_arg1, stmts=stmts: word(escape_string(name_of_named_term(arg_4))), token_names)
-    def arrow_117(analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> Any:
-        def arrow_116(_unit=None) -> Any:
-            def arrow_115(_unit=None) -> Any:
+    def arrow_118(analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> Any:
+        def arrow_117(_unit=None) -> Any:
+            def arrow_116(_unit=None) -> Any:
                 names : Doc = parens(seplist(word(","), map_1(lambda s_11: word(s_11), import_names)))
-                def arrow_114(_unit=None) -> Any:
-                    def arrow_113(_unit=None) -> Any:
-                        def arrow_112(_unit=None) -> Any:
-                            def arrow_111(_unit=None) -> Any:
-                                def arrow_110(_unit=None) -> Any:
-                                    def arrow_109(_unit=None) -> Any:
+                def arrow_115(_unit=None) -> Any:
+                    def arrow_114(_unit=None) -> Any:
+                        def arrow_113(_unit=None) -> Any:
+                            def arrow_112(_unit=None) -> Any:
+                                def arrow_111(_unit=None) -> Any:
+                                    def arrow_110(_unit=None) -> Any:
                                         return empty_3()
                                     
-                                    return append_1(singleton(word(to_text(interpolate("from lark import Lark as %P()", [classvar_lark_builder])))), delay(arrow_109))
+                                    return append_1(singleton(word(to_text(interpolate("from lark import Lark as %P()", [classvar_lark_builder])))), delay(arrow_110))
                                 
-                                return append_1(singleton(word(to_text(interpolate("from lark import Transformer as %P()", [classvar_lark_transformer])))), delay(arrow_110))
+                                return append_1(singleton(word(to_text(interpolate("from lark import Transformer as %P()", [classvar_lark_transformer])))), delay(arrow_111))
                             
-                            return append_1(singleton(word(to_text(interpolate("from lark import Token as %P()", [classvar_lark_token])))), delay(arrow_111))
+                            return append_1(singleton(word(to_text(interpolate("from lark import Token as %P()", [classvar_lark_token])))), delay(arrow_112))
                         
-                        return append_1(singleton(word(to_text(interpolate("from lark.lexer import Lexer as %P()", [classvar_lark_lexer])))), delay(arrow_112))
+                        return append_1(singleton(word(to_text(interpolate("from lark.lexer import Lexer as %P()", [classvar_lark_lexer])))), delay(arrow_113))
                     
-                    return append_1(singleton(word(to_text(interpolate("from .%P() import lexall as %P()", [filename_lexer, var_lexall])))), delay(arrow_113))
+                    return append_1(singleton(word(to_text(interpolate("from .%P() import lexall as %P()", [filename_lexer, var_lexall])))), delay(arrow_114))
                 
-                return append_1(singleton(Doc_op_Addition_Z7CFFAC00(word(to_text(interpolate("from .%P() import", [filename_require]))), names)), delay(arrow_114))
+                return append_1(singleton(Doc_op_Addition_Z7CFFAC00(word(to_text(interpolate("from .%P() import", [filename_require]))), names)), delay(arrow_115))
             
-            return append_1(arrow_115() if (is_empty(import_names)) else (empty_3()), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: append_1(singleton(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(var_tokenmaps), word("=")), bracket(seplist(word(", "), token_names_1)))), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: append_1(singleton(define_py_func(word(var_construct_token), of_array_1([word("token_id"), word("lexeme"), word("line"), word("col"), word("span"), word("offset"), word("file")]), vsep(of_array_1([word(to_text(interpolate("if token_id == -1: return %P()(\"\u003cEOF\u003e\", \"\")", [classvar_lark_token]))), word(to_text(interpolate("return %P()(%P()[token_id], lexeme, offset, line, col, None, None, span + offset)", [classvar_lark_token, var_tokenmaps])))])))), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: append_1(singleton(define_py_func(word(var_iseof), singleton_1(word("token")), word("return token.type == \"\u003cEOF\u003e\""))), delay(lambda _unit=None: append_1(singleton(word(to_text(interpolate("class %P()(%P()):", [classvar_sedlex_lexer, classvar_lark_lexer])))), delay(lambda _unit=None: append_1(singleton(Doc_op_RightShift_2AAA0F3C(vsep(singleton_1(Doc_op_RightShift_2AAA0F3C(define_py_func(word("lex"), of_array_1([word("self"), word("raw_string")]), word(to_text(interpolate("return %P()(raw_string, %P(), %P())", [var_lexall, var_construct_token, var_iseof])))), 4))), 4)), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: append_1(singleton(word(to_text(interpolate("class %P()(%P()):", [classvar_rbnftransformer, classvar_lark_transformer])))), delay(lambda _unit=None: append_1(singleton(Doc_op_RightShift_2AAA0F3C(vsep(toplevel_transformer), 4)), delay(lambda _unit=None: append_1(singleton(Doc_op_RightShift_2AAA0F3C(word("pass"), 4)), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: append_1(singleton(word("with __import__(\u0027pathlib\u0027).Path(__file__).parent.open(encoding=\u0027utf8\u0027) as __0123fx9:")), delay(lambda _unit=None: append_1(singleton(Doc_op_Addition_Z7CFFAC00(word(export_grammar), word("= __0123fx9.read()"))), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: singleton(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(export_parser), word("=")), Doc_op_Multiply_Z7CFFAC00(word(classvar_lark_builder), parens(seplist(word(", "), of_array_1([word(export_grammar), word("start = \u0027start\u0027"), word("parser = \u0027lalr\u0027"), word(to_text(interpolate("lexer = %P()", [classvar_sedlex_lexer]))), word(to_text(interpolate("transformer=%P()()", [classvar_rbnftransformer])))]))))))))))))))))))))))))))))))))))))))))
+            return append_1(arrow_116() if (is_empty(import_names)) else (empty_3()), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: append_1(singleton(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(var_tokenmaps), word("=")), bracket(seplist(word(", "), token_names_1)))), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: append_1(singleton(define_py_func(word(var_construct_token), of_array_1([word("token_id"), word("lexeme"), word("line"), word("col"), word("span"), word("offset"), word("file")]), vsep(of_array_1([word(to_text(interpolate("if token_id == -1: return %P()(\"\u003cEOF\u003e\", \"\")", [classvar_lark_token]))), word(to_text(interpolate("return %P()(%P()[token_id], lexeme, offset, line, col, None, None, span + offset)", [classvar_lark_token, var_tokenmaps])))])))), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: append_1(singleton(define_py_func(word(var_iseof), singleton_1(word("token")), word("return token.type == \"\u003cEOF\u003e\""))), delay(lambda _unit=None: append_1(singleton(word(to_text(interpolate("class %P()(%P()):", [classvar_sedlex_lexer, classvar_lark_lexer])))), delay(lambda _unit=None: append_1(singleton(Doc_op_RightShift_2AAA0F3C(vsep(singleton_1(Doc_op_RightShift_2AAA0F3C(define_py_func(word("lex"), of_array_1([word("self"), word("raw_string")]), word(to_text(interpolate("return %P()(raw_string, %P(), %P())", [var_lexall, var_construct_token, var_iseof])))), 4))), 4)), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: append_1(singleton(word(to_text(interpolate("class %P()(%P()):", [classvar_rbnftransformer, classvar_lark_transformer])))), delay(lambda _unit=None: append_1(singleton(Doc_op_RightShift_2AAA0F3C(vsep(toplevel_transformer), 4)), delay(lambda _unit=None: append_1(singleton(Doc_op_RightShift_2AAA0F3C(word("pass"), 4)), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: append_1(singleton(word("with __import__(\u0027pathlib\u0027).Path(__file__).parent.open(encoding=\u0027utf8\u0027) as __0123fx9:")), delay(lambda _unit=None: append_1(singleton(Doc_op_Addition_Z7CFFAC00(word(export_grammar), word("= __0123fx9.read()"))), delay(lambda _unit=None: append_1(singleton(empty_2), delay(lambda _unit=None: singleton(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(export_parser), word("=")), Doc_op_Multiply_Z7CFFAC00(word(classvar_lark_builder), parens(seplist(word(", "), of_array_1([word(export_grammar), word("start = \u0027start\u0027"), word("parser = \u0027lalr\u0027"), word(to_text(interpolate("lexer = %P()", [classvar_sedlex_lexer]))), word(to_text(interpolate("transformer=%P()()", [classvar_rbnftransformer])))]))))))))))))))))))))))))))))))))))))))))
         
-        return append_1(singleton(word("from __future__ import annotations")), delay(arrow_116))
+        return append_1(singleton(word("from __future__ import annotations")), delay(arrow_117))
     
-    return [file_grammar_1, (filename_lexer, codegen_python(build(map_2(lambda tupled_arg, analyzer=analyzer, _arg1=_arg1, stmts=stmts: (tupled_arg[2], tupled_arg[3]), lexer_info_1, None), "the last branch must be a catch-all error case!"))), (filename_python, vsep(to_list(delay(arrow_117))))]
+    return [file_grammar_1, (filename_lexer, codegen_python(build(map_2(lambda tupled_arg, analyzer=analyzer, _arg1=_arg1, stmts=stmts: (tupled_arg[2], tupled_arg[3]), lexer_info_1, None), "the last branch must be a catch-all error case!"))), (filename_python, vsep(to_list(delay(arrow_118))))]
 
 

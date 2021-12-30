@@ -12,7 +12,7 @@ from .grammar import (monot_reflection, monot, polyt, monot__apply_to_children_z
 from .op import basename
 from .unification import (Manager, Manager__NewTyRef_Z721C83C5, Manager__Unify, Manager__Instantiate_Z25E5E15E, Manager_reflection, Manager__ctor)
 
-def expr_42() -> TypeInfo:
+def expr_45() -> TypeInfo:
     return record_type("tbnf.Analysis.Shape", [], Shape, lambda: [["parameters", list_type(string_type)], ["fields", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, monot_reflection()])]])
 
 
@@ -23,36 +23,36 @@ class Shape(Record):
         self.fields = fields
     
 
-Shape_reflection = expr_42
+Shape_reflection = expr_45
 
-def expr_46() -> TypeInfo:
+def expr_49() -> TypeInfo:
     return class_type("tbnf.Analysis.Sigma", None, Sigma)
 
 
 class Sigma:
     def __init__(self, UM: Manager=None) -> None:
         self.UM = UM
-        class ObjectExpr43:
+        class ObjectExpr46:
             @property
             def Compare(self) -> Any:
                 return lambda x, y: compare_primitives(x, y)
             
-        self.shapes = empty(ObjectExpr43())
-        class ObjectExpr44:
+        self.shapes = empty(ObjectExpr46())
+        class ObjectExpr47:
             @property
             def Compare(self) -> Any:
                 return lambda x_1, y_1: compare_primitives(x_1, y_1)
             
-        self.kinds = empty(ObjectExpr44())
-        class ObjectExpr45:
+        self.kinds = empty(ObjectExpr47())
+        class ObjectExpr48:
             @property
             def Compare(self) -> Any:
                 return lambda x_2, y_2: compare_primitives(x_2, y_2)
             
-        self.global_variables = empty(ObjectExpr45())
+        self.global_variables = empty(ObjectExpr48())
     
 
-Sigma_reflection = expr_46
+Sigma_reflection = expr_49
 
 def Sigma__ctor_Z57FA2555(UM: Manager) -> Sigma:
     return Sigma(UM)
@@ -114,10 +114,10 @@ def Sigma__checkKind__Z25145215(this: Sigma, t: monot) -> None:
         
     
     else: 
-        def arrow_49(t_1: monot, this=this, t=t) -> None:
+        def arrow_50(t_1: monot, this=this, t=t) -> None:
             Sigma__checkKind__Z25145215(this, t_1)
         
-        monot__apply_to_children_z6a62bcbf(t, arrow_49)
+        monot__apply_to_children_z6a62bcbf(t, arrow_50)
     
 
 
@@ -140,16 +140,16 @@ def Sigma__defineShape(this: Sigma, typename: str, parameters: FSharpList[str], 
                 })
             
         
-        def arrow_51(this=this, typename=typename, parameters=parameters, fields=fields) -> Any:
+        def arrow_52(this=this, typename=typename, parameters=parameters, fields=fields) -> Any:
             table : Any = this.shapes
-            class ObjectExpr50:
+            class ObjectExpr51:
                 @property
                 def Compare(self) -> Any:
                     return lambda x, y: compare_primitives(x, y)
                 
-            return add(typename, Shape(parameters, of_seq(fields, ObjectExpr50())), table)
+            return add(typename, Shape(parameters, of_seq(fields, ObjectExpr51())), table)
         
-        this.shapes = arrow_51()
+        this.shapes = arrow_52()
     
 
 
@@ -193,7 +193,7 @@ def Sigma__registerExternalType(this: Sigma, typename: str, kind: int) -> None:
     
 
 
-def expr_52() -> TypeInfo:
+def expr_54() -> TypeInfo:
     return record_type("tbnf.Analysis.Analyzer", [], Analyzer, lambda: [["UM", Manager_reflection()], ["Sigma", Sigma_reflection()], ["currentPos", position_reflection()], ["Omega", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, monot_reflection()])], ["LiteralTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["ReferencedNamedTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["TokenFragments", array_type(string_type)], ["IgnoreSet", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -210,37 +210,37 @@ class Analyzer(Record):
         self.IgnoreSet = IgnoreSet
     
 
-Analyzer_reflection = expr_52
+Analyzer_reflection = expr_54
 
 def build_analyzer(stmts: List[definition]) -> Analyzer:
     UM : Manager = Manager__ctor()
     Sigma_1 : Sigma = Sigma__ctor_Z57FA2555(UM)
     current_pos : position = None
-    class ObjectExpr53:
+    class ObjectExpr55:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    Omega : Any = empty(ObjectExpr53())
-    class ObjectExpr55:
+    Omega : Any = empty(ObjectExpr55())
+    class ObjectExpr56:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare_primitives(x_1, y_1)
         
-    LiteralTokens : Any = empty_1(ObjectExpr55())
-    class ObjectExpr56:
+    LiteralTokens : Any = empty_1(ObjectExpr56())
+    class ObjectExpr57:
         @property
         def Compare(self) -> Any:
             return lambda x_2, y_2: compare_primitives(x_2, y_2)
         
-    ReferencedNamedTokens : Any = empty_1(ObjectExpr56())
+    ReferencedNamedTokens : Any = empty_1(ObjectExpr57())
     TokenFragments : FSharpList[str] = empty_2()
-    class ObjectExpr57:
+    class ObjectExpr58:
         @property
         def Compare(self) -> Any:
             return lambda x_3, y_3: compare_primitives(x_3, y_3)
         
-    IgnoreSet : Any = empty_1(ObjectExpr57())
+    IgnoreSet : Any = empty_1(ObjectExpr58())
     def infer_e(s_gamma: Any, S: FSharpList[monot], e: expr, stmts=stmts) -> expr:
         nonlocal current_pos
         S_1 : FSharpList[monot] = S
@@ -353,7 +353,7 @@ def build_analyzer(stmts: List[definition]) -> Analyzer:
                 l = x_9.fields[0]
             
             elif x_9.tag == 10:
-                class ObjectExpr58:
+                class ObjectExpr59:
                     @property
                     def Equals(self) -> Any:
                         return lambda x_10, y_7: x_10 == y_7
@@ -362,7 +362,7 @@ def build_analyzer(stmts: List[definition]) -> Analyzer:
                     def GetHashCode(self) -> Any:
                         return lambda x_10: string_hash(x_10)
                     
-                if contains(x_9.fields[0], TokenFragments, ObjectExpr58()):
+                if contains(x_9.fields[0], TokenFragments, ObjectExpr59()):
                     pattern_matching_result = 3
                 
                 else: 
@@ -454,7 +454,7 @@ def build_analyzer(stmts: List[definition]) -> Analyzer:
                 decl_6 = stmt.fields[0]
             
             elif stmt.tag == 2:
-                class ObjectExpr59:
+                class ObjectExpr60:
                     @property
                     def Equals(self) -> Any:
                         return lambda x_4, y_4: x_4 == y_4
@@ -463,7 +463,7 @@ def build_analyzer(stmts: List[definition]) -> Analyzer:
                     def GetHashCode(self) -> Any:
                         return lambda x_4: string_hash(x_4)
                     
-                if contains(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr59()):
+                if contains(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr60()):
                     pattern_matching_result_2 = 1
                     decl_7 = stmt.fields[0]
                 
@@ -510,7 +510,7 @@ def build_analyzer(stmts: List[definition]) -> Analyzer:
                                 LiteralTokens = add_1(n, LiteralTokens)
                             
                             else: 
-                                class ObjectExpr60:
+                                class ObjectExpr61:
                                     @property
                                     def Equals(self) -> Any:
                                         return lambda x_5, y_5: x_5 == y_5
@@ -519,7 +519,7 @@ def build_analyzer(stmts: List[definition]) -> Analyzer:
                                     def GetHashCode(self) -> Any:
                                         return lambda x_5: string_hash(x_5)
                                     
-                                if not contains(n, TokenFragments, ObjectExpr60()):
+                                if not contains(n, TokenFragments, ObjectExpr61()):
                                     raise UnboundLexer(n)
                                 
                                 else: 
@@ -540,19 +540,19 @@ def build_analyzer(stmts: List[definition]) -> Analyzer:
                             
                         
                         else: 
-                            def arrow_61(s=s) -> Exception:
+                            def arrow_62(s=s) -> Exception:
                                 raise Exception("macrocall not processed")
                             
-                            raise arrow_61()
+                            raise arrow_62()
                         
                     
                     S_2 : FSharpList[monot] = map(infer_p, production.symbols)
-                    class ObjectExpr62:
+                    class ObjectExpr63:
                         @property
                         def Compare(self) -> Any:
                             return lambda x_8, y_6: compare_primitives(x_8, y_6)
                         
-                    action : expr = infer_e(empty(ObjectExpr62()), S_2, production.action)
+                    action : expr = infer_e(empty(ObjectExpr63()), S_2, production.action)
                     Manager__Unify(UM, action.t, t_5)
                     production.action = action
         
