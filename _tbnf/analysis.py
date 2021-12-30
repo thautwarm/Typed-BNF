@@ -193,7 +193,7 @@ def Sigma__registerExternalType(this: Sigma, typename: str, kind: int) -> None:
     
 
 
-def expr_54() -> TypeInfo:
+def expr_53() -> TypeInfo:
     return record_type("tbnf.Analysis.Analyzer", [], Analyzer, lambda: [["UM", Manager_reflection()], ["Sigma", Sigma_reflection()], ["currentPos", position_reflection()], ["Omega", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, monot_reflection()])], ["LiteralTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["ReferencedNamedTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["TokenFragments", array_type(string_type)], ["IgnoreSet", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -210,7 +210,7 @@ class Analyzer(Record):
         self.IgnoreSet = IgnoreSet
     
 
-Analyzer_reflection = expr_54
+Analyzer_reflection = expr_53
 
 def build_analyzer(stmts: List[definition]) -> Analyzer:
     UM : Manager = Manager__ctor()

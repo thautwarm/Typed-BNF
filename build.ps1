@@ -1,4 +1,4 @@
-$PROJ="tbnf"
+$PROJ="_tbnf"
 fable-py --outDir "${PROJ}"
 
 "import sys;import os;sys.path.append(os.path.dirname(__file__))" | Out-File -FilePath "./${PROJ}/__init__.py" 

@@ -126,8 +126,15 @@ def MK_LRef(x: str) -> lexerule:
     return lexerule(10, x)
 
 
+def MK_Defignore(ignore_list: List[str], pos: position) -> definition:
+    return definition(5, {
+        "ignoreList": of_array(ignore_list),
+        "pos": pos
+    })
+
+
 def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position, production]], pos: position) -> definition:
-    def arrow_36(lhs=lhs, parameters=parameters, define=define, pos=pos) -> dict:
+    def arrow_42(lhs=lhs, parameters=parameters, define=define, pos=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "define": of_array(define),
@@ -136,7 +143,7 @@ def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position, pr
             "pos": pos
         }
     
-    return definition(0, arrow_36())
+    return definition(0, arrow_42())
 
 
 def MK_Defrule(lhs: str, define: List[Tuple[position, production]], pos: position) -> definition:

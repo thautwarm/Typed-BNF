@@ -103,6 +103,12 @@ let mk_LRange x y = LRange(x, y)
 [<CompiledName("MK_" + nameof (LRef))>]
 let mk_LRef x = LRef x
 
+[<CompiledName("MK_" + nameof (Defignore))>]
+let mk_Defignore ignoreList pos =
+    Defignore
+        {| ignoreList = Array.toList ignoreList
+           pos = pos |}
+
 [<CompiledName("MK_" + nameof (Defmacro))>]
 let mk_Defmacro (lhs: string) (parameters: string array) (define: (position * production) array) (pos: position) =
     Defmacro
@@ -130,10 +136,11 @@ let mk_Declvar ident t pos =
     Declvar {| ident = ident; t = t; pos = pos |}
 
 [<CompiledName("MK_" + nameof (Decltype))>]
-let mk_Decltype ident kind pos =
+let mk_Decltype ident parameters fields pos =
     Decltype
         {| ident = ident
-           kind = kind
+           parameters = parameters
+           fields = fields
            pos = pos |}
 
 [<CompiledName("MK_" + nameof (production))>]

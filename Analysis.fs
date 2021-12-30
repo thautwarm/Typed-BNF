@@ -38,6 +38,12 @@ type Sigma(UM: Unification.Manager) =
                        expect = kind |}
         | TApp (f, _) -> raise <| InvalidTypeApplication(f)
         | a -> a.ApplyToChildren checkKind_
+    
+    let registerExternalType typename (kind: int) =
+        if Map.containsKey typename kinds then
+            raise <| DuplicateTypeVariable(typename)
+        else
+            kinds <- Map.add typename kind kinds
 
     let defineShape typename parameters (fields: list<fieldname * monot>) =
         if Map.containsKey typename shapes then
@@ -54,7 +60,7 @@ type Sigma(UM: Unification.Manager) =
                            got = List.length parameters
                            expect = kind |}
             | None -> ()
-
+            registerExternalType typename parameters.Length
             shapes <-
                 shapes
                 |> Map.add
@@ -95,13 +101,6 @@ type Sigma(UM: Unification.Manager) =
         else
             global_variables <- Map.add varname t global_variables
 
-    let registerExternalType typename (kind: int) =
-        if Map.containsKey typename kinds then
-            raise <| DuplicateTypeVariable(typename)
-        else
-            kinds <- Map.add typename kind kinds
-
-
     member __.KindCheck(t: monot) =
         checkKind_ t
         t
@@ -117,7 +116,7 @@ type Sigma(UM: Unification.Manager) =
             checkKind_ a
             t
 
-    member __.RegisterExternalType n kind = registerExternalType n kind
+    member __.RegisterExternalType typename parameters fields = defineShape typename parameters fields
 
     member __.RegisterExternalVariable n t = registerExternalVariable n t
 
@@ -169,9 +168,15 @@ let build_analyzer(stmts: definition array) =
 
             Sigma.KindCheck decl.t
             |> Sigma.RegisterExternalVariable decl.ident
+        
         | definition.Decltype decl ->
             currentPos <- decl.pos
-            Sigma.RegisterExternalType decl.ident decl.kind
+            let fields = List.map (fun (k, v, _) -> k, v)  decl.fields
+            Sigma.RegisterExternalType decl.ident decl.parameters fields
+            for fieldname, t, pos in decl.fields do
+                currentPos <- pos
+                ignore(Sigma.KindCheckMono t)
+        
         | definition.Defmacro _ -> invalidOp "macro definition must be processed before type checking"
         | definition.Defrule decl when Map.containsKey decl.lhs Omega -> raise <| UnboundNonterminal(decl.lhs)
         | definition.Defrule decl ->

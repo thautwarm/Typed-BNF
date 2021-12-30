@@ -141,7 +141,8 @@ and definition =
            pos: position |}
     | Decltype of
         {| ident: string
-           kind: int
+           parameters: string list
+           fields: (string * monot * position) list
            pos: position |}
     | Defignore of {| pos: position; ignoreList : string list |}
 
