@@ -22,6 +22,10 @@ float = digit* "." int ;
 str = "\"" ( "\\" _ | ! "\"" )* "\"" ;
 space = ("\t" | "\n" | "\r" | " ")+;
 
+seplist(sep, elt) : elt { [$1] }
+                  | seplist(sep, elt) sep elt
+                    { appendList($1, $3) }
+
 listjson : json { [$1] }
          | listjson "," json { appendList($1, $3) }
 
@@ -36,5 +40,5 @@ json : <int> { jsonInt(parseInt(getStr($1))) }
       | <str>   { jsonStr(unesc(getStr($1))) }
       | "[" "]" { jsonList([]) }
       | "{" "}" { jsonDict([]) }
-      | "[" listjson "]" { jsonList($2) }
-      | "{" dictjson "}" { jsonDict($2) }      
+      | "[" seplist(",", json) "]" { jsonList($2) }
+      | "{" seplist(",", jsonpair) "}" { jsonDict($2) }      

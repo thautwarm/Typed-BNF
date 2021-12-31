@@ -15,26 +15,9 @@ let isLower c = 'a' <= c && c <= 'z'
 (* todo: more complete *)
 let isUnicode c = '\u4e00' <= c && c <= '\u9fa5'
 
+let escapeString (s: string) = 
+    "\"" + s.Replace("\"", "\\\"").Replace("\n", "\\n").Replace("\r", "\\r") + "\""
 
-module IdHelper =
-    open System.Text
-    let uniqueIntToCapitalizedString i =
-        let sb = StringBuilder()
-        let mutable I = i
-        while I > 0 do
-            ignore(sb.Append(upperChars.[I &&& 0b1111]))
-            I <- I >>> 4;
-        sb.ToString()
-
-    type idEnv = {  mutable usedNames : Map<string, int>  }
-    let newIdEnv() = { usedNames = Map.empty }
-    let getId (idEnv: idEnv) s =
-        match Map.tryFind s idEnv.usedNames with
-        | Some v -> v
-        | None ->
-            let i = Map.count idEnv.usedNames
-            idEnv.usedNames <- Map.add s i idEnv.usedNames
-            i
         
 module NameMangling =
     open System.Text

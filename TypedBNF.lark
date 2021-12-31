@@ -14,7 +14,7 @@ def unesc(x, f=json.decoder.py_scanstring):
         unesc('"asd"') == "asd"
     """
     return f(x, 1)[0]
-%% 
+%%
 
 start : list{toplevel} -> $1
 
@@ -49,7 +49,7 @@ arrow_typ : typ2 "->" arrow_typ -> MK_TFun([$1], $3)
 typ2 : CNAME        -> MK_TConst(str($1))
      | tvar         -> $1
      | typ2 "<" slist{",", typ} ">" -> MK_TApp($1, $3)
-      
+
 type_product : type_product "*" typ2 -> add($1, $3)
              | typ2          -> [$1]
 
@@ -61,7 +61,7 @@ tvar_str     : "'" CNAME -> str($2)
 
 ### Toplevels
 
-type_params : "<" slist{",", tvar_str} ">" -> $2 
+type_params : "<" slist{",", tvar_str} ">" -> $2
             | -> []
 
 field_ann : CNAME ":" typ -> (str($1), $3, mkpos($1))
@@ -78,7 +78,7 @@ toplevel :def             -> $1
         | lexerdef        -> $1
         | "%ignore" slist{",", identstr}  -> MK_Defignore($2, mkpos($1))
 
-def : CNAME "<" slist{",", identstr} ">" productions ->\
+def : CNAME "(" slist{",", identstr} ")" productions ->\
         MK_Defmacro(str($1), $3, $5, mkpos($1))
     | CNAME productions -> \
         MK_Defrule(str($1), $2, mkpos($1))
@@ -91,7 +91,7 @@ production : elist{psym} "{" expr "}" -> MK_production($1, $3)
 psym : "<" identstr ">" -> MK_Term(str($2), False)
      | ESCAPED_STRING   -> MK_Term(unesc(str($1)), True)
      | identstr         -> MK_Nonterm($1)
-     | identstr "<" slist{",", psym} ">" -> MK_Macrocall(str($1), $3, mkpos($1))
+     | CNAME "(" slist{",", psym} ")" -> MK_Macrocall(str($1), $3, mkpos($1))
 
 
 ### Simpler language
@@ -121,7 +121,7 @@ atomexp : INT ->   MK_expr(MK_EInt(int($1)), mkpos($1))
         | CNAME -> MK_expr(MK_EVar(str($1)), mkpos($1))
         | atomexp "." CNAME -> MK_expr(MK_EField($1, str($3)), $1.pos)
 
-### Simpler language
+### Lexical definitions
 
 %%
 def u2i(ch):
@@ -151,7 +151,7 @@ lexer_atom :  ESCAPED_STRING -> MK_LStr(unesc(str($1)))
       | "[" /./ "-" /./ "]"          -> MK_LRange(ord($2), ord($4))
       | ("_" | ".") -> MK_LWildcard
       | CNAME       -> MK_LRef(str($1))
-      
+
 lexerdef : CNAME "=" lexer ";" -> MK_Deflexer(str($1), $3, mkpos($1))
 
 UCODE : DIGIT | /[a-fA-F]/

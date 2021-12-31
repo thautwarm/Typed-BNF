@@ -62,12 +62,8 @@ let codegen (analyzer: Analyzer)
     |]
 
 
-    let mutable symmap : Map<symbol, string> = Map.empty
-    (* map an identifier to a fixed valid python identifier *)
-    let idEnv = IdHelper.newIdEnv()
-    let genId s = IdHelper.getId idEnv s
-
-
+    let mutable symmap : Map<symbol, string> = Map.empty    
+    
     let mutable toplevel_transformer : Doc list = []
     let mutable currentPos = analyzer.currentPos
 

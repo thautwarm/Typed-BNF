@@ -77,7 +77,7 @@ toplevel :def -> toplevel_0
         | lexerdef -> toplevel_2                                
         | "%ignore" slist{",", identstr} -> toplevel_3                                                                         
 
-def : CNAME "<" slist{",", identstr} ">" productions -> def_0                                                
+def : CNAME "(" slist{",", identstr} ")" productions -> def_0                                                
     | CNAME productions -> def_1                                           
 
 productions : ":" production -> productions_0                                                  
@@ -88,7 +88,7 @@ production : elist{psym} "{" expr "}" -> production_0
 psym : "<" identstr ">" -> psym_0                                                   
      | ESCAPED_STRING -> psym_1                                                         
      | identstr -> psym_2                                          
-     | identstr "<" slist{",", psym} ">" -> psym_3                                                                                 
+     | CNAME "(" slist{",", psym} ")" -> psym_3                                                                              
 
 
                     
@@ -116,7 +116,7 @@ atomexp : INT -> atomexp_0
         | CNAME -> atomexp_7                                                        
         | atomexp "." CNAME -> atomexp_8                                                                       
 
-                    
+                       
 
   
             

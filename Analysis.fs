@@ -179,7 +179,7 @@ let build_analyzer(stmts: definition array) =
                 ignore(Sigma.KindCheckMono t)
         
         | definition.Defmacro _ -> invalidOp "macro definition must be processed before type checking"
-        | definition.Defrule decl when Map.containsKey decl.lhs Omega -> raise <| UnboundNonterminal(decl.lhs)
+        | definition.Defrule decl when Map.containsKey decl.lhs Omega -> raise <| DuplicateNonterminal(decl.lhs)
         | definition.Defrule decl ->
             let nt = UM.NewTyRef("'" + decl.lhs)
             Omega <- Map.add decl.lhs nt Omega
@@ -298,6 +298,8 @@ let build_analyzer(stmts: definition array) =
         | LRef n when List.contains n TokenFragments -> ()
         | LRef n -> raise <| UnboundLexer(n)
     
+    let stmts = MacroResolve.resolve_macro (fun x -> currentPos <- x) stmts
+    
     for stmt in stmts do
         pre_process stmt
     
@@ -311,7 +313,7 @@ let build_analyzer(stmts: definition array) =
             check_lexerule decl.define
         | _ -> ()
     
-    { 
+    stmts, { 
         UM = UM;
         IgnoreSet = IgnoreSet;
         // FragmentDefinitions = FragmentDefinitions;

@@ -16,6 +16,7 @@
     <Compile Include="Utils.fs" />
     <Compile Include="Grammar.fs" />
     <Compile Include="Exceptions.fs" />
+    <Compile Include="MacroResolve.fs" />
     <Compile Include="Op.fs" />
     <Compile Include="Unification.fs" />
     <Compile Include="Analysis.fs" />

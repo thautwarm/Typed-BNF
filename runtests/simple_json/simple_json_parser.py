@@ -47,6 +47,18 @@ class RBNFTransformer(Transformer):
     def json_0(self, __tbnf_COMPONENTS):
         return jsonInt(parseInt(getStr(__tbnf_COMPONENTS[0])))
     
+    def seplist_o__i__s__i__s_jsonpair_p__1(self, __tbnf_COMPONENTS):
+        return appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
+    
+    def seplist_o__i__s__i__s_jsonpair_p__0(self, __tbnf_COMPONENTS):
+        return [__tbnf_COMPONENTS[0]]
+    
+    def seplist_o__i__s__i__s_json_p__1(self, __tbnf_COMPONENTS):
+        return appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
+    
+    def seplist_o__i__s__i__s_json_p__0(self, __tbnf_COMPONENTS):
+        return [__tbnf_COMPONENTS[0]]
+    
     def dictjson_1(self, __tbnf_COMPONENTS):
         return appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
     

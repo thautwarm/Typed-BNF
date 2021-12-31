@@ -28,10 +28,10 @@ let UnboundVariable(name) = NameError(name, NameErrorScope.VAR, Unbound)
 let DuplicateVariable(name) = NameError(name,  NameErrorScope.VAR, Duplicate)
 
 let UnboundNonterminal(name) = NameError(name,  NameErrorScope.NONTERM, Unbound)
-let DuplicateTerminal(name) = NameError(name,  NameErrorScope.NONTERM, Duplicate)
+let DuplicateNonterminal(name) = NameError(name,  NameErrorScope.NONTERM, Duplicate)
 
 let UnboundLexer(name) = NameError(name,  NameErrorScope.NONTERM, Unbound)
 let DuplicateLexer(name) = NameError(name,  NameErrorScope.LEXER, Duplicate)
 
 exception ComponentAccessingOutOfBound of int
-
+exception MacroResolveError of string

@@ -12,6 +12,7 @@ type position =
     { line: int
       col: int
       filename: string }
+    with static member Fake = { line = 0; col = 0; filename = "" }
 
 and node =
     | EApp of expr * expr list

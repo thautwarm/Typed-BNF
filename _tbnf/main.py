@@ -1,5 +1,6 @@
 from __future__ import annotations
 from array import array
+from typing import (List, Tuple)
 from fable_modules.fable_library.list import empty
 from fable_modules.fable_library.string import (to_console, printf)
 from .analysis import (build_analyzer, Analyzer)
@@ -16,7 +17,7 @@ z = definition(1, {
 def main(a: int, b: int, c: int) -> array:
     arg10 : int = (a + (b // c)) or 0
     to_console(printf("%d"))(arg10)
-    x_1 : Analyzer = build_analyzer([definition(1, {
+    x_1 : Tuple[List[definition], Analyzer] = build_analyzer([definition(1, {
         "define": empty(),
         "lhs": "Float",
         "pos": position(0, 0, "")
