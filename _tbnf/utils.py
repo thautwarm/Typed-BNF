@@ -6,6 +6,7 @@ from fable_modules.fable_library.range import range_char
 from fable_modules.fable_library.reflection import (TypeInfo, string_type, class_type, record_type, int32_type, char_type, bool_type, lambda_type, list_type)
 from fable_modules.fable_library.seq import (to_array, delay, map, to_list, collect, singleton as singleton_1)
 from fable_modules.fable_library.set import (empty, contains, add as add_2)
+from fable_modules.fable_library.string import (replace, to_text, printf)
 from fable_modules.fable_library.system_text import (StringBuilder__ctor_Z721C83C5, StringBuilder__Append_Z721C83C5, StringBuilder__Append_244C7CD6, StringBuilder__ctor)
 from fable_modules.fable_library.types import (to_string, Record)
 from fable_modules.fable_library.util import (ignore, compare_primitives)
@@ -74,13 +75,33 @@ def is_unicode(c: str) -> bool:
 def _escapeString(s: str) -> str:
     sb : Any = StringBuilder__ctor_Z721C83C5("\"")
     for i in range(0, (len(s) - 1) + 1, 1):
-        def arrow_23(s=s) -> Any:
+        def arrow_30(s=s) -> Any:
             match_value : str = s[i]
             return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\"") if (match_value == "\"") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
         
-        ignore(arrow_23())
+        ignore(arrow_30())
     ignore(StringBuilder__Append_Z721C83C5(sb, "\""))
     return to_string(sb)
+
+
+def i_to_u4(i: int) -> str:
+    return "\\u" + replace(to_text(printf("%4X"))(i), " ", "0")
+
+
+def _escapeStringSingleQuoted(s: str) -> str:
+    sb : Any = StringBuilder__ctor_Z721C83C5("\u0027")
+    for i in range(0, (len(s) - 1) + 1, 1):
+        def arrow_32(s=s) -> Any:
+            match_value : str = s[i]
+            return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\u0027") if (match_value == "\u0027") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
+        
+        ignore(arrow_32())
+    ignore(StringBuilder__Append_Z721C83C5(sb, "\u0027"))
+    return to_string(sb)
+
+
+def escape_string_single_quoted(s: str) -> str:
+    return _escapeStringSingleQuoted(s)
 
 
 def escape_string(s: str) -> str:
@@ -96,7 +117,7 @@ def capitalized(s: str) -> str:
     
 
 
-def expr_27() -> TypeInfo:
+def expr_33() -> TypeInfo:
     return record_type("tbnf.Utils.NameMangling.nameEnv", [], NameMangling_nameEnv, lambda: [["usedNames", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -106,9 +127,9 @@ class NameMangling_nameEnv(Record):
         self.used_names = used_names
     
 
-NameMangling_nameEnv_reflection = expr_27
+NameMangling_nameEnv_reflection = expr_33
 
-def expr_29() -> TypeInfo:
+def expr_38() -> TypeInfo:
     return record_type("tbnf.Utils.NameMangling.IdentifierDescriptor", [], NameMangling_IdentifierDescriptor, lambda: [["isValidChar", lambda_type(int32_type, lambda_type(char_type, bool_type))], ["charToValid", lambda_type(int32_type, lambda_type(char_type, string_type))], ["nameEnv", NameMangling_nameEnv_reflection()]])
 
 
@@ -120,15 +141,15 @@ class NameMangling_IdentifierDescriptor(Record):
         self.name_env = name_env
     
 
-NameMangling_IdentifierDescriptor_reflection = expr_29
+NameMangling_IdentifierDescriptor_reflection = expr_38
 
 def NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(is_valid_char: Callable[[int, str], bool], char_to_valid: Callable[[int, str], str]) -> NameMangling_IdentifierDescriptor:
-    class ObjectExpr30:
+    class ObjectExpr40:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    return NameMangling_IdentifierDescriptor(is_valid_char, char_to_valid, NameMangling_nameEnv(empty(ObjectExpr30())))
+    return NameMangling_IdentifierDescriptor(is_valid_char, char_to_valid, NameMangling_nameEnv(empty(ObjectExpr40())))
 
 
 def NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(this: NameMangling_IdentifierDescriptor, x: NameMangling_nameEnv) -> NameMangling_IdentifierDescriptor:
@@ -207,7 +228,7 @@ def NameMangling_mangle(abandoned_names: Any, idr: NameMangling_IdentifierDescri
     return s
 
 
-def expr_32(gen0) -> TypeInfo:
+def expr_41(gen0) -> TypeInfo:
     return record_type("tbnf.Utils.DocBuilder.block`1", [gen0], DocBuilder_block_1, lambda: [["suite", list_type(Doc_reflection())], ["value", gen0]])
 
 
@@ -218,9 +239,9 @@ class DocBuilder_block_1(Record, Generic[b]):
         self.value = value
     
 
-DocBuilder_block_1_reflection = expr_32
+DocBuilder_block_1_reflection = expr_41
 
-def expr_33() -> TypeInfo:
+def expr_42() -> TypeInfo:
     return class_type("tbnf.Utils.DocBuilder.Builder", None, DocBuilder_Builder)
 
 
@@ -229,7 +250,7 @@ class DocBuilder_Builder:
         pass
     
 
-DocBuilder_Builder_reflection = expr_33
+DocBuilder_Builder_reflection = expr_42
 
 def DocBuilder_Builder__ctor() -> DocBuilder_Builder:
     return DocBuilder_Builder()
@@ -270,16 +291,16 @@ def DocBuilder_Builder__Delay_Z6CB7AF07(__: DocBuilder_Builder, x: Callable[[], 
 
 def DocBuilder_Builder__For_4C40856C(__: DocBuilder_Builder, m: Any, f: Callable[[t], DocBuilder_block_1[u]]) -> DocBuilder_block_1[FSharpList[u]]:
     suite : FSharpList[Doc] = empty_1()
-    def arrow_40(__=__, m=m, f=f) -> Any:
-        def arrow_39(each: Any=None) -> Any:
+    def arrow_45(__=__, m=m, f=f) -> Any:
+        def arrow_44(each: Any=None) -> Any:
             nonlocal suite
             m_0027 : DocBuilder_block_1[u] = f(each)
             suite = append(m_0027.suite, suite)
             return singleton_1(m_0027.value)
         
-        return collect(arrow_39, m)
+        return collect(arrow_44, m)
     
-    value : FSharpList[u] = to_list(delay(arrow_40))
+    value : FSharpList[u] = to_list(delay(arrow_45))
     return DocBuilder_block_1(suite, value)
 
 

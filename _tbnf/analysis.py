@@ -13,7 +13,7 @@ from .macro_resolve import resolve_macro
 from .op import basename
 from .unification import (Manager, Manager__NewTyRef_Z721C83C5, Manager__Unify, Manager__Instantiate_Z25E5E15E, Manager_reflection, Manager__ctor)
 
-def expr_55() -> TypeInfo:
+def expr_53() -> TypeInfo:
     return record_type("tbnf.Analysis.Shape", [], Shape, lambda: [["parameters", list_type(string_type)], ["fields", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, monot_reflection()])]])
 
 
@@ -24,36 +24,36 @@ class Shape(Record):
         self.fields = fields
     
 
-Shape_reflection = expr_55
+Shape_reflection = expr_53
 
-def expr_59() -> TypeInfo:
+def expr_57() -> TypeInfo:
     return class_type("tbnf.Analysis.Sigma", None, Sigma)
 
 
 class Sigma:
     def __init__(self, UM: Manager=None) -> None:
         self.UM = UM
-        class ObjectExpr56:
+        class ObjectExpr54:
             @property
             def Compare(self) -> Any:
                 return lambda x, y: compare_primitives(x, y)
             
-        self.shapes = empty(ObjectExpr56())
-        class ObjectExpr57:
+        self.shapes = empty(ObjectExpr54())
+        class ObjectExpr55:
             @property
             def Compare(self) -> Any:
                 return lambda x_1, y_1: compare_primitives(x_1, y_1)
             
-        self.kinds = of_array(_predefined_typenames, ObjectExpr57())
-        class ObjectExpr58:
+        self.kinds = of_array(_predefined_typenames, ObjectExpr55())
+        class ObjectExpr56:
             @property
             def Compare(self) -> Any:
                 return lambda x_2, y_2: compare_primitives(x_2, y_2)
             
-        self.global_variables = empty(ObjectExpr58())
+        self.global_variables = empty(ObjectExpr56())
     
 
-Sigma_reflection = expr_59
+Sigma_reflection = expr_57
 
 def Sigma__ctor_Z57FA2555(UM: Manager) -> Sigma:
     return Sigma(UM)
@@ -362,7 +362,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                 l = x_8.fields[0]
             
             elif x_8.tag == 11:
-                class ObjectExpr68:
+                class ObjectExpr69:
                     @property
                     def Equals(self) -> Any:
                         return lambda x_9, y_6: x_9 == y_6
@@ -371,7 +371,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                     def GetHashCode(self) -> Any:
                         return lambda x_9: string_hash(x_9)
                     
-                if contains(x_8.fields[0], TokenFragments, ObjectExpr68()):
+                if contains(x_8.fields[0], TokenFragments, ObjectExpr69()):
                     pattern_matching_result = 3
                 
                 else: 
@@ -404,11 +404,11 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
             
             break
     
-    def arrow_69(x_10: position, stmts=stmts) -> None:
+    def arrow_70(x_10: position, stmts=stmts) -> None:
         nonlocal current_pos
         current_pos = x_10
     
-    stmts_1 : List[definition] = resolve_macro(arrow_69, stmts)
+    stmts_1 : List[definition] = resolve_macro(arrow_70, stmts)
     for idx in range(0, (len(stmts_1) - 1) + 1, 1):
         stmt : definition = stmts_1[idx]
         (pattern_matching_result_1, decl_1, decl_2, decl_3, decl_4) = (None, None, None, None, None)
@@ -473,7 +473,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                 decl_6 = stmt.fields[0]
             
             elif stmt.tag == 2:
-                class ObjectExpr70:
+                class ObjectExpr71:
                     @property
                     def Equals(self) -> Any:
                         return lambda x_4, y_4: x_4 == y_4
@@ -482,7 +482,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                     def GetHashCode(self) -> Any:
                         return lambda x_4: string_hash(x_4)
                     
-                if contains(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr70()):
+                if contains(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr71()):
                     pattern_matching_result_2 = 1
                     decl_7 = stmt.fields[0]
                 
@@ -529,7 +529,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                                 LiteralTokens = add_1(n, LiteralTokens)
                             
                             else: 
-                                class ObjectExpr71:
+                                class ObjectExpr72:
                                     @property
                                     def Equals(self) -> Any:
                                         return lambda x_5, y_5: x_5 == y_5
@@ -538,7 +538,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                                     def GetHashCode(self) -> Any:
                                         return lambda x_5: string_hash(x_5)
                                     
-                                if not contains(n, TokenFragments, ObjectExpr71()):
+                                if not contains(n, TokenFragments, ObjectExpr72()):
                                     raise UnboundLexer(n)
                                 
                                 else: 
@@ -559,10 +559,10 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                             
                         
                         else: 
-                            def arrow_72(s=s) -> Exception:
+                            def arrow_73(s=s) -> Exception:
                                 raise Exception("macrocall not processed")
                             
-                            raise arrow_72()
+                            raise arrow_73()
                         
                     
                     S_2 : FSharpList[monot] = map(infer_p, production.symbols)
@@ -575,10 +575,10 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
             current_pos = decl_10["pos"]
             check_lexerule(decl_10["define"])
         
-    def arrow_73(stmts=stmts) -> Analyzer:
+    def arrow_74(stmts=stmts) -> Analyzer:
         TokenFragments_1 : List[str] = reverse(to_array(TokenFragments))
         return Analyzer(UM, Sigma_1, current_pos, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet)
     
-    return (stmts_1, arrow_73())
+    return (stmts_1, arrow_74())
 
 

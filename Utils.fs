@@ -29,6 +29,23 @@ let _escapeString (s: string) =
     ignore(sb.Append("\""))
     sb.ToString()
 
+let iToU4 i = "\\u" + (sprintf "%4X" i).Replace(" ", "0")
+
+let _escapeStringSingleQuoted (s: string) =
+    let sb = StringBuilder("'")
+    for i = 0 to s.Length - 1 do
+        match s.[i] with
+        | ''' -> sb.Append("\\'")
+        | '\\'  -> sb.Append("\\\\")
+        | '\t'  -> sb.Append("\\t")
+        | '\n'  -> sb.Append("\\n")
+        | '\r'  -> sb.Append("\\r")
+        | a -> sb.Append(a)
+        |> ignore
+    ignore(sb.Append("'"))
+    sb.ToString()
+
+let escapeStringSingleQuoted (s: string) = _escapeStringSingleQuoted s
 let escapeString (s: string) = _escapeString s
 
 let capitalized (s: string) = 

@@ -5,7 +5,7 @@ from fable_modules.fable_library.list import (empty, FSharpList, map as map_1, i
 from fable_modules.fable_library.map import (empty as empty_1, try_find, add)
 from fable_modules.fable_library.option import some
 from fable_modules.fable_library.seq import (to_list, delay, map, collect, singleton, of_list as of_list_1, append as append_1)
-from fable_modules.fable_library.set import (of_array, of_list, union, contains)
+from fable_modules.fable_library.set import (of_array, of_list, contains)
 from fable_modules.fable_library.string import (to_text, interpolate, join, printf)
 from fable_modules.fable_library.util import (compare_primitives, compare, equals, string_hash, get_enumerator)
 from .analysis import (Sigma__get_GlobalVariables, Analyzer)
@@ -25,22 +25,16 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
     lang_name : str = _arg1.lang
     import_var_names : FSharpList[str] = empty()
     import_type_names : FSharpList[str] = empty()
-    class ObjectExpr106:
-        @property
-        def Compare(self) -> Any:
-            return lambda x, y: compare_primitives(x, y)
-        
-    export_names : Any = of_array(["parser", "grammar"], ObjectExpr106())
     class ObjectExpr107:
         @property
         def Compare(self) -> Any:
-            return lambda x_1, y_1: compare_primitives(x_1, y_1)
+            return lambda x, y: compare_primitives(x, y)
         
     abandoned_names : Any = of_array(["and", "as", "assert", "asr", "begin", "class", "constraint", "do", "done", "downto", "else", "end", "exception", "external", "false", "for", "fun", "function", "functor", "if", "in", "include", "inherit", "initializer", "land", "lazy", "let", "lor", "lsl", "lsr", "lxor", "match", "method", "mod", "module", "mutable", "new", "nonrec", "object", "of", "open", "or", "private", "rec", "sig", "struct", "then", "to", "true", "try", "type", "val", "virtual", "when", "while", "with"], ObjectExpr107())
     class ObjectExpr108:
         @property
         def Compare(self) -> Any:
-            return lambda x_2, y_2: compare(x_2, y_2)
+            return lambda x_1, y_1: compare(x_1, y_1)
         
     symmap : Any = empty_1(ObjectExpr108())
     toplevel_transformer : FSharpList[Doc] = empty()
@@ -50,7 +44,7 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
     class ObjectExpr109:
         @property
         def Compare(self) -> Any:
-            return lambda x_3, y_3: compare_primitives(x_3, y_3)
+            return lambda x_2, y_2: compare_primitives(x_2, y_2)
         
     def arrow_110(i: int, c: str, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts) -> bool:
         test : bool = True if (True if (is_lower(c)) else (is_unicode(c))) else (c == "_")
@@ -60,34 +54,32 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
     class ObjectExpr111:
         @property
         def Compare(self) -> Any:
-            return lambda x_4, y_4: compare_primitives(x_4, y_4)
+            return lambda x_3, y_3: compare_primitives(x_3, y_3)
         
     sedlex_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_2, c_2, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: is_upper(c_2) if (i_2 == 0) else (True if (True if (is_upper(c_2)) else (c_2 == "_")) else (is_digit(c_2))), lambda i_3, c_3, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: c_3.upper() if (is_lower(c_3)) else (NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3)) + "_" if (i_3 == 0) else (("_" + NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3))) + "_"))), NameMangling_nameEnv(of_array(["EOF"], ObjectExpr111())))
     class ObjectExpr112:
         @property
         def Compare(self) -> Any:
-            return lambda x_5, y_5: compare_primitives(x_5, y_5)
+            return lambda x_4, y_4: compare_primitives(x_4, y_4)
         
     menhir_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_4, c_4, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: is_lower(c_4) if (i_4 == 0) else (True if (True if (is_lower(c_4)) else (c_4 == "_")) else (is_digit(c_4))), lambda _arg1_1, c_5, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: c_5.lower() if (is_upper(c_5)) else (("_" + NameMangling_maskChar(ord("a"), ord("z"), ord(c_5))) + "_")), NameMangling_nameEnv(of_array(["start"], ObjectExpr112())))
-    mangle = None
-    abandoned_names_1 : Any = union(abandoned_names, export_names)
-    mangle = lambda idr, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: lambda n: NameMangling_mangle(abandoned_names_1, idr, n)
-    def cg_symbol(x_6: symbol, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts) -> str:
+    mangle : Callable[[NameMangling_IdentifierDescriptor, str], str] = lambda idr, n, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: NameMangling_mangle(abandoned_names, idr, n)
+    def cg_symbol(x_5: symbol, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts) -> str:
         nonlocal symmap
-        match_value : Optional[str] = try_find(x_6, symmap)
+        match_value : Optional[str] = try_find(x_5, symmap)
         if match_value is None:
             valid_py_ident = None
-            if x_6.tag == 0:
-                define : str = x_6.fields[0]
-                valid_py_ident = mangle(sedlex_ident_descr)(("\"" + define) + "\"") if (x_6.fields[1]) else (mangle(sedlex_ident_descr)(define))
+            if x_5.tag == 0:
+                define : str = x_5.fields[0]
+                valid_py_ident = mangle(sedlex_ident_descr, ("\"" + define) + "\"") if (x_5.fields[1]) else (mangle(sedlex_ident_descr, define))
             
-            elif x_6.tag == 1:
-                valid_py_ident = mangle(menhir_ident_descr)(x_6.fields[0])
+            elif x_5.tag == 1:
+                valid_py_ident = mangle(menhir_ident_descr, x_5.fields[0])
             
             else: 
                 raise Exception("macro not processed")
             
-            symmap = add(x_6, valid_py_ident, symmap)
+            symmap = add(x_5, valid_py_ident, symmap)
             return valid_py_ident
         
         else: 
@@ -95,16 +87,16 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
         
     
     name_of_named_term : Callable[[str], str] = lambda n_2, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: cg_symbol(symbol(0, n_2, False))
-    def try_lookup(key_mut: a_, x_7_mut: FSharpList[Tuple[a_, b_]], analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts) -> Optional[b_]:
+    def try_lookup(key_mut: a_, x_6_mut: FSharpList[Tuple[a_, b_]], analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts) -> Optional[b_]:
         while True:
-            (key, x_7) = (key_mut, x_7_mut)
-            if not is_empty(x_7):
-                if equals(head(x_7)[0], key):
-                    return some(head(x_7)[1])
+            (key, x_6) = (key_mut, x_6_mut)
+            if not is_empty(x_6):
+                if equals(head(x_6)[0], key):
+                    return some(head(x_6)[1])
                 
-                elif not is_empty(x_7):
+                elif not is_empty(x_6):
                     key_mut = key
-                    x_7_mut = tail(x_7)
+                    x_6_mut = tail(x_6)
                     continue
                 
                 else: 
@@ -155,10 +147,10 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
         
         elif match_value_1.tag == 11:
             if match_value_1.fields[0]:
-                return word("True")
+                return word("true")
             
             else: 
-                return word("False")
+                return word("false")
             
         
         elif match_value_1.tag == 3:
@@ -174,22 +166,22 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
             return word(escape_string(match_value_1.fields[0]))
         
         elif match_value_1.tag == 5:
-            def arrow_114(scope=scope, curr_expr=curr_expr) -> Any:
-                def arrow_113(match_value_3: Tuple[str, monot]) -> Any:
+            def arrow_117(scope=scope, curr_expr=curr_expr) -> Any:
+                def arrow_115(match_value_3: Tuple[str, monot]) -> Any:
                     arg : str = match_value_3[0]
-                    return singleton((arg, mangle(ocaml_var_ident_descr)(arg)))
+                    return singleton((arg, mangle(ocaml_var_ident_descr, arg)))
                 
-                return collect(arrow_113, match_value_1.fields[0])
+                return collect(arrow_115, match_value_1.fields[0])
             
-            code : Doc = cg_expr(append(to_list(delay(arrow_114)), scope), match_value_1.fields[1])
+            code : Doc = cg_expr(append(to_list(delay(arrow_117)), scope), match_value_1.fields[1])
             anns : FSharpList[Doc] = map_1(lambda tupled_arg, scope=scope, curr_expr=curr_expr: word((tupled_arg[0] + ":") + cg_type(tupled_arg[1])), match_value_1.fields[0])
             return parens(vsep(of_array_1([Doc_op_Addition_Z7CFFAC00(word("fun"), Doc_op_Multiply_Z7CFFAC00(parens(seplist(word(", "), anns)), word("-\u003e"))), Doc_op_RightShift_2AAA0F3C(code, 4)])))
         
         elif match_value_1.tag == 4:
             value_0027 : Doc = cg_expr(scope, match_value_1.fields[1])
-            m_name : str = mangle(ocaml_var_ident_descr)(match_value_1.fields[0])
+            m_name : str = mangle(ocaml_var_ident_descr, match_value_1.fields[0])
             body : Doc = cg_expr(cons((match_value_1.fields[0], m_name), scope), match_value_1.fields[2])
-            name_2 : Doc = word(m_name)
+            name_2 : Doc = Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(word(m_name), word(":")), word(cg_type(curr_expr.t)))
             return vsep(of_array_1([Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("let"), name_2), word("=")), value_0027), word("in")), body]))
         
         elif match_value_1.tag == 2:
@@ -203,7 +195,7 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
         
         else: 
             f_0027 : Doc = cg_expr(scope, match_value_1.fields[0])
-            args_0027 : FSharpList[Doc] = map_1(lambda x_9, scope=scope, curr_expr=curr_expr: cg_expr(scope, x_9), match_value_1.fields[1])
+            args_0027 : FSharpList[Doc] = map_1(lambda x_8, scope=scope, curr_expr=curr_expr: cg_expr(scope, x_8), match_value_1.fields[1])
             return Doc_op_Multiply_Z7CFFAC00(f_0027, parens(seplist(word(", "), args_0027)))
         
     
@@ -385,19 +377,19 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
             decl : dict = stmt.fields[0]
             current_pos = decl["pos"]
             ntname_1 : str = cg_symbol(symbol(1, decl["lhs"]))
-            def arrow_117(stmt=stmt) -> Any:
-                def arrow_116(match_value_4: Tuple[position, production_1]) -> Any:
+            def arrow_123(stmt=stmt) -> Any:
+                def arrow_122(match_value_4: Tuple[position, production_1]) -> Any:
                     nonlocal current_pos
                     current_pos = match_value_4[0]
-                    def arrow_115(_unit=None) -> Doc:
+                    def arrow_121(_unit=None) -> Doc:
                         prod : production_1 = match_value_4[1]
                         return Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(seplist(word(" "), map_1(lambda arg_1: word(cg_symbol(arg_1)), prod.symbols)), word("{")), Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([empty_2, Doc_op_RightShift_2AAA0F3C(cg_expr(global_scope, prod.action), 4), word("}")])), 12))
                     
-                    return singleton(arrow_115())
+                    return singleton(arrow_121())
                 
-                return collect(arrow_116, decl["define"])
+                return collect(arrow_122, decl["define"])
             
-            body_4 : Doc = align(vsep(map_indexed(lambda i_7, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_7 == 0) else (word("|")), e_1), to_list(delay(arrow_117)))))
+            body_4 : Doc = align(vsep(map_indexed(lambda i_7, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_7 == 0) else (word("|")), e_1), to_list(delay(arrow_123)))))
             return Doc_op_Addition_Z7CFFAC00(word(ntname_1), body_4)
         
     
@@ -405,16 +397,16 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
     filename_lexer : str = to_text(printf("%s_lexer"))(lang_name)
     filename_parser : str = to_text(printf("%s_parser"))(lang_name)
     filename_require : str = to_text(printf("%s_require"))(lang_name)
-    var_tokenizer : str = mangle(ocaml_var_ident_descr)("tokenizer")
-    var_lexbuf : str = mangle(ocaml_var_ident_descr)("lexbuf")
+    var_tokenizer : str = mangle(ocaml_var_ident_descr, "tokenizer")
+    var_lexbuf : str = mangle(ocaml_var_ident_descr, "lexbuf")
     token_names : FSharpList[str] = empty()
     ReferencedNamedTokens : List[str] = list(analyzer.ReferencedNamedTokens)
-    class ObjectExpr118:
+    class ObjectExpr124:
         @property
         def Compare(self) -> Any:
-            return lambda x_12, y_7: compare_primitives(x_12, y_7)
+            return lambda x_11, y_6: compare_primitives(x_11, y_6)
         
-    sort_in_place_by(lambda k_1, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: find_index(lambda y_6: k_1 == y_6, analyzer.TokenFragments), ReferencedNamedTokens, ObjectExpr118())
+    sort_in_place_by(lambda k_1, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: find_index(lambda y_5: k_1 == y_5, analyzer.TokenFragments), ReferencedNamedTokens, ObjectExpr124())
     lexical_rule_defs : FSharpList[Doc] = empty()
     tokenizer_cases : FSharpList[Doc] = empty()
     with get_enumerator(lexer_maps) as enumerator:
@@ -434,27 +426,27 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
                 lexical_rule_name_1 : str = "rule_" + token_name
                 lexical_rule_def_1 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("let"), word(lexical_rule_name_1)), word("=")), bracket(Doc_op_Addition_Z7CFFAC00(word("%sedlex.regexp?"), v_2)))
                 lexical_rule_defs = cons(lexical_rule_def_1, lexical_rule_defs)
-                class ObjectExpr119:
+                class ObjectExpr126:
                     @property
                     def Equals(self) -> Any:
-                        return lambda x_13, y_8: x_13 == y_8
+                        return lambda x_12, y_7: x_12 == y_7
                     
                     @property
                     def GetHashCode(self) -> Any:
-                        return lambda x_13: string_hash(x_13)
+                        return lambda x_12: string_hash(x_12)
                     
-                if contains_1(k_2, ReferencedNamedTokens, ObjectExpr119()):
+                if contains_1(k_2, ReferencedNamedTokens, ObjectExpr126()):
                     tokenizer_case_1 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("|"), word(lexical_rule_name_1)), word(to_text(interpolate("-\u003e %P() (mktoken %P())", [token_name, var_lexbuf]))))
                     tokenizer_cases = cons(tokenizer_case_1, tokenizer_cases)
                     token_names = cons(token_name, token_names)
                 
             
-    class ObjectExpr120:
+    class ObjectExpr129:
         @property
         def Compare(self) -> Any:
-            return lambda x_14, y_9: compare_primitives(x_14, y_9)
+            return lambda x_13, y_8: compare_primitives(x_13, y_8)
         
-    arr : List[str] = sort(list(analyzer.LiteralTokens), ObjectExpr120())
+    arr : List[str] = sort(list(analyzer.LiteralTokens), ObjectExpr129())
     for idx_1 in range(0, (len(arr) - 1) + 1, 1):
         k_3 : str = arr[idx_1]
         v_3 : Doc = word(mk_lexer(lexerule(3, k_3)))

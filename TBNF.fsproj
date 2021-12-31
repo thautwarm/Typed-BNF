@@ -23,6 +23,7 @@
     <Compile Include="Backends.Common.fs" />
     <Compile Include="Backends.PythonLark.fs" />
     <Compile Include="Backends.OCamlMenhir.fs" />
+    <Compile Include="Backends.CSharpAntlr.fs" />
     <Compile Include="APIs.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>

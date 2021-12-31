@@ -158,7 +158,7 @@ def MK_Defignore(ignore_list: List[str], pos: position_1) -> definition:
 
 
 def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, production]], pos: position_1) -> definition:
-    def arrow_50(lhs=lhs, parameters=parameters, define=define, pos=pos) -> dict:
+    def arrow_51(lhs=lhs, parameters=parameters, define=define, pos=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "define": of_array(define),
@@ -167,7 +167,7 @@ def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, 
             "pos": pos
         }
     
-    return definition(0, arrow_50())
+    return definition(0, arrow_51())
 
 
 def MK_Defrule(lhs: str, define: List[Tuple[position_1, production]], pos: position_1) -> definition:
@@ -195,7 +195,7 @@ def MK_Declvar(ident: str, t: polyt, pos: position_1) -> definition:
 
 
 def MK_Decltype(ident: str, parameters: List[str], fields: List[Tuple[str, monot_1, position_1]], pos: position_1) -> definition:
-    def arrow_51(ident=ident, parameters=parameters, fields=fields, pos=pos) -> dict:
+    def arrow_52(ident=ident, parameters=parameters, fields=fields, pos=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "fields": of_array(fields),
@@ -204,7 +204,7 @@ def MK_Decltype(ident: str, parameters: List[str], fields: List[Tuple[str, monot
             "pos": pos
         }
     
-    return definition(4, arrow_51())
+    return definition(4, arrow_52())
 
 
 def MK_production(symbols: List[symbol], action: expr) -> production:

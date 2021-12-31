@@ -9,7 +9,7 @@ a_ = TypeVar("a_")
 
 b_ = TypeVar("b_")
 
-def expr_42() -> TypeInfo:
+def expr_46() -> TypeInfo:
     return record_type("tbnf.Backends.Common.CodeGenOptions", [], CodeGenOptions, lambda: [["variable_renamer", lambda_type(string_type, string_type)], ["type_renamer", lambda_type(string_type, string_type)], ["lang", string_type]])
 
 
@@ -21,7 +21,7 @@ class CodeGenOptions(Record):
         self.lang = lang
     
 
-CodeGenOptions_reflection = expr_42
+CodeGenOptions_reflection = expr_46
 
 def List_tryLookup(key_mut: a_, x_mut: FSharpList[Tuple[a_, b_]]) -> Optional[b_]:
     while True:

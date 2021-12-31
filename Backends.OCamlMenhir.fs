@@ -13,16 +13,8 @@ open tbnf.Backends.Common
 
 let codegen (analyzer: Analyzer) { variable_renamer = var_renamer; type_renamer = type_renamer;  lang = langName } (rts_file_string: string) (stmts: definition array) =
 
-    let PythonPackage_Sedlex = "_tbnf.FableSedlex"
     let mutable importVarNames = []
-    let mutable importTypeNames = []
-
-    let export_Parser = "parser"
-    let export_Grammar = "grammar"
-
-    let export_names =
-        Set.ofArray [| export_Parser
-                       export_Grammar |]
+    let mutable importTypeNames = []   
 
     let abandoned_names =
         Set.ofArray [| "and"
@@ -93,7 +85,7 @@ let codegen (analyzer: Analyzer) { variable_renamer = var_renamer; type_renamer 
     let global_scope =
         [ for k in analyzer.Sigma.GlobalVariables -> k.Key, var_renamer k.Key ]
 
-    (* valid python identifier segment *)
+    (* valid ocaml identifier segment *)
     let ocamlVarIdentDescr =
         IdentifierDescriptor
             .Create(
@@ -150,8 +142,7 @@ let codegen (analyzer: Analyzer) { variable_renamer = var_renamer; type_renamer 
             .WithNameEnv { usedNames = Set.ofArray [| "start" |] }
 
 
-    let mangle =
-        mangle (Set.union abandoned_names export_names)
+    let mangle = mangle abandoned_names
 
     let typeof_symbol =
         function
@@ -207,8 +198,6 @@ let codegen (analyzer: Analyzer) { variable_renamer = var_renamer; type_renamer 
         | [] -> None
         | (key', value) :: tl when key' = key -> Some value
         | _ :: tl -> tryLookup key tl
-
-    let TREE_NAME = "__tbnf_COMPONENTS"
     
     let rec _cg_type (t: monot) =
         match t with
@@ -246,8 +235,8 @@ let codegen (analyzer: Analyzer) { variable_renamer = var_renamer; type_renamer 
             match tryLookup var scope with
             | None -> raise (UnboundVariable(var))
             | Some v -> word v
-        | node.EBool true -> word "True"
-        | node.EBool false -> word "False"
+        | node.EBool true -> word "true"
+        | node.EBool false -> word "false"
         | node.EField (e, s) ->
             let e' = !e
             (e' + word ":" + word (cg_type curr_expr.t)) * word "." * word s
@@ -267,7 +256,7 @@ let codegen (analyzer: Analyzer) { variable_renamer = var_renamer; type_renamer 
             let value' = !value
             let m_name = mangle ocamlVarIdentDescr n
             let scope' = (n, m_name) :: scope
-            defineOCamlLetIn (word m_name) value' (cg_expr scope' body)
+            defineOCamlLetIn (word m_name * word ":" * word (cg_type curr_expr.t)) value' (cg_expr scope' body)
         | node.EList elts ->
             bracket(seplist (word ";") (List.map (fun elt -> cg_expr scope elt) elts))
         | node.ESlot i -> word $"${i}"

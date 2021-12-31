@@ -16,7 +16,7 @@ a_1 = TypeVar("a_1")
 
 a = TypeVar("a")
 
-def expr_24() -> TypeInfo:
+def expr_21() -> TypeInfo:
     return union_type("Fable.CodeGen.Doc", [], Doc, lambda: [[["Item1", Doc_reflection()], ["Item2", Doc_reflection()]], [["Item", list_type(Doc_reflection())]], [["Item", Doc_reflection()]], [["Item1", int32_type], ["Item2", Doc_reflection()]], [["Item", string_type]]])
 
 
@@ -31,7 +31,7 @@ class Doc(Union):
         return ["Concat", "VSep", "Align", "Indent", "Word"]
     
 
-Doc_reflection = expr_24
+Doc_reflection = expr_21
 
 def Doc_op_Multiply_Z7CFFAC00(a: Doc, b: Doc) -> Doc:
     return Doc(0, a, b)
@@ -187,11 +187,11 @@ def render(setences: List[List[DocPrimitive]], write: Callable[[str], None]) -> 
 
 
 def pretty(s: Any=None) -> Doc:
-    def arrow_34(s=s) -> str:
+    def arrow_39(s=s) -> str:
         copy_of_struct : a_ = s
         return to_string(copy_of_struct)
     
-    return Doc(4, arrow_34())
+    return Doc(4, arrow_39())
 
 
 def word(s: str) -> Doc:
@@ -254,10 +254,10 @@ def seplist(sep: Doc, lst: FSharpList[Doc]) -> Doc:
 
 def show_doc(doc: Doc) -> str:
     sb : Any = StringBuilder__ctor()
-    def arrow_41(x: str, doc=doc) -> None:
+    def arrow_43(x: str, doc=doc) -> None:
         ignore(StringBuilder__Append_Z721C83C5(sb, x))
     
-    render(compile_to_prims(doc), arrow_41)
+    render(compile_to_prims(doc), arrow_43)
     return to_string(sb)
 
 
