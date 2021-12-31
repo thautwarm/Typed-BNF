@@ -112,7 +112,7 @@ class grammar_parser_Transformer(Transformer):
     def production_0(self, __args):
         return  MK_production(__args[1-1], __args[3-1])
     def psym_0(self, __args):
-        return  MK_Term(str(__args[1-1]), False)
+        return  MK_Term(str(__args[2-1]), False)
     def psym_1(self, __args):
         return  MK_Term(unesc(str(__args[1-1])), True)
     def psym_2(self, __args):
@@ -144,12 +144,14 @@ class grammar_parser_Transformer(Transformer):
     def atomexp_3(self, __args):
         return  MK_expr(MK_ESlot(int(__args[2-1])), mkpos(__args[1-1]))
     def atomexp_4(self, __args):
-        return  MK_expr(MK_ETuple([]), mkpos(__args[1-1]))
+        return  MK_expr(MK_EList(__args[2-1]), mkpos(__args[1-1]))
     def atomexp_5(self, __args):
-        return  MK_expr(MK_ETuple(__args[2-1]), mkpos(__args[1-1]))
+        return  MK_expr(MK_ETuple([]), mkpos(__args[1-1]))
     def atomexp_6(self, __args):
-        return  MK_expr(MK_EVar(str(__args[1-1])), mkpos(__args[1-1]))
+        return  MK_expr(MK_ETuple(__args[2-1]), mkpos(__args[1-1]))
     def atomexp_7(self, __args):
+        return  MK_expr(MK_EVar(str(__args[1-1])), mkpos(__args[1-1]))
+    def atomexp_8(self, __args):
         return  MK_expr(MK_EField(__args[1-1], str(__args[3-1])), __args[1-1].pos)
     def lexer_0(self, __args):
         return  MK_LOr(__args[1-1])
@@ -164,7 +166,7 @@ class grammar_parser_Transformer(Transformer):
     def lexer_atomexpr_3(self, __args):
         return  __args[1-1]
     def lexer_atom_0(self, __args):
-        return  MK_LStr(str(__args[1-1]))
+        return  MK_LStr(unesc(str(__args[1-1])))
     def lexer_atom_1(self, __args):
         return  MK_LNot(__args[2-1])
     def lexer_atom_2(self, __args):
@@ -184,7 +186,7 @@ class grammar_parser_Transformer(Transformer):
 
 
 parser = Lark_StandAlone(transformer=grammar_parser_Transformer())
-def main():
+if __name__ == '__main__':
 
         import prettyprinter
         prettyprinter.install_extras(["dataclasses"])

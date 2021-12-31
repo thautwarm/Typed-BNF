@@ -4,6 +4,18 @@ let lowerChars = [|for a = 'a' to 'z' do yield a|]
 let upperChars = [|for a = 'A' to 'Z' do yield a|]
 let sampleUnicodes = [|20320; 26159; 22612; 33778; 21527|]
 
+let lowerRange = ('a', 'z')
+let upperRange = ('A', 'Z')
+let unicodeRange = ('\u4e00', '\u9fa5')
+let digitRange = ('0', '9')
+
+let isDigit c = '0' <= c && c <= '9'
+let isUpper c = 'A' <= c && c <= 'Z'
+let isLower c = 'a' <= c && c <= 'z'
+(* todo: more complete *)
+let isUnicode c = '\u4e00' <= c && c <= '\u9fa5'
+
+
 module IdHelper =
     open System.Text
     let uniqueIntToCapitalizedString i =
@@ -29,99 +41,47 @@ module NameMangling =
     type nameEnv = {  mutable usedNames : string Set }
     
     type IdentifierDescriptor = {
-       support_no_prefix_digit: bool;
-       support_unicode : bool;
-       support_lower_ascii: bool;
-       support_upper_ascii: bool;
-       support_underscore: bool;
-       support_digit: bool;
+       isValidChar : int -> char -> bool
+       charToValid : int -> char -> string
+       nameEnv: nameEnv
     }
     with
-        member this.SupportNoPrefixDigits = { this with support_no_prefix_digit = true }
-        member this.SupportUnicode = { this with support_unicode = true }
-        member this.SupportLowerAscii = { this with support_lower_ascii = true }
-        member this.SupportUpperAscii = { this with support_upper_ascii = true }
-        member this.SupportUnderscore = { this with support_underscore = true }
-        member this.SupportDigit = { this with support_digit = true }
+        static member Create(isValidChar, charToValid) =
+            {
+                isValidChar = isValidChar
+                charToValid = charToValid
+                nameEnv = { usedNames = Set.empty }
+            }
+        member this.WithNameEnv x = { this with nameEnv = x }
 
-    let isDigit c = '0' <= c && c <= '9'
-    let isUpper c = 'A' <= c && c <= 'Z'
-    let isLower c = 'a' <= c && c <= 'z'
-    (* todo: more complete *)
-    let isUnicode c = '\u4e00' <= c && c <= '\u9fa5'
     
-    let emptyIdentifierDescriptor = 
-        { support_unicode = false;
-          support_upper_ascii = false;
-          support_lower_ascii = false;
-          support_digit = false;
-          support_no_prefix_digit = false;
-          support_underscore = false;
-        }
-
-    let is_valid_character idr c =
-        (not idr.support_digit && isDigit c) 
-           || (not idr.support_lower_ascii && isLower c)
-           || (not idr.support_upper_ascii && isUpper c)
-           || (not idr.support_underscore && c = '_')
-           || (not idr.support_unicode && isUnicode c)
-        |> not
+    let maskChar low high i = char (low + i % (high - low + 1))
 
     let is_valid_identifier (idr: IdentifierDescriptor) s =
             if s = "" then true
             else
-            if idr.support_no_prefix_digit && isDigit s.[0] then
-                false
-            else
             let rec loop i =
                 if i >= s.Length then true
                 else
-                let c =  s.[i]
-                if not (is_valid_character idr c) then
-                    false
-                else loop (i+1)
-            loop 0
+                idr.isValidChar i s.[i] && loop (i + 1)
+            loop 0                    
     
-    let get_valid_string (idr: IdentifierDescriptor) i =
-        if idr.support_underscore then 
-            if idr.support_lower_ascii then
-                lowerChars.[i % lowerChars.Length]
-            elif idr.support_upper_ascii then
-                upperChars.[i % upperChars.Length]
-            elif idr.support_unicode then
-                char sampleUnicodes.[i % sampleUnicodes.Length]
-            else '_'
-            |> fun c ->
-            sprintf "_%c" c
-        elif idr.support_lower_ascii then
-            string <| lowerChars.[i % lowerChars.Length]
-        elif idr.support_upper_ascii then
-            string <| upperChars.[i % upperChars.Length]
-        elif idr.support_unicode then
-            string <| (char sampleUnicodes.[i % sampleUnicodes.Length])
-        else
-            invalidOp "do not know how to generate valid identifier character"
-            
     let to_valid_identifier (idr: IdentifierDescriptor) s =
-            if s = "" then s
+            if s = "" then invalidOp "empty identifier"
             else
             let sb = StringBuilder()
-            if idr.support_no_prefix_digit && isDigit s.[0] then
-                ignore(sb.Append(get_valid_string idr))
-            else
-                ignore(sb.Append(s.[0]))
-
-            
-            for i = 1 to s.Length - 1 do
-                let c = s.[i]
-                if not (is_valid_character idr c)  then
-                    ignore(sb.Append(get_valid_string idr i))
+            let rec loop i =
+                if i >= s.Length then ()
                 else
-                    ignore(sb.Append(c))
+                if idr.isValidChar i s.[i] then
+                    ignore(sb.Append(s.[i]))
+                else
+                    ignore(sb.Append(idr.charToValid i s.[i]))
+                loop (i + 1)
+            loop 0
             sb.ToString()
 
     let mangle (abandoned_names: string Set)
-               (nameEnv: nameEnv)
                (idr: IdentifierDescriptor)
                (n: string) =
         
@@ -132,10 +92,22 @@ module NameMangling =
                 to_valid_identifier idr n
         
         while Set.contains s abandoned_names do
-            s <- s + get_valid_string idr s.Length
+            let add =
+                if idr.isValidChar s.Length '_' then
+                    "_" + idr.charToValid (s.Length + 1) (lowerChars.[s.Length % lowerChars.Length])
+                else
+                    idr.charToValid s.Length (lowerChars.[s.Length % lowerChars.Length])
+            s <- s + add
+        
+        let nameEnv = idr.nameEnv
 
         while Set.contains s nameEnv.usedNames do
-            s <- s + get_valid_string idr s.Length
+            let add =
+                if idr.isValidChar s.Length '_' then
+                    "_" + idr.charToValid (s.Length + 1) (lowerChars.[s.Length % lowerChars.Length])
+                else
+                    idr.charToValid s.Length (lowerChars.[s.Length % lowerChars.Length])
+            s <- s + add
 
         nameEnv.usedNames <- Set.add s nameEnv.usedNames
         s

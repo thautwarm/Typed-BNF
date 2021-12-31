@@ -1,34 +1,22 @@
 from __future__ import annotations
-from typing import (Any, Tuple, Optional, Callable)
+from typing import (Tuple, Any, Optional, Callable)
 from fable_modules.fable_library.list import (FSharpList, length, iterate2, empty, map, unzip, is_empty)
 from fable_modules.fable_library.map import (of_list, try_find)
-from fable_modules.fable_library.map_util import (try_get_value, add_to_dict)
-from fable_modules.fable_library.mutable_map import Dictionary
 from fable_modules.fable_library.reflection import (TypeInfo, class_type)
-from fable_modules.fable_library.types import FSharpRef
-from fable_modules.fable_library.util import (equals, safe_hash, compare_primitives)
+from fable_modules.fable_library.util import (equals, compare_primitives)
 from .exceptions import (IllFormedType, TypeMismatch, UnboundTypeVariable)
-from .grammar import (Cell_1, monot, polyt, Cell_1__ctor, monot__find_any_children_z23d07ce9, monot__prune, Cell_1__Set_2B595, monot__transform_children_z2cab662a)
+from .grammar import (polyt, monot, Cell_1, Cell_1__ctor, monot__find_any_children_z23d07ce9, monot__prune, Cell_1__Set_2B595, monot__transform_children_z2cab662a)
 
-def expr_3() -> TypeInfo:
+def expr_36() -> TypeInfo:
     return class_type("tbnf.Unification.Manager", None, Manager)
 
 
 class Manager:
     def __init__(self) -> None:
-        class ObjectExpr2:
-            @property
-            def Equals(self) -> Any:
-                return lambda x, y: equals(x, y)
-            
-            @property
-            def GetHashCode(self) -> Any:
-                return lambda x: safe_hash(x)
-            
-        self.ty_env = Dictionary([], ObjectExpr2())
+        pass
     
 
-Manager_reflection = expr_3
+Manager_reflection = expr_36
 
 def Manager__ctor() -> Manager:
     return Manager()
@@ -46,29 +34,18 @@ def Manager__NewTyRef_Z721C83C5(__: Manager, s: str) -> monot:
     return Manager__newTyRef_Z721C83C5(__, s)
 
 
-def Manager__CellRepr_7A2426C3(__: Manager, cell: Cell_1[monot]) -> str:
-    a : Any = FSharpRef("")
-    def arrow_5(v: str, __=__, cell=cell) -> None:
-        a.contents = v
-    
-    if try_get_value(__.ty_env, cell, FSharpRef(lambda __=__, cell=cell: a.contents, arrow_5)):
-        return a.contents
-    
-    else: 
-        raise Exception("access repr of unknown typeref.")
-    
+def Manager__CellRepr_7A2426C3(__: Manager, cell: Cell_1[monot]) -> Any:
+    raise Exception("access repr of unknown typeref.")
 
 
 def Manager__newTyRef_Z721C83C5(this: Manager, name: str) -> monot:
-    cell : Cell_1[monot] = Cell_1__ctor()
-    add_to_dict(this.ty_env, cell, name)
-    return monot(0, cell)
+    return monot(0, Cell_1__ctor())
 
 
 def Manager__occur_in(this: Manager, r: Cell_1[monot], other: monot) -> bool:
     (pattern_matching_result,) = (None,)
     if other.tag == 0:
-        if equals(other.fields[0], r):
+        if other.fields[0] is r:
             pattern_matching_result = 0
         
         else: 
@@ -127,10 +104,12 @@ def Manager__unify(this_mut: Manager, l_mut: monot, r_mut: monot) -> None:
             if equals(l_1, r_1):
                 pass
             
-            if Manager__occur_in(this, cell, r_1):
+            elif Manager__occur_in(this, cell, r_1):
                 raise IllFormedType(l_1, r_1)
             
-            Cell_1__Set_2B595(cell, r_1)
+            else: 
+                Cell_1__Set_2B595(cell, r_1)
+            
         
         elif pattern_matching_result == 1:
             this_mut = this
@@ -186,10 +165,10 @@ def Manager__unify(this_mut: Manager, l_mut: monot, r_mut: monot) -> None:
                 
                 if pattern_matching_result_2 == 0:
                     Manager__unify(this, x_1, y_1)
-                    def arrow_10(l_2: monot, r_2: monot, this=this, l=l, r=r) -> None:
+                    def arrow_38(l_2: monot, r_2: monot, this=this, l=l, r=r) -> None:
                         Manager__unify(this, l_2, r_2)
                     
-                    iterate2(arrow_10, xs_1, ys_1)
+                    iterate2(arrow_38, xs_1, ys_1)
                 
                 elif pattern_matching_result_2 == 1:
                     (pattern_matching_result_3, x_3, xs_3, y_3, ys_3) = (None, None, None, None, None)
@@ -214,10 +193,10 @@ def Manager__unify(this_mut: Manager, l_mut: monot, r_mut: monot) -> None:
                         pattern_matching_result_3 = 1
                     
                     if pattern_matching_result_3 == 0:
-                        def arrow_12(l_3: monot, r_3: monot, this=this, l=l, r=r) -> None:
+                        def arrow_39(l_3: monot, r_3: monot, this=this, l=l, r=r) -> None:
                             Manager__unify(this, l_3, r_3)
                         
-                        iterate2(arrow_12, xs_3, ys_3)
+                        iterate2(arrow_39, xs_3, ys_3)
                         this_mut = this
                         l_mut = x_3
                         r_mut = y_3
@@ -254,12 +233,12 @@ def Manager__instantiate_Z25E5E15E(this: Manager, t: polyt) -> Tuple[FSharpList[
     
     elif pattern_matching_result == 1:
         specialization_args : FSharpList[Tuple[str, monot]] = map(lambda var, this=this, t=t: (var, Manager__newTyRef_Z721C83C5(this, var)), vars)
-        class ObjectExpr23:
+        class ObjectExpr40:
             @property
             def Compare(self) -> Any:
                 return lambda x, y: compare_primitives(x, y)
             
-        replace_map : Any = of_list(specialization_args, ObjectExpr23())
+        replace_map : Any = of_list(specialization_args, ObjectExpr40())
         def instantiate(t_3: monot, this=this, t=t) -> monot:
             if t_3.tag == 4:
                 a : str = t_3.fields[0]

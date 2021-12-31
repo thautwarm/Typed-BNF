@@ -110,10 +110,11 @@ atomexp : INT -> atomexp_0
         | FLOAT -> atomexp_1                                                          
         | ESCAPED_STRING -> atomexp_2                                                                   
         | "$" INT -> atomexp_3                                                           
-        | "(" ")" -> atomexp_4                                                       
-        | "(" eslist{",", expr} ")" -> atomexp_5                                                                         
-        | CNAME -> atomexp_6                                                        
-        | atomexp "." CNAME -> atomexp_7                                                                       
+        | "[" eslist{",", expr} "]" -> atomexp_4                                                                        
+        | "(" ")" -> atomexp_5                                                       
+        | "(" slist{",", expr} ")" -> atomexp_6                                                                        
+        | CNAME -> atomexp_7                                                        
+        | atomexp "." CNAME -> atomexp_8                                                                       
 
                     
 
@@ -136,7 +137,7 @@ lexer_atomexpr :lexer_atomexpr "+" -> lexer_atomexpr_0
       |  lexer_atomexpr "?" -> lexer_atomexpr_2                                                           
       |  lexer_atom -> lexer_atomexpr_3                          
 
-lexer_atom :  ESCAPED_STRING -> lexer_atom_0                                                 
+lexer_atom :  ESCAPED_STRING -> lexer_atom_0                                                        
       | "!" lexer_atom -> lexer_atom_1                                       
       |  "(" lexer ")" -> lexer_atom_2                                         
       |  "\\d" -> lexer_atom_3                                      
@@ -144,13 +145,11 @@ lexer_atom :  ESCAPED_STRING -> lexer_atom_0
       | "[" /./ "-" /./ "]" -> lexer_atom_5                                                                    
       | ("_" | ".") -> lexer_atom_6                                    
       | CNAME -> lexer_atom_7                                        
-
-lexerdef : CNAME "=" lexer -> lexerdef_0                                                                  
+      
+lexerdef : CNAME "=" lexer ";" -> lexerdef_0                                                                      
 
 UCODE : DIGIT | /[a-fA-F]/
 UNICODE : "\\" "u" UCODE UCODE UCODE UCODE
-
-
 
 %import common.ESCAPED_STRING
 %import common.CNAME

@@ -3,23 +3,21 @@ from typing import (Generic, TypeVar, Any, Callable)
 from fable_modules.fable_library.list import (FSharpList, map, exists, iterate, singleton)
 from fable_modules.fable_library.reflection import (TypeInfo, class_type, int32_type, string_type, record_type, list_type, tuple_type, float64_type, bool_type, union_type, anon_record_type)
 from fable_modules.fable_library.types import (Record, Union, FSharpRef)
-from fable_modules.fable_library.util import equals
 
 a_4 = TypeVar("a_4")
 
 a = TypeVar("a")
 
-def expr_2(gen0) -> TypeInfo:
+def expr_1(gen0) -> TypeInfo:
     return class_type("tbnf.Grammar.Cell`1", [gen0], Cell_1)
 
 
 class Cell_1(Generic[a_4]):
     def __init__(self) -> None:
-        self._null = None
-        self._cell = self._null
+        self._cell = None
     
 
-Cell_1_reflection = expr_2
+Cell_1_reflection = expr_1
 
 def Cell_1__ctor() -> Cell_1[a]:
     return Cell_1()
@@ -34,10 +32,10 @@ def Cell_1__get_Get(this: Cell_1[a]) -> a:
 
 
 def Cell_1__get_IsNull(this: Cell_1[Any]) -> bool:
-    return equals(this._cell, this._null)
+    return this._cell is None
 
 
-def expr_6() -> TypeInfo:
+def expr_3() -> TypeInfo:
     return record_type("tbnf.Grammar.position", [], position, lambda: [["line", int32_type], ["col", int32_type], ["filename", string_type]])
 
 
@@ -49,9 +47,9 @@ class position(Record):
         self.filename = filename
     
 
-position_reflection = expr_6
+position_reflection = expr_3
 
-def expr_8() -> TypeInfo:
+def expr_5() -> TypeInfo:
     return union_type("tbnf.Grammar.node", [], node, lambda: [[["Item1", expr_reflection()], ["Item2", list_type(expr_reflection())]], [["Item", list_type(expr_reflection())]], [["Item", list_type(expr_reflection())]], [["Item1", expr_reflection()], ["Item2", string_type]], [["Item1", string_type], ["Item2", expr_reflection()], ["Item3", expr_reflection()]], [["Item1", list_type(tuple_type(string_type, monot_reflection()))], ["Item2", expr_reflection()]], [["Item1", string_type], ["Item2", record_type("Microsoft.FSharp.Core.FSharpRef`1", [list_type(monot_reflection())], FSharpRef, lambda: [["contents", list_type(monot_reflection())]])]], [["Item", int32_type]], [["Item", int32_type]], [["Item", string_type]], [["Item", float64_type]], [["Item", bool_type]]])
 
 
@@ -66,9 +64,9 @@ class node(Union):
         return ["EApp", "ETuple", "EList", "EField", "ELet", "EFun", "EVar", "ESlot", "EInt", "EStr", "EFlt", "EBool"]
     
 
-node_reflection = expr_8
+node_reflection = expr_5
 
-def expr_11() -> TypeInfo:
+def expr_7() -> TypeInfo:
     return record_type("tbnf.Grammar.expr", [], expr, lambda: [["node", node_reflection()], ["pos", position_reflection()], ["t", monot_reflection()]])
 
 
@@ -80,9 +78,9 @@ class expr(Record):
         self.t = t
     
 
-expr_reflection = expr_11
+expr_reflection = expr_7
 
-def expr_14() -> TypeInfo:
+def expr_9() -> TypeInfo:
     return union_type("tbnf.Grammar.monot", [], monot, lambda: [[["Item", Cell_1_reflection(monot_reflection())]], [["Item", string_type]], [["Item1", monot_reflection()], ["Item2", list_type(monot_reflection())]], [["Item1", list_type(monot_reflection())], ["Item2", monot_reflection()]], [["Item", string_type]]])
 
 
@@ -97,9 +95,9 @@ class monot(Union):
         return ["TRef", "TConst", "TApp", "TFun", "TVar"]
     
 
-monot_reflection = expr_14
+monot_reflection = expr_9
 
-def expr_16() -> TypeInfo:
+def expr_10() -> TypeInfo:
     return union_type("tbnf.Grammar.polyt", [], polyt, lambda: [[["Item1", list_type(string_type)], ["Item2", monot_reflection()]], [["Item", monot_reflection()]]])
 
 
@@ -114,9 +112,9 @@ class polyt(Union):
         return ["Poly", "Mono"]
     
 
-polyt_reflection = expr_16
+polyt_reflection = expr_10
 
-def expr_19() -> TypeInfo:
+def expr_12() -> TypeInfo:
     return record_type("tbnf.Grammar.production", [], production, lambda: [["symbols", list_type(symbol_reflection())], ["action", expr_reflection()]])
 
 
@@ -127,10 +125,10 @@ class production(Record):
         self.action = action
     
 
-production_reflection = expr_19
+production_reflection = expr_12
 
-def expr_21() -> TypeInfo:
-    return union_type("tbnf.Grammar.symbol", [], symbol, lambda: [[["Item", anon_record_type(["define", string_type], ["is_literal", bool_type])]], [["Item", string_type]], [["Item1", string_type], ["Item2", list_type(symbol_reflection())], ["Item3", position_reflection()]]])
+def expr_14() -> TypeInfo:
+    return union_type("tbnf.Grammar.symbol", [], symbol, lambda: [[["Item1", string_type], ["Item2", bool_type]], [["Item", string_type]], [["Item1", string_type], ["Item2", list_type(symbol_reflection())], ["Item3", position_reflection()]]])
 
 
 class symbol(Union):
@@ -144,9 +142,9 @@ class symbol(Union):
         return ["Term", "Nonterm", "Macrocall"]
     
 
-symbol_reflection = expr_21
+symbol_reflection = expr_14
 
-def expr_26() -> TypeInfo:
+def expr_17() -> TypeInfo:
     return union_type("tbnf.Grammar.definition", [], definition, lambda: [[["Item", anon_record_type(["define", list_type(tuple_type(position_reflection(), production_reflection()))], ["lhs", string_type], ["parameters", list_type(string_type)], ["pos", position_reflection()])]], [["Item", anon_record_type(["define", list_type(tuple_type(position_reflection(), production_reflection()))], ["lhs", string_type], ["pos", position_reflection()])]], [["Item", anon_record_type(["define", lexerule_reflection()], ["lhs", string_type], ["pos", position_reflection()])]], [["Item", anon_record_type(["ident", string_type], ["pos", position_reflection()], ["t", polyt_reflection()])]], [["Item", anon_record_type(["fields", list_type(tuple_type(string_type, monot_reflection(), position_reflection()))], ["ident", string_type], ["parameters", list_type(string_type)], ["pos", position_reflection()])]], [["Item", anon_record_type(["ignoreList", list_type(string_type)], ["pos", position_reflection()])]]])
 
 
@@ -161,9 +159,9 @@ class definition(Union):
         return ["Defmacro", "Defrule", "Deflexer", "Declvar", "Decltype", "Defignore"]
     
 
-definition_reflection = expr_26
+definition_reflection = expr_17
 
-def expr_29() -> TypeInfo:
+def expr_19() -> TypeInfo:
     return union_type("tbnf.Grammar.lexerule", [], lexerule, lambda: [[], [], [["Item", list_type(lexerule_reflection())]], [["Item", string_type]], [["Item", list_type(lexerule_reflection())]], [["Item", lexerule_reflection()]], [["Item", lexerule_reflection()]], [["Item", lexerule_reflection()]], [["Item", lexerule_reflection()]], [["Item", lexerule_reflection()]], [["Item1", int32_type], ["Item2", int32_type]], [["Item", string_type]]])
 
 
@@ -178,14 +176,14 @@ class lexerule(Union):
         return ["LNumber", "LWildcard", "LSeq", "LStr", "LOr", "LNot", "LPlus", "LStar", "LOptional", "LGroup", "LRange", "LRef"]
     
 
-lexerule_reflection = expr_29
+lexerule_reflection = expr_19
 
 def expr_with_node(expr_1: expr, node_1: node) -> expr:
     return expr(node_1, expr_1.pos, expr_1.t)
 
 
 def expr__transform_children_z51b8244a(this: expr, op_dereference: Callable[[expr], expr]) -> expr:
-    def arrow_34(this=this, op_dereference=op_dereference) -> node:
+    def arrow_21(this=this, op_dereference=op_dereference) -> node:
         match_value : node = this.node
         (pattern_matching_result, a) = (None, None)
         if match_value.tag == 1:
@@ -252,7 +250,7 @@ def expr__transform_children_z51b8244a(this: expr, op_dereference: Callable[[exp
             return a
         
     
-    return expr_with_node(this, arrow_34())
+    return expr_with_node(this, arrow_21())
 
 
 def expr__deep_copy(x: expr) -> expr:
@@ -269,10 +267,7 @@ def expr__deep_copy(x: expr) -> expr:
 
 
 def monot__find_any_children_z23d07ce9(this: monot, predicate: Callable[[monot], bool]) -> bool:
-    if predicate(this):
-        return True
-    
-    elif (this.tag == 4) or (this.tag == 0):
+    if (this.tag == 4) or (this.tag == 0):
         return False
     
     elif this.tag == 2:
@@ -329,7 +324,7 @@ def monot__transform_children_z2cab662a(this: monot, op_dereference: Callable[[m
 
 def monot__apply_to_children_z6a62bcbf(this: monot, op_dereference: Callable[[monot], None]) -> None:
     if (this.tag == 4) or (this.tag == 0):
-        op_dereference(this)
+        pass
     
     elif this.tag == 2:
         op_dereference(this.fields[0])
@@ -338,9 +333,6 @@ def monot__apply_to_children_z6a62bcbf(this: monot, op_dereference: Callable[[mo
     elif this.tag == 3:
         iterate(op_dereference, this.fields[0])
         op_dereference(this.fields[1])
-    
-    else: 
-        op_dereference(this)
     
 
 
@@ -389,6 +381,8 @@ TConst_float = monot(1, "float")
 TConst_str = monot(1, "str")
 
 TConst_bool = monot(1, "bool")
+
+_predefined_typenames = [("token", 0), ("tuple", -1), ("list", 1), ("int", 0), ("float", 0), ("str", 0), ("bool", 0)]
 
 def TTuple(xs: FSharpList[monot]) -> monot:
     return monot(2, TConst_tuple, xs)

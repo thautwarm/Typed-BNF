@@ -1,13 +1,12 @@
 ﻿module tbnf.Grammar
 
 
-type Cell<'a when 'a: not struct and 'a: equality>() =
-    let _null = Unchecked.defaultof<'a>
-    let mutable _cell = _null
+type Cell<'a when 'a: not struct>() =
+    let mutable _cell: 'a = Unchecked.defaultof<'a>
 
     member this.Set a = _cell <- a
     member this.Get = _cell
-    member this.IsNull = (_cell = _null)
+    member this.IsNull = obj.ReferenceEquals(_cell, Unchecked.defaultof<'a>)
 
 type position =
     { line: int
@@ -69,8 +68,8 @@ and monot =
     | TVar of string
 
     member this.FindAnyChildren(predicate: monot -> bool) =
-        predicate this
-        || match this with
+        
+        match this with
            | TConst _
            | TVar _
            | TRef _ -> false
@@ -89,7 +88,7 @@ and monot =
         match this with
         | TConst _
         | TVar _
-        | TRef _ -> !this
+        | TRef _ -> ()
         | TApp (f, args) ->
             !f
             List.iter (!) args
@@ -117,7 +116,7 @@ and production = { symbols: symbol list; mutable action: expr }
 
 and symbol =
     (* parsing symbol *)
-    | Term of {| define: string; is_literal: bool |}
+    | Term of string * bool
     | Nonterm of string
     | Macrocall of string * symbol list * position
 
@@ -166,6 +165,9 @@ let TConst_int = TConst "int"
 let TConst_float = TConst "float"
 let TConst_str = TConst "str"
 let TConst_bool = TConst "bool"
+
+let _predefined_typenames =
+    [| "token", 0; "tuple", -1; "list", 1; "int", 0; "float", 0; "str", 0; "bool", 0 |]
 
 let TTuple xs = TApp(TConst_tuple, xs)
 let TList a = TApp(TConst_list, [a])

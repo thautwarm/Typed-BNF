@@ -1,0 +1,33 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+start : json -> start_0
+
+
+
+
+listjson : json -> listjson_0
+         | listjson _I__S__I_ json -> listjson_1
+jsonpair : STR _I__G__I_ json -> jsonpair_0
+dictjson : jsonpair -> dictjson_0
+         | dictjson _I__S__I_ jsonpair -> dictjson_1
+json : INT -> json_0
+     | FLOAT -> json_1
+     | _I_NULL_I_ -> json_2
+     | STR -> json_3
+     | _I__N__I_ _I__P__I_ -> json_4
+     | _I__T__I_ _I__V__I_ -> json_5
+     | _I__N__I_ listjson _I__P__I_ -> json_6
+     | _I__T__I_ dictjson _I__V__I_ -> json_7
+%declare FLOAT INT STR _I__S__I_ _I__G__I_ _I__N__I_ _I__P__I_ _I_NULL_I_ _I__T__I_ _I__V__I_ UNKNOWN

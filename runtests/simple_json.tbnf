@@ -1,0 +1,40 @@
+extern type json
+extern var parseInt : str -> int
+extern var parseFlt : str -> float
+extern var getStr : token -> str
+extern var unesc : str -> str
+extern var jsonInt : int -> json
+extern var jsonFlt : float -> json
+extern var jsonStr : str -> json
+extern var jsonNull : json
+extern var jsonList : list<json> -> json
+extern var jsonDict : list<str * json> -> json
+extern var appendList : <'a> (list<'a>, 'a) -> list<'a>
+
+%ignore space
+
+digit = [0-9] ;
+
+start : json { $1 }
+
+int = digit+ ;
+float = digit* "." int ;
+str = "\"" ( "\\" _ | ! "\"" )* "\"" ;
+space = ("\t" | "\n" | "\r" | " ")+;
+
+listjson : json { [$1] }
+         | listjson "," json { appendList($1, $3) }
+
+jsonpair : <str> ":" json { (unesc(getStr($1)), $3) }
+
+dictjson : jsonpair { [$1] }
+         | dictjson "," jsonpair { appendList($1, $3) }
+
+json : <int> { jsonInt(parseInt(getStr($1))) }
+      | <float> { jsonFlt(parseFlt(getStr($1))) }
+      | "null"  { jsonNull }
+      | <str>   { jsonStr(unesc(getStr($1))) }
+      | "[" "]" { jsonList([]) }
+      | "{" "}" { jsonDict([]) }
+      | "[" listjson "]" { jsonList($2) }
+      | "{" dictjson "}" { jsonDict($2) }      

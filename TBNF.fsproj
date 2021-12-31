@@ -4,6 +4,7 @@
     <!-- <OutputType>Exe</OutputType> -->
     <TargetFramework>net6.0</TargetFramework>
     <NoWarn>3370</NoWarn>
+    <!-- <DefineConstants>DEBUG</DefineConstants> -->
   </PropertyGroup>
 
   <ItemGroup>

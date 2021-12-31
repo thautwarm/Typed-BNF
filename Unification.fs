@@ -3,17 +3,14 @@ open Grammar
 open Exceptions
 type Manager() =
     
-    let tyEnv = System.Collections.Generic.Dictionary<Cell<monot>, string>()
-    
     let newTyRef (name: string) =
         let cell = Cell()
         let tref = TRef(cell)
-        tyEnv.Add(cell, name)
         tref
     
     let rec occur_in (r: Cell<monot>) (other: monot) =
         match other with
-        | TRef a when a = r -> true
+        | TRef a when obj.ReferenceEquals(a, r) -> true
         | a ->  a.FindAnyChildren (occur_in r)
 
     
@@ -26,9 +23,10 @@ type Manager() =
         match l, r with
         | TRef cell, _ ->
             if l = r then ()
-            if occur_in cell r then
+            elif occur_in cell r then
                 raise <| IllFormedType(l, r)
-            cell.Set r
+            else
+                cell.Set r
         | _, TRef _ -> unify r l
         | TConst a, TConst b when a = b -> ()
         | TVar a, TVar b when a = b -> ()
@@ -70,6 +68,6 @@ type Manager() =
     member __.Unify (l: monot) (r:monot) = unify l r
     member __.NewTyRef (s: string) = newTyRef s
     member __.CellRepr (cell: Cell<monot>) =
-        let a = ref ""
-        if tyEnv.TryGetValue(cell, a) then a.Value
-        else invalidOp <| "access repr of unknown typeref."
+        // let a = ref ""
+        // if tyEnv.TryGetValue(cell, a) then a.Value
+        invalidOp <| "access repr of unknown typeref."

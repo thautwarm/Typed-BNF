@@ -18,24 +18,25 @@ type Sigma(UM: Unification.Manager) =
     let mutable shapes: Map<typename, Shape> = Map.empty
 
     (* kind information of typename *)
-    let mutable kinds: Map<typename, int> = Map.empty
+    let mutable kinds: Map<typename, int> = Map.ofArray _predefined_typenames
 
     (* external global variables *)
     let mutable global_variables: Map<identifier, polyt> = Map.empty
 
     let rec checkKind_ (t: monot) =
+        let t = t.Prune()
         match t with
         | TApp (TConst typename, args) ->
             match Map.tryFind typename kinds with
             | None -> raise <| UnboundTypeVariable(typename)
             | Some kind ->
                 let got = List.length args
-
-                raise
-                <| InvalidKind
-                    {| name = typename
-                       got = got
-                       expect = kind |}
+                if kind >= 0 && kind <> got then
+                    raise
+                    <| InvalidKind
+                        {| name = typename
+                           got = got
+                           expect = kind |}
         | TApp (f, _) -> raise <| InvalidTypeApplication(f)
         | a -> a.ApplyToChildren checkKind_
     
@@ -53,14 +54,14 @@ type Sigma(UM: Unification.Manager) =
             | Some kind ->
                 let got = List.length parameters
 
-                if got <> kind then
+                if kind >= 0 && got <> kind then
                     raise
                     <| InvalidKind
                         {| name = typename
                            got = List.length parameters
                            expect = kind |}
-            | None -> ()
-            registerExternalType typename parameters.Length
+            | None -> registerExternalType typename parameters.Length
+            
             shapes <-
                 shapes
                 |> Map.add
@@ -91,7 +92,7 @@ type Sigma(UM: Unification.Manager) =
                 |> snd
                 |> UM.Unify inst_target
 
-                checkKind_ (inst_target.Prune())
+                checkKind_ (inst_target)
 
                 tyref.Prune()
 
@@ -189,10 +190,9 @@ let build_analyzer(stmts: definition array) =
     let infer_p (s: symbol) =
         match s with
         | symbol.Macrocall _ -> raise <| invalidOp "macrocall not processed"
-        | symbol.Term decl ->
-            let n = decl.define
-
-            if decl.is_literal then
+        | symbol.Term(define, is_literal) ->
+            let n = define
+            if is_literal then
                 LiteralTokens <- Set.add n LiteralTokens
             else if not <| List.contains n TokenFragments then
                 raise <| UnboundLexer(n)
@@ -211,7 +211,7 @@ let build_analyzer(stmts: definition array) =
             elts
             |> List.map (fun elt -> infer_e s_Gamma S elt)
             |> fun elts ->
-                { node = node.EList elts
+                { node = node.ETuple elts
                   t = TTuple(List.map (fun x -> x.t) elts)
                   pos = e.pos }
         | node.EVar (v, specialization_args_ref) ->
@@ -243,12 +243,12 @@ let build_analyzer(stmts: definition array) =
                   t = TList(t_r.Prune())
                   pos = e.pos }
         | node.ESlot i ->
-            match List.tryItem i S with
+            match List.tryItem (i - 1) S with
             | Some t_slot -> { e with t = t_slot }
             | None -> raise <| ComponentAccessingOutOfBound i
         | node.EApp (f, args) ->
             let { t = t_f } as f = infer_e s_Gamma S f
-            let args = args |> List.map (infer_e s_Gamma S)
+            let args = args |> List.map (fun expr -> infer_e s_Gamma S expr)
             let t_args = List.map (fun x -> x.t) args
             let t_r = UM.NewTyRef("@ret")
             UM.Unify t_f <| TFun(t_args, t_r)
@@ -286,7 +286,7 @@ let build_analyzer(stmts: definition array) =
         for (pos, production) in define do
             currentPos <- pos
             let S = List.map infer_p production.symbols
-            let action = infer_e Map.empty S production.action
+            let action = infer_e Sigma.GlobalVariables S production.action
             UM.Unify action.t t
             production.action <- action
     

@@ -16,7 +16,8 @@ def cli_call(tbnf_source_path: Path, out_dir: Path, lang: str, backend: str = "p
     set_filename(str(tbnf_source_path))
     with tbnf_source_path.open(encoding='utf8') as file:
         defs = parser.parse(file.read())
-    
+    # for ec in defs:
+    #     print(ec)
     analyzer = build_analyzer(defs)
     if call_backend := backends.get(backend):
         for filename, doc in call_backend(analyzer, CodeGenOptions(lambda x: x, lang), defs):

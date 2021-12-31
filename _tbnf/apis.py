@@ -23,6 +23,10 @@ def MK_ETuple(args: List[expr]) -> node_1:
     return node_1(1, of_array(args))
 
 
+def MK_EList(args: List[expr]) -> node_1:
+    return node_1(2, of_array(args))
+
+
 def MK_ELet(name: str, value: expr, body: expr) -> node_1:
     return node_1(4, name, value, body)
 
@@ -154,7 +158,7 @@ def MK_Defignore(ignore_list: List[str], pos: position_1) -> definition:
 
 
 def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, production]], pos: position_1) -> definition:
-    def arrow_42(lhs=lhs, parameters=parameters, define=define, pos=pos) -> dict:
+    def arrow_41(lhs=lhs, parameters=parameters, define=define, pos=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "define": of_array(define),
@@ -163,7 +167,7 @@ def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, 
             "pos": pos
         }
     
-    return definition(0, arrow_42())
+    return definition(0, arrow_41())
 
 
 def MK_Defrule(lhs: str, define: List[Tuple[position_1, production]], pos: position_1) -> definition:
@@ -191,7 +195,7 @@ def MK_Declvar(ident: str, t: polyt, pos: position_1) -> definition:
 
 
 def MK_Decltype(ident: str, parameters: List[str], fields: List[Tuple[str, monot_1, position_1]], pos: position_1) -> definition:
-    def arrow_43(ident=ident, parameters=parameters, fields=fields, pos=pos) -> dict:
+    def arrow_42(ident=ident, parameters=parameters, fields=fields, pos=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "fields": of_array(fields),
@@ -200,7 +204,7 @@ def MK_Decltype(ident: str, parameters: List[str], fields: List[Tuple[str, monot
             "pos": pos
         }
     
-    return definition(4, arrow_43())
+    return definition(4, arrow_42())
 
 
 def MK_production(symbols: List[symbol], action: expr) -> production:
@@ -208,10 +212,7 @@ def MK_production(symbols: List[symbol], action: expr) -> production:
 
 
 def MK_Term(define: str, is_literal: bool) -> symbol:
-    return symbol(0, {
-        "define": define,
-        "is_literal": is_literal
-    })
+    return symbol(0, define, is_literal)
 
 
 def MK_Nonterm(define: str) -> symbol:

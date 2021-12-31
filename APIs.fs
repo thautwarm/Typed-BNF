@@ -18,6 +18,9 @@ let mk_EApp f args = EApp(f, List.ofArray args)
 [<CompiledName("MK_" + nameof (ETuple))>]
 let mk_ETuple args = ETuple(List.ofArray args)
 
+[<CompiledName("MK_" + nameof (EList))>]
+let mk_EList args = EList(List.ofArray args)
+
 [<CompiledName("MK_" + nameof (ELet))>]
 let mk_ELet name value body = ELet(name, value, body)
 
@@ -162,9 +165,7 @@ let mk_production symbols action =
 
 [<CompiledName("MK_" + nameof (Term))>]
 let mk_Term define is_literal =
-    Term
-        {| define = define
-           is_literal = is_literal |}
+    Term(define, is_literal)
 
 [<CompiledName("MK_" + nameof (Nonterm))>]
 let mk_Nonterm define = Nonterm define
