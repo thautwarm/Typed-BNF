@@ -136,7 +136,7 @@ def Cset_difference(c1: FSharpList[Tuple[int, int]], c2: FSharpList[Tuple[int, i
     return Cset_complement(Cset_union(Cset_complement(c1), c2))
 
 
-def expr_72() -> TypeInfo:
+def expr_74() -> TypeInfo:
     return record_type("Fable.Sedlex.Compiler.Automata.node", [], Automata_node, lambda: [["id", int32_type], ["eps", list_type(Automata_node_reflection())], ["trans", list_type(tuple_type(list_type(tuple_type(int32_type, int32_type)), Automata_node_reflection()))]])
 
 
@@ -148,7 +148,7 @@ class Automata_node(Record):
         self.trans = trans
     
 
-Automata_node_reflection = expr_72
+Automata_node_reflection = expr_74
 
 Automata_cur_id = FSharpRef(0)
 
@@ -166,11 +166,11 @@ def Automata_is_chars(final: Any, _arg1: Automata_node) -> Optional[FSharpList[T
     if is_empty(_arg1.eps):
         if not is_empty(_arg1.trans):
             if is_empty(tail(_arg1.trans)):
-                def arrow_73(final=final, _arg1=_arg1) -> bool:
+                def arrow_75(final=final, _arg1=_arg1) -> bool:
                     c : FSharpList[Tuple[int, int]] = head(_arg1.trans)[0]
                     return head(_arg1.trans)[1] is final
                 
-                if arrow_73():
+                if arrow_75():
                     pattern_matching_result = 0
                     c_1 = head(_arg1.trans)[0]
                     f_1 = head(_arg1.trans)[1]
@@ -253,11 +253,11 @@ def Automata_compl(r: Callable[[Automata_node], Automata_node]) -> Optional[Call
     n : Automata_node = Automata_new_node()
     match_value : Optional[FSharpList[Tuple[int, int]]] = Automata_is_chars(n, r(n))
     if match_value is not None:
-        def arrow_74(r=r) -> Callable[[Automata_node], Automata_node]:
+        def arrow_76(r=r) -> Callable[[Automata_node], Automata_node]:
             c_1 : FSharpList[Tuple[int, int]] = Cset_difference(Cset_any, match_value)
             return lambda succ: Automata_chars(c_1, succ)
         
-        return arrow_74()
+        return arrow_76()
     
     else: 
         return None
@@ -283,11 +283,11 @@ def Automata_pair_op(f: Callable[[FSharpList[Tuple[int, int]], FSharpList[Tuple[
         pattern_matching_result = 1
     
     if pattern_matching_result == 0:
-        def arrow_75(f=f, r0=r0, r1=r1) -> Callable[[Automata_node], Automata_node]:
+        def arrow_77(f=f, r0=r0, r1=r1) -> Callable[[Automata_node], Automata_node]:
             c : FSharpList[Tuple[int, int]] = f(c0, c1)
             return lambda succ: Automata_chars(c, succ)
         
-        return arrow_75()
+        return arrow_77()
     
     elif pattern_matching_result == 1:
         return None
@@ -358,13 +358,13 @@ def Automata_transition(state: FSharpList[Automata_node]) -> List[Tuple[FSharpLi
     def split(tupled_arg_2: Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]], state=state) -> Callable[[Tuple[FSharpList[Tuple[int, int]], a_]], Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]]]:
         all : FSharpList[Tuple[int, int]] = tupled_arg_2[0]
         t_2 : FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]] = tupled_arg_2[1]
-        def arrow_76(tupled_arg_3: Tuple[FSharpList[Tuple[int, int]], a_], tupled_arg_2=tupled_arg_2) -> Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]]:
+        def arrow_78(tupled_arg_3: Tuple[FSharpList[Tuple[int, int]], a_], tupled_arg_2=tupled_arg_2) -> Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]]:
             c0 : FSharpList[Tuple[int, int]] = tupled_arg_3[0]
             n0 : a_ = tupled_arg_3[1]
             t_3 : FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]] = append(cons((Cset_difference(c0, all), singleton(n0)), map(lambda tupled_arg_4: (Cset_intersection(tupled_arg_4[0], c0), cons(n0, tupled_arg_4[1])), t_2)), map(lambda tupled_arg_5: (Cset_difference(tupled_arg_5[0], c0), tupled_arg_5[1]), t_2))
             return (Cset_union(all, c0), filter(lambda tupled_arg_6: not Cset_is_empty(tupled_arg_6[0]), t_3))
         
-        return arrow_76
+        return arrow_78
     
     t_6 : List[Tuple[FSharpList[Tuple[int, int]], FSharpList[Automata_node]]] = to_array(map(lambda tupled_arg_7, state=state: (tupled_arg_7[0], Automata_add_nodes(empty(), tupled_arg_7[1])), fold(uncurry(2, split), (Cset_empty(), empty()), t_1)[1]))
     t_6.sort()
@@ -374,18 +374,18 @@ def Automata_transition(state: FSharpList[Automata_node]) -> List[Tuple[FSharpLi
 def Automata_compile(rs: List[Callable[[Automata_node], Automata_node]]) -> List[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]]:
     rs_1 : List[Tuple[Automata_node, Automata_node]] = map_1(lambda re, rs=rs: Automata_compile_re(re), rs, None)
     counter : Any = FSharpRef(0)
-    class ObjectExpr77:
+    class ObjectExpr79:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare(x, y)
         
-    states : Any = empty_1(ObjectExpr77())
-    class ObjectExpr78:
+    states : Any = empty_1(ObjectExpr79())
+    class ObjectExpr80:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare_primitives(x_1, y_1)
         
-    states_def : Any = empty_1(ObjectExpr78())
+    states_def : Any = empty_1(ObjectExpr80())
     def aux(state: FSharpList[Automata_node], rs=rs) -> int:
         nonlocal states, states_def
         match_value : Optional[int] = try_find(state, states)
@@ -403,15 +403,15 @@ def Automata_compile(rs: List[Callable[[Automata_node], Automata_node]]) -> List
         
     
     init : Any = FSharpRef(empty())
-    def arrow_79(tupled_arg_2: Tuple[Automata_node, Automata_node], rs=rs) -> None:
+    def arrow_81(tupled_arg_2: Tuple[Automata_node, Automata_node], rs=rs) -> None:
         init.contents = Automata_add_node(init.contents, tupled_arg_2[0])
     
-    iterate(arrow_79, rs_1)
+    iterate(arrow_81, rs_1)
     i_2 : int = aux(init.contents) or 0
     return initialize(counter.contents, lambda x_2, rs=rs: find(x_2, states_def), None)
 
 
-def expr_80() -> TypeInfo:
+def expr_82() -> TypeInfo:
     return union_type("Fable.Sedlex.Compiler.Automata.decision_tree", [], Automata_decision_tree, lambda: [[["Item1", int32_type], ["Item2", Automata_decision_tree_reflection()], ["Item3", Automata_decision_tree_reflection()]], [["Item1", int32_type], ["Item2", array_type(int32_type)]], [["Item", int32_type]]])
 
 
@@ -426,7 +426,7 @@ class Automata_decision_tree(Union):
         return ["Lte", "Table", "Return"]
     
 
-Automata_decision_tree_reflection = expr_80
+Automata_decision_tree_reflection = expr_82
 
 def Automata_simplify_decision_tree(x: Automata_decision_tree) -> Automata_decision_tree:
     (pattern_matching_result, a_1, b_1, l_1) = (None, None, None, None)
@@ -634,13 +634,13 @@ def Automata_simplify(min_mut: int, max_mut: int, _arg1_mut: Automata_decision_t
 
 def Automata_segments_of_partition(p: List[FSharpList[Tuple[a_, b_]]]) -> FSharpList[Tuple[a_, b_, int]]:
     seg : Any = FSharpRef(empty())
-    def arrow_82(i: int, c: FSharpList[Tuple[a_, b_]], p=p) -> None:
-        def arrow_81(tupled_arg: Tuple[a_, b_]) -> None:
+    def arrow_84(i: int, c: FSharpList[Tuple[a_, b_]], p=p) -> None:
+        def arrow_83(tupled_arg: Tuple[a_, b_]) -> None:
             seg.contents = cons((tupled_arg[0], tupled_arg[1], i), seg.contents)
         
-        iterate_1(arrow_81, c)
+        iterate_1(arrow_83, c)
     
-    iterate_indexed(arrow_82, p)
+    iterate_indexed(arrow_84, p)
     return sort_with(lambda tupled_arg_1, tupled_arg_2, p=p: compare(tupled_arg_1[0], tupled_arg_2[0]), seg.contents)
 
 
@@ -677,7 +677,7 @@ def Automata_repeat(r: Callable[[Automata_node], Automata_node], _arg1_0: int, _
     
 
 
-def expr_83() -> TypeInfo:
+def expr_85() -> TypeInfo:
     return union_type("Fable.Sedlex.Compiler.keep_token", [], keep_token, lambda: [[], [["Item", int32_type]]])
 
 
@@ -692,9 +692,9 @@ class keep_token(Union):
         return ["Discard", "Tokenize"]
     
 
-keep_token_reflection = expr_83
+keep_token_reflection = expr_85
 
-def expr_84() -> TypeInfo:
+def expr_86() -> TypeInfo:
     return union_type("Fable.Sedlex.Compiler.lang", [], lang, lambda: [[["Item1", Automata_decision_tree_reflection()], ["Item2", array_type(lang_reflection())], ["Item3", lang_reflection()]], [], [["Item1", int32_type], ["Item2", lang_reflection()]], [["Item", int32_type]], [["Item", int32_type]]])
 
 
@@ -709,9 +709,9 @@ class lang(Union):
         return ["Lang_match_i", "Lang_backtrace", "Lang_mark", "Lang_callst", "Lang_int"]
     
 
-lang_reflection = expr_84
+lang_reflection = expr_86
 
-def expr_85() -> TypeInfo:
+def expr_87() -> TypeInfo:
     return record_type("Fable.Sedlex.Compiler.compiled_unit", [], compiled_unit, lambda: [["states", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [int32_type, lang_reflection()])], ["lex_code", tuple_type(array_type(keep_token_reflection()), string_type)], ["referenced_decision_trees", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [Automata_decision_tree_reflection()])]])
 
 
@@ -723,28 +723,28 @@ class compiled_unit(Record):
         self.referenced_decision_trees = referenced_decision_trees
     
 
-compiled_unit_reflection = expr_85
+compiled_unit_reflection = expr_87
 
 def build(definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_token]], error_msg: str) -> compiled_unit:
-    class ObjectExpr86:
+    class ObjectExpr88:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_with(lambda x_1, y_1: compare(x_1, y_1), x, y)
         
-    partitions : Any = empty_1(ObjectExpr86())
+    partitions : Any = empty_1(ObjectExpr88())
     partition_counter : Any = FSharpRef(0)
-    class ObjectExpr87:
+    class ObjectExpr89:
         @property
         def Compare(self) -> Any:
             return lambda x_2, y_2: compare_with(lambda x_3, y_3: compare(x_3, y_3), x_2, y_2)
         
-    partition_trees : Any = empty_1(ObjectExpr87())
-    class ObjectExpr88:
+    partition_trees : Any = empty_1(ObjectExpr89())
+    class ObjectExpr90:
         @property
         def Compare(self) -> Any:
             return lambda x_4, y_4: compare(x_4, y_4)
         
-    referenced_decision_trees : Any = empty_2(ObjectExpr88())
+    referenced_decision_trees : Any = empty_2(ObjectExpr90())
     def best_final(final: List[bool], definition=definition, error_msg=error_msg) -> Optional[int]:
         fin : Any = FSharpRef(None)
         for i in range(len(final) - 1, 0 - 1, -1):
@@ -754,21 +754,21 @@ def build(definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_
         return fin.contents
     
     def gen_definition(l: List[Tuple[Callable[[Automata_node], Automata_node], keep_token]], definition=definition, error_msg=error_msg) -> Callable[[str], compiled_unit]:
-        def arrow_90(error: str, l=l) -> compiled_unit:
+        def arrow_92(error: str, l=l) -> compiled_unit:
             brs : List[Tuple[Callable[[Automata_node], Automata_node], keep_token]] = l
             auto : List[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]] = Automata_compile(map_1(lambda tuple: tuple[0], brs, None))
             cases : List[keep_token] = map_1(lambda tupled_arg: tupled_arg[1], brs, None)
-            class ObjectExpr89:
+            class ObjectExpr91:
                 @property
                 def Compare(self) -> Any:
                     return lambda x_7, y_5: compare_primitives(x_7, y_5)
                 
-            return compiled_unit(of_array_1(choose(lambda x_6=None: x_6, map_indexed(uncurry(2, gen_state(auto)), auto, None), None), ObjectExpr89()), (cases, error), referenced_decision_trees)
+            return compiled_unit(of_array_1(choose(lambda x_6=None: x_6, map_indexed(uncurry(2, gen_state(auto)), auto, None), None), ObjectExpr91()), (cases, error), referenced_decision_trees)
         
-        return arrow_90
+        return arrow_92
     
     def call_state(auto_1: List[Tuple[List[a_], List[bool]]], definition=definition, error_msg=error_msg) -> Callable[[int], lang]:
-        def arrow_91(state: int, auto_1=auto_1) -> lang:
+        def arrow_93(state: int, auto_1=auto_1) -> lang:
             pattern_input : Tuple[List[a_], List[bool]] = auto_1[state]
             if len(pattern_input[0]) == 0:
                 match_value_2 : Optional[int] = best_final(pattern_input[1])
@@ -783,16 +783,16 @@ def build(definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_
                 return lang(3, state)
             
         
-        return arrow_91
+        return arrow_93
     
     def gen_state(auto_2: List[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]], definition=definition, error_msg=error_msg) -> Callable[[int, Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]], Optional[Tuple[int, lang]]]:
-        def arrow_94(i_2: int, auto_2=auto_2) -> Callable[[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]], Optional[Tuple[int, lang]]]:
-            def arrow_93(tupled_arg_1: Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]) -> Optional[Tuple[int, lang]]:
+        def arrow_96(i_2: int, auto_2=auto_2) -> Callable[[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]], Optional[Tuple[int, lang]]]:
+            def arrow_95(tupled_arg_1: Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]) -> Optional[Tuple[int, lang]]:
                 trans_1 : List[Tuple[FSharpList[Tuple[int, int]], int]] = tupled_arg_1[0]
                 v_partition : List[FSharpList[Tuple[int, int]]] = map_1(lambda tuple_1: tuple_1[0], trans_1, None)
                 cases_1 : List[lang] = map_1(lambda tupled_arg_2: call_state(auto_2)(tupled_arg_2[1]), trans_1, None)
                 def body(_unit=None) -> lang:
-                    def arrow_92(_unit=None) -> Automata_decision_tree:
+                    def arrow_94(_unit=None) -> Automata_decision_tree:
                         nonlocal referenced_decision_trees, partition_trees
                         p : List[FSharpList[Tuple[int, int]]] = v_partition
                         match_value : Optional[Automata_decision_tree] = try_find(p, partition_trees)
@@ -806,7 +806,7 @@ def build(definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_
                             return tree
                         
                     
-                    return lang(0, arrow_92(), cases_1, lang(1))
+                    return lang(0, arrow_94(), cases_1, lang(1))
                 
                 match_value_3 : Optional[int] = best_final(tupled_arg_1[1])
                 if match_value_3 is not None:
@@ -824,14 +824,14 @@ def build(definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_
                     return (i_2, body())
                 
             
-            return arrow_93
+            return arrow_95
         
-        return arrow_94
+        return arrow_96
     
     return gen_definition(definition)(error_msg)
 
 
-def expr_95() -> TypeInfo:
+def expr_97() -> TypeInfo:
     return record_type("Fable.Sedlex.Compiler.lexbuf", [], lexbuf, lambda: [["refill", lambda_type(string_type, lambda_type(int32_type, lambda_type(int32_type, int32_type)))], ["buf", array_type(int32_type)], ["src", string_type], ["len", int32_type], ["offset", int32_type], ["pos", int32_type], ["curr_bol", int32_type], ["curr_line", int32_type], ["start_pos", int32_type], ["start_bol", int32_type], ["start_line", int32_type], ["marked_pos", int32_type], ["marked_bol", int32_type], ["marked_line", int32_type], ["marked_val", int32_type], ["filename", string_type], ["finished", bool_type]])
 
 
@@ -857,13 +857,13 @@ class lexbuf(Record):
         self.finished = finished
     
 
-lexbuf_reflection = expr_95
+lexbuf_reflection = expr_97
 
-def arrow_96(_arg3: str, _arg2: int, _arg1: int) -> int:
+def arrow_98(_arg3: str, _arg2: int, _arg1: int) -> int:
     raise Exception("invalid")
 
 
-empty_lexbuf = lexbuf(arrow_96, [], "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", False)
+empty_lexbuf = lexbuf(arrow_98, [], "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", False)
 
 def from_ustring(a: str) -> lexbuf:
     len_1 : int = len(a) or 0
@@ -933,7 +933,7 @@ def lexeme_char(lexbuf_1: lexbuf, pos: int) -> str:
     return lexbuf_1.src[lexbuf_1.start_pos + pos]
 
 
-def expr_97() -> TypeInfo:
+def expr_99() -> TypeInfo:
     return record_type("Fable.Sedlex.Compiler.position", [], position, lambda: [["pos_fname", string_type], ["pos_lnum", int32_type], ["pos_cnum", int32_type], ["pos_bol", int32_type]])
 
 
@@ -946,7 +946,7 @@ class position(Record):
         self.pos_bol = pos_bol or 0
     
 
-position_reflection = expr_97
+position_reflection = expr_99
 
 def lexing_positions(lexbuf_1: lexbuf) -> Tuple[position, position]:
     return (position(lexbuf_1.filename, lexbuf_1.start_line, lexbuf_1.start_pos + lexbuf_1.offset, lexbuf_1.start_bol), position(lexbuf_1.filename, lexbuf_1.curr_line, lexbuf_1.pos + lexbuf_1.offset, lexbuf_1.curr_bol))
@@ -976,18 +976,18 @@ def Utf8_lexeme(lexbuf_1: lexbuf) -> str:
 
 
 def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, int, int, int, int, str]], Any]) -> Callable[[lexbuf], Optional[Any]]:
-    class ObjectExpr98:
+    class ObjectExpr100:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare(x, y)
         
-    decision_funcs : Any = empty_1(ObjectExpr98())
-    class ObjectExpr99:
+    decision_funcs : Any = empty_1(ObjectExpr100())
+    class ObjectExpr101:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare_primitives(x_1, y_1)
         
-    state_funcs : Any = empty_1(ObjectExpr99())
+    state_funcs : Any = empty_1(ObjectExpr101())
     def evaluate_decision_func(tree: Automata_decision_tree, cu=cu, token_creator=token_creator) -> Callable[[int], int]:
         nonlocal decision_funcs
         match_value : Optional[Callable[[int], int]] = try_find(tree, decision_funcs)
@@ -1021,21 +1021,21 @@ def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, in
         
         elif lang_1.tag == 2:
             f_2 : Callable[[lexbuf], int] = evaluate_state_func(lang_1.fields[1])
-            def arrow_100(buf_2: lexbuf, lang_1=lang_1) -> int:
+            def arrow_102(buf_2: lexbuf, lang_1=lang_1) -> int:
                 mark(buf_2, lang_1.fields[0])
                 return f_2(buf_2)
             
-            return arrow_100
+            return arrow_102
         
         elif lang_1.tag == 0:
             f_cases : List[Callable[[lexbuf], int]] = map_1(evaluate_state_func, lang_1.fields[1], None)
             f_error : Callable[[lexbuf], int] = evaluate_state_func(lang_1.fields[2])
             decision_func : Callable[[int], int] = evaluate_decision_func(lang_1.fields[0])
-            def arrow_101(buf_3: lexbuf, lang_1=lang_1) -> int:
+            def arrow_103(buf_3: lexbuf, lang_1=lang_1) -> int:
                 match_value_1 : Optional[Callable[[lexbuf], int]] = try_item(decision_func(public_next_int(buf_3)), f_cases)
                 return match_value_1(buf_3) if (match_value_1 is not None) else (f_error(buf_3))
             
-            return arrow_101
+            return arrow_103
         
         else: 
             return lambda buf, lang_1=lang_1: backtrack(buf)
@@ -1051,7 +1051,7 @@ def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, in
             ignore(evaluate_decision_func(enumerator_1.System_Collections_Generic_IEnumerator_00601_get_Current()))
     pattern_input : Tuple[List[keep_token], str] = cu.lex_code
     initial_state_fun : Callable[[lexbuf], int] = find(0, state_funcs).contents
-    def arrow_102(buf_4: lexbuf, cu=cu, token_creator=token_creator) -> Optional[Any]:
+    def arrow_104(buf_4: lexbuf, cu=cu, token_creator=token_creator) -> Optional[Any]:
         start(buf_4)
         match_value_2 : Optional[keep_token] = try_item(initial_state_fun(buf_4), pattern_input[0])
         if match_value_2 is None:
@@ -1068,7 +1068,7 @@ def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, in
             return None
         
     
-    return arrow_102
+    return arrow_104
 
 
 Lexer_discard = keep_token(0)
@@ -1176,10 +1176,10 @@ def pchar(c: str) -> Callable[[Automata_node], Automata_node]:
 
 pany = pinterval(0, Cset_max_code)
 
-def arrow_103(_unit=None) -> Callable[[Automata_node], Automata_node]:
+def arrow_105(_unit=None) -> Callable[[Automata_node], Automata_node]:
     c : FSharpList[Tuple[int, int]] = Cset_singleton(-1)
     return lambda succ: Automata_chars(c, succ)
 
 
-peof = arrow_103()
+peof = arrow_105()
 

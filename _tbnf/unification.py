@@ -7,7 +7,7 @@ from fable_modules.fable_library.util import (equals, compare_primitives)
 from .exceptions import (IllFormedType, TypeMismatch, UnboundTypeVariable)
 from .grammar import (polyt, monot, Cell_1, Cell_1__ctor, monot__find_any_children_z23d07ce9, monot__prune, Cell_1__Set_2B595, monot__transform_children_z2cab662a)
 
-def expr_44() -> TypeInfo:
+def expr_46() -> TypeInfo:
     return class_type("tbnf.Unification.Manager", None, Manager)
 
 
@@ -16,7 +16,7 @@ class Manager:
         pass
     
 
-Manager_reflection = expr_44
+Manager_reflection = expr_46
 
 def Manager__ctor() -> Manager:
     return Manager()
@@ -165,10 +165,10 @@ def Manager__unify(this_mut: Manager, l_mut: monot, r_mut: monot) -> None:
                 
                 if pattern_matching_result_2 == 0:
                     Manager__unify(this, x_1, y_1)
-                    def arrow_45(l_2: monot, r_2: monot, this=this, l=l, r=r) -> None:
+                    def arrow_47(l_2: monot, r_2: monot, this=this, l=l, r=r) -> None:
                         Manager__unify(this, l_2, r_2)
                     
-                    iterate2(arrow_45, xs_1, ys_1)
+                    iterate2(arrow_47, xs_1, ys_1)
                 
                 elif pattern_matching_result_2 == 1:
                     (pattern_matching_result_3, x_3, xs_3, y_3, ys_3) = (None, None, None, None, None)
@@ -193,10 +193,10 @@ def Manager__unify(this_mut: Manager, l_mut: monot, r_mut: monot) -> None:
                         pattern_matching_result_3 = 1
                     
                     if pattern_matching_result_3 == 0:
-                        def arrow_46(l_3: monot, r_3: monot, this=this, l=l, r=r) -> None:
+                        def arrow_48(l_3: monot, r_3: monot, this=this, l=l, r=r) -> None:
                             Manager__unify(this, l_3, r_3)
                         
-                        iterate2(arrow_46, xs_3, ys_3)
+                        iterate2(arrow_48, xs_3, ys_3)
                         this_mut = this
                         l_mut = x_3
                         r_mut = y_3
@@ -233,12 +233,12 @@ def Manager__instantiate_Z25E5E15E(this: Manager, t: polyt) -> Tuple[FSharpList[
     
     elif pattern_matching_result == 1:
         specialization_args : FSharpList[Tuple[str, monot]] = map(lambda var, this=this, t=t: (var, Manager__newTyRef_Z721C83C5(this, var)), vars)
-        class ObjectExpr47:
+        class ObjectExpr49:
             @property
             def Compare(self) -> Any:
                 return lambda x, y: compare_primitives(x, y)
             
-        replace_map : Any = of_list(specialization_args, ObjectExpr47())
+        replace_map : Any = of_list(specialization_args, ObjectExpr49())
         def instantiate(t_3: monot, this=this, t=t) -> monot:
             if t_3.tag == 4:
                 a : str = t_3.fields[0]

@@ -173,3 +173,8 @@ let _predefined_typenames =
 let TTuple xs = TApp(TConst_tuple, xs)
 let TList a = TApp(TConst_list, [a])
 
+
+let (|TTuple|_|) x =
+    match x with
+    | TConst "tuple" -> Some ()
+    | _ -> None

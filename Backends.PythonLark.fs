@@ -11,7 +11,7 @@ open tbnf.Exceptions
 open tbnf.Backends.Common
 
 let codegen (analyzer: Analyzer) 
-            { renamer = renamer;  lang = langName }
+            { variable_renamer = renamer;  lang = langName }
             (stmts: definition array) =
     
     let PythonPackage_Sedlex = "_tbnf.FableSedlex"
@@ -81,7 +81,7 @@ let codegen (analyzer: Analyzer)
                      if i = 0 then test
                      else test || isDigit c),
                  (fun i c ->
-                     if isDigit c then $"_X{i}_"
+                     if isDigit c then $"_{i * int c + 7}_"
                      else $"_{int c}_")
             ).WithNameEnv { usedNames = Set.ofList (List.map snd global_scope) }
 
@@ -159,12 +159,6 @@ let codegen (analyzer: Analyzer)
             body >>> 4
         ]
 
-    let rec tryLookup key x =
-        match x with
-        | [] -> None
-        | (key', value)::tl when key' = key -> Some value
-        | _::tl -> tryLookup key tl
-
     let TREE_NAME = "__tbnf_COMPONENTS"
     let rec cg_expr (actionName: string) (scope: list<string * string>) (expr: expr): block<Doc> =
         let inline (!) x = cg_expr actionName scope x
@@ -175,7 +169,7 @@ let codegen (analyzer: Analyzer)
                 let! args' = cg { for arg in args do return! !arg}
                 return f' * parens(seplist (word ", ") args')
             | node.EVar(var, _) ->
-                match tryLookup var scope with
+                match List.tryLookup var scope with
                 | None -> return raise (UnboundVariable(var))
                 | Some v -> return word v
             | node.EBool true -> return word "True"

@@ -1,5 +1,5 @@
 module tbnf.Utils
-
+open System.Text
 let lowerChars = [|for a = 'a' to 'z' do yield a|]
 let upperChars = [|for a = 'A' to 'Z' do yield a|]
 let sampleUnicodes = [|20320; 26159; 22612; 33778; 21527|]
@@ -15,10 +15,26 @@ let isLower c = 'a' <= c && c <= 'z'
 (* todo: more complete *)
 let isUnicode c = '\u4e00' <= c && c <= '\u9fa5'
 
-let escapeString (s: string) = 
-    "\"" + s.Replace("\"", "\\\"").Replace("\n", "\\n").Replace("\r", "\\r") + "\""
+let _escapeString (s: string) =
+    let sb = StringBuilder("\"")
+    for i = 0 to s.Length - 1 do
+        match s.[i] with
+        | '"' -> sb.Append("\\\"")
+        | '\\'  -> sb.Append("\\\\")
+        | '\t'  -> sb.Append("\\t")
+        | '\n'  -> sb.Append("\\n")
+        | '\r'  -> sb.Append("\\r")
+        | a -> sb.Append(a)
+        |> ignore
+    ignore(sb.Append("\""))
+    sb.ToString()
 
-        
+let escapeString (s: string) = _escapeString s
+
+let capitalized (s: string) = 
+    if s = "" then s
+    else string(System.Char.ToUpperInvariant (s.[0])) + s.[1..s.Length - 1]
+
 module NameMangling =
     open System.Text
     type nameEnv = {  mutable usedNames : string Set }

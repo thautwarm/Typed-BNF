@@ -33,5 +33,7 @@ let DuplicateNonterminal(name) = NameError(name,  NameErrorScope.NONTERM, Duplic
 let UnboundLexer(name) = NameError(name,  NameErrorScope.NONTERM, Unbound)
 let DuplicateLexer(name) = NameError(name,  NameErrorScope.LEXER, Duplicate)
 
+
 exception ComponentAccessingOutOfBound of int
 exception MacroResolveError of string
+exception UnsolvedTypeVariable

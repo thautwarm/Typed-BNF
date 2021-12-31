@@ -40,12 +40,12 @@ def to_position_independent_string(term: symbol) -> str:
 
 
 def resolve_macro(set_pos: Callable[[position], None], stmts: List[definition]) -> List[definition]:
-    class ObjectExpr16:
+    class ObjectExpr28:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    macro_defs : Any = empty(ObjectExpr16())
+    macro_defs : Any = empty(ObjectExpr28())
     stmts_to_solve : FSharpList[Tuple[dict, Any]] = empty_1()
     fixed_stmts : FSharpList[definition] = empty_1()
     for idx in range(0, (len(stmts) - 1) + 1, 1):
@@ -56,12 +56,12 @@ def resolve_macro(set_pos: Callable[[position], None], stmts: List[definition]) 
         
         elif each.tag == 1:
             decl_1 : dict = each.fields[0]
-            class ObjectExpr24:
+            class ObjectExpr35:
                 @property
                 def Compare(self) -> Any:
                     return lambda x_1, y_1=None: compare(x_1, y_1)
                 
-            scope : Any = empty(ObjectExpr24())
+            scope : Any = empty(ObjectExpr35())
             to_console(printf("adding %s"))(decl_1["lhs"])
             stmts_to_solve = cons((decl_1, scope), stmts_to_solve)
         
@@ -74,25 +74,25 @@ def resolve_macro(set_pos: Callable[[position], None], stmts: List[definition]) 
     final_results_1 = None
     stmts_to_solve_1 : FSharpList[Tuple[dict, Any]] = stmts_to_solve
     final_results : FSharpList[definition] = empty_1()
-    class ObjectExpr26:
+    class ObjectExpr36:
         @property
         def Compare(self) -> Any:
             return lambda x_3, y_2: compare(x_3, y_2)
         
-    solved : Any = empty(ObjectExpr26())
+    solved : Any = empty(ObjectExpr36())
     def solve_specialization(tupled_arg_1: Tuple[dict, Any], set_pos=set_pos, stmts=stmts) -> None:
         nonlocal final_results
         decl_2 : dict = tupled_arg_1[0]
-        def arrow_29(tupled_arg_1=tupled_arg_1) -> Any:
-            def arrow_28(match_value: Tuple[position, production]) -> Any:
+        def arrow_38(tupled_arg_1=tupled_arg_1) -> Any:
+            def arrow_37(match_value: Tuple[position, production]) -> Any:
                 pos : position = match_value[0]
                 case : production = match_value[1]
                 set_pos(pos)
                 return singleton((pos, production(map(lambda x_4: solve_sym(x_4)(tupled_arg_1[1]), case.symbols), expr__deep_copy(case.action))))
             
-            return collect(arrow_28, decl_2["define"])
+            return collect(arrow_37, decl_2["define"])
         
-        define : FSharpList[Tuple[position, production]] = to_list(delay(arrow_29))
+        define : FSharpList[Tuple[position, production]] = to_list(delay(arrow_38))
         to_console(printf("adding %s"))(decl_2["lhs"])
         final_results = cons(definition(1, {
             "define": define,
@@ -101,7 +101,7 @@ def resolve_macro(set_pos: Callable[[position], None], stmts: List[definition]) 
         }), final_results)
     
     def solve_sym(sym: symbol, set_pos=set_pos, stmts=stmts) -> Callable[[Any], symbol]:
-        def arrow_36(scope_2: Any, sym=sym) -> symbol:
+        def arrow_45(scope_2: Any, sym=sym) -> symbol:
             if sym.tag == 1:
                 match_value_1 : Optional[symbol] = try_find(sym.fields[0], scope_2)
                 return sym if (match_value_1 is None) else (match_value_1)
@@ -113,7 +113,7 @@ def resolve_macro(set_pos: Callable[[position], None], stmts: List[definition]) 
                 set_pos(pos_1)
                 sym_1 : symbol = symbol(2, n_1, to_list(delay(lambda _unit=None: map_1(lambda arg: solve_sym(arg)(scope_2), args))), pos_1)
                 key : symbol = to_position_independent(sym_1)
-                def arrow_35(_unit=None) -> str:
+                def arrow_44(_unit=None) -> str:
                     nonlocal solved, stmts_to_solve_1
                     match_value_2 : Optional[str] = try_find(key, solved)
                     if match_value_2 is None:
@@ -124,12 +124,12 @@ def resolve_macro(set_pos: Callable[[position], None], stmts: List[definition]) 
                             if length(parameters) != length(args):
                                 raise MacroResolveError(to_text(interpolate("macro %P() expects %P() argument(s): (%P()); got %P()", [n_1, length(parameters), join(", ", parameters), length(args)])))
                             
-                            class ObjectExpr34:
+                            class ObjectExpr43:
                                 @property
                                 def Compare(self) -> Any:
                                     return lambda x_5, y_3: compare_primitives(x_5, y_3)
                                 
-                            scope_3 : Any = of_list(map2(lambda k, v_1: (k, v_1), parameters, args), ObjectExpr34())
+                            scope_3 : Any = of_list(map2(lambda k, v_1: (k, v_1), parameters, args), ObjectExpr43())
                             resolved_name_1 : str = to_position_independent_string(sym_1)
                             solved = add(key, resolved_name_1, solved)
                             stmts_to_solve_1 = cons(({
@@ -148,13 +148,13 @@ def resolve_macro(set_pos: Callable[[position], None], stmts: List[definition]) 
                         return match_value_2
                     
                 
-                return symbol(1, arrow_35())
+                return symbol(1, arrow_44())
             
             else: 
                 return sym
             
         
-        return arrow_36
+        return arrow_45
     
     while not is_empty(stmts_to_solve_1):
         decl_3 : Tuple[dict, Any] = head(stmts_to_solve_1)
