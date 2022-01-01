@@ -15,7 +15,7 @@ The major part of this library is written in F\#. However, it is compiled into P
 ## Usage
 
 ```bash
-usage: cli_tbnf [-h] [--backend BACKEND] [--renamer_config RENAMER_CONFIG] tbnf_source_path out_dir lang
+usage: tbnf [-h] [--backend BACKEND] [--renamer_config RENAMER_CONFIG] tbnf_source_path out_dir lang
 
 Typed BNF CLI tool.
 

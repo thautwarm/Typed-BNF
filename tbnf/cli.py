@@ -32,7 +32,7 @@ def default_rename_var(x):
 def default_rename_type(x):
     return x
 
-def cli_tbnf(
+def tbnf(
         tbnf_source_path: Path,
         out_dir: Path,
         lang: str,
@@ -86,4 +86,4 @@ def cli_tbnf(
 
 
 def main():
-    wise(cli_tbnf)()
+    wise(tbnf)()
