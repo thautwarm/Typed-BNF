@@ -2,7 +2,7 @@ python .\runcli.py  .\runtests\simple_json.tbnf .\runtests\python_simple_json "s
 python run_generated_parser.py
 
 try
-{ mk ./runtests/python_lua -ErrorAction Stop }
+{ mkdir ./runtests/python_lua -ErrorAction Stop }
 catch { }
 
 # python .\runcli.py  .\runtests\lua.tbnf .\runtests\python_lua "lua"
