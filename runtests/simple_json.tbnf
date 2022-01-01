@@ -7,13 +7,13 @@ extern var appendList : <'a> (list<'a>, 'a) -> list<'a>
 type Json
 type JsonPair(name: str, value: Json)
 
-case JsonInt : int -> Json
-case JsonFlt : float -> Json
-case JsonStr : str -> Json
-case JsonNull : () -> Json
-case JsonList : (elements: list<Json>) -> Json
-case JsonDict : list<JsonPair> -> Json
-case JsonBool : bool -> Json
+case JInt : int -> Json
+case JFlt : float -> Json
+case JStr : str -> Json
+case JNull : () -> Json
+case JList : (elements: list<Json>) -> Json
+case JDict : list<JsonPair> -> Json
+case JBool : bool -> Json
 
 ignore space
 
@@ -34,13 +34,13 @@ jsonpair : <str> ":" json { JsonPair(unesc(getStr($1)), $3) }
 
 /* CPP comments */
 
-json : <int> { JsonInt(parseInt(getStr($1))) }
-      | <float> { JsonFlt(parseFlt(getStr($1))) }
-      | "null"  { JsonNull() }
-      | <str>   { JsonStr(unesc(getStr($1))) }
-      | "[" "]" { JsonList([]) }
-      | "{" "}" { JsonDict([]) }
-      | "true"  { JsonBool(true) }
-      | "false"  { JsonBool(false) }
-      | "[" seplist(",", json) "]" { JsonList($2) }
-      | "{" seplist(",", jsonpair) "}" { JsonDict($2) }
+json : <int> { JInt(parseInt(getStr($1))) }
+      | <float> { JFlt(parseFlt(getStr($1))) }
+      | "null"  { JNull() }
+      | <str>   { JStr(unesc(getStr($1))) }
+      | "[" "]" { JList([]) }
+      | "{" "}" { JDict([]) }
+      | "true"  { JBool(true) }
+      | "false"  { JBool(false) }
+      | "[" seplist(",", json) "]" { JList($2) }
+      | "{" seplist(",", jsonpair) "}" { JDict($2) }

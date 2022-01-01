@@ -47,12 +47,12 @@ def process_tparam(kvs):
     out = []
     for i, (k, v) in enumerate(kvs):
         if k == '_':
-            out.append((f"_{i+1}", v))
+            out.append((f"value{i+1}", v))
         else:
             out.append((k, v))
     return out
 %%
-arrow_typ : typ2 "->" arrow_typ -> MK_TFun([("_", $1)], $3)
+arrow_typ : typ2 "->" arrow_typ -> MK_TFun([("value", $1)], $3)
           | "(" eslist{",", param_type} ")" "->" arrow_typ -> MK_TFun(process_tparam($2), $5)
           | type_product -> MK_TTuple($1)
 

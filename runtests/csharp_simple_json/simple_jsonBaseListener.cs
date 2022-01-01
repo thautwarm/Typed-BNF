@@ -73,29 +73,29 @@ public partial class simple_jsonBaseListener : Isimple_jsonListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitJsonpair([NotNull] simple_jsonParser.JsonpairContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="simple_jsonParser.seplist_o__i__s__i__s_json_p_"/>.
+	/// Enter a parse tree produced by <see cref="simple_jsonParser.seplist_n__i__s__i__s_json_p_"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSeplist_o__i__s__i__s_json_p_([NotNull] simple_jsonParser.Seplist_o__i__s__i__s_json_p_Context context) { }
+	public virtual void EnterSeplist_n__i__s__i__s_json_p_([NotNull] simple_jsonParser.Seplist_n__i__s__i__s_json_p_Context context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="simple_jsonParser.seplist_o__i__s__i__s_json_p_"/>.
+	/// Exit a parse tree produced by <see cref="simple_jsonParser.seplist_n__i__s__i__s_json_p_"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSeplist_o__i__s__i__s_json_p_([NotNull] simple_jsonParser.Seplist_o__i__s__i__s_json_p_Context context) { }
+	public virtual void ExitSeplist_n__i__s__i__s_json_p_([NotNull] simple_jsonParser.Seplist_n__i__s__i__s_json_p_Context context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="simple_jsonParser.seplist_o__i__s__i__s_jsonpair_p_"/>.
+	/// Enter a parse tree produced by <see cref="simple_jsonParser.seplist_n__i__s__i__s_jsonpair_p_"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSeplist_o__i__s__i__s_jsonpair_p_([NotNull] simple_jsonParser.Seplist_o__i__s__i__s_jsonpair_p_Context context) { }
+	public virtual void EnterSeplist_n__i__s__i__s_jsonpair_p_([NotNull] simple_jsonParser.Seplist_n__i__s__i__s_jsonpair_p_Context context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="simple_jsonParser.seplist_o__i__s__i__s_jsonpair_p_"/>.
+	/// Exit a parse tree produced by <see cref="simple_jsonParser.seplist_n__i__s__i__s_jsonpair_p_"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSeplist_o__i__s__i__s_jsonpair_p_([NotNull] simple_jsonParser.Seplist_o__i__s__i__s_jsonpair_p_Context context) { }
+	public virtual void ExitSeplist_n__i__s__i__s_jsonpair_p_([NotNull] simple_jsonParser.Seplist_n__i__s__i__s_jsonpair_p_Context context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="simple_jsonParser.json"/>.
 	/// <para>The default implementation does nothing.</para>

@@ -13,12 +13,15 @@ open tbnf.Backends.Common.NameMangling
 
 
 let codegen (analyzer: Analyzer) 
-            { variable_renamer = rename_var; constructor_renamer = rename_ctor;
-              type_renamer = rename_type
-              field_renamer = rename_field
-              lang = langName }
+            (cg_options: CodeGenOptions)
+            (langName: string)
             (stmts: definition array) =
     
+    let rename_var = Option.defaultValue id cg_options.rename_var
+    let rename_ctor = Option.defaultValue id cg_options.rename_ctor
+    let rename_field = Option.defaultValue id cg_options.rename_field
+    let rename_type = Option.defaultValue id cg_options.rename_type
+
     let PythonPackage_Sedlex = "_tbnf.FableSedlex"
     let mutable importNames = []
 
@@ -316,8 +319,7 @@ let codegen (analyzer: Analyzer)
         | definition.Declvar decl ->
             importNames <- rename_var decl.ident :: importNames
             empty
-        | definition.Declctor decl ->
-            empty
+        | definition.Declctor _
         | definition.Decltype _ -> empty
         | definition.Defmacro _ -> invalidOp "macro not processed"
     
@@ -375,15 +377,15 @@ let codegen (analyzer: Analyzer)
     
     let import_items = parens(seplist (word ",") (List.map word importNames))
 
-    
-    
     // data classes generator
-    let adtCases = analyzer.Sigma.GetADTCases()
     let file_constructors = filename_constructors + ".py", vsep [
         yield word $"from __future__ import annotations as __01asda1ha"
         yield word $"from lark import Token as {classvar_LarkToken}"
         yield word $"import dataclasses as {modulevar_dataclass}"
         yield word $"import typing as {modulevar_typing}"
+        
+        // generate ADTs
+        let adtCases = analyzer.Sigma.GetADTCases()
         if not (List.isEmpty importNames) then
             yield word ($"from .{filename_require} import") + import_items
         yield empty
@@ -414,6 +416,8 @@ let codegen (analyzer: Analyzer)
                 word typename' + word "=" + parens(seplist(word ",") docCtorNames)
             ] >>> 4
             yield empty
+
+        // generate records
         for (typename, shape) in  analyzer.Sigma.GetRecordTypes() do
             let typename' = rename_type typename
             let varname = rename_var typename

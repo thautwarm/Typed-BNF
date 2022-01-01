@@ -37,19 +37,22 @@ optional arguments:
 Such grammar is compiled into Python, OCaml and CSharp. See [runtests](https://github.com/thautwarm/typed-bnf/tree/main/runtests) directory and `test-*.ps1`.
 
 ```ocaml
-extern type json
 extern var parseInt : str -> int
 extern var parseFlt : str -> float
 extern var getStr : token -> str
 extern var unesc : str -> str
-extern var jsonInt : int -> json
-extern var jsonFlt : float -> json
-extern var jsonStr : str -> json
-extern var jsonNull : json
-extern var jsonList : list<json> -> json
-extern var jsonDict : list<str * json> -> json
-extern var jsonBool : bool -> json
 extern var appendList : <'a> (list<'a>, 'a) -> list<'a>
+
+type Json
+type JsonPair(name: str, value: Json)
+
+case JInt : int -> Json
+case JFlt : float -> Json
+case JStr : str -> Json
+case JNull : () -> Json
+case JList : (elements: list<Json>) -> Json
+case JDict : list<JsonPair> -> Json
+case JBool : bool -> Json
 
 ignore space
 
@@ -66,19 +69,20 @@ seplist(sep, elt) : elt { [$1] }
                   | seplist(sep, elt) sep elt
                     { appendList($1, $3) }
 
-jsonpair : <str> ":" json { (unesc(getStr($1)), $3) }
+jsonpair : <str> ":" json { JsonPair(unesc(getStr($1)), $3) }
 
+/* CPP comments */
 
-json : <int> { jsonInt(parseInt(getStr($1))) }
-      | <float> { jsonFlt(parseFlt(getStr($1))) }
-      | "null"  { jsonNull }
-      | <str>   { jsonStr(unesc(getStr($1))) }
-      | "[" "]" { jsonList([]) }
-      | "{" "}" { jsonDict([]) }
-      | "true"  { jsonBool(true) }
-      | "false"  { jsonBool(false) }
-      | "[" seplist(",", json) "]" { jsonList($2) }
-      | "{" seplist(",", jsonpair) "}" { jsonDict($2) }
+json : <int> { JInt(parseInt(getStr($1))) }
+      | <float> { JFlt(parseFlt(getStr($1))) }
+      | "null"  { JNull() }
+      | <str>   { JStr(unesc(getStr($1))) }
+      | "[" "]" { JList([]) }
+      | "{" "}" { JDict([]) }
+      | "true"  { JBool(true) }
+      | "false"  { JBool(false) }
+      | "[" seplist(",", json) "]" { JList($2) }
+      | "{" seplist(",", jsonpair) "}" { JDict($2) }
 ```
 
 ## Customizing name mapping

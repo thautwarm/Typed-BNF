@@ -28,7 +28,7 @@ def process_tparam(kvs):
     out = []
     for i, (k, v) in enumerate(kvs):
         if k == '_':
-            out.append((f"_{i+1}", v))
+            out.append((f"value{i+1}", v))
         else:
             out.append((k, v))
     return out
@@ -69,7 +69,7 @@ class grammar_parser_Transformer(Transformer):
     def typ_0(self, __args):
         return  __args[1-1]
     def arrow_typ_0(self, __args):
-        return  MK_TFun([("_", __args[1-1])], __args[3-1])
+        return  MK_TFun([("value", __args[1-1])], __args[3-1])
     def arrow_typ_1(self, __args):
         return  MK_TFun(process_tparam(__args[2-1]), __args[5-1])
     def arrow_typ_2(self, __args):

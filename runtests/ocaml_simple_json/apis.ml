@@ -12,6 +12,17 @@ let parse_json long_str =
 let tree =
     let open Simple_json_require in
     match parse_json "[1, 2.0, \"3\", {\"1\\\"\": 2}, [{}]]" with
-    | List [Int 1; Float 2.0; String "3"; Dict ["1\"", Int 2]; List [Dict []]] -> ()
+    | JList { elements = 
+      [
+        JInt { value = 1 };
+        JFlt { value = 2.0 };
+        JStr { value = "3" }; 
+        JDict { value = [
+          { name = "1\""; value = JInt { value = 2}}
+        ]};
+        JList { elements = [
+          JDict { value =  [] }
+        ]}
+      ]} -> ()
     | _ -> failwith "parse fail"
 

@@ -10,12 +10,12 @@ from .code_gen import (Doc, empty as empty_2, Doc_op_Addition_Z7CFFAC00, word, s
 from .sedlex import (compiled_unit, Automata_decision_tree, lang as lang_3, keep_token)
 
 def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
-    class ObjectExpr59:
+    class ObjectExpr58:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare(x, y)
         
-    decision_funcs : Any = empty(ObjectExpr59())
+    decision_funcs : Any = empty(ObjectExpr58())
     tbl_cnt : int = 0
     dt_cnt : int = 0
     rnd_cnt : int = 0
@@ -25,12 +25,12 @@ def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
         arg10_2 : int = rnd_cnt or 0
         return to_text(printf("_sedlex_rnd_%d"))(arg10_2)
     
-    class ObjectExpr60:
+    class ObjectExpr59:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare_with(lambda x_2, y_2: compare_primitives(x_2, y_2), x_1, y_1)
         
-    tables : Any = empty(ObjectExpr60())
+    tables : Any = empty(ObjectExpr59())
     toplevels : FSharpList[Doc] = empty_1()
     later_toplevels : FSharpList[Doc] = empty_1()
     def push_toplevel(doc: Doc, import_head: str=import_head, cu: compiled_unit=cu) -> None:
@@ -110,11 +110,11 @@ def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
                 names = cons(name_1, names)
             names_1 : FSharpList[str] = reverse(names)
             func_table : str = new_rnd_name()
-            def arrow_61(lang: lang_3=lang) -> Doc:
+            def arrow_60(lang: lang_3=lang) -> Doc:
                 lst_1 : FSharpList[Doc] = map_1(lambda s_2: word(s_2), names_1)
                 return seplist(word(", "), lst_1)
             
-            push_later_toplevel(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(func_table), word("=")), bracket(arrow_61())))
+            push_later_toplevel(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(func_table), word("=")), bracket(arrow_60())))
             default_body : Doc = _cg_state_func(lang.fields[2])
             test : Doc = Doc_op_Multiply_Z7CFFAC00(word(cg_decision_func(lang.fields[0])), parens(word("public_next_int(lexerbuf)")))
             return vsep(of_array([Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("state_id"), word("=")), test), Doc_op_Addition_Z7CFFAC00(word("if"), Doc_op_Multiply_Z7CFFAC00(word(to_text(printf("state_id \u003e= 0"))), word(":"))), Doc_op_RightShift_2AAA0F3C(vsep(singleton(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("result"), word("=")), Doc_op_Multiply_Z7CFFAC00(word(to_text(printf("%s[state_id]"))(func_table)), parens(word("lexerbuf")))))), 4), word("else:"), Doc_op_RightShift_2AAA0F3C(default_body, 4)]))

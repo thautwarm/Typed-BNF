@@ -1,6 +1,7 @@
 %{
 open Simple_json_require;;
 open Simple_json_lexer;;
+open Simple_json_construct;;
 %}
 %token<tbnf_token> STR
 %token<tbnf_token> FLOAT
@@ -15,23 +16,10 @@ open Simple_json_lexer;;
 %token<tbnf_token> I__T__I_
 %token<tbnf_token> I__V__I_
 %token EOF
-%start <Simple_json_require.json> start
+%start <Simple_json_construct.json> start
 %%
 
 start : start__y_ EOF { $1 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -42,47 +30,47 @@ start__y_ : json {
                           $1
                       }
 jsonpair : STR I__G__I_ json { 
-                         (unesc(getStr($1)), $3)
+                         mk_JsonPair(unesc(getStr($1)), $3)
                      }
-seplist_o__i__s__i__s_json_p_ : json { 
+seplist_n__i__s__i__s_json_p_ : json { 
                                               [$1]
                                           }
-                              | seplist_o__i__s__i__s_json_p_ I__S__I_ json { 
+                              | seplist_n__i__s__i__s_json_p_ I__S__I_ json { 
                                               appendList($1, $3)
                                           }
-seplist_o__i__s__i__s_jsonpair_p_ : jsonpair { 
+seplist_n__i__s__i__s_jsonpair_p_ : jsonpair { 
                                                   [$1]
                                               }
-                                  | seplist_o__i__s__i__s_jsonpair_p_ I__S__I_ jsonpair { 
+                                  | seplist_n__i__s__i__s_jsonpair_p_ I__S__I_ jsonpair { 
                                                   appendList($1, $3)
                                               }
 json : INT { 
-                     jsonInt(parseInt(getStr($1)))
+                     mk_JInt(parseInt(getStr($1)))
                  }
      | FLOAT { 
-                     jsonFlt(parseFlt(getStr($1)))
+                     mk_JFlt(parseFlt(getStr($1)))
                  }
      | I_NULL_I_ { 
-                     jsonNull
+                     mk_JNull()
                  }
      | STR { 
-                     jsonStr(unesc(getStr($1)))
+                     mk_JStr(unesc(getStr($1)))
                  }
      | I__N__I_ I__P__I_ { 
-                     jsonList([])
+                     mk_JList([])
                  }
      | I__T__I_ I__V__I_ { 
-                     jsonDict([])
+                     mk_JDict([])
                  }
      | I_TRUE_I_ { 
-                     jsonBool(true)
+                     mk_JBool(true)
                  }
      | I_FALSE_I_ { 
-                     jsonBool(false)
+                     mk_JBool(false)
                  }
-     | I__N__I_ seplist_o__i__s__i__s_json_p_ I__P__I_ { 
-                     jsonList($2)
+     | I__N__I_ seplist_n__i__s__i__s_json_p_ I__P__I_ { 
+                     mk_JList($2)
                  }
-     | I__T__I_ seplist_o__i__s__i__s_jsonpair_p_ I__V__I_ { 
-                     jsonDict($2)
+     | I__T__I_ seplist_n__i__s__i__s_jsonpair_p_ I__V__I_ { 
+                     mk_JDict($2)
                  }

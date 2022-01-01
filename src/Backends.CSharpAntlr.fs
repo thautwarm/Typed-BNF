@@ -95,15 +95,20 @@ let CSharpKeywords =
        "void"
        "while" |]
 
-
-
 let codegen
     (analyzer: Analyzer)
-    { variable_renamer = var_renamer
-      type_renamer = type_renamer
-      lang = langName }
+    (cg_options: CodeGenOptions)
+    (langName: string)
     (stmts: definition array)
     =
+    let var_renamer = Option.defaultValue id cg_options.rename_var
+    let rename_ctor = Option.defaultValue id cg_options.rename_ctor
+    let rename_var = Option.defaultValue id cg_options.rename_var
+    let rename_field = Option.defaultValue id cg_options.rename_field
+    let type_renamer = Option.defaultValue id cg_options.rename_type
+
+    let typeParameter_mangling x = "_GEN_" + x
+
     let mutable importVarNames = []
     let mutable importTypeNames = []
 
@@ -200,7 +205,7 @@ let codegen
             match x with
             | Term (define, is_literal) ->
                 if is_literal then
-                
+
                     escapeStringSingleQuoted define
                 else
                     _name_of_named_term define
@@ -230,7 +235,7 @@ let codegen
     let rec _cg_type (t: monot) =
         match t with
         | monot.TConst n -> type_renamer n
-        | monot.TVar a -> a
+        | monot.TVar a -> typeParameter_mangling a
         | monot.TRef _ -> raise <| UnsolvedTypeVariable
         | monot.TFun (args, r) ->
             args
@@ -392,8 +397,8 @@ let codegen
         |> List.mapi (fun i e -> (if i = 0 then word ":" else word "|") + e)
         |> vsep
         |> align
-        |> fun body -> vsep [ 
-            word ntname + word "returns" + 
+        |> fun body -> vsep [
+            word ntname + word "returns" +
                 bracket(word (cg_type t) + word resultName)
             body >>> 4
             word ";"
@@ -468,7 +473,9 @@ let codegen
         | definition.Defignore decl ->
             currentPos <- decl.pos
             vsep [] (* generated later *)
-        
+        | definition.Declctor decl ->
+            currentPos <- decl.pos
+            vsep []
         | definition.Declvar decl ->
             importVarNames <- var_renamer decl.ident :: importVarNames
             vsep []
@@ -485,22 +492,75 @@ let codegen
         | lexerule.LNot(x) -> LNot(_must_be_atom_rule x)
         | lexerule.LOptional x -> LOptional (_must_be_atom_rule x)
         | lexerule.LPlus x -> LPlus (_must_be_atom_rule x)
-        | lexerule.LStar x -> LStar (_must_be_atom_rule x)        
+        | lexerule.LStar x -> LStar (_must_be_atom_rule x)
         | lexerule.LOr args -> LOr (List.map _must_be_atom_rule args)
         | lexerule.LSeq args -> LSeq (List.map _must_be_atom_rule args)
-    
+
     and _must_be_atom_rule x =
         match x with
         | lexerule.LNumber | lexerule.LWildcard | lexerule.LRange _ | lexerule.LRef _ | lexerule.LStr _ -> x
         | lexerule.LNot x -> LNot (_must_be_atom_rule x)
         | lexerule.LOptional x -> LOptional (_must_be_atom_rule x)
         | lexerule.LPlus x -> LPlus (_must_be_atom_rule x)
-        | lexerule.LStar x -> LStar (_must_be_atom_rule x)        
+        | lexerule.LStar x -> LStar (_must_be_atom_rule x)
         | lexerule.LOr args -> LGroup (LOr (List.map _must_be_atom_rule args))
         | lexerule.LSeq args -> LGroup (LSeq (List.map _must_be_atom_rule args))
         | LGroup x -> _must_be_atom_rule x
-            
-    let isLOr = function LOr _ -> true | _ -> false   
+
+    let mutable docCtorWrapFuncs = []
+
+    let file_constructors = $"{langName}.Constructor." + ".cs", vsep [
+
+            yield word $"using Antlr4.Runtime;"
+            yield word "using System.Collections.Generic;"
+            yield word "using System;"
+
+            // generate ADTs
+            let adtCases = analyzer.Sigma.GetADTCases()
+            yield empty
+
+            yield word $"namespace {langName}{{"
+
+            for (typename, cases) in adtCases do
+                let typename' = type_renamer typename
+                yield word $"public partial interface {typename'} {{  }}"
+                for (ctorName, fields) in Map.toArray cases do // TODO: give a proper error when cases are empty
+                    // mangling
+                    let fields = List.map (fun (fname, t) -> word (rename_field fname), word (cg_type t)) fields
+                    let ctorName' = rename_ctor ctorName
+
+                    let func_params = parens(seplist (word ",") [for (fname, t) in fields -> t + fname])
+                    yield word $"public partial record {ctorName'}" * func_params + word $": {typename'};"
+                    // for later wrap
+                    let ret_t = word typename'
+                    docCtorWrapFuncs <- ("", rename_ctor ctorName, ctorName', fields, ret_t) :: docCtorWrapFuncs
+                yield empty
+
+            // generate records
+
+            for (typename, shape) in  analyzer.Sigma.GetRecordTypes() do
+                let typename' = type_renamer typename
+                let varname = rename_var typename
+                let tparams, ret_t =
+                    if List.isEmpty shape.parameters then
+                        "", word typename'
+                    else
+                        let tparams =
+                            shape.parameters
+                            |> List.map (fun s -> typeParameter_mangling s)
+                            |> String.concat ", "
+                            |> fun tparams -> "<" + tparams + ">"
+                        tparams, word $"{typename'}<{tparams}>"
+
+                let fields = [for (fname, t) in Map.toArray shape.fields -> word (rename_field fname), word (cg_type t)]
+                let func_params = parens(seplist (word ",") [for (fname, t) in fields -> t + fname])
+                yield word $"public partial record {typename'}" * word tparams * func_params * word ";"
+                docCtorWrapFuncs <- (tparams, varname, typename', fields, ret_t) :: docCtorWrapFuncs
+            yield word "}" // close namespace
+        ]
+
+    // antlr grammar generator
+    let isLOr = function LOr _ -> true | _ -> false
     let parensIfLOr x =
         if isLOr x then
             parens(word (mk_lexer x))
@@ -521,19 +581,35 @@ let codegen
                     yield word n + word ":" + parensIfLOr v + word "-> skip;"
                 elif Set.contains k analyzer.ReferencedNamedTokens then
                     yield word n + word ":" + word (mk_lexer v) + word ";"
-                else 
+                else
                     yield word "fragment" + word n + word ":" + parensIfLOr v + word ";"
         ]
         let start_mangled = name_of_nonterm "start"
-        [|
-            langName + ".g4",
-            vsep [
-                yield word $"grammar {langName};"
-                yield word "options { language = CSharp; }"
-                yield word (sprintf "start returns [%s result]: v=%s EOF { $result = _localctx.v.result; };" (cg_type 
-                start_t) start_mangled)
-                yield file_grammar
-                yield! lexerDefs
-            ]
-        |]
-        
+        let file_antlr =
+                langName + ".g4",
+                vsep [
+                    yield word $"grammar {langName};"
+                    yield word "options { language = CSharp; }"
+                    yield word "@members {"
+
+                    for (tparams, function_name, ctor_name, fields, ret_t) in docCtorWrapFuncs do
+                        let func_params = parens(seplist (word ",") (List.map (fun (fname, t) -> t + fname) fields))
+                        let args = parens(seplist (word ",") (List.map (fun (fname, _) -> fname) fields))
+
+                        yield vsep [
+                             yield word "public static" + ret_t + word function_name + word tparams * func_params
+                             yield word "{"
+                             yield vsep [
+                                    word "return" + parens(ret_t) + word "new" + word ctor_name * args * word ";"
+                             ] >>> 4
+                             yield word "}"
+                        ]
+
+                    yield word "}"
+
+                    yield word (sprintf "start returns [%s result]: v=%s EOF { $result = _localctx.v.result; };" (cg_type
+                    start_t) start_mangled)
+                    yield file_grammar
+                    yield! lexerDefs
+                ]
+        [| file_antlr; file_constructors |]

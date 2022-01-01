@@ -62,25 +62,25 @@ public interface Isimple_jsonListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitJsonpair([NotNull] simple_jsonParser.JsonpairContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="simple_jsonParser.seplist_o__i__s__i__s_json_p_"/>.
+	/// Enter a parse tree produced by <see cref="simple_jsonParser.seplist_n__i__s__i__s_json_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterSeplist_o__i__s__i__s_json_p_([NotNull] simple_jsonParser.Seplist_o__i__s__i__s_json_p_Context context);
+	void EnterSeplist_n__i__s__i__s_json_p_([NotNull] simple_jsonParser.Seplist_n__i__s__i__s_json_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="simple_jsonParser.seplist_o__i__s__i__s_json_p_"/>.
+	/// Exit a parse tree produced by <see cref="simple_jsonParser.seplist_n__i__s__i__s_json_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitSeplist_o__i__s__i__s_json_p_([NotNull] simple_jsonParser.Seplist_o__i__s__i__s_json_p_Context context);
+	void ExitSeplist_n__i__s__i__s_json_p_([NotNull] simple_jsonParser.Seplist_n__i__s__i__s_json_p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="simple_jsonParser.seplist_o__i__s__i__s_jsonpair_p_"/>.
+	/// Enter a parse tree produced by <see cref="simple_jsonParser.seplist_n__i__s__i__s_jsonpair_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterSeplist_o__i__s__i__s_jsonpair_p_([NotNull] simple_jsonParser.Seplist_o__i__s__i__s_jsonpair_p_Context context);
+	void EnterSeplist_n__i__s__i__s_jsonpair_p_([NotNull] simple_jsonParser.Seplist_n__i__s__i__s_jsonpair_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="simple_jsonParser.seplist_o__i__s__i__s_jsonpair_p_"/>.
+	/// Exit a parse tree produced by <see cref="simple_jsonParser.seplist_n__i__s__i__s_jsonpair_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitSeplist_o__i__s__i__s_jsonpair_p_([NotNull] simple_jsonParser.Seplist_o__i__s__i__s_jsonpair_p_Context context);
+	void ExitSeplist_n__i__s__i__s_jsonpair_p_([NotNull] simple_jsonParser.Seplist_n__i__s__i__s_jsonpair_p_Context context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="simple_jsonParser.json"/>.
 	/// </summary>

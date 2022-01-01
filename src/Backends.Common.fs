@@ -4,18 +4,20 @@ open tbnf.Analysis
 open tbnf.Grammar
 open tbnf.Utils
 
-type Renamer = string -> string
 type Filename = string
 
-type CodeGenOptions = {
-        variable_renamer: string -> string // rename global variables
-        type_renamer: string -> string // rename types
-        constructor_renamer : string -> string
-        field_renamer : string -> string
-        lang: string // name of language
-    }
+type CodeGenOptions =
+    (* user customized *)
+    abstract rename_var : (string -> string) option
+    abstract rename_type : (string -> string) option
+    abstract rename_ctor : (string -> string) option
+    abstract rename_field : (string -> string) option
+    
+    // used by ocaml-menhir; specify the **qualified** type of start rule.
+    abstract start_rule_qualified_type: string option
 
-type BackendCodeGenerator = Analyzer -> CodeGenOptions -> definition array -> (Filename * Doc) array
+    // extensibly registered at python side; for RTS files or other static resources
+    abstract request_resource: string -> string
 
 
 module NameMangling =

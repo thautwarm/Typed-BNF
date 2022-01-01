@@ -1,7 +1,8 @@
 from __future__ import annotations
-from typing import (Callable, Any, TypeVar, Generic, Iterable, Tuple)
+from abc import abstractmethod
+from typing import (Callable, Optional, Any, TypeVar, Generic, Iterable, Tuple)
 from ..fable_modules.fable_library.list import (FSharpList, append, empty as empty_1, singleton, reverse)
-from ..fable_modules.fable_library.reflection import (TypeInfo, string_type, lambda_type, record_type, class_type, int32_type, char_type, bool_type, list_type)
+from ..fable_modules.fable_library.reflection import (TypeInfo, string_type, class_type, record_type, int32_type, char_type, bool_type, lambda_type, list_type)
 from ..fable_modules.fable_library.seq import (to_list, delay, collect, singleton as singleton_1)
 from ..fable_modules.fable_library.set import (empty, contains, add as add_2)
 from ..fable_modules.fable_library.system_text import (StringBuilder__ctor, StringBuilder__Append_244C7CD6, StringBuilder__Append_Z721C83C5)
@@ -20,23 +21,38 @@ t = TypeVar("t")
 
 u = TypeVar("u")
 
-def expr_49() -> TypeInfo:
-    return record_type("tbnf.Backends.Common.CodeGenOptions", [], CodeGenOptions, lambda: [["variable_renamer", lambda_type(string_type, string_type)], ["type_renamer", lambda_type(string_type, string_type)], ["constructor_renamer", lambda_type(string_type, string_type)], ["field_renamer", lambda_type(string_type, string_type)], ["lang", string_type]])
-
-
-class CodeGenOptions(Record):
-    def __init__(self, variable_renamer: Callable[[str], str], type_renamer: Callable[[str], str], constructor_renamer: Callable[[str], str], field_renamer: Callable[[str], str], lang: str) -> None:
-        super().__init__()
-        self.variable_renamer = variable_renamer
-        self.type_renamer = type_renamer
-        self.constructor_renamer = constructor_renamer
-        self.field_renamer = field_renamer
-        self.lang = lang
+class CodeGenOptions:
+    @property
+    @abstractmethod
+    def rename_ctor(self) -> Optional[Callable[[str], str]]:
+        ...
+    
+    @property
+    @abstractmethod
+    def rename_field(self) -> Optional[Callable[[str], str]]:
+        ...
+    
+    @property
+    @abstractmethod
+    def rename_type(self) -> Optional[Callable[[str], str]]:
+        ...
+    
+    @property
+    @abstractmethod
+    def rename_var(self) -> Optional[Callable[[str], str]]:
+        ...
+    
+    @property
+    @abstractmethod
+    def start_rule_qualified_type(self) -> Optional[str]:
+        ...
+    
+    @abstractmethod
+    def request_resource(self, __arg0: str) -> str:
+        ...
     
 
-CodeGenOptions_reflection = expr_49
-
-def expr_50() -> TypeInfo:
+def expr_49() -> TypeInfo:
     return record_type("tbnf.Backends.Common.NameMangling.nameEnv", [], NameMangling_nameEnv, lambda: [["usedNames", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -46,9 +62,9 @@ class NameMangling_nameEnv(Record):
         self.used_names = used_names
     
 
-NameMangling_nameEnv_reflection = expr_50
+NameMangling_nameEnv_reflection = expr_49
 
-def expr_51() -> TypeInfo:
+def expr_50() -> TypeInfo:
     return record_type("tbnf.Backends.Common.NameMangling.IdentifierDescriptor", [], NameMangling_IdentifierDescriptor, lambda: [["isValidChar", lambda_type(int32_type, lambda_type(char_type, bool_type))], ["charToValid", lambda_type(int32_type, lambda_type(char_type, string_type))], ["nameEnv", NameMangling_nameEnv_reflection()]])
 
 
@@ -60,15 +76,15 @@ class NameMangling_IdentifierDescriptor(Record):
         self.name_env = name_env
     
 
-NameMangling_IdentifierDescriptor_reflection = expr_51
+NameMangling_IdentifierDescriptor_reflection = expr_50
 
 def NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(is_valid_char: Callable[[int, str], bool], char_to_valid: Callable[[int, str], str]) -> NameMangling_IdentifierDescriptor:
-    class ObjectExpr52:
+    class ObjectExpr51:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    return NameMangling_IdentifierDescriptor(is_valid_char, char_to_valid, NameMangling_nameEnv(empty(ObjectExpr52())))
+    return NameMangling_IdentifierDescriptor(is_valid_char, char_to_valid, NameMangling_nameEnv(empty(ObjectExpr51())))
 
 
 def NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(this: NameMangling_IdentifierDescriptor, x: NameMangling_nameEnv) -> NameMangling_IdentifierDescriptor:
@@ -147,7 +163,7 @@ def NameMangling_mangle(abandoned_names: Any, idr: NameMangling_IdentifierDescri
     return s
 
 
-def expr_53(gen0: TypeInfo) -> TypeInfo:
+def expr_52(gen0: TypeInfo) -> TypeInfo:
     return record_type("tbnf.Backends.Common.DocBuilder.block`1", [gen0], DocBuilder_block_1, lambda: [["suite", list_type(Doc_reflection())], ["value", gen0]])
 
 
@@ -158,9 +174,9 @@ class DocBuilder_block_1(Record, Generic[b]):
         self.value = value
     
 
-DocBuilder_block_1_reflection = expr_53
+DocBuilder_block_1_reflection = expr_52
 
-def expr_54() -> TypeInfo:
+def expr_53() -> TypeInfo:
     return class_type("tbnf.Backends.Common.DocBuilder.Builder", None, DocBuilder_Builder)
 
 
@@ -169,7 +185,7 @@ class DocBuilder_Builder:
         pass
     
 
-DocBuilder_Builder_reflection = expr_54
+DocBuilder_Builder_reflection = expr_53
 
 def DocBuilder_Builder__ctor() -> DocBuilder_Builder:
     return DocBuilder_Builder()
@@ -210,16 +226,16 @@ def DocBuilder_Builder__Delay_Z3A9C5A06(__: DocBuilder_Builder, x: Callable[[], 
 
 def DocBuilder_Builder__For_2B96F4AF(__: DocBuilder_Builder, m: Iterable[t], f: Callable[[t], DocBuilder_block_1[u]]) -> DocBuilder_block_1[FSharpList[u]]:
     suite : FSharpList[Doc] = empty_1()
-    def arrow_56(__: DocBuilder_Builder=__, m: Iterable[t]=m, f: Callable[[t], DocBuilder_block_1[u]]=f) -> Iterable[Any]:
-        def arrow_55(each: Any=None) -> Iterable[Any]:
+    def arrow_57(__: DocBuilder_Builder=__, m: Iterable[t]=m, f: Callable[[t], DocBuilder_block_1[u]]=f) -> Iterable[Any]:
+        def arrow_56(each: Any=None) -> Iterable[Any]:
             nonlocal suite
             m_0027 : DocBuilder_block_1[u] = f(each)
             suite = append(m_0027.suite, suite)
             return singleton_1(m_0027.value)
         
-        return collect(arrow_55, m)
+        return collect(arrow_56, m)
     
-    value : FSharpList[u] = to_list(delay(arrow_56))
+    value : FSharpList[u] = to_list(delay(arrow_57))
     return DocBuilder_block_1(suite, value)
 
 

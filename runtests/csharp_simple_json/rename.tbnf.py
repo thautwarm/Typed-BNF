@@ -1,7 +1,7 @@
 def rename_type(x):
     if x == "str":
         return "string"
-    if x == 'json':
+    if x == 'Json':
         return 'JsonValue'
     if x == 'list':
         return 'System.Collections.Generic.List'

@@ -47,12 +47,12 @@ typ : arrow_typ -> typ_0
             
                                     
                     
-                                      
+                                          
              
                               
               
   
-arrow_typ : typ2 "->" arrow_typ -> arrow_typ_0                                                            
+arrow_typ : typ2 "->" arrow_typ -> arrow_typ_0                                                                
           | "(" eslist{",", param_type} ")" "->" arrow_typ -> arrow_typ_1                                                                                              
           | type_product -> arrow_typ_2                                          
 

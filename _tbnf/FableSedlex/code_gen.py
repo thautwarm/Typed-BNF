@@ -16,7 +16,7 @@ a = TypeVar("a")
 
 a_1 = TypeVar("a_1")
 
-def expr_36() -> TypeInfo:
+def expr_30() -> TypeInfo:
     return union_type("Fable.CodeGen.Doc", [], Doc, lambda: [[["Item1", Doc_reflection()], ["Item2", Doc_reflection()]], [["Item", list_type(Doc_reflection())]], [["Item", Doc_reflection()]], [["Item1", int32_type], ["Item2", Doc_reflection()]], [["Item", string_type]]])
 
 
@@ -31,7 +31,7 @@ class Doc(Union):
         return ["Concat", "VSep", "Align", "Indent", "Word"]
     
 
-Doc_reflection = expr_36
+Doc_reflection = expr_30
 
 def Doc_op_Multiply_Z7CFFAC00(a: Doc, b: Doc) -> Doc:
     return Doc(0, a, b)
@@ -45,7 +45,7 @@ def Doc_op_RightShift_2AAA0F3C(a: Doc, b: int) -> Doc:
     return Doc(3, b, a)
 
 
-def expr_38() -> TypeInfo:
+def expr_33() -> TypeInfo:
     return union_type("Fable.CodeGen.DocPrimitive", [], DocPrimitive, lambda: [[], [], [["Item", int32_type]], [["Item", string_type]]])
 
 
@@ -60,7 +60,7 @@ class DocPrimitive(Union):
         return ["DP_PopIndent", "DP_PushCurrentIndent", "DP_PushIndent", "DP_Word"]
     
 
-DocPrimitive_reflection = expr_38
+DocPrimitive_reflection = expr_33
 
 def Array_drop(i: int, arr: List[a_]) -> List[a_]:
     return take(len(arr) - i, arr, None)
@@ -111,7 +111,7 @@ def compile_to_prims(doc: Doc) -> List[List[DocPrimitive]]:
     
 
 
-def expr_43(gen0: TypeInfo) -> TypeInfo:
+def expr_35(gen0: TypeInfo) -> TypeInfo:
     return class_type("Fable.CodeGen.Stack`1", [gen0], Stack_1)
 
 
@@ -120,7 +120,7 @@ class Stack_1(Generic[a_1]):
         self._content = to_list(init) if (init is not None) else (empty_1())
     
 
-Stack_1_reflection = expr_43
+Stack_1_reflection = expr_35
 
 def Stack_1__ctor_Z5E7FEA67(init: Optional[Iterable[a]]=None) -> Stack_1[Any]:
     return Stack_1(init)
@@ -187,11 +187,11 @@ def render(setences: List[List[DocPrimitive]], write: Callable[[str], None]) -> 
 
 
 def pretty(s: Any=None) -> Doc:
-    def arrow_47(s: a_=s) -> str:
+    def arrow_36(s: a_=s) -> str:
         copy_of_struct : a_ = s
         return to_string(copy_of_struct)
     
-    return Doc(4, arrow_47())
+    return Doc(4, arrow_36())
 
 
 def word(s: str) -> Doc:
@@ -254,10 +254,10 @@ def seplist(sep: Doc, lst: FSharpList[Doc]) -> Doc:
 
 def show_doc(doc: Doc) -> str:
     sb : Any = StringBuilder__ctor()
-    def arrow_48(x: str, doc: Doc=doc) -> None:
+    def arrow_38(x: str, doc: Doc=doc) -> None:
         ignore(StringBuilder__Append_Z721C83C5(sb, x))
     
-    render(compile_to_prims(doc), arrow_48)
+    render(compile_to_prims(doc), arrow_38)
     return to_string(sb)
 
 

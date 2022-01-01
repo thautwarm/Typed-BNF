@@ -9,4 +9,4 @@ exception Error
 
 (* The monolithic API. *)
 
-val start: (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Simple_json_require.json)
+val start: (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Simple_json_construct.json)

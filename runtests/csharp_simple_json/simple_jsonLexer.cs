@@ -50,6 +50,40 @@ public partial class simple_jsonLexer : Lexer {
 	};
 
 
+	public static JsonPair JsonPair (string name,JsonValue value)
+	{
+	    return (JsonPair) new JsonPair(name,value);
+	}
+	public static JsonValue JStr (string value)
+	{
+	    return (JsonValue) new JStr(value);
+	}
+	public static JsonValue JNull ()
+	{
+	    return (JsonValue) new JNull();
+	}
+	public static JsonValue JList (System.Collections.Generic.List<JsonValue> elements)
+	{
+	    return (JsonValue) new JList(elements);
+	}
+	public static JsonValue JInt (int value)
+	{
+	    return (JsonValue) new JInt(value);
+	}
+	public static JsonValue JFlt (float value)
+	{
+	    return (JsonValue) new JFlt(value);
+	}
+	public static JsonValue JDict (System.Collections.Generic.List<JsonPair> value)
+	{
+	    return (JsonValue) new JDict(value);
+	}
+	public static JsonValue JBool (bool value)
+	{
+	    return (JsonValue) new JBool(value);
+	}
+
+
 	public simple_jsonLexer(ICharStream input)
 	: this(input, Console.Out, Console.Error) { }
 

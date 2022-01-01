@@ -13,6 +13,7 @@
     <Compile Include="FableSedlex/CodeGen.Python.fs" />
     
     <!-- <Compile Include="lark_fs/Lark.fs" /> -->
+    <Compile Include="src/ResourceKeys.fs" />
     <Compile Include="src/Utils.fs" />
     <Compile Include="src/Grammar.fs" />
     <Compile Include="src/Exceptions.fs" />
