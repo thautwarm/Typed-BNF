@@ -34,6 +34,8 @@ optional arguments:
 
 ## A basic example: `JSON`
 
+Such grammar is compiled into Python, OCaml and CSharp. See [runtests](https://github.com/thautwarm/typed-bnf/tree/main/runtests) directory and `build-*.ps1`.
+
 ```ocaml
 extern type json
 extern var parseInt : str -> int
