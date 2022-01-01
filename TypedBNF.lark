@@ -76,7 +76,7 @@ decl : "extern" "var" identstr ":" top_typ -> MK_Declvar($3, $5, mkpos($2))
 toplevel :def             -> $1
         | decl            -> $1
         | lexerdef        -> $1
-        | "%ignore" slist{",", identstr}  -> MK_Defignore($2, mkpos($1))
+        | "ignore" slist{",", identstr}  -> MK_Defignore($2, mkpos($1))
 
 def : CNAME "(" slist{",", identstr} ")" productions ->\
         MK_Defmacro(str($1), $3, $5, mkpos($1))

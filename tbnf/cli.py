@@ -32,13 +32,14 @@ def default_rename_var(x):
 def default_rename_type(x):
     return x
 
-def cli_call(
+def cli_tbnf(
         tbnf_source_path: Path,
         out_dir: Path,
         lang: str,
         backend: str = "python-lark",
         renamer_config: str = ""):
-
+    """Typed BNF CLI tool.
+    """
     set_filename(str(tbnf_source_path))
 
     with tbnf_source_path.open(encoding='utf8') as file:
@@ -85,4 +86,4 @@ def cli_call(
 
 
 def main():
-    wise(cli_call)()
+    wise(cli_tbnf)()

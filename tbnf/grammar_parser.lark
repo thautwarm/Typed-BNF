@@ -75,7 +75,7 @@ decl : "extern" "var" identstr ":" top_typ -> decl_0
 toplevel :def -> toplevel_0                                
         | decl -> toplevel_1                                
         | lexerdef -> toplevel_2                                
-        | "%ignore" slist{",", identstr} -> toplevel_3                                                                         
+        | "ignore" slist{",", identstr} -> toplevel_3                                                                        
 
 def : CNAME "(" slist{",", identstr} ")" productions -> def_0                                                
     | CNAME productions -> def_1                                           

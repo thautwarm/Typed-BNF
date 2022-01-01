@@ -124,9 +124,7 @@ namespace simple_json
             new JString(cs);
 
         public static JNull jsonNull => new JNull();
-        public static JBool jsonBool(int i) =>
-            i == 0 ? new JBool(false) : new JBool(true);
-
+        public static JBool jsonBool(bool b) => new JBool(b);
         public static string unesc(string s) =>
             System.Text.RegularExpressions.Regex.Unescape(s.Substring(1, s.Length - 2));
         public static string esc_string(string s) =>

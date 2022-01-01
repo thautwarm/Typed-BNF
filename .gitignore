@@ -1,3 +1,6 @@
+*.interp
+*.tokens
+
 __pycache__
 /runtests/ocaml_simple_json/_build/
 /FableSedlex/

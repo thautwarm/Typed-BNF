@@ -12,7 +12,7 @@ extern var jsonDict : list<str * json> -> json
 extern var jsonBool : bool -> json
 extern var appendList : <'a> (list<'a>, 'a) -> list<'a>
 
-%ignore space
+ignore space
 
 digit = [0-9] ;
 

@@ -51,11 +51,17 @@ json returns [JsonValue result]
 | '{' '}' { 
                 $result = jsonDict(new System.Collections.Generic.List<(string, JsonValue)> {  });
             }
-| '[' json_6__2=seplist_o__i__s__i__s_json_p_ ']' { 
-                $result = jsonList(_localctx.json_6__2.result);
+| 'true' { 
+                $result = jsonBool(true);
             }
-| '{' json_7__2=seplist_o__i__s__i__s_jsonpair_p_ '}' { 
-                $result = jsonDict(_localctx.json_7__2.result);
+| 'false' { 
+                $result = jsonBool(false);
+            }
+| '[' json_8__2=seplist_o__i__s__i__s_json_p_ ']' { 
+                $result = jsonList(_localctx.json_8__2.result);
+            }
+| '{' json_9__2=seplist_o__i__s__i__s_jsonpair_p_ '}' { 
+                $result = jsonDict(_localctx.json_9__2.result);
             }
 ;
 fragment DIGIT : [\u0030-\u0039] ;
