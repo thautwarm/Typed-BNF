@@ -16,7 +16,7 @@ a_1 = TypeVar("a_1")
 
 a = TypeVar("a")
 
-def expr_21() -> TypeInfo:
+def expr_28() -> TypeInfo:
     return union_type("Fable.CodeGen.Doc", [], Doc, lambda: [[["Item1", Doc_reflection()], ["Item2", Doc_reflection()]], [["Item", list_type(Doc_reflection())]], [["Item", Doc_reflection()]], [["Item1", int32_type], ["Item2", Doc_reflection()]], [["Item", string_type]]])
 
 
@@ -31,7 +31,7 @@ class Doc(Union):
         return ["Concat", "VSep", "Align", "Indent", "Word"]
     
 
-Doc_reflection = expr_21
+Doc_reflection = expr_28
 
 def Doc_op_Multiply_Z7CFFAC00(a: Doc, b: Doc) -> Doc:
     return Doc(0, a, b)
@@ -45,7 +45,7 @@ def Doc_op_RightShift_2AAA0F3C(a: Doc, b: int) -> Doc:
     return Doc(3, b, a)
 
 
-def expr_25() -> TypeInfo:
+def expr_29() -> TypeInfo:
     return union_type("Fable.CodeGen.DocPrimitive", [], DocPrimitive, lambda: [[], [], [["Item", int32_type]], [["Item", string_type]]])
 
 
@@ -60,7 +60,7 @@ class DocPrimitive(Union):
         return ["DP_PopIndent", "DP_PushCurrentIndent", "DP_PushIndent", "DP_Word"]
     
 
-DocPrimitive_reflection = expr_25
+DocPrimitive_reflection = expr_29
 
 def Array_drop(i: int, arr: List[a_]) -> List[a_]:
     return take(len(arr) - i, arr, None)
@@ -187,11 +187,11 @@ def render(setences: List[List[DocPrimitive]], write: Callable[[str], None]) -> 
 
 
 def pretty(s: Any=None) -> Doc:
-    def arrow_39(s=s) -> str:
+    def arrow_35(s=s) -> str:
         copy_of_struct : a_ = s
         return to_string(copy_of_struct)
     
-    return Doc(4, arrow_39())
+    return Doc(4, arrow_35())
 
 
 def word(s: str) -> Doc:
@@ -254,10 +254,10 @@ def seplist(sep: Doc, lst: FSharpList[Doc]) -> Doc:
 
 def show_doc(doc: Doc) -> str:
     sb : Any = StringBuilder__ctor()
-    def arrow_43(x: str, doc=doc) -> None:
+    def arrow_36(x: str, doc=doc) -> None:
         ignore(StringBuilder__Append_Z721C83C5(sb, x))
     
-    render(compile_to_prims(doc), arrow_43)
+    render(compile_to_prims(doc), arrow_36)
     return to_string(sb)
 
 

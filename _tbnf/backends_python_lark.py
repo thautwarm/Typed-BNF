@@ -23,56 +23,56 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition_1]
     import_names : FSharpList[str] = empty()
     export_parser : str = "parser"
     export_grammar : str = "grammar"
-    class ObjectExpr134:
+    class ObjectExpr146:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    export_names : Any = of_array([export_parser, export_grammar], ObjectExpr134())
-    class ObjectExpr135:
+    export_names : Any = of_array([export_parser, export_grammar], ObjectExpr146())
+    class ObjectExpr147:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare_primitives(x_1, y_1)
         
-    abandoned_names : Any = of_array(["False", "None", "True", "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del", "elif", "else", "except", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "nonlocal", "not", "or", "pass", "raise", "return", "try", "while", "with", "yield", "match", "case"], ObjectExpr135())
-    class ObjectExpr136:
+    abandoned_names : Any = of_array(["False", "None", "True", "and", "as", "assert", "async", "await", "break", "class", "continue", "def", "del", "elif", "else", "except", "finally", "for", "from", "global", "if", "import", "in", "is", "lambda", "nonlocal", "not", "or", "pass", "raise", "return", "try", "while", "with", "yield", "match", "case"], ObjectExpr147())
+    class ObjectExpr148:
         @property
         def Compare(self) -> Any:
             return lambda x_2, y_2: compare(x_2, y_2)
         
-    symmap : Any = empty_1(ObjectExpr136())
+    symmap : Any = empty_1(ObjectExpr148())
     toplevel_transformer : FSharpList[Doc] = empty()
     current_pos : position = analyzer.current_pos
-    class ObjectExpr137:
+    class ObjectExpr149:
         @property
         def Compare(self) -> Any:
             return lambda x_3, y_3: compare_primitives(x_3, y_3)
         
-    lexer_maps : Any = empty_1(ObjectExpr137())
+    lexer_maps : Any = empty_1(ObjectExpr149())
     lark_decls_for_named_terminals : FSharpList[str] = empty()
     global_scope : FSharpList[Tuple[str, str]] = to_list(delay(lambda analyzer=analyzer, _arg1=_arg1, stmts=stmts: map(lambda k: (k[0], renamer(k[0])), Sigma__get_GlobalVariables(analyzer.Sigma))))
-    class ObjectExpr138:
+    class ObjectExpr150:
         @property
         def Compare(self) -> Any:
             return lambda x_4, y_4: compare_primitives(x_4, y_4)
         
-    def arrow_139(i: int, c: str, analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> bool:
+    def arrow_151(i: int, c: str, analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> bool:
         test : bool = True if (True if (True if (is_lower(c)) else (is_unicode(c))) else (is_upper(c))) else (c == "_")
         return test if (i == 0) else (True if (test) else (is_digit(c)))
     
-    python_identifier_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(arrow_139, lambda i_1, c_1, analyzer=analyzer, _arg1=_arg1, stmts=stmts: to_text(interpolate("_%P()_", [(i_1 * ord(c_1)) + 7])) if (is_digit(c_1)) else (to_text(interpolate("_%P()_", [ord(c_1)])))), NameMangling_nameEnv(of_list(map_1(lambda tuple, analyzer=analyzer, _arg1=_arg1, stmts=stmts: tuple[1], global_scope), ObjectExpr138())))
-    class ObjectExpr140:
+    python_identifier_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(arrow_151, lambda i_1, c_1, analyzer=analyzer, _arg1=_arg1, stmts=stmts: to_text(interpolate("_%P()_", [(i_1 * ord(c_1)) + 7])) if (is_digit(c_1)) else (to_text(interpolate("_%P()_", [ord(c_1)])))), NameMangling_nameEnv(of_list(map_1(lambda tuple, analyzer=analyzer, _arg1=_arg1, stmts=stmts: tuple[1], global_scope), ObjectExpr150())))
+    class ObjectExpr152:
         @property
         def Compare(self) -> Any:
             return lambda x_5, y_5: compare_primitives(x_5, y_5)
         
-    lark_lexer_identifier_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_2, c_2, analyzer=analyzer, _arg1=_arg1, stmts=stmts: is_upper(c_2) if (i_2 == 0) else (True if (True if (is_upper(c_2)) else (c_2 == "_")) else (is_digit(c_2))), lambda _arg1_1, c_3, analyzer=analyzer, _arg1=_arg1, stmts=stmts: c_3.upper() if (is_lower(c_3)) else (("_" + NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3))) + "_")), NameMangling_nameEnv(of_array(["UNKNOWN"], ObjectExpr140())))
-    class ObjectExpr141:
+    lark_lexer_identifier_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_2, c_2, analyzer=analyzer, _arg1=_arg1, stmts=stmts: is_upper(c_2) if (i_2 == 0) else (True if (True if (is_upper(c_2)) else (c_2 == "_")) else (is_digit(c_2))), lambda _arg1_1, c_3, analyzer=analyzer, _arg1=_arg1, stmts=stmts: c_3.upper() if (is_lower(c_3)) else (("_" + NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3))) + "_")), NameMangling_nameEnv(of_array(["UNKNOWN"], ObjectExpr152())))
+    class ObjectExpr153:
         @property
         def Compare(self) -> Any:
             return lambda x_6, y_6: compare_primitives(x_6, y_6)
         
-    lark_parser_identifier_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_3, c_4, analyzer=analyzer, _arg1=_arg1, stmts=stmts: is_lower(c_4) if (i_3 == 0) else (True if (True if (is_lower(c_4)) else (c_4 == "_")) else (is_digit(c_4))), lambda _arg2, c_5, analyzer=analyzer, _arg1=_arg1, stmts=stmts: c_5.lower() if (is_upper(c_5)) else (("_" + NameMangling_maskChar(ord("a"), ord("z"), ord(c_5))) + "_")), NameMangling_nameEnv(of_array(["start"], ObjectExpr141())))
+    lark_parser_identifier_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_3, c_4, analyzer=analyzer, _arg1=_arg1, stmts=stmts: is_lower(c_4) if (i_3 == 0) else (True if (True if (is_lower(c_4)) else (c_4 == "_")) else (is_digit(c_4))), lambda _arg2, c_5, analyzer=analyzer, _arg1=_arg1, stmts=stmts: c_5.lower() if (is_upper(c_5)) else (("_" + NameMangling_maskChar(ord("a"), ord("z"), ord(c_5))) + "_")), NameMangling_nameEnv(of_array(["start"], ObjectExpr153())))
     mangle = None
     abandoned_names_1 : Any = union(abandoned_names, export_names)
     mangle = lambda idr, analyzer=analyzer, _arg1=_arg1, stmts=stmts: lambda n: NameMangling_mangle(abandoned_names_1, idr, n)
@@ -105,10 +105,10 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition_1]
             match_value_1 : node = expr.node
             if match_value_1.tag == 6:
                 match_value_2 : Optional[str] = List_tryLookup(match_value_1.fields[0], scope)
-                def arrow_144(_unit=None) -> Doc:
+                def arrow_154(_unit=None) -> Doc:
                     raise UnboundVariable(match_value_1.fields[0])
                 
-                return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(match_value_2)) if (match_value_2 is not None) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_144()))
+                return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(match_value_2)) if (match_value_2 is not None) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_154()))
             
             elif match_value_1.tag == 11:
                 return DocBuilder_Builder__Return_1505(DocBuilder_cg, word("True")) if (match_value_1.fields[0]) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, word("False")))

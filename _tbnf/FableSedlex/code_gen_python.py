@@ -11,12 +11,12 @@ from .code_gen import (Doc, empty as empty_2, Doc_op_Addition_Z7CFFAC00, word, s
 from .sedlex import (Automata_decision_tree, lang as lang_3, keep_token, compiled_unit)
 
 def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
-    class ObjectExpr58:
+    class ObjectExpr59:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare(x, y)
         
-    decision_funcs : Any = empty(ObjectExpr58())
+    decision_funcs : Any = empty(ObjectExpr59())
     tbl_cnt : int = 0
     dt_cnt : int = 0
     rnd_cnt : int = 0
@@ -26,12 +26,12 @@ def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
         arg10_2 : int = rnd_cnt or 0
         return to_text(printf("_sedlex_rnd_%d"))(arg10_2)
     
-    class ObjectExpr59:
+    class ObjectExpr60:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare_with(lambda x_2, y_2: compare_primitives(x_2, y_2), x_1, y_1)
         
-    tables : Any = empty(ObjectExpr59())
+    tables : Any = empty(ObjectExpr60())
     toplevels : FSharpList[Doc] = empty_1()
     later_toplevels : FSharpList[Doc] = empty_1()
     def push_toplevel(doc: Doc, import_head=import_head, cu=cu) -> None:

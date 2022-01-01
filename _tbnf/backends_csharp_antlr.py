@@ -27,44 +27,44 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition]) 
     lang_name : str = _arg1.lang
     import_var_names : FSharpList[str] = empty()
     import_type_names : FSharpList[str] = empty()
-    class ObjectExpr113:
+    class ObjectExpr107:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    abandoned_names : Any = of_array(append(["result"], CSharpKeywords, None), ObjectExpr113())
-    class ObjectExpr114:
+    abandoned_names : Any = of_array(append(["result"], CSharpKeywords, None), ObjectExpr107())
+    class ObjectExpr108:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare(x_1, y_1)
         
-    symmap : Any = empty_1(ObjectExpr114())
+    symmap : Any = empty_1(ObjectExpr108())
     toplevel_transformer : FSharpList[Doc] = empty()
     current_pos : position = analyzer.current_pos
     lexer_maps : FSharpList[Tuple[str, lexerule]] = empty()
     global_scope : FSharpList[Tuple[str, str]] = to_list(delay(lambda analyzer=analyzer, _arg1=_arg1, stmts=stmts: map(lambda k: (k[0], var_renamer(k[0])), Sigma__get_GlobalVariables(analyzer.Sigma))))
-    class ObjectExpr116:
+    class ObjectExpr109:
         @property
         def Compare(self) -> Any:
             return lambda x_2, y_2: compare_primitives(x_2, y_2)
         
-    def arrow_118(i: int, c: str, analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> bool:
+    def arrow_110(i: int, c: str, analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> bool:
         test : bool = True if (True if (True if (is_lower(c)) else (is_upper(c))) else (is_unicode(c))) else (c == "_")
         return test if (i == 0) else (True if (test) else (is_digit(c)))
     
-    csharp_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(arrow_118, lambda i_1, c_1, analyzer=analyzer, _arg1=_arg1, stmts=stmts: to_text(interpolate("_X%P()_", [i_1])) if (is_digit(c_1)) else (to_text(interpolate("_%P()_", [ord(c_1)])))), NameMangling_nameEnv(of_list(map_1(lambda tuple, analyzer=analyzer, _arg1=_arg1, stmts=stmts: tuple[1], global_scope), ObjectExpr116())))
-    class ObjectExpr119:
+    csharp_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(arrow_110, lambda i_1, c_1, analyzer=analyzer, _arg1=_arg1, stmts=stmts: to_text(interpolate("_X%P()_", [i_1])) if (is_digit(c_1)) else (to_text(interpolate("_%P()_", [ord(c_1)])))), NameMangling_nameEnv(of_list(map_1(lambda tuple, analyzer=analyzer, _arg1=_arg1, stmts=stmts: tuple[1], global_scope), ObjectExpr109())))
+    class ObjectExpr111:
         @property
         def Compare(self) -> Any:
             return lambda x_3, y_3: compare_primitives(x_3, y_3)
         
-    antlr_lexer_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_2, c_2, analyzer=analyzer, _arg1=_arg1, stmts=stmts: is_upper(c_2) if (i_2 == 0) else (True if (True if (is_upper(c_2)) else (c_2 == "_")) else (is_digit(c_2))), lambda i_3, c_3, analyzer=analyzer, _arg1=_arg1, stmts=stmts: c_3.upper() if (is_lower(c_3)) else (NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3)) + "_" if (i_3 == 0) else (("_" + NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3))) + "_"))), NameMangling_nameEnv(of_array(["EOF"], ObjectExpr119())))
-    class ObjectExpr120:
+    antlr_lexer_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_2, c_2, analyzer=analyzer, _arg1=_arg1, stmts=stmts: is_upper(c_2) if (i_2 == 0) else (True if (True if (is_upper(c_2)) else (c_2 == "_")) else (is_digit(c_2))), lambda i_3, c_3, analyzer=analyzer, _arg1=_arg1, stmts=stmts: c_3.upper() if (is_lower(c_3)) else (NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3)) + "_" if (i_3 == 0) else (("_" + NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3))) + "_"))), NameMangling_nameEnv(of_array(["EOF"], ObjectExpr111())))
+    class ObjectExpr112:
         @property
         def Compare(self) -> Any:
             return lambda x_4, y_4: compare_primitives(x_4, y_4)
         
-    antlr_grammar_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_4, c_4, analyzer=analyzer, _arg1=_arg1, stmts=stmts: is_lower(c_4) if (i_4 == 0) else (True if (True if (is_lower(c_4)) else (c_4 == "_")) else (is_digit(c_4))), lambda _arg1_1, c_5, analyzer=analyzer, _arg1=_arg1, stmts=stmts: c_5.lower() if (is_upper(c_5)) else (("_" + NameMangling_maskChar(ord("a"), ord("z"), ord(c_5))) + "_")), NameMangling_nameEnv(of_array(["start"], ObjectExpr120())))
+    antlr_grammar_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_4, c_4, analyzer=analyzer, _arg1=_arg1, stmts=stmts: is_lower(c_4) if (i_4 == 0) else (True if (True if (is_lower(c_4)) else (c_4 == "_")) else (is_digit(c_4))), lambda _arg1_1, c_5, analyzer=analyzer, _arg1=_arg1, stmts=stmts: c_5.lower() if (is_upper(c_5)) else (("_" + NameMangling_maskChar(ord("a"), ord("z"), ord(c_5))) + "_")), NameMangling_nameEnv(of_array(["start"], ObjectExpr112())))
     mangle : Callable[[NameMangling_IdentifierDescriptor, str], str] = lambda idr, n, analyzer=analyzer, _arg1=_arg1, stmts=stmts: NameMangling_mangle(abandoned_names, idr, n)
     def cg_symbol(x_5: symbol, analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> str:
         nonlocal symmap
@@ -393,46 +393,46 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition]) 
                     raise Exception("macro not processed")
                 
                 idx_1 : int = 0
-                def arrow_148(stmt=stmt) -> Any:
-                    def arrow_147(match_value_4: Tuple[position, production_1]) -> Any:
+                def arrow_131(stmt=stmt) -> Any:
+                    def arrow_130(match_value_4: Tuple[position, production_1]) -> Any:
                         nonlocal current_pos
                         action_name_3 = None
                         idx : int = idx_1 or 0
                         action_name_3 = to_text(printf("%s_%i"))(ntname_1)(idx)
                         current_pos = match_value_4[0]
-                        def arrow_145(_unit=None) -> Doc:
+                        def arrow_128(_unit=None) -> Doc:
                             prod : production_1 = match_value_4[1]
                             action_name_2 : str = action_name_3
                             pattern_input_1 = None
                             curr_expr : expr = prod.action
                             is_terminal : List[bool] = to_array_1(delay(lambda _unit=None: map(lambda sym: True if (sym.tag == 0) else (False), prod.symbols)))
-                            class ObjectExpr125:
+                            class ObjectExpr113:
                                 @property
                                 def Compare(self) -> Any:
                                     return lambda x_7, y_5: compare_primitives(x_7, y_5)
                                 
-                            used_slots : Any = empty_3(ObjectExpr125())
+                            used_slots : Any = empty_3(ObjectExpr113())
                             def cg_expr(scope_1: FSharpList[Tuple[str, str]], curr_expr_1: expr) -> DocBuilder_block_1[Doc]:
-                                def arrow_142(scope_1=scope_1, curr_expr_1=curr_expr_1) -> DocBuilder_block_1[Doc]:
+                                def arrow_122(scope_1=scope_1, curr_expr_1=curr_expr_1) -> DocBuilder_block_1[Doc]:
                                     nonlocal used_slots
                                     match_value_1 : node = curr_expr_1.node
                                     if match_value_1.tag == 6:
                                         match_value_2 : Optional[str] = try_lookup(match_value_1.fields[0], scope_1)
                                         if match_value_2 is not None:
                                             v_1 : str = match_value_2
-                                            def arrow_127(_unit=None) -> Doc:
+                                            def arrow_114(_unit=None) -> Doc:
                                                 type_args = None
                                                 lst : FSharpList[Doc] = map_1(lambda arg_1: word(cg_type(arg_1)), map_1(lambda t_2: monot__prune(t_2), match_value_1.fields[1].contents))
                                                 type_args = seplist(word(", "), lst)
                                                 return Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(word(v_1), word("\u003c")), type_args), word("\u003e"))
                                             
-                                            return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(v_1)) if (length(match_value_1.fields[1].contents) == 0) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_127()))
+                                            return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(v_1)) if (length(match_value_1.fields[1].contents) == 0) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_114()))
                                         
                                         else: 
-                                            def arrow_128(_unit=None) -> Doc:
+                                            def arrow_115(_unit=None) -> Doc:
                                                 raise UnboundVariable(match_value_1.fields[0])
                                             
-                                            return DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_128())
+                                            return DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_115())
                                         
                                     
                                     elif match_value_1.tag == 11:
@@ -451,27 +451,27 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition]) 
                                         return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(escape_string(match_value_1.fields[0])))
                                     
                                     elif match_value_1.tag == 5:
-                                        def arrow_131(_unit=None) -> Any:
-                                            def arrow_130(match_value_3: Tuple[str, monot]) -> Any:
+                                        def arrow_117(_unit=None) -> Any:
+                                            def arrow_116(match_value_3: Tuple[str, monot]) -> Any:
                                                 arg_2 : str = match_value_3[0]
                                                 return singleton_1((arg_2, mangle(csharp_ident_descr, arg_2)))
                                             
-                                            return collect(arrow_130, match_value_1.fields[0])
+                                            return collect(arrow_116, match_value_1.fields[0])
                                         
-                                        pattern_input : Tuple[Doc, FSharpList[Doc]] = DocBuilder_runCG(cg_expr(append_1(to_list(delay(arrow_131)), scope_1), match_value_1.fields[1]))
-                                        def arrow_132(_unit=None) -> Doc:
+                                        pattern_input : Tuple[Doc, FSharpList[Doc]] = DocBuilder_runCG(cg_expr(append_1(to_list(delay(arrow_117)), scope_1), match_value_1.fields[1]))
+                                        def arrow_118(_unit=None) -> Doc:
                                             body : Doc = vsep(of_array_1([vsep(pattern_input[1]), Doc_op_Addition_Z7CFFAC00(word("return"), Doc_op_Multiply_Z7CFFAC00(pattern_input[0], word(";")))]))
                                             anns : FSharpList[Doc] = map_1(lambda tupled_arg: word((cg_type(tupled_arg[1]) + " ") + tupled_arg[0]), match_value_1.fields[0])
                                             return parens(vsep(of_array_1([Doc_op_Multiply_Z7CFFAC00(parens(seplist(word(", "), anns)), word("=\u003e")), Doc_op_RightShift_2AAA0F3C(body, 4)])))
                                         
-                                        return DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_132())
+                                        return DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_118())
                                     
                                     elif match_value_1.tag == 4:
-                                        def arrow_133(_arg7: Doc) -> DocBuilder_block_1[Doc]:
+                                        def arrow_119(_arg7: Doc) -> DocBuilder_block_1[Doc]:
                                             m_name : str = mangle(csharp_ident_descr, match_value_1.fields[0])
                                             return DocBuilder_Builder__Combine_Z44B4C520(DocBuilder_cg, DocBuilder_Builder__Yield_417FD60(DocBuilder_cg, Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(m_name), word("=")), Doc_op_Multiply_Z7CFFAC00(_arg7, word(";")))), DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, cg_expr(cons((match_value_1.fields[0], m_name), scope_1), match_value_1.fields[2]))))
                                         
-                                        return DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, cg_expr(scope_1, match_value_1.fields[1]), arrow_133)
+                                        return DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, cg_expr(scope_1, match_value_1.fields[1]), arrow_119)
                                     
                                     elif match_value_1.tag == 2:
                                         return DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_4C40856C(DocBuilder_cg, match_value_1.fields[0], lambda _arg8: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, cg_expr(scope_1, _arg8))))), lambda _arg9: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("new"), word(cg_type(curr_expr_1.t))), word("{")), seplist(word(","), _arg9)), word("}"))))
@@ -486,11 +486,11 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition]) 
                                         return DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_4C40856C(DocBuilder_cg, match_value_1.fields[0], lambda _arg10: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, cg_expr(scope_1, _arg10))))), lambda _arg11: DocBuilder_Builder__Return_1505(DocBuilder_cg, parens(seplist(word(", "), _arg11)))) if (match_value_1.tag == 1) else (DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, cg_expr(scope_1, match_value_1.fields[0]), lambda _arg3: DocBuilder_Builder__Bind_Z300482AD(DocBuilder_cg, DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_4C40856C(DocBuilder_cg, match_value_1.fields[1], lambda _arg4: DocBuilder_Builder__ReturnFrom_72B9C953(DocBuilder_cg, cg_expr(scope_1, _arg4))))), lambda _arg5: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Multiply_Z7CFFAC00(_arg3, parens(seplist(word(", "), _arg5)))))))
                                     
                                 
-                                return DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, arrow_142))
+                                return DocBuilder_Builder__Run_72B9C953(DocBuilder_cg, DocBuilder_Builder__Delay_Z6CB7AF07(DocBuilder_cg, arrow_122))
                             
                             snd : Tuple[Doc, FSharpList[Doc]] = DocBuilder_runCG(cg_expr(global_scope, curr_expr))
                             pattern_input_1 = (used_slots, snd)
-                            def arrow_143(_unit=None) -> Doc:
+                            def arrow_127(_unit=None) -> Doc:
                                 def mapping_5(i_8: int, s_5: symbol) -> Doc:
                                     i_9 : int = (i_8 + 1) or 0
                                     sym_1 : Doc = word(cg_symbol(s_5))
@@ -504,47 +504,47 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, stmts: List[definition]) 
                                 lst_1 : FSharpList[Doc] = map_indexed(mapping_5, prod.symbols)
                                 return seplist(word(" "), lst_1)
                             
-                            return Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(arrow_143(), word("{")), Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([empty_2, Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([vsep(pattern_input_1[1][1]), Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("$" + result_name), word("=")), Doc_op_Multiply_Z7CFFAC00(pattern_input_1[1][0], word(";")))])), 4), word("}")])), 12))
+                            return Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(arrow_127(), word("{")), Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([empty_2, Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([vsep(pattern_input_1[1][1]), Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("$" + result_name), word("=")), Doc_op_Multiply_Z7CFFAC00(pattern_input_1[1][0], word(";")))])), 4), word("}")])), 12))
                         
-                        def arrow_146(_unit=None) -> Any:
+                        def arrow_129(_unit=None) -> Any:
                             nonlocal idx_1
                             idx_1 = (idx_1 + 1) or 0
                             return empty_4()
                         
-                        return append_2(singleton_1(arrow_145()), delay(arrow_146))
+                        return append_2(singleton_1(arrow_128()), delay(arrow_129))
                     
-                    return collect(arrow_147, decl["define"])
+                    return collect(arrow_130, decl["define"])
                 
-                body_3 : Doc = align(vsep(map_indexed(lambda i_10, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_10 == 0) else (word("|")), e_1), to_list(delay(arrow_148)))))
+                body_3 : Doc = align(vsep(map_indexed(lambda i_10, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_10 == 0) else (word("|")), e_1), to_list(delay(arrow_131)))))
                 return vsep(of_array_1([Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(ntname_1), word("returns")), bracket(Doc_op_Addition_Z7CFFAC00(word(cg_type(t_3)), word(result_name)))), Doc_op_RightShift_2AAA0F3C(body_3, 4), word(";")]))
             
         
         file_grammar : Doc = vsep(of_array_1(map_2(cg_stmt, stmts, None)))
-        def arrow_150(analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> Any:
-            def arrow_149(match_value_7: Tuple[str, lexerule]) -> Any:
+        def arrow_135(analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> Any:
+            def arrow_134(match_value_7: Tuple[str, lexerule]) -> Any:
                 k_1 : str = match_value_7[0]
                 v_4 : lexerule = simplify_lexerule(match_value_7[1])
                 n_6 : str = name_of_named_term(k_1)
                 return singleton_1(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(n_6), word(":")), parens_if_lor(v_4)), word("-\u003e skip;"))) if (contains(k_1, analyzer.IgnoreSet)) else (singleton_1(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(n_6), word(":")), word(mk_lexer(v_4))), word(";"))) if (contains(k_1, analyzer.ReferencedNamedTokens)) else (singleton_1(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("fragment"), word(n_6)), word(":")), parens_if_lor(v_4)), word(";")))))
             
-            return collect(arrow_149, reverse(lexer_maps))
+            return collect(arrow_134, reverse(lexer_maps))
         
-        lexer_defs : FSharpList[Doc] = to_list(delay(arrow_150))
+        lexer_defs : FSharpList[Doc] = to_list(delay(arrow_135))
         start_mangled : str = cg_symbol(symbol(1, "start"))
-        def arrow_154(analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> Any:
-            def arrow_153(_unit=None) -> Any:
-                def arrow_152(_unit=None) -> Any:
-                    def arrow_151(_unit=None) -> str:
+        def arrow_139(analyzer=analyzer, _arg1=_arg1, stmts=stmts) -> Any:
+            def arrow_138(_unit=None) -> Any:
+                def arrow_137(_unit=None) -> Any:
+                    def arrow_136(_unit=None) -> str:
                         arg10_3 : str = cg_type(start_t)
                         return to_text(printf("start returns [%s result]: v=%s EOF { $result = _localctx.v.result; };"))(arg10_3)(start_mangled)
                     
-                    return append_2(singleton_1(word(arrow_151())), delay(lambda _unit=None: append_2(singleton_1(file_grammar), delay(lambda _unit=None: lexer_defs))))
+                    return append_2(singleton_1(word(arrow_136())), delay(lambda _unit=None: append_2(singleton_1(file_grammar), delay(lambda _unit=None: lexer_defs))))
                 
-                return append_2(singleton_1(word("options { language = CSharp; }")), delay(arrow_152))
+                return append_2(singleton_1(word("options { language = CSharp; }")), delay(arrow_137))
             
-            return append_2(singleton_1(word(to_text(interpolate("grammar %P();", [lang_name])))), delay(arrow_153))
+            return append_2(singleton_1(word(to_text(interpolate("grammar %P();", [lang_name])))), delay(arrow_138))
         
-        return [(lang_name + ".g4", vsep(to_list(delay(arrow_154))))]
+        return [(lang_name + ".g4", vsep(to_list(delay(arrow_139))))]
     
     else: 
         raise UnboundNonterminal("start")

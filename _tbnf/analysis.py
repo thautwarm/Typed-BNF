@@ -120,10 +120,10 @@ def Sigma__checkKind__Z25145215(this: Sigma, t: monot) -> None:
         
     
     else: 
-        def arrow_60(t_2: monot, this=this, t=t) -> None:
+        def arrow_58(t_2: monot, this=this, t=t) -> None:
             Sigma__checkKind__Z25145215(this, t_2)
         
-        monot__apply_to_children_z6a62bcbf(t_1, arrow_60)
+        monot__apply_to_children_z6a62bcbf(t_1, arrow_58)
     
 
 

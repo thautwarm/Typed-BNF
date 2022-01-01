@@ -4,9 +4,9 @@ Type inference your BNF grammar that uses semantic actions, eliminating static e
 
 So far, we support 3 architectures:
 
-1. Antlr4(CSharp, ...);ALL(*)
-2. OCaml Menhir;LR(1)
-3. Python Lark; LALR(2)
+1. Antlr4+CSharp, ALL(*)
+2. OCaml Menhir, LR(1)
+3. Python Lark, LALR(2)
 
 For usage, see `build-python.ps1`, `build-ocaml.ps1` and `build-csharp.ps1`.
 
@@ -87,7 +87,7 @@ You can specify the `renamer_config` parameter or use the default one(`renamer.t
 
 In `renamer.tbnf.py`, you can define how typenames map from Typed BNF to the backend language.
 
-For instance, this is what we did for CSharp-Antlr4 JSON example:
+For instance, this is what we did for CSharp-Antlr4 JSON example: [link](https://github.com/thautwarm/typed-bnf/blob/main/runtests/csharp_simple_json/rename.tbnf.py)
 
 ```python
 # $out_dir/renamer.tbnf.py
@@ -111,3 +111,7 @@ def rename_type(typename: str):
 Typed BNF has 7 built-in types: `token`, `tuple`, `list`, `int`, `float`, `str` and `bool`.
 
 Typed BNF ships with no built-in functions, which makes it suitable to write portable grammars without ruling out semantic actions.
+
+## How to write new backends
+
+Check `Backends.*.fs`
