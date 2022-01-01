@@ -150,10 +150,15 @@ let mk_Deflexer lhs define pos =
 let mk_Declvar ident t pos =
     Declvar {| ident = ident; t = t; pos = pos |}
 
+[<CompiledName("MK_" + nameof (Declctor))>]
+let mk_Declctor ident t pos =
+    Declctor {| ident = ident; t = t; pos = pos |}
+
 [<CompiledName("MK_" + nameof (Decltype))>]
-let mk_Decltype ident parameters fields pos =
+let mk_Decltype external ident parameters fields pos =
     Decltype
-        {| ident = ident
+        {| external = external
+           ident = ident
            parameters = Array.toList parameters
            fields = Array.toList fields
            pos = pos |}

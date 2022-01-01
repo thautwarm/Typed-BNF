@@ -34,7 +34,7 @@ type Manager() =
             unify x y
             List.iter2 unify xs ys
         | TFun(xs, x), TFun(ys, y) when xs @=@ ys ->
-            List.iter2 unify xs ys
+            List.iter2 (fun (_, a) (_, b) -> unify a b) xs ys
             unify x y
         | _ -> raise <| TypeMismatch(l, r)
     

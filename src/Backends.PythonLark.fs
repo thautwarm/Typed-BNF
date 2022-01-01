@@ -5,13 +5,18 @@ open Fable.Sedlex.CodeGen.Python
 open tbnf.Grammar
 open tbnf.Analysis
 open tbnf.Utils
-open tbnf.Utils.NameMangling
-open tbnf.Utils.DocBuilder
+open tbnf.Utils
 open tbnf.Exceptions
 open tbnf.Backends.Common
+open tbnf.Backends.Common.DocBuilder
+open tbnf.Backends.Common.NameMangling
+
 
 let codegen (analyzer: Analyzer) 
-            { variable_renamer = renamer;  lang = langName }
+            { variable_renamer = rename_var; constructor_renamer = rename_ctor;
+              type_renamer = rename_type
+              field_renamer = rename_field
+              lang = langName }
             (stmts: definition array) =
     
     let PythonPackage_Sedlex = "_tbnf.FableSedlex"
@@ -71,7 +76,11 @@ let codegen (analyzer: Analyzer)
 
     let mutable larkDeclsForNamedTerminals : list<string> = []
 
-    let global_scope = [ for k in analyzer.Sigma.GlobalVariables -> k.Key, renamer k.Key ]
+    let global_scope = [ for k in analyzer.Sigma.GlobalVariables ->
+                            if analyzer.Sigma.IsGlobalVariableConstructor k.Key then
+                                k.Key, rename_ctor k.Key
+                            else
+                                k.Key, rename_var k.Key ]
 
     (* valid python identifier segment *)
     let pythonIdentifierDescr =
@@ -176,7 +185,7 @@ let codegen (analyzer: Analyzer)
             | node.EBool false -> return word "False"
             | node.EField(e, s) ->
                 let! e' = !e
-                return e' * word "." * word s
+                return e' * word "." * word (rename_field s)
             | node.EInt i -> return word (sprintf "%d" i)
             | node.EFlt f -> return word (sprintf "%f" f)
             (* XXX: multiline string support? *)
@@ -280,7 +289,8 @@ let codegen (analyzer: Analyzer)
         | lexerule.LOr (hd::tl) -> List.fold (fun a b -> $"por({a}, {b})") (!hd) (List.map mk_lexer_debug tl)
         | lexerule.LOptional e -> $"popt{(!e)}"
 
-
+    
+    
     let rec cg_stmt stmt =
         match stmt with
         | definition.Defrule decl ->
@@ -304,25 +314,22 @@ let codegen (analyzer: Analyzer)
             //         yield word "%ignore" + word (name_of_named_term each)
             // ]
         | definition.Declvar decl ->
-            importNames <- renamer decl.ident :: importNames
+            importNames <- rename_var decl.ident :: importNames
+            empty
+        | definition.Declctor decl ->
             empty
         | definition.Decltype _ -> empty
         | definition.Defmacro _ -> invalidOp "macro not processed"
-
-
-    Array.map cg_stmt stmts
-    |> List.ofArray
-    |> vsep
-    |> fun file_grammar ->
-
+    
     let filename_lexer = sprintf "%s_lexer" langName
     let filename_require = sprintf "%s_require" langName
     let filename_python = sprintf "%s_parser" langName
+    let filename_constructors = sprintf "%s_construct" langName
 
     let var_tokenmaps = mangle pythonIdentifierDescr "tokenmaps"
     let classvar_LarkLexer = mangle pythonIdentifierDescr "Lexer"
     let classvar_SedlexLexer = mangle pythonIdentifierDescr "Sedlex"
-    let classvar_LarkToken = mangle pythonIdentifierDescr "Token"
+    let classvar_LarkToken = rename_type "token"
     let var_iseof = mangle pythonIdentifierDescr "is_eof"
     let var_construct_token = mangle pythonIdentifierDescr "construct_token"
     let var_lexall = mangle pythonIdentifierDescr "lexall"
@@ -330,7 +337,105 @@ let codegen (analyzer: Analyzer)
     let classvar_LarkTransformer = mangle pythonIdentifierDescr "Transformer"
     let classvar_RBNFTransformer = mangle pythonIdentifierDescr "RBNFTransformer"
     let classvar_LarkBuilder = mangle pythonIdentifierDescr "Lark"
+    let modulevar_dataclass = mangle pythonIdentifierDescr "dataclasses"
+    let modulevar_typing = mangle pythonIdentifierDescr "typing"
+    
+    let rec _cg_type (t: monot) =
+        match t with
+        | monot.TConst n -> rename_type n
+        | monot.TVar _ -> "object"
+        | monot.TRef _ -> raise <| UnsolvedTypeVariable
+        | monot.TFun (args, r) ->
+            let r = _cg_type r
+            args
+            |> List.map (fun (_, b) -> _cg_type b)
+            |> (fun args -> args)
+            |> String.concat ", "
+            |> fun it -> $"{modulevar_typing}.Callable[[{it}], {r}]"
 
+        | monot.TApp (TTuple, []) -> invalidOp "0-element tuple type detected"
+        | monot.TApp (TTuple, args) ->
+            args
+            |> List.map _cg_type
+            |> String.concat ", "
+            |> fun it -> "{modulevar_typing}.Tuple[" + it + "]"
+        | monot.TApp (f, args) ->
+            args
+            |> List.map _cg_type
+            |> String.concat ", "
+            |> fun it -> _cg_type f + "[" + it + "]"
+
+    let cg_type (t: monot) = _cg_type(t.Prune())
+
+    Array.map cg_stmt stmts
+    |> List.ofArray
+    |> vsep
+    |> fun file_grammar ->
+
+    
+    let import_items = parens(seplist (word ",") (List.map word importNames))
+
+    
+    
+    // data classes generator
+    let adtCases = analyzer.Sigma.GetADTCases()
+    let file_constructors = filename_constructors, vsep [
+        yield word $"import __future__ import annotations as __01asda1ha"
+        yield word $"from lark import Token as {classvar_LarkToken}"
+        yield word $"import dataclasses as {modulevar_dataclass}"
+        yield word $"import typing as {modulevar_typing}"
+        if not (List.isEmpty importNames) then
+            yield word ($"from .{filename_require} import") + import_items
+        yield empty
+        for (typename, cases) in adtCases do
+            let typename' = rename_type typename
+            
+            let mutable docCtorNames = []
+            for (ctorName, fields) in Map.toArray cases do
+                let ctorName = rename_ctor ctorName
+                docCtorNames <- word ctorName :: docCtorNames
+                yield word $"@{modulevar_dataclass}.dataclass"
+                if List.length fields = 0 then
+                    yield word $"class {ctorName}:"
+                    yield word "pass" >>> 4
+                else
+                    yield word $"class {ctorName}:"
+                    yield vsep [
+                        for field, t in fields do
+                            yield word (rename_field field) * word ":" + word (cg_type t)
+                    ] >>> 4
+                yield empty
+            yield word $"if {modulevar_typing}.TYPE_CHECKING:"
+            yield vsep [
+                yield word typename' + word "=" + word $"{modulevar_typing}.Union[" +  bracket(seplist (word ",") docCtorNames) * word "]"
+            ] >>> 4
+            yield word "else:"
+            yield vsep [
+                word typename' + word "=" + parens(seplist(word ",") docCtorNames)
+            ]
+            yield empty
+        for (typename, shape) in  analyzer.Sigma.GetRecordTypes() do
+            let typename' = rename_type typename
+            let varname = rename_var typename
+            yield word $"@{modulevar_dataclass}.dataclass"
+            
+            // TODO: generic type variables
+            yield word $"class {typename'}:"
+            if Map.isEmpty shape.fields then
+                yield word "pass" >>> 4
+            else
+                yield vsep [
+                    for kv in shape.fields do
+                        let field = rename_field kv.Key
+                        let t = cg_type kv.Value
+                        yield word field * word ":" + word t
+                ] >>> 4
+            yield empty
+            yield word varname + word "=" + word typename'
+            yield empty
+    ]
+
+    // lexer generator
 
     let mutable lexerInfo = []
     let mutable tokenNames = []
@@ -389,18 +494,18 @@ let codegen (analyzer: Analyzer)
 
     let file_python = vsep [
         yield word "from __future__ import annotations"
+        
         if not (List.isEmpty importNames) then
-                let names = parens(seplist (word ",") (List.map word importNames))
-                yield word ($"from .{filename_require} import") + names
-                yield word ($"from .{filename_lexer} import lexall as {var_lexall}")
-                yield word $"from lark.lexer import Lexer as {classvar_LarkLexer }"
-                yield word $"from lark import Token as {classvar_LarkToken}"
-                yield word $"from lark import Transformer as {classvar_LarkTransformer}"
-                yield word $"from lark import Lark as {classvar_LarkBuilder}"
-                yield word $"from {PythonPackage_Sedlex}.sedlex import from_ustring as {var_from_ustring}"
+                yield word ($"from .{filename_require} import") + import_items
 
-                ()
-        yield empty
+        yield word ($"from .{filename_lexer} import lexall as {var_lexall}")
+        yield word $"from .{filename_constructors} import *"
+        yield word $"from lark.lexer import Lexer as {classvar_LarkLexer }"
+        yield word $"from lark import Transformer as {classvar_LarkTransformer}"
+        yield word $"from lark import Lark as {classvar_LarkBuilder}"
+        yield word $"from {PythonPackage_Sedlex}.sedlex import from_ustring as {var_from_ustring}"
+
+                
         yield word var_tokenmaps + word "=" + bracket(seplist (word ", ") (List.map (escapeString >> word) tokenNames))
         yield empty
         yield definePyFunc (word var_construct_token) [word "token_id"; word "lexeme"; word "line"; word "col"; word "span"; word "offset"; word "file"] <|
@@ -443,4 +548,4 @@ let codegen (analyzer: Analyzer)
         )
     ]
     let file_python = (filename_python + ".py", file_python)
-    [|file_grammar; file_lexer; file_python|]
+    [|file_constructors; file_grammar; file_lexer; file_python|]

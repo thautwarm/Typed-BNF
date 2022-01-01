@@ -37,3 +37,15 @@ let DuplicateLexer(name) = NameError(name,  NameErrorScope.LEXER, Duplicate)
 exception ComponentAccessingOutOfBound of int
 exception MacroResolveError of string
 exception UnsolvedTypeVariable
+
+exception NotGlobalVariable of string
+exception MalformedConstructor of string * monot
+
+type InvalidConstructorDefininationCause =
+    | CauseExternalType
+    | CauseRecordType
+    | CauseGenericADTType
+    | CauseDuplicateConstructorName of string
+    | CauseInvalidConstructorType of monot
+    
+exception  InvalidConstructorDefinination of InvalidConstructorDefininationCause

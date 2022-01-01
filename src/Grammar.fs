@@ -65,7 +65,7 @@ and monot =
     | TRef of Cell<monot>
     | TConst of string
     | TApp of monot * monot list
-    | TFun of monot list * monot
+    | TFun of (string * monot) list * monot
     | TVar of string
 
     member this.FindAnyChildren(predicate: monot -> bool) =
@@ -75,15 +75,15 @@ and monot =
            | TVar _
            | TRef _ -> false
            | TApp (f, args) -> predicate f || List.exists predicate args
-           | TFun (args, ret) -> List.exists predicate args || predicate ret
+           | TFun (args, ret) -> List.exists (fun (_, b) -> predicate b) args || predicate ret
 
-    member this.TransformChildren((!): monot -> monot) =
+    member this.TransformChildren(ap: monot -> monot) =
         match this with
         | TConst _
         | TVar _
         | TRef _ as a -> a
-        | TApp (f, args) -> TApp(!f, List.map (!) args)
-        | TFun (args, ret) -> TFun(List.map (!) args, !ret)
+        | TApp (f, args) -> TApp(ap f, List.map ap args)
+        | TFun (args, ret) -> TFun(List.map (fun ab -> fst ab, ap (snd ab)) args, ap ret)
 
     member this.ApplyToChildren((!): monot -> unit) =
         match this with
@@ -94,7 +94,7 @@ and monot =
             !f
             List.iter (!) args
         | TFun (args, ret) ->
-            List.iter (!) args
+            List.iter (fun (_, b) -> !b) args
             !ret
 
     member this.Prune() =
@@ -149,8 +149,13 @@ and definition =
         {| ident: string
            t: polyt
            pos: position |}
-    | Decltype of
+    | Declctor of
         {| ident: string
+           t: monot
+           pos: position |}
+    | Decltype of
+        {| external: bool
+           ident: string
            parameters: string list
            fields: (string * monot * position) list
            pos: position |}

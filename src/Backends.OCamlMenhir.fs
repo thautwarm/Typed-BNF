@@ -6,10 +6,11 @@ open Fable.Sedlex.CodeGen.Python
 open tbnf.Grammar
 open tbnf.Analysis
 open tbnf.Utils
-open tbnf.Utils.NameMangling
-open tbnf.Utils.DocBuilder
 open tbnf.Exceptions
 open tbnf.Backends.Common
+open tbnf.Backends.Common.DocBuilder
+open tbnf.Backends.Common.NameMangling
+
 
 let codegen (analyzer: Analyzer) { variable_renamer = var_renamer; type_renamer = type_renamer;  lang = langName } (rts_file_string: string) (stmts: definition array) =
 
@@ -206,7 +207,7 @@ let codegen (analyzer: Analyzer) { variable_renamer = var_renamer; type_renamer 
         | monot.TRef a -> raise <| UnsolvedTypeVariable
         | monot.TFun(args, r) ->
             args
-            |> List.map _cg_type 
+            |> List.map (fun (_, b) -> _cg_type b)
             |> String.concat ", "
             |> fun it -> 
                 "(" + it + ") -> " + _cg_type r

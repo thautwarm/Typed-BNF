@@ -6,10 +6,11 @@ open Fable.Sedlex.CodeGen.Python
 open tbnf.Grammar
 open tbnf.Analysis
 open tbnf.Utils
-open tbnf.Utils.NameMangling
-open tbnf.Utils.DocBuilder
 open tbnf.Exceptions
 open tbnf.Backends.Common
+open tbnf.Backends.Common.DocBuilder
+open tbnf.Backends.Common.NameMangling
+
 
 let CSharpKeywords =
     [| "__arglist"
@@ -233,7 +234,7 @@ let codegen
         | monot.TRef _ -> raise <| UnsolvedTypeVariable
         | monot.TFun (args, r) ->
             args
-            |> List.map _cg_type
+            |> List.map (fun (_, b) -> _cg_type b)
             |> (fun args -> args @ [ _cg_type r ])
             |> String.concat ", "
             |> fun it -> "System.Func<" + it + ">"
