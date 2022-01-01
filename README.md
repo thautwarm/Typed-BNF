@@ -8,7 +8,7 @@ So far, we support 3 architectures:
 2. OCaml Menhir, LR(1)
 3. Python Lark, LALR(2)
 
-For usage, see `build-python.ps1`, `build-ocaml.ps1` and `build-csharp.ps1`.
+For usage, see `test-python.ps1`, `test-ocaml.ps1` and `test-csharp.ps1`.
 
 The major part of this library is written in F\#. However, it is compiled into Python via Fable.Python and running under CPython/PyPy(>=3.8).
 
@@ -34,7 +34,7 @@ optional arguments:
 
 ## A basic example: `JSON`
 
-Such grammar is compiled into Python, OCaml and CSharp. See [runtests](https://github.com/thautwarm/typed-bnf/tree/main/runtests) directory and `build-*.ps1`.
+Such grammar is compiled into Python, OCaml and CSharp. See [runtests](https://github.com/thautwarm/typed-bnf/tree/main/runtests) directory and `test-*.ps1`.
 
 ```ocaml
 extern type json
@@ -114,4 +114,18 @@ Typed BNF ships with no built-in functions, which makes it suitable to write por
 
 ## How to write new backends
 
-Check `Backends.*.fs`
+Check out `Backends.*.fs`
+
+## Build from source
+
+### Build grammar for Typed BNF
+
+```
+./build-metaparser.ps1
+```
+
+### Build Python `_tbnf` package
+
+```
+./build-package.ps1
+```
