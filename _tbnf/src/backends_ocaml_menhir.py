@@ -8,12 +8,12 @@ from ..fable_modules.fable_library.seq import (to_list, delay, map, collect, sin
 from ..fable_modules.fable_library.set import (of_array, of_list, contains)
 from ..fable_modules.fable_library.string import (to_text, interpolate, join, printf)
 from ..fable_modules.fable_library.util import (compare_primitives, compare, equals, string_hash, get_enumerator)
-from ..FableSedlex.code_gen import (Doc, word, Doc_op_Multiply_Z7CFFAC00, Doc_op_Addition_Z7CFFAC00, parens, vsep, seplist, Doc_op_RightShift_2AAA0F3C, bracket, empty as empty_2, align, indent)
+from ..FableSedlex.code_gen import (Doc, word, Doc_op_Multiply_Z7CFFAC00, Doc_op_Addition_Z7CFFAC00, parens, vsep, seplist, Doc_op_RightShift_2AAA0F3C, bracket, align, empty as empty_2, indent)
 from .analysis import (Analyzer, Sigma__get_GlobalVariables)
-from .backends_common import (CodeGenOptions, List_tryLookup)
+from .backends_common import (CodeGenOptions, NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B, NameMangling_nameEnv, NameMangling_IdentifierDescriptor_Create_Z48C5CCEF, NameMangling_IdentifierDescriptor, NameMangling_maskChar, NameMangling_mangle)
 from .exceptions import (UnsolvedTypeVariable, UnboundVariable, UnboundLexer, UnboundNonterminal)
 from .grammar import (definition, symbol, position, monot, _007CTTuple_007C__007C, monot__prune, expr, node, lexerule, production as production_1)
-from .utils import (NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A, NameMangling_nameEnv, NameMangling_IdentifierDescriptor_Create_Z48C5CCEF, is_lower, is_unicode, is_digit, is_upper, NameMangling_IdentifierDescriptor, NameMangling_maskChar, NameMangling_mangle, escape_string, capitalized)
+from .utils import (is_lower, is_unicode, is_digit, is_upper, escape_string, List_tryLookup, capitalized)
 
 a_ = TypeVar("a_")
 
@@ -25,44 +25,44 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
     lang_name : str = _arg1.lang
     import_var_names : FSharpList[str] = empty()
     import_type_names : FSharpList[str] = empty()
-    class ObjectExpr107:
+    class ObjectExpr124:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    abandoned_names : Any = of_array(["and", "as", "assert", "asr", "begin", "class", "constraint", "do", "done", "downto", "else", "end", "exception", "external", "false", "for", "fun", "function", "functor", "if", "in", "include", "inherit", "initializer", "land", "lazy", "let", "lor", "lsl", "lsr", "lxor", "match", "method", "mod", "module", "mutable", "new", "nonrec", "object", "of", "open", "or", "private", "rec", "sig", "struct", "then", "to", "true", "try", "type", "val", "virtual", "when", "while", "with"], ObjectExpr107())
-    class ObjectExpr108:
+    abandoned_names : Any = of_array(["and", "as", "assert", "asr", "begin", "class", "constraint", "do", "done", "downto", "else", "end", "exception", "external", "false", "for", "fun", "function", "functor", "if", "in", "include", "inherit", "initializer", "land", "lazy", "let", "lor", "lsl", "lsr", "lxor", "match", "method", "mod", "module", "mutable", "new", "nonrec", "object", "of", "open", "or", "private", "rec", "sig", "struct", "then", "to", "true", "try", "type", "val", "virtual", "when", "while", "with"], ObjectExpr124())
+    class ObjectExpr125:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare(x_1, y_1)
         
-    symmap : Any = empty_1(ObjectExpr108())
+    symmap : Any = empty_1(ObjectExpr125())
     toplevel_transformer : FSharpList[Doc] = empty()
     current_pos : position = analyzer.current_pos
     lexer_maps : FSharpList[Tuple[str, Doc]] = empty()
     global_scope : FSharpList[Tuple[str, str]] = to_list(delay(lambda analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: map(lambda k: (k[0], var_renamer(k[0])), Sigma__get_GlobalVariables(analyzer.Sigma))))
-    class ObjectExpr109:
+    class ObjectExpr126:
         @property
         def Compare(self) -> Any:
             return lambda x_2, y_2: compare_primitives(x_2, y_2)
         
-    def arrow_110(i: int, c: str, analyzer: Analyzer=analyzer, _arg1: CodeGenOptions=_arg1, rts_file_string: str=rts_file_string, stmts: List[definition]=stmts) -> bool:
+    def arrow_127(i: int, c: str, analyzer: Analyzer=analyzer, _arg1: CodeGenOptions=_arg1, rts_file_string: str=rts_file_string, stmts: List[definition]=stmts) -> bool:
         test : bool = True if (True if (is_lower(c)) else (is_unicode(c))) else (c == "_")
         return test if (i == 0) else (True if (test) else (is_digit(c)))
     
-    ocaml_var_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(arrow_110, lambda i_1, c_1, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: to_text(interpolate("_X%P()_", [i_1])) if (is_digit(c_1)) else (c_1.lower() if (is_upper(c_1)) else (to_text(interpolate("_%P()_", [ord(c_1)]))))), NameMangling_nameEnv(of_list(map_1(lambda tuple, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: tuple[1], global_scope), ObjectExpr109())))
-    class ObjectExpr111:
+    ocaml_var_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(arrow_127, lambda i_1, c_1, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: to_text(interpolate("_X%P()_", [i_1])) if (is_digit(c_1)) else (c_1.lower() if (is_upper(c_1)) else (to_text(interpolate("_%P()_", [ord(c_1)]))))), NameMangling_nameEnv(of_list(map_1(lambda tuple, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: tuple[1], global_scope), ObjectExpr126())))
+    class ObjectExpr128:
         @property
         def Compare(self) -> Any:
             return lambda x_3, y_3: compare_primitives(x_3, y_3)
         
-    sedlex_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_2, c_2, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: is_upper(c_2) if (i_2 == 0) else (True if (True if (is_upper(c_2)) else (c_2 == "_")) else (is_digit(c_2))), lambda i_3, c_3, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: c_3.upper() if (is_lower(c_3)) else (NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3)) + "_" if (i_3 == 0) else (("_" + NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3))) + "_"))), NameMangling_nameEnv(of_array(["EOF"], ObjectExpr111())))
-    class ObjectExpr112:
+    sedlex_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_2, c_2, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: is_upper(c_2) if (i_2 == 0) else (True if (True if (is_upper(c_2)) else (c_2 == "_")) else (is_digit(c_2))), lambda i_3, c_3, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: c_3.upper() if (is_lower(c_3)) else (NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3)) + "_" if (i_3 == 0) else (("_" + NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3))) + "_"))), NameMangling_nameEnv(of_array(["EOF"], ObjectExpr128())))
+    class ObjectExpr129:
         @property
         def Compare(self) -> Any:
             return lambda x_4, y_4: compare_primitives(x_4, y_4)
         
-    menhir_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_4, c_4, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: is_lower(c_4) if (i_4 == 0) else (True if (True if (is_lower(c_4)) else (c_4 == "_")) else (is_digit(c_4))), lambda _arg1_1, c_5, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: c_5.lower() if (is_upper(c_5)) else (("_" + NameMangling_maskChar(ord("a"), ord("z"), ord(c_5))) + "_")), NameMangling_nameEnv(of_array(["start"], ObjectExpr112())))
+    menhir_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_4, c_4, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: is_lower(c_4) if (i_4 == 0) else (True if (True if (is_lower(c_4)) else (c_4 == "_")) else (is_digit(c_4))), lambda _arg1_1, c_5, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: c_5.lower() if (is_upper(c_5)) else (("_" + NameMangling_maskChar(ord("a"), ord("z"), ord(c_5))) + "_")), NameMangling_nameEnv(of_array(["start"], ObjectExpr129())))
     mangle : Callable[[NameMangling_IdentifierDescriptor, str], str] = lambda idr, n, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: NameMangling_mangle(abandoned_names, idr, n)
     def cg_symbol(x_5: symbol, analyzer: Analyzer=analyzer, _arg1: CodeGenOptions=_arg1, rts_file_string: str=rts_file_string, stmts: List[definition]=stmts) -> str:
         nonlocal symmap
@@ -116,7 +116,7 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
             raise UnsolvedTypeVariable()
         
         elif t.tag == 3:
-            return (("(" + join(", ", map_1(_cg_type, t.fields[0]))) + ") -\u003e ") + _cg_type(t.fields[1])
+            return (("(" + join(", ", map_1(lambda tupled_arg, t=t: _cg_type(tupled_arg[1]), t.fields[0]))) + ") -\u003e ") + _cg_type(t.fields[1])
         
         elif t.tag == 2:
             if _007CTTuple_007C__007C(t.fields[0]) is not None:
@@ -166,15 +166,15 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
             return word(escape_string(match_value_1.fields[0]))
         
         elif match_value_1.tag == 5:
-            def arrow_114(scope: FSharpList[Tuple[str, str]]=scope, curr_expr: expr=curr_expr) -> Iterable[Tuple[str, str]]:
-                def arrow_113(match_value_3: Tuple[str, monot]) -> Iterable[Tuple[str, str]]:
+            def arrow_134(scope: FSharpList[Tuple[str, str]]=scope, curr_expr: expr=curr_expr) -> Iterable[Tuple[str, str]]:
+                def arrow_133(match_value_3: Tuple[str, monot]) -> Iterable[Tuple[str, str]]:
                     arg : str = match_value_3[0]
                     return singleton((arg, mangle(ocaml_var_ident_descr, arg)))
                 
-                return collect(arrow_113, match_value_1.fields[0])
+                return collect(arrow_133, match_value_1.fields[0])
             
-            code : Doc = cg_expr(append(to_list(delay(arrow_114)), scope), match_value_1.fields[1])
-            anns : FSharpList[Doc] = map_1(lambda tupled_arg, scope=scope, curr_expr=curr_expr: word((tupled_arg[0] + ":") + cg_type(tupled_arg[1])), match_value_1.fields[0])
+            code : Doc = cg_expr(append(to_list(delay(arrow_134)), scope), match_value_1.fields[1])
+            anns : FSharpList[Doc] = map_1(lambda tupled_arg_1, scope=scope, curr_expr=curr_expr: word((tupled_arg_1[0] + ":") + cg_type(tupled_arg_1[1])), match_value_1.fields[0])
             return parens(vsep(of_array_1([Doc_op_Addition_Z7CFFAC00(word("fun"), Doc_op_Multiply_Z7CFFAC00(parens(seplist(word(", "), anns)), word("-\u003e"))), Doc_op_RightShift_2AAA0F3C(code, 4)])))
         
         elif match_value_1.tag == 4:
@@ -337,7 +337,7 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
         
         elif def__1.tag == 4:
             if not is_empty(def__1.fields[0]):
-                return fold(lambda a_3, b_1, def__1=def__1: to_text(interpolate("por(%P(), %P())", [a_3, b_1])), op_dereference_1(head(def__1.fields[0])), map_1(mk_lexer_debug, tail(def__1.fields[0])))
+                return fold(lambda a_3, b_2, def__1=def__1: to_text(interpolate("por(%P(), %P())", [a_3, b_2])), op_dereference_1(head(def__1.fields[0])), map_1(mk_lexer_debug, tail(def__1.fields[0])))
             
             else: 
                 raise Exception("impossible: alternatives cannot be empty.")
@@ -352,13 +352,32 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
     
     def cg_stmt(stmt: definition, analyzer: Analyzer=analyzer, _arg1: CodeGenOptions=_arg1, rts_file_string: str=rts_file_string, stmts: List[definition]=stmts) -> Doc:
         nonlocal current_pos, lexer_maps, import_var_names, import_type_names
-        if stmt.tag == 2:
+        if stmt.tag == 1:
+            decl : dict = stmt.fields[0]
+            current_pos = decl["pos"]
+            ntname_1 : str = cg_symbol(symbol(1, decl["lhs"]))
+            def arrow_141(stmt: definition=stmt) -> Iterable[Doc]:
+                def arrow_140(match_value_4: Tuple[position, production_1]) -> Iterable[Doc]:
+                    nonlocal current_pos
+                    current_pos = match_value_4[0]
+                    def arrow_139(_unit=None) -> Doc:
+                        prod : production_1 = match_value_4[1]
+                        return Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(seplist(word(" "), map_1(lambda arg_1: word(cg_symbol(arg_1)), prod.symbols)), word("{")), Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([empty_2, Doc_op_RightShift_2AAA0F3C(cg_expr(global_scope, prod.action), 4), word("}")])), 12))
+                    
+                    return singleton(arrow_139())
+                
+                return collect(arrow_140, decl["define"])
+            
+            body_4 : Doc = align(vsep(map_indexed(lambda i_7, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_7 == 0) else (word("|")), e_1), to_list(delay(arrow_141)))))
+            return Doc_op_Addition_Z7CFFAC00(word(ntname_1), body_4)
+        
+        elif stmt.tag == 2:
             decl_1 : dict = stmt.fields[0]
             current_pos = decl_1["pos"]
             lexer_maps = cons((decl_1["lhs"], word(mk_lexer(decl_1["define"]))), lexer_maps)
             return empty_2
         
-        elif stmt.tag == 5:
+        elif stmt.tag == 6:
             current_pos = stmt.fields[0]["pos"]
             return empty_2
         
@@ -366,7 +385,7 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
             import_var_names = cons(var_renamer(stmt.fields[0]["ident"]), import_var_names)
             return empty_2
         
-        elif stmt.tag == 4:
+        elif stmt.tag == 5:
             import_type_names = cons(type_renamer(stmt.fields[0]["ident"]), import_type_names)
             return empty_2
         
@@ -374,23 +393,7 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
             raise Exception("macro not processed")
         
         else: 
-            decl : dict = stmt.fields[0]
-            current_pos = decl["pos"]
-            ntname_1 : str = cg_symbol(symbol(1, decl["lhs"]))
-            def arrow_117(stmt: definition=stmt) -> Iterable[Doc]:
-                def arrow_116(match_value_4: Tuple[position, production_1]) -> Iterable[Doc]:
-                    nonlocal current_pos
-                    current_pos = match_value_4[0]
-                    def arrow_115(_unit=None) -> Doc:
-                        prod : production_1 = match_value_4[1]
-                        return Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(seplist(word(" "), map_1(lambda arg_1: word(cg_symbol(arg_1)), prod.symbols)), word("{")), Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([empty_2, Doc_op_RightShift_2AAA0F3C(cg_expr(global_scope, prod.action), 4), word("}")])), 12))
-                    
-                    return singleton(arrow_115())
-                
-                return collect(arrow_116, decl["define"])
-            
-            body_4 : Doc = align(vsep(map_indexed(lambda i_7, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_7 == 0) else (word("|")), e_1), to_list(delay(arrow_117)))))
-            return Doc_op_Addition_Z7CFFAC00(word(ntname_1), body_4)
+            raise Exception("Match failure: tbnf.Grammar.definition")
         
     
     file_grammar : Doc = vsep(of_array_1(map_2(cg_stmt, stmts, None)))
@@ -401,12 +404,12 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
     var_lexbuf : str = mangle(ocaml_var_ident_descr, "lexbuf")
     token_names : FSharpList[str] = empty()
     ReferencedNamedTokens : List[str] = list(analyzer.ReferencedNamedTokens)
-    class ObjectExpr118:
+    class ObjectExpr142:
         @property
         def Compare(self) -> Any:
             return lambda x_11, y_6: compare_primitives(x_11, y_6)
         
-    sort_in_place_by(lambda k_1, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: find_index(lambda y_5: k_1 == y_5, analyzer.TokenFragments), ReferencedNamedTokens, ObjectExpr118())
+    sort_in_place_by(lambda k_1, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: find_index(lambda y_5: k_1 == y_5, analyzer.TokenFragments), ReferencedNamedTokens, ObjectExpr142())
     lexical_rule_defs : FSharpList[Doc] = empty()
     tokenizer_cases : FSharpList[Doc] = empty()
     with get_enumerator(lexer_maps) as enumerator:
@@ -426,7 +429,7 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
                 lexical_rule_name_1 : str = "rule_" + token_name
                 lexical_rule_def_1 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("let"), word(lexical_rule_name_1)), word("=")), bracket(Doc_op_Addition_Z7CFFAC00(word("%sedlex.regexp?"), v_2)))
                 lexical_rule_defs = cons(lexical_rule_def_1, lexical_rule_defs)
-                class ObjectExpr126:
+                class ObjectExpr144:
                     @property
                     def Equals(self) -> Any:
                         return lambda x_12, y_7: x_12 == y_7
@@ -435,18 +438,18 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
                     def GetHashCode(self) -> Any:
                         return lambda x_12: string_hash(x_12)
                     
-                if contains_1(k_2, ReferencedNamedTokens, ObjectExpr126()):
+                if contains_1(k_2, ReferencedNamedTokens, ObjectExpr144()):
                     tokenizer_case_1 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("|"), word(lexical_rule_name_1)), word(to_text(interpolate("-\u003e %P() (mktoken %P())", [token_name, var_lexbuf]))))
                     tokenizer_cases = cons(tokenizer_case_1, tokenizer_cases)
                     token_names = cons(token_name, token_names)
                 
             
-    class ObjectExpr128:
+    class ObjectExpr145:
         @property
         def Compare(self) -> Any:
             return lambda x_13, y_8: compare_primitives(x_13, y_8)
         
-    arr : List[str] = sort(list(analyzer.LiteralTokens), ObjectExpr128())
+    arr : List[str] = sort(list(analyzer.LiteralTokens), ObjectExpr145())
     for idx_1 in range(0, (len(arr) - 1) + 1, 1):
         k_3 : str = arr[idx_1]
         v_3 : Doc = word(mk_lexer(lexerule(3, k_3)))

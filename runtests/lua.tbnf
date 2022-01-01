@@ -15,8 +15,10 @@ extern type range
     extern var mkRange: (expr, expr, maybe<expr>) -> range
 extern type if_elseif
 extern type if_else
-    extern var mkElifBlock: (token, expr, block) -> if_elseif
-    extern var mkElseBlock: (token, block) -> if_else
+extern var mkElifBlock: (token, expr, block) -> if_elseif
+extern var mkElseBlock: (token, block) -> if_else
+
+
 extern type params
     extern var mkParams: (list<token>, maybe<token> /* varargs */) -> params
 

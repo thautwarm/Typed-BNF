@@ -8,6 +8,10 @@ type Cell<'a when 'a: not struct>() =
     member this.Get = _cell
     member this.IsNull = obj.ReferenceEquals(_cell, Unchecked.defaultof<'a>)
 
+    override __.ToString() =
+        if __.IsNull then "<null>"
+        else __.Get.ToString()
+
 type position =
     { line: int
       col: int
@@ -155,6 +159,7 @@ and definition =
            pos: position |}
     | Decltype of
         {| external: bool
+           hasFields: bool
            ident: string
            parameters: string list
            fields: (string * monot * position) list

@@ -1,16 +1,19 @@
-extern type json
 extern var parseInt : str -> int
 extern var parseFlt : str -> float
 extern var getStr : token -> str
 extern var unesc : str -> str
-extern var jsonInt : int -> json
-extern var jsonFlt : float -> json
-extern var jsonStr : str -> json
-extern var jsonNull : json
-extern var jsonList : list<json> -> json
-extern var jsonDict : list<str * json> -> json
-extern var jsonBool : bool -> json
 extern var appendList : <'a> (list<'a>, 'a) -> list<'a>
+
+type Json
+type JsonPair(name: str, value: Json)
+
+case JsonInt : int -> Json
+case JsonFlt : float -> Json
+case JsonStr : str -> Json
+case JsonNull : () -> Json
+case JsonList : (elements: list<Json>) -> Json
+case JsonDict : list<JsonPair> -> Json
+case JsonBool : bool -> Json
 
 ignore space
 
@@ -27,17 +30,17 @@ seplist(sep, elt) : elt { [$1] }
                   | seplist(sep, elt) sep elt
                     { appendList($1, $3) }
 
-jsonpair : <str> ":" json { (unesc(getStr($1)), $3) }
+jsonpair : <str> ":" json { JsonPair(unesc(getStr($1)), $3) }
 
 /* CPP comments */
 
-json : <int> { jsonInt(parseInt(getStr($1))) }
-      | <float> { jsonFlt(parseFlt(getStr($1))) }
-      | "null"  { jsonNull }
-      | <str>   { jsonStr(unesc(getStr($1))) }
-      | "[" "]" { jsonList([]) }
-      | "{" "}" { jsonDict([]) }
-      | "true"  { jsonBool(true) }
-      | "false"  { jsonBool(false) }
-      | "[" seplist(",", json) "]" { jsonList($2) }
-      | "{" seplist(",", jsonpair) "}" { jsonDict($2) }
+json : <int> { JsonInt(parseInt(getStr($1))) }
+      | <float> { JsonFlt(parseFlt(getStr($1))) }
+      | "null"  { JsonNull() }
+      | <str>   { JsonStr(unesc(getStr($1))) }
+      | "[" "]" { JsonList([]) }
+      | "{" "}" { JsonDict([]) }
+      | "true"  { JsonBool(true) }
+      | "false"  { JsonBool(false) }
+      | "[" seplist(",", json) "]" { JsonList($2) }
+      | "{" seplist(",", jsonpair) "}" { JsonDict($2) }

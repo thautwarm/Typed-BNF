@@ -36,17 +36,27 @@ elist{a} : empty{list{a}} -> $1
 
 ### Common
 
-identstr : CNAME -> str($1)
+identstr : CNAMEPLUS -> str($1)
 
 ### Types
 
 typ : arrow_typ -> $1
 
-arrow_typ : typ2 "->" arrow_typ -> MK_TFun([$1], $3)
-          | "(" eslist{",", typ} ")" "->" arrow_typ -> MK_TFun($2, $5)
+%%
+def process_tparam(kvs):
+    out = []
+    for i, (k, v) in enumerate(kvs):
+        if k == '_':
+            out.append((f"_{i+1}", v))
+        else:
+            out.append((k, v))
+    return out
+%%
+arrow_typ : typ2 "->" arrow_typ -> MK_TFun([("_", $1)], $3)
+          | "(" eslist{",", param_type} ")" "->" arrow_typ -> MK_TFun(process_tparam($2), $5)
           | type_product -> MK_TTuple($1)
 
-typ2 : CNAME        -> MK_TConst(str($1))
+typ2 : CNAMEPLUS        -> MK_TConst(str($1))
      | tvar         -> $1
      | typ2 "<" slist{",", typ} ">" -> MK_TApp($1, $3)
 
@@ -56,31 +66,36 @@ type_product : type_product "*" typ2 -> add($1, $3)
 top_typ : "<" slist{",", tvar_str} ">" typ -> MK_Poly($2, $4)
         | typ                              -> MK_Mono($1)
 
-tvar         : "'" CNAME -> MK_TVar(str($2))
-tvar_str     : "'" CNAME -> str($2)
+tvar         : "'" CNAMEPLUS -> MK_TVar(str($2))
+tvar_str     : "'" CNAMEPLUS -> str($2)
+param_type   : CNAMEPLUS ":" typ -> (str($1), $3)
+             | typ  -> ("_", $1)
 
 ### Toplevels
 
 type_params : "<" slist{",", tvar_str} ">" -> $2
             | -> []
 
-field_ann : CNAME ":" typ -> (str($1), $3, mkpos($1))
+field_ann : CNAMEPLUS ":" typ -> (str($1), $3, mkpos($1))
 
-field_anns : -> []
-           | "(" eslist{",", field_ann} ")" -> $2
+field_anns : -> (False, [])  ## adt only
+           | "(" eslist{",", field_ann} ")" -> (True, $2) ## record only
 
 decl : "extern" "var" identstr ":" top_typ -> MK_Declvar($3, $5, mkpos($2))
+     | "case" identstr ":" typ -> MK_Declctor($2, $4, mkpos($1))
      | "extern" "type" identstr type_params field_anns ->\
-        MK_Decltype($3, $4, $5, mkpos($1))
+        MK_Decltype(True, $5[0], $3, $4, $5[1], mkpos($1))
+     | "type" identstr type_params field_anns ->\
+        MK_Decltype(False, $4[0], $2, $3, $4[1], mkpos($1))
 
 toplevel :def             -> $1
         | decl            -> $1
         | lexerdef        -> $1
         | "ignore" slist{",", identstr}  -> MK_Defignore($2, mkpos($1))
 
-def : CNAME "(" slist{",", identstr} ")" productions ->\
+def : CNAMEPLUS "(" slist{",", identstr} ")" productions ->\
         MK_Defmacro(str($1), $3, $5, mkpos($1))
-    | CNAME productions -> \
+    | CNAMEPLUS productions -> \
         MK_Defrule(str($1), $2, mkpos($1))
 
 productions : ":" production -> [(mkpos($1), $2)]
@@ -91,7 +106,7 @@ production : elist{psym} "{" expr "}" -> MK_production($1, $3)
 psym : "<" identstr ">" -> MK_Term(str($2), False)
      | ESCAPED_STRING   -> MK_Term(unesc(str($1)), True)
      | identstr         -> MK_Nonterm($1)
-     | CNAME "(" slist{",", psym} ")" -> MK_Macrocall(str($1), $3, mkpos($1))
+     | CNAMEPLUS "(" slist{",", psym} ")" -> MK_Macrocall(str($1), $3, mkpos($1))
 
 
 ### Simpler language
@@ -118,8 +133,8 @@ atomexp : INT ->   MK_expr(MK_EInt(int($1)), mkpos($1))
         | "[" eslist{",", expr} "]" -> MK_expr(MK_EList($2), mkpos($1))
         | "(" ")" -> MK_expr(MK_ETuple([]), mkpos($1))
         | "(" slist{",", expr} ")" -> MK_expr(MK_ETuple($2), mkpos($1))
-        | CNAME -> MK_expr(MK_EVar(str($1)), mkpos($1))
-        | atomexp "." CNAME -> MK_expr(MK_EField($1, str($3)), $1.pos)
+        | CNAMEPLUS -> MK_expr(MK_EVar(str($1)), mkpos($1))
+        | atomexp "." CNAMEPLUS -> MK_expr(MK_EField($1, str($3)), $1.pos)
         | "true" -> MK_expr(MK_EBool(True), mkpos($1))
         | "false" -> MK_expr(MK_EBool(False), mkpos($1))
 
@@ -152,20 +167,25 @@ lexer_atom :  ESCAPED_STRING -> MK_LStr(unesc(str($1)))
       | "[" UNICODE "-"  UNICODE "]" -> MK_LRange(u2i($2), u2i($4))
       | "[" /./ "-" /./ "]"          -> MK_LRange(ord($2), ord($4))
       | ("_" | ".") -> MK_LWildcard
-      | CNAME       -> MK_LRef(str($1))
+      | CNAMEPLUS       -> MK_LRef(str($1))
 
-lexerdef : CNAME "=" lexer ";" -> MK_Deflexer(str($1), $3, mkpos($1))
+lexerdef : CNAMEPLUS "=" lexer ";" -> MK_Deflexer(str($1), $3, mkpos($1))
 
 UCODE : DIGIT | /[a-fA-F]/
 UNICODE : "\\" "u" UCODE UCODE UCODE UCODE
 
+LCASE_LETTER: "a".."z"
+UCASE_LETTER: "A".."Z"
+
+LETTER: UCASE_LETTER | LCASE_LETTER
+WORD: LETTER+
+CNAMEPLUS: ("_"|LETTER) ("_"|"-"|LETTER|DIGIT)*
+
 %import common.ESCAPED_STRING
-%import common.CNAME
 %import common.FLOAT
 %import common.INT
 %import common.WS
 %import common.DIGIT
-%import common.LETTER
 %import common.C_COMMENT
 %import common.CPP_COMMENT
 %ignore WS

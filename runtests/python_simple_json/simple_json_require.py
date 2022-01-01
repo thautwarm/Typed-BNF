@@ -9,16 +9,9 @@ def getStr(token: Token):
 
 def identity(x):
     return x
- 
-jsonBool = jsonList = jsonStr = jsonFlt = jsonInt = identity
-
-jsonNull = None
 
 def unesc(x):
     return py_scanstring(x, 1)[0]
-
-def jsonDict(xs):
-    return dict(xs)
 
 def appendList(xs, x):
     xs.append(x)

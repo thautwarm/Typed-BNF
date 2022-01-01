@@ -75,7 +75,7 @@ def MK_TApp(f: monot_1, args: List[monot_1]) -> monot_1:
     return monot_1(2, f, of_array(args))
 
 
-def MK_TFun(args: List[monot_1], ret: monot_1) -> monot_1:
+def MK_TFun(args: List[Tuple[str, monot_1]], ret: monot_1) -> monot_1:
     return monot_1(3, of_array(args), ret)
 
 
@@ -151,14 +151,14 @@ def MK_LRef(x: str) -> lexerule:
 
 
 def MK_Defignore(ignore_list: List[str], pos: position_1) -> definition:
-    return definition(5, {
+    return definition(6, {
         "ignoreList": of_array(ignore_list),
         "pos": pos
     })
 
 
 def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, production]], pos: position_1) -> definition:
-    def arrow_51(lhs: str=lhs, parameters: List[str]=parameters, define: List[Tuple[position_1, production]]=define, pos: position_1=pos) -> dict:
+    def arrow_57(lhs: str=lhs, parameters: List[str]=parameters, define: List[Tuple[position_1, production]]=define, pos: position_1=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "define": of_array(define),
@@ -167,7 +167,7 @@ def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, 
             "pos": pos
         }
     
-    return definition(0, arrow_51())
+    return definition(0, arrow_57())
 
 
 def MK_Defrule(lhs: str, define: List[Tuple[position_1, production]], pos: position_1) -> definition:
@@ -194,17 +194,27 @@ def MK_Declvar(ident: str, t: polyt, pos: position_1) -> definition:
     })
 
 
-def MK_Decltype(ident: str, parameters: List[str], fields: List[Tuple[str, monot_1, position_1]], pos: position_1) -> definition:
-    def arrow_52(ident: str=ident, parameters: List[str]=parameters, fields: List[Tuple[str, monot_1, position_1]]=fields, pos: position_1=pos) -> dict:
+def MK_Declctor(ident: str, t: monot_1, pos: position_1) -> definition:
+    return definition(4, {
+        "ident": ident,
+        "pos": pos,
+        "t": t
+    })
+
+
+def MK_Decltype(external: bool, has_fields: bool, ident: str, parameters: List[str], fields: List[Tuple[str, monot_1, position_1]], pos: position_1) -> definition:
+    def arrow_58(external: bool=external, has_fields: bool=has_fields, ident: str=ident, parameters: List[str]=parameters, fields: List[Tuple[str, monot_1, position_1]]=fields, pos: position_1=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
+            "external": external,
             "fields": of_array(fields),
+            "hasFields": has_fields,
             "ident": ident,
             "parameters": parameters_1,
             "pos": pos
         }
     
-    return definition(4, arrow_52())
+    return definition(5, arrow_58())
 
 
 def MK_production(symbols: List[symbol], action: expr) -> production:

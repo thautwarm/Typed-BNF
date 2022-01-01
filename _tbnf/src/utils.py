@@ -1,26 +1,17 @@
-from __future__ import annotations
 from array import array
-from typing import (Iterable, List, MutableSequence, Tuple, Any, Callable, TypeVar, Generic)
-from ..fable_modules.fable_library.list import (FSharpList, append, empty as empty_1, singleton, reverse)
+from typing import (Iterable, List, MutableSequence, Tuple, Any, TypeVar, Optional, Callable)
+from ..fable_modules.fable_library.list import (FSharpList, is_empty, head, tail, cons, singleton)
+from ..fable_modules.fable_library.option import some
 from ..fable_modules.fable_library.range import range_char
-from ..fable_modules.fable_library.reflection import (TypeInfo, string_type, class_type, record_type, int32_type, char_type, bool_type, lambda_type, list_type)
-from ..fable_modules.fable_library.seq import (to_array, delay, map, to_list, collect, singleton as singleton_1)
-from ..fable_modules.fable_library.set import (empty, contains, add as add_2)
+from ..fable_modules.fable_library.seq import (to_array, delay, map)
 from ..fable_modules.fable_library.string import (replace, to_text, printf)
-from ..fable_modules.fable_library.system_text import (StringBuilder__ctor_Z721C83C5, StringBuilder__Append_Z721C83C5, StringBuilder__Append_244C7CD6, StringBuilder__ctor)
-from ..fable_modules.fable_library.types import (to_string, Record)
-from ..fable_modules.fable_library.util import (ignore, compare_primitives)
-from ..FableSedlex.code_gen import (Doc, Doc_reflection)
+from ..fable_modules.fable_library.system_text import (StringBuilder__ctor_Z721C83C5, StringBuilder__Append_Z721C83C5, StringBuilder__Append_244C7CD6)
+from ..fable_modules.fable_library.types import to_string
+from ..fable_modules.fable_library.util import (ignore, equals)
 
-b = TypeVar("b")
+a_ = TypeVar("a_")
 
-c = TypeVar("c")
-
-a = TypeVar("a")
-
-t = TypeVar("t")
-
-u = TypeVar("u")
+b_ = TypeVar("b_")
 
 lower_chars : List[str] = to_array(delay(lambda _unit=None: map(lambda a: a, range_char("a", "z"))))
 
@@ -75,11 +66,11 @@ def is_unicode(c: str) -> bool:
 def _escapeString(s: str) -> str:
     sb : Any = StringBuilder__ctor_Z721C83C5("\"")
     for i in range(0, (len(s) - 1) + 1, 1):
-        def arrow_40(s: str=s) -> Any:
+        def arrow_28(s: str=s) -> Any:
             match_value : str = s[i]
             return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\"") if (match_value == "\"") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
         
-        ignore(arrow_40())
+        ignore(arrow_28())
     ignore(StringBuilder__Append_Z721C83C5(sb, "\""))
     return to_string(sb)
 
@@ -91,11 +82,11 @@ def i_to_u4(i: int) -> str:
 def _escapeStringSingleQuoted(s: str) -> str:
     sb : Any = StringBuilder__ctor_Z721C83C5("\u0027")
     for i in range(0, (len(s) - 1) + 1, 1):
-        def arrow_41(s: str=s) -> Any:
+        def arrow_30(s: str=s) -> Any:
             match_value : str = s[i]
             return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\u0027") if (match_value == "\u0027") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
         
-        ignore(arrow_41())
+        ignore(arrow_30())
     ignore(StringBuilder__Append_Z721C83C5(sb, "\u0027"))
     return to_string(sb)
 
@@ -117,200 +108,68 @@ def capitalized(s: str) -> str:
     
 
 
-def expr_43() -> TypeInfo:
-    return record_type("tbnf.Utils.NameMangling.nameEnv", [], NameMangling_nameEnv, lambda: [["usedNames", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
-
-
-class NameMangling_nameEnv(Record):
-    def __init__(self, used_names: Any=None) -> None:
-        super().__init__()
-        self.used_names = used_names
-    
-
-NameMangling_nameEnv_reflection = expr_43
-
-def expr_44() -> TypeInfo:
-    return record_type("tbnf.Utils.NameMangling.IdentifierDescriptor", [], NameMangling_IdentifierDescriptor, lambda: [["isValidChar", lambda_type(int32_type, lambda_type(char_type, bool_type))], ["charToValid", lambda_type(int32_type, lambda_type(char_type, string_type))], ["nameEnv", NameMangling_nameEnv_reflection()]])
-
-
-class NameMangling_IdentifierDescriptor(Record):
-    def __init__(self, is_valid_char: Callable[[int, str], bool], char_to_valid: Callable[[int, str], str], name_env: NameMangling_nameEnv) -> None:
-        super().__init__()
-        self.is_valid_char = is_valid_char
-        self.char_to_valid = char_to_valid
-        self.name_env = name_env
-    
-
-NameMangling_IdentifierDescriptor_reflection = expr_44
-
-def NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(is_valid_char: Callable[[int, str], bool], char_to_valid: Callable[[int, str], str]) -> NameMangling_IdentifierDescriptor:
-    class ObjectExpr45:
-        @property
-        def Compare(self) -> Any:
-            return lambda x, y: compare_primitives(x, y)
+def List_tryLookup(key_mut: a_, x_mut: FSharpList[Tuple[a_, b_]]) -> Optional[b_]:
+    while True:
+        (key, x) = (key_mut, x_mut)
+        if not is_empty(x):
+            if equals(head(x)[0], key):
+                return some(head(x)[1])
+            
+            elif not is_empty(x):
+                key_mut = key
+                x_mut = tail(x)
+                continue
+            
+            else: 
+                raise Exception("Match failure")
+            
         
-    return NameMangling_IdentifierDescriptor(is_valid_char, char_to_valid, NameMangling_nameEnv(empty(ObjectExpr45())))
+        else: 
+            return None
+        
+        break
 
 
-def NameMangling_IdentifierDescriptor__WithNameEnv_Z4088684A(this: NameMangling_IdentifierDescriptor, x: NameMangling_nameEnv) -> NameMangling_IdentifierDescriptor:
-    return NameMangling_IdentifierDescriptor(this.is_valid_char, this.char_to_valid, x)
+def List_lookup(key_mut: a_, x_mut: FSharpList[Tuple[a_, b_]]) -> b_:
+    while True:
+        (key, x) = (key_mut, x_mut)
+        if not is_empty(x):
+            if equals(head(x)[0], key):
+                return head(x)[1]
+            
+            elif not is_empty(x):
+                key_mut = key
+                x_mut = tail(x)
+                continue
+            
+            else: 
+                raise Exception("Match failure")
+            
+        
+        else: 
+            raise Exception("key not found")
+        
+        break
 
 
-def NameMangling_maskChar(low: int, high: int, i: int) -> str:
-    return chr(low + (i % ((high - low) + 1)))
-
-
-def NameMangling_is_valid_identifier(idr: NameMangling_IdentifierDescriptor, s: str) -> bool:
-    if s == "":
-        return True
+def List_replaceWith(key: a_, func: Callable[[Optional[b_]], b_], xs: FSharpList[Tuple[a_, b_]]) -> FSharpList[Tuple[a_, b_]]:
+    if not is_empty(xs):
+        def arrow_35(key: a_=key, func: Callable[[Optional[b_]], b_]=func, xs: FSharpList[Tuple[a_, b_]]=xs) -> bool:
+            key_0027 : a_ = head(xs)[0]
+            return equals(key_0027, key_0027)
+        
+        if arrow_35():
+            return cons((head(xs)[0], func(some(head(xs)[1]))), tail(xs))
+        
+        elif not is_empty(xs):
+            return cons(head(xs), List_replaceWith(key, func, tail(xs)))
+        
+        else: 
+            raise Exception("Match failure")
+        
     
     else: 
-        def loop(i_mut: int, idr: NameMangling_IdentifierDescriptor=idr, s: str=s) -> bool:
-            while True:
-                (i,) = (i_mut,)
-                if i >= len(s):
-                    return True
-                
-                elif idr.is_valid_char(i, s[i]):
-                    i_mut = i + 1
-                    continue
-                
-                else: 
-                    return False
-                
-                break
-        
-        loop : Callable[[int], bool] = loop
-        return loop(0)
+        return singleton((key, func(None)))
     
 
-
-def NameMangling_to_valid_identifier(idr: NameMangling_IdentifierDescriptor, s: str) -> str:
-    if s == "":
-        raise Exception("empty identifier")
-    
-    else: 
-        sb : Any = StringBuilder__ctor()
-        def loop(i_mut: int, idr: NameMangling_IdentifierDescriptor=idr, s: str=s) -> None:
-            while True:
-                (i,) = (i_mut,)
-                if i >= len(s):
-                    pass
-                
-                else: 
-                    if idr.is_valid_char(i, s[i]):
-                        ignore(StringBuilder__Append_244C7CD6(sb, s[i]))
-                    
-                    else: 
-                        ignore(StringBuilder__Append_Z721C83C5(sb, idr.char_to_valid(i, s[i])))
-                    
-                    i_mut = i + 1
-                    continue
-                
-                break
-        
-        loop : Callable[[int], None] = loop
-        loop(0)
-        return to_string(sb)
-    
-
-
-def NameMangling_mangle(abandoned_names: Any, idr: NameMangling_IdentifierDescriptor, n: str) -> str:
-    s : str = n if (NameMangling_is_valid_identifier(idr, n)) else (NameMangling_to_valid_identifier(idr, n))
-    while contains(s, abandoned_names):
-        add : str = "_" + idr.char_to_valid(len(s) + 1, lower_chars[len(s) % len(lower_chars)]) if (idr.is_valid_char(len(s), "_")) else (idr.char_to_valid(len(s), lower_chars[len(s) % len(lower_chars)]))
-        s = s + add
-    name_env : NameMangling_nameEnv = idr.name_env
-    while contains(s, name_env.used_names):
-        add_1 : str = "_" + idr.char_to_valid(len(s) + 1, lower_chars[len(s) % len(lower_chars)]) if (idr.is_valid_char(len(s), "_")) else (idr.char_to_valid(len(s), lower_chars[len(s) % len(lower_chars)]))
-        s = s + add_1
-    name_env.used_names = add_2(s, name_env.used_names)
-    return s
-
-
-def expr_47(gen0: TypeInfo) -> TypeInfo:
-    return record_type("tbnf.Utils.DocBuilder.block`1", [gen0], DocBuilder_block_1, lambda: [["suite", list_type(Doc_reflection())], ["value", gen0]])
-
-
-class DocBuilder_block_1(Record, Generic[b]):
-    def __init__(self, suite: FSharpList[Doc], value: b) -> None:
-        super().__init__()
-        self.suite = suite
-        self.value = value
-    
-
-DocBuilder_block_1_reflection = expr_47
-
-def expr_48() -> TypeInfo:
-    return class_type("tbnf.Utils.DocBuilder.Builder", None, DocBuilder_Builder)
-
-
-class DocBuilder_Builder:
-    def __init__(self) -> None:
-        pass
-    
-
-DocBuilder_Builder_reflection = expr_48
-
-def DocBuilder_Builder__ctor() -> DocBuilder_Builder:
-    return DocBuilder_Builder()
-
-
-def DocBuilder_Builder__Bind_Z300482AD(__: DocBuilder_Builder, m: DocBuilder_block_1[b], k: Callable[[b], DocBuilder_block_1[c]]) -> DocBuilder_block_1[c]:
-    m_0027 : DocBuilder_block_1[c] = k(m.value)
-    return DocBuilder_block_1(append(m_0027.suite, m.suite), m_0027.value)
-
-
-def DocBuilder_Builder__Return_1505(__: DocBuilder_Builder, v: a=None) -> DocBuilder_block_1[a]:
-    return DocBuilder_block_1(empty_1(), v)
-
-
-def DocBuilder_Builder__Run_72B9C953(__: DocBuilder_Builder, m: DocBuilder_block_1[a]) -> DocBuilder_block_1[a]:
-    return m
-
-
-def DocBuilder_Builder__Combine_Z44B4C520(__: DocBuilder_Builder, m1: DocBuilder_block_1[Any], m2: DocBuilder_block_1[b]) -> DocBuilder_block_1[b]:
-    return DocBuilder_block_1(append(m2.suite, m1.suite), m2.value)
-
-
-def DocBuilder_Builder__Yield_417FD60(__: DocBuilder_Builder, a: Doc) -> DocBuilder_block_1[FSharpList[Any]]:
-    return DocBuilder_block_1(singleton(a), empty_1())
-
-
-def DocBuilder_Builder__YieldFrom_313FB1A2(__: DocBuilder_Builder, a: FSharpList[Doc]) -> DocBuilder_block_1[None]:
-    return DocBuilder_block_1(reverse(a), None)
-
-
-def DocBuilder_Builder__Zero(__: DocBuilder_Builder) -> DocBuilder_block_1[None]:
-    return DocBuilder_block_1(empty_1(), None)
-
-
-def DocBuilder_Builder__Delay_Z6CB7AF07(__: DocBuilder_Builder, x: Callable[[], DocBuilder_block_1[a]]) -> DocBuilder_block_1[a]:
-    return x()
-
-
-def DocBuilder_Builder__For_4C40856C(__: DocBuilder_Builder, m: Iterable[t], f: Callable[[t], DocBuilder_block_1[u]]) -> DocBuilder_block_1[FSharpList[u]]:
-    suite : FSharpList[Doc] = empty_1()
-    def arrow_50(__: DocBuilder_Builder=__, m: Iterable[t]=m, f: Callable[[t], DocBuilder_block_1[u]]=f) -> Iterable[Any]:
-        def arrow_49(each: Any=None) -> Iterable[Any]:
-            nonlocal suite
-            m_0027 : DocBuilder_block_1[u] = f(each)
-            suite = append(m_0027.suite, suite)
-            return singleton_1(m_0027.value)
-        
-        return collect(arrow_49, m)
-    
-    value : FSharpList[u] = to_list(delay(arrow_50))
-    return DocBuilder_block_1(suite, value)
-
-
-def DocBuilder_Builder__ReturnFrom_72B9C953(__: DocBuilder_Builder, m: DocBuilder_block_1[a]) -> DocBuilder_block_1[a]:
-    return m
-
-
-def DocBuilder_runCG(m: DocBuilder_block_1[Any]) -> Tuple[b, FSharpList[Doc]]:
-    return (m.value, reverse(m.suite))
-
-
-DocBuilder_cg : DocBuilder_Builder = DocBuilder_Builder__ctor()
 

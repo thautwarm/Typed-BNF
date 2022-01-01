@@ -27,10 +27,17 @@ backends = {
 }
 
 def default_rename_var(x):
-            return x
+    return x
+
+def default_rename_constructor(x):
+    return x
 
 def default_rename_type(x):
     return x
+
+def default_rename_field(x):
+    return x
+
 
 def tbnf(
         tbnf_source_path: Path,
@@ -50,22 +57,16 @@ def tbnf(
     else:
         renamer_config = Path(renamer_config)
     
+    config_scope = {}
     if renamer_config.exists() and renamer_config.is_file():
-        config_scope = {}
         with renamer_config.open("r", encoding='utf8') as file:
             exec(file.read(), config_scope)
-        rename_var = config_scope.get('rename_var')
-        rename_type = config_scope.get('rename_type')
-    else:
-        rename_var = None
-        rename_type = None
 
-    if not rename_var:
-        rename_var = default_rename_var
+    rename_var = config_scope.get('rename_var') or default_rename_var
+    rename_type = config_scope.get('rename_type') or default_rename_type
+    rename_ctor = config_scope.get('rename_constructor') or default_rename_constructor
+    rename_field = config_scope.get('rename_field') or default_rename_field
     
-    
-    if not rename_type:
-        rename_type = default_rename_type
     
     defs, analyzer = build_analyzer(defs)
 
@@ -73,9 +74,11 @@ def tbnf(
         fs_out = call_backend(
             analyzer,
             CodeGenOptions(
-                rename_var,
-                rename_type,
-                lang),
+                variable_renamer=rename_var,
+                type_renamer=rename_type,
+                field_renamer=rename_field,
+                constructor_renamer=rename_ctor,
+                lang=lang),
             defs)
         for filename, doc in fs_out:
             with (out_dir / filename).open(encoding='utf8', mode='w') as file:

@@ -358,7 +358,7 @@ let codegen (analyzer: Analyzer)
             args
             |> List.map _cg_type
             |> String.concat ", "
-            |> fun it -> "{modulevar_typing}.Tuple[" + it + "]"
+            |> fun it -> $"{modulevar_typing}.Tuple[" + it + "]"
         | monot.TApp (f, args) ->
             args
             |> List.map _cg_type
@@ -379,8 +379,8 @@ let codegen (analyzer: Analyzer)
     
     // data classes generator
     let adtCases = analyzer.Sigma.GetADTCases()
-    let file_constructors = filename_constructors, vsep [
-        yield word $"import __future__ import annotations as __01asda1ha"
+    let file_constructors = filename_constructors + ".py", vsep [
+        yield word $"from __future__ import annotations as __01asda1ha"
         yield word $"from lark import Token as {classvar_LarkToken}"
         yield word $"import dataclasses as {modulevar_dataclass}"
         yield word $"import typing as {modulevar_typing}"
@@ -407,12 +407,12 @@ let codegen (analyzer: Analyzer)
                 yield empty
             yield word $"if {modulevar_typing}.TYPE_CHECKING:"
             yield vsep [
-                yield word typename' + word "=" + word $"{modulevar_typing}.Union[" +  bracket(seplist (word ",") docCtorNames) * word "]"
+                yield word typename' + word "=" + word $"{modulevar_typing}.Union[" +  seplist (word ",") docCtorNames * word "]"
             ] >>> 4
             yield word "else:"
             yield vsep [
                 word typename' + word "=" + parens(seplist(word ",") docCtorNames)
-            ]
+            ] >>> 4
             yield empty
         for (typename, shape) in  analyzer.Sigma.GetRecordTypes() do
             let typename' = rename_type typename

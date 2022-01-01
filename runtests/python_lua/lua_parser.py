@@ -1,17 +1,16 @@
 from __future__ import annotations
-from .lua_require import (mkTableConstructor,mkAttr,mkIndex,mkCallMethod,mkCallFunc,mkTableExpr,mkNestedExp,mkNot,mkInv,mkNeg,mkLen,mkExponent,mkEllipse,mkString,mkNum,mkBool,mkNil,mkVar,mkFuncDef,mkForInStmt,mkForRangeStmt,mkElseBlock,mkElifBlock,mkIfStmt,mkRepeatStmt,mkWhileStmt,mkDoStmt,mkGotoStmt,mkBreakStmt,mkLabelStmt,mkExprStmt,mkAssignment,mkEmptyStmt,mkReturnStmt,mkBlock,mkElementField,mkNameField,mkIndexField,mkStringArg,mkTableArgs,mkPositionalArgs,mkParams,mkRange,mkBinOpSeq,mkOperand,mkOperator,none,some,listMap,appendList)
+from .lua_require import (mkTableConstructor,mkAttr,mkIndex,mkCallMethod,mkCallFunc,mkTableExpr,mkNestedExp,mkNot,mkInv,mkNeg,mkLen,mkExponent,mkEllipse,mkString,mkNum,mkBool,mkNil,mkVar,mkFuncDef,mkForInStmt,mkForRangeStmt,mkIfStmt,mkRepeatStmt,mkWhileStmt,mkDoStmt,mkGotoStmt,mkBreakStmt,mkLabelStmt,mkExprStmt,mkAssignment,mkEmptyStmt,mkReturnStmt,mkBlock,mkElementField,mkNameField,mkIndexField,mkStringArg,mkTableArgs,mkPositionalArgs,mkParams,mkElseBlock,mkElifBlock,mkRange,mkBinOpSeq,mkOperand,mkOperator,none,some,listMap,appendList)
 from .lua_lexer import lexall as lexall
+from .lua_construct import *
 from lark.lexer import Lexer as Lexer
-from lark import Token as Token
 from lark import Transformer as Transformer
 from lark import Lark as Lark
 from _tbnf.FableSedlex.sedlex import from_ustring as from_ustring
-
 tokenmaps = ["BINOP", "NAME", "NUMERAL", "STR_LIT", "FIELDSEP", "_I__J__I__J", "_I__O__I_", "_I__P__I_", "_I__S__I_", "_I__T__I_", "_I__U__I_", "_I__U__U__U__I_", "_I__G__I_", "_I__G__G__I_", "_I__H__I_", "_I__J__I_", "_I__N__I_", "_I__P__I__J", "_I__Q__I_", "_I_BREAK_I_", "_I_DO_I_", "_I_ELSE_I_", "_I_ELSEIF_I_", "_I_END_I_", "_I_FALSE_I_", "_I_FOR_I_", "_I_FUNCTION_I_", "_I_GOTO_I_", "_I_IF_I_", "_I_IN_I_", "_I_LOCAL_I_", "_I_NIL_I_", "_I_NOT_I_", "_I_REPEAT_I_", "_I_RETURN_I_", "_I_THEN_I_", "_I_TRUE_I_", "_I_UNTIL_I_", "_I_WHILE_I_", "_I__T__I__J", "_I__V__I_", "_I__W__I_", "UNKNOWN"]
 
 def construct_token(token_id, lexeme, line, col, span, offset, file):
-    if token_id == -1: return Token("EOF", "")
-    return Token(tokenmaps[token_id], lexeme, offset, line, col, None, None, span + offset)
+    if token_id == -1: return token("EOF", "")
+    return token(tokenmaps[token_id], lexeme, offset, line, col, None, None, span + offset)
 
 def is_eof(token):
     return token.type == "EOF"

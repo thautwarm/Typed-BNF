@@ -155,9 +155,10 @@ let mk_Declctor ident t pos =
     Declctor {| ident = ident; t = t; pos = pos |}
 
 [<CompiledName("MK_" + nameof (Decltype))>]
-let mk_Decltype external ident parameters fields pos =
+let mk_Decltype external hasFields ident parameters fields pos =
     Decltype
         {| external = external
+           hasFields = hasFields
            ident = ident
            parameters = Array.toList parameters
            fields = Array.toList fields

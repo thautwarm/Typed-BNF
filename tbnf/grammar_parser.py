@@ -1,9 +1,4 @@
 # Generated from lark-action.
-def _get_location(token):
-    return (token.line, token.column)
-
-def _get_value(token):
-    return token.value
 
 
 from _tbnf.src.apis import *
@@ -19,6 +14,24 @@ def unesc(x, f=json.decoder.py_scanstring):
         unesc('"asd"') == "asd"
     """
     return f(x, 1)[0]
+
+if '_get_location' not in globals(): 
+    def _get_location(token):
+        return (token.line, token.column)
+
+if '_get_value' not in globals(): 
+    def _get_value(token):
+        return token.value
+
+
+def process_tparam(kvs):
+    out = []
+    for i, (k, v) in enumerate(kvs):
+        if k == '_':
+            out.append((f"_{i+1}", v))
+        else:
+            out.append((k, v))
+    return out
 
 
 def u2i(ch):
@@ -56,9 +69,9 @@ class grammar_parser_Transformer(Transformer):
     def typ_0(self, __args):
         return  __args[1-1]
     def arrow_typ_0(self, __args):
-        return  MK_TFun([__args[1-1]], __args[3-1])
+        return  MK_TFun([("_", __args[1-1])], __args[3-1])
     def arrow_typ_1(self, __args):
-        return  MK_TFun(__args[2-1], __args[5-1])
+        return  MK_TFun(process_tparam(__args[2-1]), __args[5-1])
     def arrow_typ_2(self, __args):
         return  MK_TTuple(__args[1-1])
     def typ2_0(self, __args):
@@ -79,6 +92,10 @@ class grammar_parser_Transformer(Transformer):
         return  MK_TVar(str(__args[2-1]))
     def tvar_str_0(self, __args):
         return  str(__args[2-1])
+    def param_type_0(self, __args):
+        return  (str(__args[1-1]), __args[3-1])
+    def param_type_1(self, __args):
+        return  ("_", __args[1-1])
     def type_params_0(self, __args):
         return  __args[2-1]
     def type_params_1(self, __args):
@@ -86,13 +103,17 @@ class grammar_parser_Transformer(Transformer):
     def field_ann_0(self, __args):
         return  (str(__args[1-1]), __args[3-1], mkpos(__args[1-1]))
     def field_anns_0(self, __args):
-        return  []
+        return  (False, [])
     def field_anns_1(self, __args):
-        return  __args[2-1]
+        return  (True, __args[2-1])
     def decl_0(self, __args):
         return  MK_Declvar(__args[3-1], __args[5-1], mkpos(__args[2-1]))
     def decl_1(self, __args):
-        return MK_Decltype(__args[3-1], __args[4-1], __args[5-1], mkpos(__args[1-1]))
+        return  MK_Declctor(__args[2-1], __args[4-1], mkpos(__args[1-1]))
+    def decl_2(self, __args):
+        return MK_Decltype(True, __args[5-1][0], __args[3-1], __args[4-1], __args[5-1][1], mkpos(__args[1-1]))
+    def decl_3(self, __args):
+        return MK_Decltype(False, __args[4-1][0], __args[2-1], __args[3-1], __args[4-1][1], mkpos(__args[1-1]))
     def toplevel_0(self, __args):
         return  __args[1-1]
     def toplevel_1(self, __args):

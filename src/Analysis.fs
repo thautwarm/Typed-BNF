@@ -25,11 +25,13 @@ type Sigma(UM: Unification.Manager) =
     let mutable global_variables: Map<identifier, polyt> = Map.empty
     (* constructor global variables *)
     let mutable constructors: Set<identifier> = Set.empty
-    
+
     let mutable externalTypes : Set<typename> = Set.empty
-    
+
+    let mutable records: identifier list = []
+
     let mutable adtCases : list<typename * Map<string, (string * monot) list>> = []
-        
+
     let rec checkKind_ (t: monot) =
         let t = t.Prune()
         match t with
@@ -37,7 +39,7 @@ type Sigma(UM: Unification.Manager) =
             match Map.tryFind typename kinds with
             | None -> raise <| UnboundTypeVariable(typename)
             | Some 0 -> ()
-            | Some kind -> 
+            | Some kind ->
                 let got = 0
                 if kind >= 0 && kind <> got then
                     raise
@@ -59,13 +61,19 @@ type Sigma(UM: Unification.Manager) =
                 List.iter checkKind_ args
         | TApp (f, _) -> raise <| InvalidTypeApplication(f)
         | a -> a.ApplyToChildren checkKind_
-    
+
+    let registerExistingVariable varname t =
+        if Map.containsKey varname global_variables then
+            raise <| DuplicateVariable(varname)
+        else
+            global_variables <- Map.add varname t global_variables
+
     let registerType typename (kind: int) =
         if Map.containsKey typename kinds then
             raise <| DuplicateTypeVariable(typename)
         else
             kinds <- Map.add typename kind kinds
-    
+
     let addCase (typename: typename) ctorName t =
         if Set.contains typename externalTypes then
             raise <| InvalidConstructorDefinination CauseExternalType
@@ -78,17 +86,17 @@ type Sigma(UM: Unification.Manager) =
             registerType typename 0
             shapes <- Map.add typename {fields = Map.empty; parameters = []} shapes
         | _ -> ()
-        
+
         adtCases <-
             adtCases
             |> List.replaceWith typename (function
                 | None -> Map.ofArray [|ctorName, t|]
-                | Some cases when Map.containsKey ctorName cases -> 
+                | Some cases when Map.containsKey ctorName cases ->
                     raise <| InvalidConstructorDefinination (CauseDuplicateConstructorName ctorName)
                 | Some cases ->
                     Map.add ctorName t cases)
-            
-    let defineShape external typename parameters (fields: list<fieldname * monot>) =
+
+    let defineShape external hasFields typename parameters (fields: list<fieldname * monot>) =
         if Map.containsKey typename shapes then
             raise <| DuplicateTypeVariable(typename)
         else
@@ -105,6 +113,15 @@ type Sigma(UM: Unification.Manager) =
             | None -> registerType typename parameters.Length
             if external then
                 externalTypes <- Set.add typename externalTypes
+            elif hasFields then // define record
+                let t =
+                    if List.isEmpty parameters then
+                        Mono(TFun(fields, TConst typename))
+                    else
+                        Poly(parameters, TFun(fields, TApp(TConst typename, List.map TVar parameters)))
+                registerExistingVariable typename t
+                records <- typename :: records
+
             shapes <-
                 shapes
                 |> Map.add
@@ -138,13 +155,13 @@ type Sigma(UM: Unification.Manager) =
                 checkKind_ (inst_target)
 
                 tyref.Prune()
-    
+
     let registerExtGVar varname (t: polyt) =
         if Map.containsKey varname global_variables then
             raise <| DuplicateVariable(varname)
         else
             global_variables <- Map.add varname t global_variables
-    
+
     let registerCtorGVar varname (t: monot) =
         if Map.containsKey varname global_variables then
             raise <| DuplicateVariable(varname)
@@ -155,7 +172,7 @@ type Sigma(UM: Unification.Manager) =
             | TFun(args, TConst typename) ->
                 addCase typename varname args
             | _ -> raise <| InvalidConstructorDefinination (CauseInvalidConstructorType t)
-            
+
     member __.KindCheck(t: monot) =
         checkKind_ t
         t
@@ -171,18 +188,18 @@ type Sigma(UM: Unification.Manager) =
             checkKind_ a
             t
 
-    member __.RegisterType external typename parameters fields = defineShape external typename parameters fields
+    member __.RegisterType external hasFields typename parameters fields = defineShape external hasFields typename parameters fields
 
     member __.RegisterExtGVar ident t = registerExtGVar ident t
-        
+
     member __.RegisterCtorGVar ident t = registerCtorGVar ident t
 
     member __.LookupField t field =
         let ty_field_ref = UM.NewTyRef("." + field)
         lookupField t field ty_field_ref
-    
+
     member __.GlobalVariables = global_variables
-    
+
     member __.IsGlobalVariableConstructor varname =
             if Map.containsKey varname global_variables then
                 Set.contains varname constructors
@@ -190,11 +207,12 @@ type Sigma(UM: Unification.Manager) =
                 raise <| NotGlobalVariable varname
 
     member __.GetADTCases() = adtCases
-    
+
     member __.GetRecordTypes() =
-        shapes
-        |> Map.toArray
-        |> Array.filter (fst >> (fun x -> Set.contains x externalTypes))
+        records
+        |> List.rev // keep define order though no impact here;
+                    // orders are insignificant
+        |> List.map (fun x -> x, shapes.[x])
 
 and Gamma = Map<string, polyt>
 
@@ -244,15 +262,15 @@ let build_analyzer(stmts: definition array) =
             Sigma.KindCheck decl.t
             |> Sigma.RegisterCtorGVar decl.ident
             // |> Sigma.RegisterGlobalVariable true decl.ident
-        
+
         | definition.Decltype decl ->
             currentPos <- decl.pos
             let fields = List.map (fun (k, v, _) -> k, v)  decl.fields
-            Sigma.RegisterType decl.external decl.ident decl.parameters fields
+            Sigma.RegisterType decl.external decl.hasFields decl.ident decl.parameters fields
             for fieldname, t, pos in decl.fields do
                 currentPos <- pos
                 ignore(Sigma.KindCheckMono t)
-        
+
         | definition.Defmacro _ -> invalidOp "macro definition must be processed before type checking"
         | definition.Defrule decl when Map.containsKey decl.lhs Omega -> raise <| DuplicateNonterminal(decl.lhs)
         | definition.Defrule decl ->
@@ -364,7 +382,7 @@ let build_analyzer(stmts: definition array) =
             let action = infer_e Sigma.GlobalVariables S production.action
             UM.Unify action.t t
             production.action <- action
-    
+
     let rec check_lexerule(x: lexerule) =
         match x with
         | LNot _ | LRange _ | LNumber | LWildcard | LStr _ -> ()
@@ -372,13 +390,13 @@ let build_analyzer(stmts: definition array) =
         | LGroup l | LOptional l | LStar l | LPlus l -> check_lexerule l
         | LRef n when List.contains n TokenFragments -> ()
         | LRef n -> raise <| UnboundLexer(n)
-    
+
     let main() =
         let stmts = MacroResolve.resolve_macro (fun x -> currentPos <- x) stmts
-        
+
         for stmt in stmts do
             pre_process stmt
-        
+
         for stmt in stmts do
             match stmt with
             | Defrule decl ->
@@ -390,8 +408,8 @@ let build_analyzer(stmts: definition array) =
             // | Declvar decl when decl.isConstructor ->
             //     Sigma.KindCheck(decl.t)
             | _ -> ()
-        
-        stmts, { 
+
+        stmts, {
             UM = UM;
             IgnoreSet = IgnoreSet;
             // FragmentDefinitions = FragmentDefinitions;
@@ -402,7 +420,7 @@ let build_analyzer(stmts: definition array) =
             currentPos = currentPos;
             Sigma = Sigma
         }
-    
+
     try
         main()
     with e ->

@@ -1,20 +1,21 @@
 from __future__ import annotations
 from typing import (Any, Tuple, Optional, List, Callable)
-from ..fable_modules.fable_library.array import reverse
-from ..fable_modules.fable_library.list import (FSharpList, length, of_array as of_array_1, map, empty as empty_2, try_item, fold, iterate, contains, cons, to_array)
-from ..fable_modules.fable_library.map import (empty, of_array, try_find, contains_key, add, of_seq, FSharpMap__get_Item)
+from ..fable_modules.fable_library.array import reverse as reverse_1
+from ..fable_modules.fable_library.list import (FSharpList, empty as empty_2, map, reverse, length, iterate, is_empty, cons, of_array as of_array_1, try_item, map_indexed, fold, contains as contains_1, to_array)
+from ..fable_modules.fable_library.map import (empty, of_array, contains_key, FSharpMap__get_Item, try_find, add, count, of_seq)
 from ..fable_modules.fable_library.reflection import (TypeInfo, string_type, list_type, class_type, record_type, array_type)
-from ..fable_modules.fable_library.set import (empty as empty_1, add as add_1)
-from ..fable_modules.fable_library.string import (to_console, printf)
+from ..fable_modules.fable_library.set import (empty as empty_1, contains, add as add_1)
+from ..fable_modules.fable_library.string import (to_text, interpolate, to_console, printf)
 from ..fable_modules.fable_library.types import Record
 from ..fable_modules.fable_library.util import (compare_primitives, string_hash, get_enumerator, ignore)
-from .exceptions import (InvalidKind, UnboundTypeVariable, InvalidTypeApplication, DuplicateTypeVariable, NoField, DuplicateVariable, UnboundVariable, ComponentAccessingOutOfBound, UnboundLexer, DuplicateNonterminal, DuplicateLexer, UnboundNonterminal)
+from .exceptions import (NotGlobalVariable, InvalidKind, UnboundTypeVariable, InvalidTypeApplication, DuplicateVariable, DuplicateTypeVariable, InvalidConstructorDefininationCause, InvalidConstructorDefinination, NoField, UnboundVariable, ComponentAccessingOutOfBound, UnboundLexer, DuplicateNonterminal, DuplicateLexer, UnboundNonterminal)
 from .grammar import (monot_reflection, _predefined_typenames, monot, polyt, monot__prune, monot__apply_to_children_z6a62bcbf, TTuple, position, position_reflection, definition, expr as expr_1, node as node_5, TConst_str, TConst_int, TConst_bool, TConst_float, TList, lexerule, production as production_1, symbol, TConst_token)
 from .macro_resolve import resolve_macro
 from .op import basename
 from .unification import (Manager, Manager__NewTyRef_Z721C83C5, Manager__Unify, Manager__Instantiate_Z25E5E15E, Manager_reflection, Manager__ctor)
+from .utils import List_replaceWith
 
-def expr_53() -> TypeInfo:
+def expr_62() -> TypeInfo:
     return record_type("tbnf.Analysis.Shape", [], Shape, lambda: [["parameters", list_type(string_type)], ["fields", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, monot_reflection()])]])
 
 
@@ -25,36 +26,50 @@ class Shape(Record):
         self.fields = fields
     
 
-Shape_reflection = expr_53
+Shape_reflection = expr_62
 
-def expr_57() -> TypeInfo:
+def expr_68() -> TypeInfo:
     return class_type("tbnf.Analysis.Sigma", None, Sigma)
 
 
 class Sigma:
     def __init__(self, UM: Manager=None) -> None:
         self.UM = UM
-        class ObjectExpr54:
+        class ObjectExpr63:
             @property
             def Compare(self) -> Any:
                 return lambda x, y: compare_primitives(x, y)
             
-        self.shapes = empty(ObjectExpr54())
-        class ObjectExpr55:
+        self.shapes = empty(ObjectExpr63())
+        class ObjectExpr64:
             @property
             def Compare(self) -> Any:
                 return lambda x_1, y_1: compare_primitives(x_1, y_1)
             
-        self.kinds = of_array(_predefined_typenames, ObjectExpr55())
-        class ObjectExpr56:
+        self.kinds = of_array(_predefined_typenames, ObjectExpr64())
+        class ObjectExpr65:
             @property
             def Compare(self) -> Any:
                 return lambda x_2, y_2: compare_primitives(x_2, y_2)
             
-        self.global_variables = empty(ObjectExpr56())
+        self.global_variables = empty(ObjectExpr65())
+        class ObjectExpr66:
+            @property
+            def Compare(self) -> Any:
+                return lambda x_3, y_3: compare_primitives(x_3, y_3)
+            
+        self.constructors = empty_1(ObjectExpr66())
+        class ObjectExpr67:
+            @property
+            def Compare(self) -> Any:
+                return lambda x_4, y_4: compare_primitives(x_4, y_4)
+            
+        self.external_types = empty_1(ObjectExpr67())
+        self.records = empty_2()
+        self.adt_cases = empty_2()
     
 
-Sigma_reflection = expr_57
+Sigma_reflection = expr_68
 
 def Sigma__ctor_Z57FA2555(UM: Manager) -> Sigma:
     return Sigma(UM)
@@ -80,12 +95,16 @@ def Sigma__KindCheck_Z25E5E15E(__: Sigma, t: polyt) -> polyt:
     
 
 
-def Sigma__RegisterExternalType(__: Sigma, typename: str, parameters: FSharpList[str], fields: FSharpList[Tuple[str, monot]]) -> None:
-    Sigma__defineShape(__, typename, parameters, fields)
+def Sigma__RegisterType(__: Sigma, external: bool, has_fields: bool, typename: str, parameters: FSharpList[str], fields: FSharpList[Tuple[str, monot]]) -> None:
+    Sigma__defineShape(__, external, has_fields, typename, parameters, fields)
 
 
-def Sigma__RegisterExternalVariable(__: Sigma, n: str, t: polyt) -> None:
-    Sigma__registerExternalVariable(__, n, t)
+def Sigma__RegisterExtGVar(__: Sigma, ident: str, t: polyt) -> None:
+    Sigma__registerExtGVar(__, ident, t)
+
+
+def Sigma__RegisterCtorGVar(__: Sigma, ident: str, t: monot) -> None:
+    Sigma__registerCtorGVar(__, ident, t)
 
 
 def Sigma__LookupField(__: Sigma, t: monot, field: str) -> monot:
@@ -96,21 +115,64 @@ def Sigma__get_GlobalVariables(__: Sigma) -> Any:
     return __.global_variables
 
 
+def Sigma__IsGlobalVariableConstructor_Z721C83C5(__: Sigma, varname: str) -> bool:
+    if contains_key(varname, __.global_variables):
+        return contains(varname, __.constructors)
+    
+    else: 
+        raise NotGlobalVariable(varname)
+    
+
+
+def Sigma__GetADTCases(__: Sigma) -> FSharpList[Tuple[str, Any]]:
+    return __.adt_cases
+
+
+def Sigma__GetRecordTypes(__: Sigma) -> FSharpList[Tuple[str, Shape]]:
+    return map(lambda x, __=__: (x, FSharpMap__get_Item(__.shapes, x)), reverse(__.records))
+
+
 def Sigma__checkKind__Z25145215(this: Sigma, t: monot) -> None:
     t_1 : monot = monot__prune(t)
-    if t_1.tag == 2:
-        if t_1.fields[0].tag == 1:
-            match_value : Optional[int] = try_find(t_1.fields[0].fields[0], this.kinds)
-            if match_value is not None:
+    if t_1.tag == 1:
+        match_value : Optional[int] = try_find(t_1.fields[0], this.kinds)
+        if match_value is not None:
+            if match_value == 0:
+                pass
+            
+            else: 
                 kind : int = match_value or 0
-                got : int = length(t_1.fields[1]) or 0
+                got : int = 0
                 if kind != got if (kind >= 0) else (False):
                     raise InvalidKind({
                         "expect": kind,
                         "got": got,
+                        "name": t_1.fields[0]
+                    })
+                
+            
+        
+        else: 
+            raise UnboundTypeVariable(t_1.fields[0])
+        
+    
+    elif t_1.tag == 2:
+        if t_1.fields[0].tag == 1:
+            match_value_1 : Optional[int] = try_find(t_1.fields[0].fields[0], this.kinds)
+            if match_value_1 is not None:
+                kind_1 : int = match_value_1 or 0
+                got_1 : int = length(t_1.fields[1]) or 0
+                if kind_1 != got_1 if (kind_1 >= 0) else (False):
+                    raise InvalidKind({
+                        "expect": kind_1,
+                        "got": got_1,
                         "name": t_1.fields[0].fields[0]
                     })
                 
+                def arrow_69(t_2: monot, this: Sigma=this, t: monot=t) -> None:
+                    Sigma__checkKind__Z25145215(this, t_2)
+                
+                iterate(arrow_69, t_1.fields[1])
             
             else: 
                 raise UnboundTypeVariable(t_1.fields[0].fields[0])
@@ -121,14 +183,23 @@ def Sigma__checkKind__Z25145215(this: Sigma, t: monot) -> None:
         
     
     else: 
-        def arrow_58(t_2: monot, this: Sigma=this, t: monot=t) -> None:
-            Sigma__checkKind__Z25145215(this, t_2)
+        def arrow_70(t_3: monot, this: Sigma=this, t: monot=t) -> None:
+            Sigma__checkKind__Z25145215(this, t_3)
         
-        monot__apply_to_children_z6a62bcbf(t_1, arrow_58)
+        monot__apply_to_children_z6a62bcbf(t_1, arrow_70)
     
 
 
-def Sigma__registerExternalType(this: Sigma, typename: str, kind: int) -> None:
+def Sigma__registerExistingVariable(this: Sigma, varname: str, t: polyt) -> None:
+    if contains_key(varname, this.global_variables):
+        raise DuplicateVariable(varname)
+    
+    else: 
+        this.global_variables = add(varname, t, this.global_variables)
+    
+
+
+def Sigma__registerType(this: Sigma, typename: str, kind: int) -> None:
     if contains_key(typename, this.kinds):
         raise DuplicateTypeVariable(typename)
     
@@ -137,14 +208,73 @@ def Sigma__registerExternalType(this: Sigma, typename: str, kind: int) -> None:
     
 
 
-def Sigma__defineShape(this: Sigma, typename: str, parameters: FSharpList[str], fields: FSharpList[Tuple[str, monot]]) -> None:
+def Sigma__addCase(this: Sigma, typename: str, ctor_name: str, t: FSharpList[Tuple[str, monot]]) -> None:
+    if contains(typename, this.external_types):
+        raise InvalidConstructorDefinination(InvalidConstructorDefininationCause(0))
+    
+    match_value : Optional[Shape] = try_find(typename, this.shapes)
+    (pattern_matching_result,) = (None,)
+    if match_value is not None:
+        if count(match_value.fields) != 0:
+            pattern_matching_result = 0
+        
+        else: 
+            pattern_matching_result = 1
+        
+    
+    else: 
+        pattern_matching_result = 1
+    
+    if pattern_matching_result == 0:
+        raise InvalidConstructorDefinination(InvalidConstructorDefininationCause(1))
+    
+    elif pattern_matching_result == 1:
+        if match_value is None:
+            Sigma__registerType(this, typename, 0)
+            class ObjectExpr71:
+                @property
+                def Compare(self) -> Any:
+                    return lambda x, y: compare_primitives(x, y)
+                
+            this.shapes = add(typename, Shape(empty_2(), empty(ObjectExpr71())), this.shapes)
+        
+        elif not is_empty(match_value.parameters):
+            raise InvalidConstructorDefinination(InvalidConstructorDefininationCause(2))
+        
+    
+    def func(_arg1: Optional[Any]=None, this: Sigma=this, typename: str=typename, ctor_name: str=ctor_name, t: FSharpList[Tuple[str, monot]]=t) -> Any:
+        if _arg1 is not None:
+            if contains_key(ctor_name, _arg1):
+                cases_1 : Any = _arg1
+                raise InvalidConstructorDefinination(InvalidConstructorDefininationCause(3, ctor_name))
+            
+            elif _arg1 is not None:
+                return add(ctor_name, t, _arg1)
+            
+            else: 
+                raise Exception("Match failure")
+            
+        
+        else: 
+            class ObjectExpr72:
+                @property
+                def Compare(self) -> Any:
+                    return lambda x_1, y_1: compare_primitives(x_1, y_1)
+                
+            return of_array([(ctor_name, t)], ObjectExpr72())
+        
+    
+    this.adt_cases = List_replaceWith(typename, func, this.adt_cases)
+
+
+def Sigma__defineShape(this: Sigma, external: bool, has_fields: bool, typename: str, parameters: FSharpList[str], fields: FSharpList[Tuple[str, monot]]) -> None:
     if contains_key(typename, this.shapes):
         raise DuplicateTypeVariable(typename)
     
     else: 
         match_value : Optional[int] = try_find(typename, this.kinds)
         if match_value is None:
-            Sigma__registerExternalType(this, typename, length(parameters))
+            Sigma__registerType(this, typename, length(parameters))
         
         else: 
             kind : int = match_value or 0
@@ -156,16 +286,23 @@ def Sigma__defineShape(this: Sigma, typename: str, parameters: FSharpList[str], 
                 })
             
         
-        def arrow_60(this: Sigma=this, typename: str=typename, parameters: FSharpList[str]=parameters, fields: FSharpList[Tuple[str, monot]]=fields) -> Any:
+        if external:
+            this.external_types = add_1(typename, this.external_types)
+        
+        elif has_fields:
+            Sigma__registerExistingVariable(this, typename, polyt(1, monot(3, fields, monot(1, typename))) if (is_empty(parameters)) else (polyt(0, parameters, monot(3, fields, monot(2, monot(1, typename), map(lambda arg0, this=this, external=external, has_fields=has_fields, typename=typename, parameters=parameters, fields=fields: monot(4, arg0), parameters))))))
+            this.records = cons(typename, this.records)
+        
+        def arrow_74(this: Sigma=this, external: bool=external, has_fields: bool=has_fields, typename: str=typename, parameters: FSharpList[str]=parameters, fields: FSharpList[Tuple[str, monot]]=fields) -> Any:
             table : Any = this.shapes
-            class ObjectExpr59:
+            class ObjectExpr73:
                 @property
                 def Compare(self) -> Any:
                     return lambda x, y: compare_primitives(x, y)
                 
-            return add(typename, Shape(parameters, of_seq(fields, ObjectExpr59())), table)
+            return add(typename, Shape(parameters, of_seq(fields, ObjectExpr73())), table)
         
-        this.shapes = arrow_60()
+        this.shapes = arrow_74()
     
 
 
@@ -191,7 +328,7 @@ def Sigma__lookupField(this: Sigma, t: monot, fieldname: str, tyref: monot) -> m
     
 
 
-def Sigma__registerExternalVariable(this: Sigma, varname: str, t: polyt) -> None:
+def Sigma__registerExtGVar(this: Sigma, varname: str, t: polyt) -> None:
     if contains_key(varname, this.global_variables):
         raise DuplicateVariable(varname)
     
@@ -200,7 +337,37 @@ def Sigma__registerExternalVariable(this: Sigma, varname: str, t: polyt) -> None
     
 
 
-def expr_63() -> TypeInfo:
+def Sigma__registerCtorGVar(this: Sigma, varname: str, t: monot) -> None:
+    if contains_key(varname, this.global_variables):
+        raise DuplicateVariable(varname)
+    
+    else: 
+        this.global_variables = add(varname, polyt(1, t), this.global_variables)
+        this.constructors = add_1(varname, this.constructors)
+        (pattern_matching_result, args, typename) = (None, None, None)
+        if t.tag == 3:
+            if t.fields[1].tag == 1:
+                pattern_matching_result = 0
+                args = t.fields[0]
+                typename = t.fields[1].fields[0]
+            
+            else: 
+                pattern_matching_result = 1
+            
+        
+        else: 
+            pattern_matching_result = 1
+        
+        if pattern_matching_result == 0:
+            Sigma__addCase(this, typename, varname, args)
+        
+        elif pattern_matching_result == 1:
+            raise InvalidConstructorDefinination(InvalidConstructorDefininationCause(4, t))
+        
+    
+
+
+def expr_75() -> TypeInfo:
     return record_type("tbnf.Analysis.Analyzer", [], Analyzer, lambda: [["UM", Manager_reflection()], ["Sigma", Sigma_reflection()], ["currentPos", position_reflection()], ["Omega", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, monot_reflection()])], ["LiteralTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["ReferencedNamedTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["TokenFragments", array_type(string_type)], ["IgnoreSet", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -217,37 +384,37 @@ class Analyzer(Record):
         self.IgnoreSet = IgnoreSet
     
 
-Analyzer_reflection = expr_63
+Analyzer_reflection = expr_75
 
 def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]:
     UM : Manager = Manager__ctor()
     Sigma_1 : Sigma = Sigma__ctor_Z57FA2555(UM)
     current_pos : position = None
-    class ObjectExpr64:
+    class ObjectExpr76:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    Omega : Any = empty(ObjectExpr64())
-    class ObjectExpr65:
+    Omega : Any = empty(ObjectExpr76())
+    class ObjectExpr77:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare_primitives(x_1, y_1)
         
-    LiteralTokens : Any = empty_1(ObjectExpr65())
-    class ObjectExpr66:
+    LiteralTokens : Any = empty_1(ObjectExpr77())
+    class ObjectExpr78:
         @property
         def Compare(self) -> Any:
             return lambda x_2, y_2: compare_primitives(x_2, y_2)
         
-    ReferencedNamedTokens : Any = empty_1(ObjectExpr66())
+    ReferencedNamedTokens : Any = empty_1(ObjectExpr78())
     TokenFragments : FSharpList[str] = empty_2()
-    class ObjectExpr67:
+    class ObjectExpr79:
         @property
         def Compare(self) -> Any:
             return lambda x_3, y_3: compare_primitives(x_3, y_3)
         
-    IgnoreSet : Any = empty_1(ObjectExpr67())
+    IgnoreSet : Any = empty_1(ObjectExpr79())
     def infer_e(s_gamma: Any, S: FSharpList[monot], e: expr_1, stmts: List[definition]=stmts) -> expr_1:
         nonlocal current_pos
         S_1 : FSharpList[monot] = S
@@ -301,7 +468,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
             f_1 : expr_1 = infer_e(s_gamma, S_1, match_value.fields[0])
             t_f : monot = f_1.t
             args_1 : FSharpList[expr_1] = map(lambda expr, s_gamma=s_gamma, S=S, e=e: infer_e(s_gamma, S_1, expr), match_value.fields[1])
-            t_args : FSharpList[monot] = map(lambda x_7, s_gamma=s_gamma, S=S, e=e: x_7.t, args_1)
+            t_args : FSharpList[Tuple[str, monot]] = map_indexed(lambda i_1, x_7, s_gamma=s_gamma, S=S, e=e: (to_text(interpolate("arg%P()", [i_1])), x_7.t), args_1)
             t_r_1 : monot = Manager__NewTyRef_Z721C83C5(UM, "@ret")
             Manager__Unify(UM, t_f, monot(3, t_args, t_r_1))
             Sigma__KindCheckMono_Z25145215(Sigma_1, monot__prune(t_f))
@@ -315,7 +482,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
         elif match_value.tag == 5:
             ann_args : FSharpList[Tuple[str, monot]] = match_value.fields[0]
             body_3 : expr_1 = infer_e(fold(lambda state, tupled_arg_1, s_gamma=s_gamma, S=S, e=e: add(tupled_arg_1[0], polyt(1, Sigma__KindCheck_Z25145215(Sigma_1, tupled_arg_1[1])), state), s_gamma, ann_args), S_1, match_value.fields[1])
-            return expr_1(node_5(5, ann_args, body_3), e.pos, monot(3, map(lambda tuple, s_gamma=s_gamma, S=S, e=e: tuple[1], ann_args), body_3.t))
+            return expr_1(node_5(5, ann_args, body_3), e.pos, monot(3, ann_args, body_3.t))
         
         else: 
             elts_1 : FSharpList[expr_1] = map(lambda elt, s_gamma=s_gamma, S=S, e=e: infer_e(s_gamma, S_1, elt), match_value.fields[0])
@@ -363,7 +530,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                 l = x_8.fields[0]
             
             elif x_8.tag == 11:
-                class ObjectExpr69:
+                class ObjectExpr80:
                     @property
                     def Equals(self) -> Any:
                         return lambda x_9, y_6: x_9 == y_6
@@ -372,7 +539,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                     def GetHashCode(self) -> Any:
                         return lambda x_9: string_hash(x_9)
                     
-                if contains(x_8.fields[0], TokenFragments, ObjectExpr69()):
+                if contains_1(x_8.fields[0], TokenFragments, ObjectExpr80()):
                     pattern_matching_result = 3
                 
                 else: 
@@ -406,15 +573,15 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
             break
     
     try: 
-        def arrow_70(x_10: position) -> None:
+        def arrow_81(x_10: position) -> None:
             nonlocal current_pos
             current_pos = x_10
         
-        stmts_1 : List[definition] = resolve_macro(arrow_70, stmts)
+        stmts_1 : List[definition] = resolve_macro(arrow_81, stmts)
         for idx in range(0, (len(stmts_1) - 1) + 1, 1):
             stmt : definition = stmts_1[idx]
-            (pattern_matching_result_1, decl_1, decl_2, decl_3, decl_4) = (None, None, None, None, None)
-            if stmt.tag == 5:
+            (pattern_matching_result_1, decl_1, decl_2, decl_3, decl_4, decl_5) = (None, None, None, None, None, None)
+            if stmt.tag == 6:
                 pattern_matching_result_1 = 0
                 decl_1 = stmt.fields[0]
             
@@ -426,20 +593,24 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                 pattern_matching_result_1 = 2
                 decl_3 = stmt.fields[0]
             
-            elif stmt.tag == 0:
+            elif stmt.tag == 5:
                 pattern_matching_result_1 = 3
+                decl_4 = stmt.fields[0]
+            
+            elif stmt.tag == 0:
+                pattern_matching_result_1 = 4
             
             elif stmt.tag == 1:
                 if contains_key(stmt.fields[0]["lhs"], Omega):
-                    pattern_matching_result_1 = 4
-                    decl_4 = stmt.fields[0]
+                    pattern_matching_result_1 = 5
+                    decl_5 = stmt.fields[0]
                 
                 else: 
-                    pattern_matching_result_1 = 5
+                    pattern_matching_result_1 = 6
                 
             
             else: 
-                pattern_matching_result_1 = 5
+                pattern_matching_result_1 = 6
             
             if pattern_matching_result_1 == 0:
                 current_pos = decl_1["pos"]
@@ -451,31 +622,35 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
             
             elif pattern_matching_result_1 == 1:
                 current_pos = decl_2["pos"]
-                Sigma__RegisterExternalVariable(Sigma_1, decl_2["ident"], Sigma__KindCheck_Z25E5E15E(Sigma_1, decl_2["t"]))
+                Sigma__RegisterExtGVar(Sigma_1, decl_2["ident"], Sigma__KindCheck_Z25E5E15E(Sigma_1, decl_2["t"]))
             
             elif pattern_matching_result_1 == 2:
                 current_pos = decl_3["pos"]
-                Sigma__RegisterExternalType(Sigma_1, decl_3["ident"], decl_3["parameters"], map(lambda tupled_arg: (tupled_arg[0], tupled_arg[1]), decl_3["fields"]))
-                with get_enumerator(decl_3["fields"]) as enumerator_1:
+                Sigma__RegisterCtorGVar(Sigma_1, decl_3["ident"], Sigma__KindCheck_Z25145215(Sigma_1, decl_3["t"]))
+            
+            elif pattern_matching_result_1 == 3:
+                current_pos = decl_4["pos"]
+                Sigma__RegisterType(Sigma_1, decl_4["external"], decl_4["hasFields"], decl_4["ident"], decl_4["parameters"], map(lambda tupled_arg: (tupled_arg[0], tupled_arg[1]), decl_4["fields"]))
+                with get_enumerator(decl_4["fields"]) as enumerator_1:
                     while enumerator_1.System_Collections_IEnumerator_MoveNext():
                         for_loop_var : Tuple[str, monot, position] = enumerator_1.System_Collections_Generic_IEnumerator_00601_get_Current()
                         current_pos = for_loop_var[2]
                         ignore(Sigma__KindCheckMono_Z25145215(Sigma_1, for_loop_var[1]))
             
-            elif pattern_matching_result_1 == 3:
+            elif pattern_matching_result_1 == 4:
                 raise Exception("macro definition must be processed before type checking")
             
-            elif pattern_matching_result_1 == 4:
-                raise DuplicateNonterminal(decl_4["lhs"])
-            
             elif pattern_matching_result_1 == 5:
-                (pattern_matching_result_2, decl_6, decl_7) = (None, None, None)
+                raise DuplicateNonterminal(decl_5["lhs"])
+            
+            elif pattern_matching_result_1 == 6:
+                (pattern_matching_result_2, decl_7, decl_8) = (None, None, None)
                 if stmt.tag == 1:
                     pattern_matching_result_2 = 0
-                    decl_6 = stmt.fields[0]
+                    decl_7 = stmt.fields[0]
                 
                 elif stmt.tag == 2:
-                    class ObjectExpr71:
+                    class ObjectExpr82:
                         @property
                         def Equals(self) -> Any:
                             return lambda x_4, y_4: x_4 == y_4
@@ -484,9 +659,9 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                         def GetHashCode(self) -> Any:
                             return lambda x_4: string_hash(x_4)
                         
-                    if contains(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr71()):
+                    if contains_1(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr82()):
                         pattern_matching_result_2 = 1
-                        decl_7 = stmt.fields[0]
+                        decl_8 = stmt.fields[0]
                     
                     else: 
                         pattern_matching_result_2 = 2
@@ -496,11 +671,11 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                     pattern_matching_result_2 = 2
                 
                 if pattern_matching_result_2 == 0:
-                    nt : monot = Manager__NewTyRef_Z721C83C5(UM, "\u0027" + decl_6["lhs"])
-                    Omega = add(decl_6["lhs"], nt, Omega)
+                    nt : monot = Manager__NewTyRef_Z721C83C5(UM, "\u0027" + decl_7["lhs"])
+                    Omega = add(decl_7["lhs"], nt, Omega)
                 
                 elif pattern_matching_result_2 == 1:
-                    raise DuplicateLexer(decl_7["lhs"])
+                    raise DuplicateLexer(decl_8["lhs"])
                 
                 elif pattern_matching_result_2 == 2:
                     if stmt.tag == 2:
@@ -514,9 +689,9 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
         for idx_1 in range(0, (len(stmts_1) - 1) + 1, 1):
             stmt_2 : definition = stmts_1[idx_1]
             if stmt_2.tag == 1:
-                decl_9 : dict = stmt_2.fields[0]
-                current_pos = decl_9["pos"]
-                tupled_arg_2 : Tuple[str, FSharpList[Tuple[position, production_1]]] = (decl_9["lhs"], decl_9["define"])
+                decl_10 : dict = stmt_2.fields[0]
+                current_pos = decl_10["pos"]
+                tupled_arg_2 : Tuple[str, FSharpList[Tuple[position, production_1]]] = (decl_10["lhs"], decl_10["define"])
                 t_6 : monot = FSharpMap__get_Item(Omega, tupled_arg_2[0])
                 with get_enumerator(tupled_arg_2[1]) as enumerator_2:
                     while enumerator_2.System_Collections_IEnumerator_MoveNext():
@@ -531,7 +706,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                                     LiteralTokens = add_1(n, LiteralTokens)
                                 
                                 else: 
-                                    class ObjectExpr72:
+                                    class ObjectExpr83:
                                         @property
                                         def Equals(self) -> Any:
                                             return lambda x_5, y_5: x_5 == y_5
@@ -540,7 +715,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                                         def GetHashCode(self) -> Any:
                                             return lambda x_5: string_hash(x_5)
                                         
-                                    if not contains(n, TokenFragments, ObjectExpr72()):
+                                    if not contains_1(n, TokenFragments, ObjectExpr83()):
                                         raise UnboundLexer(n)
                                     
                                     else: 
@@ -561,10 +736,10 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                                 
                             
                             else: 
-                                def arrow_73(s: symbol=s) -> Exception:
+                                def arrow_84(s: symbol=s) -> Exception:
                                     raise Exception("macrocall not processed")
                                 
-                                raise arrow_73()
+                                raise arrow_84()
                             
                         
                         S_2 : FSharpList[monot] = map(infer_p, production.symbols)
@@ -573,21 +748,21 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                         production.action = action
             
             elif stmt_2.tag == 2:
-                decl_10 : dict = stmt_2.fields[0]
-                current_pos = decl_10["pos"]
-                check_lexerule(decl_10["define"])
+                decl_11 : dict = stmt_2.fields[0]
+                current_pos = decl_11["pos"]
+                check_lexerule(decl_11["define"])
             
-        def arrow_74(_unit=None) -> Analyzer:
-            TokenFragments_1 : List[str] = reverse(to_array(TokenFragments))
+        def arrow_85(_unit=None) -> Analyzer:
+            TokenFragments_1 : List[str] = reverse_1(to_array(TokenFragments))
             return Analyzer(UM, Sigma_1, current_pos, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet)
         
-        return (stmts_1, arrow_74())
+        return (stmts_1, arrow_85())
     
     except Exception as e_1:
-        arg30 : str = current_pos.filename
+        arg30_1 : str = current_pos.filename
         arg20_1 : int = current_pos.col or 0
-        arg10_5 : int = current_pos.line or 0
-        to_console(printf("line %d, column %d, file: %s\n%A"))(arg10_5)(arg20_1)(arg30)(e_1)
+        arg10_6 : int = current_pos.line or 0
+        to_console(printf("line %d, column %d, file: %s\n%A"))(arg10_6)(arg20_1)(arg30_1)(e_1)
         raise Exception("exit with error")
     
 

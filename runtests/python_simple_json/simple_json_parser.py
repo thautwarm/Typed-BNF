@@ -1,17 +1,16 @@
 from __future__ import annotations
-from .simple_json_require import (appendList,jsonBool,jsonDict,jsonList,jsonNull,jsonStr,jsonFlt,jsonInt,unesc,getStr,parseFlt,parseInt)
+from .simple_json_require import (appendList,unesc,getStr,parseFlt,parseInt)
 from .simple_json_lexer import lexall as lexall
+from .simple_json_construct import *
 from lark.lexer import Lexer as Lexer
-from lark import Token as Token
 from lark import Transformer as Transformer
 from lark import Lark as Lark
 from _tbnf.FableSedlex.sedlex import from_ustring as from_ustring
-
 tokenmaps = ["FLOAT", "INT", "STR", "_I__S__I_", "_I__G__I_", "_I__N__I_", "_I__P__I_", "_I_FALSE_I_", "_I_NULL_I_", "_I_TRUE_I_", "_I__T__I_", "_I__V__I_", "UNKNOWN"]
 
 def construct_token(token_id, lexeme, line, col, span, offset, file):
-    if token_id == -1: return Token("EOF", "")
-    return Token(tokenmaps[token_id], lexeme, offset, line, col, None, None, span + offset)
+    if token_id == -1: return token("EOF", "")
+    return token(tokenmaps[token_id], lexeme, offset, line, col, None, None, span + offset)
 
 def is_eof(token):
     return token.type == "EOF"
@@ -24,34 +23,34 @@ class Sedlex(Lexer):
 
 class RBNFTransformer(Transformer):
     def json_9(self, __tbnf_COMPONENTS):
-        return jsonDict(__tbnf_COMPONENTS[1])
+        return JsonDict(__tbnf_COMPONENTS[1])
     
     def json_8(self, __tbnf_COMPONENTS):
-        return jsonList(__tbnf_COMPONENTS[1])
+        return JsonList(__tbnf_COMPONENTS[1])
     
     def json_7(self, __tbnf_COMPONENTS):
-        return jsonBool(False)
+        return JsonBool(False)
     
     def json_6(self, __tbnf_COMPONENTS):
-        return jsonBool(True)
+        return JsonBool(True)
     
     def json_5(self, __tbnf_COMPONENTS):
-        return jsonDict([])
+        return JsonDict([])
     
     def json_4(self, __tbnf_COMPONENTS):
-        return jsonList([])
+        return JsonList([])
     
     def json_3(self, __tbnf_COMPONENTS):
-        return jsonStr(unesc(getStr(__tbnf_COMPONENTS[0])))
+        return JsonStr(unesc(getStr(__tbnf_COMPONENTS[0])))
     
     def json_2(self, __tbnf_COMPONENTS):
-        return jsonNull
+        return JsonNull()
     
     def json_1(self, __tbnf_COMPONENTS):
-        return jsonFlt(parseFlt(getStr(__tbnf_COMPONENTS[0])))
+        return JsonFlt(parseFlt(getStr(__tbnf_COMPONENTS[0])))
     
     def json_0(self, __tbnf_COMPONENTS):
-        return jsonInt(parseInt(getStr(__tbnf_COMPONENTS[0])))
+        return JsonInt(parseInt(getStr(__tbnf_COMPONENTS[0])))
     
     def seplist_n__i__s__i__s_jsonpair_p__1(self, __tbnf_COMPONENTS):
         return appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
@@ -66,7 +65,7 @@ class RBNFTransformer(Transformer):
         return [__tbnf_COMPONENTS[0]]
     
     def jsonpair_0(self, __tbnf_COMPONENTS):
-        return (unesc(getStr(__tbnf_COMPONENTS[0])), __tbnf_COMPONENTS[2])
+        return JsonPair(unesc(getStr(__tbnf_COMPONENTS[0])), __tbnf_COMPONENTS[2])
     
     def start_0(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]
