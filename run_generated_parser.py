@@ -1,4 +1,4 @@
-from runtests.simple_json.simple_json_parser import parser
+from runtests.python_simple_json.simple_json_parser import parser
 
 print(parser.parse(r"""{
     "x": {

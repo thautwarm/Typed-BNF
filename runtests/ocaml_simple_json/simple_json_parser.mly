@@ -9,7 +9,9 @@ open Simple_json_lexer;;
 %token<tbnf_token> I__G__I_
 %token<tbnf_token> I__N__I_
 %token<tbnf_token> I__P__I_
+%token<tbnf_token> I_FALSE_I_
 %token<tbnf_token> I_NULL_I_
+%token<tbnf_token> I_TRUE_I_
 %token<tbnf_token> I__T__I_
 %token<tbnf_token> I__V__I_
 %token EOF
@@ -17,6 +19,7 @@ open Simple_json_lexer;;
 %%
 
 start : start__y_ EOF { $1 }
+
 
 
 
@@ -70,6 +73,12 @@ json : INT {
                  }
      | I__T__I_ I__V__I_ { 
                      jsonDict([])
+                 }
+     | I_TRUE_I_ { 
+                     jsonBool(true)
+                 }
+     | I_FALSE_I_ { 
+                     jsonBool(false)
                  }
      | I__N__I_ seplist_o__i__s__i__s_json_p_ I__P__I_ { 
                      jsonList($2)

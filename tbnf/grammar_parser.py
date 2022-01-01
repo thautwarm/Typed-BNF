@@ -153,6 +153,10 @@ class grammar_parser_Transformer(Transformer):
         return  MK_expr(MK_EVar(str(__args[1-1])), mkpos(__args[1-1]))
     def atomexp_8(self, __args):
         return  MK_expr(MK_EField(__args[1-1], str(__args[3-1])), __args[1-1].pos)
+    def atomexp_9(self, __args):
+        return  MK_expr(MK_EBool(True), mkpos(__args[1-1]))
+    def atomexp_10(self, __args):
+        return  MK_expr(MK_EBool(False), mkpos(__args[1-1]))
     def lexer_0(self, __args):
         return  MK_LOr(__args[1-1])
     def lexer_and_0(self, __args):

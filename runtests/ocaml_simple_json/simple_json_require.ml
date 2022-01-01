@@ -40,5 +40,6 @@ let jsonFlt f = Float f
 let jsonInt i = Int i
 let jsonNull = Null
 let jsonStr s = String s
+let jsonBool b = Bool b
 let appendList(xs, a) = xs @ [a]
 

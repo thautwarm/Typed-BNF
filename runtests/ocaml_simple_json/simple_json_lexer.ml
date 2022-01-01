@@ -90,14 +90,18 @@ type token =
 | I__G__I_ of tbnf_token
 | I__N__I_ of tbnf_token
 | I__P__I_ of tbnf_token
+| I_FALSE_I_ of tbnf_token
 | I_NULL_I_ of tbnf_token
+| I_TRUE_I_ of tbnf_token
 | I__T__I_ of tbnf_token
 | I__V__I_ of tbnf_token
 | EOF
 
 let rule_I__V__I_ = [%sedlex.regexp? "}"]
 let rule_I__T__I_ = [%sedlex.regexp? "{"]
+let rule_I_TRUE_I_ = [%sedlex.regexp? "true"]
 let rule_I_NULL_I_ = [%sedlex.regexp? "null"]
+let rule_I_FALSE_I_ = [%sedlex.regexp? "false"]
 let rule_I__P__I_ = [%sedlex.regexp? "]"]
 let rule_I__N__I_ = [%sedlex.regexp? "["]
 let rule_I__G__I_ = [%sedlex.regexp? ":"]
@@ -118,7 +122,9 @@ let rec tokenizer lexbuf =
     | rule_I__G__I_ -> I__G__I_ (mktoken lexbuf)
     | rule_I__N__I_ -> I__N__I_ (mktoken lexbuf)
     | rule_I__P__I_ -> I__P__I_ (mktoken lexbuf)
+    | rule_I_FALSE_I_ -> I_FALSE_I_ (mktoken lexbuf)
     | rule_I_NULL_I_ -> I_NULL_I_ (mktoken lexbuf)
+    | rule_I_TRUE_I_ -> I_TRUE_I_ (mktoken lexbuf)
     | rule_I__T__I_ -> I__T__I_ (mktoken lexbuf)
     | rule_I__V__I_ -> I__V__I_ (mktoken lexbuf)
     | eof -> EOF

@@ -16,12 +16,9 @@
 
 
 
+
 start : json -> start_0
-listjson : json -> listjson_0
-         | listjson _I__S__I_ json -> listjson_1
 jsonpair : STR _I__G__I_ json -> jsonpair_0
-dictjson : jsonpair -> dictjson_0
-         | dictjson _I__S__I_ jsonpair -> dictjson_1
 seplist_o__i__s__i__s_json_p_ : json -> seplist_o__i__s__i__s_json_p__0
                               | seplist_o__i__s__i__s_json_p_ _I__S__I_ json -> seplist_o__i__s__i__s_json_p__1
 seplist_o__i__s__i__s_jsonpair_p_ : jsonpair -> seplist_o__i__s__i__s_jsonpair_p__0
@@ -32,6 +29,8 @@ json : INT -> json_0
      | STR -> json_3
      | _I__N__I_ _I__P__I_ -> json_4
      | _I__T__I_ _I__V__I_ -> json_5
-     | _I__N__I_ seplist_o__i__s__i__s_json_p_ _I__P__I_ -> json_6
-     | _I__T__I_ seplist_o__i__s__i__s_jsonpair_p_ _I__V__I_ -> json_7
-%declare FLOAT INT STR _I__S__I_ _I__G__I_ _I__N__I_ _I__P__I_ _I_NULL_I_ _I__T__I_ _I__V__I_ UNKNOWN
+     | _I_TRUE_I_ -> json_6
+     | _I_FALSE_I_ -> json_7
+     | _I__N__I_ seplist_o__i__s__i__s_json_p_ _I__P__I_ -> json_8
+     | _I__T__I_ seplist_o__i__s__i__s_jsonpair_p_ _I__V__I_ -> json_9
+%declare FLOAT INT STR _I__S__I_ _I__G__I_ _I__N__I_ _I__P__I_ _I_FALSE_I_ _I_NULL_I_ _I_TRUE_I_ _I__T__I_ _I__V__I_ UNKNOWN

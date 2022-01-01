@@ -120,6 +120,8 @@ atomexp : INT ->   MK_expr(MK_EInt(int($1)), mkpos($1))
         | "(" slist{",", expr} ")" -> MK_expr(MK_ETuple($2), mkpos($1))
         | CNAME -> MK_expr(MK_EVar(str($1)), mkpos($1))
         | atomexp "." CNAME -> MK_expr(MK_EField($1, str($3)), $1.pos)
+        | "true" -> MK_expr(MK_EBool(True), mkpos($1))
+        | "false" -> MK_expr(MK_EBool(False), mkpos($1))
 
 ### Lexical definitions
 

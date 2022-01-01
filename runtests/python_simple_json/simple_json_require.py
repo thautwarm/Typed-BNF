@@ -10,7 +10,7 @@ def getStr(token: Token):
 def identity(x):
     return x
  
-jsonList = jsonStr = jsonFlt = jsonInt = identity
+jsonBool = jsonList = jsonStr = jsonFlt = jsonInt = identity
 
 jsonNull = None
 

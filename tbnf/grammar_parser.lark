@@ -14,7 +14,7 @@
                                
        
                      
-   
+  
 
 start : list{toplevel} -> start_0                             
 
@@ -49,7 +49,7 @@ arrow_typ : typ2 "->" arrow_typ -> arrow_typ_0
 typ2 : CNAME -> typ2_0                                          
      | tvar -> typ2_1                          
      | typ2 "<" slist{",", typ} ">" -> typ2_2                                                       
-      
+
 type_product : type_product "*" typ2 -> type_product_0                                                    
              | typ2 -> type_product_1                                     
 
@@ -61,7 +61,7 @@ tvar_str     : "'" CNAME -> tvar_str_0
 
              
 
-type_params : "<" slist{",", tvar_str} ">" -> type_params_0                                                  
+type_params : "<" slist{",", tvar_str} ">" -> type_params_0                                                 
             | -> type_params_1                    
 
 field_ann : CNAME ":" typ -> field_ann_0                                                      
@@ -115,6 +115,8 @@ atomexp : INT -> atomexp_0
         | "(" slist{",", expr} ")" -> atomexp_6                                                                        
         | CNAME -> atomexp_7                                                        
         | atomexp "." CNAME -> atomexp_8                                                                       
+        | "true" -> atomexp_9                                                       
+        | "false" -> atomexp_10                                                         
 
                        
 
@@ -145,7 +147,7 @@ lexer_atom :  ESCAPED_STRING -> lexer_atom_0
       | "[" /./ "-" /./ "]" -> lexer_atom_5                                                                    
       | ("_" | ".") -> lexer_atom_6                                    
       | CNAME -> lexer_atom_7                                        
-      
+
 lexerdef : CNAME "=" lexer ";" -> lexerdef_0                                                                      
 
 UCODE : DIGIT | /[a-fA-F]/

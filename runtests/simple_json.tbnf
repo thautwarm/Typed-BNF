@@ -9,6 +9,7 @@ extern var jsonStr : str -> json
 extern var jsonNull : json
 extern var jsonList : list<json> -> json
 extern var jsonDict : list<str * json> -> json
+extern var jsonBool : bool -> json
 extern var appendList : <'a> (list<'a>, 'a) -> list<'a>
 
 %ignore space
@@ -35,5 +36,7 @@ json : <int> { jsonInt(parseInt(getStr($1))) }
       | <str>   { jsonStr(unesc(getStr($1))) }
       | "[" "]" { jsonList([]) }
       | "{" "}" { jsonDict([]) }
+      | "true"  { jsonBool(true) }
+      | "false"  { jsonBool(false) }
       | "[" seplist(",", json) "]" { jsonList($2) }
-      | "{" seplist(",", jsonpair) "}" { jsonDict($2) }      
+      | "{" seplist(",", jsonpair) "}" { jsonDict($2) }
