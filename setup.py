@@ -21,7 +21,7 @@ setup(
     author='thautwarm',
     author_email='twshere@outlook.com',
     packages=find_packages(),
-    entry_points={"console_scripts": ["tbnf2=tbnf.cli:main"]},
+    entry_points={"console_scripts": ["tbnf=tbnf.cli:main"]},
     package_data={'tbnf': ['*.ml']},
     # above option specifies what commands to install,
     # e.g: entry_points={"console_scripts": ["yapypy=yapypy.cmd:compiler"]}
