@@ -1,11 +1,11 @@
-from _tbnf.analysis import Analyzer
-from _tbnf.apis import build_analyzer
+from _tbnf.src.analysis import Analyzer
+from _tbnf.src.apis import build_analyzer
 from _tbnf.FableSedlex.code_gen import gen_doc
-from _tbnf.backends_common import CodeGenOptions
-from _tbnf.grammar import definition
-from _tbnf.backends_python_lark import codegen as codegen_py
-from _tbnf.backends_ocaml_menhir import codegen as _codegen_ocaml
-from _tbnf.backends_csharp_antlr import codegen as _codegen_csharp
+from _tbnf.src.backends_common import CodeGenOptions
+from _tbnf.src.grammar import definition
+from _tbnf.src.backends_python_lark import codegen as codegen_py
+from _tbnf.src.backends_ocaml_menhir import codegen as _codegen_ocaml
+from _tbnf.src.backends_csharp_antlr import codegen as _codegen_csharp
 from tbnf.grammar_parser import parser
 from tbnf.basic import set_filename
 from wisepy2 import wise

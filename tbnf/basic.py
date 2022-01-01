@@ -1,5 +1,5 @@
 from lark import Token
-from _tbnf.apis import MK_position
+from _tbnf.src.apis import MK_position
 _FILENAME = ""
 
 def set_filename(filename: str):

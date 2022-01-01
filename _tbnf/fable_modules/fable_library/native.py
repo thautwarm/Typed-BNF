@@ -1,8 +1,16 @@
-from typing import (Any, TypeVar, List)
+from __future__ import annotations
+from abc import abstractmethod
+from typing import (TypeVar, List, Generic, Any)
 
 T = TypeVar("T")
 
-def Helpers_allocateArrayFromCons(cons: Any, len_1: int) -> List[T]:
+class Cons_1(Generic[T]):
+    @abstractmethod
+    def Allocate(self, len: int) -> List[T]:
+        ...
+    
+
+def Helpers_allocateArrayFromCons(cons: Cons_1[T], len_1: int) -> List[T]:
     if cons is None:
         return (list)([None]*len_1)
     

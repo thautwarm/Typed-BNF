@@ -1,12 +1,12 @@
-from array import array as array_2
+from __future__ import annotations
 import builtins
 import functools
 import math
-from typing import (Any, TypeVar, List, Callable, Optional, Tuple)
-from .global_ import SR_indexOutOfBounds
-from .native import (Helpers_allocateArrayFromCons, Helpers_fillImpl, Helpers_indexOfImpl, Helpers_spliceImpl)
+from typing import (Any, TypeVar, List, Callable, Optional, Tuple, Iterable, MutableSequence)
+from .global_ import (SR_indexOutOfBounds, IGenericAdder_1, IGenericAverager_1)
+from .native import (Cons_1, Helpers_allocateArrayFromCons, Helpers_fillImpl, Helpers_indexOfImpl, Helpers_spliceImpl)
 from .option import (some, default_arg, value as value_1)
-from .util import (max as max_1, compare_primitives, ignore, get_enumerator, equals as equals_1, min as min_1)
+from .util import (max as max_1, compare_primitives, IEqualityComparer, ignore, get_enumerator, equals as equals_1, min as min_1)
 
 T = TypeVar("T")
 
@@ -40,7 +40,7 @@ def different_lengths() -> Any:
     raise Exception("Arrays had different lengths")
 
 
-def append(array1: List[T], array2: List[T], cons: Any) -> List[T]:
+def append(array1: List[T], array2: List[T], cons: Cons_1[T]) -> List[T]:
     len1 : int = len(array1) or 0
     len2 : int = len(array2) or 0
     new_array : List[T] = Helpers_allocateArrayFromCons(cons, len1 + len2)
@@ -79,7 +79,7 @@ def try_last(array: List[T]) -> Optional[T]:
     
 
 
-def map_indexed(f: Callable[[int, T], U], source: List[T], cons: Any) -> List[U]:
+def map_indexed(f: Callable[[int, T], U], source: List[T], cons: Cons_1[U]) -> List[U]:
     len_1 : int = len(source) or 0
     target : List[U] = Helpers_allocateArrayFromCons(cons, len_1)
     for i in range(0, (len_1 - 1) + 1, 1):
@@ -87,7 +87,7 @@ def map_indexed(f: Callable[[int, T], U], source: List[T], cons: Any) -> List[U]
     return target
 
 
-def map(f: Callable[[T], U], source: List[T], cons: Any) -> List[U]:
+def map(f: Callable[[T], U], source: List[T], cons: Cons_1[U]) -> List[U]:
     len_1 : int = len(source) or 0
     target : List[U] = Helpers_allocateArrayFromCons(cons, len_1)
     for i in range(0, (len_1 - 1) + 1, 1):
@@ -95,7 +95,7 @@ def map(f: Callable[[T], U], source: List[T], cons: Any) -> List[U]:
     return target
 
 
-def map_indexed2(f: Callable[[int, T1, T2], U], source1: List[T1], source2: List[T2], cons: Any) -> List[U]:
+def map_indexed2(f: Callable[[int, T1, T2], U], source1: List[T1], source2: List[T2], cons: Cons_1[U]) -> List[U]:
     if len(source1) != len(source2):
         raise Exception("Arrays had different lengths")
     
@@ -105,7 +105,7 @@ def map_indexed2(f: Callable[[int, T1, T2], U], source1: List[T1], source2: List
     return result
 
 
-def map2(f: Callable[[T1, T2], U], source1: List[T1], source2: List[T2], cons: Any) -> List[U]:
+def map2(f: Callable[[T1, T2], U], source1: List[T1], source2: List[T2], cons: Cons_1[U]) -> List[U]:
     if len(source1) != len(source2):
         raise Exception("Arrays had different lengths")
     
@@ -115,7 +115,7 @@ def map2(f: Callable[[T1, T2], U], source1: List[T1], source2: List[T2], cons: A
     return result
 
 
-def map_indexed3(f: Callable[[int, T1, T2, T3], U], source1: List[T1], source2: List[T2], source3: List[T3], cons: Any) -> List[U]:
+def map_indexed3(f: Callable[[int, T1, T2, T3], U], source1: List[T1], source2: List[T2], source3: List[T3], cons: Cons_1[U]) -> List[U]:
     if True if (len(source1) != len(source2)) else (len(source2) != len(source3)):
         raise Exception("Arrays had different lengths")
     
@@ -125,7 +125,7 @@ def map_indexed3(f: Callable[[int, T1, T2, T3], U], source1: List[T1], source2: 
     return result
 
 
-def map3(f: Callable[[T1, T2, T3], U], source1: List[T1], source2: List[T2], source3: List[T3], cons: Any) -> List[U]:
+def map3(f: Callable[[T1, T2, T3], U], source1: List[T1], source2: List[T2], source3: List[T3], cons: Cons_1[U]) -> List[U]:
     if True if (len(source1) != len(source2)) else (len(source2) != len(source3)):
         raise Exception("Arrays had different lengths")
     
@@ -135,7 +135,7 @@ def map3(f: Callable[[T1, T2, T3], U], source1: List[T1], source2: List[T2], sou
     return result
 
 
-def map_fold(mapping: Callable[[State, T], Tuple[Result, State]], state: State, array: List[T], cons: Any) -> Tuple[List[Result], State]:
+def map_fold(mapping: Callable[[State, T], Tuple[Result, State]], state: State, array: List[T], cons: Cons_1[Result]) -> Tuple[List[Result], State]:
     match_value : int = len(array) or 0
     if match_value == 0:
         return ([], state)
@@ -151,7 +151,7 @@ def map_fold(mapping: Callable[[State, T], Tuple[Result, State]], state: State, 
     
 
 
-def map_fold_back(mapping: Callable[[T, State], Tuple[Result, State]], array: List[T], state: State, cons: Any) -> Tuple[List[Result], State]:
+def map_fold_back(mapping: Callable[[T, State], Tuple[Result, State]], array: List[T], state: State, cons: Cons_1[Result]) -> Tuple[List[Result], State]:
     match_value : int = len(array) or 0
     if match_value == 0:
         return ([], state)
@@ -180,7 +180,7 @@ def truncate(count: int, array: List[T]) -> List[T]:
     return array[0:0+count_1]
 
 
-def concat(arrays: Any, cons: Any) -> List[T]:
+def concat(arrays: Iterable[List[T]], cons: Cons_1[T]) -> List[T]:
     arrays_1 : List[List[T]] = arrays if (isinstance(arrays, list)) else (list(arrays))
     match_value : int = len(arrays_1) or 0
     if match_value == 0:
@@ -205,7 +205,7 @@ def concat(arrays: Any, cons: Any) -> List[T]:
     
 
 
-def collect(mapping: Callable[[T], List[U]], array: List[T], cons: Any) -> List[U]:
+def collect(mapping: Callable[[T], List[U]], array: List[T], cons: Cons_1[U]) -> List[U]:
     return concat(map(mapping, array, None), cons)
 
 
@@ -213,8 +213,8 @@ def where(predicate: Callable[[a_], bool], array: List[a_]) -> List[a_]:
     return list(builtins.filter(predicate, array))
 
 
-def contains(value: T, array: List[T], eq: Any) -> bool:
-    def loop(i_mut: int, value=value, array=array, eq=eq) -> bool:
+def contains(value: T, array: List[T], eq: IEqualityComparer[Any]) -> bool:
+    def loop(i_mut: int, value: T=value, array: List[T]=array, eq: IEqualityComparer[Any]=eq) -> bool:
         while True:
             (i,) = (i_mut,)
             if i >= len(array):
@@ -232,17 +232,17 @@ def contains(value: T, array: List[T], eq: Any) -> bool:
     return loop(0)
 
 
-def empty(cons: Any) -> List[a_]:
+def empty(cons: Cons_1[a_]) -> List[a_]:
     return Helpers_allocateArrayFromCons(cons, 0)
 
 
-def singleton(value: T, cons: Any) -> List[T]:
+def singleton(value: T, cons: Cons_1[T]) -> List[T]:
     ar : List[T] = Helpers_allocateArrayFromCons(cons, 1)
     ar[0] = value
     return ar
 
 
-def initialize(count: int, initializer: Callable[[int], T], cons: Any) -> List[T]:
+def initialize(count: int, initializer: Callable[[int], T], cons: Cons_1[T]) -> List[T]:
     if count < 0:
         raise Exception("The input must be non-negative\\nParameter name: count")
     
@@ -265,7 +265,7 @@ def pairwise(array: List[T]) -> List[Tuple[T, T]]:
     
 
 
-def replicate(count: int, initial: T, cons: Any) -> List[T]:
+def replicate(count: int, initial: T, cons: Cons_1[T]) -> List[T]:
     if count < 0:
         raise Exception("The input must be non-negative\\nParameter name: count")
     
@@ -284,7 +284,7 @@ def reverse(array: List[T]) -> List[T]:
     return array_1[::-1]
 
 
-def scan(folder: Callable[[State, T], State], state: State, array: List[T], cons: Any) -> List[State]:
+def scan(folder: Callable[[State, T], State], state: State, array: List[T], cons: Cons_1[State]) -> List[State]:
     res : List[State] = Helpers_allocateArrayFromCons(cons, len(array) + 1)
     res[0] = state
     for i in range(0, (len(array) - 1) + 1, 1):
@@ -292,7 +292,7 @@ def scan(folder: Callable[[State, T], State], state: State, array: List[T], cons
     return res
 
 
-def scan_back(folder: Callable[[T, State], State], array: List[T], state: State, cons: Any) -> List[State]:
+def scan_back(folder: Callable[[T, State], State], array: List[T], state: State, cons: Cons_1[State]) -> List[State]:
     res : List[State] = Helpers_allocateArrayFromCons(cons, len(array) + 1)
     res[len(array)] = state
     for i in range(len(array) - 1, 0 - 1, -1):
@@ -300,7 +300,7 @@ def scan_back(folder: Callable[[T, State], State], array: List[T], state: State,
     return res
 
 
-def skip(count: int, array: List[T], cons: Any) -> List[T]:
+def skip(count: int, array: List[T], cons: Cons_1[T]) -> List[T]:
     if count > len(array):
         raise Exception("count is greater than array length\\nParameter name: count")
     
@@ -313,7 +313,7 @@ def skip(count: int, array: List[T], cons: Any) -> List[T]:
     
 
 
-def skip_while(predicate: Callable[[T], bool], array: List[T], cons: Any) -> List[T]:
+def skip_while(predicate: Callable[[T], bool], array: List[T], cons: Cons_1[T]) -> List[T]:
     count : int = 0
     while predicate(array[count]) if (count < len(array)) else (False):
         count = (count + 1) or 0
@@ -325,7 +325,7 @@ def skip_while(predicate: Callable[[T], bool], array: List[T], cons: Any) -> Lis
     
 
 
-def take(count: int, array: List[T], cons: Any) -> List[T]:
+def take(count: int, array: List[T], cons: Cons_1[T]) -> List[T]:
     if count < 0:
         raise Exception("The input must be non-negative\\nParameter name: count")
     
@@ -340,7 +340,7 @@ def take(count: int, array: List[T], cons: Any) -> List[T]:
     
 
 
-def take_while(predicate: Callable[[T], bool], array: List[T], cons: Any) -> List[T]:
+def take_while(predicate: Callable[[T], bool], array: List[T], cons: Cons_1[T]) -> List[T]:
     count : int = 0
     while predicate(array[count]) if (count < len(array)) else (False):
         count = (count + 1) or 0
@@ -356,22 +356,22 @@ def add_in_place(x: T, array: List[T]) -> None:
     ignore(array.append(x))
 
 
-def add_range_in_place(range: Any, array: List[T]) -> None:
+def add_range_in_place(range: Iterable[T], array: List[T]) -> None:
     with get_enumerator(range) as enumerator:
         while enumerator.System_Collections_IEnumerator_MoveNext():
             add_in_place(enumerator.System_Collections_Generic_IEnumerator_00601_get_Current(), array)
 
 
-def insert_range_in_place(index: int, range: Any, array: List[T]) -> None:
+def insert_range_in_place(index: int, range: Iterable[T], array: List[T]) -> None:
     i : int = index or 0
     with get_enumerator(range) as enumerator:
         while enumerator.System_Collections_IEnumerator_MoveNext():
             x : T = enumerator.System_Collections_Generic_IEnumerator_00601_get_Current()
-            def arrow_53(index=index, range=range, array=array) -> List[T]:
+            def arrow_71(index: int=index, range: Iterable[T]=range, array: List[T]=array) -> List[T]:
                 index_1 : int = i or 0
                 return array.insert(index_1, x)
             
-            ignore(arrow_53())
+            ignore(arrow_71())
             i = (i + 1) or 0
 
 
@@ -387,7 +387,7 @@ def remove_in_place(item_1: T, array: List[T]) -> bool:
 
 
 def remove_all_in_place(predicate: Callable[[T], bool], array: List[T]) -> int:
-    def count_remove_all(count: int, predicate=predicate, array=array) -> int:
+    def count_remove_all(count: int, predicate: Callable[[T], bool]=predicate, array: List[T]=array) -> int:
         i : int = (next((i for i, x in enumerate(array) if (predicate)(x)), -1)) or 0
         if i > -1:
             ignore(Helpers_spliceImpl(array, i, 1))
@@ -426,7 +426,7 @@ def index_of(array: List[T], item_1: T, start: Optional[int]=None, count: Option
     
 
 
-def partition(f: Callable[[T], bool], source: List[T], cons: Any) -> Tuple[List[T], List[T]]:
+def partition(f: Callable[[T], bool], source: List[T], cons: Cons_1[T]) -> Tuple[List[T], List[T]]:
     len_1 : int = len(source) or 0
     res1 : List[T] = Helpers_allocateArrayFromCons(cons, len_1)
     res2 : List[T] = Helpers_allocateArrayFromCons(cons, len_1)
@@ -479,7 +479,7 @@ def try_find_index(predicate: Callable[[T], bool], array: List[T]) -> Optional[i
 
 
 def pick(chooser: Callable[[a_], Optional[b_]], array: List[a_]) -> b_:
-    def loop(i_mut: int, chooser=chooser, array=array) -> Any:
+    def loop(i_mut: int, chooser: Callable[[a_], Optional[b_]]=chooser, array: List[a_]=array) -> Any:
         while True:
             (i,) = (i_mut,)
             if i >= len(array):
@@ -501,7 +501,7 @@ def pick(chooser: Callable[[a_], Optional[b_]], array: List[a_]) -> b_:
 
 
 def try_pick(chooser: Callable[[a_], Optional[b_]], array: List[a_]) -> Optional[b_]:
-    def loop(i_mut: int, chooser=chooser, array=array) -> Optional[b_]:
+    def loop(i_mut: int, chooser: Callable[[a_], Optional[b_]]=chooser, array: List[a_]=array) -> Optional[b_]:
         while True:
             (i,) = (i_mut,)
             if i >= len(array):
@@ -523,7 +523,7 @@ def try_pick(chooser: Callable[[a_], Optional[b_]], array: List[a_]) -> Optional
 
 
 def find_back(predicate: Callable[[a_], bool], array: List[a_]) -> a_:
-    def loop(i_mut: int, predicate=predicate, array=array) -> Any:
+    def loop(i_mut: int, predicate: Callable[[a_], bool]=predicate, array: List[a_]=array) -> Any:
         while True:
             (i,) = (i_mut,)
             if i < 0:
@@ -542,7 +542,7 @@ def find_back(predicate: Callable[[a_], bool], array: List[a_]) -> a_:
 
 
 def try_find_back(predicate: Callable[[a_], bool], array: List[a_]) -> Optional[a_]:
-    def loop(i_mut: int, predicate=predicate, array=array) -> Optional[a_]:
+    def loop(i_mut: int, predicate: Callable[[a_], bool]=predicate, array: List[a_]=array) -> Optional[a_]:
         while True:
             (i,) = (i_mut,)
             if i < 0:
@@ -561,7 +561,7 @@ def try_find_back(predicate: Callable[[a_], bool], array: List[a_]) -> Optional[
 
 
 def find_last_index(predicate: Callable[[a_], bool], array: List[a_]) -> int:
-    def loop(i_mut: int, predicate=predicate, array=array) -> int:
+    def loop(i_mut: int, predicate: Callable[[a_], bool]=predicate, array: List[a_]=array) -> int:
         while True:
             (i,) = (i_mut,)
             if i < 0:
@@ -580,7 +580,7 @@ def find_last_index(predicate: Callable[[a_], bool], array: List[a_]) -> int:
 
 
 def find_index_back(predicate: Callable[[a_], bool], array: List[a_]) -> int:
-    def loop(i_mut: int, predicate=predicate, array=array) -> int:
+    def loop(i_mut: int, predicate: Callable[[a_], bool]=predicate, array: List[a_]=array) -> int:
         while True:
             (i,) = (i_mut,)
             if i < 0:
@@ -599,7 +599,7 @@ def find_index_back(predicate: Callable[[a_], bool], array: List[a_]) -> int:
 
 
 def try_find_index_back(predicate: Callable[[a_], bool], array: List[a_]) -> Optional[int]:
-    def loop(i_mut: int, predicate=predicate, array=array) -> Optional[int]:
+    def loop(i_mut: int, predicate: Callable[[a_], bool]=predicate, array: List[a_]=array) -> Optional[int]:
         while True:
             (i,) = (i_mut,)
             if i < 0:
@@ -617,7 +617,7 @@ def try_find_index_back(predicate: Callable[[a_], bool], array: List[a_]) -> Opt
     return loop(len(array) - 1)
 
 
-def choose(chooser: Callable[[T], Optional[U]], array: List[T], cons: Any) -> List[U]:
+def choose(chooser: Callable[[T], Optional[U]], array: List[T], cons: Cons_1[U]) -> List[U]:
     res : List[U] = []
     for i in range(0, (len(array) - 1) + 1, 1):
         match_value : Optional[U] = chooser(array[i])
@@ -677,8 +677,8 @@ def for_all(predicate: Callable[[T], bool], array: List[T]) -> bool:
 def permute(f: Callable[[int], int], array: List[T]) -> List[T]:
     size : int = len(array) or 0
     res : List[T] = array[:]
-    check_flags : array_2 = [None]*size
-    def arrow_62(i: int, x: Any=None, f=f, array=array) -> None:
+    check_flags : MutableSequence[int] = [None]*size
+    def arrow_84(i: int, x: Any=None, f: Callable[[int], int]=f, array: List[T]=array) -> None:
         j : int = f(i) or 0
         if True if (j < 0) else (j >= size):
             raise Exception("Not a valid permutation")
@@ -686,7 +686,7 @@ def permute(f: Callable[[int], int], array: List[T]) -> List[T]:
         res[j] = x
         check_flags[j] = 1
     
-    iterate_indexed(arrow_62, array)
+    iterate_indexed(arrow_84, array)
     if not (all([(lambda y, f=f, array=array: 1 == y)(x) for x in check_flags])):
         raise Exception("Not a valid permutation")
     
@@ -701,58 +701,58 @@ def set_slice(target: List[T], lower: Optional[int], upper: Optional[int], sourc
         target[i + lower_1] = source[i]
 
 
-def sort_in_place_by(projection: Callable[[a], b], xs: List[a], comparer: Any) -> None:
+def sort_in_place_by(projection: Callable[[a], b], xs: List[a], comparer: IComparer_1[b]) -> None:
     xs.sort()
 
 
-def sort_in_place(xs: List[T], comparer: Any) -> None:
+def sort_in_place(xs: List[T], comparer: IComparer_1[T]) -> None:
     xs.sort()
 
 
-def sort(xs: List[T], comparer: Any) -> List[T]:
+def sort(xs: List[T], comparer: IComparer_1[T]) -> List[T]:
     xs_1 : List[T] = xs[:]
-    def expr_65():
+    def expr_86():
         xs_1.sort()
         return xs_1
     
-    return expr_65()
+    return expr_86()
 
 
-def sort_by(projection: Callable[[a], b], xs: List[a], comparer: Any) -> List[a]:
+def sort_by(projection: Callable[[a], b], xs: List[a], comparer: IComparer_1[b]) -> List[a]:
     xs_1 : List[a] = xs[:]
-    def expr_66():
+    def expr_87():
         xs_1.sort()
         return xs_1
     
-    return expr_66()
+    return expr_87()
 
 
-def sort_descending(xs: List[T], comparer: Any) -> List[T]:
+def sort_descending(xs: List[T], comparer: IComparer_1[T]) -> List[T]:
     xs_1 : List[T] = xs[:]
-    def expr_67():
+    def expr_88():
         xs_1.sort()
         return xs_1
     
-    return expr_67()
+    return expr_88()
 
 
-def sort_by_descending(projection: Callable[[a], b], xs: List[a], comparer: Any) -> List[a]:
+def sort_by_descending(projection: Callable[[a], b], xs: List[a], comparer: IComparer_1[b]) -> List[a]:
     xs_1 : List[a] = xs[:]
-    def expr_68():
+    def expr_89():
         xs_1.sort()
         return xs_1
     
-    return expr_68()
+    return expr_89()
 
 
 def sort_with(comparer: Callable[[T, T], int], xs: List[T]) -> List[T]:
     comparer_1 : Callable[[T, T], int] = comparer
     xs_1 : List[T] = xs[:]
-    def expr_69():
+    def expr_90():
         xs_1.sort()
         return xs_1
     
-    return expr_69()
+    return expr_90()
 
 
 def all_pairs(xs: List[T1], ys: List[T2]) -> List[Tuple[T1, T2]]:
@@ -767,7 +767,7 @@ def all_pairs(xs: List[T1], ys: List[T2]) -> List[Tuple[T1, T2]]:
 
 def unfold(generator: Callable[[State], Optional[Tuple[T, State]]], state: State=None) -> List[T]:
     res : List[T] = []
-    def loop(state_1_mut: Any=None, generator=generator, state=state) -> None:
+    def loop(state_1_mut: Any=None, generator: Callable[[State], Optional[Tuple[T, State]]]=generator, state: State=state) -> None:
         while True:
             (state_1,) = (state_1_mut,)
             match_value : Optional[Tuple[T, State]] = generator(state_1)
@@ -787,11 +787,11 @@ def unzip(array: List[Tuple[a_, b_]]) -> Tuple[List[a_], List[b_]]:
     len_1 : int = len(array) or 0
     res1 : List[a_] = [None]*len_1
     res2 : List[b_] = [None]*len_1
-    def arrow_70(i: int, tupled_arg: Tuple[a_, b_], array=array) -> None:
+    def arrow_91(i: int, tupled_arg: Tuple[a_, b_], array: List[Tuple[a_, b_]]=array) -> None:
         res1[i] = tupled_arg[0]
         res2[i] = tupled_arg[1]
     
-    iterate_indexed(arrow_70, array)
+    iterate_indexed(arrow_91, array)
     return (res1, res2)
 
 
@@ -800,12 +800,12 @@ def unzip3(array: List[Tuple[a_, b_, c_]]) -> Tuple[List[a_], List[b_], List[c_]
     res1 : List[a_] = [None]*len_1
     res2 : List[b_] = [None]*len_1
     res3 : List[c_] = [None]*len_1
-    def arrow_71(i: int, tupled_arg: Tuple[a_, b_, c_], array=array) -> None:
+    def arrow_92(i: int, tupled_arg: Tuple[a_, b_, c_], array: List[Tuple[a_, b_, c_]]=array) -> None:
         res1[i] = tupled_arg[0]
         res2[i] = tupled_arg[1]
         res3[i] = tupled_arg[2]
     
-    iterate_indexed(arrow_71, array)
+    iterate_indexed(arrow_92, array)
     return (res1, res2, res3)
 
 
@@ -1078,37 +1078,37 @@ def exists2(predicate: Callable[[a_, b_], bool], array1: List[a_], array2: List[
     return exists_offset2(predicate, array1, array2, 0)
 
 
-def sum(array: List[T], adder: Any) -> T:
+def sum(array: List[T], adder: IGenericAdder_1[T]) -> T:
     acc : T = adder.GetZero()
     for i in range(0, (len(array) - 1) + 1, 1):
         acc = adder.Add(acc, array[i])
     return acc
 
 
-def sum_by(projection: Callable[[T], T2], array: List[T], adder: Any) -> T2:
+def sum_by(projection: Callable[[T], T2], array: List[T], adder: IGenericAdder_1[T2]) -> T2:
     acc : T2 = adder.GetZero()
     for i in range(0, (len(array) - 1) + 1, 1):
         acc = adder.Add(acc, projection(array[i]))
     return acc
 
 
-def max_by(projection: Callable[[a], b], xs: List[a], comparer: Any) -> a:
+def max_by(projection: Callable[[a], b], xs: List[a], comparer: IComparer_1[b]) -> a:
     return reduce(lambda x, y=None, projection=projection, xs=xs, comparer=comparer: y if (comparer.Compare(projection(y), projection(x)) > 0) else (x), xs)
 
 
-def max(xs: List[a], comparer: Any) -> a:
+def max(xs: List[a], comparer: IComparer_1[a]) -> a:
     return reduce(lambda x, y=None, xs=xs, comparer=comparer: y if (comparer.Compare(y, x) > 0) else (x), xs)
 
 
-def min_by(projection: Callable[[a], b], xs: List[a], comparer: Any) -> a:
+def min_by(projection: Callable[[a], b], xs: List[a], comparer: IComparer_1[b]) -> a:
     return reduce(lambda x, y=None, projection=projection, xs=xs, comparer=comparer: x if (comparer.Compare(projection(y), projection(x)) > 0) else (y), xs)
 
 
-def min(xs: List[a], comparer: Any) -> a:
+def min(xs: List[a], comparer: IComparer_1[a]) -> a:
     return reduce(lambda x, y=None, xs=xs, comparer=comparer: x if (comparer.Compare(y, x) > 0) else (y), xs)
 
 
-def average(array: List[T], averager: Any) -> T:
+def average(array: List[T], averager: IGenericAverager_1[T]) -> T:
     if len(array) == 0:
         raise Exception("The input array was empty\\nParameter name: array")
     
@@ -1118,7 +1118,7 @@ def average(array: List[T], averager: Any) -> T:
     return averager.DivideByInt(total, len(array))
 
 
-def average_by(projection: Callable[[T], T2], array: List[T], averager: Any) -> T2:
+def average_by(projection: Callable[[T], T2], array: List[T], averager: IGenericAverager_1[T2]) -> T2:
     if len(array) == 0:
         raise Exception("The input array was empty\\nParameter name: array")
     
@@ -1160,7 +1160,7 @@ def split_into(chunks: int, array: List[T]) -> List[List[T]]:
     
 
 
-def transpose(arrays: Any, cons: Any) -> List[List[T]]:
+def transpose(arrays: Iterable[List[T]], cons: Cons_1[T]) -> List[List[T]]:
     arrays_1 : List[List[T]] = arrays if (isinstance(arrays, list)) else (list(arrays))
     len_1 : int = len(arrays_1) or 0
     if len_1 == 0:
@@ -1194,7 +1194,7 @@ def insert_at(index: int, y: T, xs: List[T]) -> List[T]:
     return target
 
 
-def insert_many_at(index: int, ys: Any, xs: List[T]) -> List[T]:
+def insert_many_at(index: int, ys: Iterable[T], xs: List[T]) -> List[T]:
     len_1 : int = len(xs) or 0
     if True if (index < 0) else (index > len_1):
         raise Exception((SR_indexOutOfBounds + "\\nParameter name: ") + "index")
@@ -1216,7 +1216,7 @@ def remove_at(index: int, xs: List[T]) -> List[T]:
         raise Exception((SR_indexOutOfBounds + "\\nParameter name: ") + "index")
     
     i : int = -1
-    def predicate(_arg1: Any=None, index=index, xs=xs) -> bool:
+    def predicate(_arg1: Any=None, index: int=index, xs: List[T]=xs) -> bool:
         nonlocal i
         i = (i + 1) or 0
         return i != index
@@ -1227,7 +1227,7 @@ def remove_at(index: int, xs: List[T]) -> List[T]:
 def remove_many_at(index: int, count: int, xs: List[T]) -> List[T]:
     i : int = -1
     status : int = -1
-    def predicate(_arg1: Any=None, index=index, count=count, xs=xs) -> bool:
+    def predicate(_arg1: Any=None, index: int=index, count: int=count, xs: List[T]=xs) -> bool:
         nonlocal i, status
         i = (i + 1) or 0
         if i == index:

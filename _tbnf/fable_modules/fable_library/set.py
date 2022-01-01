@@ -1,6 +1,6 @@
 from __future__ import annotations
 import math
-from typing import (Any, Generic, TypeVar, Optional, Tuple, Callable, List)
+from typing import (Any, Generic, TypeVar, Optional, Tuple, Callable, Iterator, List, Iterable)
 from .array import (fill, fold as fold_1)
 from .list import (FSharpList, is_empty as is_empty_1, head, tail, of_array_with_tail, empty as empty_1, singleton as singleton_1, cons, fold as fold_2)
 from .mutable_set import (HashSet, HashSet__ctor_Z6150332D, HashSet__get_Comparer)
@@ -27,7 +27,7 @@ U = TypeVar("U")
 
 State = TypeVar("State")
 
-def expr_150(gen0) -> TypeInfo:
+def expr_150(gen0: TypeInfo) -> TypeInfo:
     return class_type("Set.SetTreeLeaf`1", [gen0], SetTreeLeaf_1)
 
 
@@ -38,7 +38,7 @@ class SetTreeLeaf_1(Generic[T]):
 
 SetTreeLeaf_1_reflection = expr_150
 
-def SetTreeLeaf_1__ctor_2B595(k: Any=None) -> SetTreeLeaf_1[T]:
+def SetTreeLeaf_1__ctor_2B595(k: Any=None) -> SetTreeLeaf_1[Any]:
     return SetTreeLeaf_1(k)
 
 
@@ -46,7 +46,7 @@ def SetTreeLeaf_1__get_Key(_: SetTreeLeaf_1[T]) -> T:
     return _.k
 
 
-def expr_151(gen0) -> TypeInfo:
+def expr_151(gen0: TypeInfo) -> TypeInfo:
     return class_type("Set.SetTreeNode`1", [gen0], SetTreeNode_1, SetTreeLeaf_1_reflection(gen0))
 
 
@@ -60,7 +60,7 @@ class SetTreeNode_1(SetTreeLeaf_1, Generic[T_1]):
 
 SetTreeNode_1_reflection = expr_151
 
-def SetTreeNode_1__ctor_5F465FC9(v: T, left: Optional[SetTreeLeaf_1[T]], right: Optional[SetTreeLeaf_1[T]], h: int) -> SetTreeNode_1[T]:
+def SetTreeNode_1__ctor_5F465FC9(v: T, left: Optional[SetTreeLeaf_1[T]], right: Optional[SetTreeLeaf_1[T]], h: int) -> SetTreeNode_1[Any]:
     return SetTreeNode_1(v, left, right, h)
 
 
@@ -107,14 +107,14 @@ def SetTreeModule_count(s: Optional[SetTreeLeaf_1[a_]]=None) -> int:
 def SetTreeModule_mk(l: Optional[SetTreeLeaf_1[T]], k: T, r: Optional[SetTreeLeaf_1[T]]=None) -> Optional[SetTreeLeaf_1[T]]:
     hl = None
     t : Optional[SetTreeLeaf_1[T]] = l
-    def arrow_152(l=l, k=k, r=r) -> int:
+    def arrow_152(l: Optional[SetTreeLeaf_1[T]]=l, k: T=k, r: Optional[SetTreeLeaf_1[T]]=r) -> int:
         t2 : SetTreeLeaf_1[T] = t
         return SetTreeNode_1__get_Height(t2) if (isinstance(t2, SetTreeNode_1)) else (1)
     
     hl = arrow_152() if (t is not None) else (0)
     hr = None
     t_1 : Optional[SetTreeLeaf_1[T]] = r
-    def arrow_153(l=l, k=k, r=r) -> int:
+    def arrow_153(l: Optional[SetTreeLeaf_1[T]]=l, k: T=k, r: Optional[SetTreeLeaf_1[T]]=r) -> int:
         t2_1 : SetTreeLeaf_1[T] = t_1
         return SetTreeNode_1__get_Height(t2_1) if (isinstance(t2_1, SetTreeNode_1)) else (1)
     
@@ -131,14 +131,14 @@ def SetTreeModule_mk(l: Optional[SetTreeLeaf_1[T]], k: T, r: Optional[SetTreeLea
 def SetTreeModule_rebalance(t1: Optional[SetTreeLeaf_1[T]], v: T, t2: Optional[SetTreeLeaf_1[T]]=None) -> Optional[SetTreeLeaf_1[T]]:
     t1h = None
     t : Optional[SetTreeLeaf_1[T]] = t1
-    def arrow_154(t1=t1, v=v, t2=t2) -> int:
+    def arrow_154(t1: Optional[SetTreeLeaf_1[T]]=t1, v: T=v, t2: Optional[SetTreeLeaf_1[T]]=t2) -> int:
         t2_1 : SetTreeLeaf_1[T] = t
         return SetTreeNode_1__get_Height(t2_1) if (isinstance(t2_1, SetTreeNode_1)) else (1)
     
     t1h = arrow_154() if (t is not None) else (0)
     t2h = None
     t_1 : Optional[SetTreeLeaf_1[T]] = t2
-    def arrow_155(t1=t1, v=v, t2=t2) -> int:
+    def arrow_155(t1: Optional[SetTreeLeaf_1[T]]=t1, v: T=v, t2: Optional[SetTreeLeaf_1[T]]=t2) -> int:
         t2_2 : SetTreeLeaf_1[T] = t_1
         return SetTreeNode_1__get_Height(t2_2) if (isinstance(t2_2, SetTreeNode_1)) else (1)
     
@@ -146,7 +146,7 @@ def SetTreeModule_rebalance(t1: Optional[SetTreeLeaf_1[T]], v: T, t2: Optional[S
     if t2h > (t1h + 2):
         match_value : SetTreeLeaf_1[T] = value_1(t2)
         if isinstance(match_value, SetTreeNode_1):
-            def arrow_157(t1=t1, v=v, t2=t2) -> int:
+            def arrow_157(t1: Optional[SetTreeLeaf_1[T]]=t1, v: T=v, t2: Optional[SetTreeLeaf_1[T]]=t2) -> int:
                 t_2 : Optional[SetTreeLeaf_1[T]] = SetTreeNode_1__get_Left(match_value)
                 def arrow_156(_unit=None) -> int:
                     t2_3 : SetTreeLeaf_1[T] = t_2
@@ -174,7 +174,7 @@ def SetTreeModule_rebalance(t1: Optional[SetTreeLeaf_1[T]], v: T, t2: Optional[S
     elif t1h > (t2h + 2):
         match_value_2 : SetTreeLeaf_1[T] = value_1(t1)
         if isinstance(match_value_2, SetTreeNode_1):
-            def arrow_159(t1=t1, v=v, t2=t2) -> int:
+            def arrow_159(t1: Optional[SetTreeLeaf_1[T]]=t1, v: T=v, t2: Optional[SetTreeLeaf_1[T]]=t2) -> int:
                 t_3 : Optional[SetTreeLeaf_1[T]] = SetTreeNode_1__get_Right(match_value_2)
                 def arrow_158(_unit=None) -> int:
                     t2_4 : SetTreeLeaf_1[T] = t_3
@@ -204,7 +204,7 @@ def SetTreeModule_rebalance(t1: Optional[SetTreeLeaf_1[T]], v: T, t2: Optional[S
     
 
 
-def SetTreeModule_add(comparer: Any, k: T, t: Optional[SetTreeLeaf_1[T]]=None) -> Optional[SetTreeLeaf_1[T]]:
+def SetTreeModule_add(comparer: IComparer_1[T], k: T, t: Optional[SetTreeLeaf_1[T]]=None) -> Optional[SetTreeLeaf_1[T]]:
     if t is not None:
         t2 : SetTreeLeaf_1[T] = t
         c : int = comparer.Compare(k, SetTreeLeaf_1__get_Key(t2)) or 0
@@ -237,7 +237,7 @@ def SetTreeModule_add(comparer: Any, k: T, t: Optional[SetTreeLeaf_1[T]]=None) -
     
 
 
-def SetTreeModule_balance(comparer: Any, t1: Optional[SetTreeLeaf_1[T]], k: T, t2: Optional[SetTreeLeaf_1[T]]=None) -> Optional[SetTreeLeaf_1[T]]:
+def SetTreeModule_balance(comparer: IComparer_1[T], t1: Optional[SetTreeLeaf_1[T]], k: T, t2: Optional[SetTreeLeaf_1[T]]=None) -> Optional[SetTreeLeaf_1[T]]:
     if t1 is not None:
         t1_0027 : SetTreeLeaf_1[T] = t1
         if t2 is not None:
@@ -271,7 +271,7 @@ def SetTreeModule_balance(comparer: Any, t1: Optional[SetTreeLeaf_1[T]], k: T, t
     
 
 
-def SetTreeModule_split(comparer: Any, pivot: T, t: Optional[SetTreeLeaf_1[T]]=None) -> Tuple[Optional[SetTreeLeaf_1[T]], bool, Optional[SetTreeLeaf_1[T]]]:
+def SetTreeModule_split(comparer: IComparer_1[T], pivot: T, t: Optional[SetTreeLeaf_1[T]]=None) -> Tuple[Optional[SetTreeLeaf_1[T]], bool, Optional[SetTreeLeaf_1[T]]]:
     if t is not None:
         t2 : SetTreeLeaf_1[T] = t
         if isinstance(t2, SetTreeNode_1):
@@ -327,7 +327,7 @@ def SetTreeModule_spliceOutSuccessor(t: Optional[SetTreeLeaf_1[T]]=None) -> Tupl
     
 
 
-def SetTreeModule_remove(comparer: Any, k: T, t: Optional[SetTreeLeaf_1[T]]=None) -> Optional[SetTreeLeaf_1[T]]:
+def SetTreeModule_remove(comparer: IComparer_1[T], k: T, t: Optional[SetTreeLeaf_1[T]]=None) -> Optional[SetTreeLeaf_1[T]]:
     if t is not None:
         t2 : SetTreeLeaf_1[T] = t
         c : int = comparer.Compare(k, SetTreeLeaf_1__get_Key(t2)) or 0
@@ -363,7 +363,7 @@ def SetTreeModule_remove(comparer: Any, k: T, t: Optional[SetTreeLeaf_1[T]]=None
     
 
 
-def SetTreeModule_mem(comparer_mut: Any, k_mut: T, t_mut: Optional[SetTreeLeaf_1[T]]) -> bool:
+def SetTreeModule_mem(comparer_mut: IComparer_1[T], k_mut: T, t_mut: Optional[SetTreeLeaf_1[T]]) -> bool:
     while True:
         (comparer, k, t) = (comparer_mut, k_mut, t_mut)
         if t is not None:
@@ -515,11 +515,11 @@ def SetTreeModule_exists(f_mut: Callable[[T], bool], t_mut: Optional[SetTreeLeaf
         break
 
 
-def SetTreeModule_subset(comparer: Any, a: Optional[SetTreeLeaf_1[a_]]=None, b: Optional[SetTreeLeaf_1[a_]]=None) -> bool:
+def SetTreeModule_subset(comparer: IComparer_1[a_], a: Optional[SetTreeLeaf_1[a_]]=None, b: Optional[SetTreeLeaf_1[a_]]=None) -> bool:
     return SetTreeModule_forall(lambda x=None, comparer=comparer, a=a, b=b: SetTreeModule_mem(comparer, x, b), a)
 
 
-def SetTreeModule_properSubset(comparer: Any, a: Optional[SetTreeLeaf_1[a_]]=None, b: Optional[SetTreeLeaf_1[a_]]=None) -> bool:
+def SetTreeModule_properSubset(comparer: IComparer_1[a_], a: Optional[SetTreeLeaf_1[a_]]=None, b: Optional[SetTreeLeaf_1[a_]]=None) -> bool:
     if SetTreeModule_forall(lambda x=None, comparer=comparer, a=a, b=b: SetTreeModule_mem(comparer, x, b), a):
         return SetTreeModule_exists(lambda x_1=None, comparer=comparer, a=a, b=b: not SetTreeModule_mem(comparer, x_1, a), b)
     
@@ -528,7 +528,7 @@ def SetTreeModule_properSubset(comparer: Any, a: Optional[SetTreeLeaf_1[a_]]=Non
     
 
 
-def SetTreeModule_filterAux(comparer_mut: Any, f_mut: Callable[[T], bool], t_mut: Optional[SetTreeLeaf_1[T]], acc_mut: Optional[SetTreeLeaf_1[T]]) -> Optional[SetTreeLeaf_1[T]]:
+def SetTreeModule_filterAux(comparer_mut: IComparer_1[T], f_mut: Callable[[T], bool], t_mut: Optional[SetTreeLeaf_1[T]], acc_mut: Optional[SetTreeLeaf_1[T]]) -> Optional[SetTreeLeaf_1[T]]:
     while True:
         (comparer, f, t, acc) = (comparer_mut, f_mut, t_mut, acc_mut)
         if t is not None:
@@ -554,11 +554,11 @@ def SetTreeModule_filterAux(comparer_mut: Any, f_mut: Callable[[T], bool], t_mut
         break
 
 
-def SetTreeModule_filter(comparer: Any, f: Callable[[a_], bool], s: Optional[SetTreeLeaf_1[a_]]=None) -> Optional[SetTreeLeaf_1[a_]]:
+def SetTreeModule_filter(comparer: IComparer_1[a_], f: Callable[[a_], bool], s: Optional[SetTreeLeaf_1[a_]]=None) -> Optional[SetTreeLeaf_1[a_]]:
     return SetTreeModule_filterAux(comparer, f, s, SetTreeModule_empty())
 
 
-def SetTreeModule_diffAux(comparer_mut: Any, t_mut: Optional[SetTreeLeaf_1[T]], acc_mut: Optional[SetTreeLeaf_1[T]]) -> Optional[SetTreeLeaf_1[T]]:
+def SetTreeModule_diffAux(comparer_mut: IComparer_1[T], t_mut: Optional[SetTreeLeaf_1[T]], acc_mut: Optional[SetTreeLeaf_1[T]]) -> Optional[SetTreeLeaf_1[T]]:
     while True:
         (comparer, t, acc) = (comparer_mut, t_mut, acc_mut)
         if acc is None:
@@ -582,11 +582,11 @@ def SetTreeModule_diffAux(comparer_mut: Any, t_mut: Optional[SetTreeLeaf_1[T]], 
         break
 
 
-def SetTreeModule_diff(comparer: Any, a: Optional[SetTreeLeaf_1[a_]]=None, b: Optional[SetTreeLeaf_1[a_]]=None) -> Optional[SetTreeLeaf_1[a_]]:
+def SetTreeModule_diff(comparer: IComparer_1[a_], a: Optional[SetTreeLeaf_1[a_]]=None, b: Optional[SetTreeLeaf_1[a_]]=None) -> Optional[SetTreeLeaf_1[a_]]:
     return SetTreeModule_diffAux(comparer, b, a)
 
 
-def SetTreeModule_union(comparer: Any, t1: Optional[SetTreeLeaf_1[T]]=None, t2: Optional[SetTreeLeaf_1[T]]=None) -> Optional[SetTreeLeaf_1[T]]:
+def SetTreeModule_union(comparer: IComparer_1[T], t1: Optional[SetTreeLeaf_1[T]]=None, t2: Optional[SetTreeLeaf_1[T]]=None) -> Optional[SetTreeLeaf_1[T]]:
     if t1 is not None:
         t1_0027 : SetTreeLeaf_1[T] = t1
         if t2 is not None:
@@ -619,7 +619,7 @@ def SetTreeModule_union(comparer: Any, t1: Optional[SetTreeLeaf_1[T]]=None, t2: 
     
 
 
-def SetTreeModule_intersectionAux(comparer_mut: Any, b_mut: Optional[SetTreeLeaf_1[T]], t_mut: Optional[SetTreeLeaf_1[T]], acc_mut: Optional[SetTreeLeaf_1[T]]) -> Optional[SetTreeLeaf_1[T]]:
+def SetTreeModule_intersectionAux(comparer_mut: IComparer_1[T], b_mut: Optional[SetTreeLeaf_1[T]], t_mut: Optional[SetTreeLeaf_1[T]], acc_mut: Optional[SetTreeLeaf_1[T]]) -> Optional[SetTreeLeaf_1[T]]:
     while True:
         (comparer, b, t, acc) = (comparer_mut, b_mut, t_mut, acc_mut)
         if t is not None:
@@ -646,11 +646,11 @@ def SetTreeModule_intersectionAux(comparer_mut: Any, b_mut: Optional[SetTreeLeaf
         break
 
 
-def SetTreeModule_intersection(comparer: Any, a: Optional[SetTreeLeaf_1[a_]]=None, b: Optional[SetTreeLeaf_1[a_]]=None) -> Optional[SetTreeLeaf_1[a_]]:
+def SetTreeModule_intersection(comparer: IComparer_1[a_], a: Optional[SetTreeLeaf_1[a_]]=None, b: Optional[SetTreeLeaf_1[a_]]=None) -> Optional[SetTreeLeaf_1[a_]]:
     return SetTreeModule_intersectionAux(comparer, b, a, SetTreeModule_empty())
 
 
-def SetTreeModule_partition1(comparer: Any, f: Callable[[a_], bool], k: a_, acc1: Optional[SetTreeLeaf_1[a_]]=None, acc2: Optional[SetTreeLeaf_1[a_]]=None) -> Tuple[Optional[SetTreeLeaf_1[a_]], Optional[SetTreeLeaf_1[a_]]]:
+def SetTreeModule_partition1(comparer: IComparer_1[a_], f: Callable[[a_], bool], k: a_, acc1: Optional[SetTreeLeaf_1[a_]]=None, acc2: Optional[SetTreeLeaf_1[a_]]=None) -> Tuple[Optional[SetTreeLeaf_1[a_]], Optional[SetTreeLeaf_1[a_]]]:
     if f(k):
         return (SetTreeModule_add(comparer, k, acc1), acc2)
     
@@ -659,7 +659,7 @@ def SetTreeModule_partition1(comparer: Any, f: Callable[[a_], bool], k: a_, acc1
     
 
 
-def SetTreeModule_partitionAux(comparer_mut: Any, f_mut: Callable[[T], bool], t_mut: Optional[SetTreeLeaf_1[T]], acc_0_mut: Optional[SetTreeLeaf_1[T]], acc_1_mut: Optional[SetTreeLeaf_1[T]]) -> Tuple[Optional[SetTreeLeaf_1[T]], Optional[SetTreeLeaf_1[T]]]:
+def SetTreeModule_partitionAux(comparer_mut: IComparer_1[T], f_mut: Callable[[T], bool], t_mut: Optional[SetTreeLeaf_1[T]], acc_0_mut: Optional[SetTreeLeaf_1[T]], acc_1_mut: Optional[SetTreeLeaf_1[T]]) -> Tuple[Optional[SetTreeLeaf_1[T]], Optional[SetTreeLeaf_1[T]]]:
     while True:
         (comparer, f, t, acc_0, acc_1) = (comparer_mut, f_mut, t_mut, acc_0_mut, acc_1_mut)
         acc : Tuple[Optional[SetTreeLeaf_1[T]], Optional[SetTreeLeaf_1[T]]] = (acc_0, acc_1)
@@ -685,7 +685,7 @@ def SetTreeModule_partitionAux(comparer_mut: Any, f_mut: Callable[[T], bool], t_
         break
 
 
-def SetTreeModule_partition(comparer: Any, f: Callable[[a_], bool], s: Optional[SetTreeLeaf_1[a_]]=None) -> Tuple[Optional[SetTreeLeaf_1[a_]], Optional[SetTreeLeaf_1[a_]]]:
+def SetTreeModule_partition(comparer: IComparer_1[a_], f: Callable[[a_], bool], s: Optional[SetTreeLeaf_1[a_]]=None) -> Tuple[Optional[SetTreeLeaf_1[a_]], Optional[SetTreeLeaf_1[a_]]]:
     return SetTreeModule_partitionAux(comparer, f, s, SetTreeModule_empty(), SetTreeModule_empty())
 
 
@@ -779,7 +779,7 @@ def SetTreeModule_maximumElement(s: Optional[SetTreeLeaf_1[a_]]=None) -> a_:
     
 
 
-def expr_160(gen0) -> TypeInfo:
+def expr_160(gen0: TypeInfo) -> TypeInfo:
     return record_type("Set.SetTreeModule.SetIterator`1", [gen0], SetTreeModule_SetIterator_1, lambda: [["stack", list_type(option_type(SetTreeLeaf_1_reflection(gen0)))], ["started", bool_type]])
 
 
@@ -878,29 +878,29 @@ def SetTreeModule_moveNext(i: SetTreeModule_SetIterator_1[Any]) -> bool:
     
 
 
-def SetTreeModule_mkIEnumerator(s: Optional[SetTreeLeaf_1[a_]]=None) -> Any:
+def SetTreeModule_mkIEnumerator(s: Optional[SetTreeLeaf_1[a_]]=None) -> Iterator[a_]:
     i : SetTreeModule_SetIterator_1[a_] = SetTreeModule_mkIterator(s)
     class ObjectExpr161(IDisposable):
-        def System_Collections_Generic_IEnumerator_00601_get_Current(self, s=s) -> Any:
+        def System_Collections_Generic_IEnumerator_00601_get_Current(self, s: Optional[SetTreeLeaf_1[a_]]=s) -> Any:
             return SetTreeModule_current(i)
         
-        def System_Collections_IEnumerator_get_Current(self, s=s) -> Any:
+        def System_Collections_IEnumerator_get_Current(self, s: Optional[SetTreeLeaf_1[a_]]=s) -> Any:
             return SetTreeModule_current(i)
         
-        def System_Collections_IEnumerator_MoveNext(self, s=s) -> bool:
+        def System_Collections_IEnumerator_MoveNext(self, s: Optional[SetTreeLeaf_1[a_]]=s) -> bool:
             return SetTreeModule_moveNext(i)
         
-        def System_Collections_IEnumerator_Reset(self, s=s) -> None:
+        def System_Collections_IEnumerator_Reset(self, s: Optional[SetTreeLeaf_1[a_]]=s) -> None:
             nonlocal i
             i = SetTreeModule_mkIterator(s)
         
-        def Dispose(self, s=s) -> None:
+        def Dispose(self, s: Optional[SetTreeLeaf_1[a_]]=s) -> None:
             pass
         
     return ObjectExpr161()
 
 
-def SetTreeModule_compareStacks(comparer_mut: Any, l1_mut: FSharpList[Optional[SetTreeLeaf_1[T]]], l2_mut: FSharpList[Optional[SetTreeLeaf_1[T]]]) -> int:
+def SetTreeModule_compareStacks(comparer_mut: IComparer_1[T], l1_mut: FSharpList[Optional[SetTreeLeaf_1[T]]], l2_mut: FSharpList[Optional[SetTreeLeaf_1[T]]]) -> int:
     while True:
         (comparer, l1, l2) = (comparer_mut, l1_mut, l2_mut)
         match_value : Tuple[FSharpList[Optional[SetTreeLeaf_1[T]]], FSharpList[Optional[SetTreeLeaf_1[T]]]] = (l1, l2)
@@ -1330,7 +1330,7 @@ def SetTreeModule_compareStacks(comparer_mut: Any, l1_mut: FSharpList[Optional[S
         break
 
 
-def SetTreeModule_compare(comparer: Any, t1: Optional[SetTreeLeaf_1[T]]=None, t2: Optional[SetTreeLeaf_1[T]]=None) -> int:
+def SetTreeModule_compare(comparer: IComparer_1[T], t1: Optional[SetTreeLeaf_1[T]]=None, t2: Optional[SetTreeLeaf_1[T]]=None) -> int:
     if t1 is None:
         if t2 is None:
             return 0
@@ -1352,7 +1352,7 @@ def SetTreeModule_choose(s: Optional[SetTreeLeaf_1[a_]]=None) -> a_:
 
 
 def SetTreeModule_toList(t: Optional[SetTreeLeaf_1[T]]=None) -> FSharpList[T]:
-    def loop(t_0027_mut: Optional[SetTreeLeaf_1[T]], acc_mut: FSharpList[T], t=t) -> FSharpList[T]:
+    def loop(t_0027_mut: Optional[SetTreeLeaf_1[T]], acc_mut: FSharpList[T], t: Optional[SetTreeLeaf_1[T]]=t) -> FSharpList[T]:
         while True:
             (t_0027, acc) = (t_0027_mut, acc_mut)
             if t_0027 is not None:
@@ -1376,7 +1376,7 @@ def SetTreeModule_toList(t: Optional[SetTreeLeaf_1[T]]=None) -> FSharpList[T]:
 
 def SetTreeModule_copyToArray(s: Optional[SetTreeLeaf_1[a_]], arr: List[a_], i: int) -> None:
     j : int = i or 0
-    def arrow_162(x: Any=None, s=s, arr=arr, i=i) -> None:
+    def arrow_162(x: Any=None, s: Optional[SetTreeLeaf_1[a_]]=s, arr: List[a_]=arr, i: int=i) -> None:
         nonlocal j
         arr[j] = x
         j = (j + 1) or 0
@@ -1391,7 +1391,7 @@ def SetTreeModule_toArray(s: Optional[SetTreeLeaf_1[a_]]=None) -> List[a_]:
     return res
 
 
-def SetTreeModule_mkFromEnumerator(comparer_mut: Any, acc_mut: Optional[SetTreeLeaf_1[a_]], e_mut: Any) -> Optional[SetTreeLeaf_1[a_]]:
+def SetTreeModule_mkFromEnumerator(comparer_mut: IComparer_1[a_], acc_mut: Optional[SetTreeLeaf_1[a_]], e_mut: Iterator[a_]) -> Optional[SetTreeLeaf_1[a_]]:
     while True:
         (comparer, acc, e) = (comparer_mut, acc_mut, e_mut)
         if e.System_Collections_IEnumerator_MoveNext():
@@ -1406,15 +1406,15 @@ def SetTreeModule_mkFromEnumerator(comparer_mut: Any, acc_mut: Optional[SetTreeL
         break
 
 
-def SetTreeModule_ofArray(comparer: Any, l: List[a_]) -> Optional[SetTreeLeaf_1[a_]]:
+def SetTreeModule_ofArray(comparer: IComparer_1[a_], l: List[a_]) -> Optional[SetTreeLeaf_1[a_]]:
     return fold_1(lambda acc, k=None, comparer=comparer, l=l: SetTreeModule_add(comparer, k, acc), SetTreeModule_empty(), l)
 
 
-def SetTreeModule_ofList(comparer: Any, l: FSharpList[a_]) -> Optional[SetTreeLeaf_1[a_]]:
+def SetTreeModule_ofList(comparer: IComparer_1[a_], l: FSharpList[a_]) -> Optional[SetTreeLeaf_1[a_]]:
     return fold_2(lambda acc, k=None, comparer=comparer, l=l: SetTreeModule_add(comparer, k, acc), SetTreeModule_empty(), l)
 
 
-def SetTreeModule_ofSeq(comparer: Any, c: Any) -> Optional[SetTreeLeaf_1[T]]:
+def SetTreeModule_ofSeq(comparer: IComparer_1[T], c: Iterable[T]) -> Optional[SetTreeLeaf_1[T]]:
     if is_array_like(c):
         return SetTreeModule_ofArray(comparer, c)
     
@@ -1427,12 +1427,12 @@ def SetTreeModule_ofSeq(comparer: Any, c: Any) -> Optional[SetTreeLeaf_1[T]]:
     
 
 
-def expr_164(gen0) -> TypeInfo:
+def expr_164(gen0: TypeInfo) -> TypeInfo:
     return class_type("Set.FSharpSet", [gen0], FSharpSet)
 
 
 class FSharpSet(Generic[T_3]):
-    def __init__(self, comparer: Any, tree: Optional[SetTreeLeaf_1[T]]=None) -> None:
+    def __init__(self, comparer: IComparer_1[T], tree: Optional[SetTreeLeaf_1[T]]=None) -> None:
         self.comparer = comparer
         self.tree = tree
     
@@ -1494,14 +1494,14 @@ class FSharpSet(Generic[T_3]):
         s : FSharpSet[T] = self
         return FSharpSet__get_Count(s)
     
-    def GetEnumerator(self) -> Any:
+    def GetEnumerator(self) -> Iterator[Any]:
         s : FSharpSet[T] = self
         return SetTreeModule_mkIEnumerator(FSharpSet__get_Tree(s))
     
-    def __iter__(self) -> Any:
+    def __iter__(self) -> Iterator[Any]:
         return to_iterator(self.GetEnumerator())
     
-    def System_Collections_IEnumerable_GetEnumerator(self) -> Any:
+    def System_Collections_IEnumerable_GetEnumerator(self) -> Iterator[Any]:
         s : FSharpSet[T] = self
         return SetTreeModule_mkIEnumerator(FSharpSet__get_Tree(s))
     
@@ -1510,7 +1510,7 @@ class FSharpSet(Generic[T_3]):
         s : FSharpSet[T] = self
         return FSharpSet__get_Count(s)
     
-    def add(self, k: T=None) -> Any:
+    def add(self, k: T=None) -> Set_1[T]:
         s : FSharpSet[T] = self
         raise Exception("Set cannot be mutated")
         return s
@@ -1526,19 +1526,19 @@ class FSharpSet(Generic[T_3]):
         s : FSharpSet[T] = self
         return FSharpSet__Contains(s, k)
     
-    def keys(self) -> Any:
+    def keys(self) -> Iterable[Any]:
         s : FSharpSet[T] = self
         return map_1(lambda x=None: x, s)
     
-    def values(self) -> Any:
+    def values(self) -> Iterable[Any]:
         s : FSharpSet[T] = self
         return map_1(lambda x=None: x, s)
     
-    def entries(self) -> Any:
+    def entries(self) -> Iterable[Tuple[T, T]]:
         s : FSharpSet[T] = self
         return map_1(lambda v=None: (v, v), s)
     
-    def for_each(self, f: Callable[[T, T, Any], None], this_arg: Optional[Any]=None) -> None:
+    def for_each(self, f: Callable[[T, T, Set_1[T]], None], this_arg: Optional[Any]=None) -> None:
         s : FSharpSet[T] = self
         def action(x: Any=None) -> None:
             f(x, x, s)
@@ -1548,11 +1548,11 @@ class FSharpSet(Generic[T_3]):
 
 FSharpSet_reflection = expr_164
 
-def FSharpSet__ctor(comparer: Any, tree: Optional[SetTreeLeaf_1[T]]=None) -> FSharpSet[T]:
+def FSharpSet__ctor(comparer: IComparer_1[T], tree: Optional[SetTreeLeaf_1[T]]=None) -> FSharpSet[Any]:
     return FSharpSet(comparer, tree)
 
 
-def FSharpSet__get_Comparer(set_1: FSharpSet[T]) -> Any:
+def FSharpSet__get_Comparer(set_1: FSharpSet[T]) -> IComparer_1[T]:
     return set_1.comparer
 
 
@@ -1560,7 +1560,7 @@ def FSharpSet__get_Tree(set_1: FSharpSet[T]) -> Optional[SetTreeLeaf_1[T]]:
     return set_1.tree
 
 
-def FSharpSet_Empty(comparer: Any) -> FSharpSet[T]:
+def FSharpSet_Empty(comparer: IComparer_1[T]) -> FSharpSet[T]:
     return FSharpSet__ctor(comparer, SetTreeModule_empty())
 
 
@@ -1612,7 +1612,7 @@ def FSharpSet__Filter(s: FSharpSet[T], f: Callable[[T], bool]) -> FSharpSet[T]:
     
 
 
-def FSharpSet__Map(s: FSharpSet[T], f: Callable[[T], U], comparer: Any) -> FSharpSet[U]:
+def FSharpSet__Map(s: FSharpSet[T], f: Callable[[T], U], comparer: IComparer_1[U]) -> FSharpSet[U]:
     return FSharpSet__ctor(comparer, SetTreeModule_fold(lambda acc, k=None, s=s, f=f, comparer=comparer: SetTreeModule_add(comparer, f(k), acc), SetTreeModule_empty(), FSharpSet__get_Tree(s)))
 
 
@@ -1660,7 +1660,7 @@ def FSharpSet_Intersection(a: FSharpSet[T], b: FSharpSet[T]) -> FSharpSet[T]:
     
 
 
-def FSharpSet_IntersectionMany(sets: Any) -> FSharpSet[T]:
+def FSharpSet_IntersectionMany(sets: Iterable[FSharpSet[T]]) -> FSharpSet[T]:
     return reduce(lambda s1, s2, sets=sets: FSharpSet_Intersection(s1, s2), sets)
 
 
@@ -1713,7 +1713,7 @@ def FSharpSet__ComputeHashCode(this: FSharpSet[Any]) -> int:
     with get_enumerator(this) as enumerator:
         while enumerator.System_Collections_IEnumerator_MoveNext():
             x_1 : T = enumerator.System_Collections_Generic_IEnumerator_00601_get_Current()
-            def arrow_165(this=this) -> int:
+            def arrow_165(this: FSharpSet[T]=this) -> int:
                 y : int = structural_hash(x_1) or 0
                 return ((res << 1) + y) + 631
             
@@ -1733,7 +1733,7 @@ def add(value: T, set_1: FSharpSet[T]) -> FSharpSet[T]:
     return FSharpSet__Add(set_1, value)
 
 
-def singleton(value: T, comparer: Any) -> FSharpSet[T]:
+def singleton(value: T, comparer: IComparer_1[T]) -> FSharpSet[T]:
     return FSharpSet__Add(FSharpSet_Empty(comparer), value)
 
 
@@ -1745,7 +1745,7 @@ def union(set1: FSharpSet[T], set2: FSharpSet[T]) -> FSharpSet[FSharpSet[T]]:
     return FSharpSet_op_Addition(set1, set2)
 
 
-def union_many(sets: Any, comparer: Any) -> FSharpSet[T]:
+def union_many(sets: Iterable[FSharpSet[T]], comparer: IComparer_1[T]) -> FSharpSet[T]:
     return fold_3(lambda s1, s2, sets=sets, comparer=comparer: FSharpSet_op_Addition(s1, s2), FSharpSet_Empty(comparer), sets)
 
 
@@ -1753,7 +1753,7 @@ def intersect(set1: FSharpSet[T], set2: FSharpSet[T]) -> FSharpSet[T]:
     return FSharpSet_Intersection(set1, set2)
 
 
-def intersect_many(sets: Any) -> FSharpSet[T]:
+def intersect_many(sets: Iterable[FSharpSet[T]]) -> FSharpSet[T]:
     return FSharpSet_IntersectionMany(sets)
 
 
@@ -1761,7 +1761,7 @@ def iterate(action: Callable[[T], None], set_1: FSharpSet[T]) -> None:
     FSharpSet__Iterate(set_1, action)
 
 
-def empty(comparer: Any) -> FSharpSet[T]:
+def empty(comparer: IComparer_1[T]) -> FSharpSet[T]:
     return FSharpSet_Empty(comparer)
 
 
@@ -1789,7 +1789,7 @@ def fold_back(folder: Callable[[T, State], State], set_1: FSharpSet[T], state: S
     return SetTreeModule_foldBack(folder, FSharpSet__get_Tree(set_1), state)
 
 
-def map(mapping: Callable[[T], U], set_1: FSharpSet[T], comparer: Any) -> FSharpSet[U]:
+def map(mapping: Callable[[T], U], set_1: FSharpSet[T], comparer: IComparer_1[U]) -> FSharpSet[U]:
     return FSharpSet__Map(set_1, mapping, comparer)
 
 
@@ -1797,11 +1797,11 @@ def count(set_1: FSharpSet[Any]) -> int:
     return FSharpSet__get_Count(set_1)
 
 
-def of_list(elements: Any, comparer: Any) -> FSharpSet[T]:
+def of_list(elements: Iterable[T], comparer: IComparer_1[T]) -> FSharpSet[T]:
     return FSharpSet__ctor(comparer, SetTreeModule_ofSeq(comparer, elements))
 
 
-def of_array(array: List[T], comparer: Any) -> FSharpSet[T]:
+def of_array(array: List[T], comparer: IComparer_1[T]) -> FSharpSet[T]:
     return FSharpSet__ctor(comparer, SetTreeModule_ofArray(comparer, array))
 
 
@@ -1813,11 +1813,11 @@ def to_array(set_1: FSharpSet[T]) -> List[T]:
     return FSharpSet__ToArray(set_1)
 
 
-def to_seq(set_1: FSharpSet[T]) -> Any:
+def to_seq(set_1: FSharpSet[T]) -> Iterable[T]:
     return map_1(lambda x=None, set_1=set_1: x, set_1)
 
 
-def of_seq(elements: Any, comparer: Any) -> FSharpSet[T]:
+def of_seq(elements: Iterable[T], comparer: IComparer_1[T]) -> FSharpSet[T]:
     return FSharpSet__ctor(comparer, SetTreeModule_ofSeq(comparer, elements))
 
 
@@ -1849,11 +1849,11 @@ def max_element(set_1: FSharpSet[T]) -> T:
     return FSharpSet__get_MaximumElement(set_1)
 
 
-def union_with(s1: Any, s2: Any) -> Any:
+def union_with(s1: Set_1[T], s2: Iterable[T]) -> Set_1[T]:
     return fold_3(lambda acc, x=None, s1=s1, s2=s2: acc.add(x), s1, s2)
 
 
-def new_mutable_set_with(s1: Any, s2: Any) -> Any:
+def new_mutable_set_with(s1: Set_1[T], s2: Iterable[T]) -> Set_1[T]:
     if isinstance(s1, HashSet):
         return HashSet__ctor_Z6150332D(s2, HashSet__get_Comparer(s1))
     
@@ -1862,9 +1862,9 @@ def new_mutable_set_with(s1: Any, s2: Any) -> Any:
     
 
 
-def intersect_with(s1: Any, s2: Any) -> None:
-    s2_1 : Any = new_mutable_set_with(s1, s2)
-    def action(x: Any=None, s1=s1, s2=s2) -> None:
+def intersect_with(s1: Set_1[T], s2: Iterable[T]) -> None:
+    s2_1 : Set_1[T] = new_mutable_set_with(s1, s2)
+    def action(x: Any=None, s1: Set_1[T]=s1, s2: Iterable[T]=s2) -> None:
         if not (s2_1 in x):
             ignore(s1.delete(x))
         
@@ -1872,24 +1872,24 @@ def intersect_with(s1: Any, s2: Any) -> None:
     iterate_1(action, s1.values())
 
 
-def except_with(s1: Any, s2: Any) -> None:
-    def action(x: Any=None, s1=s1, s2=s2) -> None:
+def except_with(s1: Set_1[T], s2: Iterable[T]) -> None:
+    def action(x: Any=None, s1: Set_1[T]=s1, s2: Iterable[T]=s2) -> None:
         ignore(s1.delete(x))
     
     iterate_1(action, s2)
 
 
-def is_subset_of(s1: Any, s2: Any) -> bool:
-    s2_1 : Any = new_mutable_set_with(s1, s2)
+def is_subset_of(s1: Set_1[T], s2: Iterable[T]) -> bool:
+    s2_1 : Set_1[T] = new_mutable_set_with(s1, s2)
     return for_all_1(lambda arg00=None, s1=s1, s2=s2: s2_1 in arg00, s1.values())
 
 
-def is_superset_of(s1: Any, s2: Any) -> bool:
+def is_superset_of(s1: Set_1[T], s2: Iterable[T]) -> bool:
     return for_all_1(lambda arg00=None, s1=s1, s2=s2: s1 in arg00, s2)
 
 
-def is_proper_subset_of(s1: Any, s2: Any) -> bool:
-    s2_1 : Any = new_mutable_set_with(s1, s2)
+def is_proper_subset_of(s1: Set_1[T], s2: Iterable[T]) -> bool:
+    s2_1 : Set_1[T] = new_mutable_set_with(s1, s2)
     if s2_1.size > s1.size:
         return for_all_1(lambda arg00=None, s1=s1, s2=s2: s2_1 in arg00, s1.values())
     
@@ -1898,8 +1898,8 @@ def is_proper_subset_of(s1: Any, s2: Any) -> bool:
     
 
 
-def is_proper_superset_of(s1: Any, s2: Any) -> bool:
-    s2_1 : Any = cache(s2)
+def is_proper_superset_of(s1: Set_1[T], s2: Iterable[T]) -> bool:
+    s2_1 : Iterable[T] = cache(s2)
     if exists_1(lambda arg=None, s1=s1, s2=s2: not (s1 in arg), s2_1):
         return for_all_1(lambda arg00_1=None, s1=s1, s2=s2: s1 in arg00_1, s2_1)
     

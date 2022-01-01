@@ -1,24 +1,24 @@
 from __future__ import annotations
-from typing import (TypeVar, Any, Optional, List, Tuple, Callable, Generic)
+from typing import (TypeVar, Any, Iterator, Optional, List, Iterable, Tuple, Callable, Generic)
 from .array import find_index
 from .map_util import (try_get_value, get_item_from_dict)
 from .reflection import (TypeInfo, class_type)
 from .seq import (concat, iterate_indexed, to_array, delay, map, iterate)
 from .string import format
 from .types import FSharpRef
-from .util import (get_enumerator, to_iterator, equals, ignore, dispose)
+from .util import (get_enumerator, to_iterator, equals, ignore, IEqualityComparer, dispose)
 
 Key = TypeVar("Key")
 
 Value = TypeVar("Value")
 
-def expr_33(gen0, gen1) -> TypeInfo:
+def expr_32(gen0: TypeInfo, gen1: TypeInfo) -> TypeInfo:
     return class_type("Fable.Collections.Dictionary", [gen0, gen1], Dictionary)
 
 
 class Dictionary(Generic[Key, Value]):
-    def __init__(self, pairs: Any, comparer: Any) -> None:
-        this : Any = FSharpRef(None)
+    def __init__(self, pairs: Iterable[Any], comparer: IEqualityComparer[Any]) -> None:
+        this : FSharpRef[Dictionary[Key, Value]] = FSharpRef(None)
         self.comparer = comparer
         this.contents = self
         self.hash_map = dict([])
@@ -36,15 +36,15 @@ class Dictionary(Generic[Key, Value]):
         this : Dictionary[Key, Value] = self
         return list(this)
     
-    def System_Collections_IEnumerable_GetEnumerator(self) -> Any:
+    def System_Collections_IEnumerable_GetEnumerator(self) -> Iterator[Any]:
         this : Dictionary[Key, Value] = self
         return get_enumerator(this)
     
-    def GetEnumerator(self) -> Any:
+    def GetEnumerator(self) -> Iterator[Any]:
         this : Dictionary[Key, Value] = self
         return get_enumerator(concat(this.hash_map.values()))
     
-    def __iter__(self) -> Any:
+    def __iter__(self) -> Iterator[Any]:
         return to_iterator(self.GetEnumerator())
     
     def System_Collections_Generic_ICollection_00601_Add2B595(self, item: Any) -> None:
@@ -120,7 +120,7 @@ class Dictionary(Generic[Key, Value]):
         this : Dictionary[Key, Value] = self
         Dictionary__set_Item_5BDDA1(this, key, v)
     
-    def System_Collections_Generic_IDictionary_00602_get_Keys(self) -> Any:
+    def System_Collections_Generic_IDictionary_00602_get_Keys(self) -> ICollection_1[Any]:
         this : Dictionary[Key, Value] = self
         return to_array(delay(lambda _unit=None: map(lambda pair: pair[0], this)))
     
@@ -140,7 +140,7 @@ class Dictionary(Generic[Key, Value]):
             return False
         
     
-    def System_Collections_Generic_IDictionary_00602_get_Values(self) -> Any:
+    def System_Collections_Generic_IDictionary_00602_get_Values(self) -> ICollection_1[Any]:
         this : Dictionary[Key, Value] = self
         return to_array(delay(lambda _unit=None: map(lambda pair: pair[1], this)))
     
@@ -157,7 +157,7 @@ class Dictionary(Generic[Key, Value]):
         this : Dictionary[Key, Value] = self
         return Dictionary__Remove_2B595(this, k)
     
-    def entries(self) -> Any:
+    def entries(self) -> Iterable[Tuple[Key, Value]]:
         this : Dictionary[Key, Value] = self
         return map(lambda p: (p[0], p[1]), this)
     
@@ -169,20 +169,20 @@ class Dictionary(Generic[Key, Value]):
         this : Dictionary[Key, Value] = self
         return Dictionary__ContainsKey_2B595(this, k)
     
-    def keys(self) -> Any:
+    def keys(self) -> Iterable[Any]:
         this : Dictionary[Key, Value] = self
         return map(lambda p: p[0], this)
     
-    def __setitem__(self, k: Key, v: Value=None) -> Any:
+    def __setitem__(self, k: Key, v: Value=None) -> Map_2[Key, Value]:
         this : Dictionary[Key, Value] = self
         Dictionary__set_Item_5BDDA1(this, k, v)
         return this
     
-    def values(self) -> Any:
+    def values(self) -> Iterable[Any]:
         this : Dictionary[Key, Value] = self
         return map(lambda p: p[1], this)
     
-    def for_each(self, f: Callable[[Value, Key, Any], None], this_arg: Optional[Any]=None) -> None:
+    def for_each(self, f: Callable[[Value, Key, Map_2[Key, Value]], None], this_arg: Optional[Any]=None) -> None:
         this : Dictionary[Key, Value] = self
         def action(p: Any) -> None:
             f(p[1], p[0], this)
@@ -190,9 +190,9 @@ class Dictionary(Generic[Key, Value]):
         iterate(action, this)
     
 
-Dictionary_reflection = expr_33
+Dictionary_reflection = expr_32
 
-def Dictionary__ctor_6623D9B3(pairs: Any, comparer: Any) -> Dictionary[Key, Value]:
+def Dictionary__ctor_6623D9B3(pairs: Iterable[Any], comparer: IEqualityComparer[Any]) -> Dictionary[Any, Any]:
     return Dictionary(pairs, comparer)
 
 
@@ -200,11 +200,11 @@ def Dictionary__TryFindIndex_2B595(this: Dictionary[Key, Any], k: Key=None) -> T
     h : int = this.comparer.GetHashCode(k) or 0
     match_value = None
     out_arg : List[Any] = None
-    def arrow_34(v: List[Any], this=this, k=k) -> None:
+    def arrow_33(v: List[Any], this: Dictionary[Key, Value]=this, k: Key=k) -> None:
         nonlocal out_arg
         out_arg = v
     
-    match_value = (try_get_value(this.hash_map, h, FSharpRef(lambda this=this, k=k: out_arg, arrow_34)), out_arg)
+    match_value = (try_get_value(this.hash_map, h, FSharpRef(lambda this=this, k=k: out_arg, arrow_33)), out_arg)
     if match_value[0]:
         return (True, h, find_index(lambda pair, this=this, k=k: this.comparer.Equals(k, pair[0]), match_value[1]))
     
@@ -235,7 +235,7 @@ def Dictionary__TryFind_2B595(this: Dictionary[Key, Value], k: Key=None) -> Opti
     
 
 
-def Dictionary__get_Comparer(this: Dictionary[Key, Any]) -> Any:
+def Dictionary__get_Comparer(this: Dictionary[Key, Any]) -> IEqualityComparer[Any]:
     return this.comparer
 
 

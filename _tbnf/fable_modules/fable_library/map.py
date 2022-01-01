@@ -1,7 +1,7 @@
 from __future__ import annotations
-from typing import (Any, Generic, TypeVar, Optional, Tuple, Callable, List)
+from typing import (Any, Generic, TypeVar, Optional, Tuple, Callable, List, Iterator, Iterable)
 from .array import fill
-from .list import (cons, FSharpList, empty as empty_1, fold as fold_1, is_empty as is_empty_1, tail, head, of_array_with_tail, singleton)
+from .list import (FSharpList, cons, empty as empty_1, fold as fold_1, is_empty as is_empty_1, tail, head, of_array_with_tail, singleton)
 from .option import (value as value_1, some)
 from .reflection import (TypeInfo, class_type, option_type, list_type, bool_type, record_type)
 from .seq import (unfold, map as map_1, compare_with, iterate as iterate_1, pick as pick_1, try_pick as try_pick_1)
@@ -45,7 +45,7 @@ K = TypeVar("K")
 
 V = TypeVar("V")
 
-def expr_125(gen0, gen1) -> TypeInfo:
+def expr_135(gen0: TypeInfo, gen1: TypeInfo) -> TypeInfo:
     return class_type("Map.MapTreeLeaf`2", [gen0, gen1], MapTreeLeaf_2)
 
 
@@ -55,9 +55,9 @@ class MapTreeLeaf_2(Generic[Key, Value]):
         self.v = v
     
 
-MapTreeLeaf_2_reflection = expr_125
+MapTreeLeaf_2_reflection = expr_135
 
-def MapTreeLeaf_2__ctor_5BDDA1(k: Any, v: Any=None) -> MapTreeLeaf_2[Key, Value]:
+def MapTreeLeaf_2__ctor_5BDDA1(k: Any, v: Any=None) -> MapTreeLeaf_2[Any, Any]:
     return MapTreeLeaf_2(k, v)
 
 
@@ -69,7 +69,7 @@ def MapTreeLeaf_2__get_Value(_: MapTreeLeaf_2[Any, Value]) -> Value:
     return _.v
 
 
-def expr_126(gen0, gen1) -> TypeInfo:
+def expr_136(gen0: TypeInfo, gen1: TypeInfo) -> TypeInfo:
     return class_type("Map.MapTreeNode`2", [gen0, gen1], MapTreeNode_2, MapTreeLeaf_2_reflection(gen0, gen1))
 
 
@@ -81,9 +81,9 @@ class MapTreeNode_2(MapTreeLeaf_2, Generic[Key_1, Value_1]):
         self.h = h or 0
     
 
-MapTreeNode_2_reflection = expr_126
+MapTreeNode_2_reflection = expr_136
 
-def MapTreeNode_2__ctor_Z39DE9543(k: Key, v: Value, left: Optional[MapTreeLeaf_2[Key, Value]], right: Optional[MapTreeLeaf_2[Key, Value]], h: int) -> MapTreeNode_2[Key, Value]:
+def MapTreeNode_2__ctor_Z39DE9543(k: Key, v: Value, left: Optional[MapTreeLeaf_2[Key, Value]], right: Optional[MapTreeLeaf_2[Key, Value]], h: int) -> MapTreeNode_2[Any, Any]:
     return MapTreeNode_2(k, v, left, right, h)
 
 
@@ -130,18 +130,18 @@ def MapTreeModule_size(x: Optional[MapTreeLeaf_2[a_, b_]]=None) -> int:
 def MapTreeModule_mk(l: Optional[MapTreeLeaf_2[Key, Value]], k: Key, v: Value, r: Optional[MapTreeLeaf_2[Key, Value]]=None) -> Optional[MapTreeLeaf_2[Key, Value]]:
     hl = None
     m : Optional[MapTreeLeaf_2[Key, Value]] = l
-    def arrow_127(l=l, k=k, v=v, r=r) -> int:
+    def arrow_137(l: Optional[MapTreeLeaf_2[Key, Value]]=l, k: Key=k, v: Value=v, r: Optional[MapTreeLeaf_2[Key, Value]]=r) -> int:
         m2 : MapTreeLeaf_2[Key, Value] = m
         return MapTreeNode_2__get_Height(m2) if (isinstance(m2, MapTreeNode_2)) else (1)
     
-    hl = arrow_127() if (m is not None) else (0)
+    hl = arrow_137() if (m is not None) else (0)
     hr = None
     m_1 : Optional[MapTreeLeaf_2[Key, Value]] = r
-    def arrow_128(l=l, k=k, v=v, r=r) -> int:
+    def arrow_138(l: Optional[MapTreeLeaf_2[Key, Value]]=l, k: Key=k, v: Value=v, r: Optional[MapTreeLeaf_2[Key, Value]]=r) -> int:
         m2_1 : MapTreeLeaf_2[Key, Value] = m_1
         return MapTreeNode_2__get_Height(m2_1) if (isinstance(m2_1, MapTreeNode_2)) else (1)
     
-    hr = arrow_128() if (m_1 is not None) else (0)
+    hr = arrow_138() if (m_1 is not None) else (0)
     m_2 : int = (hr if (hl < hr) else (hl)) or 0
     if m_2 == 0:
         return MapTreeLeaf_2__ctor_5BDDA1(k, v)
@@ -154,30 +154,30 @@ def MapTreeModule_mk(l: Optional[MapTreeLeaf_2[Key, Value]], k: Key, v: Value, r
 def MapTreeModule_rebalance(t1: Optional[MapTreeLeaf_2[Key, Value]], k: Key, v: Value, t2: Optional[MapTreeLeaf_2[Key, Value]]=None) -> Optional[MapTreeLeaf_2[Key, Value]]:
     t1h = None
     m : Optional[MapTreeLeaf_2[Key, Value]] = t1
-    def arrow_130(t1=t1, k=k, v=v, t2=t2) -> int:
+    def arrow_139(t1: Optional[MapTreeLeaf_2[Key, Value]]=t1, k: Key=k, v: Value=v, t2: Optional[MapTreeLeaf_2[Key, Value]]=t2) -> int:
         m2 : MapTreeLeaf_2[Key, Value] = m
         return MapTreeNode_2__get_Height(m2) if (isinstance(m2, MapTreeNode_2)) else (1)
     
-    t1h = arrow_130() if (m is not None) else (0)
+    t1h = arrow_139() if (m is not None) else (0)
     t2h = None
     m_1 : Optional[MapTreeLeaf_2[Key, Value]] = t2
-    def arrow_131(t1=t1, k=k, v=v, t2=t2) -> int:
+    def arrow_140(t1: Optional[MapTreeLeaf_2[Key, Value]]=t1, k: Key=k, v: Value=v, t2: Optional[MapTreeLeaf_2[Key, Value]]=t2) -> int:
         m2_1 : MapTreeLeaf_2[Key, Value] = m_1
         return MapTreeNode_2__get_Height(m2_1) if (isinstance(m2_1, MapTreeNode_2)) else (1)
     
-    t2h = arrow_131() if (m_1 is not None) else (0)
+    t2h = arrow_140() if (m_1 is not None) else (0)
     if t2h > (t1h + 2):
         match_value : MapTreeLeaf_2[Key, Value] = value_1(t2)
         if isinstance(match_value, MapTreeNode_2):
-            def arrow_133(t1=t1, k=k, v=v, t2=t2) -> int:
+            def arrow_142(t1: Optional[MapTreeLeaf_2[Key, Value]]=t1, k: Key=k, v: Value=v, t2: Optional[MapTreeLeaf_2[Key, Value]]=t2) -> int:
                 m_2 : Optional[MapTreeLeaf_2[Key, Value]] = MapTreeNode_2__get_Left(match_value)
-                def arrow_132(_unit=None) -> int:
+                def arrow_141(_unit=None) -> int:
                     m2_2 : MapTreeLeaf_2[Key, Value] = m_2
                     return MapTreeNode_2__get_Height(m2_2) if (isinstance(m2_2, MapTreeNode_2)) else (1)
                 
-                return arrow_132() if (m_2 is not None) else (0)
+                return arrow_141() if (m_2 is not None) else (0)
             
-            if arrow_133() > (t1h + 1):
+            if arrow_142() > (t1h + 1):
                 match_value_1 : MapTreeLeaf_2[Key, Value] = value_1(MapTreeNode_2__get_Left(match_value))
                 if isinstance(match_value_1, MapTreeNode_2):
                     return MapTreeModule_mk(MapTreeModule_mk(t1, k, v, MapTreeNode_2__get_Left(match_value_1)), MapTreeLeaf_2__get_Key(match_value_1), MapTreeLeaf_2__get_Value(match_value_1), MapTreeModule_mk(MapTreeNode_2__get_Right(match_value_1), MapTreeLeaf_2__get_Key(match_value), MapTreeLeaf_2__get_Value(match_value), MapTreeNode_2__get_Right(match_value)))
@@ -197,15 +197,15 @@ def MapTreeModule_rebalance(t1: Optional[MapTreeLeaf_2[Key, Value]], k: Key, v: 
     elif t1h > (t2h + 2):
         match_value_2 : MapTreeLeaf_2[Key, Value] = value_1(t1)
         if isinstance(match_value_2, MapTreeNode_2):
-            def arrow_139(t1=t1, k=k, v=v, t2=t2) -> int:
+            def arrow_144(t1: Optional[MapTreeLeaf_2[Key, Value]]=t1, k: Key=k, v: Value=v, t2: Optional[MapTreeLeaf_2[Key, Value]]=t2) -> int:
                 m_3 : Optional[MapTreeLeaf_2[Key, Value]] = MapTreeNode_2__get_Right(match_value_2)
-                def arrow_138(_unit=None) -> int:
+                def arrow_143(_unit=None) -> int:
                     m2_3 : MapTreeLeaf_2[Key, Value] = m_3
                     return MapTreeNode_2__get_Height(m2_3) if (isinstance(m2_3, MapTreeNode_2)) else (1)
                 
-                return arrow_138() if (m_3 is not None) else (0)
+                return arrow_143() if (m_3 is not None) else (0)
             
-            if arrow_139() > (t2h + 1):
+            if arrow_144() > (t2h + 1):
                 match_value_3 : MapTreeLeaf_2[Key, Value] = value_1(MapTreeNode_2__get_Right(match_value_2))
                 if isinstance(match_value_3, MapTreeNode_2):
                     return MapTreeModule_mk(MapTreeModule_mk(MapTreeNode_2__get_Left(match_value_2), MapTreeLeaf_2__get_Key(match_value_2), MapTreeLeaf_2__get_Value(match_value_2), MapTreeNode_2__get_Left(match_value_3)), MapTreeLeaf_2__get_Key(match_value_3), MapTreeLeaf_2__get_Value(match_value_3), MapTreeModule_mk(MapTreeNode_2__get_Right(match_value_3), k, v, t2))
@@ -227,7 +227,7 @@ def MapTreeModule_rebalance(t1: Optional[MapTreeLeaf_2[Key, Value]], k: Key, v: 
     
 
 
-def MapTreeModule_add(comparer: Any, k: Key, v: Value, m: Optional[MapTreeLeaf_2[Key, Value]]=None) -> Optional[MapTreeLeaf_2[Key, Value]]:
+def MapTreeModule_add(comparer: IComparer_1[Key], k: Key, v: Value, m: Optional[MapTreeLeaf_2[Key, Value]]=None) -> Optional[MapTreeLeaf_2[Key, Value]]:
     if m is not None:
         m2 : MapTreeLeaf_2[Key, Value] = m
         c : int = comparer.Compare(k, MapTreeLeaf_2__get_Key(m2)) or 0
@@ -257,7 +257,7 @@ def MapTreeModule_add(comparer: Any, k: Key, v: Value, m: Optional[MapTreeLeaf_2
     
 
 
-def MapTreeModule_tryFind(comparer_mut: Any, k_mut: Key, m_mut: Optional[MapTreeLeaf_2[Key, Value]]) -> Optional[Value]:
+def MapTreeModule_tryFind(comparer_mut: IComparer_1[Key], k_mut: Key, m_mut: Optional[MapTreeLeaf_2[Key, Value]]) -> Optional[Value]:
     while True:
         (comparer, k, m) = (comparer_mut, k_mut, m_mut)
         if m is not None:
@@ -282,7 +282,7 @@ def MapTreeModule_tryFind(comparer_mut: Any, k_mut: Key, m_mut: Optional[MapTree
         break
 
 
-def MapTreeModule_find(comparer: Any, k: Key, m: Optional[MapTreeLeaf_2[Key, Value]]=None) -> Value:
+def MapTreeModule_find(comparer: IComparer_1[Key], k: Key, m: Optional[MapTreeLeaf_2[Key, Value]]=None) -> Value:
     match_value : Optional[Value] = MapTreeModule_tryFind(comparer, k, m)
     if match_value is None:
         raise Exception()
@@ -292,7 +292,7 @@ def MapTreeModule_find(comparer: Any, k: Key, m: Optional[MapTreeLeaf_2[Key, Val
     
 
 
-def MapTreeModule_partition1(comparer: Any, f: Any, k: Key, v: a_, acc1: Optional[MapTreeLeaf_2[Key, a_]]=None, acc2: Optional[MapTreeLeaf_2[Key, a_]]=None) -> Tuple[Optional[MapTreeLeaf_2[Key, a_]], Optional[MapTreeLeaf_2[Key, a_]]]:
+def MapTreeModule_partition1(comparer: IComparer_1[Key], f: Any, k: Key, v: a_, acc1: Optional[MapTreeLeaf_2[Key, a_]]=None, acc2: Optional[MapTreeLeaf_2[Key, a_]]=None) -> Tuple[Optional[MapTreeLeaf_2[Key, a_]], Optional[MapTreeLeaf_2[Key, a_]]]:
     if f(k, v):
         return (MapTreeModule_add(comparer, k, v, acc1), acc2)
     
@@ -301,7 +301,7 @@ def MapTreeModule_partition1(comparer: Any, f: Any, k: Key, v: a_, acc1: Optiona
     
 
 
-def MapTreeModule_partitionAux(comparer_mut: Any, f_mut: Any, m_mut: Optional[MapTreeLeaf_2[Key, Value]], acc_0_mut: Optional[MapTreeLeaf_2[Key, Value]], acc_1_mut: Optional[MapTreeLeaf_2[Key, Value]]) -> Tuple[Optional[MapTreeLeaf_2[Key, Value]], Optional[MapTreeLeaf_2[Key, Value]]]:
+def MapTreeModule_partitionAux(comparer_mut: IComparer_1[Key], f_mut: Any, m_mut: Optional[MapTreeLeaf_2[Key, Value]], acc_0_mut: Optional[MapTreeLeaf_2[Key, Value]], acc_1_mut: Optional[MapTreeLeaf_2[Key, Value]]) -> Tuple[Optional[MapTreeLeaf_2[Key, Value]], Optional[MapTreeLeaf_2[Key, Value]]]:
     while True:
         (comparer, f, m, acc_0, acc_1) = (comparer_mut, f_mut, m_mut, acc_0_mut, acc_1_mut)
         acc : Tuple[Optional[MapTreeLeaf_2[Key, Value]], Optional[MapTreeLeaf_2[Key, Value]]] = (acc_0, acc_1)
@@ -327,11 +327,11 @@ def MapTreeModule_partitionAux(comparer_mut: Any, f_mut: Any, m_mut: Optional[Ma
         break
 
 
-def MapTreeModule_partition(comparer: Any, f: Callable[[Key, a_], bool], m: Optional[MapTreeLeaf_2[Key, a_]]=None) -> Tuple[Optional[MapTreeLeaf_2[Key, a_]], Optional[MapTreeLeaf_2[Key, a_]]]:
+def MapTreeModule_partition(comparer: IComparer_1[Key], f: Callable[[Key, a_], bool], m: Optional[MapTreeLeaf_2[Key, a_]]=None) -> Tuple[Optional[MapTreeLeaf_2[Key, a_]], Optional[MapTreeLeaf_2[Key, a_]]]:
     return MapTreeModule_partitionAux(comparer, f, m, MapTreeModule_empty(), MapTreeModule_empty())
 
 
-def MapTreeModule_filter1(comparer: Any, f: Any, k: Key, v: a_, acc: Optional[MapTreeLeaf_2[Key, a_]]=None) -> Optional[MapTreeLeaf_2[Key, a_]]:
+def MapTreeModule_filter1(comparer: IComparer_1[Key], f: Any, k: Key, v: a_, acc: Optional[MapTreeLeaf_2[Key, a_]]=None) -> Optional[MapTreeLeaf_2[Key, a_]]:
     if f(k, v):
         return MapTreeModule_add(comparer, k, v, acc)
     
@@ -340,7 +340,7 @@ def MapTreeModule_filter1(comparer: Any, f: Any, k: Key, v: a_, acc: Optional[Ma
     
 
 
-def MapTreeModule_filterAux(comparer_mut: Any, f_mut: Any, m_mut: Optional[MapTreeLeaf_2[Key, Value]], acc_mut: Optional[MapTreeLeaf_2[Key, Value]]) -> Optional[MapTreeLeaf_2[Key, Value]]:
+def MapTreeModule_filterAux(comparer_mut: IComparer_1[Key], f_mut: Any, m_mut: Optional[MapTreeLeaf_2[Key, Value]], acc_mut: Optional[MapTreeLeaf_2[Key, Value]]) -> Optional[MapTreeLeaf_2[Key, Value]]:
     while True:
         (comparer, f, m, acc) = (comparer_mut, f_mut, m_mut, acc_mut)
         if m is not None:
@@ -364,7 +364,7 @@ def MapTreeModule_filterAux(comparer_mut: Any, f_mut: Any, m_mut: Optional[MapTr
         break
 
 
-def MapTreeModule_filter(comparer: Any, f: Callable[[Key, a_], bool], m: Optional[MapTreeLeaf_2[Key, a_]]=None) -> Optional[MapTreeLeaf_2[Key, a_]]:
+def MapTreeModule_filter(comparer: IComparer_1[Key], f: Callable[[Key, a_], bool], m: Optional[MapTreeLeaf_2[Key, a_]]=None) -> Optional[MapTreeLeaf_2[Key, a_]]:
     return MapTreeModule_filterAux(comparer, f, m, MapTreeModule_empty())
 
 
@@ -389,7 +389,7 @@ def MapTreeModule_spliceOutSuccessor(m: Optional[MapTreeLeaf_2[Key, Value]]=None
     
 
 
-def MapTreeModule_remove(comparer: Any, k: Key, m: Optional[MapTreeLeaf_2[Key, Value]]=None) -> Optional[MapTreeLeaf_2[Key, Value]]:
+def MapTreeModule_remove(comparer: IComparer_1[Key], k: Key, m: Optional[MapTreeLeaf_2[Key, Value]]=None) -> Optional[MapTreeLeaf_2[Key, Value]]:
     if m is not None:
         m2 : MapTreeLeaf_2[Key, Value] = m
         c : int = comparer.Compare(k, MapTreeLeaf_2__get_Key(m2)) or 0
@@ -425,7 +425,7 @@ def MapTreeModule_remove(comparer: Any, k: Key, m: Optional[MapTreeLeaf_2[Key, V
     
 
 
-def MapTreeModule_change(comparer: Any, k: Key, u: Callable[[Optional[Value]], Optional[Value]], m: Optional[MapTreeLeaf_2[Key, Value]]=None) -> Optional[MapTreeLeaf_2[Key, Value]]:
+def MapTreeModule_change(comparer: IComparer_1[Key], k: Key, u: Callable[[Optional[Value]], Optional[Value]], m: Optional[MapTreeLeaf_2[Key, Value]]=None) -> Optional[MapTreeLeaf_2[Key, Value]]:
     if m is not None:
         m2 : MapTreeLeaf_2[Key, Value] = m
         if isinstance(m2, MapTreeNode_2):
@@ -495,7 +495,7 @@ def MapTreeModule_change(comparer: Any, k: Key, u: Callable[[Optional[Value]], O
     
 
 
-def MapTreeModule_mem(comparer_mut: Any, k_mut: Key, m_mut: Optional[MapTreeLeaf_2[Key, Value]]) -> bool:
+def MapTreeModule_mem(comparer_mut: IComparer_1[Key], k_mut: Key, m_mut: Optional[MapTreeLeaf_2[Key, Value]]) -> bool:
     while True:
         (comparer, k, m) = (comparer_mut, k_mut, m_mut)
         if m is not None:
@@ -737,8 +737,8 @@ def MapTreeModule_fold(f: Callable[[a_, b_, c_], a_], x: a_, m: Optional[MapTree
     return MapTreeModule_foldOpt(f, x, m)
 
 
-def MapTreeModule_foldSectionOpt(comparer: Any, lo: Key, hi: Key, f: Any, m: Optional[MapTreeLeaf_2[Key, Value]], x: a_=None) -> a_:
-    def fold_from_to(f_1_mut: Any, m_1_mut: Optional[MapTreeLeaf_2[Key, Value]], x_1_mut: b_=None, comparer=comparer, lo=lo, hi=hi, f=f, m=m, x=x) -> b_:
+def MapTreeModule_foldSectionOpt(comparer: IComparer_1[Key], lo: Key, hi: Key, f: Any, m: Optional[MapTreeLeaf_2[Key, Value]], x: a_=None) -> a_:
+    def fold_from_to(f_1_mut: Any, m_1_mut: Optional[MapTreeLeaf_2[Key, Value]], x_1_mut: b_=None, comparer: IComparer_1[Key]=comparer, lo: Key=lo, hi: Key=hi, f: Any=f, m: Optional[MapTreeLeaf_2[Key, Value]]=m, x: a_=x) -> b_:
         while True:
             (f_1, m_1, x_1) = (f_1_mut, m_1_mut, x_1_mut)
             if m_1 is not None:
@@ -778,12 +778,12 @@ def MapTreeModule_foldSectionOpt(comparer: Any, lo: Key, hi: Key, f: Any, m: Opt
     
 
 
-def MapTreeModule_foldSection(comparer: Any, lo: Key, hi: Key, f: Callable[[Key, a_, b_], b_], m: Optional[MapTreeLeaf_2[Key, a_]], x: b_=None) -> b_:
+def MapTreeModule_foldSection(comparer: IComparer_1[Key], lo: Key, hi: Key, f: Callable[[Key, a_, b_], b_], m: Optional[MapTreeLeaf_2[Key, a_]], x: b_=None) -> b_:
     return MapTreeModule_foldSectionOpt(comparer, lo, hi, f, m, x)
 
 
 def MapTreeModule_toList(m: Optional[MapTreeLeaf_2[Key, Value]]=None) -> FSharpList[Tuple[Key, Value]]:
-    def loop(m_1_mut: Optional[MapTreeLeaf_2[Key, Value]], acc_mut: FSharpList[Tuple[Key, Value]], m=m) -> FSharpList[Tuple[Key, Value]]:
+    def loop(m_1_mut: Optional[MapTreeLeaf_2[Key, Value]], acc_mut: FSharpList[Tuple[Key, Value]], m: Optional[MapTreeLeaf_2[Key, Value]]=m) -> FSharpList[Tuple[Key, Value]]:
         while True:
             (m_1, acc) = (m_1_mut, acc_mut)
             if m_1 is not None:
@@ -807,7 +807,7 @@ def MapTreeModule_toList(m: Optional[MapTreeLeaf_2[Key, Value]]=None) -> FSharpL
 
 def MapTreeModule_copyToArray(m: Optional[MapTreeLeaf_2[a_, b_]], arr: List[Any], i: int) -> None:
     j : int = i or 0
-    def arrow_145(x: Any, y: Any=None, m=m, arr=arr, i=i) -> None:
+    def arrow_145(x: Any, y: Any=None, m: Optional[MapTreeLeaf_2[a_, b_]]=m, arr: List[Any]=arr, i: int=i) -> None:
         nonlocal j
         arr[j] = (x, y)
         j = (j + 1) or 0
@@ -822,11 +822,11 @@ def MapTreeModule_toArray(m: Optional[MapTreeLeaf_2[a_, b_]]=None) -> List[Any]:
     return res
 
 
-def MapTreeModule_ofList(comparer: Any, l: FSharpList[Tuple[a_, b_]]) -> Optional[MapTreeLeaf_2[a_, b_]]:
+def MapTreeModule_ofList(comparer: IComparer_1[a_], l: FSharpList[Tuple[a_, b_]]) -> Optional[MapTreeLeaf_2[a_, b_]]:
     return fold_1(lambda acc, tupled_arg, comparer=comparer, l=l: MapTreeModule_add(comparer, tupled_arg[0], tupled_arg[1], acc), MapTreeModule_empty(), l)
 
 
-def MapTreeModule_mkFromEnumerator(comparer_mut: Any, acc_mut: Optional[MapTreeLeaf_2[a_, b_]], e_mut: Any) -> Optional[MapTreeLeaf_2[a_, b_]]:
+def MapTreeModule_mkFromEnumerator(comparer_mut: IComparer_1[a_], acc_mut: Optional[MapTreeLeaf_2[a_, b_]], e_mut: Iterator[Tuple[a_, b_]]) -> Optional[MapTreeLeaf_2[a_, b_]]:
     while True:
         (comparer, acc, e) = (comparer_mut, acc_mut, e_mut)
         if e.System_Collections_IEnumerator_MoveNext():
@@ -842,7 +842,7 @@ def MapTreeModule_mkFromEnumerator(comparer_mut: Any, acc_mut: Optional[MapTreeL
         break
 
 
-def MapTreeModule_ofArray(comparer: Any, arr: List[Tuple[Key, Value]]) -> Optional[MapTreeLeaf_2[Key, Value]]:
+def MapTreeModule_ofArray(comparer: IComparer_1[Key], arr: List[Tuple[Key, Value]]) -> Optional[MapTreeLeaf_2[Key, Value]]:
     res : Optional[MapTreeLeaf_2[Key, Value]] = MapTreeModule_empty()
     for idx in range(0, (len(arr) - 1) + 1, 1):
         for_loop_var : Tuple[Key, Value] = arr[idx]
@@ -850,7 +850,7 @@ def MapTreeModule_ofArray(comparer: Any, arr: List[Tuple[Key, Value]]) -> Option
     return res
 
 
-def MapTreeModule_ofSeq(comparer: Any, c: Any) -> Optional[MapTreeLeaf_2[Key, Value]]:
+def MapTreeModule_ofSeq(comparer: IComparer_1[Key], c: Iterable[Tuple[Key, Value]]) -> Optional[MapTreeLeaf_2[Key, Value]]:
     if is_array_like(c):
         return MapTreeModule_ofArray(comparer, c)
     
@@ -863,7 +863,7 @@ def MapTreeModule_ofSeq(comparer: Any, c: Any) -> Optional[MapTreeLeaf_2[Key, Va
     
 
 
-def expr_146(gen0, gen1) -> TypeInfo:
+def expr_146(gen0: TypeInfo, gen1: TypeInfo) -> TypeInfo:
     return record_type("Map.MapTreeModule.MapIterator`2", [gen0, gen1], MapTreeModule_MapIterator_2, lambda: [["stack", list_type(option_type(MapTreeLeaf_2_reflection(gen0, gen1)))], ["started", bool_type]])
 
 
@@ -969,30 +969,30 @@ def MapTreeModule_moveNext(i: MapTreeModule_MapIterator_2[Any, Any]) -> bool:
     
 
 
-def MapTreeModule_mkIEnumerator(m: Optional[MapTreeLeaf_2[a_, b_]]=None) -> Any:
+def MapTreeModule_mkIEnumerator(m: Optional[MapTreeLeaf_2[a_, b_]]=None) -> Iterator[Any]:
     i : MapTreeModule_MapIterator_2[a_, b_] = MapTreeModule_mkIterator(m)
     class ObjectExpr147(IDisposable):
-        def System_Collections_Generic_IEnumerator_00601_get_Current(self, m=m) -> Any:
+        def System_Collections_Generic_IEnumerator_00601_get_Current(self, m: Optional[MapTreeLeaf_2[a_, b_]]=m) -> Any:
             return MapTreeModule_current(i)
         
-        def System_Collections_IEnumerator_get_Current(self, m=m) -> Any:
+        def System_Collections_IEnumerator_get_Current(self, m: Optional[MapTreeLeaf_2[a_, b_]]=m) -> Any:
             return MapTreeModule_current(i)
         
-        def System_Collections_IEnumerator_MoveNext(self, m=m) -> bool:
+        def System_Collections_IEnumerator_MoveNext(self, m: Optional[MapTreeLeaf_2[a_, b_]]=m) -> bool:
             return MapTreeModule_moveNext(i)
         
-        def System_Collections_IEnumerator_Reset(self, m=m) -> None:
+        def System_Collections_IEnumerator_Reset(self, m: Optional[MapTreeLeaf_2[a_, b_]]=m) -> None:
             nonlocal i
             i = MapTreeModule_mkIterator(m)
         
-        def Dispose(self, m=m) -> None:
+        def Dispose(self, m: Optional[MapTreeLeaf_2[a_, b_]]=m) -> None:
             pass
         
     return ObjectExpr147()
 
 
-def MapTreeModule_toSeq(s: Optional[MapTreeLeaf_2[a_, b_]]=None) -> Any:
-    def generator(en_1: Any, s=s) -> Optional[Tuple[Any, Any]]:
+def MapTreeModule_toSeq(s: Optional[MapTreeLeaf_2[a_, b_]]=None) -> Iterable[Any]:
+    def generator(en_1: Iterator[Any], s: Optional[MapTreeLeaf_2[a_, b_]]=s) -> Optional[Tuple[Any, Iterator[Any]]]:
         if en_1.System_Collections_IEnumerator_MoveNext():
             return (en_1.System_Collections_Generic_IEnumerator_00601_get_Current(), en_1)
         
@@ -1003,12 +1003,12 @@ def MapTreeModule_toSeq(s: Optional[MapTreeLeaf_2[a_, b_]]=None) -> Any:
     return unfold(generator, MapTreeModule_mkIEnumerator(s))
 
 
-def expr_149(gen0, gen1) -> TypeInfo:
+def expr_149(gen0: TypeInfo, gen1: TypeInfo) -> TypeInfo:
     return class_type("Map.FSharpMap", [gen0, gen1], FSharpMap)
 
 
 class FSharpMap(Generic[Key_3, Value_3]):
-    def __init__(self, comparer: Any, tree: Optional[MapTreeLeaf_2[Key, Value]]=None) -> None:
+    def __init__(self, comparer: IComparer_1[Key], tree: Optional[MapTreeLeaf_2[Key, Value]]=None) -> None:
         self.comparer = comparer
         self.tree = tree
     
@@ -1061,14 +1061,14 @@ class FSharpMap(Generic[Key_3, Value_3]):
         this : FSharpMap[Key, Value] = self
         return Array.from_(this)
     
-    def GetEnumerator(self) -> Any:
+    def GetEnumerator(self) -> Iterator[Any]:
         _ : FSharpMap[Key, Value] = self
         return MapTreeModule_mkIEnumerator(_.tree)
     
-    def __iter__(self) -> Any:
+    def __iter__(self) -> Iterator[Any]:
         return to_iterator(self.GetEnumerator())
     
-    def System_Collections_IEnumerable_GetEnumerator(self) -> Any:
+    def System_Collections_IEnumerable_GetEnumerator(self) -> Iterator[Any]:
         _ : FSharpMap[Key, Value] = self
         return MapTreeModule_mkIEnumerator(_.tree)
     
@@ -1127,7 +1127,7 @@ class FSharpMap(Generic[Key_3, Value_3]):
         raise Exception("Map cannot be mutated")
         return False
     
-    def entries(self) -> Any:
+    def entries(self) -> Iterable[Tuple[Key, Value]]:
         m : FSharpMap[Key, Value] = self
         return map_1(lambda p: (p[0], p[1]), m)
     
@@ -1139,20 +1139,20 @@ class FSharpMap(Generic[Key_3, Value_3]):
         m : FSharpMap[Key, Value] = self
         return FSharpMap__ContainsKey(m, k)
     
-    def keys(self) -> Any:
+    def keys(self) -> Iterable[Any]:
         m : FSharpMap[Key, Value] = self
         return map_1(lambda p: p[0], m)
     
-    def __setitem__(self, k: Key, v: Value=None) -> Any:
+    def __setitem__(self, k: Key, v: Value=None) -> Map_2[Key, Value]:
         m : FSharpMap[Key, Value] = self
         raise Exception("Map cannot be mutated")
         return m
     
-    def values(self) -> Any:
+    def values(self) -> Iterable[Any]:
         m : FSharpMap[Key, Value] = self
         return map_1(lambda p: p[1], m)
     
-    def for_each(self, f: Callable[[Value, Key, Any], None], this_arg: Optional[Any]=None) -> None:
+    def for_each(self, f: Callable[[Value, Key, Map_2[Key, Value]], None], this_arg: Optional[Any]=None) -> None:
         m : FSharpMap[Key, Value] = self
         def action(p: Any) -> None:
             f(p[1], p[0], m)
@@ -1162,15 +1162,15 @@ class FSharpMap(Generic[Key_3, Value_3]):
 
 FSharpMap_reflection = expr_149
 
-def FSharpMap__ctor(comparer: Any, tree: Optional[MapTreeLeaf_2[Key, Value]]=None) -> FSharpMap[Key, Value]:
+def FSharpMap__ctor(comparer: IComparer_1[Key], tree: Optional[MapTreeLeaf_2[Key, Value]]=None) -> FSharpMap[Any, Any]:
     return FSharpMap(comparer, tree)
 
 
-def FSharpMap_Empty(comparer: Any) -> FSharpMap[Key, Any]:
+def FSharpMap_Empty(comparer: IComparer_1[Key]) -> FSharpMap[Key, Any]:
     return FSharpMap__ctor(comparer, MapTreeModule_empty())
 
 
-def FSharpMap__get_Comparer(m: FSharpMap[Key, Any]) -> Any:
+def FSharpMap__get_Comparer(m: FSharpMap[Key, Any]) -> IComparer_1[Key]:
     return m.comparer
 
 
@@ -1259,11 +1259,11 @@ def FSharpMap__TryGetValue(_: FSharpMap[Key, Value], key: Key, value: Any) -> bo
     
 
 
-def FSharpMap__get_Keys(__: FSharpMap[Key, Any]) -> Any:
+def FSharpMap__get_Keys(__: FSharpMap[Key, Any]) -> ICollection_1[Key]:
     return list(map_1(lambda kvp, __=__: kvp[0], MapTreeModule_toSeq(__.tree)))
 
 
-def FSharpMap__get_Values(__: FSharpMap[Any, Value]) -> Any:
+def FSharpMap__get_Values(__: FSharpMap[Any, Value]) -> ICollection_1[Value]:
     return list(map_1(lambda kvp, __=__: kvp[1], MapTreeModule_toSeq(__.tree)))
 
 
@@ -1364,12 +1364,12 @@ def fold_back(folder: Callable[[Key, T, State], State], table: FSharpMap[Key, T]
     return MapTreeModule_foldBack(folder, FSharpMap__get_Tree(table), state)
 
 
-def to_seq(table: FSharpMap[a_, b_]) -> Any:
+def to_seq(table: FSharpMap[a_, b_]) -> Iterable[Tuple[a_, b_]]:
     return map_1(lambda kvp, table=table: (kvp[0], kvp[1]), table)
 
 
 def find_key(predicate: Callable[[a_, b_], bool], table: FSharpMap[a_, b_]) -> a_:
-    def chooser(kvp: Any, predicate=predicate, table=table) -> Optional[a_]:
+    def chooser(kvp: Any, predicate: Callable[[a_, b_], bool]=predicate, table: FSharpMap[a_, b_]=table) -> Optional[a_]:
         k : a_ = kvp[0]
         if predicate(k, kvp[1]):
             return some(k)
@@ -1382,7 +1382,7 @@ def find_key(predicate: Callable[[a_, b_], bool], table: FSharpMap[a_, b_]) -> a
 
 
 def try_find_key(predicate: Callable[[a_, b_], bool], table: FSharpMap[a_, b_]) -> Optional[a_]:
-    def chooser(kvp: Any, predicate=predicate, table=table) -> Optional[a_]:
+    def chooser(kvp: Any, predicate: Callable[[a_, b_], bool]=predicate, table: FSharpMap[a_, b_]=table) -> Optional[a_]:
         k : a_ = kvp[0]
         if predicate(k, kvp[1]):
             return some(k)
@@ -1394,15 +1394,15 @@ def try_find_key(predicate: Callable[[a_, b_], bool], table: FSharpMap[a_, b_]) 
     return try_pick_1(chooser, table)
 
 
-def of_list(elements: FSharpList[Tuple[Key, Value]], comparer: Any) -> FSharpMap[Key, Value]:
+def of_list(elements: FSharpList[Tuple[Key, Value]], comparer: IComparer_1[Key]) -> FSharpMap[Key, Value]:
     return FSharpMap__ctor(comparer, MapTreeModule_ofSeq(comparer, elements))
 
 
-def of_seq(elements: Any, comparer: Any) -> FSharpMap[T, a_]:
+def of_seq(elements: Iterable[Tuple[T, a_]], comparer: IComparer_1[T]) -> FSharpMap[T, a_]:
     return FSharpMap__ctor(comparer, MapTreeModule_ofSeq(comparer, elements))
 
 
-def of_array(elements: List[Tuple[Key, Value]], comparer: Any) -> FSharpMap[Key, Value]:
+def of_array(elements: List[Tuple[Key, Value]], comparer: IComparer_1[Key]) -> FSharpMap[Key, Value]:
     return FSharpMap__ctor(comparer, MapTreeModule_ofSeq(comparer, elements))
 
 
@@ -1414,15 +1414,15 @@ def to_array(table: FSharpMap[a_, b_]) -> List[Any]:
     return FSharpMap__ToArray(table)
 
 
-def keys(table: FSharpMap[K, Any]) -> Any:
+def keys(table: FSharpMap[K, Any]) -> ICollection_1[K]:
     return FSharpMap__get_Keys(table)
 
 
-def values(table: FSharpMap[Any, V]) -> Any:
+def values(table: FSharpMap[Any, V]) -> ICollection_1[V]:
     return FSharpMap__get_Values(table)
 
 
-def empty(comparer: Any) -> FSharpMap[Key, Any]:
+def empty(comparer: IComparer_1[Key]) -> FSharpMap[Key, Any]:
     return FSharpMap_Empty(comparer)
 
 

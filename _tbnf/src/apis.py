@@ -1,11 +1,11 @@
 from __future__ import annotations
 from typing import (Any, List, Tuple)
-from fable_modules.fable_library.array import equals_with
-from fable_modules.fable_library.list import (of_array, empty, FSharpList)
-from fable_modules.fable_library.types import FSharpRef
-from fable_modules.fable_library.util import equals
+from ..fable_modules.fable_library.array import equals_with
+from ..fable_modules.fable_library.list import (of_array, empty, FSharpList)
+from ..fable_modules.fable_library.types import FSharpRef
+from ..fable_modules.fable_library.util import equals
 from .analysis import (build_analyzer as build_analyzer_1, Analyzer)
-from .grammar import (Cell_1__ctor, Cell_1, position as position_1, node as node_1, expr, monot as monot_1, TTuple, TList, lexerule, definition, production, polyt, symbol)
+from .grammar import (Cell_1__ctor, Cell_1, position as position_1, expr, node as node_1, monot as monot_1, TTuple, TList, lexerule, definition, production, polyt, symbol)
 
 def MK_Cell() -> Cell_1[Any]:
     return Cell_1__ctor()
@@ -100,9 +100,9 @@ def MK_LStr(s: str) -> lexerule:
     return lexerule(3, s)
 
 
-MK_LNumber = lexerule(0)
+MK_LNumber : lexerule = lexerule(0)
 
-MK_LWildcard = lexerule(1)
+MK_LWildcard : lexerule = lexerule(1)
 
 def MK_LSeq(xs: List[lexerule]) -> lexerule:
     if len(xs) == 1 if (not equals_with(lambda x, y, xs=xs: equals(x, y), xs, None)) else (False):
@@ -158,7 +158,7 @@ def MK_Defignore(ignore_list: List[str], pos: position_1) -> definition:
 
 
 def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, production]], pos: position_1) -> definition:
-    def arrow_51(lhs=lhs, parameters=parameters, define=define, pos=pos) -> dict:
+    def arrow_51(lhs: str=lhs, parameters: List[str]=parameters, define: List[Tuple[position_1, production]]=define, pos: position_1=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "define": of_array(define),
@@ -195,7 +195,7 @@ def MK_Declvar(ident: str, t: polyt, pos: position_1) -> definition:
 
 
 def MK_Decltype(ident: str, parameters: List[str], fields: List[Tuple[str, monot_1, position_1]], pos: position_1) -> definition:
-    def arrow_52(ident=ident, parameters=parameters, fields=fields, pos=pos) -> dict:
+    def arrow_52(ident: str=ident, parameters: List[str]=parameters, fields: List[Tuple[str, monot_1, position_1]]=fields, pos: position_1=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "fields": of_array(fields),

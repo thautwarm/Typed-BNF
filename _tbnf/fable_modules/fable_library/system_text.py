@@ -5,7 +5,7 @@ from .string import (join, is_null_or_empty, format, substring)
 from .types import to_string
 from .util import (int32_to_string, clear)
 
-def expr_7() -> TypeInfo:
+def expr_11() -> TypeInfo:
     return class_type("System.Text.StringBuilder", None, StringBuilder)
 
 
@@ -21,7 +21,7 @@ class StringBuilder:
         return join("", __.buf)
     
 
-StringBuilder_reflection = expr_7
+StringBuilder_reflection = expr_11
 
 def StringBuilder__ctor_Z18115A39(value: str, capacity: int) -> StringBuilder:
     return StringBuilder(value, capacity)

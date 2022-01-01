@@ -1,9 +1,9 @@
 from __future__ import annotations
-from typing import (TypeVar, Generic, Any, List)
+from typing import (TypeVar, Any, Generic, Iterable, Iterator, List)
 from .array import (fill, copy_to, initialize)
 from .reflection import (TypeInfo, class_type)
 from .seq import (delay, enumerate_while, append, singleton, empty, to_array)
-from .util import (compare, equals, structural_hash, get_enumerator, to_iterator, max, compare_primitives)
+from .util import (compare, equals, structural_hash, IEqualityComparer, get_enumerator, to_iterator, max, compare_primitives)
 
 T = TypeVar("T")
 
@@ -13,7 +13,7 @@ t = TypeVar("t")
 
 T_2 = TypeVar("T_2")
 
-def expr_24(gen0) -> TypeInfo:
+def expr_24(gen0: TypeInfo) -> TypeInfo:
     return class_type("System.Collections.Generic.Comparer`1", [gen0], Comparer_1)
 
 
@@ -27,11 +27,11 @@ class Comparer_1(Generic[T]):
 
 Comparer_1_reflection = expr_24
 
-def Comparer_1__ctor() -> Comparer_1[T]:
+def Comparer_1__ctor() -> Comparer_1[Any]:
     return Comparer_1()
 
 
-def Comparer_1_get_Default() -> Any:
+def Comparer_1_get_Default() -> IComparer_1[Any]:
     class ObjectExpr25:
         def Compare(self, x: T, y: T=None) -> int:
             return compare(x, y)
@@ -39,7 +39,7 @@ def Comparer_1_get_Default() -> Any:
     return ObjectExpr25()
 
 
-def expr_26(gen0) -> TypeInfo:
+def expr_26(gen0: TypeInfo) -> TypeInfo:
     return class_type("System.Collections.Generic.EqualityComparer`1", [gen0], EqualityComparer_1)
 
 
@@ -56,11 +56,11 @@ class EqualityComparer_1(Generic[T_1]):
 
 EqualityComparer_1_reflection = expr_26
 
-def EqualityComparer_1__ctor() -> EqualityComparer_1[T]:
+def EqualityComparer_1__ctor() -> EqualityComparer_1[Any]:
     return EqualityComparer_1()
 
 
-def EqualityComparer_1_get_Default() -> Any:
+def EqualityComparer_1_get_Default() -> IEqualityComparer[Any]:
     class ObjectExpr27:
         def Equals(self, x: T, y: T=None) -> bool:
             return equals(x, y)
@@ -71,7 +71,7 @@ def EqualityComparer_1_get_Default() -> Any:
     return ObjectExpr27()
 
 
-def expr_31(gen0) -> TypeInfo:
+def expr_31(gen0: TypeInfo) -> TypeInfo:
     return class_type("System.Collections.Generic.Stack`1", [gen0], Stack_1)
 
 
@@ -80,12 +80,12 @@ class Stack_1(Generic[t]):
         self.contents = initial_contents
         self.count = initial_count or 0
     
-    def GetEnumerator(self) -> Any:
+    def GetEnumerator(self) -> Iterator[Any]:
         this : Stack_1[t] = self
-        def arrow_30(_unit=None) -> Any:
+        def arrow_30(_unit=None) -> Iterable[Any]:
             index : int = (this.count - 1) or 0
-            def arrow_29(_unit=None) -> Any:
-                def arrow_28(_unit=None) -> Any:
+            def arrow_29(_unit=None) -> Iterable[Any]:
+                def arrow_28(_unit=None) -> Iterable[Any]:
                     nonlocal index
                     index = (index - 1) or 0
                     return empty()
@@ -96,17 +96,17 @@ class Stack_1(Generic[t]):
         
         return get_enumerator(delay(arrow_30))
     
-    def __iter__(self) -> Any:
+    def __iter__(self) -> Iterator[Any]:
         return to_iterator(self.GetEnumerator())
     
-    def System_Collections_IEnumerable_GetEnumerator(self) -> Any:
+    def System_Collections_IEnumerable_GetEnumerator(self) -> Iterator[Any]:
         this : Stack_1[t] = self
         return get_enumerator(this)
     
 
 Stack_1_reflection = expr_31
 
-def Stack_1__ctor_Z2E171D71(initial_contents: List[t], initial_count: int) -> Stack_1[t]:
+def Stack_1__ctor_Z2E171D71(initial_contents: List[t], initial_count: int) -> Stack_1[Any]:
     return Stack_1(initial_contents, initial_count)
 
 
@@ -118,7 +118,7 @@ def Stack_1__ctor() -> Stack_1[Any]:
     return Stack_1__ctor_Z524259A4(4)
 
 
-def Stack_1__ctor_BB573A(xs: Any) -> Stack_1[t]:
+def Stack_1__ctor_BB573A(xs: Iterable[t]) -> Stack_1[t]:
     arr : List[t] = list(xs)
     return Stack_1__ctor_Z2E171D71(arr, len(arr))
 
@@ -199,7 +199,7 @@ def Stack_1__ToArray(this: Stack_1[t]) -> List[t]:
     return initialize(this.count, lambda i, this=this: this.contents[(this.count - 1) - i], None)
 
 
-def expr_32(gen0) -> TypeInfo:
+def expr_34(gen0: TypeInfo) -> TypeInfo:
     return class_type("System.Collections.Generic.Queue`1", [gen0], Queue_1)
 
 
@@ -210,21 +210,21 @@ class Queue_1(Generic[T_2]):
         self.head = 0
         self.tail = initial_count or 0
     
-    def GetEnumerator(self) -> Any:
+    def GetEnumerator(self) -> Iterator[Any]:
         this : Queue_1[T] = self
         return get_enumerator(Queue_1__toSeq(this))
     
-    def __iter__(self) -> Any:
+    def __iter__(self) -> Iterator[Any]:
         return to_iterator(self.GetEnumerator())
     
-    def System_Collections_IEnumerable_GetEnumerator(self) -> Any:
+    def System_Collections_IEnumerable_GetEnumerator(self) -> Iterator[Any]:
         this : Queue_1[T] = self
         return get_enumerator(this)
     
 
-Queue_1_reflection = expr_32
+Queue_1_reflection = expr_34
 
-def Queue_1__ctor_Z2E171D71(initial_contents: List[T], initial_count: int) -> Queue_1[T]:
+def Queue_1__ctor_Z2E171D71(initial_contents: List[T], initial_count: int) -> Queue_1[Any]:
     return Queue_1(initial_contents, initial_count)
 
 
@@ -239,7 +239,7 @@ def Queue_1__ctor() -> Queue_1[Any]:
     return Queue_1__ctor_Z524259A4(4)
 
 
-def Queue_1__ctor_BB573A(xs: Any) -> Queue_1[T]:
+def Queue_1__ctor_BB573A(xs: Iterable[T]) -> Queue_1[T]:
     arr : List[T] = list(xs)
     return Queue_1__ctor_Z2E171D71(arr, len(arr))
 
@@ -355,11 +355,11 @@ def Queue_1__ensure_Z524259A4(this: Queue_1[Any], required_size: int) -> None:
     this.contents = new_buffer
 
 
-def Queue_1__toSeq(this: Queue_1[T]) -> Any:
-    def arrow_37(this=this) -> Any:
+def Queue_1__toSeq(this: Queue_1[T]) -> Iterable[T]:
+    def arrow_37(this: Queue_1[T]=this) -> Iterable[Any]:
         i : int = 0
-        def arrow_36(_unit=None) -> Any:
-            def arrow_35(_unit=None) -> Any:
+        def arrow_36(_unit=None) -> Iterable[Any]:
+            def arrow_35(_unit=None) -> Iterable[Any]:
                 nonlocal i
                 i = (i + 1) or 0
                 return empty()

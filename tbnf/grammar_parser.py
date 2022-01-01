@@ -6,7 +6,7 @@ def _get_value(token):
     return token.value
 
 
-from _tbnf.apis import *
+from _tbnf.src.apis import *
 from tbnf.basic import mkpos
 import json.decoder
 def add(xs, x):

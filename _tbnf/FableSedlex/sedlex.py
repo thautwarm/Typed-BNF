@@ -1,15 +1,15 @@
 from __future__ import annotations
-from array import array
-from typing import (Any, Tuple, TypeVar, Callable, Optional, List)
-from fable_modules.fable_library.array import (map as map_1, iterate, initialize, fill, iterate_indexed, compare_with, choose, map_indexed, try_item)
-from fable_modules.fable_library.list import (FSharpList, is_empty, head, tail, cons, empty, singleton, of_array, exists, fold, sort_with, concat, map, to_array, append, filter, iterate as iterate_1)
-from fable_modules.fable_library.map import (empty as empty_1, try_find, add, find, of_array as of_array_1, map as map_2, FSharpMap__get_Item)
-from fable_modules.fable_library.option import value
-from fable_modules.fable_library.reflection import (TypeInfo, int32_type, list_type, tuple_type, record_type, array_type, union_type, class_type, string_type, lambda_type, bool_type)
-from fable_modules.fable_library.set import (empty as empty_2, add as add_1)
-from fable_modules.fable_library.string import (to_text, interpolate)
-from fable_modules.fable_library.types import (Record, FSharpRef, Union)
-from fable_modules.fable_library.util import (compare, uncurry, compare_primitives, min as min_2, get_enumerator, ignore)
+from abc import abstractmethod
+from typing import (Tuple, Any, TypeVar, Callable, Optional, List, MutableSequence)
+from ..fable_modules.fable_library.array import (map as map_1, iterate, initialize, fill, iterate_indexed, compare_with, choose, map_indexed, try_item)
+from ..fable_modules.fable_library.list import (FSharpList, is_empty, head, tail, cons, empty, singleton, of_array, exists, fold, sort_with, concat, map, to_array, append, filter, iterate as iterate_1)
+from ..fable_modules.fable_library.map import (empty as empty_1, try_find, add, find, of_array as of_array_1, map as map_2, FSharpMap__get_Item)
+from ..fable_modules.fable_library.option import value
+from ..fable_modules.fable_library.reflection import (TypeInfo, int32_type, list_type, tuple_type, record_type, array_type, union_type, class_type, string_type, lambda_type, bool_type)
+from ..fable_modules.fable_library.set import (empty as empty_2, add as add_1)
+from ..fable_modules.fable_library.string import (to_text, interpolate)
+from ..fable_modules.fable_library.types import (FSharpRef, Record, Union)
+from ..fable_modules.fable_library.util import (compare, uncurry, compare_primitives, min as min_2, get_enumerator, ignore)
 
 a_ = TypeVar("a_")
 
@@ -17,7 +17,7 @@ b_ = TypeVar("b_")
 
 c_ = TypeVar("c_")
 
-def incr(a: Any) -> None:
+def incr(a: FSharpRef[int]) -> None:
     a.contents = (a.contents + 1) or 0
 
 
@@ -58,9 +58,9 @@ def Cset_union(c1_mut: FSharpList[Tuple[int, int]], c2_mut: FSharpList[Tuple[int
         break
 
 
-Cset_max_code = 1114111
+Cset_max_code : int = 1114111
 
-Cset_min_code = -1
+Cset_min_code : int = -1
 
 def Cset_empty() -> FSharpList[Any]:
     return empty()
@@ -88,12 +88,12 @@ def Cset_interval(i: a_, j: a_=None) -> FSharpList[Tuple[a_, a_]]:
     
 
 
-Cset_eof = Cset_singleton(-1)
+Cset_eof : FSharpList[Tuple[int, int]] = Cset_singleton(-1)
 
-Cset_any = Cset_interval(0, Cset_max_code)
+Cset_any : FSharpList[Tuple[int, int]] = Cset_interval(0, Cset_max_code)
 
 def Cset_complement(c: FSharpList[Tuple[int, int]]) -> FSharpList[Tuple[int, int]]:
-    def aux(start_1: int, _arg1: FSharpList[Tuple[int, int]], c=c) -> FSharpList[Tuple[int, int]]:
+    def aux(start_1: int, _arg1: FSharpList[Tuple[int, int]], c: FSharpList[Tuple[int, int]]=c) -> FSharpList[Tuple[int, int]]:
         if not is_empty(_arg1):
             return cons((start_1, head(_arg1)[0] - 1), aux(head(_arg1)[1] + 1, tail(_arg1)))
         
@@ -150,7 +150,7 @@ class Automata_node(Record):
 
 Automata_node_reflection = expr_75
 
-Automata_cur_id = FSharpRef(0)
+Automata_cur_id : FSharpRef[int] = FSharpRef(0)
 
 def Automata_new_node() -> Automata_node:
     incr(Automata_cur_id)
@@ -166,7 +166,7 @@ def Automata_is_chars(final: Any, _arg1: Automata_node) -> Optional[FSharpList[T
     if is_empty(_arg1.eps):
         if not is_empty(_arg1.trans):
             if is_empty(tail(_arg1.trans)):
-                def arrow_76(final=final, _arg1=_arg1) -> bool:
+                def arrow_76(final: a_=final, _arg1: Automata_node=_arg1) -> bool:
                     c : FSharpList[Tuple[int, int]] = head(_arg1.trans)[0]
                     return head(_arg1.trans)[1] is final
                 
@@ -253,7 +253,7 @@ def Automata_compl(r: Callable[[Automata_node], Automata_node]) -> Optional[Call
     n : Automata_node = Automata_new_node()
     match_value : Optional[FSharpList[Tuple[int, int]]] = Automata_is_chars(n, r(n))
     if match_value is not None:
-        def arrow_77(r=r) -> Callable[[Automata_node], Automata_node]:
+        def arrow_77(r: Callable[[Automata_node], Automata_node]=r) -> Callable[[Automata_node], Automata_node]:
             c_1 : FSharpList[Tuple[int, int]] = Cset_difference(Cset_any, match_value)
             return lambda succ: Automata_chars(c_1, succ)
         
@@ -283,7 +283,7 @@ def Automata_pair_op(f: Callable[[FSharpList[Tuple[int, int]], FSharpList[Tuple[
         pattern_matching_result = 1
     
     if pattern_matching_result == 0:
-        def arrow_78(f=f, r0=r0, r1=r1) -> Callable[[Automata_node], Automata_node]:
+        def arrow_78(f: Callable[[FSharpList[Tuple[int, int]], FSharpList[Tuple[int, int]]], FSharpList[Tuple[int, int]]]=f, r0: Callable[[Automata_node], Automata_node]=r0, r1: Callable[[Automata_node], Automata_node]=r1) -> Callable[[Automata_node], Automata_node]:
             c : FSharpList[Tuple[int, int]] = f(c0, c1)
             return lambda succ: Automata_chars(c, succ)
         
@@ -294,9 +294,9 @@ def Automata_pair_op(f: Callable[[FSharpList[Tuple[int, int]], FSharpList[Tuple[
     
 
 
-Automata_subtract = lambda r0: lambda r1: Automata_pair_op(lambda c1, c2: Cset_difference(c1, c2), r0, r1)
+Automata_subtract : Callable[[Callable[[Automata_node], Automata_node], Callable[[Automata_node], Automata_node]], Optional[Callable[[Automata_node], Automata_node]]] = lambda r0: lambda r1: Automata_pair_op(lambda c1, c2: Cset_difference(c1, c2), r0, r1)
 
-Automata_intersection = lambda r0: lambda r1: Automata_pair_op(lambda c1, c2: Cset_intersection(c1, c2), r0, r1)
+Automata_intersection : Callable[[Callable[[Automata_node], Automata_node], Callable[[Automata_node], Automata_node]], Optional[Callable[[Automata_node], Automata_node]]] = lambda r0: lambda r1: Automata_pair_op(lambda c1, c2: Cset_intersection(c1, c2), r0, r1)
 
 def Automata_compile_re(re: Callable[[Automata_node], a_]) -> Tuple[a_, Automata_node]:
     final : Automata_node = Automata_new_node()
@@ -317,7 +317,7 @@ def Automata_add_nodes(state: FSharpList[Automata_node], nodes: FSharpList[Autom
 
 
 def Automata_transition(state: FSharpList[Automata_node]) -> List[Tuple[FSharpList[Tuple[int, int]], FSharpList[Automata_node]]]:
-    def norm(_arg1_mut: FSharpList[Tuple[FSharpList[Tuple[int, int]], a_]], state=state) -> FSharpList[Tuple[FSharpList[Tuple[int, int]], a_]]:
+    def norm(_arg1_mut: FSharpList[Tuple[FSharpList[Tuple[int, int]], a_]], state: FSharpList[Automata_node]=state) -> FSharpList[Tuple[FSharpList[Tuple[int, int]], a_]]:
         while True:
             (_arg1,) = (_arg1_mut,)
             (pattern_matching_result, c1, c2, l, n1, n2, q, l_1) = (None, None, None, None, None, None, None, None)
@@ -355,10 +355,10 @@ def Automata_transition(state: FSharpList[Automata_node]) -> List[Tuple[FSharpLi
             break
     
     t_1 : FSharpList[Tuple[FSharpList[Tuple[int, int]], Automata_node]] = norm(sort_with(lambda tupled_arg, tupled_arg_1, state=state: tupled_arg[1].id - tupled_arg_1[1].id, concat(map(lambda n, state=state: n.trans, state))))
-    def split(tupled_arg_2: Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]], state=state) -> Callable[[Tuple[FSharpList[Tuple[int, int]], a_]], Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]]]:
+    def split(tupled_arg_2: Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]], state: FSharpList[Automata_node]=state) -> Callable[[Tuple[FSharpList[Tuple[int, int]], a_]], Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]]]:
         all : FSharpList[Tuple[int, int]] = tupled_arg_2[0]
         t_2 : FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]] = tupled_arg_2[1]
-        def arrow_79(tupled_arg_3: Tuple[FSharpList[Tuple[int, int]], a_], tupled_arg_2=tupled_arg_2) -> Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]]:
+        def arrow_79(tupled_arg_3: Tuple[FSharpList[Tuple[int, int]], a_], tupled_arg_2: Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]]=tupled_arg_2) -> Tuple[FSharpList[Tuple[int, int]], FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]]]:
             c0 : FSharpList[Tuple[int, int]] = tupled_arg_3[0]
             n0 : a_ = tupled_arg_3[1]
             t_3 : FSharpList[Tuple[FSharpList[Tuple[int, int]], FSharpList[a_]]] = append(cons((Cset_difference(c0, all), singleton(n0)), map(lambda tupled_arg_4: (Cset_intersection(tupled_arg_4[0], c0), cons(n0, tupled_arg_4[1])), t_2)), map(lambda tupled_arg_5: (Cset_difference(tupled_arg_5[0], c0), tupled_arg_5[1]), t_2))
@@ -373,7 +373,7 @@ def Automata_transition(state: FSharpList[Automata_node]) -> List[Tuple[FSharpLi
 
 def Automata_compile(rs: List[Callable[[Automata_node], Automata_node]]) -> List[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]]:
     rs_1 : List[Tuple[Automata_node, Automata_node]] = map_1(lambda re, rs=rs: Automata_compile_re(re), rs, None)
-    counter : Any = FSharpRef(0)
+    counter : FSharpRef[int] = FSharpRef(0)
     class ObjectExpr80:
         @property
         def Compare(self) -> Any:
@@ -386,7 +386,7 @@ def Automata_compile(rs: List[Callable[[Automata_node], Automata_node]]) -> List
             return lambda x_1, y_1: compare_primitives(x_1, y_1)
         
     states_def : Any = empty_1(ObjectExpr81())
-    def aux(state: FSharpList[Automata_node], rs=rs) -> int:
+    def aux(state: FSharpList[Automata_node], rs: List[Callable[[Automata_node], Automata_node]]=rs) -> int:
         nonlocal states, states_def
         match_value : Optional[int] = try_find(state, states)
         if match_value is None:
@@ -402,8 +402,8 @@ def Automata_compile(rs: List[Callable[[Automata_node], Automata_node]]) -> List
             return match_value
         
     
-    init : Any = FSharpRef(empty())
-    def arrow_82(tupled_arg_2: Tuple[Automata_node, Automata_node], rs=rs) -> None:
+    init : FSharpRef[FSharpList[Automata_node]] = FSharpRef(empty())
+    def arrow_82(tupled_arg_2: Tuple[Automata_node, Automata_node], rs: List[Callable[[Automata_node], Automata_node]]=rs) -> None:
         init.contents = Automata_add_node(init.contents, tupled_arg_2[0])
     
     iterate(arrow_82, rs_1)
@@ -416,13 +416,13 @@ def expr_83() -> TypeInfo:
 
 
 class Automata_decision_tree(Union):
-    def __init__(self, tag=None, *fields) -> None:
+    def __init__(self, tag: int=None, *fields: Any) -> None:
         super().__init__()
-        self.tag = tag or 0
-        self.fields = fields
+        self.tag : int = tag or 0
+        self.fields : List[Any] = list(fields)
     
     @staticmethod
-    def cases():
+    def cases() -> List[str]:
         return ["Lte", "Table", "Return"]
     
 
@@ -499,7 +499,7 @@ def Automata_simplify_decision_tree(x: Automata_decision_tree) -> Automata_decis
 
 
 def Automata_decision(l: FSharpList[Tuple[int, int, int]]) -> Automata_decision_tree:
-    def merge2(_arg1: FSharpList[Tuple[int, int, Automata_decision_tree]], l=l) -> FSharpList[Tuple[int, int, Automata_decision_tree]]:
+    def merge2(_arg1: FSharpList[Tuple[int, int, Automata_decision_tree]], l: FSharpList[Tuple[int, int, int]]=l) -> FSharpList[Tuple[int, int, Automata_decision_tree]]:
         (pattern_matching_result, a1, a2, b1, b2, d1, d2, rest, rest_1) = (None, None, None, None, None, None, None, None, None)
         if not is_empty(_arg1):
             if not is_empty(tail(_arg1)):
@@ -528,7 +528,7 @@ def Automata_decision(l: FSharpList[Tuple[int, int, int]]) -> Automata_decision_
             return rest_1
         
     
-    def aux(_arg2_mut: FSharpList[Tuple[int, int, Automata_decision_tree]], l=l) -> Automata_decision_tree:
+    def aux(_arg2_mut: FSharpList[Tuple[int, int, Automata_decision_tree]], l: FSharpList[Tuple[int, int, int]]=l) -> Automata_decision_tree:
         while True:
             (_arg2,) = (_arg2_mut,)
             if is_empty(_arg2):
@@ -546,10 +546,10 @@ def Automata_decision(l: FSharpList[Tuple[int, int, int]]) -> Automata_decision_
     return aux(map(lambda tupled_arg, l=l: (tupled_arg[0], tupled_arg[1], Automata_decision_tree(2, tupled_arg[2])), l))
 
 
-Automata_limit = 8192
+Automata_limit : int = 8192
 
 def Automata_old_decision_table(l: FSharpList[Tuple[int, int, int]]) -> Automata_decision_tree:
-    def aux(m_mut: a_, accu_mut: FSharpList[Tuple[a_, int, int]], _arg1_mut: FSharpList[Tuple[a_, int, int]], l=l) -> Tuple[a_, FSharpList[Tuple[a_, int, int]], FSharpList[Tuple[a_, int, int]]]:
+    def aux(m_mut: a_, accu_mut: FSharpList[Tuple[a_, int, int]], _arg1_mut: FSharpList[Tuple[a_, int, int]], l: FSharpList[Tuple[int, int, int]]=l) -> Tuple[a_, FSharpList[Tuple[a_, int, int]], FSharpList[Tuple[a_, int, int]]]:
         while True:
             (m, accu, _arg1) = (m_mut, accu_mut, _arg1_mut)
             (pattern_matching_result, a_1, b_1, i_1, rem_1, x_1) = (None, None, None, None, None, None)
@@ -589,8 +589,8 @@ def Automata_old_decision_table(l: FSharpList[Tuple[int, int, int]]) -> Automata
             return Automata_decision_tree(0, head(table)[0] - 1, Automata_decision_tree(2, -1), Automata_decision_tree(0, head(table)[1], Automata_decision_tree(2, head(table)[2]), Automata_decision(rest)))
         
         else: 
-            arr : array = fill([0] * ((head(table)[1] - min) + 1), 0, (head(table)[1] - min) + 1, 0)
-            def set_1(tupled_arg: Tuple[int, int, int], l=l) -> None:
+            arr : MutableSequence[int] = fill([0] * ((head(table)[1] - min) + 1), 0, (head(table)[1] - min) + 1, 0)
+            def set_1(tupled_arg: Tuple[int, int, int], l: FSharpList[Tuple[int, int, int]]=l) -> None:
                 for j in range(tupled_arg[0], tupled_arg[1] + 1, 1):
                     arr[j - min] = (tupled_arg[2] + 1) or 0
             
@@ -633,8 +633,8 @@ def Automata_simplify(min_mut: int, max_mut: int, _arg1_mut: Automata_decision_t
 
 
 def Automata_segments_of_partition(p: List[FSharpList[Tuple[a_, b_]]]) -> FSharpList[Tuple[a_, b_, int]]:
-    seg : Any = FSharpRef(empty())
-    def arrow_85(i: int, c: FSharpList[Tuple[a_, b_]], p=p) -> None:
+    seg : FSharpRef[FSharpList[Tuple[a_, b_, int]]] = FSharpRef(empty())
+    def arrow_85(i: int, c: FSharpList[Tuple[a_, b_]], p: List[FSharpList[Tuple[a_, b_]]]=p) -> None:
         def arrow_84(tupled_arg: Tuple[a_, b_]) -> None:
             seg.contents = cons((tupled_arg[0], tupled_arg[1], i), seg.contents)
         
@@ -682,13 +682,13 @@ def expr_86() -> TypeInfo:
 
 
 class keep_token(Union):
-    def __init__(self, tag=None, *fields) -> None:
+    def __init__(self, tag: int=None, *fields: Any) -> None:
         super().__init__()
-        self.tag = tag or 0
-        self.fields = fields
+        self.tag : int = tag or 0
+        self.fields : List[Any] = list(fields)
     
     @staticmethod
-    def cases():
+    def cases() -> List[str]:
         return ["Discard", "Tokenize"]
     
 
@@ -699,13 +699,13 @@ def expr_87() -> TypeInfo:
 
 
 class lang(Union):
-    def __init__(self, tag=None, *fields) -> None:
+    def __init__(self, tag: int=None, *fields: Any) -> None:
         super().__init__()
-        self.tag = tag or 0
-        self.fields = fields
+        self.tag : int = tag or 0
+        self.fields : List[Any] = list(fields)
     
     @staticmethod
-    def cases():
+    def cases() -> List[str]:
         return ["Lang_match_i", "Lang_backtrace", "Lang_mark", "Lang_callst", "Lang_int"]
     
 
@@ -732,7 +732,7 @@ def build(definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_
             return lambda x, y: compare_with(lambda x_1, y_1: compare(x_1, y_1), x, y)
         
     partitions : Any = empty_1(ObjectExpr89())
-    partition_counter : Any = FSharpRef(0)
+    partition_counter : FSharpRef[int] = FSharpRef(0)
     class ObjectExpr90:
         @property
         def Compare(self) -> Any:
@@ -745,16 +745,16 @@ def build(definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_
             return lambda x_4, y_4: compare(x_4, y_4)
         
     referenced_decision_trees : Any = empty_2(ObjectExpr91())
-    def best_final(final: List[bool], definition=definition, error_msg=error_msg) -> Optional[int]:
-        fin : Any = FSharpRef(None)
+    def best_final(final: List[bool], definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_token]]=definition, error_msg: str=error_msg) -> Optional[int]:
+        fin : FSharpRef[Optional[int]] = FSharpRef(None)
         for i in range(len(final) - 1, 0 - 1, -1):
             if final[i]:
                 fin.contents = i
             
         return fin.contents
     
-    def gen_definition(l: List[Tuple[Callable[[Automata_node], Automata_node], keep_token]], definition=definition, error_msg=error_msg) -> Callable[[str], compiled_unit]:
-        def arrow_93(error: str, l=l) -> compiled_unit:
+    def gen_definition(l: List[Tuple[Callable[[Automata_node], Automata_node], keep_token]], definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_token]]=definition, error_msg: str=error_msg) -> Callable[[str], compiled_unit]:
+        def arrow_93(error: str, l: List[Tuple[Callable[[Automata_node], Automata_node], keep_token]]=l) -> compiled_unit:
             brs : List[Tuple[Callable[[Automata_node], Automata_node], keep_token]] = l
             auto : List[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]] = Automata_compile(map_1(lambda tuple: tuple[0], brs, None))
             cases : List[keep_token] = map_1(lambda tupled_arg: tupled_arg[1], brs, None)
@@ -767,8 +767,8 @@ def build(definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_
         
         return arrow_93
     
-    def call_state(auto_1: List[Tuple[List[a_], List[bool]]], definition=definition, error_msg=error_msg) -> Callable[[int], lang]:
-        def arrow_94(state: int, auto_1=auto_1) -> lang:
+    def call_state(auto_1: List[Tuple[List[a_], List[bool]]], definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_token]]=definition, error_msg: str=error_msg) -> Callable[[int], lang]:
+        def arrow_94(state: int, auto_1: List[Tuple[List[a_], List[bool]]]=auto_1) -> lang:
             pattern_input : Tuple[List[a_], List[bool]] = auto_1[state]
             if len(pattern_input[0]) == 0:
                 match_value_2 : Optional[int] = best_final(pattern_input[1])
@@ -785,8 +785,8 @@ def build(definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_
         
         return arrow_94
     
-    def gen_state(auto_2: List[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]], definition=definition, error_msg=error_msg) -> Callable[[int, Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]], Optional[Tuple[int, lang]]]:
-        def arrow_97(i_2: int, auto_2=auto_2) -> Callable[[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]], Optional[Tuple[int, lang]]]:
+    def gen_state(auto_2: List[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]], definition: List[Tuple[Callable[[Automata_node], Automata_node], keep_token]]=definition, error_msg: str=error_msg) -> Callable[[int, Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]], Optional[Tuple[int, lang]]]:
+        def arrow_97(i_2: int, auto_2: List[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]]=auto_2) -> Callable[[Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]], Optional[Tuple[int, lang]]]:
             def arrow_96(tupled_arg_1: Tuple[List[Tuple[FSharpList[Tuple[int, int]], int]], List[bool]]) -> Optional[Tuple[int, lang]]:
                 trans_1 : List[Tuple[FSharpList[Tuple[int, int]], int]] = tupled_arg_1[0]
                 v_partition : List[FSharpList[Tuple[int, int]]] = map_1(lambda tuple_1: tuple_1[0], trans_1, None)
@@ -836,7 +836,7 @@ def expr_98() -> TypeInfo:
 
 
 class lexbuf(Record):
-    def __init__(self, refill: Callable[[str, int, int], int], buf: array, src: str, len_1: int, offset: int, pos: int, curr_bol: int, curr_line: int, start_pos: int, start_bol: int, start_line: int, marked_pos: int, marked_bol: int, marked_line: int, marked_val: int, filename: str, finished: bool) -> None:
+    def __init__(self, refill: Callable[[str, int, int], int], buf: MutableSequence[int], src: str, len_1: int, offset: int, pos: int, curr_bol: int, curr_line: int, start_pos: int, start_bol: int, start_line: int, marked_pos: int, marked_bol: int, marked_line: int, marked_val: int, filename: str, finished: bool) -> None:
         super().__init__()
         self.refill = refill
         self.buf = buf
@@ -863,11 +863,11 @@ def arrow_99(_arg3: str, _arg2: int, _arg1: int) -> int:
     raise Exception("invalid")
 
 
-empty_lexbuf = lexbuf(arrow_99, [], "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", False)
+empty_lexbuf : lexbuf = lexbuf(arrow_99, [], "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", False)
 
 def from_ustring(a: str) -> lexbuf:
     len_1 : int = len(a) or 0
-    buf : array = []
+    buf : MutableSequence[int] = []
     with get_enumerator(list(a)) as enumerator:
         while enumerator.System_Collections_IEnumerator_MoveNext():
             c : str = enumerator.System_Collections_Generic_IEnumerator_00601_get_Current()
@@ -875,7 +875,7 @@ def from_ustring(a: str) -> lexbuf:
     return lexbuf(empty_lexbuf.refill, buf, a, len_1, empty_lexbuf.offset, empty_lexbuf.pos, empty_lexbuf.curr_bol, empty_lexbuf.curr_line, empty_lexbuf.start_pos, empty_lexbuf.start_bol, empty_lexbuf.start_line, empty_lexbuf.marked_pos, empty_lexbuf.marked_bol, empty_lexbuf.marked_line, empty_lexbuf.marked_val, empty_lexbuf.filename, True)
 
 
-chunk_size = 512
+chunk_size : int = 512
 
 def new_line(lexbuf_1: lexbuf) -> None:
     lexbuf_1.curr_line = (lexbuf_1.curr_line + 1) or 0
@@ -953,15 +953,52 @@ def lexing_positions(lexbuf_1: lexbuf) -> Tuple[position, position]:
 
 
 def with_tokenizer(lexer_0027: Callable[[lexbuf], a_], lexbuf_1: lexbuf) -> Callable[[], Tuple[a_, position, position]]:
-    def lexer(lexer_0027=lexer_0027, lexbuf_1=lexbuf_1) -> Tuple[a_, position, position]:
-        token : a_ = lexer_0027(lexbuf_1)
+    def lexer(lexer_0027: Callable[[lexbuf], a_]=lexer_0027, lexbuf_1: lexbuf=lexbuf_1) -> Tuple[a_, position, position]:
+        token_1 : a_ = lexer_0027(lexbuf_1)
         pattern_input : Tuple[position, position] = lexing_positions(lexbuf_1)
-        return (token, pattern_input[0], pattern_input[1])
+        return (token_1, pattern_input[0], pattern_input[1])
     
     return lexer
 
 
-Utf8_from_ustring = lambda a: from_ustring(a)
+class token:
+    @property
+    @abstractmethod
+    def col(self) -> int:
+        ...
+    
+    @property
+    @abstractmethod
+    def file(self) -> str:
+        ...
+    
+    @property
+    @abstractmethod
+    def lexeme(self) -> str:
+        ...
+    
+    @property
+    @abstractmethod
+    def line(self) -> int:
+        ...
+    
+    @property
+    @abstractmethod
+    def offset(self) -> int:
+        ...
+    
+    @property
+    @abstractmethod
+    def span(self) -> int:
+        ...
+    
+    @property
+    @abstractmethod
+    def token_id(self) -> int:
+        ...
+    
+
+Utf8_from_ustring : Callable[[str], lexbuf] = lambda a: from_ustring(a)
 
 def Utf8_lexeme_char(lexbuf_1: lexbuf, pos: int) -> str:
     return lexeme_char(lexbuf_1, pos)
@@ -975,7 +1012,7 @@ def Utf8_lexeme(lexbuf_1: lexbuf) -> str:
     return lexbuf_1.src[lexbuf_1.start_pos:(lexbuf_1.pos - 1) + 1]
 
 
-def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, int, int, int, int, str]], Any]) -> Callable[[lexbuf], Optional[Any]]:
+def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, int, int, int, int, str]], token]) -> Callable[[lexbuf], Optional[token]]:
     class ObjectExpr101:
         @property
         def Compare(self) -> Any:
@@ -988,7 +1025,7 @@ def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, in
             return lambda x_1, y_1: compare_primitives(x_1, y_1)
         
     state_funcs : Any = empty_1(ObjectExpr102())
-    def evaluate_decision_func(tree: Automata_decision_tree, cu=cu, token_creator=token_creator) -> Callable[[int], int]:
+    def evaluate_decision_func(tree: Automata_decision_tree, cu: compiled_unit=cu, token_creator: Callable[[Tuple[int, str, int, int, int, int, str]], token]=token_creator) -> Callable[[int], int]:
         nonlocal decision_funcs
         match_value : Optional[Callable[[int], int]] = try_find(tree, decision_funcs)
         if match_value is None:
@@ -1011,9 +1048,9 @@ def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, in
             return match_value
         
     
-    def evaluate_state_func(lang_1: lang, cu=cu, token_creator=token_creator) -> Callable[[lexbuf], int]:
+    def evaluate_state_func(lang_1: lang, cu: compiled_unit=cu, token_creator: Callable[[Tuple[int, str, int, int, int, int, str]], token]=token_creator) -> Callable[[lexbuf], int]:
         if lang_1.tag == 3:
-            func_ref : Any = find(lang_1.fields[0], state_funcs)
+            func_ref : FSharpRef[Callable[[lexbuf], int]] = find(lang_1.fields[0], state_funcs)
             return lambda buf_1, lang_1=lang_1: func_ref.contents(buf_1)
         
         elif lang_1.tag == 4:
@@ -1021,7 +1058,7 @@ def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, in
         
         elif lang_1.tag == 2:
             f_2 : Callable[[lexbuf], int] = evaluate_state_func(lang_1.fields[1])
-            def arrow_103(buf_2: lexbuf, lang_1=lang_1) -> int:
+            def arrow_103(buf_2: lexbuf, lang_1: lang=lang_1) -> int:
                 mark(buf_2, lang_1.fields[0])
                 return f_2(buf_2)
             
@@ -1031,7 +1068,7 @@ def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, in
             f_cases : List[Callable[[lexbuf], int]] = map_1(evaluate_state_func, lang_1.fields[1], None)
             f_error : Callable[[lexbuf], int] = evaluate_state_func(lang_1.fields[2])
             decision_func : Callable[[int], int] = evaluate_decision_func(lang_1.fields[0])
-            def arrow_104(buf_3: lexbuf, lang_1=lang_1) -> int:
+            def arrow_104(buf_3: lexbuf, lang_1: lang=lang_1) -> int:
                 match_value_1 : Optional[Callable[[lexbuf], int]] = try_item(decision_func(public_next_int(buf_3)), f_cases)
                 return match_value_1(buf_3) if (match_value_1 is not None) else (f_error(buf_3))
             
@@ -1051,7 +1088,7 @@ def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, in
             ignore(evaluate_decision_func(enumerator_1.System_Collections_Generic_IEnumerator_00601_get_Current()))
     pattern_input : Tuple[List[keep_token], str] = cu.lex_code
     initial_state_fun : Callable[[lexbuf], int] = find(0, state_funcs).contents
-    def arrow_105(buf_4: lexbuf, cu=cu, token_creator=token_creator) -> Optional[Any]:
+    def arrow_105(buf_4: lexbuf, cu: compiled_unit=cu, token_creator: Callable[[Tuple[int, str, int, int, int, int, str]], token]=token_creator) -> Optional[token]:
         start(buf_4)
         match_value_2 : Optional[keep_token] = try_item(initial_state_fun(buf_4), pattern_input[0])
         if match_value_2 is None:
@@ -1071,7 +1108,7 @@ def inline_thread(cu: compiled_unit, token_creator: Callable[[Tuple[int, str, in
     return arrow_105
 
 
-Lexer_discard = keep_token(0)
+Lexer_discard : keep_token = keep_token(0)
 
 def Lexer_tokenize(i: int) -> keep_token:
     return keep_token(1, i)
@@ -1153,7 +1190,7 @@ def regexp_for_char(c: str) -> Callable[[Automata_node], Automata_node]:
 
 
 def regexp_for_string(s: str) -> Callable[[Automata_node], Automata_node]:
-    def aux(n: int, s=s) -> Callable[[Automata_node], Automata_node]:
+    def aux(n: int, s: str=s) -> Callable[[Automata_node], Automata_node]:
         if n == len(s):
             return lambda succ, n=n: Automata_eps(succ)
         
@@ -1174,12 +1211,12 @@ def pchar(c: str) -> Callable[[Automata_node], Automata_node]:
     return regexp_for_char(c)
 
 
-pany = pinterval(0, Cset_max_code)
+pany : Callable[[Automata_node], Automata_node] = pinterval(0, Cset_max_code)
 
 def arrow_106(_unit=None) -> Callable[[Automata_node], Automata_node]:
     c : FSharpList[Tuple[int, int]] = Cset_singleton(-1)
     return lambda succ: Automata_chars(c, succ)
 
 
-peof = arrow_106()
+peof : Callable[[Automata_node], Automata_node] = arrow_106()
 

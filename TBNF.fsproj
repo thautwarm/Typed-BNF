@@ -13,23 +13,23 @@
     <Compile Include="FableSedlex/CodeGen.Python.fs" />
     
     <!-- <Compile Include="lark_fs/Lark.fs" /> -->
-    <Compile Include="Utils.fs" />
-    <Compile Include="Grammar.fs" />
-    <Compile Include="Exceptions.fs" />
-    <Compile Include="MacroResolve.fs" />
-    <Compile Include="Op.fs" />
-    <Compile Include="Unification.fs" />
-    <Compile Include="Analysis.fs" />
-    <Compile Include="Backends.Common.fs" />
-    <Compile Include="Backends.PythonLark.fs" />
-    <Compile Include="Backends.OCamlMenhir.fs" />
-    <Compile Include="Backends.CSharpAntlr.fs" />
-    <Compile Include="APIs.fs" />
-    <Compile Include="Main.fs" />
+    <Compile Include="src/Utils.fs" />
+    <Compile Include="src/Grammar.fs" />
+    <Compile Include="src/Exceptions.fs" />
+    <Compile Include="src/MacroResolve.fs" />
+    <Compile Include="src/Op.fs" />
+    <Compile Include="src/Unification.fs" />
+    <Compile Include="src/Analysis.fs" />
+    <Compile Include="src/Backends.Common.fs" />
+    <Compile Include="src/Backends.PythonLark.fs" />
+    <Compile Include="src/Backends.OCamlMenhir.fs" />
+    <Compile Include="src/Backends.CSharpAntlr.fs" />
+    <Compile Include="src/APIs.fs" />
+    <Compile Include="src/Main.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fable.Core.Experimental" Version="4.0.0-alpha-020" />
+    <PackageReference Include="Fable.Core.Experimental" Version="4.0.0-alpha-021" />
     <PackageReference Include="Fable.Python" Version="0.16.0" />
   </ItemGroup>
 

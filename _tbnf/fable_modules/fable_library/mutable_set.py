@@ -1,22 +1,22 @@
 from __future__ import annotations
-from typing import (TypeVar, Any, List, Tuple, Callable, Optional, Generic)
+from typing import (TypeVar, Any, Iterator, List, Iterable, Tuple, Callable, Optional, Generic)
 from .array import find_index
 from .map_util import (try_get_value, get_item_from_dict)
 from .option import some
 from .reflection import (TypeInfo, class_type)
 from .seq import (concat, iterate_indexed, map, iterate)
 from .types import FSharpRef
-from .util import (get_enumerator, to_iterator, ignore, dispose)
+from .util import (get_enumerator, to_iterator, ignore, IEqualityComparer, dispose)
 
 T = TypeVar("T")
 
-def expr_22(gen0) -> TypeInfo:
+def expr_16(gen0: TypeInfo) -> TypeInfo:
     return class_type("Fable.Collections.HashSet", [gen0], HashSet)
 
 
 class HashSet(Generic[T]):
-    def __init__(self, items: Any, comparer: Any) -> None:
-        this : Any = FSharpRef(None)
+    def __init__(self, items: Iterable[T], comparer: IEqualityComparer[Any]) -> None:
+        this : FSharpRef[HashSet[T]] = FSharpRef(None)
         self.comparer = comparer
         this.contents = self
         self.hash_map = dict([])
@@ -33,15 +33,15 @@ class HashSet(Generic[T]):
         this : HashSet[T] = self
         return list(this)
     
-    def System_Collections_IEnumerable_GetEnumerator(self) -> Any:
+    def System_Collections_IEnumerable_GetEnumerator(self) -> Iterator[Any]:
         this : HashSet[T] = self
         return get_enumerator(this)
     
-    def GetEnumerator(self) -> Any:
+    def GetEnumerator(self) -> Iterator[Any]:
         this : HashSet[T] = self
         return get_enumerator(concat(this.hash_map.values()))
     
-    def __iter__(self) -> Any:
+    def __iter__(self) -> Iterator[Any]:
         return to_iterator(self.GetEnumerator())
     
     def System_Collections_Generic_ICollection_00601_Add2B595(self, item: Any=None) -> None:
@@ -79,7 +79,7 @@ class HashSet(Generic[T]):
         this : HashSet[T] = self
         return HashSet__get_Count(this)
     
-    def add(self, k: T=None) -> Any:
+    def add(self, k: T=None) -> Set_1[T]:
         this : HashSet[T] = self
         ignore(HashSet__Add_2B595(this, k))
         return this
@@ -96,19 +96,19 @@ class HashSet(Generic[T]):
         this : HashSet[T] = self
         return HashSet__Contains_2B595(this, k)
     
-    def keys(self) -> Any:
+    def keys(self) -> Iterable[Any]:
         this : HashSet[T] = self
         return map(lambda x=None: x, this)
     
-    def values(self) -> Any:
+    def values(self) -> Iterable[Any]:
         this : HashSet[T] = self
         return map(lambda x=None: x, this)
     
-    def entries(self) -> Any:
+    def entries(self) -> Iterable[Tuple[T, T]]:
         this : HashSet[T] = self
         return map(lambda v=None: (v, v), this)
     
-    def for_each(self, f: Callable[[T, T, Any], None], this_arg: Optional[Any]=None) -> None:
+    def for_each(self, f: Callable[[T, T, Set_1[T]], None], this_arg: Optional[Any]=None) -> None:
         this : HashSet[T] = self
         def action(x: Any=None) -> None:
             f(x, x, this)
@@ -116,9 +116,9 @@ class HashSet(Generic[T]):
         iterate(action, this)
     
 
-HashSet_reflection = expr_22
+HashSet_reflection = expr_16
 
-def HashSet__ctor_Z6150332D(items: Any, comparer: Any) -> HashSet[T]:
+def HashSet__ctor_Z6150332D(items: Iterable[T], comparer: IEqualityComparer[Any]) -> HashSet[Any]:
     return HashSet(items, comparer)
 
 
@@ -126,11 +126,11 @@ def HashSet__TryFindIndex_2B595(this: HashSet[T], k: T=None) -> Tuple[bool, int,
     h : int = this.comparer.GetHashCode(k) or 0
     match_value = None
     out_arg : List[T] = None
-    def arrow_23(v: List[T], this=this, k=k) -> None:
+    def arrow_17(v: List[T], this: HashSet[T]=this, k: T=k) -> None:
         nonlocal out_arg
         out_arg = v
     
-    match_value = (try_get_value(this.hash_map, h, FSharpRef(lambda this=this, k=k: out_arg, arrow_23)), out_arg)
+    match_value = (try_get_value(this.hash_map, h, FSharpRef(lambda this=this, k=k: out_arg, arrow_17)), out_arg)
     if match_value[0]:
         return (True, h, find_index(lambda v_1=None, this=this, k=k: this.comparer.Equals(k, v_1), match_value[1]))
     
@@ -161,7 +161,7 @@ def HashSet__TryFind_2B595(this: HashSet[T], k: T=None) -> Optional[T]:
     
 
 
-def HashSet__get_Comparer(this: HashSet[T]) -> Any:
+def HashSet__get_Comparer(this: HashSet[T]) -> IEqualityComparer[Any]:
     return this.comparer
 
 
