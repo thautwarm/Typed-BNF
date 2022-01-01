@@ -91,21 +91,21 @@ You can specify the `renamer_config` parameter or use the default one(`renamer.t
 
 In `renamer.tbnf.py`, you can define how typenames map from Typed BNF to the backend language.
 
-For instance, this is what we did for CSharp-Antlr4 JSON example: [link](https://github.com/thautwarm/typed-bnf/blob/main/runtests/csharp_simple_json/rename.tbnf.py)
+For instance, this is what we did for CSharp-Antlr4 JSON example: [link](https://github.com/thautwarm/Typed-BNF/blob/main/runtests/ocaml_simple_json/rename.tbnf.py).
 
 ```python
 # $out_dir/renamer.tbnf.py
 
-def rename_type(typename: str):
-    if typename == "str":
+def rename_type(x):
+    if x == "str":
         return "string"
-    if typename == 'json':
+    if x == 'Json':
         return 'JsonValue'
-    if typename == 'list':
+    if x == 'list':
         return 'System.Collections.Generic.List'
-    if typename == 'token':
+    if x == 'token':
         return 'IToken',
-    return typename
+    return x
 
 # you might also rename external variables using:
 # def rename_var(varname: str): 
@@ -115,6 +115,33 @@ def rename_type(typename: str):
 Typed BNF has 7 built-in types: `token`, `tuple`, `list`, `int`, `float`, `str` and `bool`.
 
 Typed BNF ships with no built-in functions, which makes it suitable to write portable grammars without ruling out semantic actions.
+
+P.S: Unlike other backends, the OCaml-Menhir backend requires some manual works and is tedious in this sense. It requires user to explicitly specify the module-qualified type of the `start` rule, which can be solved by adding a config variable `start_rule_qualified_type` in `rename.tbnf.py`. Besides, you must map the type `token` to `tbnf_token`.
+
+This is [the config for our example OCaml json parser](https://github.com/thautwarm/Typed-BNF/blob/73f9519cc4ac15d0c3a6474aefa66c40b009ffc8/runtests/ocaml_simple_json/rename.tbnf.py):
+
+```python
+start_rule_qualified_type = "Simple_json_construct.json"
+
+def rename_type(x):
+    if x == 'Json':
+        return 'json'
+    if x == "str":
+        return "string"
+    if x == "JsonPair":
+        return "json_pair"
+    if x == "token":
+        return "tbnf_token" # this is other important!
+    return x
+
+def rename_var(x: str):
+    if x[0].isupper():
+        return "mk_" + x
+    return x
+```
+
+
+
 
 ## How to write new backends
 
