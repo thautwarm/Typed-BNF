@@ -2,15 +2,23 @@
 
 Type inference your BNF grammar that uses semantic actions, eliminating static errors and porting them into different parser generator architectures.
 
-So far, we support 3 architectures:
+The major part of this library is written in F\#. However, it is compiled into Python via Fable.Python and running under CPython/PyPy(>=3.8).
 
-1. Antlr4+CSharp, ALL(*)
-2. OCaml Menhir, LR(1)
-3. Python Lark, LALR(2)
+## Overview
+
+So far, we support 3 different architectures, which unveil the capability of Typed BNF's backend agnostic code generation.
+
+| Architecture   | Backend(PGEN + PL)   | Lexer Impl  | Parser capability  | [ADT](https://en.wikipedia.org/wiki/Algebraic_data_type) encoding  |
+|---|---|---|---|---|
+| Antlr  | Antlr4+CSharp  | Antlr  | ALL(*)   | type -> interface<br /> constructor -> class  |
+| Menhir  | Menhir+OCaml  | Sedlex(UTF-8)   |  LR(1) | as-is  |
+| Lark  | Lark+Python   | [Fable.Sedlex](https://github.com/thautwarm/Fable.Sedlex)  | LALR(2)  | type -> union type<br /> constructor -> dataclass  |
+
+(**PL** = programming language; **PGEN** = parser generator)
+
+This project is not production-ready, though already handy for practical use. 
 
 For usage, see `test-python.ps1`, `test-ocaml.ps1` and `test-csharp.ps1`.
-
-The major part of this library is written in F\#. However, it is compiled into Python via Fable.Python and running under CPython/PyPy(>=3.8).
 
 ## Usage
 
