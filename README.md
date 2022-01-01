@@ -8,11 +8,11 @@ The major part of this library is written in F\#. However, it is compiled into P
 
 So far, we support 3 different architectures, which unveil the capability of Typed BNF's backend agnostic code generation.
 
-| Architecture   | Backend(PGEN + PL)   | Lexer Impl  | Parser capability  | [ADT](https://en.wikipedia.org/wiki/Algebraic_data_type) encoding  |
+| architecture   | backend(PGEN + PL)   | lexer Impl  | parser capability  | [ADT](https://en.wikipedia.org/wiki/Algebraic_data_type) encoding  |
 |---|---|---|---|---|
-| Antlr  | Antlr4+CSharp  | Antlr  | ALL(*)   | type -> interface<br /> constructor -> class  |
-| Menhir  | Menhir+OCaml  | Sedlex(UTF-8)   |  LR(1) | as-is  |
-| Lark  | Lark+Python   | [Fable.Sedlex](https://github.com/thautwarm/Fable.Sedlex)  | LALR(2)  | type -> union type<br /> constructor -> dataclass  |
+| antlr  | antlr4+csharp  | antlr  | ALL(*)   | type -> interface<br /> constructor -> class  |
+| menhir  | menhir+OCaml  | sedlex(UTF-8)   |  LR(1) | as-is  |
+| lark  | lark+Python   | [Fable.Sedlex](https://github.com/thautwarm/Fable.Sedlex)  | LALR(2)  | type -> union type<br /> constructor -> dataclass  |
 
 (**PL** = programming language; **PGEN** = parser generator)
 
