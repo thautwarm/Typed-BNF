@@ -1,0 +1,216 @@
+extern var appendList : <'a> (list<'a>, 'a) -> list<'a>
+extern var listMap : <'a, 'b> (list<'a>, 'a -> 'b) -> list<'b>
+
+extern type maybe<'a>
+    extern var some : <'a> 'a -> maybe<'a>
+    extern var none : <'a> () -> maybe<'a>
+
+extern type stmt
+extern type expr
+extern type op
+    extern var mkOperator: token -> op
+    extern var mkOperand : expr -> op
+    extern var mkBinOpSeq : list<op> -> expr
+extern type range
+    extern var mkRange: (expr, expr, maybe<expr>) -> range
+extern type if_elseif
+extern type if_else
+    extern var mkElifBlock: (token, expr, block) -> if_elseif
+    extern var mkElseBlock: (token, block) -> if_else
+extern type params
+    extern var mkParams: (list<token>, maybe<token> /* varargs */) -> params
+
+extern type arguments
+    extern var mkPositionalArgs: (token, list<expr>) -> arguments
+    extern var mkTableArgs: table -> arguments
+    extern var mkStringArg: token -> arguments
+extern type table
+extern type table_field
+    extern var mkIndexField : (token, expr, expr) -> table_field
+    extern var mkNameField : (token, expr) -> table_field
+    extern var mkElementField : (expr) -> table_field
+
+extern type block
+    extern var mkBlock: (list<stmt>, maybe<stmt>) -> block
+    extern var mkReturnStmt: (token, list<expr>) -> stmt
+    extern var mkEmptyStmt: (token) -> stmt
+    extern var mkAssignment: (bool/* is local */, list<expr>, maybe<list<expr>>) -> stmt
+    extern var mkExprStmt: expr -> stmt
+    extern var mkLabelStmt: token -> stmt
+    extern var mkBreakStmt: token -> stmt
+    extern var mkGotoStmt: (token /* head */, token /* name */) -> stmt
+    extern var mkDoStmt: (token, block) -> stmt
+    extern var mkWhileStmt: (token, expr, block) -> stmt
+    extern var mkRepeatStmt: (token, block, expr) -> stmt
+    extern var mkIfStmt: (token, expr, list<if_elseif>, maybe<if_else>) -> stmt
+    
+    extern var mkForRangeStmt: (token, token, range, block) -> stmt
+    extern var mkForInStmt: (token, list<token>, list<expr>, block) -> stmt
+
+    extern var mkFuncDef: (
+        token,
+        bool /* is local */, 
+        maybe<token> /* func name */,
+        maybe<params>,
+        block
+    ) -> expr
+    
+    extern var mkVar : token -> expr
+    extern var mkNil: token -> expr
+    extern var mkBool: (token, bool) -> expr
+    extern var mkNum: token -> expr
+    extern var mkString: (token) -> expr
+    extern var mkEllipse: (token) -> expr
+    extern var mkExponent: (expr, expr) -> expr
+    extern var mkLen: (token, expr) -> expr
+    extern var mkNeg: (token, expr) -> expr
+    extern var mkInv: (token, expr) -> expr
+    extern var mkNot: (token, expr) -> expr
+    extern var mkNestedExp: (token, expr) -> expr
+    extern var mkTableExpr: (table) -> expr
+    extern var mkCallFunc: (expr, arguments) -> expr
+    extern var mkCallMethod: (expr, token, arguments) -> expr
+    extern var mkIndex: (expr, expr) -> expr
+    extern var mkAttr: (expr, token) -> expr
+    
+    extern var mkTableConstructor: (token, list<table_field>) -> table
+
+
+nempty_list(elt)
+    : elt { [$1] }
+    | nempty_list(elt) elt { appendList($1, $2) }
+
+nempty_seplist(sep, elt)
+    : elt { [$1] }
+    | nempty_seplist(sep, elt) sep elt { appendList($1, $3) }
+
+allow_empty(sequence)
+    :          { [] }
+    | sequence { $1 }
+
+start : block { $1 }
+
+list(elt) : allow_empty(nempty_list(elt)) { $1 }
+
+seplist(sep, elt) : allow_empty(nempty_seplist(sep, elt)) { $1 }
+
+opt(value) : value { some($1) }
+           |       { none() }
+           
+block : list(stat) opt(retstat) { mkBlock($1, $2) }
+
+retstat : "return" seplist(",", exp) ";" { mkReturnStmt($1, $2) }
+
+stat : ";" { mkEmptyStmt($1) }
+     | nempty_seplist(",", var) "=" nempty_seplist(",", exp)
+           { mkAssignment(false, $1, some($3)) }
+     | functioncall
+           { mkExprStmt($1) }
+     | "::" <NAME> "::"
+           { mkLabelStmt($2) }
+     | "break"
+           { mkBreakStmt($1) }
+     | "goto" <NAME>
+           { mkGotoStmt($1, $2) }
+     | "do" block "end"
+           { mkDoStmt($1, $2) }
+     | "while" exp "do" block "end"
+           { mkWhileStmt($1, $2, $4) }
+     | "repeat" block "until" exp
+           { mkRepeatStmt($1, $2, $4) }
+     | "if" exp "then" list(elseif) opt(else) "end"
+           { mkIfStmt($1, $2, $4, $5) }
+     | "for" <NAME> "=" range "do" block "end"
+           { mkForRangeStmt($1, $2, $4, $6) }
+     | "for" nempty_seplist(",", <NAME>) "in" nempty_seplist(",", exp) "do" block "end"
+           { mkForInStmt($1, $2, $4, $6) }
+     | functiondef { mkExprStmt($1) }
+     | "local" "function" <NAME> "(" opt(parlist) ")" block "end"
+           { mkExprStmt(mkFuncDef($1, true, some($3), $5, $7)) }
+     | "local" nempty_seplist(",", <NAME>) opt_assign_rhs
+           { mkAssignment(true, listMap($2, mkVar), $3) }
+
+opt_assign_rhs : 
+             "=" nempty_seplist(",", exp) { some($2) }
+           | { none() }
+    
+range : exp "," exp range_tail { mkRange($1, $3, $4) }
+range_tail : "," exp { some($2) }
+           |         { none() }
+
+elseif : "elseif" exp "then" block { mkElifBlock($1, $2, $4) }
+else : "else" block { mkElseBlock($1, $2) }
+
+var : <NAME>                { mkVar($1) }
+    | prefixexp "[" exp "]" { mkIndex($1, $3) }
+    | prefixexp "." <NAME>  { mkAttr($1, $3) }
+
+
+
+exp : "nil"    { mkNil($1) }
+    | "false"  { mkBool($1, false) }
+    | "true"   { mkBool($1, true) }
+    | <NUMERAL> { mkNum($1) }
+    | <STR_LIT> { mkString($1) }
+    | "..."           { mkEllipse($1) }
+    | functiondef     { $1 }
+    | prefixexp       { $1 }
+    | tableconstructor { mkTableExpr($1) }
+    | exponent         { $1 }
+
+
+exponent : unaryexp "^" exponent { mkExponent($1, $3) }
+         | unaryexp              { $1 }
+
+unaryexp : "#" binexp { mkLen($1, $2) }
+         | "-" binexp { mkNeg($1, $2) }
+         | "~" binexp { mkInv($1, $2) }
+         | "not" binexp { mkNot($1, $2) }
+        
+binexp : binseq { mkBinOpSeq($1) }
+binop : <BINOP> { mkOperator($1) }
+binoperand : exp { mkOperand($1) }
+binseq : binseq binop binoperand { appendList(appendList($1, $2), $3) }
+       | binoperand              { [$1] }
+
+prefixexp : var             { $1 }
+          | functioncall    { $1 }
+          | "(" exp ")"     { mkNestedExp($1, $2) }
+
+functioncall : prefixexp args            { mkCallFunc($1, $2) }
+             | prefixexp ":" <NAME> args { mkCallMethod($1, $3, $4) }
+
+args : "(" seplist(",", exp) ")" { mkPositionalArgs($1, $2) }
+     | tableconstructor          { mkTableArgs($1) }
+     | <STR_LIT>           { mkStringArg($1) }
+
+functiondef : "function" opt(<NAME>) "(" opt(parlist) ")" block "end"
+              { mkFuncDef($1, false, $2, $4, $6) }
+
+varargs : "," "..." { some($2) }
+        |           { none() }
+
+parlist : "..." { mkParams([], some($1)) }
+        | nempty_seplist(",", <NAME>) varargs { mkParams($1, $2) }
+
+tableconstructor : "{" seplist(<fieldsep>, field) opt(<fieldsep>) "}"
+                 { mkTableConstructor($1, $2) }
+
+
+field : "[" exp "]" "=" exp { mkIndexField($1, $2, $5) }
+        | <NAME> "=" exp    { mkNameField($1, $3) }
+        | exp               { mkElementField($1) }
+
+fieldsep = "," | ";" ;
+
+BINOP = "or" | "and" | "<"    | ">"  | "<=" | ">=" | "~=" | "=="
+      | "|"  | "~"   | "&"    | "<<" | ">>" | ".." | "+"  | "-"
+      | "*"  | "/"   | "//"   | "%" ;
+
+ignore SPACE
+SPACE = " " | "\t" | "\r" | "\n";
+DIGIT = [0-9];
+UCHAR = [a-z] | [A-Z] | "_" ;
+NAME =  UCHAR (UCHAR|DIGIT)*;
+NUMERAL = "-"? DIGIT ("." DIGIT)? (("E" | "e")  DIGIT+);
+STR_LIT = "\"" ("\\" _ | !"\"")* "\"";

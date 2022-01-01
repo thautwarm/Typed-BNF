@@ -1,5 +1,5 @@
 ﻿module tbnf.Grammar
-
+open tbnf.Utils
 
 type Cell<'a when 'a: not struct>() =
     let mutable _cell: 'a = Unchecked.defaultof<'a>
@@ -120,6 +120,16 @@ and symbol =
     | Term of string * bool
     | Nonterm of string
     | Macrocall of string * symbol list * position
+    member this.Inspect() =
+        match this with
+        | Term (s, true) -> escapeString s
+        | Term(s, false) -> "<" + s + ">"
+        | Nonterm n -> n
+        | Macrocall(n, syms, _) ->
+            syms
+            |> List.map (fun x -> x.Inspect())
+            |> String.concat ", "
+            |> fun it -> n + "(" + it + ")"
 
 and definition =
     | Defmacro of
@@ -145,6 +155,18 @@ and definition =
            fields: (string * monot * position) list
            pos: position |}
     | Defignore of {| pos: position; ignoreList : string list |}
+    member this.Inspect() =
+        match this with
+        | Defrule decl ->
+             decl.define
+             |> List.map (fun (_, prod) ->
+                 prod.symbols
+                 |> List.map (fun x -> x.Inspect())
+                 |> String.concat " ")
+              |> String.concat "\n| "
+              |> fun define -> decl.lhs + " :\n " + define
+        | _ -> "omit"
+            // decl.lhs + ":" +
 
 and lexerule =
     | LNumber | LWildcard

@@ -30,7 +30,7 @@ let DuplicateVariable(name) = NameError(name,  NameErrorScope.VAR, Duplicate)
 let UnboundNonterminal(name) = NameError(name,  NameErrorScope.NONTERM, Unbound)
 let DuplicateNonterminal(name) = NameError(name,  NameErrorScope.NONTERM, Duplicate)
 
-let UnboundLexer(name) = NameError(name,  NameErrorScope.NONTERM, Unbound)
+let UnboundLexer(name) = NameError(name,  NameErrorScope.LEXER, Unbound)
 let DuplicateLexer(name) = NameError(name,  NameErrorScope.LEXER, Duplicate)
 
 

@@ -5,6 +5,7 @@ from ..fable_modules.fable_library.list import (FSharpList, length, of_array as 
 from ..fable_modules.fable_library.map import (empty, of_array, try_find, contains_key, add, of_seq, FSharpMap__get_Item)
 from ..fable_modules.fable_library.reflection import (TypeInfo, string_type, list_type, class_type, record_type, array_type)
 from ..fable_modules.fable_library.set import (empty as empty_1, add as add_1)
+from ..fable_modules.fable_library.string import (to_console, printf)
 from ..fable_modules.fable_library.types import Record
 from ..fable_modules.fable_library.util import (compare_primitives, string_hash, get_enumerator, ignore)
 from .exceptions import (InvalidKind, UnboundTypeVariable, InvalidTypeApplication, DuplicateTypeVariable, NoField, DuplicateVariable, UnboundVariable, ComponentAccessingOutOfBound, UnboundLexer, DuplicateNonterminal, DuplicateLexer, UnboundNonterminal)
@@ -199,7 +200,7 @@ def Sigma__registerExternalVariable(this: Sigma, varname: str, t: polyt) -> None
     
 
 
-def expr_61() -> TypeInfo:
+def expr_63() -> TypeInfo:
     return record_type("tbnf.Analysis.Analyzer", [], Analyzer, lambda: [["UM", Manager_reflection()], ["Sigma", Sigma_reflection()], ["currentPos", position_reflection()], ["Omega", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, monot_reflection()])], ["LiteralTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["ReferencedNamedTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["TokenFragments", array_type(string_type)], ["IgnoreSet", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -216,37 +217,37 @@ class Analyzer(Record):
         self.IgnoreSet = IgnoreSet
     
 
-Analyzer_reflection = expr_61
+Analyzer_reflection = expr_63
 
 def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]:
     UM : Manager = Manager__ctor()
     Sigma_1 : Sigma = Sigma__ctor_Z57FA2555(UM)
     current_pos : position = None
-    class ObjectExpr62:
+    class ObjectExpr64:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    Omega : Any = empty(ObjectExpr62())
-    class ObjectExpr63:
+    Omega : Any = empty(ObjectExpr64())
+    class ObjectExpr65:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare_primitives(x_1, y_1)
         
-    LiteralTokens : Any = empty_1(ObjectExpr63())
-    class ObjectExpr64:
+    LiteralTokens : Any = empty_1(ObjectExpr65())
+    class ObjectExpr66:
         @property
         def Compare(self) -> Any:
             return lambda x_2, y_2: compare_primitives(x_2, y_2)
         
-    ReferencedNamedTokens : Any = empty_1(ObjectExpr64())
+    ReferencedNamedTokens : Any = empty_1(ObjectExpr66())
     TokenFragments : FSharpList[str] = empty_2()
-    class ObjectExpr65:
+    class ObjectExpr67:
         @property
         def Compare(self) -> Any:
             return lambda x_3, y_3: compare_primitives(x_3, y_3)
         
-    IgnoreSet : Any = empty_1(ObjectExpr65())
+    IgnoreSet : Any = empty_1(ObjectExpr67())
     def infer_e(s_gamma: Any, S: FSharpList[monot], e: expr_1, stmts: List[definition]=stmts) -> expr_1:
         nonlocal current_pos
         S_1 : FSharpList[monot] = S
@@ -362,7 +363,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                 l = x_8.fields[0]
             
             elif x_8.tag == 11:
-                class ObjectExpr68:
+                class ObjectExpr69:
                     @property
                     def Equals(self) -> Any:
                         return lambda x_9, y_6: x_9 == y_6
@@ -371,7 +372,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                     def GetHashCode(self) -> Any:
                         return lambda x_9: string_hash(x_9)
                     
-                if contains(x_8.fields[0], TokenFragments, ObjectExpr68()):
+                if contains(x_8.fields[0], TokenFragments, ObjectExpr69()):
                     pattern_matching_result = 3
                 
                 else: 
@@ -404,181 +405,190 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
             
             break
     
-    def arrow_69(x_10: position, stmts: List[definition]=stmts) -> None:
-        nonlocal current_pos
-        current_pos = x_10
-    
-    stmts_1 : List[definition] = resolve_macro(arrow_69, stmts)
-    for idx in range(0, (len(stmts_1) - 1) + 1, 1):
-        stmt : definition = stmts_1[idx]
-        (pattern_matching_result_1, decl_1, decl_2, decl_3, decl_4) = (None, None, None, None, None)
-        if stmt.tag == 5:
-            pattern_matching_result_1 = 0
-            decl_1 = stmt.fields[0]
+    try: 
+        def arrow_70(x_10: position) -> None:
+            nonlocal current_pos
+            current_pos = x_10
         
-        elif stmt.tag == 3:
-            pattern_matching_result_1 = 1
-            decl_2 = stmt.fields[0]
-        
-        elif stmt.tag == 4:
-            pattern_matching_result_1 = 2
-            decl_3 = stmt.fields[0]
-        
-        elif stmt.tag == 0:
-            pattern_matching_result_1 = 3
-        
-        elif stmt.tag == 1:
-            if contains_key(stmt.fields[0]["lhs"], Omega):
-                pattern_matching_result_1 = 4
-                decl_4 = stmt.fields[0]
+        stmts_1 : List[definition] = resolve_macro(arrow_70, stmts)
+        for idx in range(0, (len(stmts_1) - 1) + 1, 1):
+            stmt : definition = stmts_1[idx]
+            (pattern_matching_result_1, decl_1, decl_2, decl_3, decl_4) = (None, None, None, None, None)
+            if stmt.tag == 5:
+                pattern_matching_result_1 = 0
+                decl_1 = stmt.fields[0]
+            
+            elif stmt.tag == 3:
+                pattern_matching_result_1 = 1
+                decl_2 = stmt.fields[0]
+            
+            elif stmt.tag == 4:
+                pattern_matching_result_1 = 2
+                decl_3 = stmt.fields[0]
+            
+            elif stmt.tag == 0:
+                pattern_matching_result_1 = 3
+            
+            elif stmt.tag == 1:
+                if contains_key(stmt.fields[0]["lhs"], Omega):
+                    pattern_matching_result_1 = 4
+                    decl_4 = stmt.fields[0]
+                
+                else: 
+                    pattern_matching_result_1 = 5
+                
             
             else: 
                 pattern_matching_result_1 = 5
             
-        
-        else: 
-            pattern_matching_result_1 = 5
-        
-        if pattern_matching_result_1 == 0:
-            current_pos = decl_1["pos"]
-            with get_enumerator(decl_1["ignoreList"]) as enumerator:
-                while enumerator.System_Collections_IEnumerator_MoveNext():
-                    each : str = enumerator.System_Collections_Generic_IEnumerator_00601_get_Current()
-                    ReferencedNamedTokens = add_1(each, IgnoreSet)
-                    IgnoreSet = add_1(each, IgnoreSet)
-        
-        elif pattern_matching_result_1 == 1:
-            current_pos = decl_2["pos"]
-            Sigma__RegisterExternalVariable(Sigma_1, decl_2["ident"], Sigma__KindCheck_Z25E5E15E(Sigma_1, decl_2["t"]))
-        
-        elif pattern_matching_result_1 == 2:
-            current_pos = decl_3["pos"]
-            Sigma__RegisterExternalType(Sigma_1, decl_3["ident"], decl_3["parameters"], map(lambda tupled_arg, stmts=stmts: (tupled_arg[0], tupled_arg[1]), decl_3["fields"]))
-            with get_enumerator(decl_3["fields"]) as enumerator_1:
-                while enumerator_1.System_Collections_IEnumerator_MoveNext():
-                    for_loop_var : Tuple[str, monot, position] = enumerator_1.System_Collections_Generic_IEnumerator_00601_get_Current()
-                    current_pos = for_loop_var[2]
-                    ignore(Sigma__KindCheckMono_Z25145215(Sigma_1, for_loop_var[1]))
-        
-        elif pattern_matching_result_1 == 3:
-            raise Exception("macro definition must be processed before type checking")
-        
-        elif pattern_matching_result_1 == 4:
-            raise DuplicateNonterminal(decl_4["lhs"])
-        
-        elif pattern_matching_result_1 == 5:
-            (pattern_matching_result_2, decl_6, decl_7) = (None, None, None)
-            if stmt.tag == 1:
-                pattern_matching_result_2 = 0
-                decl_6 = stmt.fields[0]
+            if pattern_matching_result_1 == 0:
+                current_pos = decl_1["pos"]
+                with get_enumerator(decl_1["ignoreList"]) as enumerator:
+                    while enumerator.System_Collections_IEnumerator_MoveNext():
+                        each : str = enumerator.System_Collections_Generic_IEnumerator_00601_get_Current()
+                        ReferencedNamedTokens = add_1(each, IgnoreSet)
+                        IgnoreSet = add_1(each, IgnoreSet)
             
-            elif stmt.tag == 2:
-                class ObjectExpr70:
-                    @property
-                    def Equals(self) -> Any:
-                        return lambda x_4, y_4: x_4 == y_4
+            elif pattern_matching_result_1 == 1:
+                current_pos = decl_2["pos"]
+                Sigma__RegisterExternalVariable(Sigma_1, decl_2["ident"], Sigma__KindCheck_Z25E5E15E(Sigma_1, decl_2["t"]))
+            
+            elif pattern_matching_result_1 == 2:
+                current_pos = decl_3["pos"]
+                Sigma__RegisterExternalType(Sigma_1, decl_3["ident"], decl_3["parameters"], map(lambda tupled_arg: (tupled_arg[0], tupled_arg[1]), decl_3["fields"]))
+                with get_enumerator(decl_3["fields"]) as enumerator_1:
+                    while enumerator_1.System_Collections_IEnumerator_MoveNext():
+                        for_loop_var : Tuple[str, monot, position] = enumerator_1.System_Collections_Generic_IEnumerator_00601_get_Current()
+                        current_pos = for_loop_var[2]
+                        ignore(Sigma__KindCheckMono_Z25145215(Sigma_1, for_loop_var[1]))
+            
+            elif pattern_matching_result_1 == 3:
+                raise Exception("macro definition must be processed before type checking")
+            
+            elif pattern_matching_result_1 == 4:
+                raise DuplicateNonterminal(decl_4["lhs"])
+            
+            elif pattern_matching_result_1 == 5:
+                (pattern_matching_result_2, decl_6, decl_7) = (None, None, None)
+                if stmt.tag == 1:
+                    pattern_matching_result_2 = 0
+                    decl_6 = stmt.fields[0]
+                
+                elif stmt.tag == 2:
+                    class ObjectExpr71:
+                        @property
+                        def Equals(self) -> Any:
+                            return lambda x_4, y_4: x_4 == y_4
+                        
+                        @property
+                        def GetHashCode(self) -> Any:
+                            return lambda x_4: string_hash(x_4)
+                        
+                    if contains(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr71()):
+                        pattern_matching_result_2 = 1
+                        decl_7 = stmt.fields[0]
                     
-                    @property
-                    def GetHashCode(self) -> Any:
-                        return lambda x_4: string_hash(x_4)
+                    else: 
+                        pattern_matching_result_2 = 2
                     
-                if contains(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr70()):
-                    pattern_matching_result_2 = 1
-                    decl_7 = stmt.fields[0]
                 
                 else: 
                     pattern_matching_result_2 = 2
                 
-            
-            else: 
-                pattern_matching_result_2 = 2
-            
-            if pattern_matching_result_2 == 0:
-                nt : monot = Manager__NewTyRef_Z721C83C5(UM, "\u0027" + decl_6["lhs"])
-                Omega = add(decl_6["lhs"], nt, Omega)
-            
-            elif pattern_matching_result_2 == 1:
-                raise DuplicateLexer(decl_7["lhs"])
-            
-            elif pattern_matching_result_2 == 2:
-                if stmt.tag == 2:
-                    TokenFragments = cons(stmt.fields[0]["lhs"], TokenFragments)
+                if pattern_matching_result_2 == 0:
+                    nt : monot = Manager__NewTyRef_Z721C83C5(UM, "\u0027" + decl_6["lhs"])
+                    Omega = add(decl_6["lhs"], nt, Omega)
                 
-                else: 
-                    raise Exception("Match failure")
+                elif pattern_matching_result_2 == 1:
+                    raise DuplicateLexer(decl_7["lhs"])
+                
+                elif pattern_matching_result_2 == 2:
+                    if stmt.tag == 2:
+                        TokenFragments = cons(stmt.fields[0]["lhs"], TokenFragments)
+                    
+                    else: 
+                        raise Exception("Match failure")
+                    
                 
             
-        
-    for idx_1 in range(0, (len(stmts_1) - 1) + 1, 1):
-        stmt_2 : definition = stmts_1[idx_1]
-        if stmt_2.tag == 1:
-            decl_9 : dict = stmt_2.fields[0]
-            current_pos = decl_9["pos"]
-            tupled_arg_2 : Tuple[str, FSharpList[Tuple[position, production_1]]] = (decl_9["lhs"], decl_9["define"])
-            t_6 : monot = FSharpMap__get_Item(Omega, tupled_arg_2[0])
-            with get_enumerator(tupled_arg_2[1]) as enumerator_2:
-                while enumerator_2.System_Collections_IEnumerator_MoveNext():
-                    for_loop_var_1 : Tuple[position, production_1] = enumerator_2.System_Collections_Generic_IEnumerator_00601_get_Current()
-                    production : production_1 = for_loop_var_1[1]
-                    current_pos = for_loop_var_1[0]
-                    def infer_p(s: symbol, stmts: List[definition]=stmts) -> monot:
-                        nonlocal LiteralTokens, ReferencedNamedTokens
-                        if s.tag == 0:
-                            n : str = s.fields[0]
-                            if s.fields[1]:
-                                LiteralTokens = add_1(n, LiteralTokens)
-                            
-                            else: 
-                                class ObjectExpr72:
-                                    @property
-                                    def Equals(self) -> Any:
-                                        return lambda x_5, y_5: x_5 == y_5
-                                    
-                                    @property
-                                    def GetHashCode(self) -> Any:
-                                        return lambda x_5: string_hash(x_5)
-                                    
-                                if not contains(n, TokenFragments, ObjectExpr72()):
-                                    raise UnboundLexer(n)
+        for idx_1 in range(0, (len(stmts_1) - 1) + 1, 1):
+            stmt_2 : definition = stmts_1[idx_1]
+            if stmt_2.tag == 1:
+                decl_9 : dict = stmt_2.fields[0]
+                current_pos = decl_9["pos"]
+                tupled_arg_2 : Tuple[str, FSharpList[Tuple[position, production_1]]] = (decl_9["lhs"], decl_9["define"])
+                t_6 : monot = FSharpMap__get_Item(Omega, tupled_arg_2[0])
+                with get_enumerator(tupled_arg_2[1]) as enumerator_2:
+                    while enumerator_2.System_Collections_IEnumerator_MoveNext():
+                        for_loop_var_1 : Tuple[position, production_1] = enumerator_2.System_Collections_Generic_IEnumerator_00601_get_Current()
+                        production : production_1 = for_loop_var_1[1]
+                        current_pos = for_loop_var_1[0]
+                        def infer_p(s: symbol) -> monot:
+                            nonlocal LiteralTokens, ReferencedNamedTokens
+                            if s.tag == 0:
+                                n : str = s.fields[0]
+                                if s.fields[1]:
+                                    LiteralTokens = add_1(n, LiteralTokens)
                                 
                                 else: 
-                                    ReferencedNamedTokens = add_1(n, ReferencedNamedTokens)
+                                    class ObjectExpr72:
+                                        @property
+                                        def Equals(self) -> Any:
+                                            return lambda x_5, y_5: x_5 == y_5
+                                        
+                                        @property
+                                        def GetHashCode(self) -> Any:
+                                            return lambda x_5: string_hash(x_5)
+                                        
+                                    if not contains(n, TokenFragments, ObjectExpr72()):
+                                        raise UnboundLexer(n)
+                                    
+                                    else: 
+                                        ReferencedNamedTokens = add_1(n, ReferencedNamedTokens)
+                                    
                                 
-                            
-                            return TConst_token
-                        
-                        elif s.tag == 1:
-                            if contains_key(s.fields[0], Omega):
-                                return FSharpMap__get_Item(Omega, s.fields[0])
+                                return TConst_token
                             
                             elif s.tag == 1:
-                                raise UnboundNonterminal(s.fields[0])
+                                if contains_key(s.fields[0], Omega):
+                                    return FSharpMap__get_Item(Omega, s.fields[0])
+                                
+                                elif s.tag == 1:
+                                    raise UnboundNonterminal(s.fields[0])
+                                
+                                else: 
+                                    raise Exception("Match failure")
+                                
                             
                             else: 
-                                raise Exception("Match failure")
+                                def arrow_73(s: symbol=s) -> Exception:
+                                    raise Exception("macrocall not processed")
+                                
+                                raise arrow_73()
                             
                         
-                        else: 
-                            def arrow_73(s: symbol=s) -> Exception:
-                                raise Exception("macrocall not processed")
-                            
-                            raise arrow_73()
-                        
-                    
-                    S_2 : FSharpList[monot] = map(infer_p, production.symbols)
-                    action : expr_1 = infer_e(Sigma__get_GlobalVariables(Sigma_1), S_2, production.action)
-                    Manager__Unify(UM, action.t, t_6)
-                    production.action = action
+                        S_2 : FSharpList[monot] = map(infer_p, production.symbols)
+                        action : expr_1 = infer_e(Sigma__get_GlobalVariables(Sigma_1), S_2, production.action)
+                        Manager__Unify(UM, action.t, t_6)
+                        production.action = action
+            
+            elif stmt_2.tag == 2:
+                decl_10 : dict = stmt_2.fields[0]
+                current_pos = decl_10["pos"]
+                check_lexerule(decl_10["define"])
+            
+        def arrow_74(_unit=None) -> Analyzer:
+            TokenFragments_1 : List[str] = reverse(to_array(TokenFragments))
+            return Analyzer(UM, Sigma_1, current_pos, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet)
         
-        elif stmt_2.tag == 2:
-            decl_10 : dict = stmt_2.fields[0]
-            current_pos = decl_10["pos"]
-            check_lexerule(decl_10["define"])
-        
-    def arrow_74(stmts: List[definition]=stmts) -> Analyzer:
-        TokenFragments_1 : List[str] = reverse(to_array(TokenFragments))
-        return Analyzer(UM, Sigma_1, current_pos, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet)
+        return (stmts_1, arrow_74())
     
-    return (stmts_1, arrow_74())
+    except Exception as e_1:
+        arg30 : str = current_pos.filename
+        arg20_1 : int = current_pos.col or 0
+        arg10_5 : int = current_pos.line or 0
+        to_console(printf("line %d, column %d, file: %s\n%A"))(arg10_5)(arg20_1)(arg30)(e_1)
+        raise Exception("exit with error")
+    
 
 

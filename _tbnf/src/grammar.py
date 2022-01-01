@@ -3,13 +3,15 @@ from typing import (Any, Generic, TypeVar, List, Callable, Tuple, Optional)
 from ..fable_modules.fable_library.list import (FSharpList, map, exists, iterate, singleton)
 from ..fable_modules.fable_library.option import some
 from ..fable_modules.fable_library.reflection import (TypeInfo, class_type, int32_type, string_type, record_type, list_type, tuple_type, float64_type, bool_type, union_type, anon_record_type)
+from ..fable_modules.fable_library.string import join
 from ..fable_modules.fable_library.types import (Record, Union, FSharpRef)
+from .utils import escape_string
 
 a_4 = TypeVar("a_4")
 
 a = TypeVar("a")
 
-def expr_0(gen0: TypeInfo) -> TypeInfo:
+def expr_2(gen0: TypeInfo) -> TypeInfo:
     return class_type("tbnf.Grammar.Cell`1", [gen0], Cell_1)
 
 
@@ -18,7 +20,7 @@ class Cell_1(Generic[a_4]):
         self._cell = None
     
 
-Cell_1_reflection = expr_0
+Cell_1_reflection = expr_2
 
 def Cell_1__ctor() -> Cell_1[Any]:
     return Cell_1()
@@ -36,7 +38,7 @@ def Cell_1__get_IsNull(this: Cell_1[Any]) -> bool:
     return this._cell is None
 
 
-def expr_10() -> TypeInfo:
+def expr_5() -> TypeInfo:
     return record_type("tbnf.Grammar.position", [], position, lambda: [["line", int32_type], ["col", int32_type], ["filename", string_type]])
 
 
@@ -48,9 +50,9 @@ class position(Record):
         self.filename = filename
     
 
-position_reflection = expr_10
+position_reflection = expr_5
 
-def expr_17() -> TypeInfo:
+def expr_9() -> TypeInfo:
     return union_type("tbnf.Grammar.node", [], node, lambda: [[["Item1", expr_reflection()], ["Item2", list_type(expr_reflection())]], [["Item", list_type(expr_reflection())]], [["Item", list_type(expr_reflection())]], [["Item1", expr_reflection()], ["Item2", string_type]], [["Item1", string_type], ["Item2", expr_reflection()], ["Item3", expr_reflection()]], [["Item1", list_type(tuple_type(string_type, monot_reflection()))], ["Item2", expr_reflection()]], [["Item1", string_type], ["Item2", record_type("Microsoft.FSharp.Core.FSharpRef`1", [list_type(monot_reflection())], FSharpRef, lambda: [["contents", list_type(monot_reflection())]])]], [["Item", int32_type]], [["Item", int32_type]], [["Item", string_type]], [["Item", float64_type]], [["Item", bool_type]]])
 
 
@@ -65,9 +67,9 @@ class node(Union):
         return ["EApp", "ETuple", "EList", "EField", "ELet", "EFun", "EVar", "ESlot", "EInt", "EStr", "EFlt", "EBool"]
     
 
-node_reflection = expr_17
+node_reflection = expr_9
 
-def expr_18() -> TypeInfo:
+def expr_11() -> TypeInfo:
     return record_type("tbnf.Grammar.expr", [], expr, lambda: [["node", node_reflection()], ["pos", position_reflection()], ["t", monot_reflection()]])
 
 
@@ -79,9 +81,9 @@ class expr(Record):
         self.t = t
     
 
-expr_reflection = expr_18
+expr_reflection = expr_11
 
-def expr_20() -> TypeInfo:
+def expr_13() -> TypeInfo:
     return union_type("tbnf.Grammar.monot", [], monot, lambda: [[["Item", Cell_1_reflection(monot_reflection())]], [["Item", string_type]], [["Item1", monot_reflection()], ["Item2", list_type(monot_reflection())]], [["Item1", list_type(monot_reflection())], ["Item2", monot_reflection()]], [["Item", string_type]]])
 
 
@@ -96,9 +98,9 @@ class monot(Union):
         return ["TRef", "TConst", "TApp", "TFun", "TVar"]
     
 
-monot_reflection = expr_20
+monot_reflection = expr_13
 
-def expr_21() -> TypeInfo:
+def expr_18() -> TypeInfo:
     return union_type("tbnf.Grammar.polyt", [], polyt, lambda: [[["Item1", list_type(string_type)], ["Item2", monot_reflection()]], [["Item", monot_reflection()]]])
 
 
@@ -113,9 +115,9 @@ class polyt(Union):
         return ["Poly", "Mono"]
     
 
-polyt_reflection = expr_21
+polyt_reflection = expr_18
 
-def expr_24() -> TypeInfo:
+def expr_21() -> TypeInfo:
     return record_type("tbnf.Grammar.production", [], production, lambda: [["symbols", list_type(symbol_reflection())], ["action", expr_reflection()]])
 
 
@@ -126,9 +128,9 @@ class production(Record):
         self.action = action
     
 
-production_reflection = expr_24
+production_reflection = expr_21
 
-def expr_25() -> TypeInfo:
+def expr_22() -> TypeInfo:
     return union_type("tbnf.Grammar.symbol", [], symbol, lambda: [[["Item1", string_type], ["Item2", bool_type]], [["Item", string_type]], [["Item1", string_type], ["Item2", list_type(symbol_reflection())], ["Item3", position_reflection()]]])
 
 
@@ -143,9 +145,9 @@ class symbol(Union):
         return ["Term", "Nonterm", "Macrocall"]
     
 
-symbol_reflection = expr_25
+symbol_reflection = expr_22
 
-def expr_30() -> TypeInfo:
+def expr_25() -> TypeInfo:
     return union_type("tbnf.Grammar.definition", [], definition, lambda: [[["Item", anon_record_type(["define", list_type(tuple_type(position_reflection(), production_reflection()))], ["lhs", string_type], ["parameters", list_type(string_type)], ["pos", position_reflection()])]], [["Item", anon_record_type(["define", list_type(tuple_type(position_reflection(), production_reflection()))], ["lhs", string_type], ["pos", position_reflection()])]], [["Item", anon_record_type(["define", lexerule_reflection()], ["lhs", string_type], ["pos", position_reflection()])]], [["Item", anon_record_type(["ident", string_type], ["pos", position_reflection()], ["t", polyt_reflection()])]], [["Item", anon_record_type(["fields", list_type(tuple_type(string_type, monot_reflection(), position_reflection()))], ["ident", string_type], ["parameters", list_type(string_type)], ["pos", position_reflection()])]], [["Item", anon_record_type(["ignoreList", list_type(string_type)], ["pos", position_reflection()])]]])
 
 
@@ -160,9 +162,9 @@ class definition(Union):
         return ["Defmacro", "Defrule", "Deflexer", "Declvar", "Decltype", "Defignore"]
     
 
-definition_reflection = expr_30
+definition_reflection = expr_25
 
-def expr_33() -> TypeInfo:
+def expr_28() -> TypeInfo:
     return union_type("tbnf.Grammar.lexerule", [], lexerule, lambda: [[], [], [["Item", list_type(lexerule_reflection())]], [["Item", string_type]], [["Item", list_type(lexerule_reflection())]], [["Item", lexerule_reflection()]], [["Item", lexerule_reflection()]], [["Item", lexerule_reflection()]], [["Item", lexerule_reflection()]], [["Item", lexerule_reflection()]], [["Item1", int32_type], ["Item2", int32_type]], [["Item", string_type]]])
 
 
@@ -177,7 +179,7 @@ class lexerule(Union):
         return ["LNumber", "LWildcard", "LSeq", "LStr", "LOr", "LNot", "LPlus", "LStar", "LOptional", "LGroup", "LRange", "LRef"]
     
 
-lexerule_reflection = expr_33
+lexerule_reflection = expr_28
 
 def position_get_fake() -> position:
     return position(0, 0, "")
@@ -188,7 +190,7 @@ def expr_with_node(expr_1: expr, node_1: node) -> expr:
 
 
 def expr__transform_children_z51b8244a(this: expr, op_dereference: Callable[[expr], expr]) -> expr:
-    def arrow_34(this: expr=this, op_dereference: Callable[[expr], expr]=op_dereference) -> node:
+    def arrow_32(this: expr=this, op_dereference: Callable[[expr], expr]=op_dereference) -> node:
         match_value : node = this.node
         (pattern_matching_result, a) = (None, None)
         if match_value.tag == 1:
@@ -255,7 +257,7 @@ def expr__transform_children_z51b8244a(this: expr, op_dereference: Callable[[exp
             return a
         
     
-    return expr_with_node(this, arrow_34())
+    return expr_with_node(this, arrow_32())
 
 
 def expr__deep_copy(x: expr) -> expr:
@@ -371,6 +373,31 @@ def monot__prune(this: monot) -> monot:
         
     
     return prune(this)
+
+
+def symbol__inspect(this: symbol) -> str:
+    if this.tag == 1:
+        return this.fields[0]
+    
+    elif this.tag == 2:
+        return ((this.fields[0] + "(") + join(", ", map(lambda x, this=this: symbol__inspect(x), this.fields[1]))) + ")"
+    
+    elif this.fields[1]:
+        return escape_string(this.fields[0])
+    
+    else: 
+        return ("\u003c" + this.fields[0]) + "\u003e"
+    
+
+
+def definition__inspect(this: definition) -> str:
+    if this.tag == 1:
+        decl : dict = this.fields[0]
+        return (decl["lhs"] + " :\n ") + join("\n| ", map(lambda tupled_arg, this=this: join(" ", map(lambda x, tupled_arg=tupled_arg: symbol__inspect(x), tupled_arg[1].symbols)), decl["define"]))
+    
+    else: 
+        return "omit"
+    
 
 
 TConst_token : monot = monot(1, "token")

@@ -166,14 +166,14 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
             return word(escape_string(match_value_1.fields[0]))
         
         elif match_value_1.tag == 5:
-            def arrow_120(scope: FSharpList[Tuple[str, str]]=scope, curr_expr: expr=curr_expr) -> Iterable[Tuple[str, str]]:
-                def arrow_119(match_value_3: Tuple[str, monot]) -> Iterable[Tuple[str, str]]:
+            def arrow_114(scope: FSharpList[Tuple[str, str]]=scope, curr_expr: expr=curr_expr) -> Iterable[Tuple[str, str]]:
+                def arrow_113(match_value_3: Tuple[str, monot]) -> Iterable[Tuple[str, str]]:
                     arg : str = match_value_3[0]
                     return singleton((arg, mangle(ocaml_var_ident_descr, arg)))
                 
-                return collect(arrow_119, match_value_1.fields[0])
+                return collect(arrow_113, match_value_1.fields[0])
             
-            code : Doc = cg_expr(append(to_list(delay(arrow_120)), scope), match_value_1.fields[1])
+            code : Doc = cg_expr(append(to_list(delay(arrow_114)), scope), match_value_1.fields[1])
             anns : FSharpList[Doc] = map_1(lambda tupled_arg, scope=scope, curr_expr=curr_expr: word((tupled_arg[0] + ":") + cg_type(tupled_arg[1])), match_value_1.fields[0])
             return parens(vsep(of_array_1([Doc_op_Addition_Z7CFFAC00(word("fun"), Doc_op_Multiply_Z7CFFAC00(parens(seplist(word(", "), anns)), word("-\u003e"))), Doc_op_RightShift_2AAA0F3C(code, 4)])))
         
@@ -377,19 +377,19 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
             decl : dict = stmt.fields[0]
             current_pos = decl["pos"]
             ntname_1 : str = cg_symbol(symbol(1, decl["lhs"]))
-            def arrow_123(stmt: definition=stmt) -> Iterable[Doc]:
-                def arrow_122(match_value_4: Tuple[position, production_1]) -> Iterable[Doc]:
+            def arrow_117(stmt: definition=stmt) -> Iterable[Doc]:
+                def arrow_116(match_value_4: Tuple[position, production_1]) -> Iterable[Doc]:
                     nonlocal current_pos
                     current_pos = match_value_4[0]
-                    def arrow_121(_unit=None) -> Doc:
+                    def arrow_115(_unit=None) -> Doc:
                         prod : production_1 = match_value_4[1]
                         return Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(seplist(word(" "), map_1(lambda arg_1: word(cg_symbol(arg_1)), prod.symbols)), word("{")), Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([empty_2, Doc_op_RightShift_2AAA0F3C(cg_expr(global_scope, prod.action), 4), word("}")])), 12))
                     
-                    return singleton(arrow_121())
+                    return singleton(arrow_115())
                 
-                return collect(arrow_122, decl["define"])
+                return collect(arrow_116, decl["define"])
             
-            body_4 : Doc = align(vsep(map_indexed(lambda i_7, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_7 == 0) else (word("|")), e_1), to_list(delay(arrow_123)))))
+            body_4 : Doc = align(vsep(map_indexed(lambda i_7, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_7 == 0) else (word("|")), e_1), to_list(delay(arrow_117)))))
             return Doc_op_Addition_Z7CFFAC00(word(ntname_1), body_4)
         
     
@@ -401,12 +401,12 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
     var_lexbuf : str = mangle(ocaml_var_ident_descr, "lexbuf")
     token_names : FSharpList[str] = empty()
     ReferencedNamedTokens : List[str] = list(analyzer.ReferencedNamedTokens)
-    class ObjectExpr125:
+    class ObjectExpr118:
         @property
         def Compare(self) -> Any:
             return lambda x_11, y_6: compare_primitives(x_11, y_6)
         
-    sort_in_place_by(lambda k_1, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: find_index(lambda y_5: k_1 == y_5, analyzer.TokenFragments), ReferencedNamedTokens, ObjectExpr125())
+    sort_in_place_by(lambda k_1, analyzer=analyzer, _arg1=_arg1, rts_file_string=rts_file_string, stmts=stmts: find_index(lambda y_5: k_1 == y_5, analyzer.TokenFragments), ReferencedNamedTokens, ObjectExpr118())
     lexical_rule_defs : FSharpList[Doc] = empty()
     tokenizer_cases : FSharpList[Doc] = empty()
     with get_enumerator(lexer_maps) as enumerator:
@@ -426,7 +426,7 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
                 lexical_rule_name_1 : str = "rule_" + token_name
                 lexical_rule_def_1 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("let"), word(lexical_rule_name_1)), word("=")), bracket(Doc_op_Addition_Z7CFFAC00(word("%sedlex.regexp?"), v_2)))
                 lexical_rule_defs = cons(lexical_rule_def_1, lexical_rule_defs)
-                class ObjectExpr127:
+                class ObjectExpr126:
                     @property
                     def Equals(self) -> Any:
                         return lambda x_12, y_7: x_12 == y_7
@@ -435,18 +435,18 @@ def codegen(analyzer: Analyzer, _arg1: CodeGenOptions, rts_file_string: str, stm
                     def GetHashCode(self) -> Any:
                         return lambda x_12: string_hash(x_12)
                     
-                if contains_1(k_2, ReferencedNamedTokens, ObjectExpr127()):
+                if contains_1(k_2, ReferencedNamedTokens, ObjectExpr126()):
                     tokenizer_case_1 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("|"), word(lexical_rule_name_1)), word(to_text(interpolate("-\u003e %P() (mktoken %P())", [token_name, var_lexbuf]))))
                     tokenizer_cases = cons(tokenizer_case_1, tokenizer_cases)
                     token_names = cons(token_name, token_names)
                 
             
-    class ObjectExpr129:
+    class ObjectExpr128:
         @property
         def Compare(self) -> Any:
             return lambda x_13, y_8: compare_primitives(x_13, y_8)
         
-    arr : List[str] = sort(list(analyzer.LiteralTokens), ObjectExpr129())
+    arr : List[str] = sort(list(analyzer.LiteralTokens), ObjectExpr128())
     for idx_1 in range(0, (len(arr) - 1) + 1, 1):
         k_3 : str = arr[idx_1]
         v_3 : Doc = word(mk_lexer(lexerule(3, k_3)))

@@ -29,6 +29,7 @@ seplist(sep, elt) : elt { [$1] }
 
 jsonpair : <str> ":" json { (unesc(getStr($1)), $3) }
 
+/* CPP comments */
 
 json : <int> { jsonInt(parseInt(getStr($1))) }
       | <float> { jsonFlt(parseFlt(getStr($1))) }

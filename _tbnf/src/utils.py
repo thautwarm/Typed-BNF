@@ -75,11 +75,11 @@ def is_unicode(c: str) -> bool:
 def _escapeString(s: str) -> str:
     sb : Any = StringBuilder__ctor_Z721C83C5("\"")
     for i in range(0, (len(s) - 1) + 1, 1):
-        def arrow_39(s: str=s) -> Any:
+        def arrow_40(s: str=s) -> Any:
             match_value : str = s[i]
             return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\"") if (match_value == "\"") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
         
-        ignore(arrow_39())
+        ignore(arrow_40())
     ignore(StringBuilder__Append_Z721C83C5(sb, "\""))
     return to_string(sb)
 
@@ -117,7 +117,7 @@ def capitalized(s: str) -> str:
     
 
 
-def expr_42() -> TypeInfo:
+def expr_43() -> TypeInfo:
     return record_type("tbnf.Utils.NameMangling.nameEnv", [], NameMangling_nameEnv, lambda: [["usedNames", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -127,7 +127,7 @@ class NameMangling_nameEnv(Record):
         self.used_names = used_names
     
 
-NameMangling_nameEnv_reflection = expr_42
+NameMangling_nameEnv_reflection = expr_43
 
 def expr_44() -> TypeInfo:
     return record_type("tbnf.Utils.NameMangling.IdentifierDescriptor", [], NameMangling_IdentifierDescriptor, lambda: [["isValidChar", lambda_type(int32_type, lambda_type(char_type, bool_type))], ["charToValid", lambda_type(int32_type, lambda_type(char_type, string_type))], ["nameEnv", NameMangling_nameEnv_reflection()]])
@@ -228,7 +228,7 @@ def NameMangling_mangle(abandoned_names: Any, idr: NameMangling_IdentifierDescri
     return s
 
 
-def expr_46(gen0: TypeInfo) -> TypeInfo:
+def expr_47(gen0: TypeInfo) -> TypeInfo:
     return record_type("tbnf.Utils.DocBuilder.block`1", [gen0], DocBuilder_block_1, lambda: [["suite", list_type(Doc_reflection())], ["value", gen0]])
 
 
@@ -239,9 +239,9 @@ class DocBuilder_block_1(Record, Generic[b]):
         self.value = value
     
 
-DocBuilder_block_1_reflection = expr_46
+DocBuilder_block_1_reflection = expr_47
 
-def expr_47() -> TypeInfo:
+def expr_48() -> TypeInfo:
     return class_type("tbnf.Utils.DocBuilder.Builder", None, DocBuilder_Builder)
 
 
@@ -250,7 +250,7 @@ class DocBuilder_Builder:
         pass
     
 
-DocBuilder_Builder_reflection = expr_47
+DocBuilder_Builder_reflection = expr_48
 
 def DocBuilder_Builder__ctor() -> DocBuilder_Builder:
     return DocBuilder_Builder()

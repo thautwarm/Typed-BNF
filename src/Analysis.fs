@@ -298,29 +298,40 @@ let build_analyzer(stmts: definition array) =
         | LRef n when List.contains n TokenFragments -> ()
         | LRef n -> raise <| UnboundLexer(n)
     
-    let stmts = MacroResolve.resolve_macro (fun x -> currentPos <- x) stmts
+    let main() =
+        let stmts = MacroResolve.resolve_macro (fun x -> currentPos <- x) stmts
+        
+        for stmt in stmts do
+            pre_process stmt
+        
+        for stmt in stmts do
+            match stmt with
+            | Defrule decl ->
+                currentPos <- decl.pos
+                check_productions(decl.lhs, decl.define)
+            | Deflexer decl ->
+                currentPos <- decl.pos
+                check_lexerule decl.define
+            | _ -> ()
+        
+        stmts, { 
+            UM = UM;
+            IgnoreSet = IgnoreSet;
+            // FragmentDefinitions = FragmentDefinitions;
+            TokenFragments = Array.rev (Array.ofList TokenFragments);
+            ReferencedNamedTokens = ReferencedNamedTokens;
+            LiteralTokens = LiteralTokens;
+            Omega = Omega;
+            currentPos = currentPos;
+            Sigma = Sigma
+        }
     
-    for stmt in stmts do
-        pre_process stmt
-    
-    for stmt in stmts do
-        match stmt with
-        | Defrule decl ->
-            currentPos <- decl.pos
-            check_productions(decl.lhs, decl.define)
-        | Deflexer decl ->
-            currentPos <- decl.pos
-            check_lexerule decl.define
-        | _ -> ()
-    
-    stmts, { 
-        UM = UM;
-        IgnoreSet = IgnoreSet;
-        // FragmentDefinitions = FragmentDefinitions;
-        TokenFragments = Array.rev (Array.ofList TokenFragments);
-        ReferencedNamedTokens = ReferencedNamedTokens;
-        LiteralTokens = LiteralTokens;
-        Omega = Omega;
-        currentPos = currentPos;
-        Sigma = Sigma
-    }
+    try
+        main()
+    with e ->
+        printfn "line %d, column %d, file: %s\n%A"
+                currentPos.line
+                currentPos.col
+                currentPos.filename
+                e
+        invalidOp "exit with error"

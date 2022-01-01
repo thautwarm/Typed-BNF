@@ -207,7 +207,7 @@ let codegen (analyzer: Analyzer)
                 let! elts' = cg { for elt in elts do return! !elt }
                 match elts' with
                 | [] -> return parens(empty)
-                | [_] -> return parens(seplist (word ", ") elts' + word ",")
+                | [elt] -> return parens(elt + word ",")
                 | _ -> return parens(seplist (word ", ") elts')
         }
 
