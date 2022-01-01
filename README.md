@@ -100,7 +100,7 @@ def rename_type(typename: str):
     if typename == 'list':
         return 'System.Collections.Generic.List'
     if typename == 'token':
-        return 'CommonToken',
+        return 'IToken',
     return typename
 
 # you might also rename external variables using:
