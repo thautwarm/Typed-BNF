@@ -232,26 +232,6 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitExp([NotNull] luaParser.ExpContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.exponent"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterExponent([NotNull] luaParser.ExponentContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.exponent"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitExponent([NotNull] luaParser.ExponentContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.unaryexp"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterUnaryexp([NotNull] luaParser.UnaryexpContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.unaryexp"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitUnaryexp([NotNull] luaParser.UnaryexpContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.binexp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -261,16 +241,6 @@ public interface IluaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitBinexp([NotNull] luaParser.BinexpContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.binoperand"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterBinoperand([NotNull] luaParser.BinoperandContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.binoperand"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitBinoperand([NotNull] luaParser.BinoperandContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.binseq"/>.
 	/// </summary>
@@ -282,6 +252,36 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitBinseq([NotNull] luaParser.BinseqContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="luaParser.binoperand"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBinoperand([NotNull] luaParser.BinoperandContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="luaParser.binoperand"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBinoperand([NotNull] luaParser.BinoperandContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="luaParser.unaryexp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterUnaryexp([NotNull] luaParser.UnaryexpContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="luaParser.unaryexp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitUnaryexp([NotNull] luaParser.UnaryexpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="luaParser.exponent"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterExponent([NotNull] luaParser.ExponentContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="luaParser.exponent"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitExponent([NotNull] luaParser.ExponentContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.prefixexp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -291,6 +291,16 @@ public interface IluaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPrefixexp([NotNull] luaParser.PrefixexpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="luaParser.atom"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAtom([NotNull] luaParser.AtomContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="luaParser.atom"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAtom([NotNull] luaParser.AtomContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.nempty_seplist_n__i__s__i__s_exp_p_"/>.
 	/// </summary>

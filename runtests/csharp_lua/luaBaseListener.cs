@@ -277,30 +277,6 @@ public partial class luaBaseListener : IluaListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitExp([NotNull] luaParser.ExpContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.exponent"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterExponent([NotNull] luaParser.ExponentContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.exponent"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitExponent([NotNull] luaParser.ExponentContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.unaryexp"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterUnaryexp([NotNull] luaParser.UnaryexpContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.unaryexp"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitUnaryexp([NotNull] luaParser.UnaryexpContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.binexp"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -312,18 +288,6 @@ public partial class luaBaseListener : IluaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBinexp([NotNull] luaParser.BinexpContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.binoperand"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBinoperand([NotNull] luaParser.BinoperandContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.binoperand"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBinoperand([NotNull] luaParser.BinoperandContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.binseq"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -337,6 +301,42 @@ public partial class luaBaseListener : IluaListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBinseq([NotNull] luaParser.BinseqContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="luaParser.binoperand"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBinoperand([NotNull] luaParser.BinoperandContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="luaParser.binoperand"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBinoperand([NotNull] luaParser.BinoperandContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="luaParser.unaryexp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterUnaryexp([NotNull] luaParser.UnaryexpContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="luaParser.unaryexp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitUnaryexp([NotNull] luaParser.UnaryexpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="luaParser.exponent"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExponent([NotNull] luaParser.ExponentContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="luaParser.exponent"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExponent([NotNull] luaParser.ExponentContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.prefixexp"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -348,6 +348,18 @@ public partial class luaBaseListener : IluaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitPrefixexp([NotNull] luaParser.PrefixexpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="luaParser.atom"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAtom([NotNull] luaParser.AtomContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="luaParser.atom"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAtom([NotNull] luaParser.AtomContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.nempty_seplist_n__i__s__i__s_exp_p_"/>.
 	/// <para>The default implementation does nothing.</para>

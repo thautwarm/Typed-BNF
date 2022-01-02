@@ -75,7 +75,7 @@ let mktoken (buf: Sedlexing.lexbuf): tbnf_token =
   let start_pos, _ = Sedlexing.lexing_positions buf in
   { lexeme = TBNF_Utf8.to_string (Sedlexing.lexeme buf);
     line = start_pos.pos_lnum;
-    col = start_pos.pos_bol - start_pos.pos_cnum;
+    col = start_pos.pos_cnum - start_pos.pos_bol;
     offset = Sedlexing.lexeme_start buf;
     span = lexeme_end buf - lexeme_start buf;
     file = start_pos.pos_fname }
@@ -83,9 +83,6 @@ let mktoken (buf: Sedlexing.lexbuf): tbnf_token =
 
 
 type token =
-| STR_LIT of tbnf_token
-| NUMERAL of tbnf_token
-| NAME of tbnf_token
 | I__J__I__I of tbnf_token
 | I__L__I_ of tbnf_token
 | I__M__I_ of tbnf_token
@@ -141,8 +138,18 @@ type token =
 | I__V__I_ of tbnf_token
 | I__W__I_ of tbnf_token
 | I__W__J__I_ of tbnf_token
+| STR_LIT of tbnf_token
+| NUMERAL of tbnf_token
+| NAME of tbnf_token
 | EOF
 
+let rule_SPACE = [%sedlex.regexp? " " | "\t" | "\r" | "\n"]
+let rule_DIGIT = [%sedlex.regexp? (48 .. 57)]
+let rule_UCHAR = [%sedlex.regexp? (97 .. 122) | (65 .. 90) | "_"]
+let rule_NAME = [%sedlex.regexp? rule_UCHAR, Star((rule_UCHAR | rule_DIGIT))]
+let rule_INT = [%sedlex.regexp? Plus(rule_DIGIT)]
+let rule_NUMERAL = [%sedlex.regexp? Opt("-"), rule_INT, Opt((".", rule_INT)), Opt((("E" | "e"), rule_INT))]
+let rule_STR_LIT = [%sedlex.regexp? "\"", Star(("\\", any | Compl("\""))), "\""]
 let rule_I__W__J__I_ = [%sedlex.regexp? "~="]
 let rule_I__W__I_ = [%sedlex.regexp? "~"]
 let rule_I__V__I_ = [%sedlex.regexp? "}"]
@@ -198,20 +205,9 @@ let rule_I__O__I_ = [%sedlex.regexp? "("]
 let rule_I__M__I_ = [%sedlex.regexp? "&"]
 let rule_I__L__I_ = [%sedlex.regexp? "%"]
 let rule_I__J__I__I = [%sedlex.regexp? "#"]
-let rule_SPACE = [%sedlex.regexp? " " | "\t" | "\r" | "\n"]
-let rule_DIGIT = [%sedlex.regexp? (48 .. 57)]
-let rule_UCHAR = [%sedlex.regexp? (97 .. 122) | (65 .. 90) | "_"]
-let rule_NAME = [%sedlex.regexp? rule_UCHAR, Star((rule_UCHAR | rule_DIGIT))]
-let rule_INT = [%sedlex.regexp? Plus(rule_DIGIT)]
-let rule_NUMERAL = [%sedlex.regexp? Opt("-"), rule_INT, Opt((".", rule_INT)), Opt((("E" | "e"), rule_INT))]
-let rule_STR_LIT = [%sedlex.regexp? "\"", Star(("\\", any | Compl("\""))), "\""]
 
 let rec tokenizer lexbuf =
     match%sedlex lexbuf with
-    | rule_STR_LIT -> STR_LIT (mktoken lexbuf)
-    | rule_NUMERAL -> NUMERAL (mktoken lexbuf)
-    | rule_NAME -> NAME (mktoken lexbuf)
-    | rule_SPACE -> tokenizer lexbuf
     | rule_I__J__I__I -> I__J__I__I (mktoken lexbuf)
     | rule_I__L__I_ -> I__L__I_ (mktoken lexbuf)
     | rule_I__M__I_ -> I__M__I_ (mktoken lexbuf)
@@ -267,5 +263,9 @@ let rec tokenizer lexbuf =
     | rule_I__V__I_ -> I__V__I_ (mktoken lexbuf)
     | rule_I__W__I_ -> I__W__I_ (mktoken lexbuf)
     | rule_I__W__J__I_ -> I__W__J__I_ (mktoken lexbuf)
+    | rule_STR_LIT -> STR_LIT (mktoken lexbuf)
+    | rule_NUMERAL -> NUMERAL (mktoken lexbuf)
+    | rule_NAME -> NAME (mktoken lexbuf)
+    | rule_SPACE -> tokenizer lexbuf
     | eof -> EOF
     | _ -> _unknown_token lexbuf

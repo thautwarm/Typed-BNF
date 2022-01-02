@@ -3,9 +3,6 @@ open Lua_require;;
 open Lua_lexer;;
 open Lua_construct;;
 %}
-%token<tbnf_token> STR_LIT
-%token<tbnf_token> NUMERAL
-%token<tbnf_token> NAME
 %token<tbnf_token> I__J__I__I
 %token<tbnf_token> I__L__I_
 %token<tbnf_token> I__M__I_
@@ -61,6 +58,9 @@ open Lua_construct;;
 %token<tbnf_token> I__V__I_
 %token<tbnf_token> I__W__I_
 %token<tbnf_token> I__W__J__I_
+%token<tbnf_token> STR_LIT
+%token<tbnf_token> NUMERAL
+%token<tbnf_token> NAME
 %token EOF
 %start <Lua_construct.block> start
 %%
@@ -194,66 +194,42 @@ elseif : I_ELSEIF_I_ exp I_THEN_I_ block {
 else__x_ : I_ELSE_I_ block { 
                          if_else($1, $2)
                      }
-exp : I_NIL_I_ { 
-                    mk_Nil($1)
-                }
-    | I_FALSE_I_ { 
-                    mk_Bool($1, false)
-                }
-    | I_TRUE_I_ { 
-                    mk_Bool($1, true)
-                }
-    | NUMERAL { 
-                    mk_Num($1)
-                }
-    | STR_LIT { 
-                    mk_String($1)
-                }
-    | I__U__U__U__I_ { 
-                    mk_Ellipse($1)
-                }
-    | functiondef { 
+exp : binexp { 
                     $1
                 }
-    | prefixexp { 
-                    $1
-                }
-    | tableconstructor { 
-                    mk_TableExpr($1)
-                }
-    | exponent { 
-                    $1
-                }
-exponent : unaryexp I__Q__I_ exponent { 
-                         mk_Exponent($1, $3)
-                     }
-         | unaryexp { 
-                         $1
-                     }
-unaryexp : I__J__I__I binexp { 
-                         mk_Len($1, $2)
-                     }
-         | I__T__I_ binexp { 
-                         mk_Neg($1, $2)
-                     }
-         | I__W__I_ binexp { 
-                         mk_Inv($1, $2)
-                     }
-         | I_NOT_I_ binexp { 
-                         mk_Not($1, $2)
-                     }
 binexp : binseq { 
                        mkBinOpSeq($1, mk_Bin, mk_UnsolvedBin)
                    }
-binoperand : exp { 
-                           mkOperand($1)
-                       }
 binseq : binseq binop binoperand { 
                        appendList(appendList($1, $2), $3)
                    }
        | binoperand { 
                        [$1]
                    }
+binoperand : unaryexp { 
+                           mkOperand($1)
+                       }
+unaryexp : I__J__I__I exponent { 
+                         mk_Len($1, $2)
+                     }
+         | I__T__I_ exponent { 
+                         mk_Neg($1, $2)
+                     }
+         | I__W__I_ exponent { 
+                         mk_Inv($1, $2)
+                     }
+         | I_NOT_I_ exponent { 
+                         mk_Not($1, $2)
+                     }
+         | exponent { 
+                         $1
+                     }
+exponent : prefixexp I__Q__I_ exponent { 
+                         mk_Exponent($1, $3)
+                     }
+         | prefixexp { 
+                         $1
+                     }
 prefixexp : NAME { 
                           mk_Var($1)
                       }
@@ -272,6 +248,33 @@ prefixexp : NAME {
           | prefixexp I__U__I_ NAME { 
                           mk_Attr($1, $3)
                       }
+          | atom { 
+                          $1
+                      }
+atom : I_NIL_I_ { 
+                     mk_Nil($1)
+                 }
+     | I_FALSE_I_ { 
+                     mk_Bool($1, false)
+                 }
+     | I_TRUE_I_ { 
+                     mk_Bool($1, true)
+                 }
+     | NUMERAL { 
+                     mk_Num($1)
+                 }
+     | STR_LIT { 
+                     mk_String($1)
+                 }
+     | I__U__U__U__I_ { 
+                     mk_Ellipse($1)
+                 }
+     | functiondef { 
+                     $1
+                 }
+     | tableconstructor { 
+                     mk_TableExpr($1)
+                 }
 nempty_seplist_n__i__s__i__s_exp_p_ : exp { 
                                                     [$1]
                                                 }

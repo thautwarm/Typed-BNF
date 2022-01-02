@@ -179,6 +179,33 @@ class RBNFTransformer(Transformer):
     def nempty_seplist_n__i__s__i__s_exp_p__0(self, __tbnf_COMPONENTS):
         return [__tbnf_COMPONENTS[0]]
     
+    def atom_7(self, __tbnf_COMPONENTS):
+        return TableExpr(__tbnf_COMPONENTS[0])
+    
+    def atom_6(self, __tbnf_COMPONENTS):
+        return __tbnf_COMPONENTS[0]
+    
+    def atom_5(self, __tbnf_COMPONENTS):
+        return Ellipse(__tbnf_COMPONENTS[0])
+    
+    def atom_4(self, __tbnf_COMPONENTS):
+        return String(__tbnf_COMPONENTS[0])
+    
+    def atom_3(self, __tbnf_COMPONENTS):
+        return Num(__tbnf_COMPONENTS[0])
+    
+    def atom_2(self, __tbnf_COMPONENTS):
+        return Bool(__tbnf_COMPONENTS[0], True)
+    
+    def atom_1(self, __tbnf_COMPONENTS):
+        return Bool(__tbnf_COMPONENTS[0], False)
+    
+    def atom_0(self, __tbnf_COMPONENTS):
+        return Nil(__tbnf_COMPONENTS[0])
+    
+    def prefixexp_6(self, __tbnf_COMPONENTS):
+        return __tbnf_COMPONENTS[0]
+    
     def prefixexp_5(self, __tbnf_COMPONENTS):
         return Attr(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
     
@@ -197,17 +224,14 @@ class RBNFTransformer(Transformer):
     def prefixexp_0(self, __tbnf_COMPONENTS):
         return Var(__tbnf_COMPONENTS[0])
     
-    def binseq_1(self, __tbnf_COMPONENTS):
-        return [__tbnf_COMPONENTS[0]]
+    def exponent_1(self, __tbnf_COMPONENTS):
+        return __tbnf_COMPONENTS[0]
     
-    def binseq_0(self, __tbnf_COMPONENTS):
-        return appendList(appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1]), __tbnf_COMPONENTS[2])
+    def exponent_0(self, __tbnf_COMPONENTS):
+        return Exponent(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
     
-    def binoperand_0(self, __tbnf_COMPONENTS):
-        return mkOperand(__tbnf_COMPONENTS[0])
-    
-    def binexp_0(self, __tbnf_COMPONENTS):
-        return mkBinOpSeq(__tbnf_COMPONENTS[0], Bin, UnsolvedBin)
+    def unaryexp_4(self, __tbnf_COMPONENTS):
+        return __tbnf_COMPONENTS[0]
     
     def unaryexp_3(self, __tbnf_COMPONENTS):
         return Not(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
@@ -221,41 +245,20 @@ class RBNFTransformer(Transformer):
     def unaryexp_0(self, __tbnf_COMPONENTS):
         return Len(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
     
-    def exponent_1(self, __tbnf_COMPONENTS):
-        return __tbnf_COMPONENTS[0]
+    def binoperand_0(self, __tbnf_COMPONENTS):
+        return mkOperand(__tbnf_COMPONENTS[0])
     
-    def exponent_0(self, __tbnf_COMPONENTS):
-        return Exponent(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
+    def binseq_1(self, __tbnf_COMPONENTS):
+        return [__tbnf_COMPONENTS[0]]
     
-    def exp_9(self, __tbnf_COMPONENTS):
-        return __tbnf_COMPONENTS[0]
+    def binseq_0(self, __tbnf_COMPONENTS):
+        return appendList(appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1]), __tbnf_COMPONENTS[2])
     
-    def exp_8(self, __tbnf_COMPONENTS):
-        return TableExpr(__tbnf_COMPONENTS[0])
-    
-    def exp_7(self, __tbnf_COMPONENTS):
-        return __tbnf_COMPONENTS[0]
-    
-    def exp_6(self, __tbnf_COMPONENTS):
-        return __tbnf_COMPONENTS[0]
-    
-    def exp_5(self, __tbnf_COMPONENTS):
-        return Ellipse(__tbnf_COMPONENTS[0])
-    
-    def exp_4(self, __tbnf_COMPONENTS):
-        return String(__tbnf_COMPONENTS[0])
-    
-    def exp_3(self, __tbnf_COMPONENTS):
-        return Num(__tbnf_COMPONENTS[0])
-    
-    def exp_2(self, __tbnf_COMPONENTS):
-        return Bool(__tbnf_COMPONENTS[0], True)
-    
-    def exp_1(self, __tbnf_COMPONENTS):
-        return Bool(__tbnf_COMPONENTS[0], False)
+    def binexp_0(self, __tbnf_COMPONENTS):
+        return mkBinOpSeq(__tbnf_COMPONENTS[0], Bin, UnsolvedBin)
     
     def exp_0(self, __tbnf_COMPONENTS):
-        return Nil(__tbnf_COMPONENTS[0])
+        return __tbnf_COMPONENTS[0]
     
     def else__x__0(self, __tbnf_COMPONENTS):
         return if_else(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])

@@ -3,9 +3,6 @@ open Simple_json_require;;
 open Simple_json_lexer;;
 open Simple_json_construct;;
 %}
-%token<tbnf_token> STR
-%token<tbnf_token> FLOAT
-%token<tbnf_token> INT
 %token<tbnf_token> I__S__I_
 %token<tbnf_token> I__G__I_
 %token<tbnf_token> I__N__I_
@@ -15,6 +12,9 @@ open Simple_json_construct;;
 %token<tbnf_token> I_TRUE_I_
 %token<tbnf_token> I__T__I_
 %token<tbnf_token> I__V__I_
+%token<tbnf_token> STR
+%token<tbnf_token> FLOAT
+%token<tbnf_token> INT
 %token EOF
 %start <Simple_json_construct.json> start
 %%

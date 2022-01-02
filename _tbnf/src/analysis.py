@@ -15,7 +15,7 @@ from .op import basename
 from .unification import (Manager, Manager__NewTyRef_Z721C83C5, Manager__Unify, Manager__Instantiate_Z25E5E15E, Manager_reflection, Manager__ctor)
 from .utils import (List_replaceWith, List_tryLookup)
 
-def expr_59() -> TypeInfo:
+def expr_60() -> TypeInfo:
     return record_type("tbnf.Analysis.Shape", [], Shape, lambda: [["parameters", list_type(string_type)], ["fields", list_type(tuple_type(string_type, monot_reflection()))]])
 
 
@@ -26,50 +26,50 @@ class Shape(Record):
         self.fields = fields
     
 
-Shape_reflection = expr_59
+Shape_reflection = expr_60
 
-def expr_65() -> TypeInfo:
+def expr_66() -> TypeInfo:
     return class_type("tbnf.Analysis.Sigma", None, Sigma)
 
 
 class Sigma:
     def __init__(self, UM: Manager=None) -> None:
         self.UM = UM
-        class ObjectExpr60:
+        class ObjectExpr61:
             @property
             def Compare(self) -> Any:
                 return lambda x, y: compare_primitives(x, y)
             
-        self.shapes = empty(ObjectExpr60())
-        class ObjectExpr61:
+        self.shapes = empty(ObjectExpr61())
+        class ObjectExpr62:
             @property
             def Compare(self) -> Any:
                 return lambda x_1, y_1: compare_primitives(x_1, y_1)
             
-        self.kinds = of_array(_predefined_typenames, ObjectExpr61())
-        class ObjectExpr62:
+        self.kinds = of_array(_predefined_typenames, ObjectExpr62())
+        class ObjectExpr63:
             @property
             def Compare(self) -> Any:
                 return lambda x_2, y_2: compare_primitives(x_2, y_2)
             
-        self.global_variables = empty(ObjectExpr62())
-        class ObjectExpr63:
+        self.global_variables = empty(ObjectExpr63())
+        class ObjectExpr64:
             @property
             def Compare(self) -> Any:
                 return lambda x_3, y_3: compare_primitives(x_3, y_3)
             
-        self.constructors = empty_1(ObjectExpr63())
-        class ObjectExpr64:
+        self.constructors = empty_1(ObjectExpr64())
+        class ObjectExpr65:
             @property
             def Compare(self) -> Any:
                 return lambda x_4, y_4: compare_primitives(x_4, y_4)
             
-        self.external_types = empty_1(ObjectExpr64())
+        self.external_types = empty_1(ObjectExpr65())
         self.records = empty_2()
         self.adt_cases = empty_2()
     
 
-Sigma_reflection = expr_65
+Sigma_reflection = expr_66
 
 def Sigma__ctor_Z57FA2555(UM: Manager) -> Sigma:
     return Sigma(UM)

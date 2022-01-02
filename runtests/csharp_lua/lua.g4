@@ -347,67 +347,13 @@ else__x_ returns [if_else result]
             }
 ;
 exp returns [expr result]
-: exp_0__1='nil' { 
-                $result = (expr) Nil((IToken) _localctx.exp_0__1);
-            }
-| exp_1__1='false' { 
-                $result = (expr) Bool((IToken) _localctx.exp_1__1, (bool) false);
-            }
-| exp_2__1='true' { 
-                $result = (expr) Bool((IToken) _localctx.exp_2__1, (bool) true);
-            }
-| exp_3__1=NUMERAL { 
-                $result = (expr) Num((IToken) _localctx.exp_3__1);
-            }
-| exp_4__1=STR_LIT { 
-                $result = (expr) String((IToken) _localctx.exp_4__1);
-            }
-| exp_5__1='...' { 
-                $result = (expr) Ellipse((IToken) _localctx.exp_5__1);
-            }
-| exp_6__1=functiondef { 
-                $result = _localctx.exp_6__1.result;
-            }
-| exp_7__1=prefixexp { 
-                $result = _localctx.exp_7__1.result;
-            }
-| exp_8__1=tableconstructor { 
-                $result = (expr) TableExpr((table) _localctx.exp_8__1.result);
-            }
-| exp_9__1=exponent { 
-                $result = _localctx.exp_9__1.result;
-            }
-;
-exponent returns [expr result]
-: exponent_0__1=unaryexp '^' exponent_0__3=exponent { 
-                $result = (expr) Exponent((expr) _localctx.exponent_0__1.result, (expr) _localctx.exponent_0__3.result);
-            }
-| exponent_1__1=unaryexp { 
-                $result = _localctx.exponent_1__1.result;
-            }
-;
-unaryexp returns [expr result]
-: unaryexp_0__1='#' unaryexp_0__2=binexp { 
-                $result = (expr) Len((IToken) _localctx.unaryexp_0__1, (expr) _localctx.unaryexp_0__2.result);
-            }
-| unaryexp_1__1='-' unaryexp_1__2=binexp { 
-                $result = (expr) Neg((IToken) _localctx.unaryexp_1__1, (expr) _localctx.unaryexp_1__2.result);
-            }
-| unaryexp_2__1='~' unaryexp_2__2=binexp { 
-                $result = (expr) Inv((IToken) _localctx.unaryexp_2__1, (expr) _localctx.unaryexp_2__2.result);
-            }
-| unaryexp_3__1='not' unaryexp_3__2=binexp { 
-                $result = (expr) Not((IToken) _localctx.unaryexp_3__1, (expr) _localctx.unaryexp_3__2.result);
+: exp_0__1=binexp { 
+                $result = _localctx.exp_0__1.result;
             }
 ;
 binexp returns [expr result]
 : binexp_0__1=binseq { 
                 $result = (expr) mkBinOpSeq((MyList<Op<expr>>) _localctx.binexp_0__1.result, (System.Func<IToken, expr, expr, expr>) Bin, (System.Func<MyList<Op<expr>>, expr>) UnsolvedBin);
-            }
-;
-binoperand returns [Op<expr> result]
-: binoperand_0__1=exp { 
-                $result = (Op<expr>) mkOperand((expr) _localctx.binoperand_0__1.result);
             }
 ;
 binseq returns [MyList<Op<expr>> result]
@@ -416,6 +362,36 @@ binseq returns [MyList<Op<expr>> result]
             }
 | binseq_1__1=binoperand { 
                 $result = new MyList<Op<expr>> { _localctx.binseq_1__1.result };
+            }
+;
+binoperand returns [Op<expr> result]
+: binoperand_0__1=unaryexp { 
+                $result = (Op<expr>) mkOperand((expr) _localctx.binoperand_0__1.result);
+            }
+;
+unaryexp returns [expr result]
+: unaryexp_0__1='#' unaryexp_0__2=exponent { 
+                $result = (expr) Len((IToken) _localctx.unaryexp_0__1, (expr) _localctx.unaryexp_0__2.result);
+            }
+| unaryexp_1__1='-' unaryexp_1__2=exponent { 
+                $result = (expr) Neg((IToken) _localctx.unaryexp_1__1, (expr) _localctx.unaryexp_1__2.result);
+            }
+| unaryexp_2__1='~' unaryexp_2__2=exponent { 
+                $result = (expr) Inv((IToken) _localctx.unaryexp_2__1, (expr) _localctx.unaryexp_2__2.result);
+            }
+| unaryexp_3__1='not' unaryexp_3__2=exponent { 
+                $result = (expr) Not((IToken) _localctx.unaryexp_3__1, (expr) _localctx.unaryexp_3__2.result);
+            }
+| unaryexp_4__1=exponent { 
+                $result = _localctx.unaryexp_4__1.result;
+            }
+;
+exponent returns [expr result]
+: exponent_0__1=prefixexp '^' exponent_0__3=exponent { 
+                $result = (expr) Exponent((expr) _localctx.exponent_0__1.result, (expr) _localctx.exponent_0__3.result);
+            }
+| exponent_1__1=prefixexp { 
+                $result = _localctx.exponent_1__1.result;
             }
 ;
 prefixexp returns [expr result]
@@ -436,6 +412,35 @@ prefixexp returns [expr result]
             }
 | prefixexp_5__1=prefixexp '.' prefixexp_5__3=NAME { 
                 $result = (expr) Attr((expr) _localctx.prefixexp_5__1.result, (IToken) _localctx.prefixexp_5__3);
+            }
+| prefixexp_6__1=atom { 
+                $result = _localctx.prefixexp_6__1.result;
+            }
+;
+atom returns [expr result]
+: atom_0__1='nil' { 
+                $result = (expr) Nil((IToken) _localctx.atom_0__1);
+            }
+| atom_1__1='false' { 
+                $result = (expr) Bool((IToken) _localctx.atom_1__1, (bool) false);
+            }
+| atom_2__1='true' { 
+                $result = (expr) Bool((IToken) _localctx.atom_2__1, (bool) true);
+            }
+| atom_3__1=NUMERAL { 
+                $result = (expr) Num((IToken) _localctx.atom_3__1);
+            }
+| atom_4__1=STR_LIT { 
+                $result = (expr) String((IToken) _localctx.atom_4__1);
+            }
+| atom_5__1='...' { 
+                $result = (expr) Ellipse((IToken) _localctx.atom_5__1);
+            }
+| atom_6__1=functiondef { 
+                $result = _localctx.atom_6__1.result;
+            }
+| atom_7__1=tableconstructor { 
+                $result = (expr) TableExpr((table) _localctx.atom_7__1.result);
             }
 ;
 nempty_seplist_n__i__s__i__s_exp_p_ returns [MyList<expr> result]

@@ -472,11 +472,26 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
         
         let mutable lexical_rule_defs = []
         let mutable tokenizer_cases = []
+        
+        for k in Array.sort (Array.ofSeq analyzer.LiteralTokens) do
+            let v = word (mk_lexer (LStr (k)))
+
+            let tokenName = name_of_literal_term k
+            let lexical_rule_name = "rule_" + tokenName
+            let lexical_rule_def =
+                word "let" + word (lexical_rule_name) + word "=" +
+                    bracket(word "%sedlex.regexp?" + v)
+            lexical_rule_defs <- lexical_rule_def :: lexical_rule_defs
+            
+            let tokenizer_case =
+                word "|" + word lexical_rule_name + word $"-> {tokenName} (mktoken {var_lexbuf})" 
+            
+            tokenizer_cases <- tokenizer_case :: tokenizer_cases
+            tokenNames <- tokenName :: tokenNames
+
         for (k, v) in lexerMaps do
             if Set.contains k analyzer.IgnoreSet then
-#if DEBUG
-                printfn "discarding %s" k
-#endif
+
                 let lexical_rule_name = "rule_" + name_of_named_term k
                 let lexical_rule_def =
                     word "let" + word (lexical_rule_name) + word "=" +
@@ -500,25 +515,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                         word "|" + word lexical_rule_name + word $"-> {tokenName} (mktoken {var_lexbuf})" 
                     
                     tokenizer_cases <- tokenizer_case :: tokenizer_cases
-                    tokenNames <- tokenName :: tokenNames
-#if DEBUG
-        printfn "literal tokens %A" analyzer.LiteralTokens
-#endif
-        for k in Array.sort (Array.ofSeq analyzer.LiteralTokens) do
-            let v = word (mk_lexer (LStr (k)))
-
-            let tokenName = name_of_literal_term k
-            let lexical_rule_name = "rule_" + tokenName
-            let lexical_rule_def =
-                word "let" + word (lexical_rule_name) + word "=" +
-                    bracket(word "%sedlex.regexp?" + v)
-            lexical_rule_defs <- lexical_rule_def :: lexical_rule_defs
-            
-            let tokenizer_case =
-                word "|" + word lexical_rule_name + word $"-> {tokenName} (mktoken {var_lexbuf})" 
-            
-            tokenizer_cases <- tokenizer_case :: tokenizer_cases
-            tokenNames <- tokenName :: tokenNames
+                    tokenNames <- tokenName :: tokenNames        
 
         tokenizer_cases <-
             (word $"| _ -> _unknown_token {var_lexbuf}")

@@ -13,7 +13,7 @@ extern type op<'a>
     extern var mkOperator: <'a> token -> op<'a>
     extern var mkOperand : expr -> op<expr>
     extern var mkBinOpSeq : (
-          ops: list<op<expr>>, 
+          ops: list<op<expr>>,
           mkbin: (token, expr, expr) -> expr, mkunsolved_bin: list<op<expr>> -> expr)
           -> expr
 
@@ -51,8 +51,8 @@ case IfStmt: (token, expr, list<if_elseif>, maybe<if_else>) -> stmt
 case ForRangeStmt: (token, token, range, block) -> stmt
 case ForInStmt: (token, list<token>, list<expr>, block) -> stmt
 
-case FuncDef: 
-      (pos: token, is_local: bool, fname: maybe<token>, 
+case FuncDef:
+      (pos: token, is_local: bool, fname: maybe<token>,
        params: maybe<params>, body: block) -> expr
 
 case Bin : (op: token, l: expr, r: expr) -> expr
@@ -95,7 +95,7 @@ seplist(sep, elt) : allow_empty(nempty_seplist(sep, elt)) { $1 }
 
 opt(value) : value { some($1) }
            |       { none() }
-           
+
 block : list(stat) opt(retstat) { block($1, $2) }
 
 retstat : "return" seplist(",", exp) opt(";") { ReturnStmt($1, $2) }
@@ -128,10 +128,10 @@ stat : ";" { EmptyStmt($1) }
      | "local" nempty_seplist(",", <NAME>) opt_assign_rhs
            { Assignment(true, listMap($2, Var), $3) }
 
-opt_assign_rhs : 
+opt_assign_rhs :
              "=" nempty_seplist(",", exp) { some($2) }
            | { none() }
-    
+
 range : exp "," exp range_tail { range($1, $3, $4) }
 range_tail : "," exp { some($2) }
            |         { none() }
@@ -140,37 +140,40 @@ elseif : "elseif" exp "then" block { if_elseif($1, $2, $4) }
 else : "else" block { if_else($1, $2) }
 
 
-exp : "nil"    { Nil($1) }
-    | "false"  { Bool($1, false) }
-    | "true"   { Bool($1, true) }
-    | <NUMERAL> { Num($1) }
-    | <STR_LIT> { String($1) }
-    | "..."           { Ellipse($1) }
-    | functiondef     { $1 }
-    | prefixexp       { $1 }
-    | tableconstructor { TableExpr($1) }
-    | exponent         { $1 }
-
-
-exponent : unaryexp "^" exponent { Exponent($1, $3) }
-         | unaryexp              { $1 }
-
-unaryexp : "#" binexp { Len($1, $2) }
-         | "-" binexp { Neg($1, $2) }
-         | "~" binexp { Inv($1, $2) }
-         | "not" binexp { Not($1, $2) }
-        
+exp : binexp { $1 }
 binexp : binseq { mkBinOpSeq($1, Bin, UnsolvedBin) }
-binoperand : exp { mkOperand($1) }
+
 binseq : binseq binop binoperand { appendList(appendList($1, $2), $3) }
        | binoperand              { [$1] }
 
+binoperand : unaryexp { mkOperand($1) }
+
+unaryexp : "#" exponent { Len($1, $2) }
+         | "-" exponent { Neg($1, $2) }
+         | "~" exponent { Inv($1, $2) }
+         | "not" exponent { Not($1, $2) }
+         | exponent { $1 }
+
+exponent : prefixexp "^" exponent { Exponent($1, $3) }
+         | prefixexp              { $1 }
+
 prefixexp :   <NAME>                    { Var($1) }
-            | "(" exp ")"               { NestedExp($1, $2) }
-            | prefixexp args            { CallFunc($1, $2) }
-            | prefixexp ":" <NAME> args { CallMethod($1, $3, $4) }
-            | prefixexp "[" exp "]"     { Index($1, $3) }
-            | prefixexp "." <NAME>      { Attr($1, $3) }
+          | "(" exp ")"               { NestedExp($1, $2) }
+          | prefixexp args            { CallFunc($1, $2) }
+          | prefixexp ":" <NAME> args { CallMethod($1, $3, $4) }
+          | prefixexp "[" exp "]"     { Index($1, $3) }
+          | prefixexp "." <NAME>      { Attr($1, $3) }
+          | atom                      { $1 }
+
+atom   : "nil"     { Nil($1) }
+       | "false"   { Bool($1, false) }
+       | "true"    { Bool($1, true) }
+       | <NUMERAL> { Num($1) }
+       | <STR_LIT> { String($1) }
+       | "..."            { Ellipse($1) }
+       | functiondef      { $1 }
+       | tableconstructor { TableExpr($1) }
+
 
 args : "(" seplist(",", exp) ")" { PositionalArgs($1, $2) }
      | tableconstructor          { TableArgs($1) }
@@ -195,7 +198,7 @@ field : "[" exp "]" "=" exp { IndexField($1, $2, $5) }
 
 fieldsep : "," { 0} | ";" { 0 }
 
-binop : "or" { mkOperator($1)} 
+binop : "or" { mkOperator($1)}
       | "and" {mkOperator($1)}
       | "<"  { mkOperator($1) }
       | ">"  { mkOperator($1) }
@@ -215,7 +218,7 @@ binop : "or" { mkOperator($1)}
       | "/"  { mkOperator($1) }
       | "//" { mkOperator($1) }
       | "%"  { mkOperator($1) }
-      
+
 
 ignore SPACE
 SPACE = " " | "\t" | "\r" | "\n";

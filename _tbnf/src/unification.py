@@ -11,7 +11,7 @@ a_ = TypeVar("a_")
 
 b_ = TypeVar("b_")
 
-def expr_2() -> TypeInfo:
+def expr_0() -> TypeInfo:
     return class_type("tbnf.Unification.Manager", None, Manager)
 
 
@@ -20,7 +20,7 @@ class Manager:
         pass
     
 
-Manager_reflection = expr_2
+Manager_reflection = expr_0
 
 def Manager__ctor() -> Manager:
     return Manager()
@@ -169,10 +169,10 @@ def Manager__unify(this_mut: Manager, l_mut: monot, r_mut: monot) -> None:
                 
                 if pattern_matching_result_2 == 0:
                     Manager__unify(this, x_1, y_1)
-                    def arrow_8(l_2: monot, r_2: monot, this: Manager=this, l: monot=l, r: monot=r) -> None:
+                    def arrow_27(l_2: monot, r_2: monot, this: Manager=this, l: monot=l, r: monot=r) -> None:
                         Manager__unify(this, l_2, r_2)
                     
-                    iterate2(arrow_8, xs_1, ys_1)
+                    iterate2(arrow_27, xs_1, ys_1)
                 
                 elif pattern_matching_result_2 == 1:
                     (pattern_matching_result_3, x_3, xs_3, y_3, ys_3) = (None, None, None, None, None)
@@ -197,10 +197,10 @@ def Manager__unify(this_mut: Manager, l_mut: monot, r_mut: monot) -> None:
                         pattern_matching_result_3 = 1
                     
                     if pattern_matching_result_3 == 0:
-                        def arrow_9(tupled_arg: Tuple[str, monot], tupled_arg_1: Tuple[str, monot], this: Manager=this, l: monot=l, r: monot=r) -> None:
+                        def arrow_29(tupled_arg: Tuple[str, monot], tupled_arg_1: Tuple[str, monot], this: Manager=this, l: monot=l, r: monot=r) -> None:
                             Manager__unify(this, tupled_arg[1], tupled_arg_1[1])
                         
-                        iterate2(arrow_9, xs_3, ys_3)
+                        iterate2(arrow_29, xs_3, ys_3)
                         this_mut = this
                         l_mut = x_3
                         r_mut = y_3
@@ -237,12 +237,12 @@ def Manager__instantiate_Z25E5E15E(this: Manager, t: polyt) -> Tuple[FSharpList[
     
     elif pattern_matching_result == 1:
         specialization_args : FSharpList[Tuple[str, monot]] = map(lambda var, this=this, t=t: (var, Manager__newTyRef_Z721C83C5(this, var)), vars)
-        class ObjectExpr20:
+        class ObjectExpr47:
             @property
             def Compare(self) -> Any:
                 return lambda x, y: compare_primitives(x, y)
             
-        replace_map : Any = of_list(specialization_args, ObjectExpr20())
+        replace_map : Any = of_list(specialization_args, ObjectExpr47())
         def instantiate(t_3: monot, this: Manager=this, t: polyt=t) -> monot:
             if t_3.tag == 4:
                 a : str = t_3.fields[0]

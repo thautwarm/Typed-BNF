@@ -75,7 +75,7 @@ let mktoken (buf: Sedlexing.lexbuf): tbnf_token =
   let start_pos, _ = Sedlexing.lexing_positions buf in
   { lexeme = TBNF_Utf8.to_string (Sedlexing.lexeme buf);
     line = start_pos.pos_lnum;
-    col = start_pos.pos_bol - start_pos.pos_cnum;
+    col = start_pos.pos_cnum - start_pos.pos_bol;
     offset = Sedlexing.lexeme_start buf;
     span = lexeme_end buf - lexeme_start buf;
     file = start_pos.pos_fname }
@@ -83,9 +83,6 @@ let mktoken (buf: Sedlexing.lexbuf): tbnf_token =
 
 
 type token =
-| STR of tbnf_token
-| FLOAT of tbnf_token
-| INT of tbnf_token
 | I__S__I_ of tbnf_token
 | I__G__I_ of tbnf_token
 | I__N__I_ of tbnf_token
@@ -95,8 +92,16 @@ type token =
 | I_TRUE_I_ of tbnf_token
 | I__T__I_ of tbnf_token
 | I__V__I_ of tbnf_token
+| STR of tbnf_token
+| FLOAT of tbnf_token
+| INT of tbnf_token
 | EOF
 
+let rule_DIGIT = [%sedlex.regexp? (48 .. 57)]
+let rule_INT = [%sedlex.regexp? Plus(rule_DIGIT)]
+let rule_FLOAT = [%sedlex.regexp? Star(rule_DIGIT), ".", rule_INT]
+let rule_STR = [%sedlex.regexp? "\"", Star(("\\", any | Compl("\""))), "\""]
+let rule_SPACE = [%sedlex.regexp? Plus(("\t" | "\n" | "\r" | " "))]
 let rule_I__V__I_ = [%sedlex.regexp? "}"]
 let rule_I__T__I_ = [%sedlex.regexp? "{"]
 let rule_I_TRUE_I_ = [%sedlex.regexp? "true"]
@@ -106,18 +111,9 @@ let rule_I__P__I_ = [%sedlex.regexp? "]"]
 let rule_I__N__I_ = [%sedlex.regexp? "["]
 let rule_I__G__I_ = [%sedlex.regexp? ":"]
 let rule_I__S__I_ = [%sedlex.regexp? ","]
-let rule_DIGIT = [%sedlex.regexp? (48 .. 57)]
-let rule_INT = [%sedlex.regexp? Plus(rule_DIGIT)]
-let rule_FLOAT = [%sedlex.regexp? Star(rule_DIGIT), ".", rule_INT]
-let rule_STR = [%sedlex.regexp? "\"", Star(("\\", any | Compl("\""))), "\""]
-let rule_SPACE = [%sedlex.regexp? Plus(("\t" | "\n" | "\r" | " "))]
 
 let rec tokenizer lexbuf =
     match%sedlex lexbuf with
-    | rule_SPACE -> tokenizer lexbuf
-    | rule_STR -> STR (mktoken lexbuf)
-    | rule_FLOAT -> FLOAT (mktoken lexbuf)
-    | rule_INT -> INT (mktoken lexbuf)
     | rule_I__S__I_ -> I__S__I_ (mktoken lexbuf)
     | rule_I__G__I_ -> I__G__I_ (mktoken lexbuf)
     | rule_I__N__I_ -> I__N__I_ (mktoken lexbuf)
@@ -127,5 +123,9 @@ let rec tokenizer lexbuf =
     | rule_I_TRUE_I_ -> I_TRUE_I_ (mktoken lexbuf)
     | rule_I__T__I_ -> I__T__I_ (mktoken lexbuf)
     | rule_I__V__I_ -> I__V__I_ (mktoken lexbuf)
+    | rule_SPACE -> tokenizer lexbuf
+    | rule_STR -> STR (mktoken lexbuf)
+    | rule_FLOAT -> FLOAT (mktoken lexbuf)
+    | rule_INT -> INT (mktoken lexbuf)
     | eof -> EOF
     | _ -> _unknown_token lexbuf

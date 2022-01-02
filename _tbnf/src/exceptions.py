@@ -79,7 +79,7 @@ def IllFormedType__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     
 
 
-def expr_6() -> TypeInfo:
+def expr_7() -> TypeInfo:
     return class_type("tbnf.Exceptions.TypeMismatch", None, TypeMismatch, class_type("System.Exception"))
 
 
@@ -90,7 +90,7 @@ class TypeMismatch(FSharpException):
         self.Data1 = Data1
     
 
-TypeMismatch_reflection = expr_6
+TypeMismatch_reflection = expr_7
 
 def TypeMismatch__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -119,7 +119,7 @@ def TypeMismatch__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     
 
 
-def expr_7() -> TypeInfo:
+def expr_9() -> TypeInfo:
     return class_type("tbnf.Exceptions.InvalidTypeApplication", None, InvalidTypeApplication, class_type("System.Exception"))
 
 
@@ -129,7 +129,7 @@ class InvalidTypeApplication(FSharpException):
         self.Data0 = Data0
     
 
-InvalidTypeApplication_reflection = expr_7
+InvalidTypeApplication_reflection = expr_9
 
 def InvalidTypeApplication__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -153,7 +153,7 @@ def InvalidTypeApplication__Equals_229D3F39(this: Exception, obj: Exception) -> 
     
 
 
-def expr_10() -> TypeInfo:
+def expr_13() -> TypeInfo:
     return class_type("tbnf.Exceptions.InvalidKind", None, InvalidKind, class_type("System.Exception"))
 
 
@@ -163,7 +163,7 @@ class InvalidKind(FSharpException):
         self.Data0 = Data0
     
 
-InvalidKind_reflection = expr_10
+InvalidKind_reflection = expr_13
 
 def InvalidKind__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -187,7 +187,7 @@ def InvalidKind__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     
 
 
-def expr_12() -> TypeInfo:
+def expr_16() -> TypeInfo:
     return class_type("tbnf.Exceptions.NoField", None, NoField, class_type("System.Exception"))
 
 
@@ -198,7 +198,7 @@ class NoField(FSharpException):
         self.Data1 = Data1
     
 
-NoField_reflection = expr_12
+NoField_reflection = expr_16
 
 def NoField__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -227,7 +227,7 @@ def NoField__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     
 
 
-def expr_14() -> TypeInfo:
+def expr_20() -> TypeInfo:
     return class_type("tbnf.Exceptions.CannotInferField", None, CannotInferField, class_type("System.Exception"))
 
 
@@ -237,7 +237,7 @@ class CannotInferField(FSharpException):
         self.Data0 = Data0
     
 
-CannotInferField_reflection = expr_14
+CannotInferField_reflection = expr_20
 
 def CannotInferField__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -261,7 +261,7 @@ def CannotInferField__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     
 
 
-def expr_17() -> TypeInfo:
+def expr_24() -> TypeInfo:
     return class_type("tbnf.Exceptions.NoBaseName", None, NoBaseName, class_type("System.Exception"))
 
 
@@ -271,7 +271,7 @@ class NoBaseName(FSharpException):
         self.Data0 = Data0
     
 
-NoBaseName_reflection = expr_17
+NoBaseName_reflection = expr_24
 
 def NoBaseName__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -295,7 +295,7 @@ def NoBaseName__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     
 
 
-def expr_23() -> TypeInfo:
+def expr_25() -> TypeInfo:
     return class_type("tbnf.Exceptions.NameError", None, NameError, class_type("System.Exception"))
 
 
@@ -307,7 +307,7 @@ class NameError(FSharpException):
         self.Data2 = Data2
     
 
-NameError_reflection = expr_23
+NameError_reflection = expr_25
 
 def NameError__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -373,7 +373,7 @@ def DuplicateLexer(name: str) -> NameError:
     return NameError(name, NameErrorScope(3), NameErrorKind(0))
 
 
-def expr_28() -> TypeInfo:
+def expr_32() -> TypeInfo:
     return class_type("tbnf.Exceptions.ComponentAccessingOutOfBound", None, ComponentAccessingOutOfBound, class_type("System.Exception"))
 
 
@@ -383,7 +383,7 @@ class ComponentAccessingOutOfBound(FSharpException):
         self.Data0 = Data0 or 0
     
 
-ComponentAccessingOutOfBound_reflection = expr_28
+ComponentAccessingOutOfBound_reflection = expr_32
 
 def ComponentAccessingOutOfBound__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -407,7 +407,7 @@ def ComponentAccessingOutOfBound__Equals_229D3F39(this: Exception, obj: Exceptio
     
 
 
-def expr_31() -> TypeInfo:
+def expr_36() -> TypeInfo:
     return class_type("tbnf.Exceptions.MacroResolveError", None, MacroResolveError, class_type("System.Exception"))
 
 
@@ -417,7 +417,7 @@ class MacroResolveError(FSharpException):
         self.Data0 = Data0
     
 
-MacroResolveError_reflection = expr_31
+MacroResolveError_reflection = expr_36
 
 def MacroResolveError__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -441,7 +441,7 @@ def MacroResolveError__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     
 
 
-def expr_32() -> TypeInfo:
+def expr_39() -> TypeInfo:
     return class_type("tbnf.Exceptions.UnsolvedTypeVariable", None, UnsolvedTypeVariable, class_type("System.Exception"))
 
 
@@ -450,7 +450,7 @@ class UnsolvedTypeVariable(FSharpException):
         super().__init__()
     
 
-UnsolvedTypeVariable_reflection = expr_32
+UnsolvedTypeVariable_reflection = expr_39
 
 def UnsolvedTypeVariable__Equals_229D3F39(this: Exception, obj: Exception) -> int:
     if not equals(this, None):
@@ -474,7 +474,7 @@ def UnsolvedTypeVariable__Equals_229D3F39(this: Exception, obj: Exception) -> in
     
 
 
-def expr_33() -> TypeInfo:
+def expr_41() -> TypeInfo:
     return class_type("tbnf.Exceptions.NotGlobalVariable", None, NotGlobalVariable, class_type("System.Exception"))
 
 
@@ -484,7 +484,7 @@ class NotGlobalVariable(FSharpException):
         self.Data0 = Data0
     
 
-NotGlobalVariable_reflection = expr_33
+NotGlobalVariable_reflection = expr_41
 
 def NotGlobalVariable__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -508,7 +508,7 @@ def NotGlobalVariable__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     
 
 
-def expr_36() -> TypeInfo:
+def expr_42() -> TypeInfo:
     return class_type("tbnf.Exceptions.MalformedConstructor", None, MalformedConstructor, class_type("System.Exception"))
 
 
@@ -519,7 +519,7 @@ class MalformedConstructor(FSharpException):
         self.Data1 = Data1
     
 
-MalformedConstructor_reflection = expr_36
+MalformedConstructor_reflection = expr_42
 
 def MalformedConstructor__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):
@@ -548,7 +548,7 @@ def MalformedConstructor__Equals_229D3F39(this: Exception, obj: Exception) -> bo
     
 
 
-def expr_37() -> TypeInfo:
+def expr_44() -> TypeInfo:
     return union_type("tbnf.Exceptions.InvalidConstructorDefininationCause", [], InvalidConstructorDefininationCause, lambda: [[], [], [], [["Item", string_type]], [["Item", monot_reflection()]]])
 
 
@@ -563,9 +563,9 @@ class InvalidConstructorDefininationCause(Union):
         return ["CauseExternalType", "CauseRecordType", "CauseGenericADTType", "CauseDuplicateConstructorName", "CauseInvalidConstructorType"]
     
 
-InvalidConstructorDefininationCause_reflection = expr_37
+InvalidConstructorDefininationCause_reflection = expr_44
 
-def expr_38() -> TypeInfo:
+def expr_45() -> TypeInfo:
     return class_type("tbnf.Exceptions.InvalidConstructorDefinination", None, InvalidConstructorDefinination, class_type("System.Exception"))
 
 
@@ -575,7 +575,7 @@ class InvalidConstructorDefinination(FSharpException):
         self.Data0 = Data0
     
 
-InvalidConstructorDefinination_reflection = expr_38
+InvalidConstructorDefinination_reflection = expr_45
 
 def InvalidConstructorDefinination__Equals_229D3F39(this: Exception, obj: Exception) -> bool:
     if not equals(this, None):

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import (List, Callable, Optional, Any, Tuple, Iterable, TypeVar)
-from ..fable_modules.fable_library.array import (map as map_2, sort_in_place_by, find_index, contains as contains_1, sort)
+from ..fable_modules.fable_library.array import (map as map_2, sort_in_place_by, find_index, sort, contains as contains_1)
 from ..fable_modules.fable_library.list import (empty, FSharpList, map as map_1, is_empty, head, tail, append, of_array as of_array_1, cons, to_array, fold, map_indexed, singleton as singleton_1, of_array_with_tail, reverse)
 from ..fable_modules.fable_library.map import (empty as empty_1, try_find, add, to_array as to_array_1)
 from ..fable_modules.fable_library.option import (default_arg, some)
@@ -170,14 +170,14 @@ def codegen(analyzer: Analyzer, cg_options: CodeGenOptions, lang_name: str, stmt
             return word(escape_string(match_value_1.fields[0]))
         
         elif match_value_1.tag == 5:
-            def arrow_120(scope: FSharpList[Tuple[str, str]]=scope, curr_expr: expr=curr_expr) -> Iterable[Tuple[str, str]]:
-                def arrow_119(match_value_3: Tuple[str, monot]) -> Iterable[Tuple[str, str]]:
+            def arrow_121(scope: FSharpList[Tuple[str, str]]=scope, curr_expr: expr=curr_expr) -> Iterable[Tuple[str, str]]:
+                def arrow_120(match_value_3: Tuple[str, monot]) -> Iterable[Tuple[str, str]]:
                     arg : str = match_value_3[0]
                     return singleton((arg, mangle(ocaml_var_ident_descr, arg)))
                 
-                return collect(arrow_119, match_value_1.fields[0])
+                return collect(arrow_120, match_value_1.fields[0])
             
-            code : Doc = cg_expr(append(to_list(delay(arrow_120)), scope), match_value_1.fields[1])
+            code : Doc = cg_expr(append(to_list(delay(arrow_121)), scope), match_value_1.fields[1])
             anns : FSharpList[Doc] = map_1(lambda tupled_arg_1, scope=scope, curr_expr=curr_expr: word((tupled_arg_1[0] + ":") + cg_type(tupled_arg_1[1])), match_value_1.fields[0])
             return parens(vsep(of_array_1([Doc_op_Addition_Z7CFFAC00(word("fun"), Doc_op_Multiply_Z7CFFAC00(parens(seplist(word(", "), anns)), word("-\u003e"))), Doc_op_RightShift_2AAA0F3C(code, 4)])))
         
@@ -500,54 +500,54 @@ def codegen(analyzer: Analyzer, cg_options: CodeGenOptions, lang_name: str, stmt
     sort_in_place_by(lambda k_1, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: find_index(lambda y_5: k_1 == y_5, analyzer.TokenFragments), ReferencedNamedTokens, ObjectExpr150())
     lexical_rule_defs : FSharpList[Doc] = empty()
     tokenizer_cases : FSharpList[Doc] = empty()
+    class ObjectExpr151:
+        @property
+        def Compare(self) -> Any:
+            return lambda x_16, y_7: compare_primitives(x_16, y_7)
+        
+    arr : List[str] = sort(list(analyzer.LiteralTokens), ObjectExpr151())
+    for idx_1 in range(0, (len(arr) - 1) + 1, 1):
+        k_2 : str = arr[idx_1]
+        v_2 : Doc = word(mk_lexer(lexerule(3, k_2)))
+        token_name : str = cg_symbol(symbol(0, k_2, True))
+        lexical_rule_name : str = "rule_" + token_name
+        lexical_rule_def : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("let"), word(lexical_rule_name)), word("=")), bracket(Doc_op_Addition_Z7CFFAC00(word("%sedlex.regexp?"), v_2)))
+        lexical_rule_defs = cons(lexical_rule_def, lexical_rule_defs)
+        tokenizer_case : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("|"), word(lexical_rule_name)), word(to_text(interpolate("-\u003e %P() (mktoken %P())", [token_name, var_lexbuf]))))
+        tokenizer_cases = cons(tokenizer_case, tokenizer_cases)
+        token_names = cons(token_name, token_names)
     with get_enumerator(lexer_maps) as enumerator:
         while enumerator.System_Collections_IEnumerator_MoveNext():
             for_loop_var : Tuple[str, Doc] = enumerator.System_Collections_Generic_IEnumerator_00601_get_Current()
-            v_2 : Doc = for_loop_var[1]
-            k_2 : str = for_loop_var[0]
-            if contains(k_2, analyzer.IgnoreSet):
-                lexical_rule_name : str = "rule_" + name_of_named_term(k_2)
-                lexical_rule_def : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("let"), word(lexical_rule_name)), word("=")), bracket(Doc_op_Addition_Z7CFFAC00(word("%sedlex.regexp?"), v_2)))
-                lexical_rule_defs = cons(lexical_rule_def, lexical_rule_defs)
-                tokenizer_case : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("|"), word(lexical_rule_name)), word(to_text(interpolate("-\u003e %P() %P()", [var_tokenizer, var_lexbuf]))))
-                tokenizer_cases = cons(tokenizer_case, tokenizer_cases)
+            v_3 : Doc = for_loop_var[1]
+            k_3 : str = for_loop_var[0]
+            if contains(k_3, analyzer.IgnoreSet):
+                lexical_rule_name_1 : str = "rule_" + name_of_named_term(k_3)
+                lexical_rule_def_1 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("let"), word(lexical_rule_name_1)), word("=")), bracket(Doc_op_Addition_Z7CFFAC00(word("%sedlex.regexp?"), v_3)))
+                lexical_rule_defs = cons(lexical_rule_def_1, lexical_rule_defs)
+                tokenizer_case_1 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("|"), word(lexical_rule_name_1)), word(to_text(interpolate("-\u003e %P() %P()", [var_tokenizer, var_lexbuf]))))
+                tokenizer_cases = cons(tokenizer_case_1, tokenizer_cases)
             
             else: 
-                token_name : str = name_of_named_term(k_2)
-                lexical_rule_name_1 : str = "rule_" + token_name
-                lexical_rule_def_1 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("let"), word(lexical_rule_name_1)), word("=")), bracket(Doc_op_Addition_Z7CFFAC00(word("%sedlex.regexp?"), v_2)))
-                lexical_rule_defs = cons(lexical_rule_def_1, lexical_rule_defs)
+                token_name_1 : str = name_of_named_term(k_3)
+                lexical_rule_name_2 : str = "rule_" + token_name_1
+                lexical_rule_def_2 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("let"), word(lexical_rule_name_2)), word("=")), bracket(Doc_op_Addition_Z7CFFAC00(word("%sedlex.regexp?"), v_3)))
+                lexical_rule_defs = cons(lexical_rule_def_2, lexical_rule_defs)
                 class ObjectExpr160:
                     @property
                     def Equals(self) -> Any:
-                        return lambda x_16, y_7: x_16 == y_7
+                        return lambda x_17, y_8: x_17 == y_8
                     
                     @property
                     def GetHashCode(self) -> Any:
-                        return lambda x_16: string_hash(x_16)
+                        return lambda x_17: string_hash(x_17)
                     
-                if contains_1(k_2, ReferencedNamedTokens, ObjectExpr160()):
-                    tokenizer_case_1 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("|"), word(lexical_rule_name_1)), word(to_text(interpolate("-\u003e %P() (mktoken %P())", [token_name, var_lexbuf]))))
-                    tokenizer_cases = cons(tokenizer_case_1, tokenizer_cases)
-                    token_names = cons(token_name, token_names)
+                if contains_1(k_3, ReferencedNamedTokens, ObjectExpr160()):
+                    tokenizer_case_2 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("|"), word(lexical_rule_name_2)), word(to_text(interpolate("-\u003e %P() (mktoken %P())", [token_name_1, var_lexbuf]))))
+                    tokenizer_cases = cons(tokenizer_case_2, tokenizer_cases)
+                    token_names = cons(token_name_1, token_names)
                 
             
-    class ObjectExpr161:
-        @property
-        def Compare(self) -> Any:
-            return lambda x_17, y_8: compare_primitives(x_17, y_8)
-        
-    arr : List[str] = sort(list(analyzer.LiteralTokens), ObjectExpr161())
-    for idx_1 in range(0, (len(arr) - 1) + 1, 1):
-        k_3 : str = arr[idx_1]
-        v_3 : Doc = word(mk_lexer(lexerule(3, k_3)))
-        token_name_1 : str = cg_symbol(symbol(0, k_3, True))
-        lexical_rule_name_2 : str = "rule_" + token_name_1
-        lexical_rule_def_2 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("let"), word(lexical_rule_name_2)), word("=")), bracket(Doc_op_Addition_Z7CFFAC00(word("%sedlex.regexp?"), v_3)))
-        lexical_rule_defs = cons(lexical_rule_def_2, lexical_rule_defs)
-        tokenizer_case_2 : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("|"), word(lexical_rule_name_2)), word(to_text(interpolate("-\u003e %P() (mktoken %P())", [token_name_1, var_lexbuf]))))
-        tokenizer_cases = cons(tokenizer_case_2, tokenizer_cases)
-        token_names = cons(token_name_1, token_names)
     tokenizer_cases = of_array_with_tail([word(to_text(interpolate("| _ -\u003e _unknown_token %P()", [var_lexbuf]))), Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("|"), word("eof -\u003e")), word("EOF"))], tokenizer_cases)
     token_names_1 : FSharpList[str] = reverse(token_names)
     tokenizer_cases_1 : FSharpList[Doc] = reverse(tokenizer_cases)
