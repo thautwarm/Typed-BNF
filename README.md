@@ -23,7 +23,7 @@ For usage, see `test-python.ps1`, `test-ocaml.ps1` and `test-csharp.ps1`.
 ## Usage
 
 ```bash
-usage: tbnf [-h] [--backend BACKEND] [--renamer_config RENAMER_CONFIG] tbnf_source_path out_dir lang
+usage: tbnf [-h] [--backend BACKEND] [--config_path CONFIG_PATH] tbnf_source_path out_dir lang
 
 Typed BNF CLI tool.
 
@@ -33,10 +33,10 @@ positional arguments:
   out_dir               <class 'pathlib.Path'>
   lang                  <class 'str'>
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --backend BACKEND     <class 'str'>
-  --renamer_config RENAMER_CONFIG
+  --config_path CONFIG_PATH
                         <class 'str'>
 ```
 

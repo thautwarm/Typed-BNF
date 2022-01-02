@@ -45,7 +45,7 @@ def tbnf(
         out_dir: Path,
         lang: str,
         backend: str = "python-lark",
-        renamer_config: str = ""):
+        config_path: str = ""):
     """Typed BNF CLI tool.
     """
     set_filename(str(tbnf_source_path))
@@ -53,14 +53,14 @@ def tbnf(
     with tbnf_source_path.open(encoding='utf8') as file:
         defs = parser.parse(file.read())
 
-    if not renamer_config:
-        renamer_config = out_dir / "rename.tbnf.py"
+    if not config_path:
+        config_path = out_dir / "rename.tbnf.py"
     else:
-        renamer_config = Path(renamer_config)
+        config_path = Path(config_path)
 
     config_scope = {}
-    if renamer_config.exists() and renamer_config.is_file():
-        with renamer_config.open("r", encoding='utf8') as file:
+    if config_path.exists() and config_path.is_file():
+        with config_path.open("r", encoding='utf8') as file:
             exec(file.read(), config_scope)
 
     options = Options(config_scope, load_resource)
