@@ -64,6 +64,7 @@
 
 
 
+
 start : block -> start_0
 nempty_list_n_stat_p_ : stat -> nempty_list_n_stat_p__0
                       | nempty_list_n_stat_p_ stat -> nempty_list_n_stat_p__1
@@ -104,9 +105,6 @@ range_tail : _I__S__I_ exp -> range_tail_0
            |  -> range_tail_1
 elseif : _I_ELSEIF_I_ exp _I_THEN_I_ block -> elseif_0
 else__x_ : _I_ELSE_I_ block -> else__x__0
-var : NAME -> var_0
-    | prefixexp _I__N__I_ exp _I__P__I__J -> var_1
-    | prefixexp _I__U__I_ NAME -> var_2
 exp : _I_NIL_I_ -> exp_0
     | _I_FALSE_I_ -> exp_1
     | _I_TRUE_I_ -> exp_2
@@ -133,8 +131,6 @@ prefixexp : NAME -> prefixexp_0
           | prefixexp _I__G__I_ NAME args -> prefixexp_3
           | prefixexp _I__N__I_ exp _I__P__I__J -> prefixexp_4
           | prefixexp _I__U__I_ NAME -> prefixexp_5
-functioncall : prefixexp args -> functioncall_0
-             | prefixexp _I__G__I_ NAME args -> functioncall_1
 nempty_seplist_n__i__s__i__s_exp_p_ : exp -> nempty_seplist_n__i__s__i__s_exp_p__0
                                     | nempty_seplist_n__i__s__i__s_exp_p_ _I__S__I_ exp -> nempty_seplist_n__i__s__i__s_exp_p__1
 allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_ :  -> allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p__0

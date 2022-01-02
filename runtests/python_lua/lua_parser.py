@@ -179,12 +179,6 @@ class RBNFTransformer(Transformer):
     def nempty_seplist_n__i__s__i__s_exp_p__0(self, __tbnf_COMPONENTS):
         return [__tbnf_COMPONENTS[0]]
     
-    def functioncall_1(self, __tbnf_COMPONENTS):
-        return CallMethod(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2], __tbnf_COMPONENTS[3])
-    
-    def functioncall_0(self, __tbnf_COMPONENTS):
-        return CallFunc(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
-    
     def prefixexp_5(self, __tbnf_COMPONENTS):
         return Attr(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
     
@@ -213,7 +207,7 @@ class RBNFTransformer(Transformer):
         return mkOperand(__tbnf_COMPONENTS[0])
     
     def binexp_0(self, __tbnf_COMPONENTS):
-        return mkBinOpSeq(__tbnf_COMPONENTS[0], Bin)
+        return mkBinOpSeq(__tbnf_COMPONENTS[0], Bin, UnsolvedBin)
     
     def unaryexp_3(self, __tbnf_COMPONENTS):
         return Not(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
@@ -262,15 +256,6 @@ class RBNFTransformer(Transformer):
     
     def exp_0(self, __tbnf_COMPONENTS):
         return Nil(__tbnf_COMPONENTS[0])
-    
-    def var_2(self, __tbnf_COMPONENTS):
-        return Attr(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
-    
-    def var_1(self, __tbnf_COMPONENTS):
-        return Index(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
-    
-    def var_0(self, __tbnf_COMPONENTS):
-        return Var(__tbnf_COMPONENTS[0])
     
     def else__x__0(self, __tbnf_COMPONENTS):
         return if_else(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])

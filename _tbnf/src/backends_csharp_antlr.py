@@ -30,44 +30,44 @@ def codegen(analyzer: Analyzer, cg_options: CodeGenOptions, lang_name: str, stmt
     type_parameter_mangling : Callable[[str], str] = lambda x_5, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: "_GEN_" + x_5
     import_var_names : FSharpList[str] = empty()
     import_type_names : FSharpList[str] = empty()
-    class ObjectExpr143:
+    class ObjectExpr121:
         @property
         def Compare(self) -> Any:
             return lambda x_6, y: compare_primitives(x_6, y)
         
-    abandoned_names : Any = of_array(append(["result"], CSharpKeywords, None), ObjectExpr143())
-    class ObjectExpr144:
+    abandoned_names : Any = of_array(append(["result"], CSharpKeywords, None), ObjectExpr121())
+    class ObjectExpr122:
         @property
         def Compare(self) -> Any:
             return lambda x_7, y_1: compare(x_7, y_1)
         
-    symmap : Any = empty_1(ObjectExpr144())
+    symmap : Any = empty_1(ObjectExpr122())
     toplevel_transformer : FSharpList[Doc] = empty()
     current_pos : position = analyzer.current_pos
     lexer_maps : FSharpList[Tuple[str, lexerule]] = empty()
     global_scope : FSharpList[Tuple[str, str]] = to_list(delay(lambda analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: map(lambda k: (k[0], var_renamer(k[0])), Sigma__get_GlobalVariables(analyzer.Sigma))))
-    class ObjectExpr145:
+    class ObjectExpr123:
         @property
         def Compare(self) -> Any:
             return lambda x_8, y_2: compare_primitives(x_8, y_2)
         
-    def arrow_146(i: int, c: str, analyzer: Analyzer=analyzer, cg_options: CodeGenOptions=cg_options, lang_name: str=lang_name, stmts: List[definition]=stmts) -> bool:
+    def arrow_124(i: int, c: str, analyzer: Analyzer=analyzer, cg_options: CodeGenOptions=cg_options, lang_name: str=lang_name, stmts: List[definition]=stmts) -> bool:
         test : bool = True if (True if (True if (is_lower(c)) else (is_upper(c))) else (is_unicode(c))) else (c == "_")
         return test if (i == 0) else (True if (test) else (is_digit(c)))
     
-    csharp_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(arrow_146, lambda i_1, c_1, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: to_text(interpolate("_X%P()_", [i_1])) if (is_digit(c_1)) else (to_text(interpolate("_%P()_", [ord(c_1)])))), NameMangling_nameEnv(of_list(map_1(lambda tuple, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: tuple[1], global_scope), ObjectExpr145())))
-    class ObjectExpr147:
+    csharp_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(arrow_124, lambda i_1, c_1, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: to_text(interpolate("_X%P()_", [i_1])) if (is_digit(c_1)) else (to_text(interpolate("_%P()_", [ord(c_1)])))), NameMangling_nameEnv(of_list(map_1(lambda tuple, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: tuple[1], global_scope), ObjectExpr123())))
+    class ObjectExpr125:
         @property
         def Compare(self) -> Any:
             return lambda x_9, y_3: compare_primitives(x_9, y_3)
         
-    antlr_lexer_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_2, c_2, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: is_upper(c_2) if (i_2 == 0) else (True if (True if (is_upper(c_2)) else (c_2 == "_")) else (is_digit(c_2))), lambda i_3, c_3, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: c_3.upper() if (is_lower(c_3)) else (NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3)) + "_" if (i_3 == 0) else (("_" + NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3))) + "_"))), NameMangling_nameEnv(of_array(["EOF"], ObjectExpr147())))
-    class ObjectExpr148:
+    antlr_lexer_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_2, c_2, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: is_upper(c_2) if (i_2 == 0) else (True if (True if (is_upper(c_2)) else (c_2 == "_")) else (is_digit(c_2))), lambda i_3, c_3, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: c_3.upper() if (is_lower(c_3)) else (NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3)) + "_" if (i_3 == 0) else (("_" + NameMangling_maskChar(ord("A"), ord("Z"), ord(c_3))) + "_"))), NameMangling_nameEnv(of_array(["EOF"], ObjectExpr125())))
+    class ObjectExpr126:
         @property
         def Compare(self) -> Any:
             return lambda x_10, y_4: compare_primitives(x_10, y_4)
         
-    antlr_grammar_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_4, c_4, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: is_lower(c_4) if (i_4 == 0) else (True if (True if (is_lower(c_4)) else (c_4 == "_")) else (is_digit(c_4))), lambda _arg1, c_5, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: c_5.lower() if (is_upper(c_5)) else (("_" + NameMangling_maskChar(ord("a"), ord("z"), ord(c_5))) + "_")), NameMangling_nameEnv(of_array(["start"], ObjectExpr148())))
+    antlr_grammar_ident_descr : NameMangling_IdentifierDescriptor = NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(lambda i_4, c_4, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: is_lower(c_4) if (i_4 == 0) else (True if (True if (is_lower(c_4)) else (c_4 == "_")) else (is_digit(c_4))), lambda _arg1, c_5, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: c_5.lower() if (is_upper(c_5)) else (("_" + NameMangling_maskChar(ord("a"), ord("z"), ord(c_5))) + "_")), NameMangling_nameEnv(of_array(["start"], ObjectExpr126())))
     mangle : Callable[[NameMangling_IdentifierDescriptor, str], str] = lambda idr, n, analyzer=analyzer, cg_options=cg_options, lang_name=lang_name, stmts=stmts: NameMangling_mangle(abandoned_names, idr, n)
     def cg_symbol(x_11: symbol, analyzer: Analyzer=analyzer, cg_options: CodeGenOptions=cg_options, lang_name: str=lang_name, stmts: List[definition]=stmts) -> str:
         nonlocal symmap
@@ -346,35 +346,35 @@ def codegen(analyzer: Analyzer, cg_options: CodeGenOptions, lang_name: str, stmt
             break
     
     doc_ctor_wrap_funcs : FSharpList[Tuple[str, str, str, FSharpList[Tuple[Doc, Doc]], Doc]] = empty()
-    def arrow_161(analyzer: Analyzer=analyzer, cg_options: CodeGenOptions=cg_options, lang_name: str=lang_name, stmts: List[definition]=stmts) -> Iterable[Doc]:
-        def arrow_160(_unit=None) -> Iterable[Doc]:
-            def arrow_159(_unit=None) -> Iterable[Doc]:
-                def arrow_158(_unit=None) -> Iterable[Doc]:
+    def arrow_159(analyzer: Analyzer=analyzer, cg_options: CodeGenOptions=cg_options, lang_name: str=lang_name, stmts: List[definition]=stmts) -> Iterable[Doc]:
+        def arrow_158(_unit=None) -> Iterable[Doc]:
+            def arrow_157(_unit=None) -> Iterable[Doc]:
+                def arrow_156(_unit=None) -> Iterable[Doc]:
                     adt_cases : FSharpList[Tuple[str, Any]] = Sigma__GetADTCases(analyzer.Sigma)
-                    def arrow_157(_unit=None) -> Iterable[Doc]:
-                        def arrow_156(_unit=None) -> Iterable[Doc]:
-                            def arrow_152(match_value_6: Tuple[str, Any]) -> Iterable[Doc]:
+                    def arrow_155(_unit=None) -> Iterable[Doc]:
+                        def arrow_154(_unit=None) -> Iterable[Doc]:
+                            def arrow_141(match_value_6: Tuple[str, Any]) -> Iterable[Doc]:
                                 typename_0027 : str = type_renamer(match_value_6[0])
-                                def arrow_151(_unit=None) -> Iterable[Doc]:
-                                    def arrow_150(match_value_7: Tuple[str, FSharpList[Tuple[str, monot]]]) -> Iterable[Doc]:
+                                def arrow_140(_unit=None) -> Iterable[Doc]:
+                                    def arrow_139(match_value_7: Tuple[str, FSharpList[Tuple[str, monot]]]) -> Iterable[Doc]:
                                         ctor_name : str = match_value_7[0]
                                         fields_1 : FSharpList[Tuple[Doc, Doc]] = map_1(lambda tupled_arg_2: (word(rename_field(tupled_arg_2[0])), word(cg_type(tupled_arg_2[1]))), match_value_7[1])
                                         ctor_name_0027 : str = rename_ctor(ctor_name)
                                         func_params : Doc = parens(seplist(word(","), to_list(delay(lambda _unit=None: collect(lambda match_value_8: singleton_1(Doc_op_Addition_Z7CFFAC00(match_value_8[1], match_value_8[0])), fields_1)))))
-                                        def arrow_149(_unit=None) -> Iterable[Doc]:
+                                        def arrow_138(_unit=None) -> Iterable[Doc]:
                                             nonlocal doc_ctor_wrap_funcs
                                             ret_t : Doc = word(typename_0027)
                                             doc_ctor_wrap_funcs = cons(("", rename_ctor(ctor_name), ctor_name_0027, fields_1, ret_t), doc_ctor_wrap_funcs)
                                             return empty_3()
                                         
-                                        return append_2(singleton_1(Doc_op_Addition_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(word(to_text(interpolate("public partial record %P()", [ctor_name_0027]))), func_params), word(to_text(interpolate(": %P();", [typename_0027]))))), delay(arrow_149))
+                                        return append_2(singleton_1(Doc_op_Addition_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(word(to_text(interpolate("public partial record %P()", [ctor_name_0027]))), func_params), word(to_text(interpolate(": %P();", [typename_0027]))))), delay(arrow_138))
                                     
-                                    return append_2(collect(arrow_150, to_array_1(match_value_6[1])), delay(lambda _unit=None: singleton_1(empty_2)))
+                                    return append_2(collect(arrow_139, to_array_1(match_value_6[1])), delay(lambda _unit=None: singleton_1(empty_2)))
                                 
-                                return append_2(singleton_1(word(to_text(interpolate("public partial interface %P() {  }", [typename_0027])))), delay(arrow_151))
+                                return append_2(singleton_1(word(to_text(interpolate("public partial interface %P() {  }", [typename_0027])))), delay(arrow_140))
                             
-                            def arrow_155(_unit=None) -> Iterable[Doc]:
-                                def arrow_154(match_value_9: Tuple[str, Shape]) -> Iterable[Doc]:
+                            def arrow_153(_unit=None) -> Iterable[Doc]:
+                                def arrow_152(match_value_9: Tuple[str, Shape]) -> Iterable[Doc]:
                                     typename_1 : str = match_value_9[0]
                                     shape : Shape = match_value_9[1]
                                     typename_0027_1 : str = type_renamer(typename_1)
@@ -390,28 +390,28 @@ def codegen(analyzer: Analyzer, cg_options: CodeGenOptions, lang_name: str, stmt
                                     tparams_2 : str = pattern_input_2[0]
                                     fields_2 : FSharpList[Tuple[Doc, Doc]] = to_list(delay(lambda _unit=None: collect(lambda match_value_10: singleton_1((word(rename_field(match_value_10[0])), word(cg_type(match_value_10[1])))), shape.fields)))
                                     func_params_1 : Doc = parens(seplist(word(","), to_list(delay(lambda _unit=None: collect(lambda match_value_11: singleton_1(Doc_op_Addition_Z7CFFAC00(match_value_11[1], match_value_11[0])), fields_2)))))
-                                    def arrow_153(_unit=None) -> Iterable[Doc]:
+                                    def arrow_151(_unit=None) -> Iterable[Doc]:
                                         nonlocal doc_ctor_wrap_funcs
                                         doc_ctor_wrap_funcs = cons((tparams_2, varname, typename_0027_1, fields_2, pattern_input_2[1]), doc_ctor_wrap_funcs)
                                         return empty_3()
                                     
-                                    return append_2(singleton_1(Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(word(to_text(interpolate("public partial record %P()", [typename_0027_1]))), word(tparams_2)), func_params_1), word(";"))), delay(arrow_153))
+                                    return append_2(singleton_1(Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(word(to_text(interpolate("public partial record %P()", [typename_0027_1]))), word(tparams_2)), func_params_1), word(";"))), delay(arrow_151))
                                 
-                                return append_2(collect(arrow_154, Sigma__GetRecordTypes(analyzer.Sigma)), delay(lambda _unit=None: singleton_1(word("}"))))
+                                return append_2(collect(arrow_152, Sigma__GetRecordTypes(analyzer.Sigma)), delay(lambda _unit=None: singleton_1(word("}"))))
                             
-                            return append_2(collect(arrow_152, adt_cases), delay(arrow_155))
+                            return append_2(collect(arrow_141, adt_cases), delay(arrow_153))
                         
-                        return append_2(singleton_1(word(to_text(interpolate("namespace %P(){", [lang_name])))), delay(arrow_156))
+                        return append_2(singleton_1(word(to_text(interpolate("namespace %P(){", [lang_name])))), delay(arrow_154))
                     
-                    return append_2(singleton_1(empty_2), delay(arrow_157))
+                    return append_2(singleton_1(empty_2), delay(arrow_155))
                 
-                return append_2(singleton_1(word("using System;")), delay(arrow_158))
+                return append_2(singleton_1(word("using System;")), delay(arrow_156))
             
-            return append_2(singleton_1(word("using System.Collections.Generic;")), delay(arrow_159))
+            return append_2(singleton_1(word("using System.Collections.Generic;")), delay(arrow_157))
         
-        return append_2(singleton_1(word("using Antlr4.Runtime;")), delay(arrow_160))
+        return append_2(singleton_1(word("using Antlr4.Runtime;")), delay(arrow_158))
     
-    file_constructors : Tuple[str, Doc] = (to_text(interpolate("%P().Constructor.", [lang_name])) + ".cs", vsep(to_list(delay(arrow_161))))
+    file_constructors : Tuple[str, Doc] = (to_text(interpolate("%P().Constructor.", [lang_name])) + ".cs", vsep(to_list(delay(arrow_159))))
     def parens_if_lor(x_31: lexerule, analyzer: Analyzer=analyzer, cg_options: CodeGenOptions=cg_options, lang_name: str=lang_name, stmts: List[definition]=stmts) -> Doc:
         if True if (x_31.tag == 4) else (False):
             return parens(word(mk_lexer(x_31)))
@@ -467,53 +467,53 @@ def codegen(analyzer: Analyzer, cg_options: CodeGenOptions, lang_name: str, stmt
                     raise Exception("macro not processed")
                 
                 idx_1 : int = 0
-                def arrow_184(stmt: definition=stmt) -> Iterable[Doc]:
-                    def arrow_183(match_value_4: Tuple[position, production_1]) -> Iterable[Doc]:
+                def arrow_177(stmt: definition=stmt) -> Iterable[Doc]:
+                    def arrow_176(match_value_4: Tuple[position, production_1]) -> Iterable[Doc]:
                         nonlocal current_pos
                         action_name_3 = None
                         idx : int = idx_1 or 0
                         action_name_3 = to_text(printf("%s_%i"))(ntname_1)(idx)
                         current_pos = match_value_4[0]
-                        def arrow_181(_unit=None) -> Doc:
+                        def arrow_174(_unit=None) -> Doc:
                             prod : production_1 = match_value_4[1]
                             action_name_2 : str = action_name_3
                             pattern_input_1 = None
                             curr_expr : expr = prod.action
                             is_terminal : List[bool] = to_array_2(delay(lambda _unit=None: map(lambda sym: True if (sym.tag == 0) else (False), prod.symbols)))
-                            class ObjectExpr165:
+                            class ObjectExpr162:
                                 @property
                                 def Compare(self) -> Any:
                                     return lambda x_13, y_5: compare_primitives(x_13, y_5)
                                 
-                            used_slots : Any = empty_4(ObjectExpr165())
+                            used_slots : Any = empty_4(ObjectExpr162())
                             def cg_expr(scope_1: FSharpList[Tuple[str, str]], curr_expr_1: expr) -> DocBuilder_block_1[Doc]:
-                                def arrow_178(scope_1: FSharpList[Tuple[str, str]]=scope_1, curr_expr_1: expr=curr_expr_1) -> DocBuilder_block_1[Doc]:
+                                def arrow_172(scope_1: FSharpList[Tuple[str, str]]=scope_1, curr_expr_1: expr=curr_expr_1) -> DocBuilder_block_1[Doc]:
                                     nonlocal used_slots
                                     match_value_1 : node = curr_expr_1.node
                                     if match_value_1.tag == 6:
                                         match_value_2 : Optional[str] = try_lookup(match_value_1.fields[0], scope_1)
                                         if match_value_2 is not None:
                                             v_1 : str = match_value_2
-                                            def arrow_168(_unit=None) -> Doc:
+                                            def arrow_163(_unit=None) -> Doc:
                                                 type_args = None
                                                 lst : FSharpList[Doc] = map_1(lambda arg_1: word(cg_type(arg_1)), map_1(lambda t_2: monot__prune(t_2), match_value_1.fields[1].contents))
                                                 type_args = seplist(word(", "), lst)
                                                 return Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(word(v_1), word("\u003c")), type_args), word("\u003e"))
                                             
-                                            return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(v_1)) if (length(match_value_1.fields[1].contents) == 0) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_168()))
+                                            return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(v_1) if (length(match_value_1.fields[1].contents) == 0) else (arrow_163()))
                                         
                                         else: 
-                                            def arrow_170(_unit=None) -> Doc:
+                                            def arrow_164(_unit=None) -> Doc:
                                                 raise UnboundVariable(match_value_1.fields[0])
                                             
-                                            return DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_170())
+                                            return DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_164())
                                         
                                     
                                     elif match_value_1.tag == 11:
                                         return DocBuilder_Builder__Return_1505(DocBuilder_cg, word("true")) if (match_value_1.fields[0]) else (DocBuilder_Builder__Return_1505(DocBuilder_cg, word("false")))
                                     
                                     elif match_value_1.tag == 3:
-                                        return DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, cg_expr(scope_1, match_value_1.fields[0]), lambda _arg5: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(_arg5, word(".")), word(match_value_1.fields[1]))))
+                                        return DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, cg_expr(scope_1, match_value_1.fields[0]), lambda _arg6: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(_arg6, word(".")), word(match_value_1.fields[1]))))
                                     
                                     elif match_value_1.tag == 8:
                                         return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(to_text(printf("%d"))(match_value_1.fields[0])))
@@ -525,30 +525,30 @@ def codegen(analyzer: Analyzer, cg_options: CodeGenOptions, lang_name: str, stmt
                                         return DocBuilder_Builder__Return_1505(DocBuilder_cg, word(escape_string(match_value_1.fields[0])))
                                     
                                     elif match_value_1.tag == 5:
-                                        def arrow_174(_unit=None) -> Iterable[Tuple[str, str]]:
-                                            def arrow_173(match_value_3: Tuple[str, monot]) -> Iterable[Tuple[str, str]]:
+                                        def arrow_166(_unit=None) -> Iterable[Tuple[str, str]]:
+                                            def arrow_165(match_value_3: Tuple[str, monot]) -> Iterable[Tuple[str, str]]:
                                                 arg_2 : str = match_value_3[0]
                                                 return singleton_1((arg_2, mangle(csharp_ident_descr, arg_2)))
                                             
-                                            return collect(arrow_173, match_value_1.fields[0])
+                                            return collect(arrow_165, match_value_1.fields[0])
                                         
-                                        pattern_input : Tuple[Doc, FSharpList[Doc]] = DocBuilder_runCG(cg_expr(append_1(to_list(delay(arrow_174)), scope_1), match_value_1.fields[1]))
-                                        def arrow_175(_unit=None) -> Doc:
+                                        pattern_input : Tuple[Doc, FSharpList[Doc]] = DocBuilder_runCG(cg_expr(append_1(to_list(delay(arrow_166)), scope_1), match_value_1.fields[1]))
+                                        def arrow_167(_unit=None) -> Doc:
                                             body : Doc = vsep(of_array_1([vsep(pattern_input[1]), Doc_op_Addition_Z7CFFAC00(word("return"), Doc_op_Multiply_Z7CFFAC00(pattern_input[0], word(";")))]))
                                             anns : FSharpList[Doc] = map_1(lambda tupled_arg_1: word((cg_type(tupled_arg_1[1]) + " ") + tupled_arg_1[0]), match_value_1.fields[0])
                                             return parens(vsep(of_array_1([Doc_op_Multiply_Z7CFFAC00(parens(seplist(word(", "), anns)), word("=\u003e")), Doc_op_RightShift_2AAA0F3C(body, 4)])))
                                         
-                                        return DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_175())
+                                        return DocBuilder_Builder__Return_1505(DocBuilder_cg, arrow_167())
                                     
                                     elif match_value_1.tag == 4:
-                                        def arrow_176(_arg6: Doc) -> DocBuilder_block_1[Doc]:
+                                        def arrow_168(_arg7: Doc) -> DocBuilder_block_1[Doc]:
                                             m_name : str = mangle(csharp_ident_descr, match_value_1.fields[0])
-                                            return DocBuilder_Builder__Combine_Z5C764E00(DocBuilder_cg, DocBuilder_Builder__Yield_417FD60(DocBuilder_cg, Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(m_name), word("=")), Doc_op_Multiply_Z7CFFAC00(_arg6, word(";")))), DocBuilder_Builder__Delay_Z3A9C5A06(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__ReturnFrom_ZD0BB270(DocBuilder_cg, cg_expr(cons((match_value_1.fields[0], m_name), scope_1), match_value_1.fields[2]))))
+                                            return DocBuilder_Builder__Combine_Z5C764E00(DocBuilder_cg, DocBuilder_Builder__Yield_417FD60(DocBuilder_cg, Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(m_name), word("=")), Doc_op_Multiply_Z7CFFAC00(_arg7, word(";")))), DocBuilder_Builder__Delay_Z3A9C5A06(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__ReturnFrom_ZD0BB270(DocBuilder_cg, cg_expr(cons((match_value_1.fields[0], m_name), scope_1), match_value_1.fields[2]))))
                                         
-                                        return DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, cg_expr(scope_1, match_value_1.fields[1]), arrow_176)
+                                        return DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, cg_expr(scope_1, match_value_1.fields[1]), arrow_168)
                                     
                                     elif match_value_1.tag == 2:
-                                        return DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, DocBuilder_Builder__Run_ZD0BB270(DocBuilder_cg, DocBuilder_Builder__Delay_Z3A9C5A06(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_2B96F4AF(DocBuilder_cg, match_value_1.fields[0], lambda _arg7: DocBuilder_Builder__ReturnFrom_ZD0BB270(DocBuilder_cg, cg_expr(scope_1, _arg7))))), lambda _arg8: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("new"), word(cg_type(curr_expr_1.t))), word("{")), seplist(word(","), _arg8)), word("}"))))
+                                        return DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, DocBuilder_Builder__Run_ZD0BB270(DocBuilder_cg, DocBuilder_Builder__Delay_Z3A9C5A06(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_2B96F4AF(DocBuilder_cg, match_value_1.fields[0], lambda _arg8: DocBuilder_Builder__ReturnFrom_ZD0BB270(DocBuilder_cg, cg_expr(scope_1, _arg8))))), lambda _arg9: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("new"), word(cg_type(curr_expr_1.t))), word("{")), seplist(word(","), _arg9)), word("}"))))
                                     
                                     elif match_value_1.tag == 7:
                                         n_5 : str = slot_name(action_name_2, match_value_1.fields[0])
@@ -557,14 +557,24 @@ def codegen(analyzer: Analyzer, cg_options: CodeGenOptions, lang_name: str, stmt
                                         return DocBuilder_Builder__Return_1505(DocBuilder_cg, v_2 if (is_terminal[match_value_1.fields[0] - 1]) else (Doc_op_Multiply_Z7CFFAC00(v_2, word(".result"))))
                                     
                                     else: 
-                                        return DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, DocBuilder_Builder__Run_ZD0BB270(DocBuilder_cg, DocBuilder_Builder__Delay_Z3A9C5A06(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_2B96F4AF(DocBuilder_cg, match_value_1.fields[0], lambda _arg9: DocBuilder_Builder__ReturnFrom_ZD0BB270(DocBuilder_cg, cg_expr(scope_1, _arg9))))), lambda _arg10: DocBuilder_Builder__Return_1505(DocBuilder_cg, parens(seplist(word(", "), _arg10)))) if (match_value_1.tag == 1) else (DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, cg_expr(scope_1, match_value_1.fields[0]), lambda _arg2_1: DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, DocBuilder_Builder__Run_ZD0BB270(DocBuilder_cg, DocBuilder_Builder__Delay_Z3A9C5A06(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_2B96F4AF(DocBuilder_cg, match_value_1.fields[1], lambda _arg3: DocBuilder_Builder__ReturnFrom_ZD0BB270(DocBuilder_cg, cg_expr(scope_1, _arg3))))), lambda _arg4: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Multiply_Z7CFFAC00(_arg2_1, parens(seplist(word(", "), _arg4)))))))
+                                        def arrow_171(_arg2_1: Doc) -> DocBuilder_block_1[Doc]:
+                                            def arrow_170(_unit=None) -> DocBuilder_block_1[FSharpList[Doc]]:
+                                                def arrow_169(_arg3: expr) -> DocBuilder_block_1[Doc]:
+                                                    arg : expr = _arg3
+                                                    return DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, cg_expr(scope_1, arg), lambda _arg4: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Addition_Z7CFFAC00(parens(word(cg_type(arg.t))), _arg4)))
+                                                
+                                                return DocBuilder_Builder__For_2B96F4AF(DocBuilder_cg, match_value_1.fields[1], arrow_169)
+                                            
+                                            return DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, DocBuilder_Builder__Run_ZD0BB270(DocBuilder_cg, DocBuilder_Builder__Delay_Z3A9C5A06(DocBuilder_cg, arrow_170)), lambda _arg5: DocBuilder_Builder__Return_1505(DocBuilder_cg, Doc_op_Addition_Z7CFFAC00(word(to_text(interpolate("(%P())", [cg_type(curr_expr_1.t)]))), Doc_op_Multiply_Z7CFFAC00(_arg2_1, parens(seplist(word(", "), _arg5))))))
+                                        
+                                        return DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, DocBuilder_Builder__Run_ZD0BB270(DocBuilder_cg, DocBuilder_Builder__Delay_Z3A9C5A06(DocBuilder_cg, lambda _unit=None: DocBuilder_Builder__For_2B96F4AF(DocBuilder_cg, match_value_1.fields[0], lambda _arg10: DocBuilder_Builder__ReturnFrom_ZD0BB270(DocBuilder_cg, cg_expr(scope_1, _arg10))))), lambda _arg11: DocBuilder_Builder__Return_1505(DocBuilder_cg, parens(seplist(word(", "), _arg11)))) if (match_value_1.tag == 1) else (DocBuilder_Builder__Bind_30A200B3(DocBuilder_cg, cg_expr(scope_1, match_value_1.fields[0]), arrow_171))
                                     
                                 
-                                return DocBuilder_Builder__Run_ZD0BB270(DocBuilder_cg, DocBuilder_Builder__Delay_Z3A9C5A06(DocBuilder_cg, arrow_178))
+                                return DocBuilder_Builder__Run_ZD0BB270(DocBuilder_cg, DocBuilder_Builder__Delay_Z3A9C5A06(DocBuilder_cg, arrow_172))
                             
                             snd : Tuple[Doc, FSharpList[Doc]] = DocBuilder_runCG(cg_expr(global_scope, curr_expr))
                             pattern_input_1 = (used_slots, snd)
-                            def arrow_180(_unit=None) -> Doc:
+                            def arrow_173(_unit=None) -> Doc:
                                 def mapping_5(i_8: int, s_5: symbol) -> Doc:
                                     i_9 : int = (i_8 + 1) or 0
                                     sym_1 : Doc = word(cg_symbol(s_5))
@@ -578,63 +588,63 @@ def codegen(analyzer: Analyzer, cg_options: CodeGenOptions, lang_name: str, stmt
                                 lst_1 : FSharpList[Doc] = map_indexed(mapping_5, prod.symbols)
                                 return seplist(word(" "), lst_1)
                             
-                            return Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(arrow_180(), word("{")), Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([empty_2, Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([vsep(pattern_input_1[1][1]), Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("$" + result_name), word("=")), Doc_op_Multiply_Z7CFFAC00(pattern_input_1[1][0], word(";")))])), 4), word("}")])), 12))
+                            return Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(arrow_173(), word("{")), Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([empty_2, Doc_op_RightShift_2AAA0F3C(vsep(of_array_1([vsep(pattern_input_1[1][1]), Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("$" + result_name), word("=")), Doc_op_Multiply_Z7CFFAC00(pattern_input_1[1][0], word(";")))])), 4), word("}")])), 12))
                         
-                        def arrow_182(_unit=None) -> Iterable[Doc]:
+                        def arrow_175(_unit=None) -> Iterable[Doc]:
                             nonlocal idx_1
                             idx_1 = (idx_1 + 1) or 0
                             return empty_3()
                         
-                        return append_2(singleton_1(arrow_181()), delay(arrow_182))
+                        return append_2(singleton_1(arrow_174()), delay(arrow_175))
                     
-                    return collect(arrow_183, decl["define"])
+                    return collect(arrow_176, decl["define"])
                 
-                body_3 : Doc = align(vsep(map_indexed(lambda i_10, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_10 == 0) else (word("|")), e_1), to_list(delay(arrow_184)))))
+                body_3 : Doc = align(vsep(map_indexed(lambda i_10, e_1, stmt=stmt: Doc_op_Addition_Z7CFFAC00(word(":") if (i_10 == 0) else (word("|")), e_1), to_list(delay(arrow_177)))))
                 return vsep(of_array_1([Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(ntname_1), word("returns")), bracket(Doc_op_Addition_Z7CFFAC00(word(cg_type(t_3)), word(result_name)))), Doc_op_RightShift_2AAA0F3C(body_3, 4), word(";")]))
             
         
         file_grammar : Doc = vsep(of_array_1(map_2(cg_stmt, stmts, None)))
-        def arrow_187(analyzer: Analyzer=analyzer, cg_options: CodeGenOptions=cg_options, lang_name: str=lang_name, stmts: List[definition]=stmts) -> Iterable[Doc]:
-            def arrow_186(match_value_13: Tuple[str, lexerule]) -> Iterable[Doc]:
+        def arrow_179(analyzer: Analyzer=analyzer, cg_options: CodeGenOptions=cg_options, lang_name: str=lang_name, stmts: List[definition]=stmts) -> Iterable[Doc]:
+            def arrow_178(match_value_13: Tuple[str, lexerule]) -> Iterable[Doc]:
                 k_1 : str = match_value_13[0]
                 v_4 : lexerule = simplify_lexerule(match_value_13[1])
                 n_6 : str = name_of_named_term(k_1)
                 return singleton_1(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(n_6), word(":")), parens_if_lor(v_4)), word("-\u003e skip;"))) if (contains(k_1, analyzer.IgnoreSet)) else (singleton_1(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(n_6), word(":")), word(mk_lexer(v_4))), word(";"))) if (contains(k_1, analyzer.ReferencedNamedTokens)) else (singleton_1(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("fragment"), word(n_6)), word(":")), parens_if_lor(v_4)), word(";")))))
             
-            return collect(arrow_186, reverse(lexer_maps))
+            return collect(arrow_178, reverse(lexer_maps))
         
-        lexer_defs : FSharpList[Doc] = to_list(delay(arrow_187))
+        lexer_defs : FSharpList[Doc] = to_list(delay(arrow_179))
         start_mangled : str = cg_symbol(symbol(1, "start"))
-        def arrow_197(analyzer: Analyzer=analyzer, cg_options: CodeGenOptions=cg_options, lang_name: str=lang_name, stmts: List[definition]=stmts) -> Iterable[Doc]:
-            def arrow_196(_unit=None) -> Iterable[Doc]:
-                def arrow_195(_unit=None) -> Iterable[Doc]:
-                    def arrow_194(_unit=None) -> Iterable[Doc]:
-                        def arrow_189(match_value_14: Tuple[str, str, str, FSharpList[Tuple[Doc, Doc]], Doc]) -> Iterable[Doc]:
+        def arrow_187(analyzer: Analyzer=analyzer, cg_options: CodeGenOptions=cg_options, lang_name: str=lang_name, stmts: List[definition]=stmts) -> Iterable[Doc]:
+            def arrow_186(_unit=None) -> Iterable[Doc]:
+                def arrow_185(_unit=None) -> Iterable[Doc]:
+                    def arrow_184(_unit=None) -> Iterable[Doc]:
+                        def arrow_180(match_value_14: Tuple[str, str, str, FSharpList[Tuple[Doc, Doc]], Doc]) -> Iterable[Doc]:
                             ret_t_2 : Doc = match_value_14[4]
                             fields_3 : FSharpList[Tuple[Doc, Doc]] = match_value_14[3]
                             func_params_2 : Doc = parens(seplist(word(","), map_1(lambda tupled_arg_3: Doc_op_Addition_Z7CFFAC00(tupled_arg_3[1], tupled_arg_3[0]), fields_3)))
                             args_10 : Doc = parens(seplist(word(","), map_1(lambda tupled_arg_4: tupled_arg_4[0], fields_3)))
                             return singleton_1(vsep(to_list(delay(lambda _unit=None: append_2(singleton_1(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("public static"), ret_t_2), word(match_value_14[1])), Doc_op_Multiply_Z7CFFAC00(word(match_value_14[0]), func_params_2))), delay(lambda _unit=None: append_2(singleton_1(word("{")), delay(lambda _unit=None: append_2(singleton_1(Doc_op_RightShift_2AAA0F3C(vsep(singleton(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("return"), parens(ret_t_2)), word("new")), Doc_op_Multiply_Z7CFFAC00(Doc_op_Multiply_Z7CFFAC00(word(match_value_14[2]), args_10), word(";"))))), 4)), delay(lambda _unit=None: singleton_1(word("}"))))))))))))
                         
-                        def arrow_193(_unit=None) -> Iterable[Doc]:
-                            def arrow_192(_unit=None) -> Iterable[Doc]:
-                                def arrow_190(_unit=None) -> str:
+                        def arrow_183(_unit=None) -> Iterable[Doc]:
+                            def arrow_182(_unit=None) -> Iterable[Doc]:
+                                def arrow_181(_unit=None) -> str:
                                     arg10_3 : str = cg_type(start_t)
                                     return to_text(printf("start returns [%s result]: v=%s EOF { $result = _localctx.v.result; };"))(arg10_3)(start_mangled)
                                 
-                                return append_2(singleton_1(word(arrow_190())), delay(lambda _unit=None: append_2(singleton_1(file_grammar), delay(lambda _unit=None: lexer_defs))))
+                                return append_2(singleton_1(word(arrow_181())), delay(lambda _unit=None: append_2(singleton_1(file_grammar), delay(lambda _unit=None: lexer_defs))))
                             
-                            return append_2(singleton_1(word("}")), delay(arrow_192))
+                            return append_2(singleton_1(word("}")), delay(arrow_182))
                         
-                        return append_2(collect(arrow_189, doc_ctor_wrap_funcs), delay(arrow_193))
+                        return append_2(collect(arrow_180, doc_ctor_wrap_funcs), delay(arrow_183))
                     
-                    return append_2(singleton_1(word("@members {")), delay(arrow_194))
+                    return append_2(singleton_1(word("@members {")), delay(arrow_184))
                 
-                return append_2(singleton_1(word("options { language = CSharp; }")), delay(arrow_195))
+                return append_2(singleton_1(word("options { language = CSharp; }")), delay(arrow_185))
             
-            return append_2(singleton_1(word(to_text(interpolate("grammar %P();", [lang_name])))), delay(arrow_196))
+            return append_2(singleton_1(word(to_text(interpolate("grammar %P();", [lang_name])))), delay(arrow_186))
         
-        return [(lang_name + ".g4", vsep(to_list(delay(arrow_197)))), file_constructors]
+        return [(lang_name + ".g4", vsep(to_list(delay(arrow_187)))), file_constructors]
     
     else: 
         raise UnboundNonterminal("start")

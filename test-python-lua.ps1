@@ -3,4 +3,4 @@ try
 catch { }
 
 python .\runcli.py  .\runtests\lua.tbnf .\runtests\python_lua "lua"
-pyhon run_lua_parser.py
+python run_lua_parser.py

@@ -218,41 +218,45 @@ class TableExpr:
     value1: table
 
 @dataclasses.dataclass
+class UnsolvedBin:
+    value: list[op[expr]]
+
+@dataclasses.dataclass
 class Var:
     value: token
 
 if typing.TYPE_CHECKING:
-    expr = typing.Union[Var,TableExpr,String,Num,Not,Nil,NestedExp,Neg,Len,Inv,Index,FuncDef,Exponent,Ellipse,CallMethod,CallFunc,Bool,Bin,Attr]
+    expr = typing.Union[Var,UnsolvedBin,TableExpr,String,Num,Not,Nil,NestedExp,Neg,Len,Inv,Index,FuncDef,Exponent,Ellipse,CallMethod,CallFunc,Bool,Bin,Attr]
 else:
-    expr = (Var,TableExpr,String,Num,Not,Nil,NestedExp,Neg,Len,Inv,Index,FuncDef,Exponent,Ellipse,CallMethod,CallFunc,Bool,Bin,Attr)
+    expr = (Var,UnsolvedBin,TableExpr,String,Num,Not,Nil,NestedExp,Neg,Len,Inv,Index,FuncDef,Exponent,Ellipse,CallMethod,CallFunc,Bool,Bin,Attr)
 
 @dataclasses.dataclass
 class block:
-    ret: maybe[stmt]
     suite: list[stmt]
+    ret: maybe[stmt]
 
 block = block
 
 @dataclasses.dataclass
 class range:
-    high: expr
     low: expr
+    high: expr
     step: maybe[expr]
 
 range = range
 
 @dataclasses.dataclass
 class if_elseif:
-    body: block
-    cond: expr
     pos: token
+    cond: expr
+    elif_body: block
 
 if_elseif = if_elseif
 
 @dataclasses.dataclass
 class if_else:
-    body: block
     pos: token
+    else_body: block
 
 if_else = if_else
 

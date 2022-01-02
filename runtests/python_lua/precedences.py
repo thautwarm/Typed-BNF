@@ -114,5 +114,6 @@ def binop_reduce(
         op.r.l = op
     return final.l.v
 
-seq = [1, Operator("+", "+"), 2, Operator("-", "-"), 3]
-print(binop_reduce(lambda x: lambda l, r: f"{x.val}({l}, {r})", seq))
+if __name__ == '__main__':
+    seq = [1, Operator("+", "+"), 2, Operator("-", "-"), 3]
+    print(binop_reduce(lambda x: lambda l, r: f"{x.val}({l}, {r})", seq))

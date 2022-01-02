@@ -110,11 +110,11 @@ def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
                 names = cons(name_1, names)
             names_1 : FSharpList[str] = reverse(names)
             func_table : str = new_rnd_name()
-            def arrow_59(lang: lang_3=lang) -> Doc:
+            def arrow_66(lang: lang_3=lang) -> Doc:
                 lst_1 : FSharpList[Doc] = map_1(lambda s_2: word(s_2), names_1)
                 return seplist(word(", "), lst_1)
             
-            push_later_toplevel(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(func_table), word("=")), bracket(arrow_59())))
+            push_later_toplevel(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(func_table), word("=")), bracket(arrow_66())))
             default_body : Doc = _cg_state_func(lang.fields[2])
             test : Doc = Doc_op_Multiply_Z7CFFAC00(word(cg_decision_func(lang.fields[0])), parens(word("public_next_int(lexerbuf)")))
             return vsep(of_array([Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("state_id"), word("=")), test), Doc_op_Addition_Z7CFFAC00(word("if"), Doc_op_Multiply_Z7CFFAC00(word(to_text(printf("state_id \u003e= 0"))), word(":"))), Doc_op_RightShift_2AAA0F3C(vsep(singleton(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("result"), word("=")), Doc_op_Multiply_Z7CFFAC00(word(to_text(printf("%s[state_id]"))(func_table)), parens(word("lexerbuf")))))), 4), word("else:"), Doc_op_RightShift_2AAA0F3C(default_body, 4)]))

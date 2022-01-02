@@ -275,23 +275,31 @@ let codegen
                     let! args' =
                         cg {
                             for arg in args do
-                                return! !arg
+                                let! arg' = !arg
+                                return parens (word (cg_type arg.t)) + arg'
                         }
-
-                    return f' * parens (seplist (word ", ") args')
+                    let t_repr = cg_type curr_expr.t
+                    return word $"({t_repr})" + f' * parens (seplist (word ", ") args')
                 | node.EVar (var, specializations) ->
                     match tryLookup var scope with
                     | None -> return raise (UnboundVariable(var))
                     | Some v ->
-                        if specializations.Value.Length = 0 then
-                            return word v
-                        else
-                            return
+                        let var =
+                            if specializations.Value.Length = 0 then
+                                word v
+                            else
                                 specializations.Value
                                 |> List.map (fun t -> t.Prune())
                                 |> List.map (cg_type >> word)
                                 |> seplist (word ", ")
-                                |> fun typeArgs -> word v * word "<" * typeArgs * word ">"
+                                |> (fun typeArgs -> word v * word "<" * typeArgs * word ">")
+                        return var
+                        // let t = curr_expr.t.Prune()
+                        // match t with
+                        // | TFun(args, ret_t) ->
+                        //     let args = parens(seplist (word ",") (List.map (fst >> mangle csharpIdentDescr >> word) args))
+                        //     return word "(" + args + word "=>" + parens(word (cg_type ret_t)) + parens(var + args) * word ")";
+                        // | _ -> return var
 
                 | node.EBool true -> return word "true"
                 | node.EBool false -> return word "false"
