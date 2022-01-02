@@ -139,7 +139,7 @@ def rename_type(x):
     if x == "JsonPair":
         return "json_pair"
     if x == "token":
-        return "tbnf_token" # this is other important!
+        return "tbnf_token"  # <-- this is also important!
     return x
 
 def rename_var(x: str):
