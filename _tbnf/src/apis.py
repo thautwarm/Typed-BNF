@@ -158,7 +158,7 @@ def MK_Defignore(ignore_list: List[str], pos: position_1) -> definition:
 
 
 def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, production]], pos: position_1) -> definition:
-    def arrow_54(lhs: str=lhs, parameters: List[str]=parameters, define: List[Tuple[position_1, production]]=define, pos: position_1=pos) -> dict:
+    def arrow_55(lhs: str=lhs, parameters: List[str]=parameters, define: List[Tuple[position_1, production]]=define, pos: position_1=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "define": of_array(define),
@@ -167,7 +167,7 @@ def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, 
             "pos": pos
         }
     
-    return definition(0, arrow_54())
+    return definition(0, arrow_55())
 
 
 def MK_Defrule(lhs: str, define: List[Tuple[position_1, production]], pos: position_1) -> definition:
@@ -203,7 +203,7 @@ def MK_Declctor(ident: str, t: monot_1, pos: position_1) -> definition:
 
 
 def MK_Decltype(external: bool, has_fields: bool, ident: str, parameters: List[str], fields: List[Tuple[str, monot_1, position_1]], pos: position_1) -> definition:
-    def arrow_55(external: bool=external, has_fields: bool=has_fields, ident: str=ident, parameters: List[str]=parameters, fields: List[Tuple[str, monot_1, position_1]]=fields, pos: position_1=pos) -> dict:
+    def arrow_56(external: bool=external, has_fields: bool=has_fields, ident: str=ident, parameters: List[str]=parameters, fields: List[Tuple[str, monot_1, position_1]]=fields, pos: position_1=pos) -> dict:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "external": external,
@@ -214,7 +214,7 @@ def MK_Decltype(external: bool, has_fields: bool, ident: str, parameters: List[s
             "pos": pos
         }
     
-    return definition(5, arrow_55())
+    return definition(5, arrow_56())
 
 
 def MK_production(symbols: List[symbol], action: expr) -> production:

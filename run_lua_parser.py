@@ -1,19 +1,3 @@
-from runtests.python_simple_json.simple_json_parser import parser
-from pprint import pprint
-pprint(parser.parse(r"""{
-    "x": {
-            "a": [2],
-            "z": [2, 3, 4],
-            "s": [2, 5, {}, "\"asda\"da"]
-        }
-}"""))
-
-from runtests.python_lua.lua_lexer import lex, lexall, Token
-from _tbnf.FableSedlex.sedlex import from_ustring
-def is_eof(x):
-    return x.token_id == -1
-
-
 from runtests.python_lua.lua_parser import parser, tokenreprs, tokenmaps, lexall
 from runtests.python_lua.lua_lexer import lexall, Token
 from pprint import pprint

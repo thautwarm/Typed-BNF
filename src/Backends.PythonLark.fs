@@ -28,8 +28,12 @@ let codegen (analyzer: Analyzer)
     let export_Parser = "parser"
     let export_Grammar = "grammar"
     let export_names = Set.ofArray [|export_Parser; export_Grammar|]
+    let export_tokenmaps = "tokenmaps"
+    let export_tokenreprs = "tokenreprs"
 
     let abandoned_names = Set.ofArray [|
+        export_tokenmaps
+        export_tokenreprs
         "False"
         "None"
         "True"
@@ -319,8 +323,12 @@ let codegen (analyzer: Analyzer)
         | definition.Declvar decl ->
             importNames <- rename_var decl.ident :: importNames
             empty
-        | definition.Declctor _
-        | definition.Decltype _ -> empty
+        | definition.Declctor decl ->
+            empty
+        | definition.Decltype decl ->
+            if decl.external then
+                importNames <- rename_type decl.ident :: importNames
+            empty
         | definition.Defmacro _ -> invalidOp "macro not processed"
     
     let filename_lexer = sprintf "%s_lexer" langName
@@ -328,7 +336,9 @@ let codegen (analyzer: Analyzer)
     let filename_python = sprintf "%s_parser" langName
     let filename_constructors = sprintf "%s_construct" langName
 
-    let var_tokenmaps = mangle pythonIdentifierDescr "tokenmaps"
+    let var_tokenmaps = export_tokenmaps
+    let var_tokenreprs = export_tokenreprs
+
     let classvar_LarkLexer = mangle pythonIdentifierDescr "Lexer"
     let classvar_SedlexLexer = mangle pythonIdentifierDescr "Sedlex"
     let classvar_LarkToken = rename_type "token"
@@ -407,9 +417,14 @@ let codegen (analyzer: Analyzer)
                             yield word (rename_field field) * word ":" + word (cg_type t)
                     ] >>> 4
                 yield empty
+
             yield word $"if {modulevar_typing}.TYPE_CHECKING:"
             yield vsep [
-                yield word typename' + word "=" + word $"{modulevar_typing}.Union[" +  seplist (word ",") docCtorNames * word "]"
+                match docCtorNames with
+                | [t] ->
+                    yield word typename' + word "=" + t
+                | _ ->
+                    yield word typename' + word "=" + word $"{modulevar_typing}.Union[" *  seplist (word ",") docCtorNames * word "]"
             ] >>> 4
             yield word "else:"
             yield vsep [
@@ -425,13 +440,13 @@ let codegen (analyzer: Analyzer)
             
             // TODO: generic type variables
             yield word $"class {typename'}:"
-            if Map.isEmpty shape.fields then
+            if List.isEmpty shape.fields then
                 yield word "pass" >>> 4
             else
                 yield vsep [
-                    for kv in shape.fields do
-                        let field = rename_field kv.Key
-                        let t = cg_type kv.Value
+                    for (k, v) in shape.fields do
+                        let field = rename_field k
+                        let t = cg_type v
                         yield word field * word ":" + word t
                 ] >>> 4
             yield empty
@@ -443,6 +458,8 @@ let codegen (analyzer: Analyzer)
 
     let mutable lexerInfo = []
     let mutable tokenNames = []
+    let mutable tokenReprs = []
+
     let mutable idx = 0
     let mutable token_id = 0
     let ReferencedNamedTokens = Array.ofSeq analyzer.ReferencedNamedTokens
@@ -452,7 +469,15 @@ let codegen (analyzer: Analyzer)
 #if DEBUG
     printfn "referenced named tokens: %A" ReferencedNamedTokens
 #endif
-
+    
+    for k in Array.sort (Array.ofSeq analyzer.LiteralTokens) do
+        let v = pstring(k)
+        lexerInfo <- (v, Tokenize token_id) :: lexerInfo
+        tokenNames <- name_of_literal_term k :: tokenNames
+        tokenReprs <- escapeString k :: tokenReprs
+        token_id <- token_id + 1
+        idx <- idx + 1
+    
     for k in ReferencedNamedTokens do
         let v = lexerMaps.[k]
         if Set.contains k analyzer.IgnoreSet then
@@ -466,21 +491,19 @@ let codegen (analyzer: Analyzer)
 #endif
             lexerInfo <- (v, Tokenize token_id) :: lexerInfo
             tokenNames <- name_of_named_term k :: tokenNames
+            tokenReprs <- k :: tokenReprs
             token_id <- token_id + 1
         idx <- idx + 1
 #if DEBUG
     printfn "literal tokens %A" analyzer.LiteralTokens
 #endif
-    for k in Array.sort (Array.ofSeq analyzer.LiteralTokens) do
-        let v = pstring(k)
-        lexerInfo <- (v, Tokenize token_id) :: lexerInfo
-        tokenNames <- name_of_literal_term k :: tokenNames
-        token_id <- token_id + 1
-        idx <- idx + 1
     
     lexerInfo <- (pany, Tokenize token_id) :: lexerInfo
     tokenNames <- "UNKNOWN" :: tokenNames
+    tokenReprs <- "UNKNOWN" :: tokenReprs
+    
     let tokenNames = List.rev tokenNames
+    let tokenReprs = List.rev tokenReprs
 
     let lexerInfo = (peof, Tokenize -1)  :: lexerInfo
                     |> List.rev
@@ -511,6 +534,7 @@ let codegen (analyzer: Analyzer)
 
                 
         yield word var_tokenmaps + word "=" + bracket(seplist (word ", ") (List.map (escapeString >> word) tokenNames))
+        yield word var_tokenreprs + word "=" + bracket(seplist (word ", ") (List.map (escapeString >> word) tokenReprs))
         yield empty
         yield definePyFunc (word var_construct_token) [word "token_id"; word "lexeme"; word "line"; word "col"; word "span"; word "offset"; word "file"] <|
             vsep [

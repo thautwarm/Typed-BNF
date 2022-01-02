@@ -9,17 +9,14 @@ type stmt
 type expr
 type block(suite: list<stmt>, ret: maybe<stmt>)
 
-extern type op<'a>
-    extern var mkOperator: <'a> token -> op<'a>
-    extern var mkOperand : expr -> op<expr>
-    extern var mkBinOpSeq : (
-          ops: list<op<expr>>, 
-          mkbin: (token, expr, expr) -> expr, mkunsolved_bin: list<op<expr>> -> expr)
-          -> expr
+extern type op
+    extern var mkOperator: token -> op
+    extern var mkOperand : expr -> op
+    extern var mkBinOpSeq : (list<op>, (token, expr, expr) -> expr) -> expr
 
 type range(low: expr, high: expr, step: maybe<expr>)
-type if_elseif(pos: token, cond: expr, elif_body: block)
-type if_else(pos: token, else_body: block)
+type if_elseif(pos: token, cond: expr, body: block)
+type if_else(pos: token, body: block)
 
 type params(names: list<token>, vararg: maybe<token>)
 
@@ -55,8 +52,7 @@ case FuncDef:
       (pos: token, is_local: bool, fname: maybe<token>, 
        params: maybe<params>, body: block) -> expr
 
-case Bin : (op: token, l: expr, r: expr) -> expr
-case UnsolvedBin : list<op<expr>> -> expr
+case Bin : (op: token, l: expr, r: expr) -> expr    
 case Var : token -> expr
 case Nil: token -> expr
 case Bool: (token, bool) -> expr
@@ -98,12 +94,12 @@ opt(value) : value { some($1) }
            
 block : list(stat) opt(retstat) { block($1, $2) }
 
-retstat : "return" seplist(",", exp) opt(";") { ReturnStmt($1, $2) }
+retstat : "return" seplist(",", exp) ";" { ReturnStmt($1, $2) }
 
 stat : ";" { EmptyStmt($1) }
-     | nempty_seplist(",", exp) "=" nempty_seplist(",", exp)
+     | nempty_seplist(",", var) "=" nempty_seplist(",", exp)
            { Assignment(false, $1, some($3)) }
-     | exp
+     | functioncall
            { ExprStmt($1) }
      | "::" <NAME> "::"
            { LabelStmt($2) }
@@ -123,6 +119,7 @@ stat : ";" { EmptyStmt($1) }
            { ForRangeStmt($1, $2, $4, $6) }
      | "for" nempty_seplist(",", <NAME>) "in" nempty_seplist(",", exp) "do" block "end"
            { ForInStmt($1, $2, $4, $6) }
+     | functiondef { ExprStmt($1) }
      | "local" "function" <NAME> "(" opt(parlist) ")" block "end"
            { ExprStmt(FuncDef($1, true, some($3), $5, $7)) }
      | "local" nempty_seplist(",", <NAME>) opt_assign_rhs
@@ -138,6 +135,11 @@ range_tail : "," exp { some($2) }
 
 elseif : "elseif" exp "then" block { if_elseif($1, $2, $4) }
 else : "else" block { if_else($1, $2) }
+
+var : <NAME>                { Var($1) }
+    | prefixexp "[" exp "]" { Index($1, $3) }
+    | prefixexp "." <NAME>  { Attr($1, $3) }
+
 
 
 exp : "nil"    { Nil($1) }
@@ -160,17 +162,18 @@ unaryexp : "#" binexp { Len($1, $2) }
          | "~" binexp { Inv($1, $2) }
          | "not" binexp { Not($1, $2) }
         
-binexp : binseq { mkBinOpSeq($1, Bin, UnsolvedBin) }
+binexp : binseq { mkBinOpSeq($1, Bin) }
+binop : <BINOP> { mkOperator($1) }
 binoperand : exp { mkOperand($1) }
 binseq : binseq binop binoperand { appendList(appendList($1, $2), $3) }
        | binoperand              { [$1] }
 
-prefixexp :   <NAME>                    { Var($1) }
-            | "(" exp ")"               { NestedExp($1, $2) }
-            | prefixexp args            { CallFunc($1, $2) }
-            | prefixexp ":" <NAME> args { CallMethod($1, $3, $4) }
-            | prefixexp "[" exp "]"     { Index($1, $3) }
-            | prefixexp "." <NAME>      { Attr($1, $3) }
+prefixexp : var             { $1 }
+          | functioncall    { $1 }
+          | "(" exp ")"     { NestedExp($1, $2) }
+
+functioncall : prefixexp args            { CallFunc($1, $2) }
+             | prefixexp ":" <NAME> args { CallMethod($1, $3, $4) }
 
 args : "(" seplist(",", exp) ")" { PositionalArgs($1, $2) }
      | tableconstructor          { TableArgs($1) }
@@ -185,7 +188,7 @@ varargs : "," "..." { some($2) }
 parlist : "..." { params([], some($1)) }
         | nempty_seplist(",", <NAME>) varargs { params($1, $2) }
 
-tableconstructor : "{" seplist(fieldsep, field) opt(fieldsep) "}"
+tableconstructor : "{" seplist(<fieldsep>, field) opt(<fieldsep>) "}"
                  { TableConstructor($1, $2) }
 
 
@@ -193,29 +196,11 @@ field : "[" exp "]" "=" exp { IndexField($1, $2, $5) }
         | <NAME> "=" exp    { NameField($1, $3) }
         | exp               { ElementField($1) }
 
-fieldsep : "," { 0} | ";" { 0 }
+fieldsep = "," | ";" ;
 
-binop : "or" { mkOperator($1)} 
-      | "and" {mkOperator($1)}
-      | "<"  { mkOperator($1) }
-      | ">"  { mkOperator($1) }
-      | "<=" { mkOperator($1) }
-      | ">=" { mkOperator($1) }
-      | "~=" { mkOperator($1) }
-      | "==" { mkOperator($1) }
-      | "|"  { mkOperator($1) }
-      | "~"  { mkOperator($1) }
-      | "&"  { mkOperator($1) }
-      | "<<" { mkOperator($1) }
-      | ">>" { mkOperator($1) }
-      | ".." { mkOperator($1) }
-      | "+"  { mkOperator($1) }
-      | "-"  { mkOperator($1) }
-      | "*"  { mkOperator($1) }
-      | "/"  { mkOperator($1) }
-      | "//" { mkOperator($1) }
-      | "%"  { mkOperator($1) }
-      
+BINOP = "or" | "and" | "<"    | ">"  | "<=" | ">=" | "~=" | "=="
+      | "|"  | "~"   | "&"    | "<<" | ">>" | ".." | "+"  | "-"
+      | "*"  | "/"   | "//"   | "%" ;
 
 ignore SPACE
 SPACE = " " | "\t" | "\r" | "\n";
@@ -223,5 +208,5 @@ DIGIT = [0-9];
 UCHAR = [a-z] | [A-Z] | "_" ;
 NAME =  UCHAR (UCHAR|DIGIT)*;
 INT = DIGIT+;
-NUMERAL = "-"? INT ("." INT)? (("E" | "e")  INT)?;
+NUMERAL =  INT; // "-"? INT ("." INT)? (("E" | "e")  INT+)?;
 STR_LIT = "\"" ("\\" _ | !"\"")* "\"";

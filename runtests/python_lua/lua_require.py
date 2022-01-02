@@ -5,7 +5,10 @@ from lark import Token
 import typing 
 
 if typing.TYPE_CHECKING:
+    from .lua_construct import expr
     op = typing.Union[Operator, expr]
+else:
+    op = object
 
 def mkOperator(token: Token):
     opstr = str(token)
@@ -14,35 +17,9 @@ def mkOperator(token: Token):
 def mkOperand(e: expr):
     return e
 
-def mkBinOpSeq(xs: typing.List[op]) -> expr:
-    return binop_reduce(lambda op: lambda l, r: BinExpr(op.val, l, r), xs)
-
-@dataclass
-class BinExpr:
-    op: Token
-    l: expr
-    r: expr
-
-@dataclass
-class range:
-    i1: expr
-    i2: expr
-    i3: typing.Optional[expr]
-
-mkRange = range
-
-@dataclass
-class IfStmt:
-    pass
-
-def mkElifBlock(token, e, block):
-    return (token, e, block)
-
-def mkElseBlock(token, block):
-    return (token, block)
-
-expr = BinExpr
-
+def mkBinOpSeq(xs: typing.List[op], make, _) -> expr:
+    from .lua_construct import Bin
+    return binop_reduce(lambda op: lambda l, r: make(op.val, l, r), xs)
 
 def appendList(xs, a):
     xs.append(a)
@@ -57,3 +34,8 @@ def some(a):
 def none():
     return None
 
+
+if typing.TYPE_CHECKING:
+    maybe = typing.Optional
+else:
+    maybe = object

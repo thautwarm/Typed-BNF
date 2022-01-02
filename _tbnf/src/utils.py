@@ -66,11 +66,11 @@ def is_unicode(c: str) -> bool:
 def _escapeString(s: str) -> str:
     sb : Any = StringBuilder__ctor_Z721C83C5("\"")
     for i in range(0, (len(s) - 1) + 1, 1):
-        def arrow_23(s: str=s) -> Any:
+        def arrow_20(s: str=s) -> Any:
             match_value : str = s[i]
             return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\"") if (match_value == "\"") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
         
-        ignore(arrow_23())
+        ignore(arrow_20())
     ignore(StringBuilder__Append_Z721C83C5(sb, "\""))
     return to_string(sb)
 
@@ -82,11 +82,11 @@ def i_to_u4(i: int) -> str:
 def _escapeStringSingleQuoted(s: str) -> str:
     sb : Any = StringBuilder__ctor_Z721C83C5("\u0027")
     for i in range(0, (len(s) - 1) + 1, 1):
-        def arrow_24(s: str=s) -> Any:
+        def arrow_21(s: str=s) -> Any:
             match_value : str = s[i]
             return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\u0027") if (match_value == "\u0027") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
         
-        ignore(arrow_24())
+        ignore(arrow_21())
     ignore(StringBuilder__Append_Z721C83C5(sb, "\u0027"))
     return to_string(sb)
 
@@ -154,11 +154,7 @@ def List_lookup(key_mut: a_, x_mut: FSharpList[Tuple[a_, b_]]) -> b_:
 
 def List_replaceWith(key: a_, func: Callable[[Optional[b_]], b_], xs: FSharpList[Tuple[a_, b_]]) -> FSharpList[Tuple[a_, b_]]:
     if not is_empty(xs):
-        def arrow_27(key: a_=key, func: Callable[[Optional[b_]], b_]=func, xs: FSharpList[Tuple[a_, b_]]=xs) -> bool:
-            key_0027 : a_ = head(xs)[0]
-            return equals(key_0027, key_0027)
-        
-        if arrow_27():
+        if equals(head(xs)[0], key):
             return cons((head(xs)[0], func(some(head(xs)[1]))), tail(xs))
         
         elif not is_empty(xs):

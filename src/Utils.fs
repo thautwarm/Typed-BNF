@@ -68,5 +68,5 @@ module List =
     let rec replaceWith key func xs =
         match xs with
         | [] -> [key, func None]
-        | (key', value)::tl when key' = key' -> (key', func (Some value)) :: tl
+        | (key', value)::tl when key' = key -> (key', func (Some value)) :: tl
         | hd::tl -> hd::replaceWith key func tl

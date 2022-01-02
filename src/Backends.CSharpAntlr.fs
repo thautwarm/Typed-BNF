@@ -552,7 +552,7 @@ let codegen
                             |> fun tparams -> "<" + tparams + ">"
                         tparams, word $"{typename'}<{tparams}>"
 
-                let fields = [for (fname, t) in Map.toArray shape.fields -> word (rename_field fname), word (cg_type t)]
+                let fields = [for (fname, t) in shape.fields -> word (rename_field fname), word (cg_type t)]
                 let func_params = parens(seplist (word ",") [for (fname, t) in fields -> t + fname])
                 yield word $"public partial record {typename'}" * word tparams * func_params * word ";"
                 docCtorWrapFuncs <- (tparams, varname, typename', fields, ret_t) :: docCtorWrapFuncs

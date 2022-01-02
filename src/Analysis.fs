@@ -12,7 +12,7 @@ type nonterminalName = string
 
 type Shape =
     { parameters: string list
-      fields: Map<fieldname, monot> }
+      fields: list<fieldname * monot> }
 
 type Sigma(UM: Unification.Manager) =
     (* to access field information *)
@@ -78,16 +78,15 @@ type Sigma(UM: Unification.Manager) =
         if Set.contains typename externalTypes then
             raise <| InvalidConstructorDefinination CauseExternalType
         match Map.tryFind typename shapes with
-        | Some { fields = fields } when Map.count fields <> 0 ->
+        | Some { fields = fields } when List.length fields <> 0 ->
             raise <| InvalidConstructorDefinination CauseRecordType
         | Some { parameters = _::_ } ->
             raise <| InvalidConstructorDefinination CauseGenericADTType
         | None ->
             registerType typename 0
-            shapes <- Map.add typename {fields = Map.empty; parameters = []} shapes
+            shapes <- Map.add typename {fields = []; parameters = []} shapes
         | _ -> ()
-
-        adtCases <-
+        let mutable adtCases' = 
             adtCases
             |> List.replaceWith typename (function
                 | None -> Map.ofArray [|ctorName, t|]
@@ -95,6 +94,8 @@ type Sigma(UM: Unification.Manager) =
                     raise <| InvalidConstructorDefinination (CauseDuplicateConstructorName ctorName)
                 | Some cases ->
                     Map.add ctorName t cases)
+        adtCases <- adtCases'
+        // printfn "after adding typename: %s (%A)" typename (Array.ofList (List.map fst adtCases))
 
     let defineShape external hasFields typename parameters (fields: list<fieldname * monot>) =
         if Map.containsKey typename shapes then
@@ -126,7 +127,7 @@ type Sigma(UM: Unification.Manager) =
                 shapes
                 |> Map.add
                     typename
-                    { fields = Map.ofSeq fields
+                    { fields = fields
                       parameters = parameters }
 
     // return a pair: (a:polyt, b:monot) such that
@@ -137,7 +138,7 @@ type Sigma(UM: Unification.Manager) =
         match Map.tryFind typename shapes with
         | None -> raise <| UnboundTypeVariable(typename)
         | Some shape ->
-            match Map.tryFind fieldname shape.fields with
+            match List.tryLookup fieldname shape.fields with
             | None -> raise <| NoField(t, fieldname)
             | Some ft ->
                 let inst_target = TTuple([ t; tyref ])
@@ -206,7 +207,9 @@ type Sigma(UM: Unification.Manager) =
             else
                 raise <| NotGlobalVariable varname
 
-    member __.GetADTCases() = adtCases
+    member __.GetADTCases() = 
+        // printfn "adt types: %d" adtCases.Length
+        adtCases
 
     member __.GetRecordTypes() =
         records

@@ -52,7 +52,7 @@ class CodeGenOptions:
         ...
     
 
-def expr_49() -> TypeInfo:
+def expr_48() -> TypeInfo:
     return record_type("tbnf.Backends.Common.NameMangling.nameEnv", [], NameMangling_nameEnv, lambda: [["usedNames", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -62,9 +62,9 @@ class NameMangling_nameEnv(Record):
         self.used_names = used_names
     
 
-NameMangling_nameEnv_reflection = expr_49
+NameMangling_nameEnv_reflection = expr_48
 
-def expr_50() -> TypeInfo:
+def expr_49() -> TypeInfo:
     return record_type("tbnf.Backends.Common.NameMangling.IdentifierDescriptor", [], NameMangling_IdentifierDescriptor, lambda: [["isValidChar", lambda_type(int32_type, lambda_type(char_type, bool_type))], ["charToValid", lambda_type(int32_type, lambda_type(char_type, string_type))], ["nameEnv", NameMangling_nameEnv_reflection()]])
 
 
@@ -76,15 +76,15 @@ class NameMangling_IdentifierDescriptor(Record):
         self.name_env = name_env
     
 
-NameMangling_IdentifierDescriptor_reflection = expr_50
+NameMangling_IdentifierDescriptor_reflection = expr_49
 
 def NameMangling_IdentifierDescriptor_Create_Z48C5CCEF(is_valid_char: Callable[[int, str], bool], char_to_valid: Callable[[int, str], str]) -> NameMangling_IdentifierDescriptor:
-    class ObjectExpr51:
+    class ObjectExpr50:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    return NameMangling_IdentifierDescriptor(is_valid_char, char_to_valid, NameMangling_nameEnv(empty(ObjectExpr51())))
+    return NameMangling_IdentifierDescriptor(is_valid_char, char_to_valid, NameMangling_nameEnv(empty(ObjectExpr50())))
 
 
 def NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B(this: NameMangling_IdentifierDescriptor, x: NameMangling_nameEnv) -> NameMangling_IdentifierDescriptor:
@@ -163,7 +163,7 @@ def NameMangling_mangle(abandoned_names: Any, idr: NameMangling_IdentifierDescri
     return s
 
 
-def expr_52(gen0: TypeInfo) -> TypeInfo:
+def expr_51(gen0: TypeInfo) -> TypeInfo:
     return record_type("tbnf.Backends.Common.DocBuilder.block`1", [gen0], DocBuilder_block_1, lambda: [["suite", list_type(Doc_reflection())], ["value", gen0]])
 
 
@@ -174,9 +174,9 @@ class DocBuilder_block_1(Record, Generic[b]):
         self.value = value
     
 
-DocBuilder_block_1_reflection = expr_52
+DocBuilder_block_1_reflection = expr_51
 
-def expr_53() -> TypeInfo:
+def expr_52() -> TypeInfo:
     return class_type("tbnf.Backends.Common.DocBuilder.Builder", None, DocBuilder_Builder)
 
 
@@ -185,7 +185,7 @@ class DocBuilder_Builder:
         pass
     
 
-DocBuilder_Builder_reflection = expr_53
+DocBuilder_Builder_reflection = expr_52
 
 def DocBuilder_Builder__ctor() -> DocBuilder_Builder:
     return DocBuilder_Builder()
@@ -226,16 +226,16 @@ def DocBuilder_Builder__Delay_Z3A9C5A06(__: DocBuilder_Builder, x: Callable[[], 
 
 def DocBuilder_Builder__For_2B96F4AF(__: DocBuilder_Builder, m: Iterable[t], f: Callable[[t], DocBuilder_block_1[u]]) -> DocBuilder_block_1[FSharpList[u]]:
     suite : FSharpList[Doc] = empty_1()
-    def arrow_57(__: DocBuilder_Builder=__, m: Iterable[t]=m, f: Callable[[t], DocBuilder_block_1[u]]=f) -> Iterable[Any]:
-        def arrow_56(each: Any=None) -> Iterable[Any]:
+    def arrow_54(__: DocBuilder_Builder=__, m: Iterable[t]=m, f: Callable[[t], DocBuilder_block_1[u]]=f) -> Iterable[Any]:
+        def arrow_53(each: Any=None) -> Iterable[Any]:
             nonlocal suite
             m_0027 : DocBuilder_block_1[u] = f(each)
             suite = append(m_0027.suite, suite)
             return singleton_1(m_0027.value)
         
-        return collect(arrow_56, m)
+        return collect(arrow_53, m)
     
-    value : FSharpList[u] = to_list(delay(arrow_57))
+    value : FSharpList[u] = to_list(delay(arrow_54))
     return DocBuilder_block_1(suite, value)
 
 

@@ -431,7 +431,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                             |> parens
                         tparms + word typename'
                 
-                let fields = [for (fname, t) in Map.toArray shape.fields -> field_renamer fname, cg_type t]
+                let fields = [for (fname, t) in shape.fields -> field_renamer fname, cg_type t]
                 if List.isEmpty fields then
                     yield word "and" + ret_t + word "=" + word ("MK_" + typename') + word "of unit"
                     docCtorWrapFuncs <- (varname, "MK_" + typename', fields, ret_t) :: docCtorWrapFuncs

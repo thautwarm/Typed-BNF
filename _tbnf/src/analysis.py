@@ -1,75 +1,75 @@
 from __future__ import annotations
-from typing import (Any, Tuple, Optional, List, Callable)
+from typing import (Tuple, Any, Optional, List, Callable)
 from ..fable_modules.fable_library.array import reverse as reverse_1
 from ..fable_modules.fable_library.list import (FSharpList, empty as empty_2, map, reverse, length, iterate, is_empty, cons, of_array as of_array_1, try_item, map_indexed, fold, contains as contains_1, to_array)
-from ..fable_modules.fable_library.map import (empty, of_array, contains_key, FSharpMap__get_Item, try_find, add, count, of_seq)
-from ..fable_modules.fable_library.reflection import (TypeInfo, string_type, list_type, class_type, record_type, array_type)
+from ..fable_modules.fable_library.map import (empty, of_array, contains_key, FSharpMap__get_Item, try_find, add)
+from ..fable_modules.fable_library.reflection import (TypeInfo, string_type, list_type, tuple_type, record_type, class_type, array_type)
 from ..fable_modules.fable_library.set import (empty as empty_1, contains, add as add_1)
 from ..fable_modules.fable_library.string import (to_text, interpolate, to_console, printf)
 from ..fable_modules.fable_library.types import Record
 from ..fable_modules.fable_library.util import (compare_primitives, string_hash, get_enumerator, ignore)
 from .exceptions import (NotGlobalVariable, InvalidKind, UnboundTypeVariable, InvalidTypeApplication, DuplicateVariable, DuplicateTypeVariable, InvalidConstructorDefininationCause, InvalidConstructorDefinination, NoField, UnboundVariable, ComponentAccessingOutOfBound, UnboundLexer, DuplicateNonterminal, DuplicateLexer, UnboundNonterminal)
-from .grammar import (monot_reflection, _predefined_typenames, monot, polyt, monot__prune, monot__apply_to_children_z6a62bcbf, TTuple, position, position_reflection, definition, expr as expr_1, node as node_5, TConst_str, TConst_int, TConst_bool, TConst_float, TList, lexerule, production as production_1, symbol, TConst_token)
+from .grammar import (monot, monot_reflection, _predefined_typenames, polyt, monot__prune, monot__apply_to_children_z6a62bcbf, TTuple, position, position_reflection, definition, expr as expr_1, node as node_5, TConst_str, TConst_int, TConst_bool, TConst_float, TList, lexerule, production as production_1, symbol, TConst_token)
 from .macro_resolve import resolve_macro
 from .op import basename
 from .unification import (Manager, Manager__NewTyRef_Z721C83C5, Manager__Unify, Manager__Instantiate_Z25E5E15E, Manager_reflection, Manager__ctor)
-from .utils import List_replaceWith
+from .utils import (List_replaceWith, List_tryLookup)
 
-def expr_61() -> TypeInfo:
-    return record_type("tbnf.Analysis.Shape", [], Shape, lambda: [["parameters", list_type(string_type)], ["fields", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, monot_reflection()])]])
+def expr_60() -> TypeInfo:
+    return record_type("tbnf.Analysis.Shape", [], Shape, lambda: [["parameters", list_type(string_type)], ["fields", list_type(tuple_type(string_type, monot_reflection()))]])
 
 
 class Shape(Record):
-    def __init__(self, parameters: FSharpList[str], fields: Any) -> None:
+    def __init__(self, parameters: FSharpList[str], fields: FSharpList[Tuple[str, monot]]) -> None:
         super().__init__()
         self.parameters = parameters
         self.fields = fields
     
 
-Shape_reflection = expr_61
+Shape_reflection = expr_60
 
-def expr_67() -> TypeInfo:
+def expr_66() -> TypeInfo:
     return class_type("tbnf.Analysis.Sigma", None, Sigma)
 
 
 class Sigma:
     def __init__(self, UM: Manager=None) -> None:
         self.UM = UM
-        class ObjectExpr62:
+        class ObjectExpr61:
             @property
             def Compare(self) -> Any:
                 return lambda x, y: compare_primitives(x, y)
             
-        self.shapes = empty(ObjectExpr62())
-        class ObjectExpr63:
+        self.shapes = empty(ObjectExpr61())
+        class ObjectExpr62:
             @property
             def Compare(self) -> Any:
                 return lambda x_1, y_1: compare_primitives(x_1, y_1)
             
-        self.kinds = of_array(_predefined_typenames, ObjectExpr63())
-        class ObjectExpr64:
+        self.kinds = of_array(_predefined_typenames, ObjectExpr62())
+        class ObjectExpr63:
             @property
             def Compare(self) -> Any:
                 return lambda x_2, y_2: compare_primitives(x_2, y_2)
             
-        self.global_variables = empty(ObjectExpr64())
-        class ObjectExpr65:
+        self.global_variables = empty(ObjectExpr63())
+        class ObjectExpr64:
             @property
             def Compare(self) -> Any:
                 return lambda x_3, y_3: compare_primitives(x_3, y_3)
             
-        self.constructors = empty_1(ObjectExpr65())
-        class ObjectExpr66:
+        self.constructors = empty_1(ObjectExpr64())
+        class ObjectExpr65:
             @property
             def Compare(self) -> Any:
                 return lambda x_4, y_4: compare_primitives(x_4, y_4)
             
-        self.external_types = empty_1(ObjectExpr66())
+        self.external_types = empty_1(ObjectExpr65())
         self.records = empty_2()
         self.adt_cases = empty_2()
     
 
-Sigma_reflection = expr_67
+Sigma_reflection = expr_66
 
 def Sigma__ctor_Z57FA2555(UM: Manager) -> Sigma:
     return Sigma(UM)
@@ -169,10 +169,10 @@ def Sigma__checkKind__Z25145215(this: Sigma, t: monot) -> None:
                         "name": t_1.fields[0].fields[0]
                     })
                 
-                def arrow_68(t_2: monot, this: Sigma=this, t: monot=t) -> None:
+                def arrow_67(t_2: monot, this: Sigma=this, t: monot=t) -> None:
                     Sigma__checkKind__Z25145215(this, t_2)
                 
-                iterate(arrow_68, t_1.fields[1])
+                iterate(arrow_67, t_1.fields[1])
             
             else: 
                 raise UnboundTypeVariable(t_1.fields[0].fields[0])
@@ -183,10 +183,10 @@ def Sigma__checkKind__Z25145215(this: Sigma, t: monot) -> None:
         
     
     else: 
-        def arrow_69(t_3: monot, this: Sigma=this, t: monot=t) -> None:
+        def arrow_68(t_3: monot, this: Sigma=this, t: monot=t) -> None:
             Sigma__checkKind__Z25145215(this, t_3)
         
-        monot__apply_to_children_z6a62bcbf(t_1, arrow_69)
+        monot__apply_to_children_z6a62bcbf(t_1, arrow_68)
     
 
 
@@ -215,7 +215,7 @@ def Sigma__addCase(this: Sigma, typename: str, ctor_name: str, t: FSharpList[Tup
     match_value : Optional[Shape] = try_find(typename, this.shapes)
     (pattern_matching_result,) = (None,)
     if match_value is not None:
-        if count(match_value.fields) != 0:
+        if length(match_value.fields) != 0:
             pattern_matching_result = 0
         
         else: 
@@ -231,12 +231,7 @@ def Sigma__addCase(this: Sigma, typename: str, ctor_name: str, t: FSharpList[Tup
     elif pattern_matching_result == 1:
         if match_value is None:
             Sigma__registerType(this, typename, 0)
-            class ObjectExpr70:
-                @property
-                def Compare(self) -> Any:
-                    return lambda x, y: compare_primitives(x, y)
-                
-            this.shapes = add(typename, Shape(empty_2(), empty(ObjectExpr70())), this.shapes)
+            this.shapes = add(typename, Shape(empty_2(), empty_2()), this.shapes)
         
         elif not is_empty(match_value.parameters):
             raise InvalidConstructorDefinination(InvalidConstructorDefininationCause(2))
@@ -256,15 +251,16 @@ def Sigma__addCase(this: Sigma, typename: str, ctor_name: str, t: FSharpList[Tup
             
         
         else: 
-            class ObjectExpr71:
+            class ObjectExpr69:
                 @property
                 def Compare(self) -> Any:
-                    return lambda x_1, y_1: compare_primitives(x_1, y_1)
+                    return lambda x, y: compare_primitives(x, y)
                 
-            return of_array([(ctor_name, t)], ObjectExpr71())
+            return of_array([(ctor_name, t)], ObjectExpr69())
         
     
-    this.adt_cases = List_replaceWith(typename, func, this.adt_cases)
+    adt_cases_0027 : FSharpList[Tuple[str, Any]] = List_replaceWith(typename, func, this.adt_cases)
+    this.adt_cases = adt_cases_0027
 
 
 def Sigma__defineShape(this: Sigma, external: bool, has_fields: bool, typename: str, parameters: FSharpList[str], fields: FSharpList[Tuple[str, monot]]) -> None:
@@ -293,16 +289,7 @@ def Sigma__defineShape(this: Sigma, external: bool, has_fields: bool, typename: 
             Sigma__registerExistingVariable(this, typename, polyt(1, monot(3, fields, monot(1, typename))) if (is_empty(parameters)) else (polyt(0, parameters, monot(3, fields, monot(2, monot(1, typename), map(lambda arg0, this=this, external=external, has_fields=has_fields, typename=typename, parameters=parameters, fields=fields: monot(4, arg0), parameters))))))
             this.records = cons(typename, this.records)
         
-        def arrow_73(this: Sigma=this, external: bool=external, has_fields: bool=has_fields, typename: str=typename, parameters: FSharpList[str]=parameters, fields: FSharpList[Tuple[str, monot]]=fields) -> Any:
-            table : Any = this.shapes
-            class ObjectExpr72:
-                @property
-                def Compare(self) -> Any:
-                    return lambda x, y: compare_primitives(x, y)
-                
-            return add(typename, Shape(parameters, of_seq(fields, ObjectExpr72())), table)
-        
-        this.shapes = arrow_73()
+        this.shapes = add(typename, Shape(parameters, fields), this.shapes)
     
 
 
@@ -311,7 +298,7 @@ def Sigma__lookupField(this: Sigma, t: monot, fieldname: str, tyref: monot) -> m
     match_value : Optional[Shape] = try_find(typename, this.shapes)
     if match_value is not None:
         shape : Shape = match_value
-        match_value_1 : Optional[monot] = try_find(fieldname, shape.fields)
+        match_value_1 : Optional[monot] = List_tryLookup(fieldname, shape.fields)
         if match_value_1 is not None:
             ft : monot = match_value_1
             inst_target : monot = TTuple(of_array_1([t, tyref]))
@@ -367,7 +354,7 @@ def Sigma__registerCtorGVar(this: Sigma, varname: str, t: monot) -> None:
     
 
 
-def expr_74() -> TypeInfo:
+def expr_70() -> TypeInfo:
     return record_type("tbnf.Analysis.Analyzer", [], Analyzer, lambda: [["UM", Manager_reflection()], ["Sigma", Sigma_reflection()], ["currentPos", position_reflection()], ["Omega", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, monot_reflection()])], ["LiteralTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["ReferencedNamedTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["TokenFragments", array_type(string_type)], ["IgnoreSet", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -384,37 +371,37 @@ class Analyzer(Record):
         self.IgnoreSet = IgnoreSet
     
 
-Analyzer_reflection = expr_74
+Analyzer_reflection = expr_70
 
 def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]:
     UM : Manager = Manager__ctor()
     Sigma_1 : Sigma = Sigma__ctor_Z57FA2555(UM)
     current_pos : position = None
-    class ObjectExpr75:
+    class ObjectExpr71:
         @property
         def Compare(self) -> Any:
             return lambda x, y: compare_primitives(x, y)
         
-    Omega : Any = empty(ObjectExpr75())
-    class ObjectExpr76:
+    Omega : Any = empty(ObjectExpr71())
+    class ObjectExpr72:
         @property
         def Compare(self) -> Any:
             return lambda x_1, y_1: compare_primitives(x_1, y_1)
         
-    LiteralTokens : Any = empty_1(ObjectExpr76())
-    class ObjectExpr77:
+    LiteralTokens : Any = empty_1(ObjectExpr72())
+    class ObjectExpr73:
         @property
         def Compare(self) -> Any:
             return lambda x_2, y_2: compare_primitives(x_2, y_2)
         
-    ReferencedNamedTokens : Any = empty_1(ObjectExpr77())
+    ReferencedNamedTokens : Any = empty_1(ObjectExpr73())
     TokenFragments : FSharpList[str] = empty_2()
-    class ObjectExpr78:
+    class ObjectExpr74:
         @property
         def Compare(self) -> Any:
             return lambda x_3, y_3: compare_primitives(x_3, y_3)
         
-    IgnoreSet : Any = empty_1(ObjectExpr78())
+    IgnoreSet : Any = empty_1(ObjectExpr74())
     def infer_e(s_gamma: Any, S: FSharpList[monot], e: expr_1, stmts: List[definition]=stmts) -> expr_1:
         nonlocal current_pos
         S_1 : FSharpList[monot] = S
@@ -530,7 +517,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                 l = x_8.fields[0]
             
             elif x_8.tag == 11:
-                class ObjectExpr79:
+                class ObjectExpr75:
                     @property
                     def Equals(self) -> Any:
                         return lambda x_9, y_6: x_9 == y_6
@@ -539,7 +526,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                     def GetHashCode(self) -> Any:
                         return lambda x_9: string_hash(x_9)
                     
-                if contains_1(x_8.fields[0], TokenFragments, ObjectExpr79()):
+                if contains_1(x_8.fields[0], TokenFragments, ObjectExpr75()):
                     pattern_matching_result = 3
                 
                 else: 
@@ -573,11 +560,11 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
             break
     
     try: 
-        def arrow_80(x_10: position) -> None:
+        def arrow_76(x_10: position) -> None:
             nonlocal current_pos
             current_pos = x_10
         
-        stmts_1 : List[definition] = resolve_macro(arrow_80, stmts)
+        stmts_1 : List[definition] = resolve_macro(arrow_76, stmts)
         for idx in range(0, (len(stmts_1) - 1) + 1, 1):
             stmt : definition = stmts_1[idx]
             (pattern_matching_result_1, decl_1, decl_2, decl_3, decl_4, decl_5) = (None, None, None, None, None, None)
@@ -650,7 +637,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                     decl_7 = stmt.fields[0]
                 
                 elif stmt.tag == 2:
-                    class ObjectExpr81:
+                    class ObjectExpr77:
                         @property
                         def Equals(self) -> Any:
                             return lambda x_4, y_4: x_4 == y_4
@@ -659,7 +646,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                         def GetHashCode(self) -> Any:
                             return lambda x_4: string_hash(x_4)
                         
-                    if contains_1(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr81()):
+                    if contains_1(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr77()):
                         pattern_matching_result_2 = 1
                         decl_8 = stmt.fields[0]
                     
@@ -706,7 +693,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                                     LiteralTokens = add_1(n, LiteralTokens)
                                 
                                 else: 
-                                    class ObjectExpr82:
+                                    class ObjectExpr78:
                                         @property
                                         def Equals(self) -> Any:
                                             return lambda x_5, y_5: x_5 == y_5
@@ -715,7 +702,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                                         def GetHashCode(self) -> Any:
                                             return lambda x_5: string_hash(x_5)
                                         
-                                    if not contains_1(n, TokenFragments, ObjectExpr82()):
+                                    if not contains_1(n, TokenFragments, ObjectExpr78()):
                                         raise UnboundLexer(n)
                                     
                                     else: 
@@ -736,10 +723,10 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                                 
                             
                             else: 
-                                def arrow_83(s: symbol=s) -> Exception:
+                                def arrow_79(s: symbol=s) -> Exception:
                                     raise Exception("macrocall not processed")
                                 
-                                raise arrow_83()
+                                raise arrow_79()
                             
                         
                         S_2 : FSharpList[monot] = map(infer_p, production.symbols)
@@ -752,11 +739,11 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                 current_pos = decl_11["pos"]
                 check_lexerule(decl_11["define"])
             
-        def arrow_84(_unit=None) -> Analyzer:
+        def arrow_80(_unit=None) -> Analyzer:
             TokenFragments_1 : List[str] = reverse_1(to_array(TokenFragments))
             return Analyzer(UM, Sigma_1, current_pos, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet)
         
-        return (stmts_1, arrow_84())
+        return (stmts_1, arrow_80())
     
     except Exception as e_1:
         arg30_1 : str = current_pos.filename
