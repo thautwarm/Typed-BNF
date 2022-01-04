@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using Antlr4.Runtime;
 using System;
 using System.Linq;
@@ -6,7 +7,37 @@ using System.Linq;
 
 namespace simple_json
 {
+    
+    public struct MyList<T>: System.Collections.IEnumerable
+    {
+        public IEnumerator<T> GetEnumerator() => contents.GetEnumerator();
+        private IEnumerator GetEnumerator1() => this.GetEnumerator();
 
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator1();
+
+        public void Add(T x) => contents.Add(x);
+
+        List<T> contents;
+
+        public MyList()
+        {
+            contents = new List<T>();
+        }
+        private MyList(MyList<T> x)
+        {
+            this.contents = x;
+        }
+        
+        public override string ToString()
+        {
+            
+            return "[" + System.String.Join(",", contents.Select(x => x.ToString())) + "]";
+        }
+
+        
+        public static implicit operator List<T>(MyList<T> xs) => xs.contents;
+        public static implicit operator MyList<T>(List<T> xs) => new MyList<T>(xs);
+    }
     public partial interface JsonValue
     {
         // public string show();
@@ -95,7 +126,7 @@ namespace simple_json
         {
             return token.Text;
         }
-        public static List<T> appendList<T>(List<T> lst, T e)
+        public static MyList<T> appendList<T>(MyList<T> lst, T e)
         {
             lst.Add(e);
             return lst;

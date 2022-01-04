@@ -4,7 +4,7 @@ def rename_type(x):
     if x == 'Json':
         return 'JsonValue'
     if x == 'list':
-        return 'System.Collections.Generic.List'
+        return 'MyList'
     if x == 'token':
         return 'IToken'
     return x
