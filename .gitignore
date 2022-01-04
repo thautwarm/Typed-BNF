@@ -1,4 +1,5 @@
 .antlr/
+/parser-data/
 *.interp
 *.tokens
 /**.g4

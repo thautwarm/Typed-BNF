@@ -2,6 +2,11 @@ open Lua_require;;
 open Lua_lexer;;
 
 type ___used_t_head_90xasda
+and funcname = 
+| DotName of { value1 : funcname;value2 : tbnf_token }
+| MethodName of { value1 : funcname;value2 : tbnf_token }
+| VarName of { value : tbnf_token }
+
 and arguments = 
 | PositionalArgs of { value1 : tbnf_token;value2 : (expr) list }
 | StringArg of { value : tbnf_token }
@@ -24,7 +29,7 @@ and stmt =
 | ForInStmt of { value1 : tbnf_token;value2 : (tbnf_token) list;value3 : (expr) list;value4 : block }
 | ForRangeStmt of { value1 : tbnf_token;value2 : tbnf_token;value3 : range;value4 : block }
 | GotoStmt of { value1 : tbnf_token;value2 : tbnf_token }
-| IfStmt of { value1 : tbnf_token;value2 : expr;value3 : (if_elseif) list;value4 : (if_else) maybe }
+| IfStmt of { value1 : tbnf_token;value2 : expr;value3 : block;value4 : (if_elseif) list;value5 : (if_else) maybe }
 | LabelStmt of { value : tbnf_token }
 | RepeatStmt of { value1 : tbnf_token;value2 : block;value3 : expr }
 | ReturnStmt of { value1 : tbnf_token;value2 : (expr) list }
@@ -38,7 +43,7 @@ and expr =
 | CallMethod of { value1 : expr;value2 : tbnf_token;value3 : arguments }
 | Ellipse of { value1 : tbnf_token }
 | Exponent of { value1 : expr;value2 : expr }
-| FuncDef of { pos : tbnf_token;is_local : bool;fname : (tbnf_token) maybe;params : (params) maybe;body : block }
+| FuncDef of { pos : tbnf_token;is_local : bool;fname : (funcname) maybe;params : (params) maybe;body : block }
 | Index of { value1 : expr;value2 : expr }
 | Inv of { value1 : tbnf_token;value2 : expr }
 | Len of { value1 : tbnf_token;value2 : expr }
@@ -132,8 +137,8 @@ let mk_RepeatStmt (value1, value2, value3) : stmt =
     RepeatStmt { value1;value2;value3 }
 let mk_LabelStmt (value) : stmt =
     LabelStmt { value }
-let mk_IfStmt (value1, value2, value3, value4) : stmt =
-    IfStmt { value1;value2;value3;value4 }
+let mk_IfStmt (value1, value2, value3, value4, value5) : stmt =
+    IfStmt { value1;value2;value3;value4;value5 }
 let mk_GotoStmt (value1, value2) : stmt =
     GotoStmt { value1;value2 }
 let mk_ForRangeStmt (value1, value2, value3, value4) : stmt =
@@ -164,3 +169,9 @@ let mk_StringArg (value) : arguments =
     StringArg { value }
 let mk_PositionalArgs (value1, value2) : arguments =
     PositionalArgs { value1;value2 }
+let mk_VarName (value) : funcname =
+    VarName { value }
+let mk_MethodName (value1, value2) : funcname =
+    MethodName { value1;value2 }
+let mk_DotName (value1, value2) : funcname =
+    DotName { value1;value2 }

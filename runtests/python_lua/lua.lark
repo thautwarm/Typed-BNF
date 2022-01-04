@@ -68,6 +68,14 @@
 
 
 
+
+
+
+
+
+
+
+
 start : block -> start_0
 nempty_list_o_stat_p_ : stat -> nempty_list_o_stat_p__0
                       | nempty_list_o_stat_p_ stat -> nempty_list_o_stat_p__1
@@ -96,10 +104,10 @@ stat : _I__H__I_ -> stat_0
      | _I_DO_I_ block _I_END_I_ -> stat_6
      | _I_WHILE_I_ exp _I_DO_I_ block _I_END_I_ -> stat_7
      | _I_REPEAT_I_ block _I_UNTIL_I_ exp -> stat_8
-     | _I_IF_I_ exp _I_THEN_I_ list_o_elseif_p_ opt_o_else_p_ _I_END_I_ -> stat_9
+     | _I_IF_I_ exp _I_THEN_I_ block list_o_elseif_p_ opt_o_else_p_ _I_END_I_ -> stat_9
      | _I_FOR_I_ NAME _I__J__I_ range _I_DO_I_ block _I_END_I_ -> stat_10
      | _I_FOR_I_ nempty_seplist_o__i__s__i__s__i_name_k__p_ _I_IN_I_ nempty_seplist_o__i__s__i__s_exp_p_ _I_DO_I_ block _I_END_I_ -> stat_11
-     | _I_LOCAL_I_ _I_FUNCTION_I_ NAME _I__O__I_ opt_o_parlist_p_ _I__P__I_ block _I_END_I_ -> stat_12
+     | _I_LOCAL_I_ _I_FUNCTION_I_ funcname _I__O__I_ opt_o_parlist_p_ _I__P__I_ block _I_END_I_ -> stat_12
      | _I_LOCAL_I_ nempty_seplist_o__i__s__i__s__i_name_k__p_ opt_assign_rhs -> stat_13
 opt_assign_rhs : _I__J__I_ nempty_seplist_o__i__s__i__s_exp_p_ -> opt_assign_rhs_0
                |  -> opt_assign_rhs_1
@@ -144,11 +152,11 @@ seplist_o__i__s__i__s_exp_p_ : allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p_
 args : _I__O__I_ seplist_o__i__s__i__s_exp_p_ _I__P__I_ -> args_0
      | tableconstructor -> args_1
      | STR_LIT -> args_2
-opt_o__i_name_k__p_ : NAME -> opt_o__i_name_k__p__0
-                    |  -> opt_o__i_name_k__p__1
+opt_o_funcname_p_ : funcname -> opt_o_funcname_p__0
+                  |  -> opt_o_funcname_p__1
 opt_o_parlist_p_ : parlist -> opt_o_parlist_p__0
                  |  -> opt_o_parlist_p__1
-functiondef : _I_FUNCTION_I_ opt_o__i_name_k__p_ _I__O__I_ opt_o_parlist_p_ _I__P__I_ block _I_END_I_ -> functiondef_0
+functiondef : _I_FUNCTION_I_ opt_o_funcname_p_ _I__O__I_ opt_o_parlist_p_ _I__P__I_ block _I_END_I_ -> functiondef_0
 varargs : _I__S__I_ _I__U__U__U__I_ -> varargs_0
         |  -> varargs_1
 nempty_seplist_o__i__s__i__s__i_name_k__p_ : NAME -> nempty_seplist_o__i__s__i__s__i_name_k__p__0
@@ -157,12 +165,13 @@ parlist : _I__U__U__U__I_ -> parlist_0
         | nempty_seplist_o__i__s__i__s__i_name_k__p_ varargs -> parlist_1
 nempty_seplist_o_fieldsep_s_field_p_ : field -> nempty_seplist_o_fieldsep_s_field_p__0
                                      | nempty_seplist_o_fieldsep_s_field_p_ fieldsep field -> nempty_seplist_o_fieldsep_s_field_p__1
-allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_ :  -> allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p__0
-                                                      | nempty_seplist_o_fieldsep_s_field_p_ -> allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p__1
-seplist_o_fieldsep_s_field_p_ : allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_ -> seplist_o_fieldsep_s_field_p__0
 opt_o_fieldsep_p_ : fieldsep -> opt_o_fieldsep_p__0
                   |  -> opt_o_fieldsep_p__1
-tableconstructor : _I__T__I__J seplist_o_fieldsep_s_field_p_ opt_o_fieldsep_p_ _I__V__I_ -> tableconstructor_0
+tableconstructor : _I__T__I__J nempty_seplist_o_fieldsep_s_field_p_ opt_o_fieldsep_p_ _I__V__I_ -> tableconstructor_0
+                 | _I__T__I__J _I__V__I_ -> tableconstructor_1
+funcname : funcname _I__U__I_ NAME -> funcname_0
+         | funcname _I__G__I_ NAME -> funcname_1
+         | NAME -> funcname_2
 field : _I__N__I_ exp _I__P__I__J _I__J__I_ exp -> field_0
       | NAME _I__J__I_ exp -> field_1
       | exp -> field_2

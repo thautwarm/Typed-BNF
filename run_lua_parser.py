@@ -13,6 +13,8 @@ try:
     pprint(parser.parse(r"""function g()
     return {1, 2}
 end
+-- asdasdasd 
+-- asda 
 function f()
     local y = {1, 2}
     local x

@@ -78,6 +78,10 @@ start : start__y_ EOF { $1 }
 
 
 
+
+
+
+
 start__y_ : block { 
                           $1
                       }
@@ -162,8 +166,8 @@ stat : I__H__I_ {
      | I_REPEAT_I_ block I_UNTIL_I_ exp { 
                      mk_RepeatStmt($1, $2, $4)
                  }
-     | I_IF_I_ exp I_THEN_I_ list_o_elseif_p_ opt_o_else_p_ I_END_I_ { 
-                     mk_IfStmt($1, $2, $4, $5)
+     | I_IF_I_ exp I_THEN_I_ block list_o_elseif_p_ opt_o_else_p_ I_END_I_ { 
+                     mk_IfStmt($1, $2, $4, $5, $6)
                  }
      | I_FOR_I_ NAME I__J__I_ range I_DO_I_ block I_END_I_ { 
                      mk_ForRangeStmt($1, $2, $4, $6)
@@ -171,7 +175,7 @@ stat : I__H__I_ {
      | I_FOR_I_ nempty_seplist_o__i__s__i__s__i_name_k__p_ I_IN_I_ nempty_seplist_o__i__s__i__s_exp_p_ I_DO_I_ block I_END_I_ { 
                      mk_ForInStmt($1, $2, $4, $6)
                  }
-     | I_LOCAL_I_ I_FUNCTION_I_ NAME I__O__I_ opt_o_parlist_p_ I__P__I_ block I_END_I_ { 
+     | I_LOCAL_I_ I_FUNCTION_I_ funcname I__O__I_ opt_o_parlist_p_ I__P__I_ block I_END_I_ { 
                      mk_ExprStmt(mk_FuncDef($1, true, some($3), $5, $7))
                  }
      | I_LOCAL_I_ nempty_seplist_o__i__s__i__s__i_name_k__p_ opt_assign_rhs { 
@@ -306,19 +310,19 @@ args : I__O__I_ seplist_o__i__s__i__s_exp_p_ I__P__I_ {
      | STR_LIT { 
                      mk_StringArg($1)
                  }
-opt_o__i_name_k__p_ : NAME { 
-                                    some($1)
-                                }
-                    |  { 
-                                    none()
-                                }
+opt_o_funcname_p_ : funcname { 
+                                  some($1)
+                              }
+                  |  { 
+                                  none()
+                              }
 opt_o_parlist_p_ : parlist { 
                                  some($1)
                              }
                  |  { 
                                  none()
                              }
-functiondef : I_FUNCTION_I_ opt_o__i_name_k__p_ I__O__I_ opt_o_parlist_p_ I__P__I_ block I_END_I_ { 
+functiondef : I_FUNCTION_I_ opt_o_funcname_p_ I__O__I_ opt_o_parlist_p_ I__P__I_ block I_END_I_ { 
                             mk_FuncDef($1, false, $2, $4, $6)
                         }
 varargs : I__S__I_ I__U__U__U__I_ { 
@@ -363,6 +367,15 @@ opt_o_fieldsep_p_ : fieldsep {
 tableconstructor : I__T__I__I seplist_o_fieldsep_s_field_p_ opt_o_fieldsep_p_ I__V__I_ { 
                                  mk_TableConstructor($1, $2)
                              }
+funcname : funcname I__U__I_ NAME { 
+                         mk_DotName($1, $3)
+                     }
+         | funcname I__G__I_ NAME { 
+                         mk_MethodName($1, $3)
+                     }
+         | NAME { 
+                         mk_VarName($1)
+                     }
 field : I__N__I_ exp I__P__I__I I__J__I_ exp { 
                       mk_IndexField($1, $2, $5)
                   }

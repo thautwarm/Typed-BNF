@@ -342,15 +342,15 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitArgs([NotNull] luaParser.ArgsContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.opt_o__i_name_k__p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.opt_o_funcname_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterOpt_o__i_name_k__p_([NotNull] luaParser.Opt_o__i_name_k__p_Context context);
+	void EnterOpt_o_funcname_p_([NotNull] luaParser.Opt_o_funcname_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.opt_o__i_name_k__p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.opt_o_funcname_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitOpt_o__i_name_k__p_([NotNull] luaParser.Opt_o__i_name_k__p_Context context);
+	void ExitOpt_o_funcname_p_([NotNull] luaParser.Opt_o_funcname_p_Context context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.opt_o_parlist_p_"/>.
 	/// </summary>
@@ -451,6 +451,16 @@ public interface IluaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitTableconstructor([NotNull] luaParser.TableconstructorContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="luaParser.funcname"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFuncname([NotNull] luaParser.FuncnameContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="luaParser.funcname"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFuncname([NotNull] luaParser.FuncnameContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.field"/>.
 	/// </summary>

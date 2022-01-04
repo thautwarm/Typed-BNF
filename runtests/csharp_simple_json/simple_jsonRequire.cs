@@ -3,12 +3,13 @@ using System.Collections;
 using Antlr4.Runtime;
 using System;
 using System.Linq;
+using System.Diagnostics;
 
 
 namespace simple_json
 {
-    
-    public struct MyList<T>: System.Collections.IEnumerable
+
+    public struct MyList<T> : System.Collections.IEnumerable
     {
         public IEnumerator<T> GetEnumerator() => contents.GetEnumerator();
         private IEnumerator GetEnumerator1() => this.GetEnumerator();
@@ -27,14 +28,14 @@ namespace simple_json
         {
             this.contents = x;
         }
-        
+
         public override string ToString()
         {
-            
+
             return "[" + System.String.Join(",", contents.Select(x => x.ToString())) + "]";
         }
 
-        
+
         public static implicit operator List<T>(MyList<T> xs) => xs.contents;
         public static implicit operator MyList<T>(List<T> xs) => new MyList<T>(xs);
     }
@@ -55,16 +56,44 @@ namespace simple_json
     }
     public class App
     {
-        public static void Main(string[] _)
+
+        public static List<A> repeat<A>(A x, int n)
         {
-            while(true)
+            var ret = new List<A> { };
+            for (var i = 0; i < n; i++)
             {
-                Console.Write("json> ");
-                Console.WriteLine (JsonValue.Parse(Console.ReadLine()).ToString());
+                ret.Add(x);
             }
+            return ret;
+        }
+        public static void Main(string[] modes)
+        {
+            if (modes.Length == 2)
+            {
+                var texts = repeat(System.IO.File.ReadAllText(modes[0]), 100);
+                var prevent_opt = new List<string>();
+                List<long> times = new List<long>();
+                foreach (var text in texts)
+                {
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+                    var res = JsonValue.Parse(text);
+                    sw.Stop();
+                    times.Add(sw.ElapsedMilliseconds);
+                    prevent_opt.Add(System.String.Join("", res.ToString()));
+                }
+                System.IO.File.WriteAllText(modes[1], System.String.Join(",", times));
+                return;
+            }
+            while (true)
+            {
+                Console.Write("lua parser> ");
+                Console.WriteLine(JsonValue.Parse(Console.ReadLine()).ToString());
+            }
+
         }
     }
-    
+
     // public class JNull : JsonValue
     // {
     //     public string show() => "null";
@@ -162,6 +191,6 @@ namespace simple_json
         public static string esc_string(string s) =>
             "\"" + System.Text.RegularExpressions.Regex.Escape(s).Replace("\"", "\\\"") + "\"";
     }
-    
+
 
 }

@@ -5,6 +5,25 @@ import typing as typing
 from .lua_require import (mkBinOpSeq,mkOperand,mkOperator,op,none,some,maybe,listMap,appendList)
 
 @dataclasses.dataclass
+class DotName:
+    value1: funcname
+    value2: token
+
+@dataclasses.dataclass
+class MethodName:
+    value1: funcname
+    value2: token
+
+@dataclasses.dataclass
+class VarName:
+    value: token
+
+if typing.TYPE_CHECKING:
+    funcname = typing.Union[VarName,MethodName,DotName]
+else:
+    funcname = (VarName,MethodName,DotName)
+
+@dataclasses.dataclass
 class PositionalArgs:
     value1: token
     value2: list[expr]
@@ -98,8 +117,9 @@ class GotoStmt:
 class IfStmt:
     value1: token
     value2: expr
-    value3: list[if_elseif]
-    value4: maybe[if_else]
+    value3: block
+    value4: list[if_elseif]
+    value5: maybe[if_else]
 
 @dataclasses.dataclass
 class LabelStmt:
@@ -167,7 +187,7 @@ class Exponent:
 class FuncDef:
     pos: token
     is_local: bool
-    fname: maybe[token]
+    fname: maybe[funcname]
     params: maybe[params]
     body: block
 
@@ -207,7 +227,7 @@ class Not:
 
 @dataclasses.dataclass
 class Num:
-    value: token
+    value1: token
 
 @dataclasses.dataclass
 class String:

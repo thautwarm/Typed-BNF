@@ -409,17 +409,17 @@ public partial class luaBaseListener : IluaListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitArgs([NotNull] luaParser.ArgsContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.opt_o__i_name_k__p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.opt_o_funcname_p_"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterOpt_o__i_name_k__p_([NotNull] luaParser.Opt_o__i_name_k__p_Context context) { }
+	public virtual void EnterOpt_o_funcname_p_([NotNull] luaParser.Opt_o_funcname_p_Context context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.opt_o__i_name_k__p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.opt_o_funcname_p_"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitOpt_o__i_name_k__p_([NotNull] luaParser.Opt_o__i_name_k__p_Context context) { }
+	public virtual void ExitOpt_o_funcname_p_([NotNull] luaParser.Opt_o_funcname_p_Context context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.opt_o_parlist_p_"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -540,6 +540,18 @@ public partial class luaBaseListener : IluaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitTableconstructor([NotNull] luaParser.TableconstructorContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="luaParser.funcname"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFuncname([NotNull] luaParser.FuncnameContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="luaParser.funcname"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFuncname([NotNull] luaParser.FuncnameContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.field"/>.
 	/// <para>The default implementation does nothing.</para>

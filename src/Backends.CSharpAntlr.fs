@@ -586,7 +586,7 @@ let codegen
                 let v = simplify_lexerule v
                 let n = name_of_named_term k
                 if Set.contains k analyzer.IgnoreSet then
-                    yield word n + word ":" + parensIfLOr v + word "-> skip;"
+                    yield word n + word ":" + parensIfLOr v + word "-> channel(HIDDEN);"
                 elif Set.contains k analyzer.ReferencedNamedTokens then
                     yield word n + word ":" + word (mk_lexer v) + word ";"
                 else

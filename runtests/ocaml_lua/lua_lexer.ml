@@ -144,12 +144,16 @@ type token =
 | NAME of tbnf_token
 | EOF
 
+let rule_LINE_COMMENT = [%sedlex.regexp? "-", "-", Star((Compl("\n"))), "\n"]
 let rule_SPACE = [%sedlex.regexp? " " | "\t" | "\r" | "\n"]
 let rule_DIGIT = [%sedlex.regexp? (48 .. 57)]
+let rule_HEXCHAR = [%sedlex.regexp? (48 .. 57) | (97 .. 122) | (65 .. 90)]
 let rule_UCHAR = [%sedlex.regexp? (97 .. 122) | (65 .. 90) | "_"]
 let rule_NAME = [%sedlex.regexp? rule_UCHAR, Star((rule_UCHAR | rule_DIGIT))]
 let rule_INT = [%sedlex.regexp? Plus(rule_DIGIT)]
-let rule_NUMERAL = [%sedlex.regexp? Opt("-"), rule_INT, Opt((".", rule_INT)), Opt((("E" | "e"), rule_INT))]
+let rule_INTEGRAL = [%sedlex.regexp? rule_INT, Opt((".", rule_INT)), Opt((("E" | "e"), rule_INT))]
+let rule_HEX = [%sedlex.regexp? "0x", Plus(rule_HEXCHAR)]
+let rule_NUMERAL = [%sedlex.regexp? Opt("-"), (rule_HEX | rule_INTEGRAL)]
 let rule_STR_LIT = [%sedlex.regexp? "\"", Star(("\\", any | Compl("\""))), "\""]
 let rule_NESTED_STR1 = [%sedlex.regexp? "[", Star(("]", Compl("]") | Compl("]"))), "]"]
 let rule_NESTED_STR2 = [%sedlex.regexp? "=", ("[", Star((Compl("]") | "]", (Compl("=") | "=", Compl("]")))), "]" | Star(("=", Compl("]") | Compl("=")))), "="]
@@ -272,5 +276,6 @@ let rec tokenizer lexbuf =
     | rule_NUMERAL -> NUMERAL (mktoken lexbuf)
     | rule_NAME -> NAME (mktoken lexbuf)
     | rule_SPACE -> tokenizer lexbuf
+    | rule_LINE_COMMENT -> tokenizer lexbuf
     | eof -> EOF
     | _ -> _unknown_token lexbuf

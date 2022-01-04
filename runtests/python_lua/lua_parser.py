@@ -98,6 +98,18 @@ class RBNFTransformer(Transformer):
     def field_0(self, __tbnf_COMPONENTS):
         return IndexField(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1], __tbnf_COMPONENTS[4])
     
+    def funcname_2(self, __tbnf_COMPONENTS):
+        return VarName(__tbnf_COMPONENTS[0])
+    
+    def funcname_1(self, __tbnf_COMPONENTS):
+        return MethodName(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
+    
+    def funcname_0(self, __tbnf_COMPONENTS):
+        return DotName(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
+    
+    def tableconstructor_1(self, __tbnf_COMPONENTS):
+        return TableConstructor(__tbnf_COMPONENTS[0], [])
+    
     def tableconstructor_0(self, __tbnf_COMPONENTS):
         return TableConstructor(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
     
@@ -106,15 +118,6 @@ class RBNFTransformer(Transformer):
     
     def opt_o_fieldsep_p__0(self, __tbnf_COMPONENTS):
         return some(__tbnf_COMPONENTS[0])
-    
-    def seplist_o_fieldsep_s_field_p__0(self, __tbnf_COMPONENTS):
-        return __tbnf_COMPONENTS[0]
-    
-    def allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p__1(self, __tbnf_COMPONENTS):
-        return __tbnf_COMPONENTS[0]
-    
-    def allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p__0(self, __tbnf_COMPONENTS):
-        return []
     
     def nempty_seplist_o_fieldsep_s_field_p__1(self, __tbnf_COMPONENTS):
         return appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
@@ -149,10 +152,10 @@ class RBNFTransformer(Transformer):
     def opt_o_parlist_p__0(self, __tbnf_COMPONENTS):
         return some(__tbnf_COMPONENTS[0])
     
-    def opt_o__i_name_k__p__1(self, __tbnf_COMPONENTS):
+    def opt_o_funcname_p__1(self, __tbnf_COMPONENTS):
         return none()
     
-    def opt_o__i_name_k__p__0(self, __tbnf_COMPONENTS):
+    def opt_o_funcname_p__0(self, __tbnf_COMPONENTS):
         return some(__tbnf_COMPONENTS[0])
     
     def args_2(self, __tbnf_COMPONENTS):
@@ -297,7 +300,7 @@ class RBNFTransformer(Transformer):
         return ForRangeStmt(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1], __tbnf_COMPONENTS[3], __tbnf_COMPONENTS[5])
     
     def stat_9(self, __tbnf_COMPONENTS):
-        return IfStmt(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1], __tbnf_COMPONENTS[3], __tbnf_COMPONENTS[4])
+        return IfStmt(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1], __tbnf_COMPONENTS[3], __tbnf_COMPONENTS[4], __tbnf_COMPONENTS[5])
     
     def stat_8(self, __tbnf_COMPONENTS):
         return RepeatStmt(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1], __tbnf_COMPONENTS[3])
