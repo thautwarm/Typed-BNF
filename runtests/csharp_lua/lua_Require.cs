@@ -16,7 +16,7 @@ namespace lua
 
         public void Add(T x) => contents.Add(x);
 
-        List<T> contents;
+        public List<T> contents;
 
         public MyList()
         {
@@ -81,6 +81,8 @@ namespace lua
 
         public static A mkBinOpSeq<A>(MyList<Op<A>> ops, Func<IToken, A, A, A> mkbin, Func<MyList<Op<A>>, A> mkunsolved)
         {
+            if (ops.contents.Count == 1)
+                return ops.contents[0].Value;
             return mkunsolved(ops);
         }
 

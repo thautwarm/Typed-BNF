@@ -170,6 +170,7 @@ atom   : "nil"     { Nil($1) }
        | "true"    { Bool($1, true) }
        | <NUMERAL> { Num($1) }
        | <STR_LIT> { String($1) }
+       | <NESTED_STR>     { String($1) }
        | "..."            { Ellipse($1) }
        | functiondef      { $1 }
        | tableconstructor { TableExpr($1) }
@@ -228,3 +229,14 @@ NAME =  UCHAR (UCHAR|DIGIT)*;
 INT = DIGIT+;
 NUMERAL = "-"? INT ("." INT)? (("E" | "e")  INT)?;
 STR_LIT = "\"" ("\\" _ | !"\"")* "\"";
+
+// [[.*]]
+NESTED_STR1 = "[" ("]" !"]"| !"]")* "]";
+// [=[.*]=]
+NESTED_STR2 =
+      "="
+      ( "[" (!"]" | "]" (!"=" | "=" !"]"))* "]"
+      | ("=" !"]"| !"=")*
+      )
+      "=";
+NESTED_STR = "[" (NESTED_STR1|NESTED_STR2)  "]";
