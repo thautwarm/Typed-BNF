@@ -6,5 +6,5 @@ def rename_type(x):
     if x == 'list':
         return 'System.Collections.Generic.List'
     if x == 'token':
-        return 'IToken',
+        return 'IToken'
     return x
