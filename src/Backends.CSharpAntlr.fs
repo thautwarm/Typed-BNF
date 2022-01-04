@@ -218,7 +218,7 @@ let codegen
     let name_of_nonterm n = cg_symbol (Nonterm n)
     let name_of_named_term n = cg_symbol (Term(n, false))
 
-    let mkActionName ntname idx = sprintf "%s_%i" ntname idx
+    let mkActionName ntname idx = sprintf "var_%i" ntname idx
 
     let defineCSharpFunc anns body =
         parens (
