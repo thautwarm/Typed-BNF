@@ -5,6 +5,11 @@ extern type maybe<'a>
     extern var some : <'a> 'a -> maybe<'a>
     extern var none : <'a> () -> maybe<'a>
 
+type funcname
+case DotName : (funcname, token) -> funcname
+case VarName : token -> funcname
+case MethodName : (funcname, token) -> funcname
+
 type stmt
 type expr
 type block(suite: list<stmt>, ret: maybe<stmt>)
@@ -47,12 +52,12 @@ case GotoStmt: (token /* head */, token /* name */) -> stmt
 case DoStmt: (token, block) -> stmt
 case WhileStmt: (token, expr, block) -> stmt
 case RepeatStmt: (token, block, expr) -> stmt
-case IfStmt: (token, expr, list<if_elseif>, maybe<if_else>) -> stmt
+case IfStmt: (token, expr, block, list<if_elseif>, maybe<if_else>) -> stmt
 case ForRangeStmt: (token, token, range, block) -> stmt
 case ForInStmt: (token, list<token>, list<expr>, block) -> stmt
 
 case FuncDef:
-      (pos: token, is_local: bool, fname: maybe<token>,
+      (pos: token, is_local: bool, fname: maybe<funcname>,
        params: maybe<params>, body: block) -> expr
 
 case Bin : (op: token, l: expr, r: expr) -> expr
@@ -60,7 +65,7 @@ case UnsolvedBin : list<op<expr>> -> expr
 case Var : token -> expr
 case Nil: token -> expr
 case Bool: (token, bool) -> expr
-case Num: token -> expr
+case Num: (token) -> expr
 case String: (token) -> expr
 case Ellipse: (token) -> expr
 case Exponent: (expr, expr) -> expr
@@ -117,13 +122,13 @@ stat : ";" { EmptyStmt($1) }
            { WhileStmt($1, $2, $4) }
      | "repeat" block "until" exp
            { RepeatStmt($1, $2, $4) }
-     | "if" exp "then" list(elseif) opt(else) "end"
-           { IfStmt($1, $2, $4, $5) }
+     | "if" exp "then" block list(elseif) opt(else) "end"
+           { IfStmt($1, $2, $4, $5, $6) }
      | "for" <NAME> "=" range "do" block "end"
            { ForRangeStmt($1, $2, $4, $6) }
      | "for" nempty_seplist(",", <NAME>) "in" nempty_seplist(",", exp) "do" block "end"
            { ForInStmt($1, $2, $4, $6) }
-     | "local" "function" <NAME> "(" opt(parlist) ")" block "end"
+     | "local" "function" funcname "(" opt(parlist) ")" block "end"
            { ExprStmt(FuncDef($1, true, some($3), $5, $7)) }
      | "local" nempty_seplist(",", <NAME>) opt_assign_rhs
            { Assignment(true, listMap($2, Var), $3) }
@@ -180,7 +185,7 @@ args : "(" seplist(",", exp) ")" { PositionalArgs($1, $2) }
      | tableconstructor          { TableArgs($1) }
      | <STR_LIT>           { StringArg($1) }
 
-functiondef : "function" opt(<NAME>) "(" opt(parlist) ")" block "end"
+functiondef : "function" opt(funcname) "(" opt(parlist) ")" block "end"
               { FuncDef($1, false, $2, $4, $6) }
 
 varargs : "," "..." { some($2) }
@@ -189,9 +194,14 @@ varargs : "," "..." { some($2) }
 parlist : "..." { params([], some($1)) }
         | nempty_seplist(",", <NAME>) varargs { params($1, $2) }
 
-tableconstructor : "{" seplist(fieldsep, field) opt(fieldsep) "}"
+tableconstructor : "{" nempty_seplist(fieldsep, field) opt(fieldsep) "}"
                  { TableConstructor($1, $2) }
+                 | "{" "}"
+                 { TableConstructor($1, []) }
 
+funcname : funcname "." <NAME>  { DotName($1, $3) }
+         | funcname ":" <NAME>  { MethodName($1, $3) }
+         | <NAME> { VarName($1) }
 
 field : "[" exp "]" "=" exp { IndexField($1, $2, $5) }
         | <NAME> "=" exp    { NameField($1, $3) }
@@ -221,13 +231,18 @@ binop : "or" { mkOperator($1)}
       | "%"  { mkOperator($1) }
 
 
-ignore SPACE
+ignore SPACE, LINE_COMMENT
+
+LINE_COMMENT = "-" "-" (!"\n")* "\n";
 SPACE = " " | "\t" | "\r" | "\n";
 DIGIT = [0-9];
+HEXCHAR = [0-9] | [a-z] | [A-Z];
 UCHAR = [a-z] | [A-Z] | "_" ;
 NAME =  UCHAR (UCHAR|DIGIT)*;
 INT = DIGIT+;
-NUMERAL = "-"? INT ("." INT)? (("E" | "e")  INT)?;
+INTEGRAL = INT ("." INT)? (("E" | "e")  INT)?;
+HEX = "0x" HEXCHAR+;
+NUMERAL = HEX | INTEGRAL;
 STR_LIT = "\"" ("\\" _ | !"\"")* "\"";
 
 // [[.*]]
