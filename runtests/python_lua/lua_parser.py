@@ -6,8 +6,8 @@ from lark.lexer import Lexer as Lexer
 from lark import Transformer as Transformer
 from lark import Lark as Lark
 from _tbnf.FableSedlex.sedlex import from_ustring as from_ustring
-tokenmaps = ["_I__J__I__J", "_I__L__I_", "_I__M__I_", "_I__O__I_", "_I__P__I_", "_I__Q__I__J", "_I__R__I_", "_I__S__I_", "_I__T__I_", "_I__U__I_", "_I__U__U__I_", "_I__U__U__U__I_", "_I__V__I__J", "_I__V__V__I_", "_I__G__I_", "_I__G__G__I_", "_I__H__I_", "_I__I__I_", "_I__I__I__I_", "_I__I__J__I_", "_I__J__I_", "_I__J__J__I_", "_I__K__I_", "_I__K__J__I_", "_I__K__K__I_", "_I__N__I_", "_I__P__I__J", "_I__Q__I_", "_I_AND_I_", "_I_BREAK_I_", "_I_DO_I_", "_I_ELSE_I_", "_I_ELSEIF_I_", "_I_END_I_", "_I_FALSE_I_", "_I_FOR_I_", "_I_FUNCTION_I_", "_I_GOTO_I_", "_I_IF_I_", "_I_IN_I_", "_I_LOCAL_I_", "_I_NIL_I_", "_I_NOT_I_", "_I_OR_I_", "_I_REPEAT_I_", "_I_RETURN_I_", "_I_THEN_I_", "_I_TRUE_I_", "_I_UNTIL_I_", "_I_WHILE_I_", "_I__T__I__J", "_I__U__I__J", "_I__V__I_", "_I__W__I_", "_I__W__J__I_", "NAME", "NUMERAL", "STR_LIT", "UNKNOWN"]
-tokenreprs = ["\"#\"", "\"%\"", "\"&\"", "\"(\"", "\")\"", "\"*\"", "\"+\"", "\",\"", "\"-\"", "\".\"", "\"..\"", "\"...\"", "\"/\"", "\"//\"", "\":\"", "\"::\"", "\";\"", "\"<\"", "\"<<\"", "\"<=\"", "\"=\"", "\"==\"", "\">\"", "\">=\"", "\">>\"", "\"[\"", "\"]\"", "\"^\"", "\"and\"", "\"break\"", "\"do\"", "\"else\"", "\"elseif\"", "\"end\"", "\"false\"", "\"for\"", "\"function\"", "\"goto\"", "\"if\"", "\"in\"", "\"local\"", "\"nil\"", "\"not\"", "\"or\"", "\"repeat\"", "\"return\"", "\"then\"", "\"true\"", "\"until\"", "\"while\"", "\"{\"", "\"|\"", "\"}\"", "\"~\"", "\"~=\"", "NAME", "NUMERAL", "STR_LIT", "UNKNOWN"]
+tokenmaps = ["_I__J__I__J", "_I__L__I_", "_I__M__I_", "_I__O__I_", "_I__P__I_", "_I__Q__I__J", "_I__R__I_", "_I__S__I_", "_I__T__I_", "_I__U__I_", "_I__U__U__I_", "_I__U__U__U__I_", "_I__V__I__J", "_I__V__V__I_", "_I__G__I_", "_I__G__G__I_", "_I__H__I_", "_I__I__I_", "_I__I__I__I_", "_I__I__J__I_", "_I__J__I_", "_I__J__J__I_", "_I__K__I_", "_I__K__J__I_", "_I__K__K__I_", "_I__N__I_", "_I__P__I__J", "_I__Q__I_", "_I_AND_I_", "_I_BREAK_I_", "_I_DO_I_", "_I_ELSE_I_", "_I_ELSEIF_I_", "_I_END_I_", "_I_FALSE_I_", "_I_FOR_I_", "_I_FUNCTION_I_", "_I_GOTO_I_", "_I_IF_I_", "_I_IN_I_", "_I_LOCAL_I_", "_I_NIL_I_", "_I_NOT_I_", "_I_OR_I_", "_I_REPEAT_I_", "_I_RETURN_I_", "_I_THEN_I_", "_I_TRUE_I_", "_I_UNTIL_I_", "_I_WHILE_I_", "_I__T__I__J", "_I__U__I__J", "_I__V__I_", "_I__W__I_", "_I__W__J__I_", "NAME", "NESTED_STR", "NUMERAL", "STR_LIT", "UNKNOWN"]
+tokenreprs = ["\"#\"", "\"%\"", "\"&\"", "\"(\"", "\")\"", "\"*\"", "\"+\"", "\",\"", "\"-\"", "\".\"", "\"..\"", "\"...\"", "\"/\"", "\"//\"", "\":\"", "\"::\"", "\";\"", "\"<\"", "\"<<\"", "\"<=\"", "\"=\"", "\"==\"", "\">\"", "\">=\"", "\">>\"", "\"[\"", "\"]\"", "\"^\"", "\"and\"", "\"break\"", "\"do\"", "\"else\"", "\"elseif\"", "\"end\"", "\"false\"", "\"for\"", "\"function\"", "\"goto\"", "\"if\"", "\"in\"", "\"local\"", "\"nil\"", "\"not\"", "\"or\"", "\"repeat\"", "\"return\"", "\"then\"", "\"true\"", "\"until\"", "\"while\"", "\"{\"", "\"|\"", "\"}\"", "\"~\"", "\"~=\"", "NAME", "NESTED_STR", "NUMERAL", "STR_LIT", "UNKNOWN"]
 
 def construct_token(token_id, lexeme, line, col, span, offset, file):
     if token_id == -1: return token("EOF", "")
@@ -179,14 +179,17 @@ class RBNFTransformer(Transformer):
     def nempty_seplist_o__i__s__i__s_exp_p__0(self, __tbnf_COMPONENTS):
         return [__tbnf_COMPONENTS[0]]
     
-    def atom_7(self, __tbnf_COMPONENTS):
+    def atom_8(self, __tbnf_COMPONENTS):
         return TableExpr(__tbnf_COMPONENTS[0])
     
-    def atom_6(self, __tbnf_COMPONENTS):
+    def atom_7(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]
     
-    def atom_5(self, __tbnf_COMPONENTS):
+    def atom_6(self, __tbnf_COMPONENTS):
         return Ellipse(__tbnf_COMPONENTS[0])
+    
+    def atom_5(self, __tbnf_COMPONENTS):
+        return String(__tbnf_COMPONENTS[0])
     
     def atom_4(self, __tbnf_COMPONENTS):
         return String(__tbnf_COMPONENTS[0])

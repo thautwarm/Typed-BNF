@@ -190,6 +190,9 @@ start returns [block result]: v=start__y_ EOF { $result = _localctx.v.result; };
 
 
 
+
+
+
 start__y_ returns [block result]
 : var_0__1=block { 
                 $result = _localctx.var_0__1.result;
@@ -433,14 +436,17 @@ atom returns [expr result]
 | var_4__1=STR_LIT { 
                 $result = (expr) String((IToken) _localctx.var_4__1);
             }
-| var_5__1='...' { 
-                $result = (expr) Ellipse((IToken) _localctx.var_5__1);
+| var_5__1=NESTED_STR { 
+                $result = (expr) String((IToken) _localctx.var_5__1);
             }
-| var_6__1=functiondef { 
-                $result = _localctx.var_6__1.result;
+| var_6__1='...' { 
+                $result = (expr) Ellipse((IToken) _localctx.var_6__1);
             }
-| var_7__1=tableconstructor { 
-                $result = (expr) TableExpr((table) _localctx.var_7__1.result);
+| var_7__1=functiondef { 
+                $result = _localctx.var_7__1.result;
+            }
+| var_8__1=tableconstructor { 
+                $result = (expr) TableExpr((table) _localctx.var_8__1.result);
             }
 ;
 nempty_seplist_o__i__s__i__s_exp_p_ returns [MyList<expr> result]
@@ -642,3 +648,6 @@ NAME : UCHAR (UCHAR | DIGIT)* ;
 fragment INT : DIGIT+ ;
 NUMERAL : '-'? INT ('.' INT)? (('E' | 'e') INT)? ;
 STR_LIT : '"' (('\\' .) | ~'"')* '"' ;
+fragment NESTED_STR1 : '[' ((']' ~']') | ~']')* ']' ;
+fragment NESTED_STR2 : '=' (('[' (~']' | (']' (~'=' | ('=' ~']'))))* ']') | (('=' ~']') | ~'=')*) '=' ;
+NESTED_STR : '[' (NESTED_STR1 | NESTED_STR2) ']' ;

@@ -16,6 +16,8 @@ end
 function f()
     local y = {1, 2}
     local x
+    z = [[aasdasdas]=dsa ""]]
+    k = [=[asdasdsad[a==asdsadsa]= ]=]
     x, y[1] = g()
 end
 """))

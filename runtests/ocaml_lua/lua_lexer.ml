@@ -138,6 +138,7 @@ type token =
 | I__V__I_ of tbnf_token
 | I__W__I_ of tbnf_token
 | I__W__J__I_ of tbnf_token
+| NESTED_STR of tbnf_token
 | STR_LIT of tbnf_token
 | NUMERAL of tbnf_token
 | NAME of tbnf_token
@@ -150,6 +151,9 @@ let rule_NAME = [%sedlex.regexp? rule_UCHAR, Star((rule_UCHAR | rule_DIGIT))]
 let rule_INT = [%sedlex.regexp? Plus(rule_DIGIT)]
 let rule_NUMERAL = [%sedlex.regexp? Opt("-"), rule_INT, Opt((".", rule_INT)), Opt((("E" | "e"), rule_INT))]
 let rule_STR_LIT = [%sedlex.regexp? "\"", Star(("\\", any | Compl("\""))), "\""]
+let rule_NESTED_STR1 = [%sedlex.regexp? "[", Star(("]", Compl("]") | Compl("]"))), "]"]
+let rule_NESTED_STR2 = [%sedlex.regexp? "=", ("[", Star((Compl("]") | "]", (Compl("=") | "=", Compl("]")))), "]" | Star(("=", Compl("]") | Compl("=")))), "="]
+let rule_NESTED_STR = [%sedlex.regexp? "[", (rule_NESTED_STR1 | rule_NESTED_STR2), "]"]
 let rule_I__W__J__I_ = [%sedlex.regexp? "~="]
 let rule_I__W__I_ = [%sedlex.regexp? "~"]
 let rule_I__V__I_ = [%sedlex.regexp? "}"]
@@ -263,6 +267,7 @@ let rec tokenizer lexbuf =
     | rule_I__V__I_ -> I__V__I_ (mktoken lexbuf)
     | rule_I__W__I_ -> I__W__I_ (mktoken lexbuf)
     | rule_I__W__J__I_ -> I__W__J__I_ (mktoken lexbuf)
+    | rule_NESTED_STR -> NESTED_STR (mktoken lexbuf)
     | rule_STR_LIT -> STR_LIT (mktoken lexbuf)
     | rule_NUMERAL -> NUMERAL (mktoken lexbuf)
     | rule_NAME -> NAME (mktoken lexbuf)

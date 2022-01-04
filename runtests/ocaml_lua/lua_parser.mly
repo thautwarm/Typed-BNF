@@ -58,6 +58,7 @@ open Lua_construct;;
 %token<tbnf_token> I__V__I_
 %token<tbnf_token> I__W__I_
 %token<tbnf_token> I__W__J__I_
+%token<tbnf_token> NESTED_STR
 %token<tbnf_token> STR_LIT
 %token<tbnf_token> NUMERAL
 %token<tbnf_token> NAME
@@ -66,6 +67,9 @@ open Lua_construct;;
 %%
 
 start : start__y_ EOF { $1 }
+
+
+
 
 
 
@@ -264,6 +268,9 @@ atom : I_NIL_I_ {
                      mk_Num($1)
                  }
      | STR_LIT { 
+                     mk_String($1)
+                 }
+     | NESTED_STR { 
                      mk_String($1)
                  }
      | I__U__U__U__I_ { 
