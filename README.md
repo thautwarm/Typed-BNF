@@ -166,5 +166,6 @@ Check out `Backends.*.fs`
 ### Build Python `_tbnf` package
 
 ```
+git submodule add https://github.com/thautwarm/Fable.Sedlex FableSedlex
 ./build-package.ps1
 ```
