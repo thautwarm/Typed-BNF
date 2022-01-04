@@ -226,16 +226,16 @@ def DocBuilder_Builder__Delay_Z3A9C5A06(__: DocBuilder_Builder, x: Callable[[], 
 
 def DocBuilder_Builder__For_2B96F4AF(__: DocBuilder_Builder, m: Iterable[t], f: Callable[[t], DocBuilder_block_1[u]]) -> DocBuilder_block_1[FSharpList[u]]:
     suite : FSharpList[Doc] = empty_1()
-    def arrow_55(__: DocBuilder_Builder=__, m: Iterable[t]=m, f: Callable[[t], DocBuilder_block_1[u]]=f) -> Iterable[Any]:
-        def arrow_54(each: Any=None) -> Iterable[Any]:
+    def arrow_54(__: DocBuilder_Builder=__, m: Iterable[t]=m, f: Callable[[t], DocBuilder_block_1[u]]=f) -> Iterable[Any]:
+        def arrow_53(each: Any=None) -> Iterable[Any]:
             nonlocal suite
             m_0027 : DocBuilder_block_1[u] = f(each)
             suite = append(m_0027.suite, suite)
             return singleton_1(m_0027.value)
         
-        return collect(arrow_54, m)
+        return collect(arrow_53, m)
     
-    value : FSharpList[u] = to_list(delay(arrow_55))
+    value : FSharpList[u] = to_list(delay(arrow_54))
     return DocBuilder_block_1(suite, value)
 
 

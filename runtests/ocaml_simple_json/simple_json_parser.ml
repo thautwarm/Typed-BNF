@@ -42,7 +42,7 @@ let rec _menhir_fail : unit -> 'a =
     Printf.eprintf "Internal failure -- please contact the parser generator's developers.\n%!";
     assert false
 
-and _menhir_goto_seplist_n__i__s__i__s_jsonpair_p_ : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_seplist_n__i__s__i__s_jsonpair_p_ -> 'ttv_return =
+and _menhir_goto_seplist_o__i__s__i__s_jsonpair_p_ : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_seplist_o__i__s__i__s_jsonpair_p_ -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
     let (_menhir_env : _menhir_env) = _menhir_env in
@@ -50,13 +50,13 @@ and _menhir_goto_seplist_n__i__s__i__s_jsonpair_p_ : _menhir_env -> 'ttv_tail ->
 # 13 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 53 "runtests/ocaml_simple_json/simple_json_parser.ml"
-    )) * _menhir_state * 'tv_seplist_n__i__s__i__s_jsonpair_p_) = Obj.magic _menhir_stack in
+    )) * _menhir_state * 'tv_seplist_o__i__s__i__s_jsonpair_p_) = Obj.magic _menhir_stack in
     assert (not _menhir_env._menhir_error);
     let _tok = _menhir_env._menhir_token in
     ((match _tok with
     | Simple_json_lexer.I__S__I_ _v ->
         let (_menhir_env : _menhir_env) = _menhir_env in
-        let (_menhir_stack : 'freshtv91 * _menhir_state * 'tv_seplist_n__i__s__i__s_jsonpair_p_) = Obj.magic _menhir_stack in
+        let (_menhir_stack : 'freshtv91 * _menhir_state * 'tv_seplist_o__i__s__i__s_jsonpair_p_) = Obj.magic _menhir_stack in
         let (_v : (
 # 6 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
@@ -78,7 +78,7 @@ and _menhir_goto_seplist_n__i__s__i__s_jsonpair_p_ : _menhir_env -> 'ttv_tail ->
 # 13 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 81 "runtests/ocaml_simple_json/simple_json_parser.ml"
-        )) * _menhir_state * 'tv_seplist_n__i__s__i__s_jsonpair_p_) = Obj.magic _menhir_stack in
+        )) * _menhir_state * 'tv_seplist_o__i__s__i__s_jsonpair_p_) = Obj.magic _menhir_stack in
         let (_v : (
 # 14 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
@@ -90,13 +90,13 @@ and _menhir_goto_seplist_n__i__s__i__s_jsonpair_p_ : _menhir_env -> 'ttv_tail ->
 # 13 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 93 "runtests/ocaml_simple_json/simple_json_parser.ml"
-        )) * _menhir_state * 'tv_seplist_n__i__s__i__s_jsonpair_p_) = Obj.magic _menhir_stack in
+        )) * _menhir_state * 'tv_seplist_o__i__s__i__s_jsonpair_p_) = Obj.magic _menhir_stack in
         let (_ : (
 # 14 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 98 "runtests/ocaml_simple_json/simple_json_parser.ml"
         )) = _v in
-        let ((_menhir_stack, _menhir_s, _), _, (_2 : 'tv_seplist_n__i__s__i__s_jsonpair_p_)) = _menhir_stack in
+        let ((_menhir_stack, _menhir_s, _), _, (_2 : 'tv_seplist_o__i__s__i__s_jsonpair_p_)) = _menhir_stack in
         let _v : 'tv_json = 
 # 74 "runtests/ocaml_simple_json/simple_json_parser.mly"
                                                            ( 
@@ -113,11 +113,11 @@ and _menhir_goto_seplist_n__i__s__i__s_jsonpair_p_ : _menhir_env -> 'ttv_tail ->
 # 13 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 116 "runtests/ocaml_simple_json/simple_json_parser.ml"
-        )) * _menhir_state * 'tv_seplist_n__i__s__i__s_jsonpair_p_) = Obj.magic _menhir_stack in
+        )) * _menhir_state * 'tv_seplist_o__i__s__i__s_jsonpair_p_) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv98)) : 'freshtv100)
 
-and _menhir_goto_seplist_n__i__s__i__s_json_p_ : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_seplist_n__i__s__i__s_json_p_ -> 'ttv_return =
+and _menhir_goto_seplist_o__i__s__i__s_json_p_ : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_seplist_o__i__s__i__s_json_p_ -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
     let (_menhir_env : _menhir_env) = _menhir_env in
@@ -125,7 +125,7 @@ and _menhir_goto_seplist_n__i__s__i__s_json_p_ : _menhir_env -> 'ttv_tail -> _me
 # 8 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 128 "runtests/ocaml_simple_json/simple_json_parser.ml"
-    )) * _menhir_state * 'tv_seplist_n__i__s__i__s_json_p_) = Obj.magic _menhir_stack in
+    )) * _menhir_state * 'tv_seplist_o__i__s__i__s_json_p_) = Obj.magic _menhir_stack in
     assert (not _menhir_env._menhir_error);
     let _tok = _menhir_env._menhir_token in
     ((match _tok with
@@ -135,7 +135,7 @@ and _menhir_goto_seplist_n__i__s__i__s_json_p_ : _menhir_env -> 'ttv_tail -> _me
 # 8 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 138 "runtests/ocaml_simple_json/simple_json_parser.ml"
-        )) * _menhir_state * 'tv_seplist_n__i__s__i__s_json_p_) = Obj.magic _menhir_stack in
+        )) * _menhir_state * 'tv_seplist_o__i__s__i__s_json_p_) = Obj.magic _menhir_stack in
         let (_v : (
 # 9 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
@@ -147,13 +147,13 @@ and _menhir_goto_seplist_n__i__s__i__s_json_p_ : _menhir_env -> 'ttv_tail -> _me
 # 8 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 150 "runtests/ocaml_simple_json/simple_json_parser.ml"
-        )) * _menhir_state * 'tv_seplist_n__i__s__i__s_json_p_) = Obj.magic _menhir_stack in
+        )) * _menhir_state * 'tv_seplist_o__i__s__i__s_json_p_) = Obj.magic _menhir_stack in
         let (_ : (
 # 9 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 155 "runtests/ocaml_simple_json/simple_json_parser.ml"
         )) = _v in
-        let ((_menhir_stack, _menhir_s, _), _, (_2 : 'tv_seplist_n__i__s__i__s_json_p_)) = _menhir_stack in
+        let ((_menhir_stack, _menhir_s, _), _, (_2 : 'tv_seplist_o__i__s__i__s_json_p_)) = _menhir_stack in
         let _v : 'tv_json = 
 # 71 "runtests/ocaml_simple_json/simple_json_parser.mly"
                                                        ( 
@@ -164,7 +164,7 @@ and _menhir_goto_seplist_n__i__s__i__s_json_p_ : _menhir_env -> 'ttv_tail -> _me
         (_menhir_goto_json _menhir_env _menhir_stack _menhir_s _v : 'freshtv82)) : 'freshtv84)
     | Simple_json_lexer.I__S__I_ _v ->
         let (_menhir_env : _menhir_env) = _menhir_env in
-        let (_menhir_stack : 'freshtv85 * _menhir_state * 'tv_seplist_n__i__s__i__s_json_p_) = Obj.magic _menhir_stack in
+        let (_menhir_stack : 'freshtv85 * _menhir_state * 'tv_seplist_o__i__s__i__s_json_p_) = Obj.magic _menhir_stack in
         let (_v : (
 # 6 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
@@ -202,7 +202,7 @@ and _menhir_goto_seplist_n__i__s__i__s_json_p_ : _menhir_env -> 'ttv_tail -> _me
 # 8 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 205 "runtests/ocaml_simple_json/simple_json_parser.ml"
-        )) * _menhir_state * 'tv_seplist_n__i__s__i__s_json_p_) = Obj.magic _menhir_stack in
+        )) * _menhir_state * 'tv_seplist_o__i__s__i__s_json_p_) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv88)) : 'freshtv90)
 
@@ -269,7 +269,7 @@ and _menhir_goto_json : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_json ->
     match _menhir_s with
     | MenhirState13 ->
         let (_menhir_env : _menhir_env) = _menhir_env in
-        let (_menhir_stack : ('freshtv37 * _menhir_state * 'tv_seplist_n__i__s__i__s_json_p_) * (
+        let (_menhir_stack : ('freshtv37 * _menhir_state * 'tv_seplist_o__i__s__i__s_json_p_) * (
 # 6 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 276 "runtests/ocaml_simple_json/simple_json_parser.ml"
@@ -277,22 +277,22 @@ and _menhir_goto_json : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_json ->
         let (_menhir_s : _menhir_state) = _menhir_s in
         let (_v : 'tv_json) = _v in
         ((let (_menhir_env : _menhir_env) = _menhir_env in
-        let (_menhir_stack : ('freshtv35 * _menhir_state * 'tv_seplist_n__i__s__i__s_json_p_) * (
+        let (_menhir_stack : ('freshtv35 * _menhir_state * 'tv_seplist_o__i__s__i__s_json_p_) * (
 # 6 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 284 "runtests/ocaml_simple_json/simple_json_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_ : _menhir_state) = _menhir_s in
         let ((_3 : 'tv_json) : 'tv_json) = _v in
-        let ((_menhir_stack, _menhir_s, (_1 : 'tv_seplist_n__i__s__i__s_json_p_)), _) = _menhir_stack in
-        let _v : 'tv_seplist_n__i__s__i__s_json_p_ = 
+        let ((_menhir_stack, _menhir_s, (_1 : 'tv_seplist_o__i__s__i__s_json_p_)), _) = _menhir_stack in
+        let _v : 'tv_seplist_o__i__s__i__s_json_p_ = 
 # 38 "runtests/ocaml_simple_json/simple_json_parser.mly"
                                                                             ( 
                                               appendList(_1, _3)
                                           )
 # 294 "runtests/ocaml_simple_json/simple_json_parser.ml"
          in
-        (_menhir_goto_seplist_n__i__s__i__s_json_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv36)) : 'freshtv38)
+        (_menhir_goto_seplist_o__i__s__i__s_json_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv36)) : 'freshtv38)
     | MenhirState5 ->
         let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : 'freshtv41) = Obj.magic _menhir_stack in
@@ -302,14 +302,14 @@ and _menhir_goto_json : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_json ->
         let (_menhir_stack : 'freshtv39) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = _menhir_s in
         let ((_1 : 'tv_json) : 'tv_json) = _v in
-        let _v : 'tv_seplist_n__i__s__i__s_json_p_ = 
+        let _v : 'tv_seplist_o__i__s__i__s_json_p_ = 
 # 35 "runtests/ocaml_simple_json/simple_json_parser.mly"
                                      ( 
                                               [_1]
                                           )
 # 311 "runtests/ocaml_simple_json/simple_json_parser.ml"
          in
-        (_menhir_goto_seplist_n__i__s__i__s_json_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv40)) : 'freshtv42)
+        (_menhir_goto_seplist_o__i__s__i__s_json_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv40)) : 'freshtv42)
     | MenhirState4 ->
         let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : ('freshtv55 * _menhir_state * (
@@ -354,7 +354,7 @@ and _menhir_goto_json : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_json ->
         (((match _menhir_s with
         | MenhirState21 ->
             let (_menhir_env : _menhir_env) = _menhir_env in
-            let (_menhir_stack : ('freshtv45 * _menhir_state * 'tv_seplist_n__i__s__i__s_jsonpair_p_) * (
+            let (_menhir_stack : ('freshtv45 * _menhir_state * 'tv_seplist_o__i__s__i__s_jsonpair_p_) * (
 # 6 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 361 "runtests/ocaml_simple_json/simple_json_parser.ml"
@@ -362,22 +362,22 @@ and _menhir_goto_json : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_json ->
             let (_menhir_s : _menhir_state) = _menhir_s in
             let (_v : 'tv_jsonpair) = _v in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
-            let (_menhir_stack : ('freshtv43 * _menhir_state * 'tv_seplist_n__i__s__i__s_jsonpair_p_) * (
+            let (_menhir_stack : ('freshtv43 * _menhir_state * 'tv_seplist_o__i__s__i__s_jsonpair_p_) * (
 # 6 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 369 "runtests/ocaml_simple_json/simple_json_parser.ml"
             )) = Obj.magic _menhir_stack in
             let (_ : _menhir_state) = _menhir_s in
             let ((_3 : 'tv_jsonpair) : 'tv_jsonpair) = _v in
-            let ((_menhir_stack, _menhir_s, (_1 : 'tv_seplist_n__i__s__i__s_jsonpair_p_)), _) = _menhir_stack in
-            let _v : 'tv_seplist_n__i__s__i__s_jsonpair_p_ = 
+            let ((_menhir_stack, _menhir_s, (_1 : 'tv_seplist_o__i__s__i__s_jsonpair_p_)), _) = _menhir_stack in
+            let _v : 'tv_seplist_o__i__s__i__s_jsonpair_p_ = 
 # 44 "runtests/ocaml_simple_json/simple_json_parser.mly"
                                                                                         ( 
                                                   appendList(_1, _3)
                                               )
 # 379 "runtests/ocaml_simple_json/simple_json_parser.ml"
              in
-            (_menhir_goto_seplist_n__i__s__i__s_jsonpair_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv44)) : 'freshtv46)
+            (_menhir_goto_seplist_o__i__s__i__s_jsonpair_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv44)) : 'freshtv46)
         | MenhirState2 ->
             let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : 'freshtv49) = Obj.magic _menhir_stack in
@@ -387,14 +387,14 @@ and _menhir_goto_json : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_json ->
             let (_menhir_stack : 'freshtv47) = Obj.magic _menhir_stack in
             let (_menhir_s : _menhir_state) = _menhir_s in
             let ((_1 : 'tv_jsonpair) : 'tv_jsonpair) = _v in
-            let _v : 'tv_seplist_n__i__s__i__s_jsonpair_p_ = 
+            let _v : 'tv_seplist_o__i__s__i__s_jsonpair_p_ = 
 # 41 "runtests/ocaml_simple_json/simple_json_parser.mly"
                                              ( 
                                                   [_1]
                                               )
 # 396 "runtests/ocaml_simple_json/simple_json_parser.ml"
              in
-            (_menhir_goto_seplist_n__i__s__i__s_jsonpair_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv48)) : 'freshtv50)
+            (_menhir_goto_seplist_o__i__s__i__s_jsonpair_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv48)) : 'freshtv50)
         | _ ->
             _menhir_fail ()) : 'freshtv52) : 'freshtv54)) : 'freshtv56)
     | MenhirState0 ->
@@ -482,7 +482,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
     match _menhir_s with
     | MenhirState21 ->
         let (_menhir_env : _menhir_env) = _menhir_env in
-        let (_menhir_stack : ('freshtv23 * _menhir_state * 'tv_seplist_n__i__s__i__s_jsonpair_p_) * (
+        let (_menhir_stack : ('freshtv23 * _menhir_state * 'tv_seplist_o__i__s__i__s_jsonpair_p_) * (
 # 6 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 489 "runtests/ocaml_simple_json/simple_json_parser.ml"
@@ -491,7 +491,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv24)
     | MenhirState13 ->
         let (_menhir_env : _menhir_env) = _menhir_env in
-        let (_menhir_stack : ('freshtv25 * _menhir_state * 'tv_seplist_n__i__s__i__s_json_p_) * (
+        let (_menhir_stack : ('freshtv25 * _menhir_state * 'tv_seplist_o__i__s__i__s_json_p_) * (
 # 6 "runtests/ocaml_simple_json/simple_json_parser.mly"
       (tbnf_token)
 # 498 "runtests/ocaml_simple_json/simple_json_parser.ml"

@@ -52,45 +52,45 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitStart__y_([NotNull] luaParser.Start__y_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.nempty_list_n_stat_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.nempty_list_o_stat_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterNempty_list_n_stat_p_([NotNull] luaParser.Nempty_list_n_stat_p_Context context);
+	void EnterNempty_list_o_stat_p_([NotNull] luaParser.Nempty_list_o_stat_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.nempty_list_n_stat_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.nempty_list_o_stat_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitNempty_list_n_stat_p_([NotNull] luaParser.Nempty_list_n_stat_p_Context context);
+	void ExitNempty_list_o_stat_p_([NotNull] luaParser.Nempty_list_o_stat_p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.allow_empty_n_nempty_list_n_stat_p__p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.allow_empty_o_nempty_list_o_stat_p__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterAllow_empty_n_nempty_list_n_stat_p__p_([NotNull] luaParser.Allow_empty_n_nempty_list_n_stat_p__p_Context context);
+	void EnterAllow_empty_o_nempty_list_o_stat_p__p_([NotNull] luaParser.Allow_empty_o_nempty_list_o_stat_p__p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.allow_empty_n_nempty_list_n_stat_p__p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.allow_empty_o_nempty_list_o_stat_p__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAllow_empty_n_nempty_list_n_stat_p__p_([NotNull] luaParser.Allow_empty_n_nempty_list_n_stat_p__p_Context context);
+	void ExitAllow_empty_o_nempty_list_o_stat_p__p_([NotNull] luaParser.Allow_empty_o_nempty_list_o_stat_p__p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.list_n_stat_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.list_o_stat_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterList_n_stat_p_([NotNull] luaParser.List_n_stat_p_Context context);
+	void EnterList_o_stat_p_([NotNull] luaParser.List_o_stat_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.list_n_stat_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.list_o_stat_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitList_n_stat_p_([NotNull] luaParser.List_n_stat_p_Context context);
+	void ExitList_o_stat_p_([NotNull] luaParser.List_o_stat_p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.opt_n_retstat_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.opt_o_retstat_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterOpt_n_retstat_p_([NotNull] luaParser.Opt_n_retstat_p_Context context);
+	void EnterOpt_o_retstat_p_([NotNull] luaParser.Opt_o_retstat_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.opt_n_retstat_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.opt_o_retstat_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitOpt_n_retstat_p_([NotNull] luaParser.Opt_n_retstat_p_Context context);
+	void ExitOpt_o_retstat_p_([NotNull] luaParser.Opt_o_retstat_p_Context context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.block"/>.
 	/// </summary>
@@ -102,15 +102,15 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitBlock([NotNull] luaParser.BlockContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.opt_n__i__h__i__p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.opt_o__i__h__i__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterOpt_n__i__h__i__p_([NotNull] luaParser.Opt_n__i__h__i__p_Context context);
+	void EnterOpt_o__i__h__i__p_([NotNull] luaParser.Opt_o__i__h__i__p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.opt_n__i__h__i__p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.opt_o__i__h__i__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitOpt_n__i__h__i__p_([NotNull] luaParser.Opt_n__i__h__i__p_Context context);
+	void ExitOpt_o__i__h__i__p_([NotNull] luaParser.Opt_o__i__h__i__p_Context context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.retstat"/>.
 	/// </summary>
@@ -122,45 +122,45 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitRetstat([NotNull] luaParser.RetstatContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.nempty_list_n_elseif_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.nempty_list_o_elseif_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterNempty_list_n_elseif_p_([NotNull] luaParser.Nempty_list_n_elseif_p_Context context);
+	void EnterNempty_list_o_elseif_p_([NotNull] luaParser.Nempty_list_o_elseif_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.nempty_list_n_elseif_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.nempty_list_o_elseif_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitNempty_list_n_elseif_p_([NotNull] luaParser.Nempty_list_n_elseif_p_Context context);
+	void ExitNempty_list_o_elseif_p_([NotNull] luaParser.Nempty_list_o_elseif_p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.allow_empty_n_nempty_list_n_elseif_p__p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.allow_empty_o_nempty_list_o_elseif_p__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterAllow_empty_n_nempty_list_n_elseif_p__p_([NotNull] luaParser.Allow_empty_n_nempty_list_n_elseif_p__p_Context context);
+	void EnterAllow_empty_o_nempty_list_o_elseif_p__p_([NotNull] luaParser.Allow_empty_o_nempty_list_o_elseif_p__p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.allow_empty_n_nempty_list_n_elseif_p__p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.allow_empty_o_nempty_list_o_elseif_p__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAllow_empty_n_nempty_list_n_elseif_p__p_([NotNull] luaParser.Allow_empty_n_nempty_list_n_elseif_p__p_Context context);
+	void ExitAllow_empty_o_nempty_list_o_elseif_p__p_([NotNull] luaParser.Allow_empty_o_nempty_list_o_elseif_p__p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.list_n_elseif_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.list_o_elseif_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterList_n_elseif_p_([NotNull] luaParser.List_n_elseif_p_Context context);
+	void EnterList_o_elseif_p_([NotNull] luaParser.List_o_elseif_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.list_n_elseif_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.list_o_elseif_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitList_n_elseif_p_([NotNull] luaParser.List_n_elseif_p_Context context);
+	void ExitList_o_elseif_p_([NotNull] luaParser.List_o_elseif_p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.opt_n_else_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.opt_o_else_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterOpt_n_else_p_([NotNull] luaParser.Opt_n_else_p_Context context);
+	void EnterOpt_o_else_p_([NotNull] luaParser.Opt_o_else_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.opt_n_else_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.opt_o_else_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitOpt_n_else_p_([NotNull] luaParser.Opt_n_else_p_Context context);
+	void ExitOpt_o_else_p_([NotNull] luaParser.Opt_o_else_p_Context context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.stat"/>.
 	/// </summary>
@@ -302,35 +302,35 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitAtom([NotNull] luaParser.AtomContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.nempty_seplist_n__i__s__i__s_exp_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.nempty_seplist_o__i__s__i__s_exp_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterNempty_seplist_n__i__s__i__s_exp_p_([NotNull] luaParser.Nempty_seplist_n__i__s__i__s_exp_p_Context context);
+	void EnterNempty_seplist_o__i__s__i__s_exp_p_([NotNull] luaParser.Nempty_seplist_o__i__s__i__s_exp_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.nempty_seplist_n__i__s__i__s_exp_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.nempty_seplist_o__i__s__i__s_exp_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitNempty_seplist_n__i__s__i__s_exp_p_([NotNull] luaParser.Nempty_seplist_n__i__s__i__s_exp_p_Context context);
+	void ExitNempty_seplist_o__i__s__i__s_exp_p_([NotNull] luaParser.Nempty_seplist_o__i__s__i__s_exp_p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterAllow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_([NotNull] luaParser.Allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_Context context);
+	void EnterAllow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_([NotNull] luaParser.Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAllow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_([NotNull] luaParser.Allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_Context context);
+	void ExitAllow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_([NotNull] luaParser.Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.seplist_n__i__s__i__s_exp_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.seplist_o__i__s__i__s_exp_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterSeplist_n__i__s__i__s_exp_p_([NotNull] luaParser.Seplist_n__i__s__i__s_exp_p_Context context);
+	void EnterSeplist_o__i__s__i__s_exp_p_([NotNull] luaParser.Seplist_o__i__s__i__s_exp_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.seplist_n__i__s__i__s_exp_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.seplist_o__i__s__i__s_exp_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitSeplist_n__i__s__i__s_exp_p_([NotNull] luaParser.Seplist_n__i__s__i__s_exp_p_Context context);
+	void ExitSeplist_o__i__s__i__s_exp_p_([NotNull] luaParser.Seplist_o__i__s__i__s_exp_p_Context context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.args"/>.
 	/// </summary>
@@ -342,25 +342,25 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitArgs([NotNull] luaParser.ArgsContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.opt_n__i_name_k__p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.opt_o__i_name_k__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterOpt_n__i_name_k__p_([NotNull] luaParser.Opt_n__i_name_k__p_Context context);
+	void EnterOpt_o__i_name_k__p_([NotNull] luaParser.Opt_o__i_name_k__p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.opt_n__i_name_k__p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.opt_o__i_name_k__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitOpt_n__i_name_k__p_([NotNull] luaParser.Opt_n__i_name_k__p_Context context);
+	void ExitOpt_o__i_name_k__p_([NotNull] luaParser.Opt_o__i_name_k__p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.opt_n_parlist_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.opt_o_parlist_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterOpt_n_parlist_p_([NotNull] luaParser.Opt_n_parlist_p_Context context);
+	void EnterOpt_o_parlist_p_([NotNull] luaParser.Opt_o_parlist_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.opt_n_parlist_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.opt_o_parlist_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitOpt_n_parlist_p_([NotNull] luaParser.Opt_n_parlist_p_Context context);
+	void ExitOpt_o_parlist_p_([NotNull] luaParser.Opt_o_parlist_p_Context context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.functiondef"/>.
 	/// </summary>
@@ -382,15 +382,15 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitVarargs([NotNull] luaParser.VarargsContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.nempty_seplist_n__i__s__i__s__i_name_k__p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.nempty_seplist_o__i__s__i__s__i_name_k__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterNempty_seplist_n__i__s__i__s__i_name_k__p_([NotNull] luaParser.Nempty_seplist_n__i__s__i__s__i_name_k__p_Context context);
+	void EnterNempty_seplist_o__i__s__i__s__i_name_k__p_([NotNull] luaParser.Nempty_seplist_o__i__s__i__s__i_name_k__p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.nempty_seplist_n__i__s__i__s__i_name_k__p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.nempty_seplist_o__i__s__i__s__i_name_k__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitNempty_seplist_n__i__s__i__s__i_name_k__p_([NotNull] luaParser.Nempty_seplist_n__i__s__i__s__i_name_k__p_Context context);
+	void ExitNempty_seplist_o__i__s__i__s__i_name_k__p_([NotNull] luaParser.Nempty_seplist_o__i__s__i__s__i_name_k__p_Context context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.parlist"/>.
 	/// </summary>
@@ -402,45 +402,45 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitParlist([NotNull] luaParser.ParlistContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.nempty_seplist_n_fieldsep_s_field_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.nempty_seplist_o_fieldsep_s_field_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterNempty_seplist_n_fieldsep_s_field_p_([NotNull] luaParser.Nempty_seplist_n_fieldsep_s_field_p_Context context);
+	void EnterNempty_seplist_o_fieldsep_s_field_p_([NotNull] luaParser.Nempty_seplist_o_fieldsep_s_field_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.nempty_seplist_n_fieldsep_s_field_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.nempty_seplist_o_fieldsep_s_field_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitNempty_seplist_n_fieldsep_s_field_p_([NotNull] luaParser.Nempty_seplist_n_fieldsep_s_field_p_Context context);
+	void ExitNempty_seplist_o_fieldsep_s_field_p_([NotNull] luaParser.Nempty_seplist_o_fieldsep_s_field_p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterAllow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_([NotNull] luaParser.Allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_Context context);
+	void EnterAllow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_([NotNull] luaParser.Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAllow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_([NotNull] luaParser.Allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_Context context);
+	void ExitAllow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_([NotNull] luaParser.Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.seplist_n_fieldsep_s_field_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.seplist_o_fieldsep_s_field_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterSeplist_n_fieldsep_s_field_p_([NotNull] luaParser.Seplist_n_fieldsep_s_field_p_Context context);
+	void EnterSeplist_o_fieldsep_s_field_p_([NotNull] luaParser.Seplist_o_fieldsep_s_field_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.seplist_n_fieldsep_s_field_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.seplist_o_fieldsep_s_field_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitSeplist_n_fieldsep_s_field_p_([NotNull] luaParser.Seplist_n_fieldsep_s_field_p_Context context);
+	void ExitSeplist_o_fieldsep_s_field_p_([NotNull] luaParser.Seplist_o_fieldsep_s_field_p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.opt_n_fieldsep_p_"/>.
+	/// Enter a parse tree produced by <see cref="luaParser.opt_o_fieldsep_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterOpt_n_fieldsep_p_([NotNull] luaParser.Opt_n_fieldsep_p_Context context);
+	void EnterOpt_o_fieldsep_p_([NotNull] luaParser.Opt_o_fieldsep_p_Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.opt_n_fieldsep_p_"/>.
+	/// Exit a parse tree produced by <see cref="luaParser.opt_o_fieldsep_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitOpt_n_fieldsep_p_([NotNull] luaParser.Opt_n_fieldsep_p_Context context);
+	void ExitOpt_o_fieldsep_p_([NotNull] luaParser.Opt_o_fieldsep_p_Context context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.tableconstructor"/>.
 	/// </summary>

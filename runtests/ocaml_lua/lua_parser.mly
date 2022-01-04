@@ -77,55 +77,55 @@ start : start__y_ EOF { $1 }
 start__y_ : block { 
                           $1
                       }
-nempty_list_n_stat_p_ : stat { 
+nempty_list_o_stat_p_ : stat { 
                                       [$1]
                                   }
-                      | nempty_list_n_stat_p_ stat { 
+                      | nempty_list_o_stat_p_ stat { 
                                       appendList($1, $2)
                                   }
-allow_empty_n_nempty_list_n_stat_p__p_ :  { 
+allow_empty_o_nempty_list_o_stat_p__p_ :  { 
                                                        []
                                                    }
-                                       | nempty_list_n_stat_p_ { 
+                                       | nempty_list_o_stat_p_ { 
                                                        $1
                                                    }
-list_n_stat_p_ : allow_empty_n_nempty_list_n_stat_p__p_ { 
+list_o_stat_p_ : allow_empty_o_nempty_list_o_stat_p__p_ { 
                                $1
                            }
-opt_n_retstat_p_ : retstat { 
+opt_o_retstat_p_ : retstat { 
                                  some($1)
                              }
                  |  { 
                                  none()
                              }
-block : list_n_stat_p_ opt_n_retstat_p_ { 
+block : list_o_stat_p_ opt_o_retstat_p_ { 
                       block($1, $2)
                   }
-opt_n__i__h__i__p_ : I__H__I_ { 
+opt_o__i__h__i__p_ : I__H__I_ { 
                                    some($1)
                                }
                    |  { 
                                    none()
                                }
-retstat : I_RETURN_I_ seplist_n__i__s__i__s_exp_p_ opt_n__i__h__i__p_ { 
+retstat : I_RETURN_I_ seplist_o__i__s__i__s_exp_p_ opt_o__i__h__i__p_ { 
                         mk_ReturnStmt($1, $2)
                     }
-nempty_list_n_elseif_p_ : elseif { 
+nempty_list_o_elseif_p_ : elseif { 
                                         [$1]
                                     }
-                        | nempty_list_n_elseif_p_ elseif { 
+                        | nempty_list_o_elseif_p_ elseif { 
                                         appendList($1, $2)
                                     }
-allow_empty_n_nempty_list_n_elseif_p__p_ :  { 
+allow_empty_o_nempty_list_o_elseif_p__p_ :  { 
                                                          []
                                                      }
-                                         | nempty_list_n_elseif_p_ { 
+                                         | nempty_list_o_elseif_p_ { 
                                                          $1
                                                      }
-list_n_elseif_p_ : allow_empty_n_nempty_list_n_elseif_p__p_ { 
+list_o_elseif_p_ : allow_empty_o_nempty_list_o_elseif_p__p_ { 
                                  $1
                              }
-opt_n_else_p_ : else__x_ { 
+opt_o_else_p_ : else__x_ { 
                               some($1)
                           }
               |  { 
@@ -134,7 +134,7 @@ opt_n_else_p_ : else__x_ {
 stat : I__H__I_ { 
                      mk_EmptyStmt($1)
                  }
-     | nempty_seplist_n__i__s__i__s_exp_p_ I__J__I_ nempty_seplist_n__i__s__i__s_exp_p_ { 
+     | nempty_seplist_o__i__s__i__s_exp_p_ I__J__I_ nempty_seplist_o__i__s__i__s_exp_p_ { 
                      mk_Assignment(false, $1, some($3))
                  }
      | exp { 
@@ -158,22 +158,22 @@ stat : I__H__I_ {
      | I_REPEAT_I_ block I_UNTIL_I_ exp { 
                      mk_RepeatStmt($1, $2, $4)
                  }
-     | I_IF_I_ exp I_THEN_I_ list_n_elseif_p_ opt_n_else_p_ I_END_I_ { 
+     | I_IF_I_ exp I_THEN_I_ list_o_elseif_p_ opt_o_else_p_ I_END_I_ { 
                      mk_IfStmt($1, $2, $4, $5)
                  }
      | I_FOR_I_ NAME I__J__I_ range I_DO_I_ block I_END_I_ { 
                      mk_ForRangeStmt($1, $2, $4, $6)
                  }
-     | I_FOR_I_ nempty_seplist_n__i__s__i__s__i_name_k__p_ I_IN_I_ nempty_seplist_n__i__s__i__s_exp_p_ I_DO_I_ block I_END_I_ { 
+     | I_FOR_I_ nempty_seplist_o__i__s__i__s__i_name_k__p_ I_IN_I_ nempty_seplist_o__i__s__i__s_exp_p_ I_DO_I_ block I_END_I_ { 
                      mk_ForInStmt($1, $2, $4, $6)
                  }
-     | I_LOCAL_I_ I_FUNCTION_I_ NAME I__O__I_ opt_n_parlist_p_ I__P__I_ block I_END_I_ { 
+     | I_LOCAL_I_ I_FUNCTION_I_ NAME I__O__I_ opt_o_parlist_p_ I__P__I_ block I_END_I_ { 
                      mk_ExprStmt(mk_FuncDef($1, true, some($3), $5, $7))
                  }
-     | I_LOCAL_I_ nempty_seplist_n__i__s__i__s__i_name_k__p_ opt_assign_rhs { 
+     | I_LOCAL_I_ nempty_seplist_o__i__s__i__s__i_name_k__p_ opt_assign_rhs { 
                      mk_Assignment(true, listMap($2, mk_Var), $3)
                  }
-opt_assign_rhs : I__J__I_ nempty_seplist_n__i__s__i__s_exp_p_ { 
+opt_assign_rhs : I__J__I_ nempty_seplist_o__i__s__i__s_exp_p_ { 
                                some($2)
                            }
                |  { 
@@ -275,22 +275,22 @@ atom : I_NIL_I_ {
      | tableconstructor { 
                      mk_TableExpr($1)
                  }
-nempty_seplist_n__i__s__i__s_exp_p_ : exp { 
+nempty_seplist_o__i__s__i__s_exp_p_ : exp { 
                                                     [$1]
                                                 }
-                                    | nempty_seplist_n__i__s__i__s_exp_p_ I__S__I_ exp { 
+                                    | nempty_seplist_o__i__s__i__s_exp_p_ I__S__I_ exp { 
                                                     appendList($1, $3)
                                                 }
-allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_ :  { 
+allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ :  { 
                                                                      []
                                                                  }
-                                                     | nempty_seplist_n__i__s__i__s_exp_p_ { 
+                                                     | nempty_seplist_o__i__s__i__s_exp_p_ { 
                                                                      $1
                                                                  }
-seplist_n__i__s__i__s_exp_p_ : allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_ { 
+seplist_o__i__s__i__s_exp_p_ : allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ { 
                                              $1
                                          }
-args : I__O__I_ seplist_n__i__s__i__s_exp_p_ I__P__I_ { 
+args : I__O__I_ seplist_o__i__s__i__s_exp_p_ I__P__I_ { 
                      mk_PositionalArgs($1, $2)
                  }
      | tableconstructor { 
@@ -299,19 +299,19 @@ args : I__O__I_ seplist_n__i__s__i__s_exp_p_ I__P__I_ {
      | STR_LIT { 
                      mk_StringArg($1)
                  }
-opt_n__i_name_k__p_ : NAME { 
+opt_o__i_name_k__p_ : NAME { 
                                     some($1)
                                 }
                     |  { 
                                     none()
                                 }
-opt_n_parlist_p_ : parlist { 
+opt_o_parlist_p_ : parlist { 
                                  some($1)
                              }
                  |  { 
                                  none()
                              }
-functiondef : I_FUNCTION_I_ opt_n__i_name_k__p_ I__O__I_ opt_n_parlist_p_ I__P__I_ block I_END_I_ { 
+functiondef : I_FUNCTION_I_ opt_o__i_name_k__p_ I__O__I_ opt_o_parlist_p_ I__P__I_ block I_END_I_ { 
                             mk_FuncDef($1, false, $2, $4, $6)
                         }
 varargs : I__S__I_ I__U__U__U__I_ { 
@@ -320,40 +320,40 @@ varargs : I__S__I_ I__U__U__U__I_ {
         |  { 
                         none()
                     }
-nempty_seplist_n__i__s__i__s__i_name_k__p_ : NAME { 
+nempty_seplist_o__i__s__i__s__i_name_k__p_ : NAME { 
                                                            [$1]
                                                        }
-                                           | nempty_seplist_n__i__s__i__s__i_name_k__p_ I__S__I_ NAME { 
+                                           | nempty_seplist_o__i__s__i__s__i_name_k__p_ I__S__I_ NAME { 
                                                            appendList($1, $3)
                                                        }
 parlist : I__U__U__U__I_ { 
                         params([], some($1))
                     }
-        | nempty_seplist_n__i__s__i__s__i_name_k__p_ varargs { 
+        | nempty_seplist_o__i__s__i__s__i_name_k__p_ varargs { 
                         params($1, $2)
                     }
-nempty_seplist_n_fieldsep_s_field_p_ : field { 
+nempty_seplist_o_fieldsep_s_field_p_ : field { 
                                                      [$1]
                                                  }
-                                     | nempty_seplist_n_fieldsep_s_field_p_ fieldsep field { 
+                                     | nempty_seplist_o_fieldsep_s_field_p_ fieldsep field { 
                                                      appendList($1, $3)
                                                  }
-allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_ :  { 
+allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_ :  { 
                                                                       []
                                                                   }
-                                                      | nempty_seplist_n_fieldsep_s_field_p_ { 
+                                                      | nempty_seplist_o_fieldsep_s_field_p_ { 
                                                                       $1
                                                                   }
-seplist_n_fieldsep_s_field_p_ : allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_ { 
+seplist_o_fieldsep_s_field_p_ : allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_ { 
                                               $1
                                           }
-opt_n_fieldsep_p_ : fieldsep { 
+opt_o_fieldsep_p_ : fieldsep { 
                                   some($1)
                               }
                   |  { 
                                   none()
                               }
-tableconstructor : I__T__I__I seplist_n_fieldsep_s_field_p_ opt_n_fieldsep_p_ I__V__I_ { 
+tableconstructor : I__T__I__I seplist_o_fieldsep_s_field_p_ opt_o_fieldsep_p_ I__V__I_ { 
                                  mk_TableConstructor($1, $2)
                              }
 field : I__N__I_ exp I__P__I__I I__J__I_ exp { 

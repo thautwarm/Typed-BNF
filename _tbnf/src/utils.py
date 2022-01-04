@@ -66,11 +66,11 @@ def is_unicode(c: str) -> bool:
 def _escapeString(s: str) -> str:
     sb : Any = StringBuilder__ctor_Z721C83C5("\"")
     for i in range(0, (len(s) - 1) + 1, 1):
-        def arrow_31(s: str=s) -> Any:
+        def arrow_4(s: str=s) -> Any:
             match_value : str = s[i]
             return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\"") if (match_value == "\"") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
         
-        ignore(arrow_31())
+        ignore(arrow_4())
     ignore(StringBuilder__Append_Z721C83C5(sb, "\""))
     return to_string(sb)
 
@@ -82,11 +82,11 @@ def i_to_u4(i: int) -> str:
 def _escapeStringSingleQuoted(s: str) -> str:
     sb : Any = StringBuilder__ctor_Z721C83C5("\u0027")
     for i in range(0, (len(s) - 1) + 1, 1):
-        def arrow_33(s: str=s) -> Any:
+        def arrow_5(s: str=s) -> Any:
             match_value : str = s[i]
             return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\u0027") if (match_value == "\u0027") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
         
-        ignore(arrow_33())
+        ignore(arrow_5())
     ignore(StringBuilder__Append_Z721C83C5(sb, "\u0027"))
     return to_string(sb)
 

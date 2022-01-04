@@ -5,37 +5,37 @@ import typing as typing
 from .simple_json_require import (appendList,unesc,getStr,parseFlt,parseInt)
 
 @dataclasses.dataclass
-class JsonBool:
-    _: bool
+class JBool:
+    value: bool
 
 @dataclasses.dataclass
-class JsonDict:
-    _: list[JsonPair]
+class JDict:
+    value: list[JsonPair]
 
 @dataclasses.dataclass
-class JsonFlt:
-    _: float
+class JFlt:
+    value: float
 
 @dataclasses.dataclass
-class JsonInt:
-    _: int
+class JInt:
+    value: int
 
 @dataclasses.dataclass
-class JsonList:
+class JList:
     elements: list[Json]
 
 @dataclasses.dataclass
-class JsonNull:
+class JNull:
     pass
 
 @dataclasses.dataclass
-class JsonStr:
-    _: str
+class JStr:
+    value: str
 
 if typing.TYPE_CHECKING:
-    Json = typing.Union[ JsonStr,JsonNull,JsonList,JsonInt,JsonFlt,JsonDict,JsonBool]
+    Json = typing.Union[JStr,JNull,JList,JInt,JFlt,JDict,JBool]
 else:
-    Json = (JsonStr,JsonNull,JsonList,JsonInt,JsonFlt,JsonDict,JsonBool)
+    Json = (JStr,JNull,JList,JInt,JFlt,JDict,JBool)
 
 @dataclasses.dataclass
 class JsonPair:

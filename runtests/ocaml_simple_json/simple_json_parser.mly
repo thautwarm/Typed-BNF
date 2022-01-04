@@ -32,16 +32,16 @@ start__y_ : json {
 jsonpair : STR I__G__I_ json { 
                          mk_JsonPair(unesc(getStr($1)), $3)
                      }
-seplist_n__i__s__i__s_json_p_ : json { 
+seplist_o__i__s__i__s_json_p_ : json { 
                                               [$1]
                                           }
-                              | seplist_n__i__s__i__s_json_p_ I__S__I_ json { 
+                              | seplist_o__i__s__i__s_json_p_ I__S__I_ json { 
                                               appendList($1, $3)
                                           }
-seplist_n__i__s__i__s_jsonpair_p_ : jsonpair { 
+seplist_o__i__s__i__s_jsonpair_p_ : jsonpair { 
                                                   [$1]
                                               }
-                                  | seplist_n__i__s__i__s_jsonpair_p_ I__S__I_ jsonpair { 
+                                  | seplist_o__i__s__i__s_jsonpair_p_ I__S__I_ jsonpair { 
                                                   appendList($1, $3)
                                               }
 json : INT { 
@@ -68,9 +68,9 @@ json : INT {
      | I_FALSE_I_ { 
                      mk_JBool(false)
                  }
-     | I__N__I_ seplist_n__i__s__i__s_json_p_ I__P__I_ { 
+     | I__N__I_ seplist_o__i__s__i__s_json_p_ I__P__I_ { 
                      mk_JList($2)
                  }
-     | I__T__I_ seplist_n__i__s__i__s_jsonpair_p_ I__V__I_ { 
+     | I__T__I_ seplist_o__i__s__i__s_jsonpair_p_ I__V__I_ { 
                      mk_JDict($2)
                  }

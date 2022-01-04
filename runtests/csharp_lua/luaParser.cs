@@ -46,32 +46,32 @@ public partial class luaParser : Parser {
 		T__45=46, T__46=47, T__47=48, T__48=49, T__49=50, T__50=51, T__51=52, 
 		T__52=53, T__53=54, T__54=55, SPACE=56, NAME=57, NUMERAL=58, STR_LIT=59;
 	public const int
-		RULE_start = 0, RULE_start__y_ = 1, RULE_nempty_list_n_stat_p_ = 2, RULE_allow_empty_n_nempty_list_n_stat_p__p_ = 3, 
-		RULE_list_n_stat_p_ = 4, RULE_opt_n_retstat_p_ = 5, RULE_block = 6, RULE_opt_n__i__h__i__p_ = 7, 
-		RULE_retstat = 8, RULE_nempty_list_n_elseif_p_ = 9, RULE_allow_empty_n_nempty_list_n_elseif_p__p_ = 10, 
-		RULE_list_n_elseif_p_ = 11, RULE_opt_n_else_p_ = 12, RULE_stat = 13, RULE_opt_assign_rhs = 14, 
+		RULE_start = 0, RULE_start__y_ = 1, RULE_nempty_list_o_stat_p_ = 2, RULE_allow_empty_o_nempty_list_o_stat_p__p_ = 3, 
+		RULE_list_o_stat_p_ = 4, RULE_opt_o_retstat_p_ = 5, RULE_block = 6, RULE_opt_o__i__h__i__p_ = 7, 
+		RULE_retstat = 8, RULE_nempty_list_o_elseif_p_ = 9, RULE_allow_empty_o_nempty_list_o_elseif_p__p_ = 10, 
+		RULE_list_o_elseif_p_ = 11, RULE_opt_o_else_p_ = 12, RULE_stat = 13, RULE_opt_assign_rhs = 14, 
 		RULE_range = 15, RULE_range_tail = 16, RULE_elseif = 17, RULE_else__x_ = 18, 
 		RULE_exp = 19, RULE_binexp = 20, RULE_binseq = 21, RULE_binoperand = 22, 
 		RULE_unaryexp = 23, RULE_exponent = 24, RULE_prefixexp = 25, RULE_atom = 26, 
-		RULE_nempty_seplist_n__i__s__i__s_exp_p_ = 27, RULE_allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_ = 28, 
-		RULE_seplist_n__i__s__i__s_exp_p_ = 29, RULE_args = 30, RULE_opt_n__i_name_k__p_ = 31, 
-		RULE_opt_n_parlist_p_ = 32, RULE_functiondef = 33, RULE_varargs = 34, 
-		RULE_nempty_seplist_n__i__s__i__s__i_name_k__p_ = 35, RULE_parlist = 36, 
-		RULE_nempty_seplist_n_fieldsep_s_field_p_ = 37, RULE_allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_ = 38, 
-		RULE_seplist_n_fieldsep_s_field_p_ = 39, RULE_opt_n_fieldsep_p_ = 40, 
+		RULE_nempty_seplist_o__i__s__i__s_exp_p_ = 27, RULE_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ = 28, 
+		RULE_seplist_o__i__s__i__s_exp_p_ = 29, RULE_args = 30, RULE_opt_o__i_name_k__p_ = 31, 
+		RULE_opt_o_parlist_p_ = 32, RULE_functiondef = 33, RULE_varargs = 34, 
+		RULE_nempty_seplist_o__i__s__i__s__i_name_k__p_ = 35, RULE_parlist = 36, 
+		RULE_nempty_seplist_o_fieldsep_s_field_p_ = 37, RULE_allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_ = 38, 
+		RULE_seplist_o_fieldsep_s_field_p_ = 39, RULE_opt_o_fieldsep_p_ = 40, 
 		RULE_tableconstructor = 41, RULE_field = 42, RULE_fieldsep = 43, RULE_binop = 44;
 	public static readonly string[] ruleNames = {
-		"start", "start__y_", "nempty_list_n_stat_p_", "allow_empty_n_nempty_list_n_stat_p__p_", 
-		"list_n_stat_p_", "opt_n_retstat_p_", "block", "opt_n__i__h__i__p_", "retstat", 
-		"nempty_list_n_elseif_p_", "allow_empty_n_nempty_list_n_elseif_p__p_", 
-		"list_n_elseif_p_", "opt_n_else_p_", "stat", "opt_assign_rhs", "range", 
+		"start", "start__y_", "nempty_list_o_stat_p_", "allow_empty_o_nempty_list_o_stat_p__p_", 
+		"list_o_stat_p_", "opt_o_retstat_p_", "block", "opt_o__i__h__i__p_", "retstat", 
+		"nempty_list_o_elseif_p_", "allow_empty_o_nempty_list_o_elseif_p__p_", 
+		"list_o_elseif_p_", "opt_o_else_p_", "stat", "opt_assign_rhs", "range", 
 		"range_tail", "elseif", "else__x_", "exp", "binexp", "binseq", "binoperand", 
-		"unaryexp", "exponent", "prefixexp", "atom", "nempty_seplist_n__i__s__i__s_exp_p_", 
-		"allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_", "seplist_n__i__s__i__s_exp_p_", 
-		"args", "opt_n__i_name_k__p_", "opt_n_parlist_p_", "functiondef", "varargs", 
-		"nempty_seplist_n__i__s__i__s__i_name_k__p_", "parlist", "nempty_seplist_n_fieldsep_s_field_p_", 
-		"allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_", "seplist_n_fieldsep_s_field_p_", 
-		"opt_n_fieldsep_p_", "tableconstructor", "field", "fieldsep", "binop"
+		"unaryexp", "exponent", "prefixexp", "atom", "nempty_seplist_o__i__s__i__s_exp_p_", 
+		"allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_", "seplist_o__i__s__i__s_exp_p_", 
+		"args", "opt_o__i_name_k__p_", "opt_o_parlist_p_", "functiondef", "varargs", 
+		"nempty_seplist_o__i__s__i__s__i_name_k__p_", "parlist", "nempty_seplist_o_fieldsep_s_field_p_", 
+		"allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_", "seplist_o_fieldsep_s_field_p_", 
+		"opt_o_fieldsep_p_", "tableconstructor", "field", "fieldsep", "binop"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -356,7 +356,7 @@ public partial class luaParser : Parser {
 
 	public partial class Start__y_Context : ParserRuleContext {
 		public block result;
-		public BlockContext start__y__0__1;
+		public BlockContext var_0__1;
 		[System.Diagnostics.DebuggerNonUserCode] public BlockContext block() {
 			return GetRuleContext<BlockContext>(0);
 		}
@@ -385,9 +385,9 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 94;
-			_localctx.start__y__0__1 = block();
+			_localctx.var_0__1 = block();
 			 
-			                _localctx.result =  _localctx.start__y__0__1.result;
+			                _localctx.result =  _localctx.var_0__1.result;
 			            
 			}
 		}
@@ -402,55 +402,55 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Nempty_list_n_stat_p_Context : ParserRuleContext {
+	public partial class Nempty_list_o_stat_p_Context : ParserRuleContext {
 		public MyList<stmt> result;
-		public Nempty_list_n_stat_p_Context nempty_list_n_stat_p__1__1;
-		public StatContext nempty_list_n_stat_p__0__1;
-		public StatContext nempty_list_n_stat_p__1__2;
+		public Nempty_list_o_stat_p_Context var_1__1;
+		public StatContext var_0__1;
+		public StatContext var_1__2;
 		[System.Diagnostics.DebuggerNonUserCode] public StatContext stat() {
 			return GetRuleContext<StatContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_list_n_stat_p_Context nempty_list_n_stat_p_() {
-			return GetRuleContext<Nempty_list_n_stat_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_list_o_stat_p_Context nempty_list_o_stat_p_() {
+			return GetRuleContext<Nempty_list_o_stat_p_Context>(0);
 		}
-		public Nempty_list_n_stat_p_Context(ParserRuleContext parent, int invokingState)
+		public Nempty_list_o_stat_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_nempty_list_n_stat_p_; } }
+		public override int RuleIndex { get { return RULE_nempty_list_o_stat_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterNempty_list_n_stat_p_(this);
+			if (typedListener != null) typedListener.EnterNempty_list_o_stat_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitNempty_list_n_stat_p_(this);
+			if (typedListener != null) typedListener.ExitNempty_list_o_stat_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Nempty_list_n_stat_p_Context nempty_list_n_stat_p_() {
-		return nempty_list_n_stat_p_(0);
+	public Nempty_list_o_stat_p_Context nempty_list_o_stat_p_() {
+		return nempty_list_o_stat_p_(0);
 	}
 
-	private Nempty_list_n_stat_p_Context nempty_list_n_stat_p_(int _p) {
+	private Nempty_list_o_stat_p_Context nempty_list_o_stat_p_(int _p) {
 		ParserRuleContext _parentctx = Context;
 		int _parentState = State;
-		Nempty_list_n_stat_p_Context _localctx = new Nempty_list_n_stat_p_Context(Context, _parentState);
-		Nempty_list_n_stat_p_Context _prevctx = _localctx;
+		Nempty_list_o_stat_p_Context _localctx = new Nempty_list_o_stat_p_Context(Context, _parentState);
+		Nempty_list_o_stat_p_Context _prevctx = _localctx;
 		int _startState = 4;
-		EnterRecursionRule(_localctx, 4, RULE_nempty_list_n_stat_p_, _p);
+		EnterRecursionRule(_localctx, 4, RULE_nempty_list_o_stat_p_, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
 			State = 98;
-			_localctx.nempty_list_n_stat_p__0__1 = stat();
+			_localctx.var_0__1 = stat();
 			 
-			                _localctx.result =  new MyList<stmt> { _localctx.nempty_list_n_stat_p__0__1.result };
+			                _localctx.result =  new MyList<stmt> { _localctx.var_0__1.result };
 			            
 			}
 			Context.Stop = TokenStream.LT(-1);
@@ -464,15 +464,15 @@ public partial class luaParser : Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new Nempty_list_n_stat_p_Context(_parentctx, _parentState);
-					_localctx.nempty_list_n_stat_p__1__1 = _prevctx;
-					PushNewRecursionContext(_localctx, _startState, RULE_nempty_list_n_stat_p_);
+					_localctx = new Nempty_list_o_stat_p_Context(_parentctx, _parentState);
+					_localctx.var_1__1 = _prevctx;
+					PushNewRecursionContext(_localctx, _startState, RULE_nempty_list_o_stat_p_);
 					State = 101;
 					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
 					State = 102;
-					_localctx.nempty_list_n_stat_p__1__2 = stat();
+					_localctx.var_1__2 = stat();
 					 
-					                          _localctx.result =  (MyList<stmt>) appendList<stmt>((MyList<stmt>) _localctx.nempty_list_n_stat_p__1__1.result, (stmt) _localctx.nempty_list_n_stat_p__1__2.result);
+					                          _localctx.result =  (MyList<stmt>) appendList<stmt>((MyList<stmt>) _localctx.var_1__1.result, (stmt) _localctx.var_1__2.result);
 					                      
 					}
 					} 
@@ -494,33 +494,33 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Allow_empty_n_nempty_list_n_stat_p__p_Context : ParserRuleContext {
+	public partial class Allow_empty_o_nempty_list_o_stat_p__p_Context : ParserRuleContext {
 		public MyList<stmt> result;
-		public Nempty_list_n_stat_p_Context allow_empty_n_nempty_list_n_stat_p__p__1__1;
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_list_n_stat_p_Context nempty_list_n_stat_p_() {
-			return GetRuleContext<Nempty_list_n_stat_p_Context>(0);
+		public Nempty_list_o_stat_p_Context var_1__1;
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_list_o_stat_p_Context nempty_list_o_stat_p_() {
+			return GetRuleContext<Nempty_list_o_stat_p_Context>(0);
 		}
-		public Allow_empty_n_nempty_list_n_stat_p__p_Context(ParserRuleContext parent, int invokingState)
+		public Allow_empty_o_nempty_list_o_stat_p__p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_allow_empty_n_nempty_list_n_stat_p__p_; } }
+		public override int RuleIndex { get { return RULE_allow_empty_o_nempty_list_o_stat_p__p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterAllow_empty_n_nempty_list_n_stat_p__p_(this);
+			if (typedListener != null) typedListener.EnterAllow_empty_o_nempty_list_o_stat_p__p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitAllow_empty_n_nempty_list_n_stat_p__p_(this);
+			if (typedListener != null) typedListener.ExitAllow_empty_o_nempty_list_o_stat_p__p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Allow_empty_n_nempty_list_n_stat_p__p_Context allow_empty_n_nempty_list_n_stat_p__p_() {
-		Allow_empty_n_nempty_list_n_stat_p__p_Context _localctx = new Allow_empty_n_nempty_list_n_stat_p__p_Context(Context, State);
-		EnterRule(_localctx, 6, RULE_allow_empty_n_nempty_list_n_stat_p__p_);
+	public Allow_empty_o_nempty_list_o_stat_p__p_Context allow_empty_o_nempty_list_o_stat_p__p_() {
+		Allow_empty_o_nempty_list_o_stat_p__p_Context _localctx = new Allow_empty_o_nempty_list_o_stat_p__p_Context(Context, State);
+		EnterRule(_localctx, 6, RULE_allow_empty_o_nempty_list_o_stat_p__p_);
 		try {
 			State = 114;
 			ErrorHandler.Sync(this);
@@ -537,9 +537,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 111;
-				_localctx.allow_empty_n_nempty_list_n_stat_p__p__1__1 = nempty_list_n_stat_p_(0);
+				_localctx.var_1__1 = nempty_list_o_stat_p_(0);
 				 
-				                _localctx.result =  _localctx.allow_empty_n_nempty_list_n_stat_p__p__1__1.result;
+				                _localctx.result =  _localctx.var_1__1.result;
 				            
 				}
 				break;
@@ -556,40 +556,40 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class List_n_stat_p_Context : ParserRuleContext {
+	public partial class List_o_stat_p_Context : ParserRuleContext {
 		public MyList<stmt> result;
-		public Allow_empty_n_nempty_list_n_stat_p__p_Context list_n_stat_p__0__1;
-		[System.Diagnostics.DebuggerNonUserCode] public Allow_empty_n_nempty_list_n_stat_p__p_Context allow_empty_n_nempty_list_n_stat_p__p_() {
-			return GetRuleContext<Allow_empty_n_nempty_list_n_stat_p__p_Context>(0);
+		public Allow_empty_o_nempty_list_o_stat_p__p_Context var_0__1;
+		[System.Diagnostics.DebuggerNonUserCode] public Allow_empty_o_nempty_list_o_stat_p__p_Context allow_empty_o_nempty_list_o_stat_p__p_() {
+			return GetRuleContext<Allow_empty_o_nempty_list_o_stat_p__p_Context>(0);
 		}
-		public List_n_stat_p_Context(ParserRuleContext parent, int invokingState)
+		public List_o_stat_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_list_n_stat_p_; } }
+		public override int RuleIndex { get { return RULE_list_o_stat_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterList_n_stat_p_(this);
+			if (typedListener != null) typedListener.EnterList_o_stat_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitList_n_stat_p_(this);
+			if (typedListener != null) typedListener.ExitList_o_stat_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public List_n_stat_p_Context list_n_stat_p_() {
-		List_n_stat_p_Context _localctx = new List_n_stat_p_Context(Context, State);
-		EnterRule(_localctx, 8, RULE_list_n_stat_p_);
+	public List_o_stat_p_Context list_o_stat_p_() {
+		List_o_stat_p_Context _localctx = new List_o_stat_p_Context(Context, State);
+		EnterRule(_localctx, 8, RULE_list_o_stat_p_);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 116;
-			_localctx.list_n_stat_p__0__1 = allow_empty_n_nempty_list_n_stat_p__p_();
+			_localctx.var_0__1 = allow_empty_o_nempty_list_o_stat_p__p_();
 			 
-			                _localctx.result =  _localctx.list_n_stat_p__0__1.result;
+			                _localctx.result =  _localctx.var_0__1.result;
 			            
 			}
 		}
@@ -604,33 +604,33 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Opt_n_retstat_p_Context : ParserRuleContext {
+	public partial class Opt_o_retstat_p_Context : ParserRuleContext {
 		public maybe<stmt> result;
-		public RetstatContext opt_n_retstat_p__0__1;
+		public RetstatContext var_0__1;
 		[System.Diagnostics.DebuggerNonUserCode] public RetstatContext retstat() {
 			return GetRuleContext<RetstatContext>(0);
 		}
-		public Opt_n_retstat_p_Context(ParserRuleContext parent, int invokingState)
+		public Opt_o_retstat_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_opt_n_retstat_p_; } }
+		public override int RuleIndex { get { return RULE_opt_o_retstat_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterOpt_n_retstat_p_(this);
+			if (typedListener != null) typedListener.EnterOpt_o_retstat_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitOpt_n_retstat_p_(this);
+			if (typedListener != null) typedListener.ExitOpt_o_retstat_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Opt_n_retstat_p_Context opt_n_retstat_p_() {
-		Opt_n_retstat_p_Context _localctx = new Opt_n_retstat_p_Context(Context, State);
-		EnterRule(_localctx, 10, RULE_opt_n_retstat_p_);
+	public Opt_o_retstat_p_Context opt_o_retstat_p_() {
+		Opt_o_retstat_p_Context _localctx = new Opt_o_retstat_p_Context(Context, State);
+		EnterRule(_localctx, 10, RULE_opt_o_retstat_p_);
 		try {
 			State = 123;
 			ErrorHandler.Sync(this);
@@ -639,9 +639,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 119;
-				_localctx.opt_n_retstat_p__0__1 = retstat();
+				_localctx.var_0__1 = retstat();
 				 
-				                _localctx.result =  (maybe<stmt>) some<stmt>((stmt) _localctx.opt_n_retstat_p__0__1.result);
+				                _localctx.result =  (maybe<stmt>) some<stmt>((stmt) _localctx.var_0__1.result);
 				            
 				}
 				break;
@@ -668,13 +668,13 @@ public partial class luaParser : Parser {
 
 	public partial class BlockContext : ParserRuleContext {
 		public block result;
-		public List_n_stat_p_Context block_0__1;
-		public Opt_n_retstat_p_Context block_0__2;
-		[System.Diagnostics.DebuggerNonUserCode] public List_n_stat_p_Context list_n_stat_p_() {
-			return GetRuleContext<List_n_stat_p_Context>(0);
+		public List_o_stat_p_Context var_0__1;
+		public Opt_o_retstat_p_Context var_0__2;
+		[System.Diagnostics.DebuggerNonUserCode] public List_o_stat_p_Context list_o_stat_p_() {
+			return GetRuleContext<List_o_stat_p_Context>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Opt_n_retstat_p_Context opt_n_retstat_p_() {
-			return GetRuleContext<Opt_n_retstat_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Opt_o_retstat_p_Context opt_o_retstat_p_() {
+			return GetRuleContext<Opt_o_retstat_p_Context>(0);
 		}
 		public BlockContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -701,11 +701,11 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 125;
-			_localctx.block_0__1 = list_n_stat_p_();
+			_localctx.var_0__1 = list_o_stat_p_();
 			State = 126;
-			_localctx.block_0__2 = opt_n_retstat_p_();
+			_localctx.var_0__2 = opt_o_retstat_p_();
 			 
-			                _localctx.result =  (block) block((MyList<stmt>) _localctx.block_0__1.result, (maybe<stmt>) _localctx.block_0__2.result);
+			                _localctx.result =  (block) block((MyList<stmt>) _localctx.var_0__1.result, (maybe<stmt>) _localctx.var_0__2.result);
 			            
 			}
 		}
@@ -720,30 +720,30 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Opt_n__i__h__i__p_Context : ParserRuleContext {
+	public partial class Opt_o__i__h__i__p_Context : ParserRuleContext {
 		public maybe<IToken> result;
-		public IToken opt_n__i__h__i__p__0__1;
-		public Opt_n__i__h__i__p_Context(ParserRuleContext parent, int invokingState)
+		public IToken var_0__1;
+		public Opt_o__i__h__i__p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_opt_n__i__h__i__p_; } }
+		public override int RuleIndex { get { return RULE_opt_o__i__h__i__p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterOpt_n__i__h__i__p_(this);
+			if (typedListener != null) typedListener.EnterOpt_o__i__h__i__p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitOpt_n__i__h__i__p_(this);
+			if (typedListener != null) typedListener.ExitOpt_o__i__h__i__p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Opt_n__i__h__i__p_Context opt_n__i__h__i__p_() {
-		Opt_n__i__h__i__p_Context _localctx = new Opt_n__i__h__i__p_Context(Context, State);
-		EnterRule(_localctx, 14, RULE_opt_n__i__h__i__p_);
+	public Opt_o__i__h__i__p_Context opt_o__i__h__i__p_() {
+		Opt_o__i__h__i__p_Context _localctx = new Opt_o__i__h__i__p_Context(Context, State);
+		EnterRule(_localctx, 14, RULE_opt_o__i__h__i__p_);
 		try {
 			State = 132;
 			ErrorHandler.Sync(this);
@@ -752,9 +752,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 129;
-				_localctx.opt_n__i__h__i__p__0__1 = Match(T__0);
+				_localctx.var_0__1 = Match(T__0);
 				 
-				                _localctx.result =  (maybe<IToken>) some<IToken>((IToken) _localctx.opt_n__i__h__i__p__0__1);
+				                _localctx.result =  (maybe<IToken>) some<IToken>((IToken) _localctx.var_0__1);
 				            
 				}
 				break;
@@ -781,13 +781,13 @@ public partial class luaParser : Parser {
 
 	public partial class RetstatContext : ParserRuleContext {
 		public stmt result;
-		public IToken retstat_0__1;
-		public Seplist_n__i__s__i__s_exp_p_Context retstat_0__2;
-		[System.Diagnostics.DebuggerNonUserCode] public Opt_n__i__h__i__p_Context opt_n__i__h__i__p_() {
-			return GetRuleContext<Opt_n__i__h__i__p_Context>(0);
+		public IToken var_0__1;
+		public Seplist_o__i__s__i__s_exp_p_Context var_0__2;
+		[System.Diagnostics.DebuggerNonUserCode] public Opt_o__i__h__i__p_Context opt_o__i__h__i__p_() {
+			return GetRuleContext<Opt_o__i__h__i__p_Context>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Seplist_n__i__s__i__s_exp_p_Context seplist_n__i__s__i__s_exp_p_() {
-			return GetRuleContext<Seplist_n__i__s__i__s_exp_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Seplist_o__i__s__i__s_exp_p_Context seplist_o__i__s__i__s_exp_p_() {
+			return GetRuleContext<Seplist_o__i__s__i__s_exp_p_Context>(0);
 		}
 		public RetstatContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -814,13 +814,13 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 134;
-			_localctx.retstat_0__1 = Match(T__1);
+			_localctx.var_0__1 = Match(T__1);
 			State = 135;
-			_localctx.retstat_0__2 = seplist_n__i__s__i__s_exp_p_();
+			_localctx.var_0__2 = seplist_o__i__s__i__s_exp_p_();
 			State = 136;
-			opt_n__i__h__i__p_();
+			opt_o__i__h__i__p_();
 			 
-			                _localctx.result =  (stmt) ReturnStmt((IToken) _localctx.retstat_0__1, (MyList<expr>) _localctx.retstat_0__2.result);
+			                _localctx.result =  (stmt) ReturnStmt((IToken) _localctx.var_0__1, (MyList<expr>) _localctx.var_0__2.result);
 			            
 			}
 		}
@@ -835,55 +835,55 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Nempty_list_n_elseif_p_Context : ParserRuleContext {
+	public partial class Nempty_list_o_elseif_p_Context : ParserRuleContext {
 		public MyList<if_elseif> result;
-		public Nempty_list_n_elseif_p_Context nempty_list_n_elseif_p__1__1;
-		public ElseifContext nempty_list_n_elseif_p__0__1;
-		public ElseifContext nempty_list_n_elseif_p__1__2;
+		public Nempty_list_o_elseif_p_Context var_1__1;
+		public ElseifContext var_0__1;
+		public ElseifContext var_1__2;
 		[System.Diagnostics.DebuggerNonUserCode] public ElseifContext elseif() {
 			return GetRuleContext<ElseifContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_list_n_elseif_p_Context nempty_list_n_elseif_p_() {
-			return GetRuleContext<Nempty_list_n_elseif_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_list_o_elseif_p_Context nempty_list_o_elseif_p_() {
+			return GetRuleContext<Nempty_list_o_elseif_p_Context>(0);
 		}
-		public Nempty_list_n_elseif_p_Context(ParserRuleContext parent, int invokingState)
+		public Nempty_list_o_elseif_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_nempty_list_n_elseif_p_; } }
+		public override int RuleIndex { get { return RULE_nempty_list_o_elseif_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterNempty_list_n_elseif_p_(this);
+			if (typedListener != null) typedListener.EnterNempty_list_o_elseif_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitNempty_list_n_elseif_p_(this);
+			if (typedListener != null) typedListener.ExitNempty_list_o_elseif_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Nempty_list_n_elseif_p_Context nempty_list_n_elseif_p_() {
-		return nempty_list_n_elseif_p_(0);
+	public Nempty_list_o_elseif_p_Context nempty_list_o_elseif_p_() {
+		return nempty_list_o_elseif_p_(0);
 	}
 
-	private Nempty_list_n_elseif_p_Context nempty_list_n_elseif_p_(int _p) {
+	private Nempty_list_o_elseif_p_Context nempty_list_o_elseif_p_(int _p) {
 		ParserRuleContext _parentctx = Context;
 		int _parentState = State;
-		Nempty_list_n_elseif_p_Context _localctx = new Nempty_list_n_elseif_p_Context(Context, _parentState);
-		Nempty_list_n_elseif_p_Context _prevctx = _localctx;
+		Nempty_list_o_elseif_p_Context _localctx = new Nempty_list_o_elseif_p_Context(Context, _parentState);
+		Nempty_list_o_elseif_p_Context _prevctx = _localctx;
 		int _startState = 18;
-		EnterRecursionRule(_localctx, 18, RULE_nempty_list_n_elseif_p_, _p);
+		EnterRecursionRule(_localctx, 18, RULE_nempty_list_o_elseif_p_, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
 			State = 140;
-			_localctx.nempty_list_n_elseif_p__0__1 = elseif();
+			_localctx.var_0__1 = elseif();
 			 
-			                _localctx.result =  new MyList<if_elseif> { _localctx.nempty_list_n_elseif_p__0__1.result };
+			                _localctx.result =  new MyList<if_elseif> { _localctx.var_0__1.result };
 			            
 			}
 			Context.Stop = TokenStream.LT(-1);
@@ -897,15 +897,15 @@ public partial class luaParser : Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new Nempty_list_n_elseif_p_Context(_parentctx, _parentState);
-					_localctx.nempty_list_n_elseif_p__1__1 = _prevctx;
-					PushNewRecursionContext(_localctx, _startState, RULE_nempty_list_n_elseif_p_);
+					_localctx = new Nempty_list_o_elseif_p_Context(_parentctx, _parentState);
+					_localctx.var_1__1 = _prevctx;
+					PushNewRecursionContext(_localctx, _startState, RULE_nempty_list_o_elseif_p_);
 					State = 143;
 					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
 					State = 144;
-					_localctx.nempty_list_n_elseif_p__1__2 = elseif();
+					_localctx.var_1__2 = elseif();
 					 
-					                          _localctx.result =  (MyList<if_elseif>) appendList<if_elseif>((MyList<if_elseif>) _localctx.nempty_list_n_elseif_p__1__1.result, (if_elseif) _localctx.nempty_list_n_elseif_p__1__2.result);
+					                          _localctx.result =  (MyList<if_elseif>) appendList<if_elseif>((MyList<if_elseif>) _localctx.var_1__1.result, (if_elseif) _localctx.var_1__2.result);
 					                      
 					}
 					} 
@@ -927,33 +927,33 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Allow_empty_n_nempty_list_n_elseif_p__p_Context : ParserRuleContext {
+	public partial class Allow_empty_o_nempty_list_o_elseif_p__p_Context : ParserRuleContext {
 		public MyList<if_elseif> result;
-		public Nempty_list_n_elseif_p_Context allow_empty_n_nempty_list_n_elseif_p__p__1__1;
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_list_n_elseif_p_Context nempty_list_n_elseif_p_() {
-			return GetRuleContext<Nempty_list_n_elseif_p_Context>(0);
+		public Nempty_list_o_elseif_p_Context var_1__1;
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_list_o_elseif_p_Context nempty_list_o_elseif_p_() {
+			return GetRuleContext<Nempty_list_o_elseif_p_Context>(0);
 		}
-		public Allow_empty_n_nempty_list_n_elseif_p__p_Context(ParserRuleContext parent, int invokingState)
+		public Allow_empty_o_nempty_list_o_elseif_p__p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_allow_empty_n_nempty_list_n_elseif_p__p_; } }
+		public override int RuleIndex { get { return RULE_allow_empty_o_nempty_list_o_elseif_p__p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterAllow_empty_n_nempty_list_n_elseif_p__p_(this);
+			if (typedListener != null) typedListener.EnterAllow_empty_o_nempty_list_o_elseif_p__p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitAllow_empty_n_nempty_list_n_elseif_p__p_(this);
+			if (typedListener != null) typedListener.ExitAllow_empty_o_nempty_list_o_elseif_p__p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Allow_empty_n_nempty_list_n_elseif_p__p_Context allow_empty_n_nempty_list_n_elseif_p__p_() {
-		Allow_empty_n_nempty_list_n_elseif_p__p_Context _localctx = new Allow_empty_n_nempty_list_n_elseif_p__p_Context(Context, State);
-		EnterRule(_localctx, 20, RULE_allow_empty_n_nempty_list_n_elseif_p__p_);
+	public Allow_empty_o_nempty_list_o_elseif_p__p_Context allow_empty_o_nempty_list_o_elseif_p__p_() {
+		Allow_empty_o_nempty_list_o_elseif_p__p_Context _localctx = new Allow_empty_o_nempty_list_o_elseif_p__p_Context(Context, State);
+		EnterRule(_localctx, 20, RULE_allow_empty_o_nempty_list_o_elseif_p__p_);
 		try {
 			State = 156;
 			ErrorHandler.Sync(this);
@@ -971,9 +971,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 153;
-				_localctx.allow_empty_n_nempty_list_n_elseif_p__p__1__1 = nempty_list_n_elseif_p_(0);
+				_localctx.var_1__1 = nempty_list_o_elseif_p_(0);
 				 
-				                _localctx.result =  _localctx.allow_empty_n_nempty_list_n_elseif_p__p__1__1.result;
+				                _localctx.result =  _localctx.var_1__1.result;
 				            
 				}
 				break;
@@ -992,40 +992,40 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class List_n_elseif_p_Context : ParserRuleContext {
+	public partial class List_o_elseif_p_Context : ParserRuleContext {
 		public MyList<if_elseif> result;
-		public Allow_empty_n_nempty_list_n_elseif_p__p_Context list_n_elseif_p__0__1;
-		[System.Diagnostics.DebuggerNonUserCode] public Allow_empty_n_nempty_list_n_elseif_p__p_Context allow_empty_n_nempty_list_n_elseif_p__p_() {
-			return GetRuleContext<Allow_empty_n_nempty_list_n_elseif_p__p_Context>(0);
+		public Allow_empty_o_nempty_list_o_elseif_p__p_Context var_0__1;
+		[System.Diagnostics.DebuggerNonUserCode] public Allow_empty_o_nempty_list_o_elseif_p__p_Context allow_empty_o_nempty_list_o_elseif_p__p_() {
+			return GetRuleContext<Allow_empty_o_nempty_list_o_elseif_p__p_Context>(0);
 		}
-		public List_n_elseif_p_Context(ParserRuleContext parent, int invokingState)
+		public List_o_elseif_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_list_n_elseif_p_; } }
+		public override int RuleIndex { get { return RULE_list_o_elseif_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterList_n_elseif_p_(this);
+			if (typedListener != null) typedListener.EnterList_o_elseif_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitList_n_elseif_p_(this);
+			if (typedListener != null) typedListener.ExitList_o_elseif_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public List_n_elseif_p_Context list_n_elseif_p_() {
-		List_n_elseif_p_Context _localctx = new List_n_elseif_p_Context(Context, State);
-		EnterRule(_localctx, 22, RULE_list_n_elseif_p_);
+	public List_o_elseif_p_Context list_o_elseif_p_() {
+		List_o_elseif_p_Context _localctx = new List_o_elseif_p_Context(Context, State);
+		EnterRule(_localctx, 22, RULE_list_o_elseif_p_);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 158;
-			_localctx.list_n_elseif_p__0__1 = allow_empty_n_nempty_list_n_elseif_p__p_();
+			_localctx.var_0__1 = allow_empty_o_nempty_list_o_elseif_p__p_();
 			 
-			                _localctx.result =  _localctx.list_n_elseif_p__0__1.result;
+			                _localctx.result =  _localctx.var_0__1.result;
 			            
 			}
 		}
@@ -1040,33 +1040,33 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Opt_n_else_p_Context : ParserRuleContext {
+	public partial class Opt_o_else_p_Context : ParserRuleContext {
 		public maybe<if_else> result;
-		public Else__x_Context opt_n_else_p__0__1;
+		public Else__x_Context var_0__1;
 		[System.Diagnostics.DebuggerNonUserCode] public Else__x_Context else__x_() {
 			return GetRuleContext<Else__x_Context>(0);
 		}
-		public Opt_n_else_p_Context(ParserRuleContext parent, int invokingState)
+		public Opt_o_else_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_opt_n_else_p_; } }
+		public override int RuleIndex { get { return RULE_opt_o_else_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterOpt_n_else_p_(this);
+			if (typedListener != null) typedListener.EnterOpt_o_else_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitOpt_n_else_p_(this);
+			if (typedListener != null) typedListener.ExitOpt_o_else_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Opt_n_else_p_Context opt_n_else_p_() {
-		Opt_n_else_p_Context _localctx = new Opt_n_else_p_Context(Context, State);
-		EnterRule(_localctx, 24, RULE_opt_n_else_p_);
+	public Opt_o_else_p_Context opt_o_else_p_() {
+		Opt_o_else_p_Context _localctx = new Opt_o_else_p_Context(Context, State);
+		EnterRule(_localctx, 24, RULE_opt_o_else_p_);
 		try {
 			State = 165;
 			ErrorHandler.Sync(this);
@@ -1075,9 +1075,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 161;
-				_localctx.opt_n_else_p__0__1 = else__x_();
+				_localctx.var_0__1 = else__x_();
 				 
-				                _localctx.result =  (maybe<if_else>) some<if_else>((if_else) _localctx.opt_n_else_p__0__1.result);
+				                _localctx.result =  (maybe<if_else>) some<if_else>((if_else) _localctx.var_0__1.result);
 				            
 				}
 				break;
@@ -1106,45 +1106,45 @@ public partial class luaParser : Parser {
 
 	public partial class StatContext : ParserRuleContext {
 		public stmt result;
-		public IToken stat_0__1;
-		public Nempty_seplist_n__i__s__i__s_exp_p_Context stat_1__1;
-		public Nempty_seplist_n__i__s__i__s_exp_p_Context stat_1__3;
-		public ExpContext stat_2__1;
-		public IToken stat_3__2;
-		public IToken stat_4__1;
-		public IToken stat_5__1;
-		public IToken stat_5__2;
-		public IToken stat_6__1;
-		public BlockContext stat_6__2;
-		public IToken stat_7__1;
-		public ExpContext stat_7__2;
-		public BlockContext stat_7__4;
-		public IToken stat_8__1;
-		public BlockContext stat_8__2;
-		public ExpContext stat_8__4;
-		public IToken stat_9__1;
-		public ExpContext stat_9__2;
-		public List_n_elseif_p_Context stat_9__4;
-		public Opt_n_else_p_Context stat_9__5;
-		public IToken stat_10__1;
-		public IToken stat_10__2;
-		public RangeContext stat_10__4;
-		public BlockContext stat_10__6;
-		public IToken stat_11__1;
-		public Nempty_seplist_n__i__s__i__s__i_name_k__p_Context stat_11__2;
-		public Nempty_seplist_n__i__s__i__s_exp_p_Context stat_11__4;
-		public BlockContext stat_11__6;
-		public IToken stat_12__1;
-		public IToken stat_12__3;
-		public Opt_n_parlist_p_Context stat_12__5;
-		public BlockContext stat_12__7;
-		public Nempty_seplist_n__i__s__i__s__i_name_k__p_Context stat_13__2;
-		public Opt_assign_rhsContext stat_13__3;
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_n__i__s__i__s_exp_p_Context[] nempty_seplist_n__i__s__i__s_exp_p_() {
-			return GetRuleContexts<Nempty_seplist_n__i__s__i__s_exp_p_Context>();
+		public IToken var_0__1;
+		public Nempty_seplist_o__i__s__i__s_exp_p_Context var_1__1;
+		public Nempty_seplist_o__i__s__i__s_exp_p_Context var_1__3;
+		public ExpContext var_2__1;
+		public IToken var_3__2;
+		public IToken var_4__1;
+		public IToken var_5__1;
+		public IToken var_5__2;
+		public IToken var_6__1;
+		public BlockContext var_6__2;
+		public IToken var_7__1;
+		public ExpContext var_7__2;
+		public BlockContext var_7__4;
+		public IToken var_8__1;
+		public BlockContext var_8__2;
+		public ExpContext var_8__4;
+		public IToken var_9__1;
+		public ExpContext var_9__2;
+		public List_o_elseif_p_Context var_9__4;
+		public Opt_o_else_p_Context var_9__5;
+		public IToken var_10__1;
+		public IToken var_10__2;
+		public RangeContext var_10__4;
+		public BlockContext var_10__6;
+		public IToken var_11__1;
+		public Nempty_seplist_o__i__s__i__s__i_name_k__p_Context var_11__2;
+		public Nempty_seplist_o__i__s__i__s_exp_p_Context var_11__4;
+		public BlockContext var_11__6;
+		public IToken var_12__1;
+		public IToken var_12__3;
+		public Opt_o_parlist_p_Context var_12__5;
+		public BlockContext var_12__7;
+		public Nempty_seplist_o__i__s__i__s__i_name_k__p_Context var_13__2;
+		public Opt_assign_rhsContext var_13__3;
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_o__i__s__i__s_exp_p_Context[] nempty_seplist_o__i__s__i__s_exp_p_() {
+			return GetRuleContexts<Nempty_seplist_o__i__s__i__s_exp_p_Context>();
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_n__i__s__i__s_exp_p_Context nempty_seplist_n__i__s__i__s_exp_p_(int i) {
-			return GetRuleContext<Nempty_seplist_n__i__s__i__s_exp_p_Context>(i);
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_o__i__s__i__s_exp_p_Context nempty_seplist_o__i__s__i__s_exp_p_(int i) {
+			return GetRuleContext<Nempty_seplist_o__i__s__i__s_exp_p_Context>(i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ExpContext exp() {
 			return GetRuleContext<ExpContext>(0);
@@ -1153,20 +1153,20 @@ public partial class luaParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public BlockContext block() {
 			return GetRuleContext<BlockContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public List_n_elseif_p_Context list_n_elseif_p_() {
-			return GetRuleContext<List_n_elseif_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public List_o_elseif_p_Context list_o_elseif_p_() {
+			return GetRuleContext<List_o_elseif_p_Context>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Opt_n_else_p_Context opt_n_else_p_() {
-			return GetRuleContext<Opt_n_else_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Opt_o_else_p_Context opt_o_else_p_() {
+			return GetRuleContext<Opt_o_else_p_Context>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public RangeContext range() {
 			return GetRuleContext<RangeContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_n__i__s__i__s__i_name_k__p_Context nempty_seplist_n__i__s__i__s__i_name_k__p_() {
-			return GetRuleContext<Nempty_seplist_n__i__s__i__s__i_name_k__p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_o__i__s__i__s__i_name_k__p_Context nempty_seplist_o__i__s__i__s__i_name_k__p_() {
+			return GetRuleContext<Nempty_seplist_o__i__s__i__s__i_name_k__p_Context>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Opt_n_parlist_p_Context opt_n_parlist_p_() {
-			return GetRuleContext<Opt_n_parlist_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Opt_o_parlist_p_Context opt_o_parlist_p_() {
+			return GetRuleContext<Opt_o_parlist_p_Context>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public Opt_assign_rhsContext opt_assign_rhs() {
 			return GetRuleContext<Opt_assign_rhsContext>(0);
@@ -1200,9 +1200,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 167;
-				_localctx.stat_0__1 = Match(T__0);
+				_localctx.var_0__1 = Match(T__0);
 				 
-				                _localctx.result =  (stmt) EmptyStmt((IToken) _localctx.stat_0__1);
+				                _localctx.result =  (stmt) EmptyStmt((IToken) _localctx.var_0__1);
 				            
 				}
 				break;
@@ -1210,13 +1210,13 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 169;
-				_localctx.stat_1__1 = nempty_seplist_n__i__s__i__s_exp_p_(0);
+				_localctx.var_1__1 = nempty_seplist_o__i__s__i__s_exp_p_(0);
 				State = 170;
 				Match(T__2);
 				State = 171;
-				_localctx.stat_1__3 = nempty_seplist_n__i__s__i__s_exp_p_(0);
+				_localctx.var_1__3 = nempty_seplist_o__i__s__i__s_exp_p_(0);
 				 
-				                _localctx.result =  (stmt) Assignment((bool) false, (MyList<expr>) _localctx.stat_1__1.result, (maybe<MyList<expr>>) (maybe<MyList<expr>>) some<MyList<expr>>((MyList<expr>) _localctx.stat_1__3.result));
+				                _localctx.result =  (stmt) Assignment((bool) false, (MyList<expr>) _localctx.var_1__1.result, (maybe<MyList<expr>>) (maybe<MyList<expr>>) some<MyList<expr>>((MyList<expr>) _localctx.var_1__3.result));
 				            
 				}
 				break;
@@ -1224,9 +1224,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 3);
 				{
 				State = 174;
-				_localctx.stat_2__1 = exp();
+				_localctx.var_2__1 = exp();
 				 
-				                _localctx.result =  (stmt) ExprStmt((expr) _localctx.stat_2__1.result);
+				                _localctx.result =  (stmt) ExprStmt((expr) _localctx.var_2__1.result);
 				            
 				}
 				break;
@@ -1236,11 +1236,11 @@ public partial class luaParser : Parser {
 				State = 177;
 				Match(T__3);
 				State = 178;
-				_localctx.stat_3__2 = Match(NAME);
+				_localctx.var_3__2 = Match(NAME);
 				State = 179;
 				Match(T__3);
 				 
-				                _localctx.result =  (stmt) LabelStmt((IToken) _localctx.stat_3__2);
+				                _localctx.result =  (stmt) LabelStmt((IToken) _localctx.var_3__2);
 				            
 				}
 				break;
@@ -1248,9 +1248,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 5);
 				{
 				State = 181;
-				_localctx.stat_4__1 = Match(T__4);
+				_localctx.var_4__1 = Match(T__4);
 				 
-				                _localctx.result =  (stmt) BreakStmt((IToken) _localctx.stat_4__1);
+				                _localctx.result =  (stmt) BreakStmt((IToken) _localctx.var_4__1);
 				            
 				}
 				break;
@@ -1258,11 +1258,11 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 6);
 				{
 				State = 183;
-				_localctx.stat_5__1 = Match(T__5);
+				_localctx.var_5__1 = Match(T__5);
 				State = 184;
-				_localctx.stat_5__2 = Match(NAME);
+				_localctx.var_5__2 = Match(NAME);
 				 
-				                _localctx.result =  (stmt) GotoStmt((IToken) _localctx.stat_5__1, (IToken) _localctx.stat_5__2);
+				                _localctx.result =  (stmt) GotoStmt((IToken) _localctx.var_5__1, (IToken) _localctx.var_5__2);
 				            
 				}
 				break;
@@ -1270,13 +1270,13 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 7);
 				{
 				State = 186;
-				_localctx.stat_6__1 = Match(T__6);
+				_localctx.var_6__1 = Match(T__6);
 				State = 187;
-				_localctx.stat_6__2 = block();
+				_localctx.var_6__2 = block();
 				State = 188;
 				Match(T__7);
 				 
-				                _localctx.result =  (stmt) DoStmt((IToken) _localctx.stat_6__1, (block) _localctx.stat_6__2.result);
+				                _localctx.result =  (stmt) DoStmt((IToken) _localctx.var_6__1, (block) _localctx.var_6__2.result);
 				            
 				}
 				break;
@@ -1284,17 +1284,17 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 8);
 				{
 				State = 191;
-				_localctx.stat_7__1 = Match(T__8);
+				_localctx.var_7__1 = Match(T__8);
 				State = 192;
-				_localctx.stat_7__2 = exp();
+				_localctx.var_7__2 = exp();
 				State = 193;
 				Match(T__6);
 				State = 194;
-				_localctx.stat_7__4 = block();
+				_localctx.var_7__4 = block();
 				State = 195;
 				Match(T__7);
 				 
-				                _localctx.result =  (stmt) WhileStmt((IToken) _localctx.stat_7__1, (expr) _localctx.stat_7__2.result, (block) _localctx.stat_7__4.result);
+				                _localctx.result =  (stmt) WhileStmt((IToken) _localctx.var_7__1, (expr) _localctx.var_7__2.result, (block) _localctx.var_7__4.result);
 				            
 				}
 				break;
@@ -1302,15 +1302,15 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 9);
 				{
 				State = 198;
-				_localctx.stat_8__1 = Match(T__9);
+				_localctx.var_8__1 = Match(T__9);
 				State = 199;
-				_localctx.stat_8__2 = block();
+				_localctx.var_8__2 = block();
 				State = 200;
 				Match(T__10);
 				State = 201;
-				_localctx.stat_8__4 = exp();
+				_localctx.var_8__4 = exp();
 				 
-				                _localctx.result =  (stmt) RepeatStmt((IToken) _localctx.stat_8__1, (block) _localctx.stat_8__2.result, (expr) _localctx.stat_8__4.result);
+				                _localctx.result =  (stmt) RepeatStmt((IToken) _localctx.var_8__1, (block) _localctx.var_8__2.result, (expr) _localctx.var_8__4.result);
 				            
 				}
 				break;
@@ -1318,19 +1318,19 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 10);
 				{
 				State = 204;
-				_localctx.stat_9__1 = Match(T__11);
+				_localctx.var_9__1 = Match(T__11);
 				State = 205;
-				_localctx.stat_9__2 = exp();
+				_localctx.var_9__2 = exp();
 				State = 206;
 				Match(T__12);
 				State = 207;
-				_localctx.stat_9__4 = list_n_elseif_p_();
+				_localctx.var_9__4 = list_o_elseif_p_();
 				State = 208;
-				_localctx.stat_9__5 = opt_n_else_p_();
+				_localctx.var_9__5 = opt_o_else_p_();
 				State = 209;
 				Match(T__7);
 				 
-				                _localctx.result =  (stmt) IfStmt((IToken) _localctx.stat_9__1, (expr) _localctx.stat_9__2.result, (MyList<if_elseif>) _localctx.stat_9__4.result, (maybe<if_else>) _localctx.stat_9__5.result);
+				                _localctx.result =  (stmt) IfStmt((IToken) _localctx.var_9__1, (expr) _localctx.var_9__2.result, (MyList<if_elseif>) _localctx.var_9__4.result, (maybe<if_else>) _localctx.var_9__5.result);
 				            
 				}
 				break;
@@ -1338,21 +1338,21 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 11);
 				{
 				State = 212;
-				_localctx.stat_10__1 = Match(T__13);
+				_localctx.var_10__1 = Match(T__13);
 				State = 213;
-				_localctx.stat_10__2 = Match(NAME);
+				_localctx.var_10__2 = Match(NAME);
 				State = 214;
 				Match(T__2);
 				State = 215;
-				_localctx.stat_10__4 = range();
+				_localctx.var_10__4 = range();
 				State = 216;
 				Match(T__6);
 				State = 217;
-				_localctx.stat_10__6 = block();
+				_localctx.var_10__6 = block();
 				State = 218;
 				Match(T__7);
 				 
-				                _localctx.result =  (stmt) ForRangeStmt((IToken) _localctx.stat_10__1, (IToken) _localctx.stat_10__2, (range) _localctx.stat_10__4.result, (block) _localctx.stat_10__6.result);
+				                _localctx.result =  (stmt) ForRangeStmt((IToken) _localctx.var_10__1, (IToken) _localctx.var_10__2, (range) _localctx.var_10__4.result, (block) _localctx.var_10__6.result);
 				            
 				}
 				break;
@@ -1360,21 +1360,21 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 12);
 				{
 				State = 221;
-				_localctx.stat_11__1 = Match(T__13);
+				_localctx.var_11__1 = Match(T__13);
 				State = 222;
-				_localctx.stat_11__2 = nempty_seplist_n__i__s__i__s__i_name_k__p_(0);
+				_localctx.var_11__2 = nempty_seplist_o__i__s__i__s__i_name_k__p_(0);
 				State = 223;
 				Match(T__14);
 				State = 224;
-				_localctx.stat_11__4 = nempty_seplist_n__i__s__i__s_exp_p_(0);
+				_localctx.var_11__4 = nempty_seplist_o__i__s__i__s_exp_p_(0);
 				State = 225;
 				Match(T__6);
 				State = 226;
-				_localctx.stat_11__6 = block();
+				_localctx.var_11__6 = block();
 				State = 227;
 				Match(T__7);
 				 
-				                _localctx.result =  (stmt) ForInStmt((IToken) _localctx.stat_11__1, (MyList<IToken>) _localctx.stat_11__2.result, (MyList<expr>) _localctx.stat_11__4.result, (block) _localctx.stat_11__6.result);
+				                _localctx.result =  (stmt) ForInStmt((IToken) _localctx.var_11__1, (MyList<IToken>) _localctx.var_11__2.result, (MyList<expr>) _localctx.var_11__4.result, (block) _localctx.var_11__6.result);
 				            
 				}
 				break;
@@ -1382,23 +1382,23 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 13);
 				{
 				State = 230;
-				_localctx.stat_12__1 = Match(T__15);
+				_localctx.var_12__1 = Match(T__15);
 				State = 231;
 				Match(T__16);
 				State = 232;
-				_localctx.stat_12__3 = Match(NAME);
+				_localctx.var_12__3 = Match(NAME);
 				State = 233;
 				Match(T__17);
 				State = 234;
-				_localctx.stat_12__5 = opt_n_parlist_p_();
+				_localctx.var_12__5 = opt_o_parlist_p_();
 				State = 235;
 				Match(T__18);
 				State = 236;
-				_localctx.stat_12__7 = block();
+				_localctx.var_12__7 = block();
 				State = 237;
 				Match(T__7);
 				 
-				                _localctx.result =  (stmt) ExprStmt((expr) (expr) FuncDef((IToken) _localctx.stat_12__1, (bool) true, (maybe<IToken>) (maybe<IToken>) some<IToken>((IToken) _localctx.stat_12__3), (maybe<parameters>) _localctx.stat_12__5.result, (block) _localctx.stat_12__7.result));
+				                _localctx.result =  (stmt) ExprStmt((expr) (expr) FuncDef((IToken) _localctx.var_12__1, (bool) true, (maybe<IToken>) (maybe<IToken>) some<IToken>((IToken) _localctx.var_12__3), (maybe<parameters>) _localctx.var_12__5.result, (block) _localctx.var_12__7.result));
 				            
 				}
 				break;
@@ -1408,11 +1408,11 @@ public partial class luaParser : Parser {
 				State = 240;
 				Match(T__15);
 				State = 241;
-				_localctx.stat_13__2 = nempty_seplist_n__i__s__i__s__i_name_k__p_(0);
+				_localctx.var_13__2 = nempty_seplist_o__i__s__i__s__i_name_k__p_(0);
 				State = 242;
-				_localctx.stat_13__3 = opt_assign_rhs();
+				_localctx.var_13__3 = opt_assign_rhs();
 				 
-				                _localctx.result =  (stmt) Assignment((bool) true, (MyList<expr>) (MyList<expr>) listMap<IToken, expr>((MyList<IToken>) _localctx.stat_13__2.result, (System.Func<IToken, expr>) Var), (maybe<MyList<expr>>) _localctx.stat_13__3.result);
+				                _localctx.result =  (stmt) Assignment((bool) true, (MyList<expr>) (MyList<expr>) listMap<IToken, expr>((MyList<IToken>) _localctx.var_13__2.result, (System.Func<IToken, expr>) Var), (maybe<MyList<expr>>) _localctx.var_13__3.result);
 				            
 				}
 				break;
@@ -1431,9 +1431,9 @@ public partial class luaParser : Parser {
 
 	public partial class Opt_assign_rhsContext : ParserRuleContext {
 		public maybe<MyList<expr>> result;
-		public Nempty_seplist_n__i__s__i__s_exp_p_Context opt_assign_rhs_0__2;
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_n__i__s__i__s_exp_p_Context nempty_seplist_n__i__s__i__s_exp_p_() {
-			return GetRuleContext<Nempty_seplist_n__i__s__i__s_exp_p_Context>(0);
+		public Nempty_seplist_o__i__s__i__s_exp_p_Context var_0__2;
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_o__i__s__i__s_exp_p_Context nempty_seplist_o__i__s__i__s_exp_p_() {
+			return GetRuleContext<Nempty_seplist_o__i__s__i__s_exp_p_Context>(0);
 		}
 		public Opt_assign_rhsContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1466,9 +1466,9 @@ public partial class luaParser : Parser {
 				State = 247;
 				Match(T__2);
 				State = 248;
-				_localctx.opt_assign_rhs_0__2 = nempty_seplist_n__i__s__i__s_exp_p_(0);
+				_localctx.var_0__2 = nempty_seplist_o__i__s__i__s_exp_p_(0);
 				 
-				                _localctx.result =  (maybe<MyList<expr>>) some<MyList<expr>>((MyList<expr>) _localctx.opt_assign_rhs_0__2.result);
+				                _localctx.result =  (maybe<MyList<expr>>) some<MyList<expr>>((MyList<expr>) _localctx.var_0__2.result);
 				            
 				}
 				break;
@@ -1495,9 +1495,9 @@ public partial class luaParser : Parser {
 
 	public partial class RangeContext : ParserRuleContext {
 		public range result;
-		public ExpContext range_0__1;
-		public ExpContext range_0__3;
-		public Range_tailContext range_0__4;
+		public ExpContext var_0__1;
+		public ExpContext var_0__3;
+		public Range_tailContext var_0__4;
 		[System.Diagnostics.DebuggerNonUserCode] public ExpContext[] exp() {
 			return GetRuleContexts<ExpContext>();
 		}
@@ -1532,15 +1532,15 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 254;
-			_localctx.range_0__1 = exp();
+			_localctx.var_0__1 = exp();
 			State = 255;
 			Match(T__19);
 			State = 256;
-			_localctx.range_0__3 = exp();
+			_localctx.var_0__3 = exp();
 			State = 257;
-			_localctx.range_0__4 = range_tail();
+			_localctx.var_0__4 = range_tail();
 			 
-			                _localctx.result =  (range) range((expr) _localctx.range_0__1.result, (expr) _localctx.range_0__3.result, (maybe<expr>) _localctx.range_0__4.result);
+			                _localctx.result =  (range) range((expr) _localctx.var_0__1.result, (expr) _localctx.var_0__3.result, (maybe<expr>) _localctx.var_0__4.result);
 			            
 			}
 		}
@@ -1557,7 +1557,7 @@ public partial class luaParser : Parser {
 
 	public partial class Range_tailContext : ParserRuleContext {
 		public maybe<expr> result;
-		public ExpContext range_tail_0__2;
+		public ExpContext var_0__2;
 		[System.Diagnostics.DebuggerNonUserCode] public ExpContext exp() {
 			return GetRuleContext<ExpContext>(0);
 		}
@@ -1592,9 +1592,9 @@ public partial class luaParser : Parser {
 				State = 260;
 				Match(T__19);
 				State = 261;
-				_localctx.range_tail_0__2 = exp();
+				_localctx.var_0__2 = exp();
 				 
-				                _localctx.result =  (maybe<expr>) some<expr>((expr) _localctx.range_tail_0__2.result);
+				                _localctx.result =  (maybe<expr>) some<expr>((expr) _localctx.var_0__2.result);
 				            
 				}
 				break;
@@ -1623,9 +1623,9 @@ public partial class luaParser : Parser {
 
 	public partial class ElseifContext : ParserRuleContext {
 		public if_elseif result;
-		public IToken elseif_0__1;
-		public ExpContext elseif_0__2;
-		public BlockContext elseif_0__4;
+		public IToken var_0__1;
+		public ExpContext var_0__2;
+		public BlockContext var_0__4;
 		[System.Diagnostics.DebuggerNonUserCode] public ExpContext exp() {
 			return GetRuleContext<ExpContext>(0);
 		}
@@ -1657,15 +1657,15 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 267;
-			_localctx.elseif_0__1 = Match(T__20);
+			_localctx.var_0__1 = Match(T__20);
 			State = 268;
-			_localctx.elseif_0__2 = exp();
+			_localctx.var_0__2 = exp();
 			State = 269;
 			Match(T__12);
 			State = 270;
-			_localctx.elseif_0__4 = block();
+			_localctx.var_0__4 = block();
 			 
-			                _localctx.result =  (if_elseif) if_elseif((IToken) _localctx.elseif_0__1, (expr) _localctx.elseif_0__2.result, (block) _localctx.elseif_0__4.result);
+			                _localctx.result =  (if_elseif) if_elseif((IToken) _localctx.var_0__1, (expr) _localctx.var_0__2.result, (block) _localctx.var_0__4.result);
 			            
 			}
 		}
@@ -1682,8 +1682,8 @@ public partial class luaParser : Parser {
 
 	public partial class Else__x_Context : ParserRuleContext {
 		public if_else result;
-		public IToken else__x__0__1;
-		public BlockContext else__x__0__2;
+		public IToken var_0__1;
+		public BlockContext var_0__2;
 		[System.Diagnostics.DebuggerNonUserCode] public BlockContext block() {
 			return GetRuleContext<BlockContext>(0);
 		}
@@ -1712,11 +1712,11 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 273;
-			_localctx.else__x__0__1 = Match(T__21);
+			_localctx.var_0__1 = Match(T__21);
 			State = 274;
-			_localctx.else__x__0__2 = block();
+			_localctx.var_0__2 = block();
 			 
-			                _localctx.result =  (if_else) if_else((IToken) _localctx.else__x__0__1, (block) _localctx.else__x__0__2.result);
+			                _localctx.result =  (if_else) if_else((IToken) _localctx.var_0__1, (block) _localctx.var_0__2.result);
 			            
 			}
 		}
@@ -1733,7 +1733,7 @@ public partial class luaParser : Parser {
 
 	public partial class ExpContext : ParserRuleContext {
 		public expr result;
-		public BinexpContext exp_0__1;
+		public BinexpContext var_0__1;
 		[System.Diagnostics.DebuggerNonUserCode] public BinexpContext binexp() {
 			return GetRuleContext<BinexpContext>(0);
 		}
@@ -1762,9 +1762,9 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 277;
-			_localctx.exp_0__1 = binexp();
+			_localctx.var_0__1 = binexp();
 			 
-			                _localctx.result =  _localctx.exp_0__1.result;
+			                _localctx.result =  _localctx.var_0__1.result;
 			            
 			}
 		}
@@ -1781,7 +1781,7 @@ public partial class luaParser : Parser {
 
 	public partial class BinexpContext : ParserRuleContext {
 		public expr result;
-		public BinseqContext binexp_0__1;
+		public BinseqContext var_0__1;
 		[System.Diagnostics.DebuggerNonUserCode] public BinseqContext binseq() {
 			return GetRuleContext<BinseqContext>(0);
 		}
@@ -1810,9 +1810,9 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 280;
-			_localctx.binexp_0__1 = binseq(0);
+			_localctx.var_0__1 = binseq(0);
 			 
-			                _localctx.result =  (expr) mkBinOpSeq((MyList<Op<expr>>) _localctx.binexp_0__1.result, (System.Func<IToken, expr, expr, expr>) Bin, (System.Func<MyList<Op<expr>>, expr>) UnsolvedBin);
+			                _localctx.result =  (expr) mkBinOpSeq((MyList<Op<expr>>) _localctx.var_0__1.result, (System.Func<IToken, expr, expr, expr>) Bin, (System.Func<MyList<Op<expr>>, expr>) UnsolvedBin);
 			            
 			}
 		}
@@ -1829,10 +1829,10 @@ public partial class luaParser : Parser {
 
 	public partial class BinseqContext : ParserRuleContext {
 		public MyList<Op<expr>> result;
-		public BinseqContext binseq_0__1;
-		public BinoperandContext binseq_1__1;
-		public BinopContext binseq_0__2;
-		public BinoperandContext binseq_0__3;
+		public BinseqContext var_0__1;
+		public BinoperandContext var_1__1;
+		public BinopContext var_0__2;
+		public BinoperandContext var_0__3;
 		[System.Diagnostics.DebuggerNonUserCode] public BinoperandContext binoperand() {
 			return GetRuleContext<BinoperandContext>(0);
 		}
@@ -1877,9 +1877,9 @@ public partial class luaParser : Parser {
 			{
 			{
 			State = 284;
-			_localctx.binseq_1__1 = binoperand();
+			_localctx.var_1__1 = binoperand();
 			 
-			                _localctx.result =  new MyList<Op<expr>> { _localctx.binseq_1__1.result };
+			                _localctx.result =  new MyList<Op<expr>> { _localctx.var_1__1.result };
 			            
 			}
 			Context.Stop = TokenStream.LT(-1);
@@ -1894,16 +1894,16 @@ public partial class luaParser : Parser {
 					{
 					{
 					_localctx = new BinseqContext(_parentctx, _parentState);
-					_localctx.binseq_0__1 = _prevctx;
+					_localctx.var_0__1 = _prevctx;
 					PushNewRecursionContext(_localctx, _startState, RULE_binseq);
 					State = 287;
 					if (!(Precpred(Context, 2))) throw new FailedPredicateException(this, "Precpred(Context, 2)");
 					State = 288;
-					_localctx.binseq_0__2 = binop();
+					_localctx.var_0__2 = binop();
 					State = 289;
-					_localctx.binseq_0__3 = binoperand();
+					_localctx.var_0__3 = binoperand();
 					 
-					                          _localctx.result =  (MyList<Op<expr>>) appendList<Op<expr>>((MyList<Op<expr>>) (MyList<Op<expr>>) appendList<Op<expr>>((MyList<Op<expr>>) _localctx.binseq_0__1.result, (Op<expr>) _localctx.binseq_0__2.result), (Op<expr>) _localctx.binseq_0__3.result);
+					                          _localctx.result =  (MyList<Op<expr>>) appendList<Op<expr>>((MyList<Op<expr>>) (MyList<Op<expr>>) appendList<Op<expr>>((MyList<Op<expr>>) _localctx.var_0__1.result, (Op<expr>) _localctx.var_0__2.result), (Op<expr>) _localctx.var_0__3.result);
 					                      
 					}
 					} 
@@ -1927,7 +1927,7 @@ public partial class luaParser : Parser {
 
 	public partial class BinoperandContext : ParserRuleContext {
 		public Op<expr> result;
-		public UnaryexpContext binoperand_0__1;
+		public UnaryexpContext var_0__1;
 		[System.Diagnostics.DebuggerNonUserCode] public UnaryexpContext unaryexp() {
 			return GetRuleContext<UnaryexpContext>(0);
 		}
@@ -1956,9 +1956,9 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 297;
-			_localctx.binoperand_0__1 = unaryexp();
+			_localctx.var_0__1 = unaryexp();
 			 
-			                _localctx.result =  (Op<expr>) mkOperand((expr) _localctx.binoperand_0__1.result);
+			                _localctx.result =  (Op<expr>) mkOperand((expr) _localctx.var_0__1.result);
 			            
 			}
 		}
@@ -1975,15 +1975,15 @@ public partial class luaParser : Parser {
 
 	public partial class UnaryexpContext : ParserRuleContext {
 		public expr result;
-		public IToken unaryexp_0__1;
-		public ExponentContext unaryexp_0__2;
-		public IToken unaryexp_1__1;
-		public ExponentContext unaryexp_1__2;
-		public IToken unaryexp_2__1;
-		public ExponentContext unaryexp_2__2;
-		public IToken unaryexp_3__1;
-		public ExponentContext unaryexp_3__2;
-		public ExponentContext unaryexp_4__1;
+		public IToken var_0__1;
+		public ExponentContext var_0__2;
+		public IToken var_1__1;
+		public ExponentContext var_1__2;
+		public IToken var_2__1;
+		public ExponentContext var_2__2;
+		public IToken var_3__1;
+		public ExponentContext var_3__2;
+		public ExponentContext var_4__1;
 		[System.Diagnostics.DebuggerNonUserCode] public ExponentContext exponent() {
 			return GetRuleContext<ExponentContext>(0);
 		}
@@ -2016,11 +2016,11 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 300;
-				_localctx.unaryexp_0__1 = Match(T__22);
+				_localctx.var_0__1 = Match(T__22);
 				State = 301;
-				_localctx.unaryexp_0__2 = exponent();
+				_localctx.var_0__2 = exponent();
 				 
-				                _localctx.result =  (expr) Len((IToken) _localctx.unaryexp_0__1, (expr) _localctx.unaryexp_0__2.result);
+				                _localctx.result =  (expr) Len((IToken) _localctx.var_0__1, (expr) _localctx.var_0__2.result);
 				            
 				}
 				break;
@@ -2028,11 +2028,11 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 304;
-				_localctx.unaryexp_1__1 = Match(T__23);
+				_localctx.var_1__1 = Match(T__23);
 				State = 305;
-				_localctx.unaryexp_1__2 = exponent();
+				_localctx.var_1__2 = exponent();
 				 
-				                _localctx.result =  (expr) Neg((IToken) _localctx.unaryexp_1__1, (expr) _localctx.unaryexp_1__2.result);
+				                _localctx.result =  (expr) Neg((IToken) _localctx.var_1__1, (expr) _localctx.var_1__2.result);
 				            
 				}
 				break;
@@ -2040,11 +2040,11 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 3);
 				{
 				State = 308;
-				_localctx.unaryexp_2__1 = Match(T__24);
+				_localctx.var_2__1 = Match(T__24);
 				State = 309;
-				_localctx.unaryexp_2__2 = exponent();
+				_localctx.var_2__2 = exponent();
 				 
-				                _localctx.result =  (expr) Inv((IToken) _localctx.unaryexp_2__1, (expr) _localctx.unaryexp_2__2.result);
+				                _localctx.result =  (expr) Inv((IToken) _localctx.var_2__1, (expr) _localctx.var_2__2.result);
 				            
 				}
 				break;
@@ -2052,11 +2052,11 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 4);
 				{
 				State = 312;
-				_localctx.unaryexp_3__1 = Match(T__25);
+				_localctx.var_3__1 = Match(T__25);
 				State = 313;
-				_localctx.unaryexp_3__2 = exponent();
+				_localctx.var_3__2 = exponent();
 				 
-				                _localctx.result =  (expr) Not((IToken) _localctx.unaryexp_3__1, (expr) _localctx.unaryexp_3__2.result);
+				                _localctx.result =  (expr) Not((IToken) _localctx.var_3__1, (expr) _localctx.var_3__2.result);
 				            
 				}
 				break;
@@ -2073,9 +2073,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 5);
 				{
 				State = 316;
-				_localctx.unaryexp_4__1 = exponent();
+				_localctx.var_4__1 = exponent();
 				 
-				                _localctx.result =  _localctx.unaryexp_4__1.result;
+				                _localctx.result =  _localctx.var_4__1.result;
 				            
 				}
 				break;
@@ -2096,9 +2096,9 @@ public partial class luaParser : Parser {
 
 	public partial class ExponentContext : ParserRuleContext {
 		public expr result;
-		public PrefixexpContext exponent_0__1;
-		public ExponentContext exponent_0__3;
-		public PrefixexpContext exponent_1__1;
+		public PrefixexpContext var_0__1;
+		public ExponentContext var_0__3;
+		public PrefixexpContext var_1__1;
 		[System.Diagnostics.DebuggerNonUserCode] public PrefixexpContext prefixexp() {
 			return GetRuleContext<PrefixexpContext>(0);
 		}
@@ -2134,13 +2134,13 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 321;
-				_localctx.exponent_0__1 = prefixexp(0);
+				_localctx.var_0__1 = prefixexp(0);
 				State = 322;
 				Match(T__26);
 				State = 323;
-				_localctx.exponent_0__3 = exponent();
+				_localctx.var_0__3 = exponent();
 				 
-				                _localctx.result =  (expr) Exponent((expr) _localctx.exponent_0__1.result, (expr) _localctx.exponent_0__3.result);
+				                _localctx.result =  (expr) Exponent((expr) _localctx.var_0__1.result, (expr) _localctx.var_0__3.result);
 				            
 				}
 				break;
@@ -2148,9 +2148,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 326;
-				_localctx.exponent_1__1 = prefixexp(0);
+				_localctx.var_1__1 = prefixexp(0);
 				 
-				                _localctx.result =  _localctx.exponent_1__1.result;
+				                _localctx.result =  _localctx.var_1__1.result;
 				            
 				}
 				break;
@@ -2169,19 +2169,19 @@ public partial class luaParser : Parser {
 
 	public partial class PrefixexpContext : ParserRuleContext {
 		public expr result;
-		public PrefixexpContext prefixexp_2__1;
-		public PrefixexpContext prefixexp_3__1;
-		public PrefixexpContext prefixexp_4__1;
-		public PrefixexpContext prefixexp_5__1;
-		public IToken prefixexp_0__1;
-		public IToken prefixexp_1__1;
-		public ExpContext prefixexp_1__2;
-		public AtomContext prefixexp_6__1;
-		public ArgsContext prefixexp_2__2;
-		public IToken prefixexp_3__3;
-		public ArgsContext prefixexp_3__4;
-		public ExpContext prefixexp_4__3;
-		public IToken prefixexp_5__3;
+		public PrefixexpContext var_2__1;
+		public PrefixexpContext var_3__1;
+		public PrefixexpContext var_4__1;
+		public PrefixexpContext var_5__1;
+		public IToken var_0__1;
+		public IToken var_1__1;
+		public ExpContext var_1__2;
+		public AtomContext var_6__1;
+		public ArgsContext var_2__2;
+		public IToken var_3__3;
+		public ArgsContext var_3__4;
+		public ExpContext var_4__3;
+		public IToken var_5__3;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(luaParser.NAME, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpContext exp() {
 			return GetRuleContext<ExpContext>(0);
@@ -2234,22 +2234,22 @@ public partial class luaParser : Parser {
 			case NAME:
 				{
 				State = 332;
-				_localctx.prefixexp_0__1 = Match(NAME);
+				_localctx.var_0__1 = Match(NAME);
 				 
-				                _localctx.result =  (expr) Var((IToken) _localctx.prefixexp_0__1);
+				                _localctx.result =  (expr) Var((IToken) _localctx.var_0__1);
 				            
 				}
 				break;
 			case T__17:
 				{
 				State = 334;
-				_localctx.prefixexp_1__1 = Match(T__17);
+				_localctx.var_1__1 = Match(T__17);
 				State = 335;
-				_localctx.prefixexp_1__2 = exp();
+				_localctx.var_1__2 = exp();
 				State = 336;
 				Match(T__18);
 				 
-				                _localctx.result =  (expr) NestedExp((IToken) _localctx.prefixexp_1__1, (expr) _localctx.prefixexp_1__2.result);
+				                _localctx.result =  (expr) NestedExp((IToken) _localctx.var_1__1, (expr) _localctx.var_1__2.result);
 				            
 				}
 				break;
@@ -2263,9 +2263,9 @@ public partial class luaParser : Parser {
 			case STR_LIT:
 				{
 				State = 339;
-				_localctx.prefixexp_6__1 = atom();
+				_localctx.var_6__1 = atom();
 				 
-				                _localctx.result =  _localctx.prefixexp_6__1.result;
+				                _localctx.result =  _localctx.var_6__1.result;
 				            
 				}
 				break;
@@ -2288,66 +2288,66 @@ public partial class luaParser : Parser {
 					case 1:
 						{
 						_localctx = new PrefixexpContext(_parentctx, _parentState);
-						_localctx.prefixexp_2__1 = _prevctx;
+						_localctx.var_2__1 = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_prefixexp);
 						State = 344;
 						if (!(Precpred(Context, 5))) throw new FailedPredicateException(this, "Precpred(Context, 5)");
 						State = 345;
-						_localctx.prefixexp_2__2 = args();
+						_localctx.var_2__2 = args();
 						 
-						                          _localctx.result =  (expr) CallFunc((expr) _localctx.prefixexp_2__1.result, (arguments) _localctx.prefixexp_2__2.result);
+						                          _localctx.result =  (expr) CallFunc((expr) _localctx.var_2__1.result, (arguments) _localctx.var_2__2.result);
 						                      
 						}
 						break;
 					case 2:
 						{
 						_localctx = new PrefixexpContext(_parentctx, _parentState);
-						_localctx.prefixexp_3__1 = _prevctx;
+						_localctx.var_3__1 = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_prefixexp);
 						State = 348;
 						if (!(Precpred(Context, 4))) throw new FailedPredicateException(this, "Precpred(Context, 4)");
 						State = 349;
 						Match(T__27);
 						State = 350;
-						_localctx.prefixexp_3__3 = Match(NAME);
+						_localctx.var_3__3 = Match(NAME);
 						State = 351;
-						_localctx.prefixexp_3__4 = args();
+						_localctx.var_3__4 = args();
 						 
-						                          _localctx.result =  (expr) CallMethod((expr) _localctx.prefixexp_3__1.result, (IToken) _localctx.prefixexp_3__3, (arguments) _localctx.prefixexp_3__4.result);
+						                          _localctx.result =  (expr) CallMethod((expr) _localctx.var_3__1.result, (IToken) _localctx.var_3__3, (arguments) _localctx.var_3__4.result);
 						                      
 						}
 						break;
 					case 3:
 						{
 						_localctx = new PrefixexpContext(_parentctx, _parentState);
-						_localctx.prefixexp_4__1 = _prevctx;
+						_localctx.var_4__1 = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_prefixexp);
 						State = 354;
 						if (!(Precpred(Context, 3))) throw new FailedPredicateException(this, "Precpred(Context, 3)");
 						State = 355;
 						Match(T__28);
 						State = 356;
-						_localctx.prefixexp_4__3 = exp();
+						_localctx.var_4__3 = exp();
 						State = 357;
 						Match(T__29);
 						 
-						                          _localctx.result =  (expr) Index((expr) _localctx.prefixexp_4__1.result, (expr) _localctx.prefixexp_4__3.result);
+						                          _localctx.result =  (expr) Index((expr) _localctx.var_4__1.result, (expr) _localctx.var_4__3.result);
 						                      
 						}
 						break;
 					case 4:
 						{
 						_localctx = new PrefixexpContext(_parentctx, _parentState);
-						_localctx.prefixexp_5__1 = _prevctx;
+						_localctx.var_5__1 = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_prefixexp);
 						State = 360;
 						if (!(Precpred(Context, 2))) throw new FailedPredicateException(this, "Precpred(Context, 2)");
 						State = 361;
 						Match(T__30);
 						State = 362;
-						_localctx.prefixexp_5__3 = Match(NAME);
+						_localctx.var_5__3 = Match(NAME);
 						 
-						                          _localctx.result =  (expr) Attr((expr) _localctx.prefixexp_5__1.result, (IToken) _localctx.prefixexp_5__3);
+						                          _localctx.result =  (expr) Attr((expr) _localctx.var_5__1.result, (IToken) _localctx.var_5__3);
 						                      
 						}
 						break;
@@ -2373,14 +2373,14 @@ public partial class luaParser : Parser {
 
 	public partial class AtomContext : ParserRuleContext {
 		public expr result;
-		public IToken atom_0__1;
-		public IToken atom_1__1;
-		public IToken atom_2__1;
-		public IToken atom_3__1;
-		public IToken atom_4__1;
-		public IToken atom_5__1;
-		public FunctiondefContext atom_6__1;
-		public TableconstructorContext atom_7__1;
+		public IToken var_0__1;
+		public IToken var_1__1;
+		public IToken var_2__1;
+		public IToken var_3__1;
+		public IToken var_4__1;
+		public IToken var_5__1;
+		public FunctiondefContext var_6__1;
+		public TableconstructorContext var_7__1;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMERAL() { return GetToken(luaParser.NUMERAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STR_LIT() { return GetToken(luaParser.STR_LIT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public FunctiondefContext functiondef() {
@@ -2418,9 +2418,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 369;
-				_localctx.atom_0__1 = Match(T__31);
+				_localctx.var_0__1 = Match(T__31);
 				 
-				                _localctx.result =  (expr) Nil((IToken) _localctx.atom_0__1);
+				                _localctx.result =  (expr) Nil((IToken) _localctx.var_0__1);
 				            
 				}
 				break;
@@ -2428,9 +2428,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 371;
-				_localctx.atom_1__1 = Match(T__32);
+				_localctx.var_1__1 = Match(T__32);
 				 
-				                _localctx.result =  (expr) Bool((IToken) _localctx.atom_1__1, (bool) false);
+				                _localctx.result =  (expr) Bool((IToken) _localctx.var_1__1, (bool) false);
 				            
 				}
 				break;
@@ -2438,9 +2438,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 3);
 				{
 				State = 373;
-				_localctx.atom_2__1 = Match(T__33);
+				_localctx.var_2__1 = Match(T__33);
 				 
-				                _localctx.result =  (expr) Bool((IToken) _localctx.atom_2__1, (bool) true);
+				                _localctx.result =  (expr) Bool((IToken) _localctx.var_2__1, (bool) true);
 				            
 				}
 				break;
@@ -2448,9 +2448,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 4);
 				{
 				State = 375;
-				_localctx.atom_3__1 = Match(NUMERAL);
+				_localctx.var_3__1 = Match(NUMERAL);
 				 
-				                _localctx.result =  (expr) Num((IToken) _localctx.atom_3__1);
+				                _localctx.result =  (expr) Num((IToken) _localctx.var_3__1);
 				            
 				}
 				break;
@@ -2458,9 +2458,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 5);
 				{
 				State = 377;
-				_localctx.atom_4__1 = Match(STR_LIT);
+				_localctx.var_4__1 = Match(STR_LIT);
 				 
-				                _localctx.result =  (expr) String((IToken) _localctx.atom_4__1);
+				                _localctx.result =  (expr) String((IToken) _localctx.var_4__1);
 				            
 				}
 				break;
@@ -2468,9 +2468,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 6);
 				{
 				State = 379;
-				_localctx.atom_5__1 = Match(T__34);
+				_localctx.var_5__1 = Match(T__34);
 				 
-				                _localctx.result =  (expr) Ellipse((IToken) _localctx.atom_5__1);
+				                _localctx.result =  (expr) Ellipse((IToken) _localctx.var_5__1);
 				            
 				}
 				break;
@@ -2478,9 +2478,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 7);
 				{
 				State = 381;
-				_localctx.atom_6__1 = functiondef();
+				_localctx.var_6__1 = functiondef();
 				 
-				                _localctx.result =  _localctx.atom_6__1.result;
+				                _localctx.result =  _localctx.var_6__1.result;
 				            
 				}
 				break;
@@ -2488,9 +2488,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 8);
 				{
 				State = 384;
-				_localctx.atom_7__1 = tableconstructor();
+				_localctx.var_7__1 = tableconstructor();
 				 
-				                _localctx.result =  (expr) TableExpr((table) _localctx.atom_7__1.result);
+				                _localctx.result =  (expr) TableExpr((table) _localctx.var_7__1.result);
 				            
 				}
 				break;
@@ -2509,55 +2509,55 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Nempty_seplist_n__i__s__i__s_exp_p_Context : ParserRuleContext {
+	public partial class Nempty_seplist_o__i__s__i__s_exp_p_Context : ParserRuleContext {
 		public MyList<expr> result;
-		public Nempty_seplist_n__i__s__i__s_exp_p_Context nempty_seplist_n__i__s__i__s_exp_p__1__1;
-		public ExpContext nempty_seplist_n__i__s__i__s_exp_p__0__1;
-		public ExpContext nempty_seplist_n__i__s__i__s_exp_p__1__3;
+		public Nempty_seplist_o__i__s__i__s_exp_p_Context var_1__1;
+		public ExpContext var_0__1;
+		public ExpContext var_1__3;
 		[System.Diagnostics.DebuggerNonUserCode] public ExpContext exp() {
 			return GetRuleContext<ExpContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_n__i__s__i__s_exp_p_Context nempty_seplist_n__i__s__i__s_exp_p_() {
-			return GetRuleContext<Nempty_seplist_n__i__s__i__s_exp_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_o__i__s__i__s_exp_p_Context nempty_seplist_o__i__s__i__s_exp_p_() {
+			return GetRuleContext<Nempty_seplist_o__i__s__i__s_exp_p_Context>(0);
 		}
-		public Nempty_seplist_n__i__s__i__s_exp_p_Context(ParserRuleContext parent, int invokingState)
+		public Nempty_seplist_o__i__s__i__s_exp_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_nempty_seplist_n__i__s__i__s_exp_p_; } }
+		public override int RuleIndex { get { return RULE_nempty_seplist_o__i__s__i__s_exp_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterNempty_seplist_n__i__s__i__s_exp_p_(this);
+			if (typedListener != null) typedListener.EnterNempty_seplist_o__i__s__i__s_exp_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitNempty_seplist_n__i__s__i__s_exp_p_(this);
+			if (typedListener != null) typedListener.ExitNempty_seplist_o__i__s__i__s_exp_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Nempty_seplist_n__i__s__i__s_exp_p_Context nempty_seplist_n__i__s__i__s_exp_p_() {
-		return nempty_seplist_n__i__s__i__s_exp_p_(0);
+	public Nempty_seplist_o__i__s__i__s_exp_p_Context nempty_seplist_o__i__s__i__s_exp_p_() {
+		return nempty_seplist_o__i__s__i__s_exp_p_(0);
 	}
 
-	private Nempty_seplist_n__i__s__i__s_exp_p_Context nempty_seplist_n__i__s__i__s_exp_p_(int _p) {
+	private Nempty_seplist_o__i__s__i__s_exp_p_Context nempty_seplist_o__i__s__i__s_exp_p_(int _p) {
 		ParserRuleContext _parentctx = Context;
 		int _parentState = State;
-		Nempty_seplist_n__i__s__i__s_exp_p_Context _localctx = new Nempty_seplist_n__i__s__i__s_exp_p_Context(Context, _parentState);
-		Nempty_seplist_n__i__s__i__s_exp_p_Context _prevctx = _localctx;
+		Nempty_seplist_o__i__s__i__s_exp_p_Context _localctx = new Nempty_seplist_o__i__s__i__s_exp_p_Context(Context, _parentState);
+		Nempty_seplist_o__i__s__i__s_exp_p_Context _prevctx = _localctx;
 		int _startState = 54;
-		EnterRecursionRule(_localctx, 54, RULE_nempty_seplist_n__i__s__i__s_exp_p_, _p);
+		EnterRecursionRule(_localctx, 54, RULE_nempty_seplist_o__i__s__i__s_exp_p_, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
 			State = 390;
-			_localctx.nempty_seplist_n__i__s__i__s_exp_p__0__1 = exp();
+			_localctx.var_0__1 = exp();
 			 
-			                _localctx.result =  new MyList<expr> { _localctx.nempty_seplist_n__i__s__i__s_exp_p__0__1.result };
+			                _localctx.result =  new MyList<expr> { _localctx.var_0__1.result };
 			            
 			}
 			Context.Stop = TokenStream.LT(-1);
@@ -2571,17 +2571,17 @@ public partial class luaParser : Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new Nempty_seplist_n__i__s__i__s_exp_p_Context(_parentctx, _parentState);
-					_localctx.nempty_seplist_n__i__s__i__s_exp_p__1__1 = _prevctx;
-					PushNewRecursionContext(_localctx, _startState, RULE_nempty_seplist_n__i__s__i__s_exp_p_);
+					_localctx = new Nempty_seplist_o__i__s__i__s_exp_p_Context(_parentctx, _parentState);
+					_localctx.var_1__1 = _prevctx;
+					PushNewRecursionContext(_localctx, _startState, RULE_nempty_seplist_o__i__s__i__s_exp_p_);
 					State = 393;
 					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
 					State = 394;
 					Match(T__19);
 					State = 395;
-					_localctx.nempty_seplist_n__i__s__i__s_exp_p__1__3 = exp();
+					_localctx.var_1__3 = exp();
 					 
-					                          _localctx.result =  (MyList<expr>) appendList<expr>((MyList<expr>) _localctx.nempty_seplist_n__i__s__i__s_exp_p__1__1.result, (expr) _localctx.nempty_seplist_n__i__s__i__s_exp_p__1__3.result);
+					                          _localctx.result =  (MyList<expr>) appendList<expr>((MyList<expr>) _localctx.var_1__1.result, (expr) _localctx.var_1__3.result);
 					                      
 					}
 					} 
@@ -2603,33 +2603,33 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_Context : ParserRuleContext {
+	public partial class Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context : ParserRuleContext {
 		public MyList<expr> result;
-		public Nempty_seplist_n__i__s__i__s_exp_p_Context allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p__1__1;
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_n__i__s__i__s_exp_p_Context nempty_seplist_n__i__s__i__s_exp_p_() {
-			return GetRuleContext<Nempty_seplist_n__i__s__i__s_exp_p_Context>(0);
+		public Nempty_seplist_o__i__s__i__s_exp_p_Context var_1__1;
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_o__i__s__i__s_exp_p_Context nempty_seplist_o__i__s__i__s_exp_p_() {
+			return GetRuleContext<Nempty_seplist_o__i__s__i__s_exp_p_Context>(0);
 		}
-		public Allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_Context(ParserRuleContext parent, int invokingState)
+		public Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_; } }
+		public override int RuleIndex { get { return RULE_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterAllow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_(this);
+			if (typedListener != null) typedListener.EnterAllow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitAllow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_(this);
+			if (typedListener != null) typedListener.ExitAllow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_Context allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_() {
-		Allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_Context _localctx = new Allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_Context(Context, State);
-		EnterRule(_localctx, 56, RULE_allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_);
+	public Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_() {
+		Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context _localctx = new Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context(Context, State);
+		EnterRule(_localctx, 56, RULE_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_);
 		try {
 			State = 407;
 			ErrorHandler.Sync(this);
@@ -2646,9 +2646,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 404;
-				_localctx.allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p__1__1 = nempty_seplist_n__i__s__i__s_exp_p_(0);
+				_localctx.var_1__1 = nempty_seplist_o__i__s__i__s_exp_p_(0);
 				 
-				                _localctx.result =  _localctx.allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p__1__1.result;
+				                _localctx.result =  _localctx.var_1__1.result;
 				            
 				}
 				break;
@@ -2665,40 +2665,40 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Seplist_n__i__s__i__s_exp_p_Context : ParserRuleContext {
+	public partial class Seplist_o__i__s__i__s_exp_p_Context : ParserRuleContext {
 		public MyList<expr> result;
-		public Allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_Context seplist_n__i__s__i__s_exp_p__0__1;
-		[System.Diagnostics.DebuggerNonUserCode] public Allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_Context allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_() {
-			return GetRuleContext<Allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_Context>(0);
+		public Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context var_0__1;
+		[System.Diagnostics.DebuggerNonUserCode] public Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_() {
+			return GetRuleContext<Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context>(0);
 		}
-		public Seplist_n__i__s__i__s_exp_p_Context(ParserRuleContext parent, int invokingState)
+		public Seplist_o__i__s__i__s_exp_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_seplist_n__i__s__i__s_exp_p_; } }
+		public override int RuleIndex { get { return RULE_seplist_o__i__s__i__s_exp_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterSeplist_n__i__s__i__s_exp_p_(this);
+			if (typedListener != null) typedListener.EnterSeplist_o__i__s__i__s_exp_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitSeplist_n__i__s__i__s_exp_p_(this);
+			if (typedListener != null) typedListener.ExitSeplist_o__i__s__i__s_exp_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Seplist_n__i__s__i__s_exp_p_Context seplist_n__i__s__i__s_exp_p_() {
-		Seplist_n__i__s__i__s_exp_p_Context _localctx = new Seplist_n__i__s__i__s_exp_p_Context(Context, State);
-		EnterRule(_localctx, 58, RULE_seplist_n__i__s__i__s_exp_p_);
+	public Seplist_o__i__s__i__s_exp_p_Context seplist_o__i__s__i__s_exp_p_() {
+		Seplist_o__i__s__i__s_exp_p_Context _localctx = new Seplist_o__i__s__i__s_exp_p_Context(Context, State);
+		EnterRule(_localctx, 58, RULE_seplist_o__i__s__i__s_exp_p_);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 409;
-			_localctx.seplist_n__i__s__i__s_exp_p__0__1 = allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p_();
+			_localctx.var_0__1 = allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_();
 			 
-			                _localctx.result =  _localctx.seplist_n__i__s__i__s_exp_p__0__1.result;
+			                _localctx.result =  _localctx.var_0__1.result;
 			            
 			}
 		}
@@ -2715,12 +2715,12 @@ public partial class luaParser : Parser {
 
 	public partial class ArgsContext : ParserRuleContext {
 		public arguments result;
-		public IToken args_0__1;
-		public Seplist_n__i__s__i__s_exp_p_Context args_0__2;
-		public TableconstructorContext args_1__1;
-		public IToken args_2__1;
-		[System.Diagnostics.DebuggerNonUserCode] public Seplist_n__i__s__i__s_exp_p_Context seplist_n__i__s__i__s_exp_p_() {
-			return GetRuleContext<Seplist_n__i__s__i__s_exp_p_Context>(0);
+		public IToken var_0__1;
+		public Seplist_o__i__s__i__s_exp_p_Context var_0__2;
+		public TableconstructorContext var_1__1;
+		public IToken var_2__1;
+		[System.Diagnostics.DebuggerNonUserCode] public Seplist_o__i__s__i__s_exp_p_Context seplist_o__i__s__i__s_exp_p_() {
+			return GetRuleContext<Seplist_o__i__s__i__s_exp_p_Context>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public TableconstructorContext tableconstructor() {
 			return GetRuleContext<TableconstructorContext>(0);
@@ -2755,13 +2755,13 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 412;
-				_localctx.args_0__1 = Match(T__17);
+				_localctx.var_0__1 = Match(T__17);
 				State = 413;
-				_localctx.args_0__2 = seplist_n__i__s__i__s_exp_p_();
+				_localctx.var_0__2 = seplist_o__i__s__i__s_exp_p_();
 				State = 414;
 				Match(T__18);
 				 
-				                _localctx.result =  (arguments) PositionalArgs((IToken) _localctx.args_0__1, (MyList<expr>) _localctx.args_0__2.result);
+				                _localctx.result =  (arguments) PositionalArgs((IToken) _localctx.var_0__1, (MyList<expr>) _localctx.var_0__2.result);
 				            
 				}
 				break;
@@ -2769,9 +2769,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 417;
-				_localctx.args_1__1 = tableconstructor();
+				_localctx.var_1__1 = tableconstructor();
 				 
-				                _localctx.result =  (arguments) TableArgs((table) _localctx.args_1__1.result);
+				                _localctx.result =  (arguments) TableArgs((table) _localctx.var_1__1.result);
 				            
 				}
 				break;
@@ -2779,9 +2779,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 3);
 				{
 				State = 420;
-				_localctx.args_2__1 = Match(STR_LIT);
+				_localctx.var_2__1 = Match(STR_LIT);
 				 
-				                _localctx.result =  (arguments) StringArg((IToken) _localctx.args_2__1);
+				                _localctx.result =  (arguments) StringArg((IToken) _localctx.var_2__1);
 				            
 				}
 				break;
@@ -2800,31 +2800,31 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Opt_n__i_name_k__p_Context : ParserRuleContext {
+	public partial class Opt_o__i_name_k__p_Context : ParserRuleContext {
 		public maybe<IToken> result;
-		public IToken opt_n__i_name_k__p__0__1;
+		public IToken var_0__1;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(luaParser.NAME, 0); }
-		public Opt_n__i_name_k__p_Context(ParserRuleContext parent, int invokingState)
+		public Opt_o__i_name_k__p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_opt_n__i_name_k__p_; } }
+		public override int RuleIndex { get { return RULE_opt_o__i_name_k__p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterOpt_n__i_name_k__p_(this);
+			if (typedListener != null) typedListener.EnterOpt_o__i_name_k__p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitOpt_n__i_name_k__p_(this);
+			if (typedListener != null) typedListener.ExitOpt_o__i_name_k__p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Opt_n__i_name_k__p_Context opt_n__i_name_k__p_() {
-		Opt_n__i_name_k__p_Context _localctx = new Opt_n__i_name_k__p_Context(Context, State);
-		EnterRule(_localctx, 62, RULE_opt_n__i_name_k__p_);
+	public Opt_o__i_name_k__p_Context opt_o__i_name_k__p_() {
+		Opt_o__i_name_k__p_Context _localctx = new Opt_o__i_name_k__p_Context(Context, State);
+		EnterRule(_localctx, 62, RULE_opt_o__i_name_k__p_);
 		try {
 			State = 427;
 			ErrorHandler.Sync(this);
@@ -2833,9 +2833,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 424;
-				_localctx.opt_n__i_name_k__p__0__1 = Match(NAME);
+				_localctx.var_0__1 = Match(NAME);
 				 
-				                _localctx.result =  (maybe<IToken>) some<IToken>((IToken) _localctx.opt_n__i_name_k__p__0__1);
+				                _localctx.result =  (maybe<IToken>) some<IToken>((IToken) _localctx.var_0__1);
 				            
 				}
 				break;
@@ -2862,33 +2862,33 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Opt_n_parlist_p_Context : ParserRuleContext {
+	public partial class Opt_o_parlist_p_Context : ParserRuleContext {
 		public maybe<parameters> result;
-		public ParlistContext opt_n_parlist_p__0__1;
+		public ParlistContext var_0__1;
 		[System.Diagnostics.DebuggerNonUserCode] public ParlistContext parlist() {
 			return GetRuleContext<ParlistContext>(0);
 		}
-		public Opt_n_parlist_p_Context(ParserRuleContext parent, int invokingState)
+		public Opt_o_parlist_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_opt_n_parlist_p_; } }
+		public override int RuleIndex { get { return RULE_opt_o_parlist_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterOpt_n_parlist_p_(this);
+			if (typedListener != null) typedListener.EnterOpt_o_parlist_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitOpt_n_parlist_p_(this);
+			if (typedListener != null) typedListener.ExitOpt_o_parlist_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Opt_n_parlist_p_Context opt_n_parlist_p_() {
-		Opt_n_parlist_p_Context _localctx = new Opt_n_parlist_p_Context(Context, State);
-		EnterRule(_localctx, 64, RULE_opt_n_parlist_p_);
+	public Opt_o_parlist_p_Context opt_o_parlist_p_() {
+		Opt_o_parlist_p_Context _localctx = new Opt_o_parlist_p_Context(Context, State);
+		EnterRule(_localctx, 64, RULE_opt_o_parlist_p_);
 		try {
 			State = 433;
 			ErrorHandler.Sync(this);
@@ -2898,9 +2898,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 429;
-				_localctx.opt_n_parlist_p__0__1 = parlist();
+				_localctx.var_0__1 = parlist();
 				 
-				                _localctx.result =  (maybe<parameters>) some<parameters>((parameters) _localctx.opt_n_parlist_p__0__1.result);
+				                _localctx.result =  (maybe<parameters>) some<parameters>((parameters) _localctx.var_0__1.result);
 				            
 				}
 				break;
@@ -2929,15 +2929,15 @@ public partial class luaParser : Parser {
 
 	public partial class FunctiondefContext : ParserRuleContext {
 		public expr result;
-		public IToken functiondef_0__1;
-		public Opt_n__i_name_k__p_Context functiondef_0__2;
-		public Opt_n_parlist_p_Context functiondef_0__4;
-		public BlockContext functiondef_0__6;
-		[System.Diagnostics.DebuggerNonUserCode] public Opt_n__i_name_k__p_Context opt_n__i_name_k__p_() {
-			return GetRuleContext<Opt_n__i_name_k__p_Context>(0);
+		public IToken var_0__1;
+		public Opt_o__i_name_k__p_Context var_0__2;
+		public Opt_o_parlist_p_Context var_0__4;
+		public BlockContext var_0__6;
+		[System.Diagnostics.DebuggerNonUserCode] public Opt_o__i_name_k__p_Context opt_o__i_name_k__p_() {
+			return GetRuleContext<Opt_o__i_name_k__p_Context>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Opt_n_parlist_p_Context opt_n_parlist_p_() {
-			return GetRuleContext<Opt_n_parlist_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Opt_o_parlist_p_Context opt_o_parlist_p_() {
+			return GetRuleContext<Opt_o_parlist_p_Context>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public BlockContext block() {
 			return GetRuleContext<BlockContext>(0);
@@ -2967,21 +2967,21 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 435;
-			_localctx.functiondef_0__1 = Match(T__16);
+			_localctx.var_0__1 = Match(T__16);
 			State = 436;
-			_localctx.functiondef_0__2 = opt_n__i_name_k__p_();
+			_localctx.var_0__2 = opt_o__i_name_k__p_();
 			State = 437;
 			Match(T__17);
 			State = 438;
-			_localctx.functiondef_0__4 = opt_n_parlist_p_();
+			_localctx.var_0__4 = opt_o_parlist_p_();
 			State = 439;
 			Match(T__18);
 			State = 440;
-			_localctx.functiondef_0__6 = block();
+			_localctx.var_0__6 = block();
 			State = 441;
 			Match(T__7);
 			 
-			                _localctx.result =  (expr) FuncDef((IToken) _localctx.functiondef_0__1, (bool) false, (maybe<IToken>) _localctx.functiondef_0__2.result, (maybe<parameters>) _localctx.functiondef_0__4.result, (block) _localctx.functiondef_0__6.result);
+			                _localctx.result =  (expr) FuncDef((IToken) _localctx.var_0__1, (bool) false, (maybe<IToken>) _localctx.var_0__2.result, (maybe<parameters>) _localctx.var_0__4.result, (block) _localctx.var_0__6.result);
 			            
 			}
 		}
@@ -2998,7 +2998,7 @@ public partial class luaParser : Parser {
 
 	public partial class VarargsContext : ParserRuleContext {
 		public maybe<IToken> result;
-		public IToken varargs_0__2;
+		public IToken var_0__2;
 		public VarargsContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -3030,9 +3030,9 @@ public partial class luaParser : Parser {
 				State = 444;
 				Match(T__19);
 				State = 445;
-				_localctx.varargs_0__2 = Match(T__34);
+				_localctx.var_0__2 = Match(T__34);
 				 
-				                _localctx.result =  (maybe<IToken>) some<IToken>((IToken) _localctx.varargs_0__2);
+				                _localctx.result =  (maybe<IToken>) some<IToken>((IToken) _localctx.var_0__2);
 				            
 				}
 				break;
@@ -3059,53 +3059,53 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Nempty_seplist_n__i__s__i__s__i_name_k__p_Context : ParserRuleContext {
+	public partial class Nempty_seplist_o__i__s__i__s__i_name_k__p_Context : ParserRuleContext {
 		public MyList<IToken> result;
-		public Nempty_seplist_n__i__s__i__s__i_name_k__p_Context nempty_seplist_n__i__s__i__s__i_name_k__p__1__1;
-		public IToken nempty_seplist_n__i__s__i__s__i_name_k__p__0__1;
-		public IToken nempty_seplist_n__i__s__i__s__i_name_k__p__1__3;
+		public Nempty_seplist_o__i__s__i__s__i_name_k__p_Context var_1__1;
+		public IToken var_0__1;
+		public IToken var_1__3;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(luaParser.NAME, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_n__i__s__i__s__i_name_k__p_Context nempty_seplist_n__i__s__i__s__i_name_k__p_() {
-			return GetRuleContext<Nempty_seplist_n__i__s__i__s__i_name_k__p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_o__i__s__i__s__i_name_k__p_Context nempty_seplist_o__i__s__i__s__i_name_k__p_() {
+			return GetRuleContext<Nempty_seplist_o__i__s__i__s__i_name_k__p_Context>(0);
 		}
-		public Nempty_seplist_n__i__s__i__s__i_name_k__p_Context(ParserRuleContext parent, int invokingState)
+		public Nempty_seplist_o__i__s__i__s__i_name_k__p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_nempty_seplist_n__i__s__i__s__i_name_k__p_; } }
+		public override int RuleIndex { get { return RULE_nempty_seplist_o__i__s__i__s__i_name_k__p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterNempty_seplist_n__i__s__i__s__i_name_k__p_(this);
+			if (typedListener != null) typedListener.EnterNempty_seplist_o__i__s__i__s__i_name_k__p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitNempty_seplist_n__i__s__i__s__i_name_k__p_(this);
+			if (typedListener != null) typedListener.ExitNempty_seplist_o__i__s__i__s__i_name_k__p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Nempty_seplist_n__i__s__i__s__i_name_k__p_Context nempty_seplist_n__i__s__i__s__i_name_k__p_() {
-		return nempty_seplist_n__i__s__i__s__i_name_k__p_(0);
+	public Nempty_seplist_o__i__s__i__s__i_name_k__p_Context nempty_seplist_o__i__s__i__s__i_name_k__p_() {
+		return nempty_seplist_o__i__s__i__s__i_name_k__p_(0);
 	}
 
-	private Nempty_seplist_n__i__s__i__s__i_name_k__p_Context nempty_seplist_n__i__s__i__s__i_name_k__p_(int _p) {
+	private Nempty_seplist_o__i__s__i__s__i_name_k__p_Context nempty_seplist_o__i__s__i__s__i_name_k__p_(int _p) {
 		ParserRuleContext _parentctx = Context;
 		int _parentState = State;
-		Nempty_seplist_n__i__s__i__s__i_name_k__p_Context _localctx = new Nempty_seplist_n__i__s__i__s__i_name_k__p_Context(Context, _parentState);
-		Nempty_seplist_n__i__s__i__s__i_name_k__p_Context _prevctx = _localctx;
+		Nempty_seplist_o__i__s__i__s__i_name_k__p_Context _localctx = new Nempty_seplist_o__i__s__i__s__i_name_k__p_Context(Context, _parentState);
+		Nempty_seplist_o__i__s__i__s__i_name_k__p_Context _prevctx = _localctx;
 		int _startState = 70;
-		EnterRecursionRule(_localctx, 70, RULE_nempty_seplist_n__i__s__i__s__i_name_k__p_, _p);
+		EnterRecursionRule(_localctx, 70, RULE_nempty_seplist_o__i__s__i__s__i_name_k__p_, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
 			State = 451;
-			_localctx.nempty_seplist_n__i__s__i__s__i_name_k__p__0__1 = Match(NAME);
+			_localctx.var_0__1 = Match(NAME);
 			 
-			                _localctx.result =  new MyList<IToken> { _localctx.nempty_seplist_n__i__s__i__s__i_name_k__p__0__1 };
+			                _localctx.result =  new MyList<IToken> { _localctx.var_0__1 };
 			            
 			}
 			Context.Stop = TokenStream.LT(-1);
@@ -3119,17 +3119,17 @@ public partial class luaParser : Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new Nempty_seplist_n__i__s__i__s__i_name_k__p_Context(_parentctx, _parentState);
-					_localctx.nempty_seplist_n__i__s__i__s__i_name_k__p__1__1 = _prevctx;
-					PushNewRecursionContext(_localctx, _startState, RULE_nempty_seplist_n__i__s__i__s__i_name_k__p_);
+					_localctx = new Nempty_seplist_o__i__s__i__s__i_name_k__p_Context(_parentctx, _parentState);
+					_localctx.var_1__1 = _prevctx;
+					PushNewRecursionContext(_localctx, _startState, RULE_nempty_seplist_o__i__s__i__s__i_name_k__p_);
 					State = 454;
 					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
 					State = 455;
 					Match(T__19);
 					State = 456;
-					_localctx.nempty_seplist_n__i__s__i__s__i_name_k__p__1__3 = Match(NAME);
+					_localctx.var_1__3 = Match(NAME);
 					 
-					                          _localctx.result =  (MyList<IToken>) appendList<IToken>((MyList<IToken>) _localctx.nempty_seplist_n__i__s__i__s__i_name_k__p__1__1.result, (IToken) _localctx.nempty_seplist_n__i__s__i__s__i_name_k__p__1__3);
+					                          _localctx.result =  (MyList<IToken>) appendList<IToken>((MyList<IToken>) _localctx.var_1__1.result, (IToken) _localctx.var_1__3);
 					                      
 					}
 					} 
@@ -3153,11 +3153,11 @@ public partial class luaParser : Parser {
 
 	public partial class ParlistContext : ParserRuleContext {
 		public parameters result;
-		public IToken parlist_0__1;
-		public Nempty_seplist_n__i__s__i__s__i_name_k__p_Context parlist_1__1;
-		public VarargsContext parlist_1__2;
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_n__i__s__i__s__i_name_k__p_Context nempty_seplist_n__i__s__i__s__i_name_k__p_() {
-			return GetRuleContext<Nempty_seplist_n__i__s__i__s__i_name_k__p_Context>(0);
+		public IToken var_0__1;
+		public Nempty_seplist_o__i__s__i__s__i_name_k__p_Context var_1__1;
+		public VarargsContext var_1__2;
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_o__i__s__i__s__i_name_k__p_Context nempty_seplist_o__i__s__i__s__i_name_k__p_() {
+			return GetRuleContext<Nempty_seplist_o__i__s__i__s__i_name_k__p_Context>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public VarargsContext varargs() {
 			return GetRuleContext<VarargsContext>(0);
@@ -3191,9 +3191,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 463;
-				_localctx.parlist_0__1 = Match(T__34);
+				_localctx.var_0__1 = Match(T__34);
 				 
-				                _localctx.result =  (parameters) paramsv((MyList<IToken>) new MyList<IToken> {  }, (maybe<IToken>) (maybe<IToken>) some<IToken>((IToken) _localctx.parlist_0__1));
+				                _localctx.result =  (parameters) paramsv((MyList<IToken>) new MyList<IToken> {  }, (maybe<IToken>) (maybe<IToken>) some<IToken>((IToken) _localctx.var_0__1));
 				            
 				}
 				break;
@@ -3201,11 +3201,11 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 465;
-				_localctx.parlist_1__1 = nempty_seplist_n__i__s__i__s__i_name_k__p_(0);
+				_localctx.var_1__1 = nempty_seplist_o__i__s__i__s__i_name_k__p_(0);
 				State = 466;
-				_localctx.parlist_1__2 = varargs();
+				_localctx.var_1__2 = varargs();
 				 
-				                _localctx.result =  (parameters) paramsv((MyList<IToken>) _localctx.parlist_1__1.result, (maybe<IToken>) _localctx.parlist_1__2.result);
+				                _localctx.result =  (parameters) paramsv((MyList<IToken>) _localctx.var_1__1.result, (maybe<IToken>) _localctx.var_1__2.result);
 				            
 				}
 				break;
@@ -3224,58 +3224,58 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Nempty_seplist_n_fieldsep_s_field_p_Context : ParserRuleContext {
+	public partial class Nempty_seplist_o_fieldsep_s_field_p_Context : ParserRuleContext {
 		public MyList<table_field> result;
-		public Nempty_seplist_n_fieldsep_s_field_p_Context nempty_seplist_n_fieldsep_s_field_p__1__1;
-		public FieldContext nempty_seplist_n_fieldsep_s_field_p__0__1;
-		public FieldContext nempty_seplist_n_fieldsep_s_field_p__1__3;
+		public Nempty_seplist_o_fieldsep_s_field_p_Context var_1__1;
+		public FieldContext var_0__1;
+		public FieldContext var_1__3;
 		[System.Diagnostics.DebuggerNonUserCode] public FieldContext field() {
 			return GetRuleContext<FieldContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public FieldsepContext fieldsep() {
 			return GetRuleContext<FieldsepContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_n_fieldsep_s_field_p_Context nempty_seplist_n_fieldsep_s_field_p_() {
-			return GetRuleContext<Nempty_seplist_n_fieldsep_s_field_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_o_fieldsep_s_field_p_Context nempty_seplist_o_fieldsep_s_field_p_() {
+			return GetRuleContext<Nempty_seplist_o_fieldsep_s_field_p_Context>(0);
 		}
-		public Nempty_seplist_n_fieldsep_s_field_p_Context(ParserRuleContext parent, int invokingState)
+		public Nempty_seplist_o_fieldsep_s_field_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_nempty_seplist_n_fieldsep_s_field_p_; } }
+		public override int RuleIndex { get { return RULE_nempty_seplist_o_fieldsep_s_field_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterNempty_seplist_n_fieldsep_s_field_p_(this);
+			if (typedListener != null) typedListener.EnterNempty_seplist_o_fieldsep_s_field_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitNempty_seplist_n_fieldsep_s_field_p_(this);
+			if (typedListener != null) typedListener.ExitNempty_seplist_o_fieldsep_s_field_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Nempty_seplist_n_fieldsep_s_field_p_Context nempty_seplist_n_fieldsep_s_field_p_() {
-		return nempty_seplist_n_fieldsep_s_field_p_(0);
+	public Nempty_seplist_o_fieldsep_s_field_p_Context nempty_seplist_o_fieldsep_s_field_p_() {
+		return nempty_seplist_o_fieldsep_s_field_p_(0);
 	}
 
-	private Nempty_seplist_n_fieldsep_s_field_p_Context nempty_seplist_n_fieldsep_s_field_p_(int _p) {
+	private Nempty_seplist_o_fieldsep_s_field_p_Context nempty_seplist_o_fieldsep_s_field_p_(int _p) {
 		ParserRuleContext _parentctx = Context;
 		int _parentState = State;
-		Nempty_seplist_n_fieldsep_s_field_p_Context _localctx = new Nempty_seplist_n_fieldsep_s_field_p_Context(Context, _parentState);
-		Nempty_seplist_n_fieldsep_s_field_p_Context _prevctx = _localctx;
+		Nempty_seplist_o_fieldsep_s_field_p_Context _localctx = new Nempty_seplist_o_fieldsep_s_field_p_Context(Context, _parentState);
+		Nempty_seplist_o_fieldsep_s_field_p_Context _prevctx = _localctx;
 		int _startState = 74;
-		EnterRecursionRule(_localctx, 74, RULE_nempty_seplist_n_fieldsep_s_field_p_, _p);
+		EnterRecursionRule(_localctx, 74, RULE_nempty_seplist_o_fieldsep_s_field_p_, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
 			State = 472;
-			_localctx.nempty_seplist_n_fieldsep_s_field_p__0__1 = field();
+			_localctx.var_0__1 = field();
 			 
-			                _localctx.result =  new MyList<table_field> { _localctx.nempty_seplist_n_fieldsep_s_field_p__0__1.result };
+			                _localctx.result =  new MyList<table_field> { _localctx.var_0__1.result };
 			            
 			}
 			Context.Stop = TokenStream.LT(-1);
@@ -3289,17 +3289,17 @@ public partial class luaParser : Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new Nempty_seplist_n_fieldsep_s_field_p_Context(_parentctx, _parentState);
-					_localctx.nempty_seplist_n_fieldsep_s_field_p__1__1 = _prevctx;
-					PushNewRecursionContext(_localctx, _startState, RULE_nempty_seplist_n_fieldsep_s_field_p_);
+					_localctx = new Nempty_seplist_o_fieldsep_s_field_p_Context(_parentctx, _parentState);
+					_localctx.var_1__1 = _prevctx;
+					PushNewRecursionContext(_localctx, _startState, RULE_nempty_seplist_o_fieldsep_s_field_p_);
 					State = 475;
 					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
 					State = 476;
 					fieldsep();
 					State = 477;
-					_localctx.nempty_seplist_n_fieldsep_s_field_p__1__3 = field();
+					_localctx.var_1__3 = field();
 					 
-					                          _localctx.result =  (MyList<table_field>) appendList<table_field>((MyList<table_field>) _localctx.nempty_seplist_n_fieldsep_s_field_p__1__1.result, (table_field) _localctx.nempty_seplist_n_fieldsep_s_field_p__1__3.result);
+					                          _localctx.result =  (MyList<table_field>) appendList<table_field>((MyList<table_field>) _localctx.var_1__1.result, (table_field) _localctx.var_1__3.result);
 					                      
 					}
 					} 
@@ -3321,33 +3321,33 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_Context : ParserRuleContext {
+	public partial class Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context : ParserRuleContext {
 		public MyList<table_field> result;
-		public Nempty_seplist_n_fieldsep_s_field_p_Context allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p__1__1;
-		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_n_fieldsep_s_field_p_Context nempty_seplist_n_fieldsep_s_field_p_() {
-			return GetRuleContext<Nempty_seplist_n_fieldsep_s_field_p_Context>(0);
+		public Nempty_seplist_o_fieldsep_s_field_p_Context var_1__1;
+		[System.Diagnostics.DebuggerNonUserCode] public Nempty_seplist_o_fieldsep_s_field_p_Context nempty_seplist_o_fieldsep_s_field_p_() {
+			return GetRuleContext<Nempty_seplist_o_fieldsep_s_field_p_Context>(0);
 		}
-		public Allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_Context(ParserRuleContext parent, int invokingState)
+		public Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_; } }
+		public override int RuleIndex { get { return RULE_allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterAllow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_(this);
+			if (typedListener != null) typedListener.EnterAllow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitAllow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_(this);
+			if (typedListener != null) typedListener.ExitAllow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_Context allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_() {
-		Allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_Context _localctx = new Allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_Context(Context, State);
-		EnterRule(_localctx, 76, RULE_allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_);
+	public Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_() {
+		Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context _localctx = new Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context(Context, State);
+		EnterRule(_localctx, 76, RULE_allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_);
 		try {
 			State = 489;
 			ErrorHandler.Sync(this);
@@ -3380,9 +3380,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 486;
-				_localctx.allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p__1__1 = nempty_seplist_n_fieldsep_s_field_p_(0);
+				_localctx.var_1__1 = nempty_seplist_o_fieldsep_s_field_p_(0);
 				 
-				                _localctx.result =  _localctx.allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p__1__1.result;
+				                _localctx.result =  _localctx.var_1__1.result;
 				            
 				}
 				break;
@@ -3401,40 +3401,40 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Seplist_n_fieldsep_s_field_p_Context : ParserRuleContext {
+	public partial class Seplist_o_fieldsep_s_field_p_Context : ParserRuleContext {
 		public MyList<table_field> result;
-		public Allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_Context seplist_n_fieldsep_s_field_p__0__1;
-		[System.Diagnostics.DebuggerNonUserCode] public Allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_Context allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_() {
-			return GetRuleContext<Allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_Context>(0);
+		public Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context var_0__1;
+		[System.Diagnostics.DebuggerNonUserCode] public Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_() {
+			return GetRuleContext<Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context>(0);
 		}
-		public Seplist_n_fieldsep_s_field_p_Context(ParserRuleContext parent, int invokingState)
+		public Seplist_o_fieldsep_s_field_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_seplist_n_fieldsep_s_field_p_; } }
+		public override int RuleIndex { get { return RULE_seplist_o_fieldsep_s_field_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterSeplist_n_fieldsep_s_field_p_(this);
+			if (typedListener != null) typedListener.EnterSeplist_o_fieldsep_s_field_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitSeplist_n_fieldsep_s_field_p_(this);
+			if (typedListener != null) typedListener.ExitSeplist_o_fieldsep_s_field_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Seplist_n_fieldsep_s_field_p_Context seplist_n_fieldsep_s_field_p_() {
-		Seplist_n_fieldsep_s_field_p_Context _localctx = new Seplist_n_fieldsep_s_field_p_Context(Context, State);
-		EnterRule(_localctx, 78, RULE_seplist_n_fieldsep_s_field_p_);
+	public Seplist_o_fieldsep_s_field_p_Context seplist_o_fieldsep_s_field_p_() {
+		Seplist_o_fieldsep_s_field_p_Context _localctx = new Seplist_o_fieldsep_s_field_p_Context(Context, State);
+		EnterRule(_localctx, 78, RULE_seplist_o_fieldsep_s_field_p_);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 491;
-			_localctx.seplist_n_fieldsep_s_field_p__0__1 = allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p_();
+			_localctx.var_0__1 = allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_();
 			 
-			                _localctx.result =  _localctx.seplist_n_fieldsep_s_field_p__0__1.result;
+			                _localctx.result =  _localctx.var_0__1.result;
 			            
 			}
 		}
@@ -3449,33 +3449,33 @@ public partial class luaParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Opt_n_fieldsep_p_Context : ParserRuleContext {
+	public partial class Opt_o_fieldsep_p_Context : ParserRuleContext {
 		public maybe<int> result;
-		public FieldsepContext opt_n_fieldsep_p__0__1;
+		public FieldsepContext var_0__1;
 		[System.Diagnostics.DebuggerNonUserCode] public FieldsepContext fieldsep() {
 			return GetRuleContext<FieldsepContext>(0);
 		}
-		public Opt_n_fieldsep_p_Context(ParserRuleContext parent, int invokingState)
+		public Opt_o_fieldsep_p_Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_opt_n_fieldsep_p_; } }
+		public override int RuleIndex { get { return RULE_opt_o_fieldsep_p_; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.EnterOpt_n_fieldsep_p_(this);
+			if (typedListener != null) typedListener.EnterOpt_o_fieldsep_p_(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IluaListener typedListener = listener as IluaListener;
-			if (typedListener != null) typedListener.ExitOpt_n_fieldsep_p_(this);
+			if (typedListener != null) typedListener.ExitOpt_o_fieldsep_p_(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public Opt_n_fieldsep_p_Context opt_n_fieldsep_p_() {
-		Opt_n_fieldsep_p_Context _localctx = new Opt_n_fieldsep_p_Context(Context, State);
-		EnterRule(_localctx, 80, RULE_opt_n_fieldsep_p_);
+	public Opt_o_fieldsep_p_Context opt_o_fieldsep_p_() {
+		Opt_o_fieldsep_p_Context _localctx = new Opt_o_fieldsep_p_Context(Context, State);
+		EnterRule(_localctx, 80, RULE_opt_o_fieldsep_p_);
 		try {
 			State = 498;
 			ErrorHandler.Sync(this);
@@ -3485,9 +3485,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 494;
-				_localctx.opt_n_fieldsep_p__0__1 = fieldsep();
+				_localctx.var_0__1 = fieldsep();
 				 
-				                _localctx.result =  (maybe<int>) some<int>((int) _localctx.opt_n_fieldsep_p__0__1.result);
+				                _localctx.result =  (maybe<int>) some<int>((int) _localctx.var_0__1.result);
 				            
 				}
 				break;
@@ -3516,13 +3516,13 @@ public partial class luaParser : Parser {
 
 	public partial class TableconstructorContext : ParserRuleContext {
 		public table result;
-		public IToken tableconstructor_0__1;
-		public Seplist_n_fieldsep_s_field_p_Context tableconstructor_0__2;
-		[System.Diagnostics.DebuggerNonUserCode] public Opt_n_fieldsep_p_Context opt_n_fieldsep_p_() {
-			return GetRuleContext<Opt_n_fieldsep_p_Context>(0);
+		public IToken var_0__1;
+		public Seplist_o_fieldsep_s_field_p_Context var_0__2;
+		[System.Diagnostics.DebuggerNonUserCode] public Opt_o_fieldsep_p_Context opt_o_fieldsep_p_() {
+			return GetRuleContext<Opt_o_fieldsep_p_Context>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public Seplist_n_fieldsep_s_field_p_Context seplist_n_fieldsep_s_field_p_() {
-			return GetRuleContext<Seplist_n_fieldsep_s_field_p_Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Seplist_o_fieldsep_s_field_p_Context seplist_o_fieldsep_s_field_p_() {
+			return GetRuleContext<Seplist_o_fieldsep_s_field_p_Context>(0);
 		}
 		public TableconstructorContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -3549,15 +3549,15 @@ public partial class luaParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 500;
-			_localctx.tableconstructor_0__1 = Match(T__35);
+			_localctx.var_0__1 = Match(T__35);
 			State = 501;
-			_localctx.tableconstructor_0__2 = seplist_n_fieldsep_s_field_p_();
+			_localctx.var_0__2 = seplist_o_fieldsep_s_field_p_();
 			State = 502;
-			opt_n_fieldsep_p_();
+			opt_o_fieldsep_p_();
 			State = 503;
 			Match(T__36);
 			 
-			                _localctx.result =  (table) TableConstructor((IToken) _localctx.tableconstructor_0__1, (MyList<table_field>) _localctx.tableconstructor_0__2.result);
+			                _localctx.result =  (table) TableConstructor((IToken) _localctx.var_0__1, (MyList<table_field>) _localctx.var_0__2.result);
 			            
 			}
 		}
@@ -3574,12 +3574,12 @@ public partial class luaParser : Parser {
 
 	public partial class FieldContext : ParserRuleContext {
 		public table_field result;
-		public IToken field_0__1;
-		public ExpContext field_0__2;
-		public ExpContext field_0__5;
-		public IToken field_1__1;
-		public ExpContext field_1__3;
-		public ExpContext field_2__1;
+		public IToken var_0__1;
+		public ExpContext var_0__2;
+		public ExpContext var_0__5;
+		public IToken var_1__1;
+		public ExpContext var_1__3;
+		public ExpContext var_2__1;
 		[System.Diagnostics.DebuggerNonUserCode] public ExpContext[] exp() {
 			return GetRuleContexts<ExpContext>();
 		}
@@ -3616,17 +3616,17 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 506;
-				_localctx.field_0__1 = Match(T__28);
+				_localctx.var_0__1 = Match(T__28);
 				State = 507;
-				_localctx.field_0__2 = exp();
+				_localctx.var_0__2 = exp();
 				State = 508;
 				Match(T__29);
 				State = 509;
 				Match(T__2);
 				State = 510;
-				_localctx.field_0__5 = exp();
+				_localctx.var_0__5 = exp();
 				 
-				                _localctx.result =  (table_field) IndexField((IToken) _localctx.field_0__1, (expr) _localctx.field_0__2.result, (expr) _localctx.field_0__5.result);
+				                _localctx.result =  (table_field) IndexField((IToken) _localctx.var_0__1, (expr) _localctx.var_0__2.result, (expr) _localctx.var_0__5.result);
 				            
 				}
 				break;
@@ -3634,13 +3634,13 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 513;
-				_localctx.field_1__1 = Match(NAME);
+				_localctx.var_1__1 = Match(NAME);
 				State = 514;
 				Match(T__2);
 				State = 515;
-				_localctx.field_1__3 = exp();
+				_localctx.var_1__3 = exp();
 				 
-				                _localctx.result =  (table_field) NameField((IToken) _localctx.field_1__1, (expr) _localctx.field_1__3.result);
+				                _localctx.result =  (table_field) NameField((IToken) _localctx.var_1__1, (expr) _localctx.var_1__3.result);
 				            
 				}
 				break;
@@ -3648,9 +3648,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 3);
 				{
 				State = 518;
-				_localctx.field_2__1 = exp();
+				_localctx.var_2__1 = exp();
 				 
-				                _localctx.result =  (table_field) ElementField((expr) _localctx.field_2__1.result);
+				                _localctx.result =  (table_field) ElementField((expr) _localctx.var_2__1.result);
 				            
 				}
 				break;
@@ -3731,26 +3731,26 @@ public partial class luaParser : Parser {
 
 	public partial class BinopContext : ParserRuleContext {
 		public Op<expr> result;
-		public IToken binop_0__1;
-		public IToken binop_1__1;
-		public IToken binop_2__1;
-		public IToken binop_3__1;
-		public IToken binop_4__1;
-		public IToken binop_5__1;
-		public IToken binop_6__1;
-		public IToken binop_7__1;
-		public IToken binop_8__1;
-		public IToken binop_9__1;
-		public IToken binop_10__1;
-		public IToken binop_11__1;
-		public IToken binop_12__1;
-		public IToken binop_13__1;
-		public IToken binop_14__1;
-		public IToken binop_15__1;
-		public IToken binop_16__1;
-		public IToken binop_17__1;
-		public IToken binop_18__1;
-		public IToken binop_19__1;
+		public IToken var_0__1;
+		public IToken var_1__1;
+		public IToken var_2__1;
+		public IToken var_3__1;
+		public IToken var_4__1;
+		public IToken var_5__1;
+		public IToken var_6__1;
+		public IToken var_7__1;
+		public IToken var_8__1;
+		public IToken var_9__1;
+		public IToken var_10__1;
+		public IToken var_11__1;
+		public IToken var_12__1;
+		public IToken var_13__1;
+		public IToken var_14__1;
+		public IToken var_15__1;
+		public IToken var_16__1;
+		public IToken var_17__1;
+		public IToken var_18__1;
+		public IToken var_19__1;
 		public BinopContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -3780,9 +3780,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 529;
-				_localctx.binop_0__1 = Match(T__37);
+				_localctx.var_0__1 = Match(T__37);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_0__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_0__1);
 				            
 				}
 				break;
@@ -3790,9 +3790,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 531;
-				_localctx.binop_1__1 = Match(T__38);
+				_localctx.var_1__1 = Match(T__38);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_1__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_1__1);
 				            
 				}
 				break;
@@ -3800,9 +3800,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 3);
 				{
 				State = 533;
-				_localctx.binop_2__1 = Match(T__39);
+				_localctx.var_2__1 = Match(T__39);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_2__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_2__1);
 				            
 				}
 				break;
@@ -3810,9 +3810,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 4);
 				{
 				State = 535;
-				_localctx.binop_3__1 = Match(T__40);
+				_localctx.var_3__1 = Match(T__40);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_3__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_3__1);
 				            
 				}
 				break;
@@ -3820,9 +3820,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 5);
 				{
 				State = 537;
-				_localctx.binop_4__1 = Match(T__41);
+				_localctx.var_4__1 = Match(T__41);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_4__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_4__1);
 				            
 				}
 				break;
@@ -3830,9 +3830,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 6);
 				{
 				State = 539;
-				_localctx.binop_5__1 = Match(T__42);
+				_localctx.var_5__1 = Match(T__42);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_5__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_5__1);
 				            
 				}
 				break;
@@ -3840,9 +3840,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 7);
 				{
 				State = 541;
-				_localctx.binop_6__1 = Match(T__43);
+				_localctx.var_6__1 = Match(T__43);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_6__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_6__1);
 				            
 				}
 				break;
@@ -3850,9 +3850,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 8);
 				{
 				State = 543;
-				_localctx.binop_7__1 = Match(T__44);
+				_localctx.var_7__1 = Match(T__44);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_7__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_7__1);
 				            
 				}
 				break;
@@ -3860,9 +3860,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 9);
 				{
 				State = 545;
-				_localctx.binop_8__1 = Match(T__45);
+				_localctx.var_8__1 = Match(T__45);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_8__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_8__1);
 				            
 				}
 				break;
@@ -3870,9 +3870,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 10);
 				{
 				State = 547;
-				_localctx.binop_9__1 = Match(T__24);
+				_localctx.var_9__1 = Match(T__24);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_9__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_9__1);
 				            
 				}
 				break;
@@ -3880,9 +3880,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 11);
 				{
 				State = 549;
-				_localctx.binop_10__1 = Match(T__46);
+				_localctx.var_10__1 = Match(T__46);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_10__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_10__1);
 				            
 				}
 				break;
@@ -3890,9 +3890,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 12);
 				{
 				State = 551;
-				_localctx.binop_11__1 = Match(T__47);
+				_localctx.var_11__1 = Match(T__47);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_11__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_11__1);
 				            
 				}
 				break;
@@ -3900,9 +3900,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 13);
 				{
 				State = 553;
-				_localctx.binop_12__1 = Match(T__48);
+				_localctx.var_12__1 = Match(T__48);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_12__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_12__1);
 				            
 				}
 				break;
@@ -3910,9 +3910,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 14);
 				{
 				State = 555;
-				_localctx.binop_13__1 = Match(T__49);
+				_localctx.var_13__1 = Match(T__49);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_13__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_13__1);
 				            
 				}
 				break;
@@ -3920,9 +3920,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 15);
 				{
 				State = 557;
-				_localctx.binop_14__1 = Match(T__50);
+				_localctx.var_14__1 = Match(T__50);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_14__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_14__1);
 				            
 				}
 				break;
@@ -3930,9 +3930,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 16);
 				{
 				State = 559;
-				_localctx.binop_15__1 = Match(T__23);
+				_localctx.var_15__1 = Match(T__23);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_15__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_15__1);
 				            
 				}
 				break;
@@ -3940,9 +3940,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 17);
 				{
 				State = 561;
-				_localctx.binop_16__1 = Match(T__51);
+				_localctx.var_16__1 = Match(T__51);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_16__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_16__1);
 				            
 				}
 				break;
@@ -3950,9 +3950,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 18);
 				{
 				State = 563;
-				_localctx.binop_17__1 = Match(T__52);
+				_localctx.var_17__1 = Match(T__52);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_17__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_17__1);
 				            
 				}
 				break;
@@ -3960,9 +3960,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 19);
 				{
 				State = 565;
-				_localctx.binop_18__1 = Match(T__53);
+				_localctx.var_18__1 = Match(T__53);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_18__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_18__1);
 				            
 				}
 				break;
@@ -3970,9 +3970,9 @@ public partial class luaParser : Parser {
 				EnterOuterAlt(_localctx, 20);
 				{
 				State = 567;
-				_localctx.binop_19__1 = Match(T__54);
+				_localctx.var_19__1 = Match(T__54);
 				 
-				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.binop_19__1);
+				                _localctx.result =  (Op<expr>) mkOperator<expr>((IToken) _localctx.var_19__1);
 				            
 				}
 				break;
@@ -3993,23 +3993,23 @@ public partial class luaParser : Parser {
 
 	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 2: return nempty_list_n_stat_p__sempred((Nempty_list_n_stat_p_Context)_localctx, predIndex);
-		case 9: return nempty_list_n_elseif_p__sempred((Nempty_list_n_elseif_p_Context)_localctx, predIndex);
+		case 2: return nempty_list_o_stat_p__sempred((Nempty_list_o_stat_p_Context)_localctx, predIndex);
+		case 9: return nempty_list_o_elseif_p__sempred((Nempty_list_o_elseif_p_Context)_localctx, predIndex);
 		case 21: return binseq_sempred((BinseqContext)_localctx, predIndex);
 		case 25: return prefixexp_sempred((PrefixexpContext)_localctx, predIndex);
-		case 27: return nempty_seplist_n__i__s__i__s_exp_p__sempred((Nempty_seplist_n__i__s__i__s_exp_p_Context)_localctx, predIndex);
-		case 35: return nempty_seplist_n__i__s__i__s__i_name_k__p__sempred((Nempty_seplist_n__i__s__i__s__i_name_k__p_Context)_localctx, predIndex);
-		case 37: return nempty_seplist_n_fieldsep_s_field_p__sempred((Nempty_seplist_n_fieldsep_s_field_p_Context)_localctx, predIndex);
+		case 27: return nempty_seplist_o__i__s__i__s_exp_p__sempred((Nempty_seplist_o__i__s__i__s_exp_p_Context)_localctx, predIndex);
+		case 35: return nempty_seplist_o__i__s__i__s__i_name_k__p__sempred((Nempty_seplist_o__i__s__i__s__i_name_k__p_Context)_localctx, predIndex);
+		case 37: return nempty_seplist_o_fieldsep_s_field_p__sempred((Nempty_seplist_o_fieldsep_s_field_p_Context)_localctx, predIndex);
 		}
 		return true;
 	}
-	private bool nempty_list_n_stat_p__sempred(Nempty_list_n_stat_p_Context _localctx, int predIndex) {
+	private bool nempty_list_o_stat_p__sempred(Nempty_list_o_stat_p_Context _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0: return Precpred(Context, 1);
 		}
 		return true;
 	}
-	private bool nempty_list_n_elseif_p__sempred(Nempty_list_n_elseif_p_Context _localctx, int predIndex) {
+	private bool nempty_list_o_elseif_p__sempred(Nempty_list_o_elseif_p_Context _localctx, int predIndex) {
 		switch (predIndex) {
 		case 1: return Precpred(Context, 1);
 		}
@@ -4030,19 +4030,19 @@ public partial class luaParser : Parser {
 		}
 		return true;
 	}
-	private bool nempty_seplist_n__i__s__i__s_exp_p__sempred(Nempty_seplist_n__i__s__i__s_exp_p_Context _localctx, int predIndex) {
+	private bool nempty_seplist_o__i__s__i__s_exp_p__sempred(Nempty_seplist_o__i__s__i__s_exp_p_Context _localctx, int predIndex) {
 		switch (predIndex) {
 		case 7: return Precpred(Context, 1);
 		}
 		return true;
 	}
-	private bool nempty_seplist_n__i__s__i__s__i_name_k__p__sempred(Nempty_seplist_n__i__s__i__s__i_name_k__p_Context _localctx, int predIndex) {
+	private bool nempty_seplist_o__i__s__i__s__i_name_k__p__sempred(Nempty_seplist_o__i__s__i__s__i_name_k__p_Context _localctx, int predIndex) {
 		switch (predIndex) {
 		case 8: return Precpred(Context, 1);
 		}
 		return true;
 	}
-	private bool nempty_seplist_n_fieldsep_s_field_p__sempred(Nempty_seplist_n_fieldsep_s_field_p_Context _localctx, int predIndex) {
+	private bool nempty_seplist_o_fieldsep_s_field_p__sempred(Nempty_seplist_o_fieldsep_s_field_p_Context _localctx, int predIndex) {
 		switch (predIndex) {
 		case 9: return Precpred(Context, 1);
 		}

@@ -676,7 +676,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
         for idx_1 in range(0, (len(stmts_1) - 1) + 1, 1):
             stmt_2 : definition = stmts_1[idx_1]
             if stmt_2.tag == 1:
-                decl_10 : dict = stmt_2.fields[0]
+                decl_10 : dict[str, Any] = stmt_2.fields[0]
                 current_pos = decl_10["pos"]
                 tupled_arg_2 : Tuple[str, FSharpList[Tuple[position, production_1]]] = (decl_10["lhs"], decl_10["define"])
                 t_6 : monot = FSharpMap__get_Item(Omega, tupled_arg_2[0])
@@ -735,7 +735,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                         production.action = action
             
             elif stmt_2.tag == 2:
-                decl_11 : dict = stmt_2.fields[0]
+                decl_11 : dict[str, Any] = stmt_2.fields[0]
                 current_pos = decl_11["pos"]
                 check_lexerule(decl_11["define"])
             

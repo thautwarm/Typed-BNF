@@ -101,25 +101,25 @@ class RBNFTransformer(Transformer):
     def tableconstructor_0(self, __tbnf_COMPONENTS):
         return TableConstructor(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
     
-    def opt_n_fieldsep_p__1(self, __tbnf_COMPONENTS):
+    def opt_o_fieldsep_p__1(self, __tbnf_COMPONENTS):
         return none()
     
-    def opt_n_fieldsep_p__0(self, __tbnf_COMPONENTS):
+    def opt_o_fieldsep_p__0(self, __tbnf_COMPONENTS):
         return some(__tbnf_COMPONENTS[0])
     
-    def seplist_n_fieldsep_s_field_p__0(self, __tbnf_COMPONENTS):
+    def seplist_o_fieldsep_s_field_p__0(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]
     
-    def allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p__1(self, __tbnf_COMPONENTS):
+    def allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p__1(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]
     
-    def allow_empty_n_nempty_seplist_n_fieldsep_s_field_p__p__0(self, __tbnf_COMPONENTS):
+    def allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p__0(self, __tbnf_COMPONENTS):
         return []
     
-    def nempty_seplist_n_fieldsep_s_field_p__1(self, __tbnf_COMPONENTS):
+    def nempty_seplist_o_fieldsep_s_field_p__1(self, __tbnf_COMPONENTS):
         return appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
     
-    def nempty_seplist_n_fieldsep_s_field_p__0(self, __tbnf_COMPONENTS):
+    def nempty_seplist_o_fieldsep_s_field_p__0(self, __tbnf_COMPONENTS):
         return [__tbnf_COMPONENTS[0]]
     
     def parlist_1(self, __tbnf_COMPONENTS):
@@ -128,10 +128,10 @@ class RBNFTransformer(Transformer):
     def parlist_0(self, __tbnf_COMPONENTS):
         return params([], some(__tbnf_COMPONENTS[0]))
     
-    def nempty_seplist_n__i__s__i__s__i_name_k__p__1(self, __tbnf_COMPONENTS):
+    def nempty_seplist_o__i__s__i__s__i_name_k__p__1(self, __tbnf_COMPONENTS):
         return appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
     
-    def nempty_seplist_n__i__s__i__s__i_name_k__p__0(self, __tbnf_COMPONENTS):
+    def nempty_seplist_o__i__s__i__s__i_name_k__p__0(self, __tbnf_COMPONENTS):
         return [__tbnf_COMPONENTS[0]]
     
     def varargs_1(self, __tbnf_COMPONENTS):
@@ -143,16 +143,16 @@ class RBNFTransformer(Transformer):
     def functiondef_0(self, __tbnf_COMPONENTS):
         return FuncDef(__tbnf_COMPONENTS[0], False, __tbnf_COMPONENTS[1], __tbnf_COMPONENTS[3], __tbnf_COMPONENTS[5])
     
-    def opt_n_parlist_p__1(self, __tbnf_COMPONENTS):
+    def opt_o_parlist_p__1(self, __tbnf_COMPONENTS):
         return none()
     
-    def opt_n_parlist_p__0(self, __tbnf_COMPONENTS):
+    def opt_o_parlist_p__0(self, __tbnf_COMPONENTS):
         return some(__tbnf_COMPONENTS[0])
     
-    def opt_n__i_name_k__p__1(self, __tbnf_COMPONENTS):
+    def opt_o__i_name_k__p__1(self, __tbnf_COMPONENTS):
         return none()
     
-    def opt_n__i_name_k__p__0(self, __tbnf_COMPONENTS):
+    def opt_o__i_name_k__p__0(self, __tbnf_COMPONENTS):
         return some(__tbnf_COMPONENTS[0])
     
     def args_2(self, __tbnf_COMPONENTS):
@@ -164,19 +164,19 @@ class RBNFTransformer(Transformer):
     def args_0(self, __tbnf_COMPONENTS):
         return PositionalArgs(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
     
-    def seplist_n__i__s__i__s_exp_p__0(self, __tbnf_COMPONENTS):
+    def seplist_o__i__s__i__s_exp_p__0(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]
     
-    def allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p__1(self, __tbnf_COMPONENTS):
+    def allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p__1(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]
     
-    def allow_empty_n_nempty_seplist_n__i__s__i__s_exp_p__p__0(self, __tbnf_COMPONENTS):
+    def allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p__0(self, __tbnf_COMPONENTS):
         return []
     
-    def nempty_seplist_n__i__s__i__s_exp_p__1(self, __tbnf_COMPONENTS):
+    def nempty_seplist_o__i__s__i__s_exp_p__1(self, __tbnf_COMPONENTS):
         return appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[2])
     
-    def nempty_seplist_n__i__s__i__s_exp_p__0(self, __tbnf_COMPONENTS):
+    def nempty_seplist_o__i__s__i__s_exp_p__0(self, __tbnf_COMPONENTS):
         return [__tbnf_COMPONENTS[0]]
     
     def atom_7(self, __tbnf_COMPONENTS):
@@ -323,58 +323,58 @@ class RBNFTransformer(Transformer):
     def stat_0(self, __tbnf_COMPONENTS):
         return EmptyStmt(__tbnf_COMPONENTS[0])
     
-    def opt_n_else_p__1(self, __tbnf_COMPONENTS):
+    def opt_o_else_p__1(self, __tbnf_COMPONENTS):
         return none()
     
-    def opt_n_else_p__0(self, __tbnf_COMPONENTS):
+    def opt_o_else_p__0(self, __tbnf_COMPONENTS):
         return some(__tbnf_COMPONENTS[0])
     
-    def list_n_elseif_p__0(self, __tbnf_COMPONENTS):
+    def list_o_elseif_p__0(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]
     
-    def allow_empty_n_nempty_list_n_elseif_p__p__1(self, __tbnf_COMPONENTS):
+    def allow_empty_o_nempty_list_o_elseif_p__p__1(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]
     
-    def allow_empty_n_nempty_list_n_elseif_p__p__0(self, __tbnf_COMPONENTS):
+    def allow_empty_o_nempty_list_o_elseif_p__p__0(self, __tbnf_COMPONENTS):
         return []
     
-    def nempty_list_n_elseif_p__1(self, __tbnf_COMPONENTS):
+    def nempty_list_o_elseif_p__1(self, __tbnf_COMPONENTS):
         return appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
     
-    def nempty_list_n_elseif_p__0(self, __tbnf_COMPONENTS):
+    def nempty_list_o_elseif_p__0(self, __tbnf_COMPONENTS):
         return [__tbnf_COMPONENTS[0]]
     
     def retstat_0(self, __tbnf_COMPONENTS):
         return ReturnStmt(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
     
-    def opt_n__i__h__i__p__1(self, __tbnf_COMPONENTS):
+    def opt_o__i__h__i__p__1(self, __tbnf_COMPONENTS):
         return none()
     
-    def opt_n__i__h__i__p__0(self, __tbnf_COMPONENTS):
+    def opt_o__i__h__i__p__0(self, __tbnf_COMPONENTS):
         return some(__tbnf_COMPONENTS[0])
     
     def block_0(self, __tbnf_COMPONENTS):
         return block(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
     
-    def opt_n_retstat_p__1(self, __tbnf_COMPONENTS):
+    def opt_o_retstat_p__1(self, __tbnf_COMPONENTS):
         return none()
     
-    def opt_n_retstat_p__0(self, __tbnf_COMPONENTS):
+    def opt_o_retstat_p__0(self, __tbnf_COMPONENTS):
         return some(__tbnf_COMPONENTS[0])
     
-    def list_n_stat_p__0(self, __tbnf_COMPONENTS):
+    def list_o_stat_p__0(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]
     
-    def allow_empty_n_nempty_list_n_stat_p__p__1(self, __tbnf_COMPONENTS):
+    def allow_empty_o_nempty_list_o_stat_p__p__1(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]
     
-    def allow_empty_n_nempty_list_n_stat_p__p__0(self, __tbnf_COMPONENTS):
+    def allow_empty_o_nempty_list_o_stat_p__p__0(self, __tbnf_COMPONENTS):
         return []
     
-    def nempty_list_n_stat_p__1(self, __tbnf_COMPONENTS):
+    def nempty_list_o_stat_p__1(self, __tbnf_COMPONENTS):
         return appendList(__tbnf_COMPONENTS[0], __tbnf_COMPONENTS[1])
     
-    def nempty_list_n_stat_p__0(self, __tbnf_COMPONENTS):
+    def nempty_list_o_stat_p__0(self, __tbnf_COMPONENTS):
         return [__tbnf_COMPONENTS[0]]
     
     def start_0(self, __tbnf_COMPONENTS):

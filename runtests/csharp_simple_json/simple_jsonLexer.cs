@@ -62,7 +62,7 @@ public partial class simple_jsonLexer : Lexer {
 	{
 	    return (JsonValue) new JNull();
 	}
-	public static JsonValue JList (System.Collections.Generic.List<JsonValue> elements)
+	public static JsonValue JList (MyList<JsonValue> elements)
 	{
 	    return (JsonValue) new JList(elements);
 	}
@@ -74,7 +74,7 @@ public partial class simple_jsonLexer : Lexer {
 	{
 	    return (JsonValue) new JFlt(value);
 	}
-	public static JsonValue JDict (System.Collections.Generic.List<JsonPair> value)
+	public static JsonValue JDict (MyList<JsonPair> value)
 	{
 	    return (JsonValue) new JDict(value);
 	}
