@@ -7,8 +7,8 @@ using System.Diagnostics;
 
 namespace lua
 {
-    
-    public struct MyList<T>: System.Collections.IEnumerable
+
+    public struct MyList<T> : System.Collections.IEnumerable
     {
         public IEnumerator<T> GetEnumerator() => contents.GetEnumerator();
         private IEnumerator GetEnumerator1() => this.GetEnumerator();
@@ -27,14 +27,14 @@ namespace lua
         {
             this.contents = x;
         }
-        
+
         public override string ToString()
         {
-            
+
             return "[" + System.String.Join(",", contents.Select(x => x.ToString())) + "]";
         }
 
-        
+
         public static implicit operator List<T>(MyList<T> xs) => xs.contents;
         public static implicit operator MyList<T>(List<T> xs) => new MyList<T>(xs);
     }
@@ -42,8 +42,9 @@ namespace lua
     {
         public bool IsSome;
         public A Value;
-        
-        public maybe(bool isSome, A v){
+
+        public maybe(bool isSome, A v)
+        {
             this.IsSome = isSome;
             this.Value = v;
         }
@@ -99,7 +100,7 @@ namespace lua
 
         public static MyList<G> listMap<T, G>(MyList<T> xs, Func<T, G> f)
         {
-            return (MyList<G>) (((List<T>) xs).Select(f).ToList());
+            return (MyList<G>)(((List<T>)xs).Select(f).ToList());
         }
 
         public static block ParseLua(string s)
@@ -114,42 +115,5 @@ namespace lua
         }
     }
 
-    public class App
-    {
 
-        public static List<A> repeat<A>(A x, int n){
-            var ret = new List<A> {};
-            for(var i = 0; i < n; i++)
-            {
-                ret.Add(x);
-            }
-            return ret;
-        }
-        public static void Main(string[] modes)
-        {
-            if (modes.Length == 2)
-            {
-                var texts = repeat(System.IO.File.ReadAllText(modes[0]), 100);
-                var prevent_opt = new List<string>();
-                List<long> times = new List<long>();
-                foreach(var text in texts)
-                {
-                    System.Diagnostics.Stopwatch sw = new Stopwatch();
-                    sw.Start();
-                    var res = luaParser.ParseLua(text);
-                    sw.Stop();
-                    times.Add(sw.ElapsedMilliseconds);
-                    prevent_opt.Add(System.String.Join("", res.suite.contents.Select(x => x.ToString())));
-                }
-                System.IO.File.WriteAllText(modes[1], System.String.Join(",", times));
-                return;
-            }
-            while(true)
-            {
-                Console.Write("lua parser> ");
-                Console.WriteLine(luaParser.ParseLua(Console.ReadLine()).ToString());
-            }
-        
-        }
-    }
 }

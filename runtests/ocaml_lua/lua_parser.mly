@@ -349,23 +349,17 @@ nempty_seplist_o_fieldsep_s_field_p_ : field {
                                      | nempty_seplist_o_fieldsep_s_field_p_ fieldsep field { 
                                                      appendList($1, $3)
                                                  }
-allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_ :  { 
-                                                                      []
-                                                                  }
-                                                      | nempty_seplist_o_fieldsep_s_field_p_ { 
-                                                                      $1
-                                                                  }
-seplist_o_fieldsep_s_field_p_ : allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_ { 
-                                              $1
-                                          }
 opt_o_fieldsep_p_ : fieldsep { 
                                   some($1)
                               }
                   |  { 
                                   none()
                               }
-tableconstructor : I__T__I__I seplist_o_fieldsep_s_field_p_ opt_o_fieldsep_p_ I__V__I_ { 
+tableconstructor : I__T__I__I nempty_seplist_o_fieldsep_s_field_p_ opt_o_fieldsep_p_ I__V__I_ { 
                                  mk_TableConstructor($1, $2)
+                             }
+                 | I__T__I__I I__V__I_ { 
+                                 mk_TableConstructor($1, [])
                              }
 funcname : funcname I__U__I_ NAME { 
                          mk_DotName($1, $3)

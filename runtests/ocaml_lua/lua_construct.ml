@@ -51,7 +51,7 @@ and expr =
 | NestedExp of { value1 : tbnf_token;value2 : expr }
 | Nil of { value : tbnf_token }
 | Not of { value1 : tbnf_token;value2 : expr }
-| Num of { value : tbnf_token }
+| Num of { value1 : tbnf_token }
 | String of { value1 : tbnf_token }
 | TableExpr of { value1 : table }
 | UnsolvedBin of { value : ((expr) op) list }
@@ -79,6 +79,7 @@ and params = {
     names : (tbnf_token) list;
     vararg : (tbnf_token) maybe;
 }
+
 let params (names, vararg) : params =
      { names;vararg }
 let if_else (pos, else_body) : if_else =
@@ -97,8 +98,8 @@ let mk_TableExpr (value1) : expr =
     TableExpr { value1 }
 let mk_String (value1) : expr =
     String { value1 }
-let mk_Num (value) : expr =
-    Num { value }
+let mk_Num (value1) : expr =
+    Num { value1 }
 let mk_Not (value1, value2) : expr =
     Not { value1;value2 }
 let mk_Nil (value) : expr =

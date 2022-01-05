@@ -412,26 +412,6 @@ public interface IluaListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitNempty_seplist_o_fieldsep_s_field_p_([NotNull] luaParser.Nempty_seplist_o_fieldsep_s_field_p_Context context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterAllow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_([NotNull] luaParser.Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitAllow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_([NotNull] luaParser.Allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_Context context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="luaParser.seplist_o_fieldsep_s_field_p_"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSeplist_o_fieldsep_s_field_p_([NotNull] luaParser.Seplist_o_fieldsep_s_field_p_Context context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="luaParser.seplist_o_fieldsep_s_field_p_"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSeplist_o_fieldsep_s_field_p_([NotNull] luaParser.Seplist_o_fieldsep_s_field_p_Context context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="luaParser.opt_o_fieldsep_p_"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

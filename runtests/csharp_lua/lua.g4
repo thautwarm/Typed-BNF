@@ -550,19 +550,6 @@ nempty_seplist_o_fieldsep_s_field_p_ returns [MyList<table_field> result]
                 $result = (MyList<table_field>) appendList<table_field>((MyList<table_field>) _localctx.nempty_seplist_o_fieldsep_s_field_p__1__1.result, (table_field) _localctx.nempty_seplist_o_fieldsep_s_field_p__1__3.result);
             }
 ;
-allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_ returns [MyList<table_field> result]
-:  { 
-                $result = new MyList<table_field> {  };
-            }
-| allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p__1__1=nempty_seplist_o_fieldsep_s_field_p_ { 
-                $result = _localctx.allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p__1__1.result;
-            }
-;
-seplist_o_fieldsep_s_field_p_ returns [MyList<table_field> result]
-: seplist_o_fieldsep_s_field_p__0__1=allow_empty_o_nempty_seplist_o_fieldsep_s_field_p__p_ { 
-                $result = _localctx.seplist_o_fieldsep_s_field_p__0__1.result;
-            }
-;
 opt_o_fieldsep_p_ returns [maybe<int> result]
 : opt_o_fieldsep_p__0__1=fieldsep { 
                 $result = (maybe<int>) some<int>((int) _localctx.opt_o_fieldsep_p__0__1.result);
@@ -572,8 +559,11 @@ opt_o_fieldsep_p_ returns [maybe<int> result]
             }
 ;
 tableconstructor returns [table result]
-: tableconstructor_0__1='{' tableconstructor_0__2=seplist_o_fieldsep_s_field_p_ opt_o_fieldsep_p_ '}' { 
+: tableconstructor_0__1='{' tableconstructor_0__2=nempty_seplist_o_fieldsep_s_field_p_ opt_o_fieldsep_p_ '}' { 
                 $result = (table) TableConstructor((IToken) _localctx.tableconstructor_0__1, (MyList<table_field>) _localctx.tableconstructor_0__2.result);
+            }
+| tableconstructor_1__1='{' '}' { 
+                $result = (table) TableConstructor((IToken) _localctx.tableconstructor_1__1, (MyList<table_field>) new MyList<table_field> {  });
             }
 ;
 funcname returns [funcname result]
