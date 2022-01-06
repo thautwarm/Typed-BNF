@@ -12,7 +12,7 @@ Key = TypeVar("Key")
 
 Value = TypeVar("Value")
 
-def expr_32(gen0: TypeInfo, gen1: TypeInfo) -> TypeInfo:
+def expr_24(gen0: TypeInfo, gen1: TypeInfo) -> TypeInfo:
     return class_type("Fable.Collections.Dictionary", [gen0, gen1], Dictionary)
 
 
@@ -190,7 +190,7 @@ class Dictionary(Generic[Key, Value]):
         iterate(action, this)
     
 
-Dictionary_reflection = expr_32
+Dictionary_reflection = expr_24
 
 def Dictionary__ctor_6623D9B3(pairs: Iterable[Any], comparer: IEqualityComparer[Any]) -> Dictionary[Any, Any]:
     return Dictionary(pairs, comparer)
@@ -200,11 +200,11 @@ def Dictionary__TryFindIndex_2B595(this: Dictionary[Key, Any], k: Key=None) -> T
     h : int = this.comparer.GetHashCode(k) or 0
     match_value = None
     out_arg : List[Any] = None
-    def arrow_33(v: List[Any], this: Dictionary[Key, Value]=this, k: Key=k) -> None:
+    def arrow_25(v: List[Any], this: Dictionary[Key, Value]=this, k: Key=k) -> None:
         nonlocal out_arg
         out_arg = v
     
-    match_value = (try_get_value(this.hash_map, h, FSharpRef(lambda this=this, k=k: out_arg, arrow_33)), out_arg)
+    match_value = (try_get_value(this.hash_map, h, FSharpRef(lambda this=this, k=k: out_arg, arrow_25)), out_arg)
     if match_value[0]:
         return (True, h, find_index(lambda pair, this=this, k=k: this.comparer.Equals(k, pair[0]), match_value[1]))
     

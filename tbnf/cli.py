@@ -7,6 +7,7 @@ from _tbnf.src import resource_keys
 import _tbnf.src.backends_python_lark as codegen_py
 import _tbnf.src.backends_ocaml_menhir as codegen_ocaml
 import _tbnf.src.backends_csharp_antlr as codegen_csharp
+import _tbnf.src.backends_type_script_antlr as codegen_antlr
 from tbnf.grammar_parser import parser
 from tbnf.basic import set_filename
 from tbnf.resources import load_resource
@@ -20,7 +21,8 @@ import sys
 backends = {
     'python-lark': codegen_py.codegen,
     'ocaml-menhir': codegen_ocaml.codegen,
-    "csharp-antlr": codegen_csharp.codegen
+    'csharp-antlr': codegen_csharp.codegen,
+    'typescript-antlr': codegen_antlr.codegen
 }
 
 

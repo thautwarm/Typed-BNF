@@ -145,7 +145,7 @@ elseif : "elseif" exp "then" block { if_elseif($1, $2, $4) }
 else : "else" block { if_else($1, $2) }
 
 
-exp : binexp { $1 }
+exp : binexp { 0;$1 }
 binexp : binseq { mkBinOpSeq($1, Bin, UnsolvedBin) }
 
 binseq : binseq binop binoperand { appendList(appendList($1, $2), $3) }

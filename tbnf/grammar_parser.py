@@ -1,4 +1,9 @@
 # Generated from lark-action.
+def _get_location(token):
+    return (token.line, token.column)
+
+def _get_value(token):
+    return token.value
 
 
 from _tbnf.src.apis import *
@@ -14,14 +19,6 @@ def unesc(x, f=json.decoder.py_scanstring):
         unesc('"asd"') == "asd"
     """
     return f(x, 1)[0]
-
-if '_get_location' not in globals(): 
-    def _get_location(token):
-        return (token.line, token.column)
-
-if '_get_value' not in globals(): 
-    def _get_value(token):
-        return token.value
 
 
 def process_tparam(kvs):
@@ -150,6 +147,8 @@ class grammar_parser_Transformer(Transformer):
         return MK_expr(MK_EFun(__args[2-1], __args[4-1]), mkpos(__args[1-1]))
     def expr_2(self, __args):
         return  __args[1-1]
+    def expr_3(self, __args):
+        return  MK_expr(MK_ELet("_", __args[1-1], __args[3-1]), __args[1-1].pos)
     def call_0(self, __args):
         return  MK_expr(MK_EApp(__args[1-1], __args[3-1]), __args[1-1].pos)
     def call_1(self, __args):

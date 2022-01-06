@@ -171,7 +171,7 @@ public partial class simple_jsonParser : Parser {
 
 	public partial class Start__y_Context : ParserRuleContext {
 		public JsonValue result;
-		public JsonContext var_0__1;
+		public JsonContext start__y__0__1;
 		[System.Diagnostics.DebuggerNonUserCode] public JsonContext json() {
 			return GetRuleContext<JsonContext>(0);
 		}
@@ -200,9 +200,9 @@ public partial class simple_jsonParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 16;
-			_localctx.var_0__1 = json();
+			_localctx.start__y__0__1 = json();
 			 
-			                _localctx.result =  _localctx.var_0__1.result;
+			                _localctx.result =  _localctx.start__y__0__1.result;
 			            
 			}
 		}
@@ -219,8 +219,8 @@ public partial class simple_jsonParser : Parser {
 
 	public partial class JsonpairContext : ParserRuleContext {
 		public JsonPair result;
-		public IToken var_0__1;
-		public JsonContext var_0__3;
+		public IToken jsonpair_0__1;
+		public JsonContext jsonpair_0__3;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STR() { return GetToken(simple_jsonParser.STR, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public JsonContext json() {
 			return GetRuleContext<JsonContext>(0);
@@ -250,13 +250,13 @@ public partial class simple_jsonParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 19;
-			_localctx.var_0__1 = Match(STR);
+			_localctx.jsonpair_0__1 = Match(STR);
 			State = 20;
 			Match(T__0);
 			State = 21;
-			_localctx.var_0__3 = json();
+			_localctx.jsonpair_0__3 = json();
 			 
-			                _localctx.result =  (JsonPair) JsonPair((string) (string) unesc((string) (string) getStr((IToken) _localctx.var_0__1)), (JsonValue) _localctx.var_0__3.result);
+			                _localctx.result =  (JsonPair) JsonPair((string) (string) unesc((string) (string) getStr((IToken) _localctx.jsonpair_0__1)), (JsonValue) _localctx.jsonpair_0__3.result);
 			            
 			}
 		}
@@ -273,9 +273,9 @@ public partial class simple_jsonParser : Parser {
 
 	public partial class Seplist_o__i__s__i__s_json_p_Context : ParserRuleContext {
 		public MyList<JsonValue> result;
-		public Seplist_o__i__s__i__s_json_p_Context var_1__1;
-		public JsonContext var_0__1;
-		public JsonContext var_1__3;
+		public Seplist_o__i__s__i__s_json_p_Context seplist_o__i__s__i__s_json_p__1__1;
+		public JsonContext seplist_o__i__s__i__s_json_p__0__1;
+		public JsonContext seplist_o__i__s__i__s_json_p__1__3;
 		[System.Diagnostics.DebuggerNonUserCode] public JsonContext json() {
 			return GetRuleContext<JsonContext>(0);
 		}
@@ -317,9 +317,9 @@ public partial class simple_jsonParser : Parser {
 			{
 			{
 			State = 25;
-			_localctx.var_0__1 = json();
+			_localctx.seplist_o__i__s__i__s_json_p__0__1 = json();
 			 
-			                _localctx.result =  new MyList<JsonValue> { _localctx.var_0__1.result };
+			                _localctx.result =  new MyList<JsonValue> { _localctx.seplist_o__i__s__i__s_json_p__0__1.result };
 			            
 			}
 			Context.Stop = TokenStream.LT(-1);
@@ -334,16 +334,16 @@ public partial class simple_jsonParser : Parser {
 					{
 					{
 					_localctx = new Seplist_o__i__s__i__s_json_p_Context(_parentctx, _parentState);
-					_localctx.var_1__1 = _prevctx;
+					_localctx.seplist_o__i__s__i__s_json_p__1__1 = _prevctx;
 					PushNewRecursionContext(_localctx, _startState, RULE_seplist_o__i__s__i__s_json_p_);
 					State = 28;
 					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
 					State = 29;
 					Match(T__1);
 					State = 30;
-					_localctx.var_1__3 = json();
+					_localctx.seplist_o__i__s__i__s_json_p__1__3 = json();
 					 
-					                          _localctx.result =  (MyList<JsonValue>) appendList<JsonValue>((MyList<JsonValue>) _localctx.var_1__1.result, (JsonValue) _localctx.var_1__3.result);
+					                          _localctx.result =  (MyList<JsonValue>) appendList<JsonValue>((MyList<JsonValue>) _localctx.seplist_o__i__s__i__s_json_p__1__1.result, (JsonValue) _localctx.seplist_o__i__s__i__s_json_p__1__3.result);
 					                      
 					}
 					} 
@@ -367,9 +367,9 @@ public partial class simple_jsonParser : Parser {
 
 	public partial class Seplist_o__i__s__i__s_jsonpair_p_Context : ParserRuleContext {
 		public MyList<JsonPair> result;
-		public Seplist_o__i__s__i__s_jsonpair_p_Context var_1__1;
-		public JsonpairContext var_0__1;
-		public JsonpairContext var_1__3;
+		public Seplist_o__i__s__i__s_jsonpair_p_Context seplist_o__i__s__i__s_jsonpair_p__1__1;
+		public JsonpairContext seplist_o__i__s__i__s_jsonpair_p__0__1;
+		public JsonpairContext seplist_o__i__s__i__s_jsonpair_p__1__3;
 		[System.Diagnostics.DebuggerNonUserCode] public JsonpairContext jsonpair() {
 			return GetRuleContext<JsonpairContext>(0);
 		}
@@ -411,9 +411,9 @@ public partial class simple_jsonParser : Parser {
 			{
 			{
 			State = 39;
-			_localctx.var_0__1 = jsonpair();
+			_localctx.seplist_o__i__s__i__s_jsonpair_p__0__1 = jsonpair();
 			 
-			                _localctx.result =  new MyList<JsonPair> { _localctx.var_0__1.result };
+			                _localctx.result =  new MyList<JsonPair> { _localctx.seplist_o__i__s__i__s_jsonpair_p__0__1.result };
 			            
 			}
 			Context.Stop = TokenStream.LT(-1);
@@ -428,16 +428,16 @@ public partial class simple_jsonParser : Parser {
 					{
 					{
 					_localctx = new Seplist_o__i__s__i__s_jsonpair_p_Context(_parentctx, _parentState);
-					_localctx.var_1__1 = _prevctx;
+					_localctx.seplist_o__i__s__i__s_jsonpair_p__1__1 = _prevctx;
 					PushNewRecursionContext(_localctx, _startState, RULE_seplist_o__i__s__i__s_jsonpair_p_);
 					State = 42;
 					if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
 					State = 43;
 					Match(T__1);
 					State = 44;
-					_localctx.var_1__3 = jsonpair();
+					_localctx.seplist_o__i__s__i__s_jsonpair_p__1__3 = jsonpair();
 					 
-					                          _localctx.result =  (MyList<JsonPair>) appendList<JsonPair>((MyList<JsonPair>) _localctx.var_1__1.result, (JsonPair) _localctx.var_1__3.result);
+					                          _localctx.result =  (MyList<JsonPair>) appendList<JsonPair>((MyList<JsonPair>) _localctx.seplist_o__i__s__i__s_jsonpair_p__1__1.result, (JsonPair) _localctx.seplist_o__i__s__i__s_jsonpair_p__1__3.result);
 					                      
 					}
 					} 
@@ -461,11 +461,11 @@ public partial class simple_jsonParser : Parser {
 
 	public partial class JsonContext : ParserRuleContext {
 		public JsonValue result;
-		public IToken var_0__1;
-		public IToken var_1__1;
-		public IToken var_3__1;
-		public Seplist_o__i__s__i__s_json_p_Context var_8__2;
-		public Seplist_o__i__s__i__s_jsonpair_p_Context var_9__2;
+		public IToken json_0__1;
+		public IToken json_1__1;
+		public IToken json_3__1;
+		public Seplist_o__i__s__i__s_json_p_Context json_8__2;
+		public Seplist_o__i__s__i__s_jsonpair_p_Context json_9__2;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INT() { return GetToken(simple_jsonParser.INT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FLOAT() { return GetToken(simple_jsonParser.FLOAT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STR() { return GetToken(simple_jsonParser.STR, 0); }
@@ -504,9 +504,9 @@ public partial class simple_jsonParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 52;
-				_localctx.var_0__1 = Match(INT);
+				_localctx.json_0__1 = Match(INT);
 				 
-				                _localctx.result =  (JsonValue) JInt((int) (int) parseInt((string) (string) getStr((IToken) _localctx.var_0__1)));
+				                _localctx.result =  (JsonValue) JInt((int) (int) parseInt((string) (string) getStr((IToken) _localctx.json_0__1)));
 				            
 				}
 				break;
@@ -514,9 +514,9 @@ public partial class simple_jsonParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 54;
-				_localctx.var_1__1 = Match(FLOAT);
+				_localctx.json_1__1 = Match(FLOAT);
 				 
-				                _localctx.result =  (JsonValue) JFlt((float) (float) parseFlt((string) (string) getStr((IToken) _localctx.var_1__1)));
+				                _localctx.result =  (JsonValue) JFlt((float) (float) parseFlt((string) (string) getStr((IToken) _localctx.json_1__1)));
 				            
 				}
 				break;
@@ -534,9 +534,9 @@ public partial class simple_jsonParser : Parser {
 				EnterOuterAlt(_localctx, 4);
 				{
 				State = 58;
-				_localctx.var_3__1 = Match(STR);
+				_localctx.json_3__1 = Match(STR);
 				 
-				                _localctx.result =  (JsonValue) JStr((string) (string) unesc((string) (string) getStr((IToken) _localctx.var_3__1)));
+				                _localctx.result =  (JsonValue) JStr((string) (string) unesc((string) (string) getStr((IToken) _localctx.json_3__1)));
 				            
 				}
 				break;
@@ -590,11 +590,11 @@ public partial class simple_jsonParser : Parser {
 				State = 70;
 				Match(T__3);
 				State = 71;
-				_localctx.var_8__2 = seplist_o__i__s__i__s_json_p_(0);
+				_localctx.json_8__2 = seplist_o__i__s__i__s_json_p_(0);
 				State = 72;
 				Match(T__4);
 				 
-				                _localctx.result =  (JsonValue) JList((MyList<JsonValue>) _localctx.var_8__2.result);
+				                _localctx.result =  (JsonValue) JList((MyList<JsonValue>) _localctx.json_8__2.result);
 				            
 				}
 				break;
@@ -604,11 +604,11 @@ public partial class simple_jsonParser : Parser {
 				State = 75;
 				Match(T__5);
 				State = 76;
-				_localctx.var_9__2 = seplist_o__i__s__i__s_jsonpair_p_(0);
+				_localctx.json_9__2 = seplist_o__i__s__i__s_jsonpair_p_(0);
 				State = 77;
 				Match(T__6);
 				 
-				                _localctx.result =  (JsonValue) JDict((MyList<JsonPair>) _localctx.var_9__2.result);
+				                _localctx.result =  (JsonValue) JDict((MyList<JsonPair>) _localctx.json_9__2.result);
 				            
 				}
 				break;

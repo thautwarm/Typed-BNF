@@ -8,6 +8,35 @@ using System.Diagnostics;
 namespace lua
 {
 
+    public struct MyList<T> : System.Collections.IEnumerable
+    {
+        public IEnumerator<T> GetEnumerator() => contents.GetEnumerator();
+        private IEnumerator GetEnumerator1() => this.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator1();
+        public void Add(T x) => contents.Add(x);
+
+        public List<T> contents;
+
+        public MyList()
+        {
+            contents = new List<T>();
+        }
+        private MyList(List<T> x)
+        {
+            this.contents = x;
+        }
+
+        public override string ToString()
+        {
+
+            return "[" + System.String.Join(",", contents.Select(x => x.ToString())) + "]";
+        }
+
+
+        public static implicit operator List<T>(MyList<T> xs) => xs.contents;
+        public static implicit operator MyList<T>(List<T> xs) => new MyList<T>(xs);
+    }
     public class App
     {
 
@@ -20,6 +49,18 @@ namespace lua
             }
             return ret;
         }
+
+        public static block ParseLua(string s)
+        {
+            ICharStream stream = CharStreams.fromString(s);
+            ITokenSource lexer = new luaLexer(stream);
+            ITokenStream tokens = new CommonTokenStream(lexer);
+            var parser = new luaParser(tokens);
+            parser.BuildParseTree = false;
+            var result = parser.start().result;
+            return result;
+        }
+
         public static void Main(string[] modes)
         {
             if (modes.Length == 2)
@@ -31,7 +72,7 @@ namespace lua
                 {
                     System.Diagnostics.Stopwatch sw = new Stopwatch();
                     sw.Start();
-                    var res = luaParser.ParseLua(text);
+                    var res = ParseLua(text);
                     sw.Stop();
                     times.Add(sw.ElapsedMilliseconds);
                     prevent_opt.Add(System.String.Join("", res.suite.contents.Select(x => x.ToString())));
@@ -42,7 +83,7 @@ namespace lua
             while (true)
             {
                 Console.Write("lua parser> ");
-                Console.WriteLine(luaParser.ParseLua(Console.ReadLine()).ToString());
+                Console.WriteLine(ParseLua(Console.ReadLine()).ToString());
             }
 
         }

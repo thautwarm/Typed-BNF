@@ -367,11 +367,11 @@ def insert_range_in_place(index: int, range: Iterable[T], array: List[T]) -> Non
     with get_enumerator(range) as enumerator:
         while enumerator.System_Collections_IEnumerator_MoveNext():
             x : T = enumerator.System_Collections_Generic_IEnumerator_00601_get_Current()
-            def arrow_71(index: int=index, range: Iterable[T]=range, array: List[T]=array) -> List[T]:
+            def arrow_49(index: int=index, range: Iterable[T]=range, array: List[T]=array) -> List[T]:
                 index_1 : int = i or 0
                 return array.insert(index_1, x)
             
-            ignore(arrow_71())
+            ignore(arrow_49())
             i = (i + 1) or 0
 
 
@@ -678,7 +678,7 @@ def permute(f: Callable[[int], int], array: List[T]) -> List[T]:
     size : int = len(array) or 0
     res : List[T] = array[:]
     check_flags : MutableSequence[int] = [None]*size
-    def arrow_84(i: int, x: Any=None, f: Callable[[int], int]=f, array: List[T]=array) -> None:
+    def arrow_50(i: int, x: Any=None, f: Callable[[int], int]=f, array: List[T]=array) -> None:
         j : int = f(i) or 0
         if True if (j < 0) else (j >= size):
             raise Exception("Not a valid permutation")
@@ -686,7 +686,7 @@ def permute(f: Callable[[int], int], array: List[T]) -> List[T]:
         res[j] = x
         check_flags[j] = 1
     
-    iterate_indexed(arrow_84, array)
+    iterate_indexed(arrow_50, array)
     if not (all([(lambda y, f=f, array=array: 1 == y)(x) for x in check_flags])):
         raise Exception("Not a valid permutation")
     
@@ -711,48 +711,48 @@ def sort_in_place(xs: List[T], comparer: IComparer_1[T]) -> None:
 
 def sort(xs: List[T], comparer: IComparer_1[T]) -> List[T]:
     xs_1 : List[T] = xs[:]
-    def expr_86():
+    def expr_59():
         xs_1.sort()
         return xs_1
     
-    return expr_86()
+    return expr_59()
 
 
 def sort_by(projection: Callable[[a], b], xs: List[a], comparer: IComparer_1[b]) -> List[a]:
     xs_1 : List[a] = xs[:]
-    def expr_87():
+    def expr_62():
         xs_1.sort()
         return xs_1
     
-    return expr_87()
+    return expr_62()
 
 
 def sort_descending(xs: List[T], comparer: IComparer_1[T]) -> List[T]:
     xs_1 : List[T] = xs[:]
-    def expr_88():
+    def expr_64():
         xs_1.sort()
         return xs_1
     
-    return expr_88()
+    return expr_64()
 
 
 def sort_by_descending(projection: Callable[[a], b], xs: List[a], comparer: IComparer_1[b]) -> List[a]:
     xs_1 : List[a] = xs[:]
-    def expr_89():
+    def expr_66():
         xs_1.sort()
         return xs_1
     
-    return expr_89()
+    return expr_66()
 
 
 def sort_with(comparer: Callable[[T, T], int], xs: List[T]) -> List[T]:
     comparer_1 : Callable[[T, T], int] = comparer
     xs_1 : List[T] = xs[:]
-    def expr_90():
+    def expr_67():
         xs_1.sort()
         return xs_1
     
-    return expr_90()
+    return expr_67()
 
 
 def all_pairs(xs: List[T1], ys: List[T2]) -> List[Tuple[T1, T2]]:
@@ -787,11 +787,11 @@ def unzip(array: List[Tuple[a_, b_]]) -> Tuple[List[a_], List[b_]]:
     len_1 : int = len(array) or 0
     res1 : List[a_] = [None]*len_1
     res2 : List[b_] = [None]*len_1
-    def arrow_91(i: int, tupled_arg: Tuple[a_, b_], array: List[Tuple[a_, b_]]=array) -> None:
+    def arrow_70(i: int, tupled_arg: Tuple[a_, b_], array: List[Tuple[a_, b_]]=array) -> None:
         res1[i] = tupled_arg[0]
         res2[i] = tupled_arg[1]
     
-    iterate_indexed(arrow_91, array)
+    iterate_indexed(arrow_70, array)
     return (res1, res2)
 
 
@@ -800,12 +800,12 @@ def unzip3(array: List[Tuple[a_, b_, c_]]) -> Tuple[List[a_], List[b_], List[c_]
     res1 : List[a_] = [None]*len_1
     res2 : List[b_] = [None]*len_1
     res3 : List[c_] = [None]*len_1
-    def arrow_92(i: int, tupled_arg: Tuple[a_, b_, c_], array: List[Tuple[a_, b_, c_]]=array) -> None:
+    def arrow_71(i: int, tupled_arg: Tuple[a_, b_, c_], array: List[Tuple[a_, b_, c_]]=array) -> None:
         res1[i] = tupled_arg[0]
         res2[i] = tupled_arg[1]
         res3[i] = tupled_arg[2]
     
-    iterate_indexed(arrow_92, array)
+    iterate_indexed(arrow_71, array)
     return (res1, res2, res3)
 
 

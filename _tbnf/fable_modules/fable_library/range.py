@@ -13,11 +13,11 @@ def make_range_step_function(step: T, stop: T, zero: T, add: Callable[[T, T], T]
         raise Exception("The step of a range cannot be zero")
     
     step_greater_than_zero : bool = step_compared_with_zero > 0
-    def arrow_9(x: T=None, step: T=step, stop: T=stop, zero: T=zero, add: Callable[[T, T], T]=add) -> Optional[Tuple[T, T]]:
+    def arrow_8(x: T=None, step: T=step, stop: T=stop, zero: T=zero, add: Callable[[T, T], T]=add) -> Optional[Tuple[T, T]]:
         compared_with_last : int = compare(x, stop) or 0
         return (x, add(x, step)) if (True if (compared_with_last <= 0 if (step_greater_than_zero) else (False)) else (compared_with_last >= 0 if (not step_greater_than_zero) else (False))) else (None)
     
-    return arrow_9
+    return arrow_8
 
 
 def integral_range_step(start: T, step: T, stop: T, zero: T, add: Callable[[T, T], T]) -> Iterable[T]:

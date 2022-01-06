@@ -44,11 +44,11 @@ def count_by(projection: Callable[[T], Key], xs: Iterable[T], comparer: IEqualit
                 key : Key = projection(enumerator.System_Collections_Generic_IEnumerator_00601_get_Current())
                 match_value = None
                 out_arg : int = 0
-                def arrow_8(v: int) -> None:
+                def arrow_11(v: int) -> None:
                     nonlocal out_arg
                     out_arg = v or 0
                 
-                match_value = (try_get_value(dict_1, key, FSharpRef(lambda _unit=None: out_arg, arrow_8)), out_arg)
+                match_value = (try_get_value(dict_1, key, FSharpRef(lambda _unit=None: out_arg, arrow_11)), out_arg)
                 if match_value[0]:
                     dict_1[key] = match_value[1] + 1
                 

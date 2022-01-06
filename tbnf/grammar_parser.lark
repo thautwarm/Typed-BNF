@@ -114,6 +114,7 @@ func_parameters : "(" eslist{",", ann} ")" -> func_parameters_0
 expr : "let" identstr "=" expr "in" expr -> expr_0                                                    
      | "fun" func_parameters "->" expr -> expr_1                                                
      | call -> expr_2                  
+     | call ";" expr -> expr_3                                                              
 
 call : call "(" eslist{",", expr} ")" -> call_0                                                                          
      | atomexp -> call_1                     

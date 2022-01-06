@@ -203,6 +203,7 @@ else__x_ : I_ELSE_I_ block {
                          if_else($1, $2)
                      }
 exp : binexp { 
+                    let _:int = 0 in
                     $1
                 }
 binexp : binseq { 

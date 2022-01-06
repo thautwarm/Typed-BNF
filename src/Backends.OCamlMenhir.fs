@@ -262,7 +262,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
             let value' = !value
             let m_name = mangle ocamlVarIdentDescr n
             let scope' = (n, m_name) :: scope
-            defineOCamlLetIn (word m_name * word ":" * word (cg_type curr_expr.t)) value' (cg_expr scope' body)
+            defineOCamlLetIn (word m_name * word ":" * word (cg_type value.t)) value' (cg_expr scope' body)
         | node.EList elts ->
             bracket(seplist (word ";") (List.map (fun elt -> cg_expr scope elt) elts))
         | node.ESlot i -> word $"${i}"

@@ -1,12 +1,3 @@
-type json = 
-  | Dict of (string * json) list
-  | Bool of bool
-  | Float of float
-  | Int of int
-  | List of json list
-  | Null
-  | String of string
-
 let parseInt x = int_of_string x
 
 let parseFlt x = float_of_string x
@@ -34,12 +25,4 @@ let unesc(s: string) =
     String.concat "" (List.map (String.make 1) char_list)
   | _ -> raise @@ Invalid_argument("invalid string literal")
 
-let jsonDict xs = Dict xs
-let jsonList xs = List xs
-let jsonFlt f = Float f
-let jsonInt i = Int i
-let jsonNull = Null
-let jsonStr s = String s
-let jsonBool b = Bool b
 let appendList(xs, a) = xs @ [a]
-

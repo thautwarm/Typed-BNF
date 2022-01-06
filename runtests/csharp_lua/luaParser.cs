@@ -1783,6 +1783,7 @@ public partial class luaParser : Parser {
 			State = 276;
 			_localctx.exp_0__1 = binexp();
 			 
+			                int _ = 0;
 			                _localctx.result =  _localctx.exp_0__1.result;
 			            
 			}

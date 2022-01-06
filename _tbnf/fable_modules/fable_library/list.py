@@ -46,7 +46,7 @@ Result = TypeVar("Result")
 
 c_ = TypeVar("c_")
 
-def expr_83(gen0: TypeInfo) -> TypeInfo:
+def expr_69(gen0: TypeInfo) -> TypeInfo:
     return record_type("ListModule.FSharpList", [gen0], FSharpList, lambda: [["head", gen0], ["tail", option_type(FSharpList_reflection(gen0))]])
 
 
@@ -174,9 +174,9 @@ class FSharpList(Record, Generic[T]):
         return get_enumerator(xs)
     
 
-FSharpList_reflection = expr_83
+FSharpList_reflection = expr_69
 
-def expr_85(gen0: TypeInfo) -> TypeInfo:
+def expr_72(gen0: TypeInfo) -> TypeInfo:
     return class_type("ListModule.ListEnumerator`1", [gen0], ListEnumerator_1)
 
 
@@ -216,7 +216,7 @@ class ListEnumerator_1(IDisposable, Generic[T_1]):
         pass
     
 
-ListEnumerator_1_reflection = expr_85
+ListEnumerator_1_reflection = expr_72
 
 def ListEnumerator_1__ctor_3002E699(xs: FSharpList[Any]) -> ListEnumerator_1[Any]:
     return ListEnumerator_1(xs)

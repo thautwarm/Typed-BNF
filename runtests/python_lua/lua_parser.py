@@ -264,6 +264,7 @@ class RBNFTransformer(Transformer):
         return mkBinOpSeq(__tbnf_COMPONENTS[0], Bin, UnsolvedBin)
     
     def exp_0(self, __tbnf_COMPONENTS):
+        _ = 0
         return __tbnf_COMPONENTS[0]
     
     def else__x__0(self, __tbnf_COMPONENTS):

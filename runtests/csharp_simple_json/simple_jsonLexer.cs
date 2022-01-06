@@ -203,7 +203,7 @@ public partial class simple_jsonLexer : Lexer {
 		'\x2', '\x2', '\x2', 'Y', 'Z', '\x3', '\x2', '\x2', '\x2', 'Z', '[', '\x3', 
 		'\x2', '\x2', '\x2', '[', '\\', '\b', '\xF', '\x2', '\x2', '\\', '\x1E', 
 		'\x3', '\x2', '\x2', '\x2', '\b', '\x2', '@', '\x45', 'O', 'Q', 'Y', '\x3', 
-		'\b', '\x2', '\x2',
+		'\x2', '\x3', '\x2',
 	};
 
 	public static readonly ATN _ATN =

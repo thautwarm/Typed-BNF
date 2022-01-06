@@ -41,43 +41,43 @@ start returns [JsonValue result]: v=start__y_ EOF { $result = _localctx.v.result
 
 
 start__y_ returns [JsonValue result]
-: var_0__1=json { 
-                $result = _localctx.var_0__1.result;
+: start__y__0__1=json { 
+                $result = _localctx.start__y__0__1.result;
             }
 ;
 jsonpair returns [JsonPair result]
-: var_0__1=STR ':' var_0__3=json { 
-                $result = (JsonPair) JsonPair((string) (string) unesc((string) (string) getStr((IToken) _localctx.var_0__1)), (JsonValue) _localctx.var_0__3.result);
+: jsonpair_0__1=STR ':' jsonpair_0__3=json { 
+                $result = (JsonPair) JsonPair((string) (string) unesc((string) (string) getStr((IToken) _localctx.jsonpair_0__1)), (JsonValue) _localctx.jsonpair_0__3.result);
             }
 ;
 seplist_o__i__s__i__s_json_p_ returns [MyList<JsonValue> result]
-: var_0__1=json { 
-                $result = new MyList<JsonValue> { _localctx.var_0__1.result };
+: seplist_o__i__s__i__s_json_p__0__1=json { 
+                $result = new MyList<JsonValue> { _localctx.seplist_o__i__s__i__s_json_p__0__1.result };
             }
-| var_1__1=seplist_o__i__s__i__s_json_p_ ',' var_1__3=json { 
-                $result = (MyList<JsonValue>) appendList<JsonValue>((MyList<JsonValue>) _localctx.var_1__1.result, (JsonValue) _localctx.var_1__3.result);
+| seplist_o__i__s__i__s_json_p__1__1=seplist_o__i__s__i__s_json_p_ ',' seplist_o__i__s__i__s_json_p__1__3=json { 
+                $result = (MyList<JsonValue>) appendList<JsonValue>((MyList<JsonValue>) _localctx.seplist_o__i__s__i__s_json_p__1__1.result, (JsonValue) _localctx.seplist_o__i__s__i__s_json_p__1__3.result);
             }
 ;
 seplist_o__i__s__i__s_jsonpair_p_ returns [MyList<JsonPair> result]
-: var_0__1=jsonpair { 
-                $result = new MyList<JsonPair> { _localctx.var_0__1.result };
+: seplist_o__i__s__i__s_jsonpair_p__0__1=jsonpair { 
+                $result = new MyList<JsonPair> { _localctx.seplist_o__i__s__i__s_jsonpair_p__0__1.result };
             }
-| var_1__1=seplist_o__i__s__i__s_jsonpair_p_ ',' var_1__3=jsonpair { 
-                $result = (MyList<JsonPair>) appendList<JsonPair>((MyList<JsonPair>) _localctx.var_1__1.result, (JsonPair) _localctx.var_1__3.result);
+| seplist_o__i__s__i__s_jsonpair_p__1__1=seplist_o__i__s__i__s_jsonpair_p_ ',' seplist_o__i__s__i__s_jsonpair_p__1__3=jsonpair { 
+                $result = (MyList<JsonPair>) appendList<JsonPair>((MyList<JsonPair>) _localctx.seplist_o__i__s__i__s_jsonpair_p__1__1.result, (JsonPair) _localctx.seplist_o__i__s__i__s_jsonpair_p__1__3.result);
             }
 ;
 json returns [JsonValue result]
-: var_0__1=INT { 
-                $result = (JsonValue) JInt((int) (int) parseInt((string) (string) getStr((IToken) _localctx.var_0__1)));
+: json_0__1=INT { 
+                $result = (JsonValue) JInt((int) (int) parseInt((string) (string) getStr((IToken) _localctx.json_0__1)));
             }
-| var_1__1=FLOAT { 
-                $result = (JsonValue) JFlt((float) (float) parseFlt((string) (string) getStr((IToken) _localctx.var_1__1)));
+| json_1__1=FLOAT { 
+                $result = (JsonValue) JFlt((float) (float) parseFlt((string) (string) getStr((IToken) _localctx.json_1__1)));
             }
 | 'null' { 
                 $result = (JsonValue) JNull();
             }
-| var_3__1=STR { 
-                $result = (JsonValue) JStr((string) (string) unesc((string) (string) getStr((IToken) _localctx.var_3__1)));
+| json_3__1=STR { 
+                $result = (JsonValue) JStr((string) (string) unesc((string) (string) getStr((IToken) _localctx.json_3__1)));
             }
 | '[' ']' { 
                 $result = (JsonValue) JList((MyList<JsonValue>) new MyList<JsonValue> {  });
@@ -91,15 +91,15 @@ json returns [JsonValue result]
 | 'false' { 
                 $result = (JsonValue) JBool((bool) false);
             }
-| '[' var_8__2=seplist_o__i__s__i__s_json_p_ ']' { 
-                $result = (JsonValue) JList((MyList<JsonValue>) _localctx.var_8__2.result);
+| '[' json_8__2=seplist_o__i__s__i__s_json_p_ ']' { 
+                $result = (JsonValue) JList((MyList<JsonValue>) _localctx.json_8__2.result);
             }
-| '{' var_9__2=seplist_o__i__s__i__s_jsonpair_p_ '}' { 
-                $result = (JsonValue) JDict((MyList<JsonPair>) _localctx.var_9__2.result);
+| '{' json_9__2=seplist_o__i__s__i__s_jsonpair_p_ '}' { 
+                $result = (JsonValue) JDict((MyList<JsonPair>) _localctx.json_9__2.result);
             }
 ;
 fragment DIGIT : [\u0030-\u0039] ;
 INT : DIGIT+ ;
 FLOAT : DIGIT* '.' INT ;
 STR : '"' (('\\' .) | ~'"')* '"' ;
-SPACE : ('\t' | '\n' | '\r' | ' ')+ -> skip;
+SPACE : ('\t' | '\n' | '\r' | ' ')+ -> channel(HIDDEN);

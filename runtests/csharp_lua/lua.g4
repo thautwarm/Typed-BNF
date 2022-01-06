@@ -367,6 +367,7 @@ else__x_ returns [if_else result]
 ;
 exp returns [expr result]
 : exp_0__1=binexp { 
+                int _ = 0;
                 $result = _localctx.exp_0__1.result;
             }
 ;

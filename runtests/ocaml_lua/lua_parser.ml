@@ -121,7 +121,7 @@ let rec _menhir_goto_opt_o_fieldsep_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_f
 # 122 "runtests/ocaml_lua/lua_parser.ml"
         ))), _, (_2 : 'tv_nempty_seplist_o_fieldsep_s_field_p_)), _) = _menhir_stack in
         let _v : 'tv_tableconstructor = 
-# 358 "runtests/ocaml_lua/lua_parser.mly"
+# 359 "runtests/ocaml_lua/lua_parser.mly"
                                                                                               ( 
                                  mk_TableConstructor(_1, _2)
                              )
@@ -185,7 +185,7 @@ and _menhir_goto_fieldsep : _menhir_env -> 'ttv_tail -> 'tv_fieldsep -> 'ttv_ret
         let (_menhir_stack : 'freshtv773 * 'tv_fieldsep) = Obj.magic _menhir_stack in
         let (_menhir_stack, (_1 : 'tv_fieldsep)) = _menhir_stack in
         let _v : 'tv_opt_o_fieldsep_p_ = 
-# 352 "runtests/ocaml_lua/lua_parser.mly"
+# 353 "runtests/ocaml_lua/lua_parser.mly"
                              ( 
                                   some(_1)
                               )
@@ -226,7 +226,7 @@ and _menhir_goto_nempty_seplist_o_fieldsep_s_field_p_ : _menhir_env -> 'ttv_tail
 # 227 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_fieldsep = 
-# 385 "runtests/ocaml_lua/lua_parser.mly"
+# 386 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                          0
                      )
@@ -250,7 +250,7 @@ and _menhir_goto_nempty_seplist_o_fieldsep_s_field_p_ : _menhir_env -> 'ttv_tail
 # 251 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_fieldsep = 
-# 382 "runtests/ocaml_lua/lua_parser.mly"
+# 383 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                          0
                      )
@@ -261,7 +261,7 @@ and _menhir_goto_nempty_seplist_o_fieldsep_s_field_p_ : _menhir_env -> 'ttv_tail
         let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : 'freshtv767) = Obj.magic _menhir_stack in
         let _v : 'tv_opt_o_fieldsep_p_ = 
-# 355 "runtests/ocaml_lua/lua_parser.mly"
+# 356 "runtests/ocaml_lua/lua_parser.mly"
                      ( 
                                   none()
                               )
@@ -339,7 +339,7 @@ and _menhir_goto_field : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_field 
         let ((_3 : 'tv_field) : 'tv_field) = _v in
         let ((_menhir_stack, _menhir_s, (_1 : 'tv_nempty_seplist_o_fieldsep_s_field_p_)), _) = _menhir_stack in
         let _v : 'tv_nempty_seplist_o_fieldsep_s_field_p_ = 
-# 349 "runtests/ocaml_lua/lua_parser.mly"
+# 350 "runtests/ocaml_lua/lua_parser.mly"
                                                                                            ( 
                                                      appendList(_1, _3)
                                                  )
@@ -356,7 +356,7 @@ and _menhir_goto_field : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_field 
         let (_menhir_s : _menhir_state) = _menhir_s in
         let ((_1 : 'tv_field) : 'tv_field) = _v in
         let _v : 'tv_nempty_seplist_o_fieldsep_s_field_p_ = 
-# 346 "runtests/ocaml_lua/lua_parser.mly"
+# 347 "runtests/ocaml_lua/lua_parser.mly"
                                              ( 
                                                      [_1]
                                                  )
@@ -516,7 +516,7 @@ and _menhir_reduce66 : _menhir_env -> 'ttv_tail * _menhir_state * 'tv_exp -> 'tt
   fun _menhir_env _menhir_stack ->
     let (_menhir_stack, _menhir_s, (_1 : 'tv_exp)) = _menhir_stack in
     let _v : 'tv_nempty_seplist_o__i__s__i__s_exp_p_ = 
-# 289 "runtests/ocaml_lua/lua_parser.mly"
+# 290 "runtests/ocaml_lua/lua_parser.mly"
                                           ( 
                                                     [_1]
                                                 )
@@ -541,7 +541,7 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s_exp_p_ : _menhir_env -> 'ttv_tail 
             let (_menhir_stack : 'freshtv709 * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s_exp_p_) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, (_1 : 'tv_nempty_seplist_o__i__s__i__s_exp_p_)) = _menhir_stack in
             let _v : 'tv_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ = 
-# 298 "runtests/ocaml_lua/lua_parser.mly"
+# 299 "runtests/ocaml_lua/lua_parser.mly"
                                                                                            ( 
                                                                      _1
                                                                  )
@@ -876,7 +876,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 877 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 391 "runtests/ocaml_lua/lua_parser.mly"
+# 392 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                       mkOperator(_1)
                   )
@@ -904,7 +904,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 905 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 388 "runtests/ocaml_lua/lua_parser.mly"
+# 389 "runtests/ocaml_lua/lua_parser.mly"
                 ( 
                       mkOperator(_1)
                   )
@@ -932,7 +932,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 933 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 394 "runtests/ocaml_lua/lua_parser.mly"
+# 395 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                       mkOperator(_1)
                   )
@@ -960,7 +960,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 961 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 421 "runtests/ocaml_lua/lua_parser.mly"
+# 422 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                       mkOperator(_1)
                   )
@@ -988,7 +988,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 989 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 400 "runtests/ocaml_lua/lua_parser.mly"
+# 401 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                       mkOperator(_1)
                   )
@@ -1016,7 +1016,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1017 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 409 "runtests/ocaml_lua/lua_parser.mly"
+# 410 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                       mkOperator(_1)
                   )
@@ -1044,7 +1044,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1045 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 397 "runtests/ocaml_lua/lua_parser.mly"
+# 398 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                       mkOperator(_1)
                   )
@@ -1072,7 +1072,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1073 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 403 "runtests/ocaml_lua/lua_parser.mly"
+# 404 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                       mkOperator(_1)
                   )
@@ -1100,7 +1100,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1101 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 424 "runtests/ocaml_lua/lua_parser.mly"
+# 425 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                       mkOperator(_1)
                   )
@@ -1128,7 +1128,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1129 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 445 "runtests/ocaml_lua/lua_parser.mly"
+# 446 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                       mkOperator(_1)
                   )
@@ -1156,7 +1156,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1157 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 418 "runtests/ocaml_lua/lua_parser.mly"
+# 419 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                       mkOperator(_1)
                   )
@@ -1184,7 +1184,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1185 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 436 "runtests/ocaml_lua/lua_parser.mly"
+# 437 "runtests/ocaml_lua/lua_parser.mly"
                    ( 
                       mkOperator(_1)
                   )
@@ -1212,7 +1212,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1213 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 430 "runtests/ocaml_lua/lua_parser.mly"
+# 431 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                       mkOperator(_1)
                   )
@@ -1240,7 +1240,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1241 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 433 "runtests/ocaml_lua/lua_parser.mly"
+# 434 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                       mkOperator(_1)
                   )
@@ -1268,7 +1268,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1269 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 412 "runtests/ocaml_lua/lua_parser.mly"
+# 413 "runtests/ocaml_lua/lua_parser.mly"
                    ( 
                       mkOperator(_1)
                   )
@@ -1296,7 +1296,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1297 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 427 "runtests/ocaml_lua/lua_parser.mly"
+# 428 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                       mkOperator(_1)
                   )
@@ -1324,7 +1324,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1325 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 439 "runtests/ocaml_lua/lua_parser.mly"
+# 440 "runtests/ocaml_lua/lua_parser.mly"
                    ( 
                       mkOperator(_1)
                   )
@@ -1352,7 +1352,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1353 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 442 "runtests/ocaml_lua/lua_parser.mly"
+# 443 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                       mkOperator(_1)
                   )
@@ -1380,7 +1380,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1381 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 415 "runtests/ocaml_lua/lua_parser.mly"
+# 416 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                       mkOperator(_1)
                   )
@@ -1408,7 +1408,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
 # 1409 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _v : 'tv_binop = 
-# 406 "runtests/ocaml_lua/lua_parser.mly"
+# 407 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                       mkOperator(_1)
                   )
@@ -1420,7 +1420,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
         let (_menhir_stack : 'freshtv701 * _menhir_state * 'tv_binseq) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, (_1 : 'tv_binseq)) = _menhir_stack in
         let _v : 'tv_binexp = 
-# 208 "runtests/ocaml_lua/lua_parser.mly"
+# 209 "runtests/ocaml_lua/lua_parser.mly"
                 ( 
                        mkBinOpSeq(_1, mk_Bin, mk_UnsolvedBin)
                    )
@@ -1441,9 +1441,10 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
         let _v : 'tv_exp = 
 # 205 "runtests/ocaml_lua/lua_parser.mly"
              ( 
+                    let _:int = 0 in
                     _1
                 )
-# 1447 "runtests/ocaml_lua/lua_parser.ml"
+# 1448 "runtests/ocaml_lua/lua_parser.ml"
          in
         let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : 'freshtv693) = _menhir_stack in
@@ -1456,21 +1457,21 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : (('freshtv605 * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s_exp_p_) * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1460 "runtests/ocaml_lua/lua_parser.ml"
+# 1461 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : (('freshtv603 * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s_exp_p_) * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1466 "runtests/ocaml_lua/lua_parser.ml"
+# 1467 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             let (((_menhir_stack, _menhir_s, (_1 : 'tv_nempty_seplist_o__i__s__i__s_exp_p_)), _), _, (_3 : 'tv_exp)) = _menhir_stack in
             let _v : 'tv_nempty_seplist_o__i__s__i__s_exp_p_ = 
-# 292 "runtests/ocaml_lua/lua_parser.mly"
+# 293 "runtests/ocaml_lua/lua_parser.mly"
                                                                                        ( 
                                                     appendList(_1, _3)
                                                 )
-# 1474 "runtests/ocaml_lua/lua_parser.ml"
+# 1475 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_nempty_seplist_o__i__s__i__s_exp_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv604)) : 'freshtv606)
         | MenhirState164 | MenhirState135 | MenhirState115 | MenhirState109 | MenhirState40 ->
@@ -1482,7 +1483,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : (('freshtv615 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1486 "runtests/ocaml_lua/lua_parser.ml"
+# 1487 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             assert (not _menhir_env._menhir_error);
             let _tok = _menhir_env._menhir_token in
@@ -1492,32 +1493,32 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : (('freshtv611 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1496 "runtests/ocaml_lua/lua_parser.ml"
+# 1497 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_v : (
 # 32 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1501 "runtests/ocaml_lua/lua_parser.ml"
+# 1502 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let _menhir_env = _menhir_discard _menhir_env in
                 ((let (_menhir_env : _menhir_env) = _menhir_env in
                 let (_menhir_stack : (('freshtv609 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1508 "runtests/ocaml_lua/lua_parser.ml"
+# 1509 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_ : (
 # 32 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1513 "runtests/ocaml_lua/lua_parser.ml"
+# 1514 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let (((_menhir_stack, _menhir_s, (_1 : 'tv_prefixexp)), _, _), _, (_3 : 'tv_exp)) = _menhir_stack in
                 let _v : 'tv_prefixexp = 
-# 253 "runtests/ocaml_lua/lua_parser.mly"
+# 254 "runtests/ocaml_lua/lua_parser.mly"
                                               ( 
                           mk_Index(_1, _3)
                       )
-# 1521 "runtests/ocaml_lua/lua_parser.ml"
+# 1522 "runtests/ocaml_lua/lua_parser.ml"
                  in
                 (_menhir_goto_prefixexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv610)) : 'freshtv612)
             | _ ->
@@ -1527,7 +1528,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : (('freshtv613 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1531 "runtests/ocaml_lua/lua_parser.ml"
+# 1532 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_menhir_stack, _menhir_s, _) = _menhir_stack in
                 (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv614)) : 'freshtv616)
@@ -1536,7 +1537,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : ('freshtv621 * _menhir_state * (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1540 "runtests/ocaml_lua/lua_parser.ml"
+# 1541 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             assert (not _menhir_env._menhir_error);
             let _tok = _menhir_env._menhir_token in
@@ -1546,12 +1547,12 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : ('freshtv617 * _menhir_state * (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1550 "runtests/ocaml_lua/lua_parser.ml"
+# 1551 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_v : (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1555 "runtests/ocaml_lua/lua_parser.ml"
+# 1556 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let _menhir_stack = (_menhir_stack, _v) in
                 let _menhir_env = _menhir_discard _menhir_env in
@@ -1620,7 +1621,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : ('freshtv619 * _menhir_state * (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1624 "runtests/ocaml_lua/lua_parser.ml"
+# 1625 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_menhir_stack, _menhir_s, _) = _menhir_stack in
                 (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv620)) : 'freshtv622)
@@ -1629,7 +1630,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : ('freshtv627 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1633 "runtests/ocaml_lua/lua_parser.ml"
+# 1634 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             assert (not _menhir_env._menhir_error);
             let _tok = _menhir_env._menhir_token in
@@ -1639,12 +1640,12 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : ('freshtv623 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1643 "runtests/ocaml_lua/lua_parser.ml"
+# 1644 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_v : (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1648 "runtests/ocaml_lua/lua_parser.ml"
+# 1649 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let _menhir_stack = (_menhir_stack, _v) in
                 let _menhir_env = _menhir_discard _menhir_env in
@@ -1713,7 +1714,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : ('freshtv625 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1717 "runtests/ocaml_lua/lua_parser.ml"
+# 1718 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_menhir_stack, _menhir_s, _) = _menhir_stack in
                 (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv626)) : 'freshtv628)
@@ -1732,7 +1733,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
            ( 
                      mk_ExprStmt(_1)
                  )
-# 1736 "runtests/ocaml_lua/lua_parser.ml"
+# 1737 "runtests/ocaml_lua/lua_parser.ml"
                  in
                 (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv630)
             | Lua_lexer.I__J__I_ _ | Lua_lexer.I__S__I_ _ ->
@@ -1756,7 +1757,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_v : (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1760 "runtests/ocaml_lua/lua_parser.ml"
+# 1761 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let _menhir_stack = (_menhir_stack, _v) in
                 let _menhir_env = _menhir_discard _menhir_env in
@@ -1808,7 +1809,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : (('freshtv647 * _menhir_state * 'tv_exp) * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1812 "runtests/ocaml_lua/lua_parser.ml"
+# 1813 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             assert (not _menhir_env._menhir_error);
             let _tok = _menhir_env._menhir_token in
@@ -1819,7 +1820,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_v : (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1823 "runtests/ocaml_lua/lua_parser.ml"
+# 1824 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let _menhir_stack = (_menhir_stack, _v) in
                 let _menhir_env = _menhir_discard _menhir_env in
@@ -1867,7 +1868,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
               ( 
                            none()
                        )
-# 1871 "runtests/ocaml_lua/lua_parser.ml"
+# 1872 "runtests/ocaml_lua/lua_parser.ml"
                  in
                 (_menhir_goto_range_tail _menhir_env _menhir_stack _v : 'freshtv644)
             | _ ->
@@ -1877,7 +1878,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : (('freshtv645 * _menhir_state * 'tv_exp) * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1881 "runtests/ocaml_lua/lua_parser.ml"
+# 1882 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_menhir_stack, _menhir_s, _) = _menhir_stack in
                 (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv646)) : 'freshtv648)
@@ -1886,13 +1887,13 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : ('freshtv651 * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1890 "runtests/ocaml_lua/lua_parser.ml"
+# 1891 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ('freshtv649 * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1896 "runtests/ocaml_lua/lua_parser.ml"
+# 1897 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             let ((_menhir_stack, _), _, (_2 : 'tv_exp)) = _menhir_stack in
             let _v : 'tv_range_tail = 
@@ -1900,7 +1901,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                           ( 
                            some(_2)
                        )
-# 1904 "runtests/ocaml_lua/lua_parser.ml"
+# 1905 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_range_tail _menhir_env _menhir_stack _v : 'freshtv650)) : 'freshtv652)
         | MenhirState141 ->
@@ -1908,7 +1909,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : ('freshtv657 * _menhir_state * (
 # 38 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1912 "runtests/ocaml_lua/lua_parser.ml"
+# 1913 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             assert (not _menhir_env._menhir_error);
             let _tok = _menhir_env._menhir_token in
@@ -1918,12 +1919,12 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : ('freshtv653 * _menhir_state * (
 # 38 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1922 "runtests/ocaml_lua/lua_parser.ml"
+# 1923 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_v : (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1927 "runtests/ocaml_lua/lua_parser.ml"
+# 1928 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let _menhir_stack = (_menhir_stack, _v) in
                 let _menhir_env = _menhir_discard _menhir_env in
@@ -1992,7 +1993,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : ('freshtv655 * _menhir_state * (
 # 38 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 1996 "runtests/ocaml_lua/lua_parser.ml"
+# 1997 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_menhir_stack, _menhir_s, _) = _menhir_stack in
                 (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv656)) : 'freshtv658)
@@ -2001,33 +2002,33 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : ((('freshtv661 * _menhir_state * (
 # 50 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2005 "runtests/ocaml_lua/lua_parser.ml"
+# 2006 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) * (
 # 54 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2009 "runtests/ocaml_lua/lua_parser.ml"
+# 2010 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ((('freshtv659 * _menhir_state * (
 # 50 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2015 "runtests/ocaml_lua/lua_parser.ml"
+# 2016 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) * (
 # 54 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2019 "runtests/ocaml_lua/lua_parser.ml"
+# 2020 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             let ((((_menhir_stack, _menhir_s, (_1 : (
 # 50 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2024 "runtests/ocaml_lua/lua_parser.ml"
+# 2025 "runtests/ocaml_lua/lua_parser.ml"
             ))), _, (_2 : 'tv_block)), _), _, (_4 : 'tv_exp)) = _menhir_stack in
             let _v : 'tv_stat = 
 # 166 "runtests/ocaml_lua/lua_parser.mly"
                                         ( 
                      mk_RepeatStmt(_1, _2, _4)
                  )
-# 2031 "runtests/ocaml_lua/lua_parser.ml"
+# 2032 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv660)) : 'freshtv662)
         | MenhirState11 ->
@@ -2035,7 +2036,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : ('freshtv669 * _menhir_state * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2039 "runtests/ocaml_lua/lua_parser.ml"
+# 2040 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             assert (not _menhir_env._menhir_error);
             let _tok = _menhir_env._menhir_token in
@@ -2045,36 +2046,36 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : ('freshtv665 * _menhir_state * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2049 "runtests/ocaml_lua/lua_parser.ml"
+# 2050 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_v : (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2054 "runtests/ocaml_lua/lua_parser.ml"
+# 2055 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let _menhir_env = _menhir_discard _menhir_env in
                 ((let (_menhir_env : _menhir_env) = _menhir_env in
                 let (_menhir_stack : ('freshtv663 * _menhir_state * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2061 "runtests/ocaml_lua/lua_parser.ml"
+# 2062 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_ : (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2066 "runtests/ocaml_lua/lua_parser.ml"
+# 2067 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let ((_menhir_stack, _menhir_s, (_1 : (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2071 "runtests/ocaml_lua/lua_parser.ml"
+# 2072 "runtests/ocaml_lua/lua_parser.ml"
                 ))), _, (_2 : 'tv_exp)) = _menhir_stack in
                 let _v : 'tv_prefixexp = 
-# 244 "runtests/ocaml_lua/lua_parser.mly"
+# 245 "runtests/ocaml_lua/lua_parser.mly"
                                   ( 
                           mk_NestedExp(_1, _2)
                       )
-# 2078 "runtests/ocaml_lua/lua_parser.ml"
+# 2079 "runtests/ocaml_lua/lua_parser.ml"
                  in
                 (_menhir_goto_prefixexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv664)) : 'freshtv666)
             | _ ->
@@ -2084,7 +2085,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : ('freshtv667 * _menhir_state * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2088 "runtests/ocaml_lua/lua_parser.ml"
+# 2089 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_menhir_stack, _menhir_s, _) = _menhir_stack in
                 (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv668)) : 'freshtv670)
@@ -2093,33 +2094,33 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : (('freshtv673 * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2097 "runtests/ocaml_lua/lua_parser.ml"
+# 2098 "runtests/ocaml_lua/lua_parser.ml"
             )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2101 "runtests/ocaml_lua/lua_parser.ml"
+# 2102 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : (('freshtv671 * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2107 "runtests/ocaml_lua/lua_parser.ml"
+# 2108 "runtests/ocaml_lua/lua_parser.ml"
             )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2111 "runtests/ocaml_lua/lua_parser.ml"
+# 2112 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             let (((_menhir_stack, _menhir_s, (_1 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2116 "runtests/ocaml_lua/lua_parser.ml"
+# 2117 "runtests/ocaml_lua/lua_parser.ml"
             ))), _), _, (_3 : 'tv_exp)) = _menhir_stack in
             let _v : 'tv_field = 
-# 376 "runtests/ocaml_lua/lua_parser.mly"
+# 377 "runtests/ocaml_lua/lua_parser.mly"
                           ( 
                       mk_NameField(_1, _3)
                   )
-# 2123 "runtests/ocaml_lua/lua_parser.ml"
+# 2124 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_field _menhir_env _menhir_stack _menhir_s _v : 'freshtv672)) : 'freshtv674)
         | MenhirState181 ->
@@ -2127,7 +2128,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : ('freshtv683 * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2131 "runtests/ocaml_lua/lua_parser.ml"
+# 2132 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             assert (not _menhir_env._menhir_error);
             let _tok = _menhir_env._menhir_token in
@@ -2137,12 +2138,12 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : ('freshtv679 * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2141 "runtests/ocaml_lua/lua_parser.ml"
+# 2142 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_v : (
 # 32 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2146 "runtests/ocaml_lua/lua_parser.ml"
+# 2147 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let _menhir_stack = (_menhir_stack, _v) in
                 let _menhir_env = _menhir_discard _menhir_env in
@@ -2153,16 +2154,16 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                     let (_menhir_stack : (('freshtv675 * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2157 "runtests/ocaml_lua/lua_parser.ml"
+# 2158 "runtests/ocaml_lua/lua_parser.ml"
                     )) * _menhir_state * 'tv_exp) * (
 # 32 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2161 "runtests/ocaml_lua/lua_parser.ml"
+# 2162 "runtests/ocaml_lua/lua_parser.ml"
                     )) = Obj.magic _menhir_stack in
                     let (_v : (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2166 "runtests/ocaml_lua/lua_parser.ml"
+# 2167 "runtests/ocaml_lua/lua_parser.ml"
                     )) = _v in
                     let _menhir_stack = (_menhir_stack, _v) in
                     let _menhir_env = _menhir_discard _menhir_env in
@@ -2209,11 +2210,11 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                     let (_menhir_stack : (('freshtv677 * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2213 "runtests/ocaml_lua/lua_parser.ml"
+# 2214 "runtests/ocaml_lua/lua_parser.ml"
                     )) * _menhir_state * 'tv_exp) * (
 # 32 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2217 "runtests/ocaml_lua/lua_parser.ml"
+# 2218 "runtests/ocaml_lua/lua_parser.ml"
                     )) = Obj.magic _menhir_stack in
                     let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
                     (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv678)) : 'freshtv680)
@@ -2224,7 +2225,7 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
                 let (_menhir_stack : ('freshtv681 * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2228 "runtests/ocaml_lua/lua_parser.ml"
+# 2229 "runtests/ocaml_lua/lua_parser.ml"
                 )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
                 let (_menhir_stack, _menhir_s, _) = _menhir_stack in
                 (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv682)) : 'freshtv684)
@@ -2233,41 +2234,41 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : (((('freshtv687 * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2237 "runtests/ocaml_lua/lua_parser.ml"
+# 2238 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) * (
 # 32 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2241 "runtests/ocaml_lua/lua_parser.ml"
+# 2242 "runtests/ocaml_lua/lua_parser.ml"
             )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2245 "runtests/ocaml_lua/lua_parser.ml"
+# 2246 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : (((('freshtv685 * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2251 "runtests/ocaml_lua/lua_parser.ml"
+# 2252 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) * (
 # 32 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2255 "runtests/ocaml_lua/lua_parser.ml"
+# 2256 "runtests/ocaml_lua/lua_parser.ml"
             )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2259 "runtests/ocaml_lua/lua_parser.ml"
+# 2260 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             let (((((_menhir_stack, _menhir_s, (_1 : (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2264 "runtests/ocaml_lua/lua_parser.ml"
+# 2265 "runtests/ocaml_lua/lua_parser.ml"
             ))), _, (_2 : 'tv_exp)), _), _), _, (_5 : 'tv_exp)) = _menhir_stack in
             let _v : 'tv_field = 
-# 373 "runtests/ocaml_lua/lua_parser.mly"
+# 374 "runtests/ocaml_lua/lua_parser.mly"
                                              ( 
                       mk_IndexField(_1, _2, _5)
                   )
-# 2271 "runtests/ocaml_lua/lua_parser.ml"
+# 2272 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_field _menhir_env _menhir_stack _menhir_s _v : 'freshtv686)) : 'freshtv688)
         | MenhirState7 | MenhirState191 ->
@@ -2277,11 +2278,11 @@ and _menhir_goto_binseq : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_binse
             let (_menhir_stack : 'freshtv689 * _menhir_state * 'tv_exp) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, (_1 : 'tv_exp)) = _menhir_stack in
             let _v : 'tv_field = 
-# 379 "runtests/ocaml_lua/lua_parser.mly"
+# 380 "runtests/ocaml_lua/lua_parser.mly"
             ( 
                       mk_ElementField(_1)
                   )
-# 2285 "runtests/ocaml_lua/lua_parser.ml"
+# 2286 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_field _menhir_env _menhir_stack _menhir_s _v : 'freshtv690)) : 'freshtv692)
         | _ ->
@@ -2300,27 +2301,27 @@ and _menhir_goto_opt_o__i__h__i__p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o__i__
     let (_menhir_stack : ('freshtv521 * (
 # 51 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2304 "runtests/ocaml_lua/lua_parser.ml"
+# 2305 "runtests/ocaml_lua/lua_parser.ml"
     )) * _menhir_state * 'tv_seplist_o__i__s__i__s_exp_p_) = Obj.magic _menhir_stack in
     let (_v : 'tv_opt_o__i__h__i__p_) = _v in
     ((let (_menhir_env : _menhir_env) = _menhir_env in
     let (_menhir_stack : ('freshtv519 * (
 # 51 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2311 "runtests/ocaml_lua/lua_parser.ml"
+# 2312 "runtests/ocaml_lua/lua_parser.ml"
     )) * _menhir_state * 'tv_seplist_o__i__s__i__s_exp_p_) = Obj.magic _menhir_stack in
     let (_ : 'tv_opt_o__i__h__i__p_) = _v in
     let ((_menhir_stack, (_1 : (
 # 51 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2317 "runtests/ocaml_lua/lua_parser.ml"
+# 2318 "runtests/ocaml_lua/lua_parser.ml"
     ))), _, (_2 : 'tv_seplist_o__i__s__i__s_exp_p_)) = _menhir_stack in
     let _v : 'tv_retstat = 
 # 118 "runtests/ocaml_lua/lua_parser.mly"
                                                                       ( 
                         mk_ReturnStmt(_1, _2)
                     )
-# 2324 "runtests/ocaml_lua/lua_parser.ml"
+# 2325 "runtests/ocaml_lua/lua_parser.ml"
      in
     let (_menhir_env : _menhir_env) = _menhir_env in
     let (_menhir_stack : 'freshtv517) = _menhir_stack in
@@ -2336,7 +2337,7 @@ and _menhir_goto_opt_o__i__h__i__p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o__i__
                            ( 
                                  some(_1)
                              )
-# 2340 "runtests/ocaml_lua/lua_parser.ml"
+# 2341 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_opt_o_retstat_p_ _menhir_env _menhir_stack _v : 'freshtv514)) : 'freshtv516)) : 'freshtv518) : 'freshtv520)) : 'freshtv522)
 
@@ -2351,11 +2352,11 @@ and _menhir_goto_unaryexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_una
     let (_menhir_s : _menhir_state) = _menhir_s in
     let ((_1 : 'tv_unaryexp) : 'tv_unaryexp) = _v in
     let _v : 'tv_binoperand = 
-# 217 "runtests/ocaml_lua/lua_parser.mly"
+# 218 "runtests/ocaml_lua/lua_parser.mly"
                       ( 
                            mkOperand(_1)
                        )
-# 2359 "runtests/ocaml_lua/lua_parser.ml"
+# 2360 "runtests/ocaml_lua/lua_parser.ml"
      in
     let (_menhir_env : _menhir_env) = _menhir_env in
     let (_menhir_stack : 'freshtv507) = _menhir_stack in
@@ -2373,11 +2374,11 @@ and _menhir_goto_unaryexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_una
         let ((_3 : 'tv_binoperand) : 'tv_binoperand) = _v in
         let ((_menhir_stack, _menhir_s, (_1 : 'tv_binseq)), (_2 : 'tv_binop)) = _menhir_stack in
         let _v : 'tv_binseq = 
-# 211 "runtests/ocaml_lua/lua_parser.mly"
+# 212 "runtests/ocaml_lua/lua_parser.mly"
                                  ( 
                        appendList(appendList(_1, _2), _3)
                    )
-# 2381 "runtests/ocaml_lua/lua_parser.ml"
+# 2382 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_binseq _menhir_env _menhir_stack _menhir_s _v : 'freshtv500)) : 'freshtv502)
     | MenhirState0 | MenhirState7 | MenhirState191 | MenhirState181 | MenhirState184 | MenhirState9 | MenhirState11 | MenhirState23 | MenhirState28 | MenhirState85 | MenhirState86 | MenhirState168 | MenhirState164 | MenhirState94 | MenhirState95 | MenhirState97 | MenhirState148 | MenhirState141 | MenhirState143 | MenhirState135 | MenhirState137 | MenhirState102 | MenhirState127 | MenhirState129 | MenhirState104 | MenhirState105 | MenhirState115 | MenhirState111 | MenhirState109 | MenhirState75 | MenhirState40 | MenhirState45 ->
@@ -2390,11 +2391,11 @@ and _menhir_goto_unaryexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_una
         let (_menhir_s : _menhir_state) = _menhir_s in
         let ((_1 : 'tv_binoperand) : 'tv_binoperand) = _v in
         let _v : 'tv_binseq = 
-# 214 "runtests/ocaml_lua/lua_parser.mly"
+# 215 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                        [_1]
                    )
-# 2398 "runtests/ocaml_lua/lua_parser.ml"
+# 2399 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_binseq _menhir_env _menhir_stack _menhir_s _v : 'freshtv504)) : 'freshtv506)
     | _ ->
@@ -2407,11 +2408,11 @@ and _menhir_goto_opt_o_else_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_else_p_ -
     let (_menhir_stack : ((((('freshtv497 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2411 "runtests/ocaml_lua/lua_parser.ml"
+# 2412 "runtests/ocaml_lua/lua_parser.ml"
     )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2415 "runtests/ocaml_lua/lua_parser.ml"
+# 2416 "runtests/ocaml_lua/lua_parser.ml"
     )) * _menhir_state * 'tv_block) * _menhir_state * 'tv_list_o_elseif_p_) * 'tv_opt_o_else_p_) = Obj.magic _menhir_stack in
     assert (not _menhir_env._menhir_error);
     let _tok = _menhir_env._menhir_token in
@@ -2421,44 +2422,44 @@ and _menhir_goto_opt_o_else_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_else_p_ -
         let (_menhir_stack : ((((('freshtv493 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2425 "runtests/ocaml_lua/lua_parser.ml"
+# 2426 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2429 "runtests/ocaml_lua/lua_parser.ml"
+# 2430 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) * _menhir_state * 'tv_list_o_elseif_p_) * 'tv_opt_o_else_p_) = Obj.magic _menhir_stack in
         let (_v : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2434 "runtests/ocaml_lua/lua_parser.ml"
+# 2435 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_env = _menhir_discard _menhir_env in
         ((let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : ((((('freshtv491 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2441 "runtests/ocaml_lua/lua_parser.ml"
+# 2442 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2445 "runtests/ocaml_lua/lua_parser.ml"
+# 2446 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) * _menhir_state * 'tv_list_o_elseif_p_) * 'tv_opt_o_else_p_) = Obj.magic _menhir_stack in
         let (_ : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2450 "runtests/ocaml_lua/lua_parser.ml"
+# 2451 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let ((((((_menhir_stack, _menhir_s, (_1 : (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2455 "runtests/ocaml_lua/lua_parser.ml"
+# 2456 "runtests/ocaml_lua/lua_parser.ml"
         ))), _, (_2 : 'tv_exp)), _), _, (_4 : 'tv_block)), _, (_5 : 'tv_list_o_elseif_p_)), (_6 : 'tv_opt_o_else_p_)) = _menhir_stack in
         let _v : 'tv_stat = 
 # 169 "runtests/ocaml_lua/lua_parser.mly"
                                                                            ( 
                      mk_IfStmt(_1, _2, _4, _5, _6)
                  )
-# 2462 "runtests/ocaml_lua/lua_parser.ml"
+# 2463 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv492)) : 'freshtv494)
     | _ ->
@@ -2468,11 +2469,11 @@ and _menhir_goto_opt_o_else_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_else_p_ -
         let (_menhir_stack : ((((('freshtv495 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2472 "runtests/ocaml_lua/lua_parser.ml"
+# 2473 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2476 "runtests/ocaml_lua/lua_parser.ml"
+# 2477 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) * _menhir_state * 'tv_list_o_elseif_p_) * 'tv_opt_o_else_p_) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv496)) : 'freshtv498)
@@ -2496,7 +2497,7 @@ and _menhir_goto_nempty_list_o_elseif_p_ : _menhir_env -> 'ttv_tail -> _menhir_s
                                                                    ( 
                                                          _1
                                                      )
-# 2500 "runtests/ocaml_lua/lua_parser.ml"
+# 2501 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_allow_empty_o_nempty_list_o_elseif_p__p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv488)
     | _ ->
@@ -2519,7 +2520,7 @@ and _menhir_goto_allow_empty_o_nempty_list_o_elseif_p__p_ : _menhir_env -> 'ttv_
                                                             ( 
                                  _1
                              )
-# 2523 "runtests/ocaml_lua/lua_parser.ml"
+# 2524 "runtests/ocaml_lua/lua_parser.ml"
      in
     let (_menhir_env : _menhir_env) = _menhir_env in
     let (_menhir_stack : 'freshtv481) = _menhir_stack in
@@ -2530,11 +2531,11 @@ and _menhir_goto_allow_empty_o_nempty_list_o_elseif_p__p_ : _menhir_env -> 'ttv_
     let (_menhir_stack : (((('freshtv479 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2534 "runtests/ocaml_lua/lua_parser.ml"
+# 2535 "runtests/ocaml_lua/lua_parser.ml"
     )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2538 "runtests/ocaml_lua/lua_parser.ml"
+# 2539 "runtests/ocaml_lua/lua_parser.ml"
     )) * _menhir_state * 'tv_block) * _menhir_state * 'tv_list_o_elseif_p_) = Obj.magic _menhir_stack in
     assert (not _menhir_env._menhir_error);
     let _tok = _menhir_env._menhir_token in
@@ -2545,7 +2546,7 @@ and _menhir_goto_allow_empty_o_nempty_list_o_elseif_p__p_ : _menhir_env -> 'ttv_
         let (_v : (
 # 37 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2549 "runtests/ocaml_lua/lua_parser.ml"
+# 2550 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -2615,7 +2616,7 @@ and _menhir_goto_allow_empty_o_nempty_list_o_elseif_p__p_ : _menhir_env -> 'ttv_
                  ( 
                               none()
                           )
-# 2619 "runtests/ocaml_lua/lua_parser.ml"
+# 2620 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_opt_o_else_p_ _menhir_env _menhir_stack _v : 'freshtv476)
     | _ ->
@@ -2625,11 +2626,11 @@ and _menhir_goto_allow_empty_o_nempty_list_o_elseif_p__p_ : _menhir_env -> 'ttv_
         let (_menhir_stack : (((('freshtv477 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2629 "runtests/ocaml_lua/lua_parser.ml"
+# 2630 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2633 "runtests/ocaml_lua/lua_parser.ml"
+# 2634 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) * _menhir_state * 'tv_list_o_elseif_p_) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv478)) : 'freshtv480)) : 'freshtv482) : 'freshtv484)) : 'freshtv486)
@@ -2637,7 +2638,7 @@ and _menhir_goto_allow_empty_o_nempty_list_o_elseif_p__p_ : _menhir_env -> 'ttv_
 and _menhir_run141 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 38 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2641 "runtests/ocaml_lua/lua_parser.ml"
+# 2642 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -2690,11 +2691,11 @@ and _menhir_goto_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ : _menhir_
     let (_menhir_s : _menhir_state) = _menhir_s in
     let ((_1 : 'tv_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_) : 'tv_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_) = _v in
     let _v : 'tv_seplist_o__i__s__i__s_exp_p_ = 
-# 301 "runtests/ocaml_lua/lua_parser.mly"
+# 302 "runtests/ocaml_lua/lua_parser.mly"
                                                                                     ( 
                                              _1
                                          )
-# 2698 "runtests/ocaml_lua/lua_parser.ml"
+# 2699 "runtests/ocaml_lua/lua_parser.ml"
      in
     let (_menhir_env : _menhir_env) = _menhir_env in
     let (_menhir_stack : 'freshtv467) = _menhir_stack in
@@ -2707,7 +2708,7 @@ and _menhir_goto_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ : _menhir_
         let (_menhir_stack : ('freshtv455 * _menhir_state * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2711 "runtests/ocaml_lua/lua_parser.ml"
+# 2712 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_seplist_o__i__s__i__s_exp_p_) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -2717,36 +2718,36 @@ and _menhir_goto_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ : _menhir_
             let (_menhir_stack : ('freshtv451 * _menhir_state * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2721 "runtests/ocaml_lua/lua_parser.ml"
+# 2722 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_seplist_o__i__s__i__s_exp_p_) = Obj.magic _menhir_stack in
             let (_v : (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2726 "runtests/ocaml_lua/lua_parser.ml"
+# 2727 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_env = _menhir_discard _menhir_env in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ('freshtv449 * _menhir_state * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2733 "runtests/ocaml_lua/lua_parser.ml"
+# 2734 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_seplist_o__i__s__i__s_exp_p_) = Obj.magic _menhir_stack in
             let (_ : (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2738 "runtests/ocaml_lua/lua_parser.ml"
+# 2739 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let ((_menhir_stack, _menhir_s, (_1 : (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2743 "runtests/ocaml_lua/lua_parser.ml"
+# 2744 "runtests/ocaml_lua/lua_parser.ml"
             ))), _, (_2 : 'tv_seplist_o__i__s__i__s_exp_p_)) = _menhir_stack in
             let _v : 'tv_args = 
-# 304 "runtests/ocaml_lua/lua_parser.mly"
+# 305 "runtests/ocaml_lua/lua_parser.mly"
                                                       ( 
                      mk_PositionalArgs(_1, _2)
                  )
-# 2750 "runtests/ocaml_lua/lua_parser.ml"
+# 2751 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_args _menhir_env _menhir_stack _menhir_s _v : 'freshtv450)) : 'freshtv452)
         | _ ->
@@ -2756,7 +2757,7 @@ and _menhir_goto_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ : _menhir_
             let (_menhir_stack : ('freshtv453 * _menhir_state * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2760 "runtests/ocaml_lua/lua_parser.ml"
+# 2761 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_seplist_o__i__s__i__s_exp_p_) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv454)) : 'freshtv456)
@@ -2765,7 +2766,7 @@ and _menhir_goto_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ : _menhir_
         let (_menhir_stack : ('freshtv465 * (
 # 51 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2769 "runtests/ocaml_lua/lua_parser.ml"
+# 2770 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_seplist_o__i__s__i__s_exp_p_) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -2776,7 +2777,7 @@ and _menhir_goto_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ : _menhir_
             let (_v : (
 # 22 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2780 "runtests/ocaml_lua/lua_parser.ml"
+# 2781 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_env = _menhir_discard _menhir_env in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
@@ -2784,18 +2785,18 @@ and _menhir_goto_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ : _menhir_
             let ((_1 : (
 # 22 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2788 "runtests/ocaml_lua/lua_parser.ml"
+# 2789 "runtests/ocaml_lua/lua_parser.ml"
             )) : (
 # 22 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2792 "runtests/ocaml_lua/lua_parser.ml"
+# 2793 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _v : 'tv_opt_o__i__h__i__p_ = 
 # 112 "runtests/ocaml_lua/lua_parser.mly"
                               ( 
                                    some(_1)
                                )
-# 2799 "runtests/ocaml_lua/lua_parser.ml"
+# 2800 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_opt_o__i__h__i__p_ _menhir_env _menhir_stack _v : 'freshtv458)) : 'freshtv460)
         | Lua_lexer.EOF | Lua_lexer.I_ELSEIF_I_ _ | Lua_lexer.I_ELSE_I_ _ | Lua_lexer.I_END_I_ _ | Lua_lexer.I_UNTIL_I_ _ ->
@@ -2806,7 +2807,7 @@ and _menhir_goto_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ : _menhir_
                       ( 
                                    none()
                                )
-# 2810 "runtests/ocaml_lua/lua_parser.ml"
+# 2811 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_opt_o__i__h__i__p_ _menhir_env _menhir_stack _v : 'freshtv462)
         | _ ->
@@ -2816,7 +2817,7 @@ and _menhir_goto_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ : _menhir_
             let (_menhir_stack : ('freshtv463 * (
 # 51 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2820 "runtests/ocaml_lua/lua_parser.ml"
+# 2821 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_seplist_o__i__s__i__s_exp_p_) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv464)) : 'freshtv466)
@@ -2832,11 +2833,11 @@ and _menhir_goto_opt_o_parlist_p_ : _menhir_env -> 'ttv_tail -> _menhir_state ->
         let (_menhir_stack : ((('freshtv441 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2836 "runtests/ocaml_lua/lua_parser.ml"
+# 2837 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_funcname_p_) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2840 "runtests/ocaml_lua/lua_parser.ml"
+# 2841 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_parlist_p_) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -2846,16 +2847,16 @@ and _menhir_goto_opt_o_parlist_p_ : _menhir_env -> 'ttv_tail -> _menhir_state ->
             let (_menhir_stack : ((('freshtv437 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2850 "runtests/ocaml_lua/lua_parser.ml"
+# 2851 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_funcname_p_) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2854 "runtests/ocaml_lua/lua_parser.ml"
+# 2855 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_parlist_p_) = Obj.magic _menhir_stack in
             let (_v : (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2859 "runtests/ocaml_lua/lua_parser.ml"
+# 2860 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_env = _menhir_discard _menhir_env in
@@ -2924,11 +2925,11 @@ and _menhir_goto_opt_o_parlist_p_ : _menhir_env -> 'ttv_tail -> _menhir_state ->
             let (_menhir_stack : ((('freshtv439 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2928 "runtests/ocaml_lua/lua_parser.ml"
+# 2929 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_funcname_p_) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2932 "runtests/ocaml_lua/lua_parser.ml"
+# 2933 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_parlist_p_) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv440)) : 'freshtv442)
@@ -2937,15 +2938,15 @@ and _menhir_goto_opt_o_parlist_p_ : _menhir_env -> 'ttv_tail -> _menhir_state ->
         let (_menhir_stack : (((('freshtv447 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2941 "runtests/ocaml_lua/lua_parser.ml"
+# 2942 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2945 "runtests/ocaml_lua/lua_parser.ml"
+# 2946 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_funcname) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2949 "runtests/ocaml_lua/lua_parser.ml"
+# 2950 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_parlist_p_) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -2955,20 +2956,20 @@ and _menhir_goto_opt_o_parlist_p_ : _menhir_env -> 'ttv_tail -> _menhir_state ->
             let (_menhir_stack : (((('freshtv443 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2959 "runtests/ocaml_lua/lua_parser.ml"
+# 2960 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2963 "runtests/ocaml_lua/lua_parser.ml"
+# 2964 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_funcname) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2967 "runtests/ocaml_lua/lua_parser.ml"
+# 2968 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_parlist_p_) = Obj.magic _menhir_stack in
             let (_v : (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 2972 "runtests/ocaml_lua/lua_parser.ml"
+# 2973 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_env = _menhir_discard _menhir_env in
@@ -3037,15 +3038,15 @@ and _menhir_goto_opt_o_parlist_p_ : _menhir_env -> 'ttv_tail -> _menhir_state ->
             let (_menhir_stack : (((('freshtv445 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3041 "runtests/ocaml_lua/lua_parser.ml"
+# 3042 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3045 "runtests/ocaml_lua/lua_parser.ml"
+# 3046 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_funcname) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3049 "runtests/ocaml_lua/lua_parser.ml"
+# 3050 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_parlist_p_) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv446)) : 'freshtv448)
@@ -3063,18 +3064,18 @@ and _menhir_goto_parlist : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_parl
     let (_menhir_s : _menhir_state) = _menhir_s in
     let ((_1 : 'tv_parlist) : 'tv_parlist) = _v in
     let _v : 'tv_opt_o_parlist_p_ = 
-# 319 "runtests/ocaml_lua/lua_parser.mly"
+# 320 "runtests/ocaml_lua/lua_parser.mly"
                            ( 
                                  some(_1)
                              )
-# 3071 "runtests/ocaml_lua/lua_parser.ml"
+# 3072 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_opt_o_parlist_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv434)) : 'freshtv436)
 
 and _menhir_run90 : _menhir_env -> 'ttv_tail * _menhir_state * 'tv_funcname -> (
 # 15 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3078 "runtests/ocaml_lua/lua_parser.ml"
+# 3079 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _v ->
     let _menhir_stack = (_menhir_stack, _v) in
@@ -3086,36 +3087,36 @@ and _menhir_run90 : _menhir_env -> 'ttv_tail * _menhir_state * 'tv_funcname -> (
         let (_menhir_stack : ('freshtv429 * _menhir_state * 'tv_funcname) * (
 # 15 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3090 "runtests/ocaml_lua/lua_parser.ml"
+# 3091 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_v : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3095 "runtests/ocaml_lua/lua_parser.ml"
+# 3096 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_env = _menhir_discard _menhir_env in
         ((let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : ('freshtv427 * _menhir_state * 'tv_funcname) * (
 # 15 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3102 "runtests/ocaml_lua/lua_parser.ml"
+# 3103 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_3 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3107 "runtests/ocaml_lua/lua_parser.ml"
+# 3108 "runtests/ocaml_lua/lua_parser.ml"
         )) : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3111 "runtests/ocaml_lua/lua_parser.ml"
+# 3112 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let ((_menhir_stack, _menhir_s, (_1 : 'tv_funcname)), _) = _menhir_stack in
         let _v : 'tv_funcname = 
-# 364 "runtests/ocaml_lua/lua_parser.mly"
+# 365 "runtests/ocaml_lua/lua_parser.mly"
                                   ( 
                          mk_DotName(_1, _3)
                      )
-# 3119 "runtests/ocaml_lua/lua_parser.ml"
+# 3120 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_funcname _menhir_env _menhir_stack _menhir_s _v : 'freshtv428)) : 'freshtv430)
     | _ ->
@@ -3125,7 +3126,7 @@ and _menhir_run90 : _menhir_env -> 'ttv_tail * _menhir_state * 'tv_funcname -> (
         let (_menhir_stack : ('freshtv431 * _menhir_state * 'tv_funcname) * (
 # 15 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3129 "runtests/ocaml_lua/lua_parser.ml"
+# 3130 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv432)
@@ -3133,7 +3134,7 @@ and _menhir_run90 : _menhir_env -> 'ttv_tail * _menhir_state * 'tv_funcname -> (
 and _menhir_run161 : _menhir_env -> 'ttv_tail * _menhir_state * 'tv_funcname -> (
 # 20 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3137 "runtests/ocaml_lua/lua_parser.ml"
+# 3138 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _v ->
     let _menhir_stack = (_menhir_stack, _v) in
@@ -3145,36 +3146,36 @@ and _menhir_run161 : _menhir_env -> 'ttv_tail * _menhir_state * 'tv_funcname -> 
         let (_menhir_stack : ('freshtv423 * _menhir_state * 'tv_funcname) * (
 # 20 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3149 "runtests/ocaml_lua/lua_parser.ml"
+# 3150 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_v : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3154 "runtests/ocaml_lua/lua_parser.ml"
+# 3155 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_env = _menhir_discard _menhir_env in
         ((let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : ('freshtv421 * _menhir_state * 'tv_funcname) * (
 # 20 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3161 "runtests/ocaml_lua/lua_parser.ml"
+# 3162 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_3 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3166 "runtests/ocaml_lua/lua_parser.ml"
+# 3167 "runtests/ocaml_lua/lua_parser.ml"
         )) : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3170 "runtests/ocaml_lua/lua_parser.ml"
+# 3171 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let ((_menhir_stack, _menhir_s, (_1 : 'tv_funcname)), _) = _menhir_stack in
         let _v : 'tv_funcname = 
-# 367 "runtests/ocaml_lua/lua_parser.mly"
+# 368 "runtests/ocaml_lua/lua_parser.mly"
                                   ( 
                          mk_MethodName(_1, _3)
                      )
-# 3178 "runtests/ocaml_lua/lua_parser.ml"
+# 3179 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_funcname _menhir_env _menhir_stack _menhir_s _v : 'freshtv422)) : 'freshtv424)
     | _ ->
@@ -3184,7 +3185,7 @@ and _menhir_run161 : _menhir_env -> 'ttv_tail * _menhir_state * 'tv_funcname -> 
         let (_menhir_stack : ('freshtv425 * _menhir_state * 'tv_funcname) * (
 # 20 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3188 "runtests/ocaml_lua/lua_parser.ml"
+# 3189 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv426)
@@ -3195,14 +3196,14 @@ and _menhir_goto_opt_assign_rhs : _menhir_env -> 'ttv_tail -> 'tv_opt_assign_rhs
     let (_menhir_stack : ('freshtv419 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3199 "runtests/ocaml_lua/lua_parser.ml"
+# 3200 "runtests/ocaml_lua/lua_parser.ml"
     )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) = Obj.magic _menhir_stack in
     let (_v : 'tv_opt_assign_rhs) = _v in
     ((let (_menhir_env : _menhir_env) = _menhir_env in
     let (_menhir_stack : ('freshtv417 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3206 "runtests/ocaml_lua/lua_parser.ml"
+# 3207 "runtests/ocaml_lua/lua_parser.ml"
     )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) = Obj.magic _menhir_stack in
     let ((_3 : 'tv_opt_assign_rhs) : 'tv_opt_assign_rhs) = _v in
     let ((_menhir_stack, _menhir_s, _), _, (_2 : 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_)) = _menhir_stack in
@@ -3211,18 +3212,18 @@ and _menhir_goto_opt_assign_rhs : _menhir_env -> 'ttv_tail -> 'tv_opt_assign_rhs
                                                                             ( 
                      mk_Assignment(true, listMap(_2, mk_Var), _3)
                  )
-# 3215 "runtests/ocaml_lua/lua_parser.ml"
+# 3216 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv418)) : 'freshtv420)
 
 and _menhir_run134 : _menhir_env -> ('ttv_tail * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3222 "runtests/ocaml_lua/lua_parser.ml"
+# 3223 "runtests/ocaml_lua/lua_parser.ml"
 ) -> (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3226 "runtests/ocaml_lua/lua_parser.ml"
+# 3227 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -3230,24 +3231,24 @@ and _menhir_run134 : _menhir_env -> ('ttv_tail * _menhir_state * 'tv_nempty_sepl
     let (_menhir_stack : ('freshtv415 * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3234 "runtests/ocaml_lua/lua_parser.ml"
+# 3235 "runtests/ocaml_lua/lua_parser.ml"
     )) = Obj.magic _menhir_stack in
     let ((_3 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3239 "runtests/ocaml_lua/lua_parser.ml"
+# 3240 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3243 "runtests/ocaml_lua/lua_parser.ml"
+# 3244 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let ((_menhir_stack, _menhir_s, (_1 : 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_)), _) = _menhir_stack in
     let _v : 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_ = 
-# 337 "runtests/ocaml_lua/lua_parser.mly"
+# 338 "runtests/ocaml_lua/lua_parser.mly"
                                                                                                       ( 
                                                            appendList(_1, _3)
                                                        )
-# 3251 "runtests/ocaml_lua/lua_parser.ml"
+# 3252 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv416)
 
@@ -3261,18 +3262,18 @@ and _menhir_goto_varargs : _menhir_env -> 'ttv_tail -> 'tv_varargs -> 'ttv_retur
     let ((_2 : 'tv_varargs) : 'tv_varargs) = _v in
     let (_menhir_stack, _menhir_s, (_1 : 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_)) = _menhir_stack in
     let _v : 'tv_parlist = 
-# 343 "runtests/ocaml_lua/lua_parser.mly"
+# 344 "runtests/ocaml_lua/lua_parser.mly"
                                                              ( 
                         params(_1, _2)
                     )
-# 3269 "runtests/ocaml_lua/lua_parser.ml"
+# 3270 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_parlist _menhir_env _menhir_stack _menhir_s _v : 'freshtv412)) : 'freshtv414)
 
 and _menhir_run133 : _menhir_env -> 'ttv_tail * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_ -> (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3276 "runtests/ocaml_lua/lua_parser.ml"
+# 3277 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _v ->
     let _menhir_stack = (_menhir_stack, _v) in
@@ -3288,7 +3289,7 @@ and _menhir_run133 : _menhir_env -> 'ttv_tail * _menhir_state * 'tv_nempty_sepli
         let (_menhir_stack : ('freshtv409 * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3292 "runtests/ocaml_lua/lua_parser.ml"
+# 3293 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv410)
@@ -3301,7 +3302,7 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_stack : ('freshtv387 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 33 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3305 "runtests/ocaml_lua/lua_parser.ml"
+# 3306 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = _menhir_s in
         let (_v : 'tv_exponent) = _v in
@@ -3309,17 +3310,17 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_stack : ('freshtv385 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 33 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3313 "runtests/ocaml_lua/lua_parser.ml"
+# 3314 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_ : _menhir_state) = _menhir_s in
         let ((_3 : 'tv_exponent) : 'tv_exponent) = _v in
         let ((_menhir_stack, _menhir_s, (_1 : 'tv_prefixexp)), _, _) = _menhir_stack in
         let _v : 'tv_exponent = 
-# 235 "runtests/ocaml_lua/lua_parser.mly"
+# 236 "runtests/ocaml_lua/lua_parser.mly"
                                        ( 
                          mk_Exponent(_1, _3)
                      )
-# 3323 "runtests/ocaml_lua/lua_parser.ml"
+# 3324 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_exponent _menhir_env _menhir_stack _menhir_s _v : 'freshtv386)) : 'freshtv388)
     | MenhirState0 | MenhirState7 | MenhirState191 | MenhirState184 | MenhirState181 | MenhirState9 | MenhirState11 | MenhirState23 | MenhirState85 | MenhirState168 | MenhirState86 | MenhirState164 | MenhirState94 | MenhirState148 | MenhirState143 | MenhirState141 | MenhirState97 | MenhirState135 | MenhirState137 | MenhirState129 | MenhirState127 | MenhirState102 | MenhirState104 | MenhirState105 | MenhirState115 | MenhirState111 | MenhirState109 | MenhirState95 | MenhirState28 | MenhirState75 | MenhirState40 | MenhirState69 | MenhirState45 ->
@@ -3332,11 +3333,11 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_s : _menhir_state) = _menhir_s in
         let ((_1 : 'tv_exponent) : 'tv_exponent) = _v in
         let _v : 'tv_unaryexp = 
-# 232 "runtests/ocaml_lua/lua_parser.mly"
+# 233 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                          _1
                      )
-# 3340 "runtests/ocaml_lua/lua_parser.ml"
+# 3341 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_unaryexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv390)) : 'freshtv392)
     | MenhirState29 ->
@@ -3344,7 +3345,7 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_stack : 'freshtv395 * _menhir_state * (
 # 48 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3348 "runtests/ocaml_lua/lua_parser.ml"
+# 3349 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = _menhir_s in
         let (_v : 'tv_exponent) = _v in
@@ -3352,21 +3353,21 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_stack : 'freshtv393 * _menhir_state * (
 # 48 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3356 "runtests/ocaml_lua/lua_parser.ml"
+# 3357 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_ : _menhir_state) = _menhir_s in
         let ((_2 : 'tv_exponent) : 'tv_exponent) = _v in
         let (_menhir_stack, _menhir_s, (_1 : (
 # 48 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3363 "runtests/ocaml_lua/lua_parser.ml"
+# 3364 "runtests/ocaml_lua/lua_parser.ml"
         ))) = _menhir_stack in
         let _v : 'tv_unaryexp = 
-# 229 "runtests/ocaml_lua/lua_parser.mly"
+# 230 "runtests/ocaml_lua/lua_parser.mly"
                              ( 
                          mk_Not(_1, _2)
                      )
-# 3370 "runtests/ocaml_lua/lua_parser.ml"
+# 3371 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_unaryexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv394)) : 'freshtv396)
     | MenhirState12 ->
@@ -3374,7 +3375,7 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_stack : 'freshtv399 * _menhir_state * (
 # 6 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3378 "runtests/ocaml_lua/lua_parser.ml"
+# 3379 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = _menhir_s in
         let (_v : 'tv_exponent) = _v in
@@ -3382,21 +3383,21 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_stack : 'freshtv397 * _menhir_state * (
 # 6 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3386 "runtests/ocaml_lua/lua_parser.ml"
+# 3387 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_ : _menhir_state) = _menhir_s in
         let ((_2 : 'tv_exponent) : 'tv_exponent) = _v in
         let (_menhir_stack, _menhir_s, (_1 : (
 # 6 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3393 "runtests/ocaml_lua/lua_parser.ml"
+# 3394 "runtests/ocaml_lua/lua_parser.ml"
         ))) = _menhir_stack in
         let _v : 'tv_unaryexp = 
-# 220 "runtests/ocaml_lua/lua_parser.mly"
+# 221 "runtests/ocaml_lua/lua_parser.mly"
                                ( 
                          mk_Len(_1, _2)
                      )
-# 3400 "runtests/ocaml_lua/lua_parser.ml"
+# 3401 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_unaryexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv398)) : 'freshtv400)
     | MenhirState10 ->
@@ -3404,7 +3405,7 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_stack : 'freshtv403 * _menhir_state * (
 # 14 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3408 "runtests/ocaml_lua/lua_parser.ml"
+# 3409 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = _menhir_s in
         let (_v : 'tv_exponent) = _v in
@@ -3412,21 +3413,21 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_stack : 'freshtv401 * _menhir_state * (
 # 14 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3416 "runtests/ocaml_lua/lua_parser.ml"
+# 3417 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_ : _menhir_state) = _menhir_s in
         let ((_2 : 'tv_exponent) : 'tv_exponent) = _v in
         let (_menhir_stack, _menhir_s, (_1 : (
 # 14 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3423 "runtests/ocaml_lua/lua_parser.ml"
+# 3424 "runtests/ocaml_lua/lua_parser.ml"
         ))) = _menhir_stack in
         let _v : 'tv_unaryexp = 
-# 223 "runtests/ocaml_lua/lua_parser.mly"
+# 224 "runtests/ocaml_lua/lua_parser.mly"
                              ( 
                          mk_Neg(_1, _2)
                      )
-# 3430 "runtests/ocaml_lua/lua_parser.ml"
+# 3431 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_unaryexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv402)) : 'freshtv404)
     | MenhirState5 ->
@@ -3434,7 +3435,7 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_stack : 'freshtv407 * _menhir_state * (
 # 59 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3438 "runtests/ocaml_lua/lua_parser.ml"
+# 3439 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = _menhir_s in
         let (_v : 'tv_exponent) = _v in
@@ -3442,21 +3443,21 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
         let (_menhir_stack : 'freshtv405 * _menhir_state * (
 # 59 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3446 "runtests/ocaml_lua/lua_parser.ml"
+# 3447 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_ : _menhir_state) = _menhir_s in
         let ((_2 : 'tv_exponent) : 'tv_exponent) = _v in
         let (_menhir_stack, _menhir_s, (_1 : (
 # 59 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3453 "runtests/ocaml_lua/lua_parser.ml"
+# 3454 "runtests/ocaml_lua/lua_parser.ml"
         ))) = _menhir_stack in
         let _v : 'tv_unaryexp = 
-# 226 "runtests/ocaml_lua/lua_parser.mly"
+# 227 "runtests/ocaml_lua/lua_parser.mly"
                              ( 
                          mk_Inv(_1, _2)
                      )
-# 3460 "runtests/ocaml_lua/lua_parser.ml"
+# 3461 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_unaryexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv406)) : 'freshtv408)
     | _ ->
@@ -3465,7 +3466,7 @@ and _menhir_goto_exponent : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_exp
 and _menhir_run33 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 62 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3469 "runtests/ocaml_lua/lua_parser.ml"
+# 3470 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -3475,25 +3476,25 @@ and _menhir_run33 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 62 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3479 "runtests/ocaml_lua/lua_parser.ml"
+# 3480 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 62 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3483 "runtests/ocaml_lua/lua_parser.ml"
+# 3484 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_args = 
-# 310 "runtests/ocaml_lua/lua_parser.mly"
+# 311 "runtests/ocaml_lua/lua_parser.mly"
                ( 
                      mk_StringArg(_1)
                  )
-# 3490 "runtests/ocaml_lua/lua_parser.ml"
+# 3491 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_args _menhir_env _menhir_stack _menhir_s _v : 'freshtv384)
 
 and _menhir_run40 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3497 "runtests/ocaml_lua/lua_parser.ml"
+# 3498 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -3551,7 +3552,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
                                         ( 
                       block(_1, _2)
                   )
-# 3555 "runtests/ocaml_lua/lua_parser.ml"
+# 3556 "runtests/ocaml_lua/lua_parser.ml"
      in
     let (_menhir_env : _menhir_env) = _menhir_env in
     let (_menhir_stack : 'freshtv377) = _menhir_stack in
@@ -3564,7 +3565,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
         let (_menhir_stack : ('freshtv275 * _menhir_state * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3568 "runtests/ocaml_lua/lua_parser.ml"
+# 3569 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -3574,36 +3575,36 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ('freshtv271 * _menhir_state * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3578 "runtests/ocaml_lua/lua_parser.ml"
+# 3579 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_v : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3583 "runtests/ocaml_lua/lua_parser.ml"
+# 3584 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_env = _menhir_discard _menhir_env in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ('freshtv269 * _menhir_state * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3590 "runtests/ocaml_lua/lua_parser.ml"
+# 3591 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_ : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3595 "runtests/ocaml_lua/lua_parser.ml"
+# 3596 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let ((_menhir_stack, _menhir_s, (_1 : (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3600 "runtests/ocaml_lua/lua_parser.ml"
+# 3601 "runtests/ocaml_lua/lua_parser.ml"
             ))), _, (_2 : 'tv_block)) = _menhir_stack in
             let _v : 'tv_stat = 
 # 160 "runtests/ocaml_lua/lua_parser.mly"
                               ( 
                      mk_DoStmt(_1, _2)
                  )
-# 3607 "runtests/ocaml_lua/lua_parser.ml"
+# 3608 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv270)) : 'freshtv272)
         | _ ->
@@ -3613,7 +3614,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ('freshtv273 * _menhir_state * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3617 "runtests/ocaml_lua/lua_parser.ml"
+# 3618 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv274)) : 'freshtv276)
@@ -3622,19 +3623,19 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
         let (_menhir_stack : ((((('freshtv283 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3626 "runtests/ocaml_lua/lua_parser.ml"
+# 3627 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3630 "runtests/ocaml_lua/lua_parser.ml"
+# 3631 "runtests/ocaml_lua/lua_parser.ml"
         )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3634 "runtests/ocaml_lua/lua_parser.ml"
+# 3635 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_range) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3638 "runtests/ocaml_lua/lua_parser.ml"
+# 3639 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -3644,64 +3645,64 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ((((('freshtv279 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3648 "runtests/ocaml_lua/lua_parser.ml"
+# 3649 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3652 "runtests/ocaml_lua/lua_parser.ml"
+# 3653 "runtests/ocaml_lua/lua_parser.ml"
             )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3656 "runtests/ocaml_lua/lua_parser.ml"
+# 3657 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_range) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3660 "runtests/ocaml_lua/lua_parser.ml"
+# 3661 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_v : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3665 "runtests/ocaml_lua/lua_parser.ml"
+# 3666 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_env = _menhir_discard _menhir_env in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ((((('freshtv277 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3672 "runtests/ocaml_lua/lua_parser.ml"
+# 3673 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3676 "runtests/ocaml_lua/lua_parser.ml"
+# 3677 "runtests/ocaml_lua/lua_parser.ml"
             )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3680 "runtests/ocaml_lua/lua_parser.ml"
+# 3681 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_range) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3684 "runtests/ocaml_lua/lua_parser.ml"
+# 3685 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_ : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3689 "runtests/ocaml_lua/lua_parser.ml"
+# 3690 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let ((((((_menhir_stack, _menhir_s, (_1 : (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3694 "runtests/ocaml_lua/lua_parser.ml"
+# 3695 "runtests/ocaml_lua/lua_parser.ml"
             ))), _, (_2 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3698 "runtests/ocaml_lua/lua_parser.ml"
+# 3699 "runtests/ocaml_lua/lua_parser.ml"
             ))), _), _, (_4 : 'tv_range)), _), _, (_6 : 'tv_block)) = _menhir_stack in
             let _v : 'tv_stat = 
 # 172 "runtests/ocaml_lua/lua_parser.mly"
                                                            ( 
                      mk_ForRangeStmt(_1, _2, _4, _6)
                  )
-# 3705 "runtests/ocaml_lua/lua_parser.ml"
+# 3706 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv278)) : 'freshtv280)
         | _ ->
@@ -3711,19 +3712,19 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ((((('freshtv281 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3715 "runtests/ocaml_lua/lua_parser.ml"
+# 3716 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3719 "runtests/ocaml_lua/lua_parser.ml"
+# 3720 "runtests/ocaml_lua/lua_parser.ml"
             )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3723 "runtests/ocaml_lua/lua_parser.ml"
+# 3724 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_range) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3727 "runtests/ocaml_lua/lua_parser.ml"
+# 3728 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv282)) : 'freshtv284)
@@ -3732,15 +3733,15 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
         let (_menhir_stack : ((((('freshtv291 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3736 "runtests/ocaml_lua/lua_parser.ml"
+# 3737 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) * (
 # 45 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3740 "runtests/ocaml_lua/lua_parser.ml"
+# 3741 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s_exp_p_) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3744 "runtests/ocaml_lua/lua_parser.ml"
+# 3745 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -3750,52 +3751,52 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ((((('freshtv287 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3754 "runtests/ocaml_lua/lua_parser.ml"
+# 3755 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) * (
 # 45 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3758 "runtests/ocaml_lua/lua_parser.ml"
+# 3759 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s_exp_p_) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3762 "runtests/ocaml_lua/lua_parser.ml"
+# 3763 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_v : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3767 "runtests/ocaml_lua/lua_parser.ml"
+# 3768 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_env = _menhir_discard _menhir_env in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ((((('freshtv285 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3774 "runtests/ocaml_lua/lua_parser.ml"
+# 3775 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) * (
 # 45 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3778 "runtests/ocaml_lua/lua_parser.ml"
+# 3779 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s_exp_p_) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3782 "runtests/ocaml_lua/lua_parser.ml"
+# 3783 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_ : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3787 "runtests/ocaml_lua/lua_parser.ml"
+# 3788 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let ((((((_menhir_stack, _menhir_s, (_1 : (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3792 "runtests/ocaml_lua/lua_parser.ml"
+# 3793 "runtests/ocaml_lua/lua_parser.ml"
             ))), _, (_2 : 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_)), _), _, (_4 : 'tv_nempty_seplist_o__i__s__i__s_exp_p_)), _), _, (_6 : 'tv_block)) = _menhir_stack in
             let _v : 'tv_stat = 
 # 175 "runtests/ocaml_lua/lua_parser.mly"
                                                                                                                               ( 
                      mk_ForInStmt(_1, _2, _4, _6)
                  )
-# 3799 "runtests/ocaml_lua/lua_parser.ml"
+# 3800 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv286)) : 'freshtv288)
         | _ ->
@@ -3805,15 +3806,15 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ((((('freshtv289 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3809 "runtests/ocaml_lua/lua_parser.ml"
+# 3810 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) * (
 # 45 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3813 "runtests/ocaml_lua/lua_parser.ml"
+# 3814 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s_exp_p_) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3817 "runtests/ocaml_lua/lua_parser.ml"
+# 3818 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv290)) : 'freshtv292)
@@ -3822,11 +3823,11 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
         let (_menhir_stack : ((('freshtv295 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3826 "runtests/ocaml_lua/lua_parser.ml"
+# 3827 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3830 "runtests/ocaml_lua/lua_parser.ml"
+# 3831 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -3842,7 +3843,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
                                             ( 
                                                          []
                                                      )
-# 3846 "runtests/ocaml_lua/lua_parser.ml"
+# 3847 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_allow_empty_o_nempty_list_o_elseif_p__p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv294)
         | _ ->
@@ -3854,33 +3855,33 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
         let (_menhir_stack : ((('freshtv309 * _menhir_state * (
 # 38 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3858 "runtests/ocaml_lua/lua_parser.ml"
+# 3859 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3862 "runtests/ocaml_lua/lua_parser.ml"
+# 3863 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         ((let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : ((('freshtv307 * _menhir_state * (
 # 38 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3868 "runtests/ocaml_lua/lua_parser.ml"
+# 3869 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3872 "runtests/ocaml_lua/lua_parser.ml"
+# 3873 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         let ((((_menhir_stack, _menhir_s, (_1 : (
 # 38 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3877 "runtests/ocaml_lua/lua_parser.ml"
+# 3878 "runtests/ocaml_lua/lua_parser.ml"
         ))), _, (_2 : 'tv_exp)), _), _, (_4 : 'tv_block)) = _menhir_stack in
         let _v : 'tv_elseif = 
 # 199 "runtests/ocaml_lua/lua_parser.mly"
                                          ( 
                        if_elseif(_1, _2, _4)
                    )
-# 3884 "runtests/ocaml_lua/lua_parser.ml"
+# 3885 "runtests/ocaml_lua/lua_parser.ml"
          in
         let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : 'freshtv305) = _menhir_stack in
@@ -3902,7 +3903,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
                                                          ( 
                                         appendList(_1, _2)
                                     )
-# 3906 "runtests/ocaml_lua/lua_parser.ml"
+# 3907 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_nempty_list_o_elseif_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv298)) : 'freshtv300)
         | MenhirState140 ->
@@ -3919,7 +3920,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
                                  ( 
                                         [_1]
                                     )
-# 3923 "runtests/ocaml_lua/lua_parser.ml"
+# 3924 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_nempty_list_o_elseif_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv302)) : 'freshtv304)
         | _ ->
@@ -3929,25 +3930,25 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
         let (_menhir_stack : ('freshtv319 * (
 # 37 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3933 "runtests/ocaml_lua/lua_parser.ml"
+# 3934 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         ((let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : ('freshtv317 * (
 # 37 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3939 "runtests/ocaml_lua/lua_parser.ml"
+# 3940 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         let ((_menhir_stack, (_1 : (
 # 37 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3944 "runtests/ocaml_lua/lua_parser.ml"
+# 3945 "runtests/ocaml_lua/lua_parser.ml"
         ))), _, (_2 : 'tv_block)) = _menhir_stack in
         let _v : 'tv_else__x_ = 
 # 202 "runtests/ocaml_lua/lua_parser.mly"
                            ( 
                          if_else(_1, _2)
                      )
-# 3951 "runtests/ocaml_lua/lua_parser.ml"
+# 3952 "runtests/ocaml_lua/lua_parser.ml"
          in
         let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : 'freshtv315) = _menhir_stack in
@@ -3963,7 +3964,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
                          ( 
                               some(_1)
                           )
-# 3967 "runtests/ocaml_lua/lua_parser.ml"
+# 3968 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_opt_o_else_p_ _menhir_env _menhir_stack _v : 'freshtv312)) : 'freshtv314)) : 'freshtv316) : 'freshtv318)) : 'freshtv320)
     | MenhirState94 ->
@@ -3971,19 +3972,19 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
         let (_menhir_stack : (((((('freshtv327 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3975 "runtests/ocaml_lua/lua_parser.ml"
+# 3976 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3979 "runtests/ocaml_lua/lua_parser.ml"
+# 3980 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_funcname) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3983 "runtests/ocaml_lua/lua_parser.ml"
+# 3984 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_parlist_p_) * (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3987 "runtests/ocaml_lua/lua_parser.ml"
+# 3988 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -3993,60 +3994,60 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : (((((('freshtv323 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 3997 "runtests/ocaml_lua/lua_parser.ml"
+# 3998 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4001 "runtests/ocaml_lua/lua_parser.ml"
+# 4002 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_funcname) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4005 "runtests/ocaml_lua/lua_parser.ml"
+# 4006 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_parlist_p_) * (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4009 "runtests/ocaml_lua/lua_parser.ml"
+# 4010 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_v : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4014 "runtests/ocaml_lua/lua_parser.ml"
+# 4015 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_env = _menhir_discard _menhir_env in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : (((((('freshtv321 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4021 "runtests/ocaml_lua/lua_parser.ml"
+# 4022 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4025 "runtests/ocaml_lua/lua_parser.ml"
+# 4026 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_funcname) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4029 "runtests/ocaml_lua/lua_parser.ml"
+# 4030 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_parlist_p_) * (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4033 "runtests/ocaml_lua/lua_parser.ml"
+# 4034 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_ : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4038 "runtests/ocaml_lua/lua_parser.ml"
+# 4039 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let (((((((_menhir_stack, _menhir_s, (_1 : (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4043 "runtests/ocaml_lua/lua_parser.ml"
+# 4044 "runtests/ocaml_lua/lua_parser.ml"
             ))), _, _), _, (_3 : 'tv_funcname)), _), _, (_5 : 'tv_opt_o_parlist_p_)), _), _, (_7 : 'tv_block)) = _menhir_stack in
             let _v : 'tv_stat = 
 # 178 "runtests/ocaml_lua/lua_parser.mly"
                                                                                            ( 
                      mk_ExprStmt(mk_FuncDef(_1, true, some(_3), _5, _7))
                  )
-# 4050 "runtests/ocaml_lua/lua_parser.ml"
+# 4051 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv322)) : 'freshtv324)
         | _ ->
@@ -4056,19 +4057,19 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : (((((('freshtv325 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4060 "runtests/ocaml_lua/lua_parser.ml"
+# 4061 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4064 "runtests/ocaml_lua/lua_parser.ml"
+# 4065 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_funcname) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4068 "runtests/ocaml_lua/lua_parser.ml"
+# 4069 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_parlist_p_) * (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4072 "runtests/ocaml_lua/lua_parser.ml"
+# 4073 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv326)) : 'freshtv328)
@@ -4077,7 +4078,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
         let (_menhir_stack : ('freshtv333 * _menhir_state * (
 # 50 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4081 "runtests/ocaml_lua/lua_parser.ml"
+# 4082 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -4087,12 +4088,12 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ('freshtv329 * _menhir_state * (
 # 50 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4091 "runtests/ocaml_lua/lua_parser.ml"
+# 4092 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_v : (
 # 54 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4096 "runtests/ocaml_lua/lua_parser.ml"
+# 4097 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_env = _menhir_discard _menhir_env in
@@ -4139,7 +4140,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ('freshtv331 * _menhir_state * (
 # 50 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4143 "runtests/ocaml_lua/lua_parser.ml"
+# 4144 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv332)) : 'freshtv334)
@@ -4148,11 +4149,11 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
         let (_menhir_stack : ((('freshtv341 * _menhir_state * (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4152 "runtests/ocaml_lua/lua_parser.ml"
+# 4153 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4156 "runtests/ocaml_lua/lua_parser.ml"
+# 4157 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -4162,44 +4163,44 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ((('freshtv337 * _menhir_state * (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4166 "runtests/ocaml_lua/lua_parser.ml"
+# 4167 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4170 "runtests/ocaml_lua/lua_parser.ml"
+# 4171 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_v : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4175 "runtests/ocaml_lua/lua_parser.ml"
+# 4176 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_env = _menhir_discard _menhir_env in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ((('freshtv335 * _menhir_state * (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4182 "runtests/ocaml_lua/lua_parser.ml"
+# 4183 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4186 "runtests/ocaml_lua/lua_parser.ml"
+# 4187 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_ : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4191 "runtests/ocaml_lua/lua_parser.ml"
+# 4192 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let ((((_menhir_stack, _menhir_s, (_1 : (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4196 "runtests/ocaml_lua/lua_parser.ml"
+# 4197 "runtests/ocaml_lua/lua_parser.ml"
             ))), _, (_2 : 'tv_exp)), _), _, (_4 : 'tv_block)) = _menhir_stack in
             let _v : 'tv_stat = 
 # 163 "runtests/ocaml_lua/lua_parser.mly"
                                              ( 
                      mk_WhileStmt(_1, _2, _4)
                  )
-# 4203 "runtests/ocaml_lua/lua_parser.ml"
+# 4204 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv336)) : 'freshtv338)
         | _ ->
@@ -4209,11 +4210,11 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ((('freshtv339 * _menhir_state * (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4213 "runtests/ocaml_lua/lua_parser.ml"
+# 4214 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_exp) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4217 "runtests/ocaml_lua/lua_parser.ml"
+# 4218 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv340)) : 'freshtv342)
@@ -4222,15 +4223,15 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
         let (_menhir_stack : ((((('freshtv355 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4226 "runtests/ocaml_lua/lua_parser.ml"
+# 4227 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_funcname_p_) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4230 "runtests/ocaml_lua/lua_parser.ml"
+# 4231 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_parlist_p_) * (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4234 "runtests/ocaml_lua/lua_parser.ml"
+# 4235 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -4240,52 +4241,52 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ((((('freshtv351 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4244 "runtests/ocaml_lua/lua_parser.ml"
+# 4245 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_funcname_p_) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4248 "runtests/ocaml_lua/lua_parser.ml"
+# 4249 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_parlist_p_) * (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4252 "runtests/ocaml_lua/lua_parser.ml"
+# 4253 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_v : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4257 "runtests/ocaml_lua/lua_parser.ml"
+# 4258 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_env = _menhir_discard _menhir_env in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ((((('freshtv349 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4264 "runtests/ocaml_lua/lua_parser.ml"
+# 4265 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_funcname_p_) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4268 "runtests/ocaml_lua/lua_parser.ml"
+# 4269 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_parlist_p_) * (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4272 "runtests/ocaml_lua/lua_parser.ml"
+# 4273 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_ : (
 # 39 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4277 "runtests/ocaml_lua/lua_parser.ml"
+# 4278 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let ((((((_menhir_stack, _menhir_s, (_1 : (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4282 "runtests/ocaml_lua/lua_parser.ml"
+# 4283 "runtests/ocaml_lua/lua_parser.ml"
             ))), _, (_2 : 'tv_opt_o_funcname_p_)), _), _, (_4 : 'tv_opt_o_parlist_p_)), _), _, (_6 : 'tv_block)) = _menhir_stack in
             let _v : 'tv_functiondef = 
-# 325 "runtests/ocaml_lua/lua_parser.mly"
+# 326 "runtests/ocaml_lua/lua_parser.mly"
                                                                                                 ( 
                             mk_FuncDef(_1, false, _2, _4, _6)
                         )
-# 4289 "runtests/ocaml_lua/lua_parser.ml"
+# 4290 "runtests/ocaml_lua/lua_parser.ml"
              in
             let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : 'freshtv347) = _menhir_stack in
@@ -4300,11 +4301,11 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_s : _menhir_state) = _menhir_s in
             let ((_1 : 'tv_functiondef) : 'tv_functiondef) = _v in
             let _v : 'tv_atom = 
-# 283 "runtests/ocaml_lua/lua_parser.mly"
+# 284 "runtests/ocaml_lua/lua_parser.mly"
                    ( 
                      _1
                  )
-# 4308 "runtests/ocaml_lua/lua_parser.ml"
+# 4309 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_atom _menhir_env _menhir_stack _menhir_s _v : 'freshtv344)) : 'freshtv346)) : 'freshtv348) : 'freshtv350)) : 'freshtv352)
         | _ ->
@@ -4314,15 +4315,15 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_menhir_stack : ((((('freshtv353 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4318 "runtests/ocaml_lua/lua_parser.ml"
+# 4319 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_funcname_p_) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4322 "runtests/ocaml_lua/lua_parser.ml"
+# 4323 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_opt_o_parlist_p_) * (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4326 "runtests/ocaml_lua/lua_parser.ml"
+# 4327 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv354)) : 'freshtv356)
@@ -4337,7 +4338,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
                   ( 
                           _1
                       )
-# 4341 "runtests/ocaml_lua/lua_parser.ml"
+# 4342 "runtests/ocaml_lua/lua_parser.ml"
          in
         let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : 'freshtv371) = _menhir_stack in
@@ -4358,11 +4359,11 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let _v : (
 # 66 "runtests/ocaml_lua/lua_parser.mly"
        (Lua_construct.block)
-# 4362 "runtests/ocaml_lua/lua_parser.ml"
+# 4363 "runtests/ocaml_lua/lua_parser.ml"
             ) = 
 # 69 "runtests/ocaml_lua/lua_parser.mly"
                       ( _1 )
-# 4366 "runtests/ocaml_lua/lua_parser.ml"
+# 4367 "runtests/ocaml_lua/lua_parser.ml"
              in
             let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : 'freshtv361) = _menhir_stack in
@@ -4370,7 +4371,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_v : (
 # 66 "runtests/ocaml_lua/lua_parser.mly"
        (Lua_construct.block)
-# 4374 "runtests/ocaml_lua/lua_parser.ml"
+# 4375 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             (((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : 'freshtv359) = Obj.magic _menhir_stack in
@@ -4378,7 +4379,7 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let (_v : (
 # 66 "runtests/ocaml_lua/lua_parser.mly"
        (Lua_construct.block)
-# 4382 "runtests/ocaml_lua/lua_parser.ml"
+# 4383 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : 'freshtv357) = Obj.magic _menhir_stack in
@@ -4386,11 +4387,11 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
             let ((_1 : (
 # 66 "runtests/ocaml_lua/lua_parser.mly"
        (Lua_construct.block)
-# 4390 "runtests/ocaml_lua/lua_parser.ml"
+# 4391 "runtests/ocaml_lua/lua_parser.ml"
             )) : (
 # 66 "runtests/ocaml_lua/lua_parser.mly"
        (Lua_construct.block)
-# 4394 "runtests/ocaml_lua/lua_parser.ml"
+# 4395 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             (Obj.magic _1 : 'freshtv358)) : 'freshtv360)) : 'freshtv362) : 'freshtv364)) : 'freshtv366)
         | _ ->
@@ -4406,11 +4407,11 @@ and _menhir_goto_opt_o_retstat_p_ : _menhir_env -> 'ttv_tail -> 'tv_opt_o_retsta
 and _menhir_reduce5 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _v : 'tv_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ = 
-# 295 "runtests/ocaml_lua/lua_parser.mly"
+# 296 "runtests/ocaml_lua/lua_parser.mly"
                                                         ( 
                                                                      []
                                                                  )
-# 4414 "runtests/ocaml_lua/lua_parser.ml"
+# 4415 "runtests/ocaml_lua/lua_parser.ml"
      in
     _menhir_goto_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -4422,11 +4423,11 @@ and _menhir_goto_args : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_args ->
         let (_menhir_stack : (('freshtv263 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 20 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4426 "runtests/ocaml_lua/lua_parser.ml"
+# 4427 "runtests/ocaml_lua/lua_parser.ml"
         )) * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4430 "runtests/ocaml_lua/lua_parser.ml"
+# 4431 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = _menhir_s in
         let (_v : 'tv_args) = _v in
@@ -4434,25 +4435,25 @@ and _menhir_goto_args : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_args ->
         let (_menhir_stack : (('freshtv261 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 20 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4438 "runtests/ocaml_lua/lua_parser.ml"
+# 4439 "runtests/ocaml_lua/lua_parser.ml"
         )) * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4442 "runtests/ocaml_lua/lua_parser.ml"
+# 4443 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_ : _menhir_state) = _menhir_s in
         let ((_4 : 'tv_args) : 'tv_args) = _v in
         let (((_menhir_stack, _menhir_s, (_1 : 'tv_prefixexp)), _, _), (_3 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4449 "runtests/ocaml_lua/lua_parser.ml"
+# 4450 "runtests/ocaml_lua/lua_parser.ml"
         ))) = _menhir_stack in
         let _v : 'tv_prefixexp = 
-# 250 "runtests/ocaml_lua/lua_parser.mly"
+# 251 "runtests/ocaml_lua/lua_parser.mly"
                                          ( 
                           mk_CallMethod(_1, _3, _4)
                       )
-# 4456 "runtests/ocaml_lua/lua_parser.ml"
+# 4457 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_prefixexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv262)) : 'freshtv264)
     | MenhirState32 ->
@@ -4466,11 +4467,11 @@ and _menhir_goto_args : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_args ->
         let ((_2 : 'tv_args) : 'tv_args) = _v in
         let (_menhir_stack, _menhir_s, (_1 : 'tv_prefixexp)) = _menhir_stack in
         let _v : 'tv_prefixexp = 
-# 247 "runtests/ocaml_lua/lua_parser.mly"
+# 248 "runtests/ocaml_lua/lua_parser.mly"
                            ( 
                           mk_CallFunc(_1, _2)
                       )
-# 4474 "runtests/ocaml_lua/lua_parser.ml"
+# 4475 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_prefixexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv266)) : 'freshtv268)
     | _ ->
@@ -4479,18 +4480,18 @@ and _menhir_goto_args : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_args ->
 and _menhir_reduce81 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _v : 'tv_opt_o_parlist_p_ = 
-# 322 "runtests/ocaml_lua/lua_parser.mly"
+# 323 "runtests/ocaml_lua/lua_parser.mly"
                     ( 
                                  none()
                              )
-# 4487 "runtests/ocaml_lua/lua_parser.ml"
+# 4488 "runtests/ocaml_lua/lua_parser.ml"
      in
     _menhir_goto_opt_o_parlist_p_ _menhir_env _menhir_stack _menhir_s _v
 
 and _menhir_run20 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 17 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4494 "runtests/ocaml_lua/lua_parser.ml"
+# 4495 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -4500,18 +4501,18 @@ and _menhir_run20 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 17 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4504 "runtests/ocaml_lua/lua_parser.ml"
+# 4505 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 17 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4508 "runtests/ocaml_lua/lua_parser.ml"
+# 4509 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_parlist = 
-# 340 "runtests/ocaml_lua/lua_parser.mly"
+# 341 "runtests/ocaml_lua/lua_parser.mly"
                          ( 
                         params([], some(_1))
                     )
-# 4515 "runtests/ocaml_lua/lua_parser.ml"
+# 4516 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_parlist _menhir_env _menhir_stack _menhir_s _v : 'freshtv260)
 
@@ -4524,11 +4525,11 @@ and _menhir_goto_funcname : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_fun
         let (_menhir_stack : (('freshtv251 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4528 "runtests/ocaml_lua/lua_parser.ml"
+# 4529 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4532 "runtests/ocaml_lua/lua_parser.ml"
+# 4533 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_funcname) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -4540,16 +4541,16 @@ and _menhir_goto_funcname : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_fun
             let (_menhir_stack : (('freshtv247 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4544 "runtests/ocaml_lua/lua_parser.ml"
+# 4545 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4548 "runtests/ocaml_lua/lua_parser.ml"
+# 4549 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_funcname) = Obj.magic _menhir_stack in
             let (_v : (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4553 "runtests/ocaml_lua/lua_parser.ml"
+# 4554 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_env = _menhir_discard _menhir_env in
@@ -4574,11 +4575,11 @@ and _menhir_goto_funcname : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_fun
             let (_menhir_stack : (('freshtv249 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4578 "runtests/ocaml_lua/lua_parser.ml"
+# 4579 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4582 "runtests/ocaml_lua/lua_parser.ml"
+# 4583 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_funcname) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv250)) : 'freshtv252)
@@ -4597,11 +4598,11 @@ and _menhir_goto_funcname : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_fun
             let (_menhir_stack : 'freshtv253 * _menhir_state * 'tv_funcname) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, (_1 : 'tv_funcname)) = _menhir_stack in
             let _v : 'tv_opt_o_funcname_p_ = 
-# 313 "runtests/ocaml_lua/lua_parser.mly"
+# 314 "runtests/ocaml_lua/lua_parser.mly"
                              ( 
                                   some(_1)
                               )
-# 4605 "runtests/ocaml_lua/lua_parser.ml"
+# 4606 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_opt_o_funcname_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv254)
         | _ ->
@@ -4623,7 +4624,7 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
         let (_menhir_stack : ('freshtv223 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4627 "runtests/ocaml_lua/lua_parser.ml"
+# 4628 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -4633,12 +4634,12 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
             let (_menhir_stack : ('freshtv219 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4637 "runtests/ocaml_lua/lua_parser.ml"
+# 4638 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) = Obj.magic _menhir_stack in
             let (_v : (
 # 45 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4642 "runtests/ocaml_lua/lua_parser.ml"
+# 4643 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_env = _menhir_discard _menhir_env in
@@ -4687,7 +4688,7 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
             let (_menhir_stack : ('freshtv221 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4691 "runtests/ocaml_lua/lua_parser.ml"
+# 4692 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv222)) : 'freshtv224)
@@ -4703,7 +4704,7 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
             let (_v : (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4707 "runtests/ocaml_lua/lua_parser.ml"
+# 4708 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_env = _menhir_discard _menhir_env in
@@ -4714,36 +4715,36 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
                 let (_menhir_stack : 'freshtv227 * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4718 "runtests/ocaml_lua/lua_parser.ml"
+# 4719 "runtests/ocaml_lua/lua_parser.ml"
                 )) = Obj.magic _menhir_stack in
                 let (_v : (
 # 17 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4723 "runtests/ocaml_lua/lua_parser.ml"
+# 4724 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let _menhir_env = _menhir_discard _menhir_env in
                 ((let (_menhir_env : _menhir_env) = _menhir_env in
                 let (_menhir_stack : 'freshtv225 * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4730 "runtests/ocaml_lua/lua_parser.ml"
+# 4731 "runtests/ocaml_lua/lua_parser.ml"
                 )) = Obj.magic _menhir_stack in
                 let ((_2 : (
 # 17 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4735 "runtests/ocaml_lua/lua_parser.ml"
+# 4736 "runtests/ocaml_lua/lua_parser.ml"
                 )) : (
 # 17 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4739 "runtests/ocaml_lua/lua_parser.ml"
+# 4740 "runtests/ocaml_lua/lua_parser.ml"
                 )) = _v in
                 let (_menhir_stack, _) = _menhir_stack in
                 let _v : 'tv_varargs = 
-# 328 "runtests/ocaml_lua/lua_parser.mly"
+# 329 "runtests/ocaml_lua/lua_parser.mly"
                                   ( 
                         some(_2)
                     )
-# 4747 "runtests/ocaml_lua/lua_parser.ml"
+# 4748 "runtests/ocaml_lua/lua_parser.ml"
                  in
                 (_menhir_goto_varargs _menhir_env _menhir_stack _v : 'freshtv226)) : 'freshtv228)
             | Lua_lexer.NAME _v ->
@@ -4755,7 +4756,7 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
                 let (_menhir_stack : ('freshtv229 * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4759 "runtests/ocaml_lua/lua_parser.ml"
+# 4760 "runtests/ocaml_lua/lua_parser.ml"
                 )) = Obj.magic _menhir_stack in
                 let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
                 (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv230)) : 'freshtv232)
@@ -4763,11 +4764,11 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
             let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : 'freshtv233) = Obj.magic _menhir_stack in
             let _v : 'tv_varargs = 
-# 331 "runtests/ocaml_lua/lua_parser.mly"
+# 332 "runtests/ocaml_lua/lua_parser.mly"
            ( 
                         none()
                     )
-# 4771 "runtests/ocaml_lua/lua_parser.ml"
+# 4772 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_varargs _menhir_env _menhir_stack _v : 'freshtv234)
         | _ ->
@@ -4782,7 +4783,7 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
         let (_menhir_stack : ('freshtv245 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4786 "runtests/ocaml_lua/lua_parser.ml"
+# 4787 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -4793,7 +4794,7 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
             let (_v : (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4797 "runtests/ocaml_lua/lua_parser.ml"
+# 4798 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_env = _menhir_discard _menhir_env in
@@ -4843,7 +4844,7 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
                   ( 
                                none()
                            )
-# 4847 "runtests/ocaml_lua/lua_parser.ml"
+# 4848 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_opt_assign_rhs _menhir_env _menhir_stack _v : 'freshtv242)
         | _ ->
@@ -4853,7 +4854,7 @@ and _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ : _menhir_env -> 'tt
             let (_menhir_stack : ('freshtv243 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4857 "runtests/ocaml_lua/lua_parser.ml"
+# 4858 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv244)) : 'freshtv246)
@@ -4875,7 +4876,7 @@ and _menhir_goto_prefixexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_pr
         let (_v : (
 # 20 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4879 "runtests/ocaml_lua/lua_parser.ml"
+# 4880 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -4886,12 +4887,12 @@ and _menhir_goto_prefixexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_pr
             let (_menhir_stack : ('freshtv197 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 20 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4890 "runtests/ocaml_lua/lua_parser.ml"
+# 4891 "runtests/ocaml_lua/lua_parser.ml"
             )) = Obj.magic _menhir_stack in
             let (_v : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4895 "runtests/ocaml_lua/lua_parser.ml"
+# 4896 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_env = _menhir_discard _menhir_env in
@@ -4914,7 +4915,7 @@ and _menhir_goto_prefixexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_pr
             let (_menhir_stack : ('freshtv199 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 20 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4918 "runtests/ocaml_lua/lua_parser.ml"
+# 4919 "runtests/ocaml_lua/lua_parser.ml"
             )) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv200)) : 'freshtv202)
@@ -4925,7 +4926,7 @@ and _menhir_goto_prefixexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_pr
         let (_v : (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4929 "runtests/ocaml_lua/lua_parser.ml"
+# 4930 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -4974,7 +4975,7 @@ and _menhir_goto_prefixexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_pr
         let (_v : (
 # 33 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 4978 "runtests/ocaml_lua/lua_parser.ml"
+# 4979 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -5015,7 +5016,7 @@ and _menhir_goto_prefixexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_pr
         let (_v : (
 # 15 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5019 "runtests/ocaml_lua/lua_parser.ml"
+# 5020 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -5026,36 +5027,36 @@ and _menhir_goto_prefixexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_pr
             let (_menhir_stack : ('freshtv209 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 15 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5030 "runtests/ocaml_lua/lua_parser.ml"
+# 5031 "runtests/ocaml_lua/lua_parser.ml"
             )) = Obj.magic _menhir_stack in
             let (_v : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5035 "runtests/ocaml_lua/lua_parser.ml"
+# 5036 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_env = _menhir_discard _menhir_env in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ('freshtv207 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 15 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5042 "runtests/ocaml_lua/lua_parser.ml"
+# 5043 "runtests/ocaml_lua/lua_parser.ml"
             )) = Obj.magic _menhir_stack in
             let ((_3 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5047 "runtests/ocaml_lua/lua_parser.ml"
+# 5048 "runtests/ocaml_lua/lua_parser.ml"
             )) : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5051 "runtests/ocaml_lua/lua_parser.ml"
+# 5052 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let ((_menhir_stack, _menhir_s, (_1 : 'tv_prefixexp)), _, _) = _menhir_stack in
             let _v : 'tv_prefixexp = 
-# 256 "runtests/ocaml_lua/lua_parser.mly"
+# 257 "runtests/ocaml_lua/lua_parser.mly"
                                     ( 
                           mk_Attr(_1, _3)
                       )
-# 5059 "runtests/ocaml_lua/lua_parser.ml"
+# 5060 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_prefixexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv208)) : 'freshtv210)
         | _ ->
@@ -5065,7 +5066,7 @@ and _menhir_goto_prefixexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_pr
             let (_menhir_stack : ('freshtv211 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 15 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5069 "runtests/ocaml_lua/lua_parser.ml"
+# 5070 "runtests/ocaml_lua/lua_parser.ml"
             )) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv212)) : 'freshtv214)
@@ -5076,11 +5077,11 @@ and _menhir_goto_prefixexp : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_pr
         let (_menhir_stack : 'freshtv215 * _menhir_state * 'tv_prefixexp) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, (_1 : 'tv_prefixexp)) = _menhir_stack in
         let _v : 'tv_exponent = 
-# 238 "runtests/ocaml_lua/lua_parser.mly"
+# 239 "runtests/ocaml_lua/lua_parser.mly"
                      ( 
                          _1
                      )
-# 5084 "runtests/ocaml_lua/lua_parser.ml"
+# 5085 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_exponent _menhir_env _menhir_stack _menhir_s _v : 'freshtv216)
     | _ ->
@@ -5160,7 +5161,7 @@ and _menhir_goto_nempty_list_o_stat_p_ : _menhir_env -> 'ttv_tail -> _menhir_sta
                                                                ( 
                                                        _1
                                                    )
-# 5164 "runtests/ocaml_lua/lua_parser.ml"
+# 5165 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_allow_empty_o_nempty_list_o_stat_p__p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv194)
     | _ ->
@@ -5183,7 +5184,7 @@ and _menhir_goto_allow_empty_o_nempty_list_o_stat_p__p_ : _menhir_env -> 'ttv_ta
                                                         ( 
                                _1
                            )
-# 5187 "runtests/ocaml_lua/lua_parser.ml"
+# 5188 "runtests/ocaml_lua/lua_parser.ml"
      in
     let (_menhir_env : _menhir_env) = _menhir_env in
     let (_menhir_stack : 'freshtv187) = _menhir_stack in
@@ -5201,7 +5202,7 @@ and _menhir_goto_allow_empty_o_nempty_list_o_stat_p__p_ : _menhir_env -> 'ttv_ta
         let (_v : (
 # 51 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5205 "runtests/ocaml_lua/lua_parser.ml"
+# 5206 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -5251,7 +5252,7 @@ and _menhir_goto_allow_empty_o_nempty_list_o_stat_p__p_ : _menhir_env -> 'ttv_ta
                     ( 
                                  none()
                              )
-# 5255 "runtests/ocaml_lua/lua_parser.ml"
+# 5256 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_opt_o_retstat_p_ _menhir_env _menhir_stack _v : 'freshtv182)
     | _ ->
@@ -5265,27 +5266,27 @@ and _menhir_goto_allow_empty_o_nempty_list_o_stat_p__p_ : _menhir_env -> 'ttv_ta
 and _menhir_reduce86 : _menhir_env -> 'ttv_tail * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5269 "runtests/ocaml_lua/lua_parser.ml"
+# 5270 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (_menhir_stack, _menhir_s, (_1 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5275 "runtests/ocaml_lua/lua_parser.ml"
+# 5276 "runtests/ocaml_lua/lua_parser.ml"
     ))) = _menhir_stack in
     let _v : 'tv_prefixexp = 
-# 241 "runtests/ocaml_lua/lua_parser.mly"
+# 242 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                           mk_Var(_1)
                       )
-# 5282 "runtests/ocaml_lua/lua_parser.ml"
+# 5283 "runtests/ocaml_lua/lua_parser.ml"
      in
     _menhir_goto_prefixexp _menhir_env _menhir_stack _menhir_s _v
 
 and _menhir_run8 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5289 "runtests/ocaml_lua/lua_parser.ml"
+# 5290 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -5297,12 +5298,12 @@ and _menhir_run8 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack : 'freshtv175 * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5301 "runtests/ocaml_lua/lua_parser.ml"
+# 5302 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_v : (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5306 "runtests/ocaml_lua/lua_parser.ml"
+# 5307 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -5351,7 +5352,7 @@ and _menhir_run8 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack : 'freshtv177 * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5355 "runtests/ocaml_lua/lua_parser.ml"
+# 5356 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv178)
@@ -5369,11 +5370,11 @@ and _menhir_goto_tableconstructor : _menhir_env -> 'ttv_tail -> _menhir_state ->
         let (_menhir_s : _menhir_state) = _menhir_s in
         let ((_1 : 'tv_tableconstructor) : 'tv_tableconstructor) = _v in
         let _v : 'tv_atom = 
-# 286 "runtests/ocaml_lua/lua_parser.mly"
+# 287 "runtests/ocaml_lua/lua_parser.mly"
                         ( 
                      mk_TableExpr(_1)
                  )
-# 5377 "runtests/ocaml_lua/lua_parser.ml"
+# 5378 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_atom _menhir_env _menhir_stack _menhir_s _v : 'freshtv168)) : 'freshtv170)
     | MenhirState32 | MenhirState79 ->
@@ -5386,11 +5387,11 @@ and _menhir_goto_tableconstructor : _menhir_env -> 'ttv_tail -> _menhir_state ->
         let (_menhir_s : _menhir_state) = _menhir_s in
         let ((_1 : 'tv_tableconstructor) : 'tv_tableconstructor) = _v in
         let _v : 'tv_args = 
-# 307 "runtests/ocaml_lua/lua_parser.mly"
+# 308 "runtests/ocaml_lua/lua_parser.mly"
                         ( 
                      mk_TableArgs(_1)
                  )
-# 5394 "runtests/ocaml_lua/lua_parser.ml"
+# 5395 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_args _menhir_env _menhir_stack _menhir_s _v : 'freshtv172)) : 'freshtv174)
     | _ ->
@@ -5399,7 +5400,7 @@ and _menhir_goto_tableconstructor : _menhir_env -> 'ttv_tail -> _menhir_state ->
 and _menhir_run181 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5403 "runtests/ocaml_lua/lua_parser.ml"
+# 5404 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -5444,7 +5445,7 @@ and _menhir_run181 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run19 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5448 "runtests/ocaml_lua/lua_parser.ml"
+# 5449 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -5458,7 +5459,7 @@ and _menhir_goto_opt_o_funcname_p_ : _menhir_env -> 'ttv_tail -> _menhir_state -
     let (_menhir_stack : ('freshtv165 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5462 "runtests/ocaml_lua/lua_parser.ml"
+# 5463 "runtests/ocaml_lua/lua_parser.ml"
     )) * _menhir_state * 'tv_opt_o_funcname_p_) = Obj.magic _menhir_stack in
     assert (not _menhir_env._menhir_error);
     let _tok = _menhir_env._menhir_token in
@@ -5468,12 +5469,12 @@ and _menhir_goto_opt_o_funcname_p_ : _menhir_env -> 'ttv_tail -> _menhir_state -
         let (_menhir_stack : ('freshtv161 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5472 "runtests/ocaml_lua/lua_parser.ml"
+# 5473 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_funcname_p_) = Obj.magic _menhir_stack in
         let (_v : (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5477 "runtests/ocaml_lua/lua_parser.ml"
+# 5478 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -5496,7 +5497,7 @@ and _menhir_goto_opt_o_funcname_p_ : _menhir_env -> 'ttv_tail -> _menhir_state -
         let (_menhir_stack : ('freshtv163 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5500 "runtests/ocaml_lua/lua_parser.ml"
+# 5501 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_funcname_p_) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv164)) : 'freshtv166)
@@ -5504,7 +5505,7 @@ and _menhir_goto_opt_o_funcname_p_ : _menhir_env -> 'ttv_tail -> _menhir_state -
 and _menhir_run16 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5508 "runtests/ocaml_lua/lua_parser.ml"
+# 5509 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -5514,38 +5515,38 @@ and _menhir_run16 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5518 "runtests/ocaml_lua/lua_parser.ml"
+# 5519 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5522 "runtests/ocaml_lua/lua_parser.ml"
+# 5523 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_funcname = 
-# 370 "runtests/ocaml_lua/lua_parser.mly"
+# 371 "runtests/ocaml_lua/lua_parser.mly"
                 ( 
                          mk_VarName(_1)
                      )
-# 5529 "runtests/ocaml_lua/lua_parser.ml"
+# 5530 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_funcname _menhir_env _menhir_stack _menhir_s _v : 'freshtv160)
 
 and _menhir_reduce64 : _menhir_env -> 'ttv_tail * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5536 "runtests/ocaml_lua/lua_parser.ml"
+# 5537 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (_menhir_stack, _menhir_s, (_1 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5542 "runtests/ocaml_lua/lua_parser.ml"
+# 5543 "runtests/ocaml_lua/lua_parser.ml"
     ))) = _menhir_stack in
     let _v : 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_ = 
-# 334 "runtests/ocaml_lua/lua_parser.mly"
+# 335 "runtests/ocaml_lua/lua_parser.mly"
                                                   ( 
                                                            [_1]
                                                        )
-# 5549 "runtests/ocaml_lua/lua_parser.ml"
+# 5550 "runtests/ocaml_lua/lua_parser.ml"
      in
     _menhir_goto_nempty_seplist_o__i__s__i__s__i_name_k__p_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -5560,11 +5561,11 @@ and _menhir_goto_atom : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_atom ->
     let (_menhir_s : _menhir_state) = _menhir_s in
     let ((_1 : 'tv_atom) : 'tv_atom) = _v in
     let _v : 'tv_prefixexp = 
-# 259 "runtests/ocaml_lua/lua_parser.mly"
+# 260 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                           _1
                       )
-# 5568 "runtests/ocaml_lua/lua_parser.ml"
+# 5569 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_prefixexp _menhir_env _menhir_stack _menhir_s _v : 'freshtv156)) : 'freshtv158)
 
@@ -5585,7 +5586,7 @@ and _menhir_goto_stat : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_stat ->
                              ( 
                                       [_1]
                                   )
-# 5589 "runtests/ocaml_lua/lua_parser.ml"
+# 5590 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_nempty_list_o_stat_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv148)) : 'freshtv150)
     | MenhirState111 ->
@@ -5603,7 +5604,7 @@ and _menhir_goto_stat : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_stat ->
                                                    ( 
                                       appendList(_1, _2)
                                   )
-# 5607 "runtests/ocaml_lua/lua_parser.ml"
+# 5608 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_nempty_list_o_stat_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv152)) : 'freshtv154)
     | _ ->
@@ -5622,15 +5623,15 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ((('freshtv53 * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5626 "runtests/ocaml_lua/lua_parser.ml"
+# 5627 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 32 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5630 "runtests/ocaml_lua/lua_parser.ml"
+# 5631 "runtests/ocaml_lua/lua_parser.ml"
         )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5634 "runtests/ocaml_lua/lua_parser.ml"
+# 5635 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (((_menhir_stack, _menhir_s, _), _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv54)
@@ -5639,7 +5640,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv55 * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5643 "runtests/ocaml_lua/lua_parser.ml"
+# 5644 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv56)
@@ -5648,11 +5649,11 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (('freshtv57 * _menhir_state * (
 # 50 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5652 "runtests/ocaml_lua/lua_parser.ml"
+# 5653 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) * (
 # 54 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5656 "runtests/ocaml_lua/lua_parser.ml"
+# 5657 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv58)
@@ -5661,7 +5662,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv59 * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5665 "runtests/ocaml_lua/lua_parser.ml"
+# 5666 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         (raise _eRR : 'freshtv60)
     | MenhirState148 ->
@@ -5669,7 +5670,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv61 * (
 # 37 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5673 "runtests/ocaml_lua/lua_parser.ml"
+# 5674 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         (raise _eRR : 'freshtv62)
     | MenhirState145 ->
@@ -5682,11 +5683,11 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (('freshtv65 * _menhir_state * (
 # 38 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5686 "runtests/ocaml_lua/lua_parser.ml"
+# 5687 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5690 "runtests/ocaml_lua/lua_parser.ml"
+# 5691 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv66)
@@ -5695,7 +5696,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv67 * _menhir_state * (
 # 38 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5699 "runtests/ocaml_lua/lua_parser.ml"
+# 5700 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv68)
@@ -5704,11 +5705,11 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ((('freshtv69 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5708 "runtests/ocaml_lua/lua_parser.ml"
+# 5709 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5712 "runtests/ocaml_lua/lua_parser.ml"
+# 5713 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_block) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv70)
@@ -5717,15 +5718,15 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (((('freshtv71 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5721 "runtests/ocaml_lua/lua_parser.ml"
+# 5722 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) * (
 # 45 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5725 "runtests/ocaml_lua/lua_parser.ml"
+# 5726 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s_exp_p_) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5729 "runtests/ocaml_lua/lua_parser.ml"
+# 5730 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv72)
@@ -5734,11 +5735,11 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (('freshtv73 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5738 "runtests/ocaml_lua/lua_parser.ml"
+# 5739 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s__i_name_k__p_) * (
 # 45 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5742 "runtests/ocaml_lua/lua_parser.ml"
+# 5743 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv74)
@@ -5747,7 +5748,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv75 * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5751 "runtests/ocaml_lua/lua_parser.ml"
+# 5752 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         (raise _eRR : 'freshtv76)
     | MenhirState127 ->
@@ -5755,7 +5756,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ('freshtv77 * _menhir_state * 'tv_exp) * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5759 "runtests/ocaml_lua/lua_parser.ml"
+# 5760 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv78)
@@ -5764,7 +5765,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv79 * (
 # 51 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5768 "runtests/ocaml_lua/lua_parser.ml"
+# 5769 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         (raise _eRR : 'freshtv80)
     | MenhirState111 ->
@@ -5777,7 +5778,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ('freshtv83 * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s_exp_p_) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5781 "runtests/ocaml_lua/lua_parser.ml"
+# 5782 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv84)
@@ -5786,7 +5787,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv85 * _menhir_state * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5790 "runtests/ocaml_lua/lua_parser.ml"
+# 5791 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv86)
@@ -5795,19 +5796,19 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (((('freshtv87 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5799 "runtests/ocaml_lua/lua_parser.ml"
+# 5800 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5803 "runtests/ocaml_lua/lua_parser.ml"
+# 5804 "runtests/ocaml_lua/lua_parser.ml"
         )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5807 "runtests/ocaml_lua/lua_parser.ml"
+# 5808 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_range) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5811 "runtests/ocaml_lua/lua_parser.ml"
+# 5812 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv88)
@@ -5816,15 +5817,15 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (('freshtv89 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5820 "runtests/ocaml_lua/lua_parser.ml"
+# 5821 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5824 "runtests/ocaml_lua/lua_parser.ml"
+# 5825 "runtests/ocaml_lua/lua_parser.ml"
         )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5828 "runtests/ocaml_lua/lua_parser.ml"
+# 5829 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv90)
@@ -5833,7 +5834,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv91 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5837 "runtests/ocaml_lua/lua_parser.ml"
+# 5838 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv92)
@@ -5842,11 +5843,11 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (('freshtv93 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5846 "runtests/ocaml_lua/lua_parser.ml"
+# 5847 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 52 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5850 "runtests/ocaml_lua/lua_parser.ml"
+# 5851 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv94)
@@ -5855,7 +5856,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv95 * _menhir_state * (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5859 "runtests/ocaml_lua/lua_parser.ml"
+# 5860 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv96)
@@ -5864,19 +5865,19 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ((((('freshtv97 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5868 "runtests/ocaml_lua/lua_parser.ml"
+# 5869 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5872 "runtests/ocaml_lua/lua_parser.ml"
+# 5873 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_funcname) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5876 "runtests/ocaml_lua/lua_parser.ml"
+# 5877 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_parlist_p_) * (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5880 "runtests/ocaml_lua/lua_parser.ml"
+# 5881 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv98)
@@ -5885,15 +5886,15 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ((('freshtv99 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5889 "runtests/ocaml_lua/lua_parser.ml"
+# 5890 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5893 "runtests/ocaml_lua/lua_parser.ml"
+# 5894 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_funcname) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5897 "runtests/ocaml_lua/lua_parser.ml"
+# 5898 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv100)
@@ -5902,11 +5903,11 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ('freshtv101 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5906 "runtests/ocaml_lua/lua_parser.ml"
+# 5907 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5910 "runtests/ocaml_lua/lua_parser.ml"
+# 5911 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv102)
@@ -5915,7 +5916,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv103 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5919 "runtests/ocaml_lua/lua_parser.ml"
+# 5920 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv104)
@@ -5924,7 +5925,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv105 * _menhir_state * (
 # 50 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5928 "runtests/ocaml_lua/lua_parser.ml"
+# 5929 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv106)
@@ -5933,11 +5934,11 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (('freshtv107 * _menhir_state * (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5937 "runtests/ocaml_lua/lua_parser.ml"
+# 5938 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_exp) * (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5941 "runtests/ocaml_lua/lua_parser.ml"
+# 5942 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv108)
@@ -5946,11 +5947,11 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (('freshtv109 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 20 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5950 "runtests/ocaml_lua/lua_parser.ml"
+# 5951 "runtests/ocaml_lua/lua_parser.ml"
         )) * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5954 "runtests/ocaml_lua/lua_parser.ml"
+# 5955 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv110)
@@ -5959,7 +5960,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ('freshtv111 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 31 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5963 "runtests/ocaml_lua/lua_parser.ml"
+# 5964 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv112)
@@ -5973,7 +5974,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ('freshtv115 * _menhir_state * 'tv_nempty_seplist_o__i__s__i__s_exp_p_) * (
 # 13 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5977 "runtests/ocaml_lua/lua_parser.ml"
+# 5978 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv116)
@@ -5982,7 +5983,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv117 * _menhir_state * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5986 "runtests/ocaml_lua/lua_parser.ml"
+# 5987 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv118)
@@ -5991,7 +5992,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ('freshtv119 * _menhir_state * 'tv_prefixexp) * _menhir_state * (
 # 33 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 5995 "runtests/ocaml_lua/lua_parser.ml"
+# 5996 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv120)
@@ -6005,7 +6006,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv123 * _menhir_state * (
 # 48 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6009 "runtests/ocaml_lua/lua_parser.ml"
+# 6010 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv124)
@@ -6014,7 +6015,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv125 * _menhir_state * (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6018 "runtests/ocaml_lua/lua_parser.ml"
+# 6019 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv126)
@@ -6023,15 +6024,15 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (((('freshtv127 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6027 "runtests/ocaml_lua/lua_parser.ml"
+# 6028 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_funcname_p_) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6031 "runtests/ocaml_lua/lua_parser.ml"
+# 6032 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_parlist_p_) * (
 # 10 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6035 "runtests/ocaml_lua/lua_parser.ml"
+# 6036 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv128)
@@ -6040,11 +6041,11 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : (('freshtv129 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6044 "runtests/ocaml_lua/lua_parser.ml"
+# 6045 "runtests/ocaml_lua/lua_parser.ml"
         )) * _menhir_state * 'tv_opt_o_funcname_p_) * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6048 "runtests/ocaml_lua/lua_parser.ml"
+# 6049 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv130)
@@ -6053,7 +6054,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv131 * _menhir_state * (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6057 "runtests/ocaml_lua/lua_parser.ml"
+# 6058 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv132)
@@ -6062,7 +6063,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv133 * _menhir_state * (
 # 6 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6066 "runtests/ocaml_lua/lua_parser.ml"
+# 6067 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv134)
@@ -6071,7 +6072,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv135 * _menhir_state * (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6075 "runtests/ocaml_lua/lua_parser.ml"
+# 6076 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv136)
@@ -6080,7 +6081,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv137 * _menhir_state * (
 # 14 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6084 "runtests/ocaml_lua/lua_parser.ml"
+# 6085 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv138)
@@ -6089,11 +6090,11 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : ('freshtv139 * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6093 "runtests/ocaml_lua/lua_parser.ml"
+# 6094 "runtests/ocaml_lua/lua_parser.ml"
         )) * (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6097 "runtests/ocaml_lua/lua_parser.ml"
+# 6098 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv140)
@@ -6102,7 +6103,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv141 * _menhir_state * (
 # 56 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6106 "runtests/ocaml_lua/lua_parser.ml"
+# 6107 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv142)
@@ -6111,7 +6112,7 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let (_menhir_stack : 'freshtv143 * _menhir_state * (
 # 59 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6115 "runtests/ocaml_lua/lua_parser.ml"
+# 6116 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv144)
@@ -6127,14 +6128,14 @@ and _menhir_reduce3 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
                                           ( 
                                                        []
                                                    )
-# 6131 "runtests/ocaml_lua/lua_parser.ml"
+# 6132 "runtests/ocaml_lua/lua_parser.ml"
      in
     _menhir_goto_allow_empty_o_nempty_list_o_stat_p__p_ _menhir_env _menhir_stack _menhir_s _v
 
 and _menhir_run1 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 62 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6138 "runtests/ocaml_lua/lua_parser.ml"
+# 6139 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -6144,25 +6145,25 @@ and _menhir_run1 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 62 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6148 "runtests/ocaml_lua/lua_parser.ml"
+# 6149 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 62 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6152 "runtests/ocaml_lua/lua_parser.ml"
+# 6153 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_atom = 
-# 274 "runtests/ocaml_lua/lua_parser.mly"
+# 275 "runtests/ocaml_lua/lua_parser.mly"
                ( 
                      mk_String(_1)
                  )
-# 6159 "runtests/ocaml_lua/lua_parser.ml"
+# 6160 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_atom _menhir_env _menhir_stack _menhir_s _v : 'freshtv50)
 
 and _menhir_run2 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 63 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6166 "runtests/ocaml_lua/lua_parser.ml"
+# 6167 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -6172,25 +6173,25 @@ and _menhir_run2 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 63 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6176 "runtests/ocaml_lua/lua_parser.ml"
+# 6177 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 63 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6180 "runtests/ocaml_lua/lua_parser.ml"
+# 6181 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_atom = 
-# 271 "runtests/ocaml_lua/lua_parser.mly"
+# 272 "runtests/ocaml_lua/lua_parser.mly"
                ( 
                      mk_Num(_1)
                  )
-# 6187 "runtests/ocaml_lua/lua_parser.ml"
+# 6188 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_atom _menhir_env _menhir_stack _menhir_s _v : 'freshtv48)
 
 and _menhir_run3 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 61 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6194 "runtests/ocaml_lua/lua_parser.ml"
+# 6195 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -6200,25 +6201,25 @@ and _menhir_run3 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 61 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6204 "runtests/ocaml_lua/lua_parser.ml"
+# 6205 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 61 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6208 "runtests/ocaml_lua/lua_parser.ml"
+# 6209 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_atom = 
-# 277 "runtests/ocaml_lua/lua_parser.mly"
+# 278 "runtests/ocaml_lua/lua_parser.mly"
                   ( 
                      mk_String(_1)
                  )
-# 6215 "runtests/ocaml_lua/lua_parser.ml"
+# 6216 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_atom _menhir_env _menhir_stack _menhir_s _v : 'freshtv46)
 
 and _menhir_run4 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6222 "runtests/ocaml_lua/lua_parser.ml"
+# 6223 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6228,7 +6229,7 @@ and _menhir_run4 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run5 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 59 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6232 "runtests/ocaml_lua/lua_parser.ml"
+# 6233 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6265,7 +6266,7 @@ and _menhir_run5 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run6 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 17 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6269 "runtests/ocaml_lua/lua_parser.ml"
+# 6270 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -6275,25 +6276,25 @@ and _menhir_run6 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 17 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6279 "runtests/ocaml_lua/lua_parser.ml"
+# 6280 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 17 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6283 "runtests/ocaml_lua/lua_parser.ml"
+# 6284 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_atom = 
-# 280 "runtests/ocaml_lua/lua_parser.mly"
+# 281 "runtests/ocaml_lua/lua_parser.mly"
                       ( 
                      mk_Ellipse(_1)
                  )
-# 6290 "runtests/ocaml_lua/lua_parser.ml"
+# 6291 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_atom _menhir_env _menhir_stack _menhir_s _v : 'freshtv44)
 
 and _menhir_run7 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 56 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6297 "runtests/ocaml_lua/lua_parser.ml"
+# 6298 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6327,38 +6328,38 @@ and _menhir_run7 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack : 'freshtv41 * _menhir_state * (
 # 56 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6331 "runtests/ocaml_lua/lua_parser.ml"
+# 6332 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = MenhirState7 in
         let (_v : (
 # 58 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6337 "runtests/ocaml_lua/lua_parser.ml"
+# 6338 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_env = _menhir_discard _menhir_env in
         ((let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : 'freshtv39 * _menhir_state * (
 # 56 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6344 "runtests/ocaml_lua/lua_parser.ml"
+# 6345 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_ : _menhir_state) = _menhir_s in
         let (_ : (
 # 58 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6350 "runtests/ocaml_lua/lua_parser.ml"
+# 6351 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let (_menhir_stack, _menhir_s, (_1 : (
 # 56 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6355 "runtests/ocaml_lua/lua_parser.ml"
+# 6356 "runtests/ocaml_lua/lua_parser.ml"
         ))) = _menhir_stack in
         let _v : 'tv_tableconstructor = 
-# 361 "runtests/ocaml_lua/lua_parser.mly"
+# 362 "runtests/ocaml_lua/lua_parser.mly"
                                        ( 
                                  mk_TableConstructor(_1, [])
                              )
-# 6362 "runtests/ocaml_lua/lua_parser.ml"
+# 6363 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_tableconstructor _menhir_env _menhir_stack _menhir_s _v : 'freshtv40)) : 'freshtv42)
     | Lua_lexer.I__W__I_ _v ->
@@ -6379,7 +6380,7 @@ and _menhir_run7 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run10 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 14 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6383 "runtests/ocaml_lua/lua_parser.ml"
+# 6384 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6416,7 +6417,7 @@ and _menhir_run10 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run11 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 9 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6420 "runtests/ocaml_lua/lua_parser.ml"
+# 6421 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6461,7 +6462,7 @@ and _menhir_run11 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run12 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 6 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6465 "runtests/ocaml_lua/lua_parser.ml"
+# 6466 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6498,7 +6499,7 @@ and _menhir_run12 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run24 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 22 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6502 "runtests/ocaml_lua/lua_parser.ml"
+# 6503 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -6508,25 +6509,25 @@ and _menhir_run24 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 22 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6512 "runtests/ocaml_lua/lua_parser.ml"
+# 6513 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 22 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6516 "runtests/ocaml_lua/lua_parser.ml"
+# 6517 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_stat = 
 # 142 "runtests/ocaml_lua/lua_parser.mly"
                 ( 
                      mk_EmptyStmt(_1)
                  )
-# 6523 "runtests/ocaml_lua/lua_parser.ml"
+# 6524 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv38)
 
 and _menhir_run25 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 21 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6530 "runtests/ocaml_lua/lua_parser.ml"
+# 6531 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6538,12 +6539,12 @@ and _menhir_run25 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack : 'freshtv33 * _menhir_state * (
 # 21 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6542 "runtests/ocaml_lua/lua_parser.ml"
+# 6543 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_v : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6547 "runtests/ocaml_lua/lua_parser.ml"
+# 6548 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -6554,44 +6555,44 @@ and _menhir_run25 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
             let (_menhir_stack : ('freshtv29 * _menhir_state * (
 # 21 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6558 "runtests/ocaml_lua/lua_parser.ml"
+# 6559 "runtests/ocaml_lua/lua_parser.ml"
             )) * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6562 "runtests/ocaml_lua/lua_parser.ml"
+# 6563 "runtests/ocaml_lua/lua_parser.ml"
             )) = Obj.magic _menhir_stack in
             let (_v : (
 # 21 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6567 "runtests/ocaml_lua/lua_parser.ml"
+# 6568 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_env = _menhir_discard _menhir_env in
             ((let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ('freshtv27 * _menhir_state * (
 # 21 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6574 "runtests/ocaml_lua/lua_parser.ml"
+# 6575 "runtests/ocaml_lua/lua_parser.ml"
             )) * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6578 "runtests/ocaml_lua/lua_parser.ml"
+# 6579 "runtests/ocaml_lua/lua_parser.ml"
             )) = Obj.magic _menhir_stack in
             let (_ : (
 # 21 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6583 "runtests/ocaml_lua/lua_parser.ml"
+# 6584 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let ((_menhir_stack, _menhir_s, _), (_2 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6588 "runtests/ocaml_lua/lua_parser.ml"
+# 6589 "runtests/ocaml_lua/lua_parser.ml"
             ))) = _menhir_stack in
             let _v : 'tv_stat = 
 # 151 "runtests/ocaml_lua/lua_parser.mly"
                                     ( 
                      mk_LabelStmt(_2)
                  )
-# 6595 "runtests/ocaml_lua/lua_parser.ml"
+# 6596 "runtests/ocaml_lua/lua_parser.ml"
              in
             (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv28)) : 'freshtv30)
         | _ ->
@@ -6601,11 +6602,11 @@ and _menhir_run25 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
             let (_menhir_stack : ('freshtv31 * _menhir_state * (
 # 21 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6605 "runtests/ocaml_lua/lua_parser.ml"
+# 6606 "runtests/ocaml_lua/lua_parser.ml"
             )) * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6609 "runtests/ocaml_lua/lua_parser.ml"
+# 6610 "runtests/ocaml_lua/lua_parser.ml"
             )) = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv32)) : 'freshtv34)
@@ -6616,7 +6617,7 @@ and _menhir_run25 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack : 'freshtv35 * _menhir_state * (
 # 21 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6620 "runtests/ocaml_lua/lua_parser.ml"
+# 6621 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv36)
@@ -6624,7 +6625,7 @@ and _menhir_run25 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run28 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 55 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6628 "runtests/ocaml_lua/lua_parser.ml"
+# 6629 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6669,7 +6670,7 @@ and _menhir_run28 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run13 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 53 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6673 "runtests/ocaml_lua/lua_parser.ml"
+# 6674 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -6679,25 +6680,25 @@ and _menhir_run13 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 53 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6683 "runtests/ocaml_lua/lua_parser.ml"
+# 6684 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 53 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6687 "runtests/ocaml_lua/lua_parser.ml"
+# 6688 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_atom = 
-# 268 "runtests/ocaml_lua/lua_parser.mly"
+# 269 "runtests/ocaml_lua/lua_parser.mly"
                  ( 
                      mk_Bool(_1, true)
                  )
-# 6694 "runtests/ocaml_lua/lua_parser.ml"
+# 6695 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_atom _menhir_env _menhir_stack _menhir_s _v : 'freshtv26)
 
 and _menhir_run86 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 50 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6701 "runtests/ocaml_lua/lua_parser.ml"
+# 6702 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6764,7 +6765,7 @@ and _menhir_run86 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run29 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 48 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6768 "runtests/ocaml_lua/lua_parser.ml"
+# 6769 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6801,7 +6802,7 @@ and _menhir_run29 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run14 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 47 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6805 "runtests/ocaml_lua/lua_parser.ml"
+# 6806 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -6811,25 +6812,25 @@ and _menhir_run14 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 47 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6815 "runtests/ocaml_lua/lua_parser.ml"
+# 6816 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 47 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6819 "runtests/ocaml_lua/lua_parser.ml"
+# 6820 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_atom = 
-# 262 "runtests/ocaml_lua/lua_parser.mly"
+# 263 "runtests/ocaml_lua/lua_parser.mly"
                 ( 
                      mk_Nil(_1)
                  )
-# 6826 "runtests/ocaml_lua/lua_parser.ml"
+# 6827 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_atom _menhir_env _menhir_stack _menhir_s _v : 'freshtv24)
 
 and _menhir_run87 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6833 "runtests/ocaml_lua/lua_parser.ml"
+# 6834 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6841,13 +6842,13 @@ and _menhir_run87 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack : 'freshtv21 * _menhir_state * (
 # 46 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6845 "runtests/ocaml_lua/lua_parser.ml"
+# 6846 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = MenhirState87 in
         let (_v : (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6851 "runtests/ocaml_lua/lua_parser.ml"
+# 6852 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -6869,7 +6870,7 @@ and _menhir_run87 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run95 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 44 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6873 "runtests/ocaml_lua/lua_parser.ml"
+# 6874 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6914,7 +6915,7 @@ and _menhir_run95 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run98 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 43 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6918 "runtests/ocaml_lua/lua_parser.ml"
+# 6919 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6926,40 +6927,40 @@ and _menhir_run98 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack : 'freshtv17 * _menhir_state * (
 # 43 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6930 "runtests/ocaml_lua/lua_parser.ml"
+# 6931 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_v : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6935 "runtests/ocaml_lua/lua_parser.ml"
+# 6936 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_env = _menhir_discard _menhir_env in
         ((let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : 'freshtv15 * _menhir_state * (
 # 43 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6942 "runtests/ocaml_lua/lua_parser.ml"
+# 6943 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let ((_2 : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6947 "runtests/ocaml_lua/lua_parser.ml"
+# 6948 "runtests/ocaml_lua/lua_parser.ml"
         )) : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6951 "runtests/ocaml_lua/lua_parser.ml"
+# 6952 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let (_menhir_stack, _menhir_s, (_1 : (
 # 43 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6956 "runtests/ocaml_lua/lua_parser.ml"
+# 6957 "runtests/ocaml_lua/lua_parser.ml"
         ))) = _menhir_stack in
         let _v : 'tv_stat = 
 # 157 "runtests/ocaml_lua/lua_parser.mly"
                       ( 
                      mk_GotoStmt(_1, _2)
                  )
-# 6963 "runtests/ocaml_lua/lua_parser.ml"
+# 6964 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv16)) : 'freshtv18)
     | _ ->
@@ -6969,7 +6970,7 @@ and _menhir_run98 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack : 'freshtv19 * _menhir_state * (
 # 43 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6973 "runtests/ocaml_lua/lua_parser.ml"
+# 6974 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv20)
@@ -6977,7 +6978,7 @@ and _menhir_run98 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run15 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 42 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 6981 "runtests/ocaml_lua/lua_parser.ml"
+# 6982 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -6991,11 +6992,11 @@ and _menhir_run15 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack : 'freshtv13) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = MenhirState15 in
         let _v : 'tv_opt_o_funcname_p_ = 
-# 316 "runtests/ocaml_lua/lua_parser.mly"
+# 317 "runtests/ocaml_lua/lua_parser.mly"
                      ( 
                                   none()
                               )
-# 6999 "runtests/ocaml_lua/lua_parser.ml"
+# 7000 "runtests/ocaml_lua/lua_parser.ml"
          in
         (_menhir_goto_opt_o_funcname_p_ _menhir_env _menhir_stack _menhir_s _v : 'freshtv14)
     | _ ->
@@ -7006,7 +7007,7 @@ and _menhir_run15 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run100 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7010 "runtests/ocaml_lua/lua_parser.ml"
+# 7011 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -7018,13 +7019,13 @@ and _menhir_run100 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack : 'freshtv11 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7022 "runtests/ocaml_lua/lua_parser.ml"
+# 7023 "runtests/ocaml_lua/lua_parser.ml"
         )) = Obj.magic _menhir_stack in
         let (_menhir_s : _menhir_state) = MenhirState100 in
         let (_v : (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7028 "runtests/ocaml_lua/lua_parser.ml"
+# 7029 "runtests/ocaml_lua/lua_parser.ml"
         )) = _v in
         let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
         let _menhir_env = _menhir_discard _menhir_env in
@@ -7035,16 +7036,16 @@ and _menhir_run100 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
             let (_menhir_stack : ('freshtv7 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7039 "runtests/ocaml_lua/lua_parser.ml"
+# 7040 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7043 "runtests/ocaml_lua/lua_parser.ml"
+# 7044 "runtests/ocaml_lua/lua_parser.ml"
             )) = Obj.magic _menhir_stack in
             let (_v : (
 # 26 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7048 "runtests/ocaml_lua/lua_parser.ml"
+# 7049 "runtests/ocaml_lua/lua_parser.ml"
             )) = _v in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_env = _menhir_discard _menhir_env in
@@ -7093,11 +7094,11 @@ and _menhir_run100 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
             let (_menhir_stack : ('freshtv9 * _menhir_state * (
 # 41 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7097 "runtests/ocaml_lua/lua_parser.ml"
+# 7098 "runtests/ocaml_lua/lua_parser.ml"
             )) * _menhir_state * (
 # 64 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7101 "runtests/ocaml_lua/lua_parser.ml"
+# 7102 "runtests/ocaml_lua/lua_parser.ml"
             )) = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _) = _menhir_stack in
             (_menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s : 'freshtv10)) : 'freshtv12)
@@ -7109,7 +7110,7 @@ and _menhir_run100 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run30 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 40 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7113 "runtests/ocaml_lua/lua_parser.ml"
+# 7114 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -7119,25 +7120,25 @@ and _menhir_run30 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 40 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7123 "runtests/ocaml_lua/lua_parser.ml"
+# 7124 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 40 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7127 "runtests/ocaml_lua/lua_parser.ml"
+# 7128 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_atom = 
-# 265 "runtests/ocaml_lua/lua_parser.mly"
+# 266 "runtests/ocaml_lua/lua_parser.mly"
                   ( 
                      mk_Bool(_1, false)
                  )
-# 7134 "runtests/ocaml_lua/lua_parser.ml"
+# 7135 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_atom _menhir_env _menhir_stack _menhir_s _v : 'freshtv6)
 
 and _menhir_run105 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 36 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7141 "runtests/ocaml_lua/lua_parser.ml"
+# 7142 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -7204,7 +7205,7 @@ and _menhir_run105 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 and _menhir_run106 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 35 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7208 "runtests/ocaml_lua/lua_parser.ml"
+# 7209 "runtests/ocaml_lua/lua_parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -7214,18 +7215,18 @@ and _menhir_run106 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let ((_1 : (
 # 35 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7218 "runtests/ocaml_lua/lua_parser.ml"
+# 7219 "runtests/ocaml_lua/lua_parser.ml"
     )) : (
 # 35 "runtests/ocaml_lua/lua_parser.mly"
       (tbnf_token)
-# 7222 "runtests/ocaml_lua/lua_parser.ml"
+# 7223 "runtests/ocaml_lua/lua_parser.ml"
     )) = _v in
     let _v : 'tv_stat = 
 # 154 "runtests/ocaml_lua/lua_parser.mly"
                   ( 
                      mk_BreakStmt(_1)
                  )
-# 7229 "runtests/ocaml_lua/lua_parser.ml"
+# 7230 "runtests/ocaml_lua/lua_parser.ml"
      in
     (_menhir_goto_stat _menhir_env _menhir_stack _menhir_s _v : 'freshtv4)
 
@@ -7244,7 +7245,7 @@ and _menhir_discard : _menhir_env -> _menhir_env =
 and start : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (
 # 66 "runtests/ocaml_lua/lua_parser.mly"
        (Lua_construct.block)
-# 7248 "runtests/ocaml_lua/lua_parser.ml"
+# 7249 "runtests/ocaml_lua/lua_parser.ml"
 ) =
   fun lexer lexbuf ->
     let _menhir_env = {

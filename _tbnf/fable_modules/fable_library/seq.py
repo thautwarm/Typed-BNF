@@ -816,33 +816,33 @@ def item(index: int, xs: Iterable[T]) -> T:
 
 
 def iterate(action: Callable[[a_], None], xs: Iterable[a_]) -> None:
-    def arrow_49(unit_var0: None, x: Any=None, action: Callable[[a_], None]=action, xs: Iterable[a_]=xs) -> None:
+    def arrow_51(unit_var0: None, x: Any=None, action: Callable[[a_], None]=action, xs: Iterable[a_]=xs) -> None:
         action(x)
     
-    fold(arrow_49, None, xs)
+    fold(arrow_51, None, xs)
 
 
 def iterate2(action: Callable[[a_, b_], None], xs: Iterable[a_], ys: Iterable[b_]) -> None:
-    def arrow_50(unit_var0: None, x: Any, y: Any=None, action: Callable[[a_, b_], None]=action, xs: Iterable[a_]=xs, ys: Iterable[b_]=ys) -> None:
+    def arrow_52(unit_var0: None, x: Any, y: Any=None, action: Callable[[a_, b_], None]=action, xs: Iterable[a_]=xs, ys: Iterable[b_]=ys) -> None:
         action(x, y)
     
-    fold2(arrow_50, None, xs, ys)
+    fold2(arrow_52, None, xs, ys)
 
 
 def iterate_indexed(action: Callable[[int, a_], None], xs: Iterable[a_]) -> None:
-    def arrow_51(i: int, x: Any=None, action: Callable[[int, a_], None]=action, xs: Iterable[a_]=xs) -> int:
+    def arrow_53(i: int, x: Any=None, action: Callable[[int, a_], None]=action, xs: Iterable[a_]=xs) -> int:
         action(i, x)
         return i + 1
     
-    ignore(fold(arrow_51, 0, xs))
+    ignore(fold(arrow_53, 0, xs))
 
 
 def iterate_indexed2(action: Callable[[int, a_, b_], None], xs: Iterable[a_], ys: Iterable[b_]) -> None:
-    def arrow_52(i: int, x: Any, y: Any=None, action: Callable[[int, a_, b_], None]=action, xs: Iterable[a_]=xs, ys: Iterable[b_]=ys) -> int:
+    def arrow_54(i: int, x: Any, y: Any=None, action: Callable[[int, a_, b_], None]=action, xs: Iterable[a_]=xs, ys: Iterable[b_]=ys) -> int:
         action(i, x, y)
         return i + 1
     
-    ignore(fold2(arrow_52, 0, xs, ys))
+    ignore(fold2(arrow_54, 0, xs, ys))
 
 
 def try_last(xs: Iterable[T]) -> Optional[T]:
@@ -895,17 +895,17 @@ def length(xs: Iterable[Any]) -> int:
 
 
 def map(mapping: Callable[[T], U], xs: Iterable[T]) -> Iterable[U]:
-    def arrow_53(e_1: Iterator[Any], mapping: Callable[[T], U]=mapping, xs: Iterable[T]=xs) -> None:
+    def arrow_55(e_1: Iterator[Any], mapping: Callable[[T], U]=mapping, xs: Iterable[T]=xs) -> None:
         dispose_2(e_1)
     
-    return generate(lambda mapping=mapping, xs=xs: of_seq(xs), lambda e, mapping=mapping, xs=xs: some(mapping(e.System_Collections_Generic_IEnumerator_00601_get_Current())) if (e.System_Collections_IEnumerator_MoveNext()) else (None), arrow_53)
+    return generate(lambda mapping=mapping, xs=xs: of_seq(xs), lambda e, mapping=mapping, xs=xs: some(mapping(e.System_Collections_Generic_IEnumerator_00601_get_Current())) if (e.System_Collections_IEnumerator_MoveNext()) else (None), arrow_55)
 
 
 def map_indexed(mapping: Callable[[int, T], U], xs: Iterable[T]) -> Iterable[U]:
-    def arrow_54(e_1: Iterator[Any], mapping: Callable[[int, T], U]=mapping, xs: Iterable[T]=xs) -> None:
+    def arrow_56(e_1: Iterator[Any], mapping: Callable[[int, T], U]=mapping, xs: Iterable[T]=xs) -> None:
         dispose_2(e_1)
     
-    return generate_indexed(lambda mapping=mapping, xs=xs: of_seq(xs), lambda i, e, mapping=mapping, xs=xs: some(mapping(i, e.System_Collections_Generic_IEnumerator_00601_get_Current())) if (e.System_Collections_IEnumerator_MoveNext()) else (None), arrow_54)
+    return generate_indexed(lambda mapping=mapping, xs=xs: of_seq(xs), lambda i, e, mapping=mapping, xs=xs: some(mapping(i, e.System_Collections_Generic_IEnumerator_00601_get_Current())) if (e.System_Collections_IEnumerator_MoveNext()) else (None), arrow_56)
 
 
 def indexed(xs: Iterable[T]) -> Iterable[Tuple[int, T]]:
@@ -913,12 +913,12 @@ def indexed(xs: Iterable[T]) -> Iterable[Tuple[int, T]]:
 
 
 def map2(mapping: Callable[[T1, T2], U], xs: Iterable[T1], ys: Iterable[T2]) -> Iterable[U]:
-    def arrow_55(tupled_arg: Tuple[Iterator[T1], Iterator[T2]], mapping: Callable[[T1, T2], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys) -> Optional[U]:
+    def arrow_57(tupled_arg: Tuple[Iterator[T1], Iterator[T2]], mapping: Callable[[T1, T2], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys) -> Optional[U]:
         e1 : Iterator[T1] = tupled_arg[0]
         e2 : Iterator[T2] = tupled_arg[1]
         return some(mapping(e1.System_Collections_Generic_IEnumerator_00601_get_Current(), e2.System_Collections_Generic_IEnumerator_00601_get_Current())) if (e2.System_Collections_IEnumerator_MoveNext() if (e1.System_Collections_IEnumerator_MoveNext()) else (False)) else (None)
     
-    def arrow_56(tupled_arg_1: Tuple[Iterator[T1], Iterator[T2]], mapping: Callable[[T1, T2], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys) -> None:
+    def arrow_58(tupled_arg_1: Tuple[Iterator[T1], Iterator[T2]], mapping: Callable[[T1, T2], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys) -> None:
         try: 
             dispose_2(tupled_arg_1[0])
         
@@ -926,16 +926,16 @@ def map2(mapping: Callable[[T1, T2], U], xs: Iterable[T1], ys: Iterable[T2]) -> 
             dispose_2(tupled_arg_1[1])
         
     
-    return generate(lambda mapping=mapping, xs=xs, ys=ys: (of_seq(xs), of_seq(ys)), arrow_55, arrow_56)
+    return generate(lambda mapping=mapping, xs=xs, ys=ys: (of_seq(xs), of_seq(ys)), arrow_57, arrow_58)
 
 
 def map_indexed2(mapping: Callable[[int, T1, T2], U], xs: Iterable[T1], ys: Iterable[T2]) -> Iterable[U]:
-    def arrow_57(i: int, tupled_arg: Tuple[Iterator[T1], Iterator[T2]], mapping: Callable[[int, T1, T2], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys) -> Optional[U]:
+    def arrow_60(i: int, tupled_arg: Tuple[Iterator[T1], Iterator[T2]], mapping: Callable[[int, T1, T2], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys) -> Optional[U]:
         e1 : Iterator[T1] = tupled_arg[0]
         e2 : Iterator[T2] = tupled_arg[1]
         return some(mapping(i, e1.System_Collections_Generic_IEnumerator_00601_get_Current(), e2.System_Collections_Generic_IEnumerator_00601_get_Current())) if (e2.System_Collections_IEnumerator_MoveNext() if (e1.System_Collections_IEnumerator_MoveNext()) else (False)) else (None)
     
-    def arrow_58(tupled_arg_1: Tuple[Iterator[T1], Iterator[T2]], mapping: Callable[[int, T1, T2], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys) -> None:
+    def arrow_61(tupled_arg_1: Tuple[Iterator[T1], Iterator[T2]], mapping: Callable[[int, T1, T2], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys) -> None:
         try: 
             dispose_2(tupled_arg_1[0])
         
@@ -943,17 +943,17 @@ def map_indexed2(mapping: Callable[[int, T1, T2], U], xs: Iterable[T1], ys: Iter
             dispose_2(tupled_arg_1[1])
         
     
-    return generate_indexed(lambda mapping=mapping, xs=xs, ys=ys: (of_seq(xs), of_seq(ys)), arrow_57, arrow_58)
+    return generate_indexed(lambda mapping=mapping, xs=xs, ys=ys: (of_seq(xs), of_seq(ys)), arrow_60, arrow_61)
 
 
 def map3(mapping: Callable[[T1, T2, T3], U], xs: Iterable[T1], ys: Iterable[T2], zs: Iterable[T3]) -> Iterable[U]:
-    def arrow_59(tupled_arg: Tuple[Iterator[T1], Iterator[T2], Iterator[T3]], mapping: Callable[[T1, T2, T3], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys, zs: Iterable[T3]=zs) -> Optional[U]:
+    def arrow_63(tupled_arg: Tuple[Iterator[T1], Iterator[T2], Iterator[T3]], mapping: Callable[[T1, T2, T3], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys, zs: Iterable[T3]=zs) -> Optional[U]:
         e1 : Iterator[T1] = tupled_arg[0]
         e2 : Iterator[T2] = tupled_arg[1]
         e3 : Iterator[T3] = tupled_arg[2]
         return some(mapping(e1.System_Collections_Generic_IEnumerator_00601_get_Current(), e2.System_Collections_Generic_IEnumerator_00601_get_Current(), e3.System_Collections_Generic_IEnumerator_00601_get_Current())) if (e3.System_Collections_IEnumerator_MoveNext() if (e2.System_Collections_IEnumerator_MoveNext() if (e1.System_Collections_IEnumerator_MoveNext()) else (False)) else (False)) else (None)
     
-    def arrow_60(tupled_arg_1: Tuple[Iterator[T1], Iterator[T2], Iterator[T3]], mapping: Callable[[T1, T2, T3], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys, zs: Iterable[T3]=zs) -> None:
+    def arrow_65(tupled_arg_1: Tuple[Iterator[T1], Iterator[T2], Iterator[T3]], mapping: Callable[[T1, T2, T3], U]=mapping, xs: Iterable[T1]=xs, ys: Iterable[T2]=ys, zs: Iterable[T3]=zs) -> None:
         try: 
             dispose_2(tupled_arg_1[0])
         
@@ -966,7 +966,7 @@ def map3(mapping: Callable[[T1, T2, T3], U], xs: Iterable[T1], ys: Iterable[T2],
             
         
     
-    return generate(lambda mapping=mapping, xs=xs, ys=ys, zs=zs: (of_seq(xs), of_seq(ys), of_seq(zs)), arrow_59, arrow_60)
+    return generate(lambda mapping=mapping, xs=xs, ys=ys, zs=zs: (of_seq(xs), of_seq(ys), of_seq(zs)), arrow_63, arrow_65)
 
 
 def read_only(xs: Iterable[T]) -> Iterable[T]:
@@ -974,7 +974,7 @@ def read_only(xs: Iterable[T]) -> Iterable[T]:
     return map(lambda x=None, xs=xs: x, xs)
 
 
-def expr_61(gen0: TypeInfo) -> TypeInfo:
+def expr_68(gen0: TypeInfo) -> TypeInfo:
     return class_type("SeqModule.CachedSeq`1", [gen0], CachedSeq_1)
 
 
@@ -999,7 +999,7 @@ class CachedSeq_1(IDisposable, Generic[T_2]):
         return get_enumerator(_.res)
     
 
-CachedSeq_1_reflection = expr_61
+CachedSeq_1_reflection = expr_68
 
 def CachedSeq_1__ctor_Z7A8347D4(cleanup: Callable[[], None], res: Iterable[Any]) -> CachedSeq_1[Any]:
     return CachedSeq_1(cleanup, res)
@@ -1034,7 +1034,7 @@ def cache(source: Iterable[T]) -> Iterable[T]:
         
         enumerator_r = None
     
-    def arrow_62(i_1: int, source: Iterable[T]=source) -> Optional[Tuple[T, int]]:
+    def arrow_73(i_1: int, source: Iterable[T]=source) -> Optional[Tuple[T, int]]:
         nonlocal enumerator_r
         if i_1 < len(prefix):
             return (prefix[i_1], i_1 + 1)
@@ -1067,7 +1067,7 @@ def cache(source: Iterable[T]) -> Iterable[T]:
             return (prefix[i_1], i_1 + 1) if (i_1 < len(prefix)) else (None)
         
     
-    return CachedSeq_1__ctor_Z7A8347D4(cleanup, unfold(arrow_62, 0))
+    return CachedSeq_1__ctor_Z7A8347D4(cleanup, unfold(arrow_73, 0))
 
 
 def all_pairs(xs: Iterable[T1], ys: Iterable[T2]) -> Iterable[Tuple[T1, T2]]:
@@ -1145,7 +1145,7 @@ def reverse(xs: Iterable[T]) -> Iterable[T]:
 
 
 def scan(folder: Callable[[State, T], State], state: State, xs: Iterable[T]) -> Iterable[State]:
-    def arrow_63(folder: Callable[[State, T], State]=folder, state: State=state, xs: Iterable[T]=xs) -> Iterable[Any]:
+    def arrow_74(folder: Callable[[State, T], State]=folder, state: State=state, xs: Iterable[T]=xs) -> Iterable[Any]:
         acc : State = state
         def mapping(x: Any=None) -> Any:
             nonlocal acc
@@ -1154,7 +1154,7 @@ def scan(folder: Callable[[State, T], State], state: State, xs: Iterable[T]) -> 
         
         return concat([singleton(state), map(mapping, xs)])
     
-    return delay(arrow_63)
+    return delay(arrow_74)
 
 
 def scan_back(folder: Callable[[T, State], State], xs: Iterable[T], state: State=None) -> Iterable[State]:
@@ -1162,7 +1162,7 @@ def scan_back(folder: Callable[[T, State], State], xs: Iterable[T], state: State
 
 
 def skip(count: int, source: Iterable[T]) -> Iterable[T]:
-    def arrow_64(count: int=count, source: Iterable[T]=source) -> Iterator[Any]:
+    def arrow_75(count: int=count, source: Iterable[T]=source) -> Iterator[Any]:
         e : Iterator[T] = of_seq(source)
         try: 
             for _ in range(1, count + 1, 1):
@@ -1179,11 +1179,11 @@ def skip(count: int, source: Iterable[T]) -> Iterable[T]:
             raise match_value
         
     
-    return mk_seq(arrow_64)
+    return mk_seq(arrow_75)
 
 
 def skip_while(predicate: Callable[[T], bool], xs: Iterable[T]) -> Iterable[T]:
-    def arrow_65(predicate: Callable[[T], bool]=predicate, xs: Iterable[T]=xs) -> Iterable[Any]:
+    def arrow_76(predicate: Callable[[T], bool]=predicate, xs: Iterable[T]=xs) -> Iterable[Any]:
         skipped : bool = True
         def f(x: Any=None) -> bool:
             nonlocal skipped
@@ -1194,7 +1194,7 @@ def skip_while(predicate: Callable[[T], bool], xs: Iterable[T]) -> Iterable[T]:
         
         return filter(f, xs)
     
-    return delay(arrow_65)
+    return delay(arrow_76)
 
 
 def tail(xs: Iterable[T]) -> Iterable[T]:
@@ -1202,7 +1202,7 @@ def tail(xs: Iterable[T]) -> Iterable[T]:
 
 
 def take(count: int, xs: Iterable[T]) -> Iterable[T]:
-    def arrow_66(i: int, e: Iterator[T], count: int=count, xs: Iterable[T]=xs) -> Optional[T]:
+    def arrow_77(i: int, e: Iterator[T], count: int=count, xs: Iterable[T]=xs) -> Optional[T]:
         if i < count:
             if e.System_Collections_IEnumerator_MoveNext():
                 return some(e.System_Collections_Generic_IEnumerator_00601_get_Current())
@@ -1215,24 +1215,24 @@ def take(count: int, xs: Iterable[T]) -> Iterable[T]:
             return None
         
     
-    def arrow_67(e_1: Iterator[Any], count: int=count, xs: Iterable[T]=xs) -> None:
+    def arrow_78(e_1: Iterator[Any], count: int=count, xs: Iterable[T]=xs) -> None:
         dispose_2(e_1)
     
-    return generate_indexed(lambda count=count, xs=xs: of_seq(xs), arrow_66, arrow_67)
+    return generate_indexed(lambda count=count, xs=xs: of_seq(xs), arrow_77, arrow_78)
 
 
 def take_while(predicate: Callable[[T], bool], xs: Iterable[T]) -> Iterable[T]:
-    def arrow_68(e_1: Iterator[Any], predicate: Callable[[T], bool]=predicate, xs: Iterable[T]=xs) -> None:
+    def arrow_79(e_1: Iterator[Any], predicate: Callable[[T], bool]=predicate, xs: Iterable[T]=xs) -> None:
         dispose_2(e_1)
     
-    return generate(lambda predicate=predicate, xs=xs: of_seq(xs), lambda e, predicate=predicate, xs=xs: some(e.System_Collections_Generic_IEnumerator_00601_get_Current()) if (predicate(e.System_Collections_Generic_IEnumerator_00601_get_Current()) if (e.System_Collections_IEnumerator_MoveNext()) else (False)) else (None), arrow_68)
+    return generate(lambda predicate=predicate, xs=xs: of_seq(xs), lambda e, predicate=predicate, xs=xs: some(e.System_Collections_Generic_IEnumerator_00601_get_Current()) if (predicate(e.System_Collections_Generic_IEnumerator_00601_get_Current()) if (e.System_Collections_IEnumerator_MoveNext()) else (False)) else (None), arrow_79)
 
 
 def truncate(count: int, xs: Iterable[T]) -> Iterable[T]:
-    def arrow_69(e_1: Iterator[Any], count: int=count, xs: Iterable[T]=xs) -> None:
+    def arrow_80(e_1: Iterator[Any], count: int=count, xs: Iterable[T]=xs) -> None:
         dispose_2(e_1)
     
-    return generate_indexed(lambda count=count, xs=xs: of_seq(xs), lambda i, e, count=count, xs=xs: some(e.System_Collections_Generic_IEnumerator_00601_get_Current()) if (e.System_Collections_IEnumerator_MoveNext() if (i < count) else (False)) else (None), arrow_69)
+    return generate_indexed(lambda count=count, xs=xs: of_seq(xs), lambda i, e, count=count, xs=xs: some(e.System_Collections_Generic_IEnumerator_00601_get_Current()) if (e.System_Collections_IEnumerator_MoveNext() if (i < count) else (False)) else (None), arrow_80)
 
 
 def zip(xs: Iterable[T1], ys: Iterable[T2]) -> Iterable[Tuple[T1, T2]]:
@@ -1268,12 +1268,12 @@ def transpose(xss: Iterable[Any]) -> Iterable[Iterable[Any]]:
 
 
 def sort_with(comparer: Callable[[T, T], int], xs: Iterable[T]) -> Iterable[T]:
-    def arrow_70(comparer: Callable[[T, T], int]=comparer, xs: Iterable[T]=xs) -> Iterable[Any]:
+    def arrow_81(comparer: Callable[[T, T], int]=comparer, xs: Iterable[T]=xs) -> Iterable[Any]:
         arr : List[T] = to_array(xs)
         arr.sort()
         return of_array(arr)
     
-    return delay(arrow_70)
+    return delay(arrow_81)
 
 
 def sort(xs: Iterable[T], comparer: IComparer_1[T]) -> Iterable[T]:
@@ -1334,12 +1334,12 @@ def average(xs: Iterable[T], averager: IGenericAverager_1[T]) -> T:
 
 def average_by(f: Callable[[T], U], xs: Iterable[T], averager: IGenericAverager_1[U]) -> U:
     count : int = 0
-    def arrow_72(acc: U, x: Any=None, f: Callable[[T], U]=f, xs: Iterable[T]=xs, averager: IGenericAverager_1[U]=averager) -> U:
+    def arrow_82(acc: U, x: Any=None, f: Callable[[T], U]=f, xs: Iterable[T]=xs, averager: IGenericAverager_1[U]=averager) -> U:
         nonlocal count
         count = (count + 1) or 0
         return averager.Add(acc, f(x))
     
-    total : U = fold(arrow_72, averager.GetZero(), xs)
+    total : U = fold(arrow_82, averager.GetZero(), xs)
     if count == 0:
         raise Exception((SR_inputSequenceEmpty + "\\nParameter name: ") + "source")
     
@@ -1361,7 +1361,7 @@ def insert_at(index: int, y: T, xs: Iterable[T]) -> Iterable[T]:
     if index < 0:
         raise Exception((SR_indexOutOfBounds + "\\nParameter name: ") + "index")
     
-    def arrow_73(i: int, e: Iterator[T], index: int=index, y: T=y, xs: Iterable[T]=xs) -> Optional[T]:
+    def arrow_83(i: int, e: Iterator[T], index: int=index, y: T=y, xs: Iterable[T]=xs) -> Optional[T]:
         nonlocal is_done
         if e.System_Collections_IEnumerator_MoveNext() if (True if (is_done) else (i < index)) else (False):
             return some(e.System_Collections_Generic_IEnumerator_00601_get_Current())
@@ -1377,10 +1377,10 @@ def insert_at(index: int, y: T, xs: Iterable[T]) -> Iterable[T]:
             return None
         
     
-    def arrow_74(e_1: Iterator[Any], index: int=index, y: T=y, xs: Iterable[T]=xs) -> None:
+    def arrow_84(e_1: Iterator[Any], index: int=index, y: T=y, xs: Iterable[T]=xs) -> None:
         dispose_2(e_1)
     
-    return generate_indexed(lambda index=index, y=y, xs=xs: of_seq(xs), arrow_73, arrow_74)
+    return generate_indexed(lambda index=index, y=y, xs=xs: of_seq(xs), arrow_83, arrow_84)
 
 
 def insert_many_at(index: int, ys: Iterable[T], xs: Iterable[T]) -> Iterable[T]:
@@ -1388,7 +1388,7 @@ def insert_many_at(index: int, ys: Iterable[T], xs: Iterable[T]) -> Iterable[T]:
     if index < 0:
         raise Exception((SR_indexOutOfBounds + "\\nParameter name: ") + "index")
     
-    def arrow_75(i: int, tupled_arg: Tuple[Iterator[T], Iterator[T]], index: int=index, ys: Iterable[T]=ys, xs: Iterable[T]=xs) -> Optional[T]:
+    def arrow_85(i: int, tupled_arg: Tuple[Iterator[T], Iterator[T]], index: int=index, ys: Iterable[T]=ys, xs: Iterable[T]=xs) -> Optional[T]:
         nonlocal status
         e1 : Iterator[T] = tupled_arg[0]
         e2 : Iterator[T] = tupled_arg[1]
@@ -1423,11 +1423,11 @@ def insert_many_at(index: int, ys: Iterable[T], xs: Iterable[T]) -> Iterable[T]:
             return some(value_1(inserted))
         
     
-    def arrow_76(tupled_arg_1: Tuple[Iterator[T], Iterator[T]], index: int=index, ys: Iterable[T]=ys, xs: Iterable[T]=xs) -> None:
+    def arrow_86(tupled_arg_1: Tuple[Iterator[T], Iterator[T]], index: int=index, ys: Iterable[T]=ys, xs: Iterable[T]=xs) -> None:
         dispose_2(tupled_arg_1[0])
         dispose_2(tupled_arg_1[1])
     
-    return generate_indexed(lambda index=index, ys=ys, xs=xs: (of_seq(xs), of_seq(ys)), arrow_75, arrow_76)
+    return generate_indexed(lambda index=index, ys=ys, xs=xs: (of_seq(xs), of_seq(ys)), arrow_85, arrow_86)
 
 
 def remove_at(index: int, xs: Iterable[T]) -> Iterable[T]:
@@ -1435,7 +1435,7 @@ def remove_at(index: int, xs: Iterable[T]) -> Iterable[T]:
     if index < 0:
         raise Exception((SR_indexOutOfBounds + "\\nParameter name: ") + "index")
     
-    def arrow_77(i: int, e: Iterator[T], index: int=index, xs: Iterable[T]=xs) -> Optional[T]:
+    def arrow_87(i: int, e: Iterator[T], index: int=index, xs: Iterable[T]=xs) -> Optional[T]:
         nonlocal is_done
         if e.System_Collections_IEnumerator_MoveNext() if (True if (is_done) else (i < index)) else (False):
             return some(e.System_Collections_Generic_IEnumerator_00601_get_Current())
@@ -1451,17 +1451,17 @@ def remove_at(index: int, xs: Iterable[T]) -> Iterable[T]:
             return None
         
     
-    def arrow_78(e_1: Iterator[Any], index: int=index, xs: Iterable[T]=xs) -> None:
+    def arrow_88(e_1: Iterator[Any], index: int=index, xs: Iterable[T]=xs) -> None:
         dispose_2(e_1)
     
-    return generate_indexed(lambda index=index, xs=xs: of_seq(xs), arrow_77, arrow_78)
+    return generate_indexed(lambda index=index, xs=xs: of_seq(xs), arrow_87, arrow_88)
 
 
 def remove_many_at(index: int, count: int, xs: Iterable[T]) -> Iterable[T]:
     if index < 0:
         raise Exception((SR_indexOutOfBounds + "\\nParameter name: ") + "index")
     
-    def arrow_79(i: int, e: Iterator[T], index: int=index, count: int=count, xs: Iterable[T]=xs) -> Optional[T]:
+    def arrow_89(i: int, e: Iterator[T], index: int=index, count: int=count, xs: Iterable[T]=xs) -> Optional[T]:
         if i < index:
             if e.System_Collections_IEnumerator_MoveNext():
                 return some(e.System_Collections_Generic_IEnumerator_00601_get_Current())
@@ -1480,10 +1480,10 @@ def remove_many_at(index: int, count: int, xs: Iterable[T]) -> Iterable[T]:
             return some(e.System_Collections_Generic_IEnumerator_00601_get_Current()) if (e.System_Collections_IEnumerator_MoveNext()) else (None)
         
     
-    def arrow_80(e_1: Iterator[Any], index: int=index, count: int=count, xs: Iterable[T]=xs) -> None:
+    def arrow_90(e_1: Iterator[Any], index: int=index, count: int=count, xs: Iterable[T]=xs) -> None:
         dispose_2(e_1)
     
-    return generate_indexed(lambda index=index, count=count, xs=xs: of_seq(xs), arrow_79, arrow_80)
+    return generate_indexed(lambda index=index, count=count, xs=xs: of_seq(xs), arrow_89, arrow_90)
 
 
 def update_at(index: int, y: T, xs: Iterable[T]) -> Iterable[T]:
@@ -1491,7 +1491,7 @@ def update_at(index: int, y: T, xs: Iterable[T]) -> Iterable[T]:
     if index < 0:
         raise Exception((SR_indexOutOfBounds + "\\nParameter name: ") + "index")
     
-    def arrow_81(i: int, e: Iterator[T], index: int=index, y: T=y, xs: Iterable[T]=xs) -> Optional[T]:
+    def arrow_91(i: int, e: Iterator[T], index: int=index, y: T=y, xs: Iterable[T]=xs) -> Optional[T]:
         nonlocal is_done
         if e.System_Collections_IEnumerator_MoveNext() if (True if (is_done) else (i < index)) else (False):
             return some(e.System_Collections_Generic_IEnumerator_00601_get_Current())
@@ -1507,9 +1507,9 @@ def update_at(index: int, y: T, xs: Iterable[T]) -> Iterable[T]:
             return None
         
     
-    def arrow_82(e_1: Iterator[Any], index: int=index, y: T=y, xs: Iterable[T]=xs) -> None:
+    def arrow_92(e_1: Iterator[Any], index: int=index, y: T=y, xs: Iterable[T]=xs) -> None:
         dispose_2(e_1)
     
-    return generate_indexed(lambda index=index, y=y, xs=xs: of_seq(xs), arrow_81, arrow_82)
+    return generate_indexed(lambda index=index, y=y, xs=xs: of_seq(xs), arrow_91, arrow_92)
 
 

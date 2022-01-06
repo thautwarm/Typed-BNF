@@ -13,7 +13,7 @@ t = TypeVar("t")
 
 T_2 = TypeVar("T_2")
 
-def expr_24(gen0: TypeInfo) -> TypeInfo:
+def expr_26(gen0: TypeInfo) -> TypeInfo:
     return class_type("System.Collections.Generic.Comparer`1", [gen0], Comparer_1)
 
 
@@ -25,21 +25,21 @@ class Comparer_1(Generic[T]):
         return compare(x, y)
     
 
-Comparer_1_reflection = expr_24
+Comparer_1_reflection = expr_26
 
 def Comparer_1__ctor() -> Comparer_1[Any]:
     return Comparer_1()
 
 
 def Comparer_1_get_Default() -> IComparer_1[Any]:
-    class ObjectExpr25:
+    class ObjectExpr27:
         def Compare(self, x: T, y: T=None) -> int:
             return compare(x, y)
         
-    return ObjectExpr25()
+    return ObjectExpr27()
 
 
-def expr_26(gen0: TypeInfo) -> TypeInfo:
+def expr_28(gen0: TypeInfo) -> TypeInfo:
     return class_type("System.Collections.Generic.EqualityComparer`1", [gen0], EqualityComparer_1)
 
 
@@ -54,24 +54,24 @@ class EqualityComparer_1(Generic[T_1]):
         return structural_hash(x)
     
 
-EqualityComparer_1_reflection = expr_26
+EqualityComparer_1_reflection = expr_28
 
 def EqualityComparer_1__ctor() -> EqualityComparer_1[Any]:
     return EqualityComparer_1()
 
 
 def EqualityComparer_1_get_Default() -> IEqualityComparer[Any]:
-    class ObjectExpr27:
+    class ObjectExpr29:
         def Equals(self, x: T, y: T=None) -> bool:
             return equals(x, y)
         
         def GetHashCode(self, x_1: Any=None) -> int:
             return structural_hash(x_1)
         
-    return ObjectExpr27()
+    return ObjectExpr29()
 
 
-def expr_31(gen0: TypeInfo) -> TypeInfo:
+def expr_33(gen0: TypeInfo) -> TypeInfo:
     return class_type("System.Collections.Generic.Stack`1", [gen0], Stack_1)
 
 
@@ -82,19 +82,19 @@ class Stack_1(Generic[t]):
     
     def GetEnumerator(self) -> Iterator[Any]:
         this : Stack_1[t] = self
-        def arrow_30(_unit=None) -> Iterable[Any]:
+        def arrow_32(_unit=None) -> Iterable[Any]:
             index : int = (this.count - 1) or 0
-            def arrow_29(_unit=None) -> Iterable[Any]:
-                def arrow_28(_unit=None) -> Iterable[Any]:
+            def arrow_31(_unit=None) -> Iterable[Any]:
+                def arrow_30(_unit=None) -> Iterable[Any]:
                     nonlocal index
                     index = (index - 1) or 0
                     return empty()
                 
-                return append(singleton(this.contents[index]), delay(arrow_28))
+                return append(singleton(this.contents[index]), delay(arrow_30))
             
-            return enumerate_while(lambda _unit=None: index >= 0, delay(arrow_29))
+            return enumerate_while(lambda _unit=None: index >= 0, delay(arrow_31))
         
-        return get_enumerator(delay(arrow_30))
+        return get_enumerator(delay(arrow_32))
     
     def __iter__(self) -> Iterator[Any]:
         return to_iterator(self.GetEnumerator())
@@ -104,7 +104,7 @@ class Stack_1(Generic[t]):
         return get_enumerator(this)
     
 
-Stack_1_reflection = expr_31
+Stack_1_reflection = expr_33
 
 def Stack_1__ctor_Z2E171D71(initial_contents: List[t], initial_count: int) -> Stack_1[Any]:
     return Stack_1(initial_contents, initial_count)

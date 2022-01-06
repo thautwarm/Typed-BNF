@@ -120,6 +120,7 @@ expr : "let" identstr "=" expr "in" expr -> \
      | "fun" func_parameters "->" expr -> \
             MK_expr(MK_EFun($2, $4), mkpos($1))
      | call -> $1
+     | call ";" expr -> MK_expr(MK_ELet("_", $1, $3), $1.pos)
 
 call : call "(" eslist{",", expr} ")" -> MK_expr(MK_EApp($1, $3), $1.pos)
      | atomexp -> $1
