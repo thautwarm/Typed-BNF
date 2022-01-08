@@ -16,6 +16,7 @@
     <Compile Include="src/ResourceKeys.fs" />
     <Compile Include="src/Utils.fs" />
     <Compile Include="src/Grammar.fs" />
+    <Compile Include="src/Inspect.fs" />
     <Compile Include="src/Exceptions.fs" />
     <Compile Include="src/MacroResolve.fs" />
     <Compile Include="src/Op.fs" />
@@ -27,6 +28,7 @@
     <Compile Include="src/Backends.CSharpAntlr.fs" />
     <Compile Include="src/Backends.TypeScriptAntlr.fs" />
     <Compile Include="src/APIs.fs" />
+    <Compile Include="src/ErrorReport.fs" />
     <Compile Include="src/Main.fs" />
   </ItemGroup>
 

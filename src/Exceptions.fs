@@ -1,5 +1,12 @@
 module tbnf.Exceptions
 open Grammar
+
+type ErrorTrace =
+    { mutable whichDef: definition
+    ; mutable exprStack : expr list
+    ; mutable currentRexpr: expr
+    }
+
 type NameErrorScope =
 | TYPE
 | VAR
@@ -12,6 +19,7 @@ type NameErrorKind =
 
 exception IllFormedType of monot * monot
 exception TypeMismatch of monot * monot
+exception TypeUnexpected of got: monot * expected: monot
 exception InvalidTypeApplication of monot
 exception InvalidKind of {| name: string; expect: int; got: int |}
 exception NoField of monot * string

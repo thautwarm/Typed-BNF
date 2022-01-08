@@ -151,7 +151,7 @@ type Sigma(UM: Unification.Manager) =
 
                 UM.Instantiate(gen_spec)
                 |> snd
-                |> UM.Unify inst_target
+                |> (fun spec -> UM.Unify(inst_target, spec))
 
                 checkKind_ (inst_target)
 
@@ -347,7 +347,7 @@ let build_analyzer(stmts: definition array) =
             let args = args |> List.map (fun expr -> infer_e s_Gamma S expr)
             let t_args = List.mapi (fun i x -> $"arg{i}", x.t) args
             let t_r = UM.NewTyRef("@ret")
-            UM.Unify t_f <| TFun(t_args, t_r)
+            UM.Unify(TFun(t_args, t_r), t_f)
             let _ = Sigma.KindCheckMono <| t_f.Prune()
 
             { node = EApp(f, args)
@@ -383,7 +383,7 @@ let build_analyzer(stmts: definition array) =
             currentPos <- pos
             let S = List.map infer_p production.symbols
             let action = infer_e Sigma.GlobalVariables S production.action
-            UM.Unify action.t t
+            UM.Unify(action.t, t)
             production.action <- action
 
     let rec check_lexerule(x: lexerule) =

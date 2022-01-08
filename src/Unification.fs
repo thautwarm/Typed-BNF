@@ -65,7 +65,12 @@ type Manager() =
                 
     
     member __.Instantiate(t: polyt) = instantiate t
-    member __.Unify (l: monot) (r:monot) = unify l r
+    member __.Unify (got_type: monot, expected_type:monot) =
+        try
+            unify got_type expected_type
+        with TypeMismatch(_, _) ->
+            raise (TypeMismatch(got_type, expected_type))
+            
     member __.NewTyRef (s: string) = newTyRef s
     member __.CellRepr (cell: Cell<monot>) =
         // let a = ref ""
