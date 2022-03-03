@@ -105,7 +105,10 @@ MK_LNumber : lexerule = lexerule(0)
 MK_LWildcard : lexerule = lexerule(1)
 
 def MK_LSeq(xs: List[lexerule]) -> lexerule:
-    if len(xs) == 1 if (not equals_with(lambda x, y, xs=xs: equals(x, y), xs, None)) else (False):
+    def arrow_350(x: lexerule, y: lexerule, xs: List[lexerule]=xs) -> bool:
+        return equals(x, y)
+    
+    if len(xs) == 1 if (not equals_with(arrow_350, xs, None)) else (False):
         return xs[0]
     
     else: 
@@ -114,7 +117,10 @@ def MK_LSeq(xs: List[lexerule]) -> lexerule:
 
 
 def MK_LOr(xs: List[lexerule]) -> lexerule:
-    if len(xs) == 1 if (not equals_with(lambda x, y, xs=xs: equals(x, y), xs, None)) else (False):
+    def arrow_351(x: lexerule, y: lexerule, xs: List[lexerule]=xs) -> bool:
+        return equals(x, y)
+    
+    if len(xs) == 1 if (not equals_with(arrow_351, xs, None)) else (False):
         return xs[0]
     
     else: 
@@ -158,7 +164,7 @@ def MK_Defignore(ignore_list: List[str], pos: position_1) -> definition:
 
 
 def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, production]], pos: position_1) -> definition:
-    def arrow_55(lhs: str=lhs, parameters: List[str]=parameters, define: List[Tuple[position_1, production]]=define, pos: position_1=pos) -> dict[str, Any]:
+    def arrow_352(lhs: str=lhs, parameters: List[str]=parameters, define: List[Tuple[position_1, production]]=define, pos: position_1=pos) -> dict[str, Any]:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "define": of_array(define),
@@ -167,7 +173,7 @@ def MK_Defmacro(lhs: str, parameters: List[str], define: List[Tuple[position_1, 
             "pos": pos
         }
     
-    return definition(0, arrow_55())
+    return definition(0, arrow_352())
 
 
 def MK_Defrule(lhs: str, define: List[Tuple[position_1, production]], pos: position_1) -> definition:
@@ -203,7 +209,7 @@ def MK_Declctor(ident: str, t: monot_1, pos: position_1) -> definition:
 
 
 def MK_Decltype(external: bool, has_fields: bool, ident: str, parameters: List[str], fields: List[Tuple[str, monot_1, position_1]], pos: position_1) -> definition:
-    def arrow_56(external: bool=external, has_fields: bool=has_fields, ident: str=ident, parameters: List[str]=parameters, fields: List[Tuple[str, monot_1, position_1]]=fields, pos: position_1=pos) -> dict[str, Any]:
+    def arrow_353(external: bool=external, has_fields: bool=has_fields, ident: str=ident, parameters: List[str]=parameters, fields: List[Tuple[str, monot_1, position_1]]=fields, pos: position_1=pos) -> dict[str, Any]:
         parameters_1 : FSharpList[str] = of_array(parameters)
         return {
             "external": external,
@@ -214,7 +220,7 @@ def MK_Decltype(external: bool, has_fields: bool, ident: str, parameters: List[s
             "pos": pos
         }
     
-    return definition(5, arrow_56())
+    return definition(5, arrow_353())
 
 
 def MK_production(symbols: List[symbol], action: expr) -> production:

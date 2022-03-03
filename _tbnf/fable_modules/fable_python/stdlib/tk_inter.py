@@ -1,6 +1,7 @@
 from __future__ import annotations
 from abc import abstractmethod
-from typing import (Callable, Optional)
+from typing import Callable
+from .....fable_library.option import Option
 
 class Event:
     @property
@@ -16,7 +17,7 @@ class Event:
 
 class Misc:
     @abstractmethod
-    def bind(self, sequence: str, func: Callable[[Event], None]) -> Optional[str]:
+    def bind(self, sequence: str, func: Callable[[Event], None]) -> Option[str]:
         ...
     
 

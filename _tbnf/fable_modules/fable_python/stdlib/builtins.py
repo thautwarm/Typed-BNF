@@ -2,7 +2,7 @@ from abc import abstractmethod
 import builtins
 from typing import (Any, TypeVar)
 
-a_ = TypeVar("a_")
+__A = TypeVar("__A")
 
 class TextIOBase:
     pass

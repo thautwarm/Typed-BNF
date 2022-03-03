@@ -1,27 +1,26 @@
 from __future__ import annotations
 from array import array
-from typing import (Any, List, TypeVar, Iterable, Optional, Generic, Callable)
+from typing import (Any, List, TypeVar, Generic, Callable)
 from ..fable_modules.fable_library.array import (take, append, concat as concat_1, last, head, skip)
 from ..fable_modules.fable_library.list import (empty as empty_1, cons, FSharpList, is_empty, tail, head as head_1)
+from ..fable_modules.fable_library.option import Option
 from ..fable_modules.fable_library.reflection import (TypeInfo, list_type, int32_type, string_type, union_type, class_type)
 from ..fable_modules.fable_library.seq import (map, to_list)
 from ..fable_modules.fable_library.string import replicate
 from ..fable_modules.fable_library.system_text import (StringBuilder__ctor, StringBuilder__Append_Z721C83C5)
 from ..fable_modules.fable_library.types import (Union, to_string)
-from ..fable_modules.fable_library.util import (ignore, get_enumerator)
+from ..fable_modules.fable_library.util import (IEnumerable, ignore, get_enumerator)
 
-a_ = TypeVar("a_")
+__A = TypeVar("__A")
 
-a = TypeVar("a")
+_A = TypeVar("_A")
 
-a_1 = TypeVar("a_1")
-
-def expr_27() -> TypeInfo:
+def expr_0() -> TypeInfo:
     return union_type("Fable.CodeGen.Doc", [], Doc, lambda: [[["Item1", Doc_reflection()], ["Item2", Doc_reflection()]], [["Item", list_type(Doc_reflection())]], [["Item", Doc_reflection()]], [["Item1", int32_type], ["Item2", Doc_reflection()]], [["Item", string_type]]])
 
 
 class Doc(Union):
-    def __init__(self, tag: int=None, *fields: Any) -> None:
+    def __init__(self, tag: int, *fields: Any) -> None:
         super().__init__()
         self.tag : int = tag or 0
         self.fields : List[Any] = list(fields)
@@ -31,7 +30,7 @@ class Doc(Union):
         return ["Concat", "VSep", "Align", "Indent", "Word"]
     
 
-Doc_reflection = expr_27
+Doc_reflection = expr_0
 
 def Doc_op_Multiply_Z7CFFAC00(a: Doc, b: Doc) -> Doc:
     return Doc(0, a, b)
@@ -45,12 +44,12 @@ def Doc_op_RightShift_2AAA0F3C(a: Doc, b: int) -> Doc:
     return Doc(3, b, a)
 
 
-def expr_33() -> TypeInfo:
+def expr_1() -> TypeInfo:
     return union_type("Fable.CodeGen.DocPrimitive", [], DocPrimitive, lambda: [[], [], [["Item", int32_type]], [["Item", string_type]]])
 
 
 class DocPrimitive(Union):
-    def __init__(self, tag: int=None, *fields: Any) -> None:
+    def __init__(self, tag: int, *fields: Any) -> None:
         super().__init__()
         self.tag : int = tag or 0
         self.fields : List[Any] = list(fields)
@@ -60,9 +59,9 @@ class DocPrimitive(Union):
         return ["DP_PopIndent", "DP_PushCurrentIndent", "DP_PushIndent", "DP_Word"]
     
 
-DocPrimitive_reflection = expr_33
+DocPrimitive_reflection = expr_1
 
-def Array_drop(i: int, arr: List[a_]) -> List[a_]:
+def Array_drop(i: int, arr: List[__A]) -> List[__A]:
     return take(len(arr) - i, arr, None)
 
 
@@ -91,7 +90,10 @@ def compile_to_prims(doc: Doc) -> List[List[DocPrimitive]]:
         
     
     elif doc.tag == 1:
-        return concat_1(map(lambda doc_2, doc=doc: compile_to_prims(doc_2), doc.fields[0]), None)
+        def arrow_2(doc_2: Doc, doc: Doc=doc) -> List[List[DocPrimitive]]:
+            return compile_to_prims(doc_2)
+        
+        return concat_1(map(arrow_2, doc.fields[0]), None)
     
     elif doc.tag == 4:
         return [[DocPrimitive(3, doc.fields[0])]]
@@ -111,27 +113,27 @@ def compile_to_prims(doc: Doc) -> List[List[DocPrimitive]]:
     
 
 
-def expr_38(gen0: TypeInfo) -> TypeInfo:
+def expr_3(gen0: TypeInfo) -> TypeInfo:
     return class_type("Fable.CodeGen.Stack`1", [gen0], Stack_1)
 
 
-class Stack_1(Generic[a_1]):
-    def __init__(self, init: Optional[Iterable[a]]=None) -> None:
+class Stack_1(Generic[_A]):
+    def __init__(self, init: Option[IEnumerable[Any]]=None) -> None:
         self._content = to_list(init) if (init is not None) else (empty_1())
     
 
-Stack_1_reflection = expr_38
+Stack_1_reflection = expr_3
 
-def Stack_1__ctor_Z5E7FEA67(init: Optional[Iterable[a]]=None) -> Stack_1[Any]:
+def Stack_1__ctor_Z5E7FEA67(init: Option[IEnumerable[Any]]=None) -> Stack_1[_A]:
     return Stack_1(init)
 
 
-def Stack_1__Push_2B595(__: Stack_1[a], a: a=None) -> None:
+def Stack_1__Push_2B595(__: Stack_1[_A], a: _A=None) -> None:
     __._content = cons(a, __._content)
 
 
-def Stack_1__Pop(__: Stack_1[a]) -> a:
-    match_value : FSharpList[a] = __._content
+def Stack_1__Pop(__: Stack_1[_A]) -> _A:
+    match_value : FSharpList[_A] = __._content
     if not is_empty(match_value):
         __._content = tail(match_value)
         return head_1(match_value)
@@ -141,8 +143,8 @@ def Stack_1__Pop(__: Stack_1[a]) -> a:
     
 
 
-def Stack_1__get_Last(__: Stack_1[a]) -> a:
-    match_value : FSharpList[a] = __._content
+def Stack_1__get_Last(__: Stack_1[_A]) -> _A:
+    match_value : FSharpList[_A] = __._content
     if not is_empty(match_value):
         return head_1(match_value)
     
@@ -187,11 +189,11 @@ def render(setences: List[List[DocPrimitive]], write: Callable[[str], None]) -> 
 
 
 def pretty(s: Any=None) -> Doc:
-    def arrow_42(s: a_=s) -> str:
-        copy_of_struct : a_ = s
+    def arrow_4(s: __A=s) -> str:
+        copy_of_struct : __A = s
         return to_string(copy_of_struct)
     
-    return Doc(4, arrow_42())
+    return Doc(4, arrow_4())
 
 
 def word(s: str) -> Doc:
@@ -254,10 +256,10 @@ def seplist(sep: Doc, lst: FSharpList[Doc]) -> Doc:
 
 def show_doc(doc: Doc) -> str:
     sb : Any = StringBuilder__ctor()
-    def arrow_47(x: str, doc: Doc=doc) -> None:
+    def arrow_5(x: str, doc: Doc=doc) -> None:
         ignore(StringBuilder__Append_Z721C83C5(sb, x))
     
-    render(compile_to_prims(doc), arrow_47)
+    render(compile_to_prims(doc), arrow_5)
     return to_string(sb)
 
 

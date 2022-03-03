@@ -1,0 +1,237 @@
+extern type position
+extern var addList : <'A> (list<'A>, 'A) -> list<'A>
+extern var unescape : str -> str
+extern var str: token -> str
+extern var mkpos: token -> position
+
+/* separated list */
+slist(sep, elt) : elt { [$1] }
+                | slist(sep, elt) sep elt { addList($1, $3) }
+
+list(elt) : elt { [$1] }
+               | list(elt) elt { addList($1, $2) }
+
+start : list(toplevel) { $1 }
+
+empty(a) :   { [] }
+         | a { $1 }
+
+eslist(sep, a) : empty(slist(sep, a)) { $1 }
+
+elist(a) : empty(list(a)) { $1 }
+
+/* Common */
+
+identstr : <CNAMEPLUS> { str($1) }
+
+/* Types */
+extern type monot
+extern type polyt
+
+extern var process_tparam : list<str * monot> -> list<str * monot>
+extern var mk_TFun: (list<str * monot>, monot) -> monot
+extern var mk_TTuple: list<monot> -> monot
+extern var mk_TList : monot -> monot
+extern var mk_TVar : str -> monot
+extern var mk_TConst : str -> monot
+extern var mk_TApp : (monot, list<monot>) -> monot
+extern var mk_Poly : (list<str>, monot) -> polyt
+extern var mk_Mono : monot -> polyt
+
+typ : arrow_typ { $1 }
+arrow_typ : typ2 "->" arrow_typ
+            { mk_TFun([("value", $1)], $3) }
+          | "(" eslist(",", param_type) ")" "->" arrow_typ
+            { mk_TFun(process_tparam($2), $5) }
+          | type_product
+            { mk_TTuple($1) }
+
+typ2 : <CNAMEPLUS>
+        { mk_TConst(str($1)) }
+     | tvar { $1 }
+     | typ2 "<" slist(",", typ) ">" { mk_TApp($1, $3) }
+
+type_product : type_product "*" typ2 { addList($1, $3) }
+             | typ2                  { [$1] }
+
+top_typ : "<" slist(",", tvar_str) ">" typ { mk_Poly($2, $4) }
+        | typ                              { mk_Mono($1) }
+
+tvar         : "'" <CNAMEPLUS> { mk_TVar(str($2)) }
+tvar_str     : "'" <CNAMEPLUS> { str($2) }
+param_type   : <CNAMEPLUS> ":" typ { (str($1), $3) }
+             | typ  { ("_", $1) }
+
+// Toplevels
+
+type_params : "<" slist(",", tvar_str) ">" { $2 }
+            |  { [] }
+
+field_ann : <CNAMEPLUS> ":" typ { (str($1), $3, mkpos($1)) }
+
+field_anns :  "(" eslist(",", field_ann) ")"
+             { (true, $2) } // record only
+           | { (false, []) }  // adt only
+
+extern type definition
+extern type production
+extern type symbol
+extern type expr
+extern type lexerule
+extern var mk_Declvar : (str, polyt, position) -> definition
+extern var mk_Declctor : (str, monot, position) -> definition
+extern var mk_Decltype : (bool, bool, str, list<str>, list<str * monot * position>, position) -> definition
+extern var mk_Defignore : (list<str>, position) -> definition
+extern var mk_Defmacro : (str, list<str>, list<position * production>, position) -> definition
+extern var mk_Defrule : (str, list<position * production>, position) -> definition
+extern var mk_Deflexer : (str, lexerule, position) -> definition
+extern var mk_production : (list<symbol>, expr) -> production
+extern var list_index : <'A>(list<'A>, int) -> 'A
+extern var fst : <'A, 'B>('A * 'B) -> 'A
+extern var snd : <'A, 'B>('A * 'B) -> 'B
+
+decl : "extern" "var" identstr ":" top_typ
+       { mk_Declvar($3, $5, mkpos($2)) }
+     | "case" identstr ":" typ
+       { mk_Declctor($2, $4, mkpos($1)) }
+     | "extern" "type" identstr type_params field_anns
+       { mk_Decltype(true, fst($5), $3, $4, snd($5), mkpos($1)) }
+     | "type" identstr type_params field_anns
+       { mk_Decltype(false, fst($4), $2, $3, snd($4), mkpos($1)) }
+
+toplevel : def             { $1 }
+         | decl            { $1 }
+         | lexerdef        { $1 }
+         | "ignore" slist(",", identstr)  { mk_Defignore($2, mkpos($1)) }
+
+def : <CNAMEPLUS> "(" slist(",", identstr) ")" productions
+        { mk_Defmacro(str($1), $3, $5, mkpos($1)) }
+    | <CNAMEPLUS> productions
+        { mk_Defrule(str($1), $2, mkpos($1)) }
+
+productions : ":" production { [(mkpos($1), $2)] }
+            | productions "|" production { addList($1, (mkpos($2), $3)) }
+
+production : elist(psym) "{" expr "}" { mk_production($1, $3) }
+
+extern type node
+extern var mk_Term : (str, bool) -> symbol
+extern var mk_Nonterm : str -> symbol
+extern var mk_Macrocall : (str, list<symbol>, position) -> symbol
+extern var mk_Expr : (node, position) -> expr
+extern var mk_EApp: (expr, list<expr>) -> node
+extern var mk_ETuple: list<expr> -> node
+extern var mk_EList: list<expr> -> node
+extern var mk_ELet: (str, expr, expr) -> node
+extern var mk_EFun: (list<str * monot>, expr) -> node
+extern var mk_EVar : str -> node
+extern var mk_ESlot : int -> node
+extern var mk_EInt : int -> node
+extern var mk_EStr : str -> node
+extern var mk_EFlt : float -> node
+extern var mk_EBool : bool -> node
+extern var mk_EField : (expr, str) -> node
+extern var toint : token -> int
+extern var tofloat : token -> float
+extern var getpos : expr -> position
+
+psym : "<" identstr ">"   { mk_Term($2, false) }
+     | <ESCAPED_STRING>   { mk_Term(unescape(str($1)), true) }
+     | identstr           { mk_Nonterm($1) }
+     | <CNAMEPLUS> "(" slist(",", psym) ")" { mk_Macrocall(str($1), $3, mkpos($1)) }
+
+
+/* Simpler language */
+
+ann: identstr ":" typ      { ($1, $3) }
+
+func_parameters : "(" eslist(",", ann) ")" { $2 }
+
+expr : "let" identstr "=" expr "in" expr
+            { mk_Expr(mk_ELet($2, $4, $6), mkpos($1)) }
+     | "fun" func_parameters "->" expr
+            { mk_Expr(mk_EFun($2, $4), mkpos($1)) }
+     | call
+        { $1 }
+     | call ";" expr
+        { mk_Expr(mk_ELet("_", $1, $3), getpos($1)) }
+
+call : call "(" eslist(",", expr) ")"
+        { mk_Expr(mk_EApp($1, $3), getpos($1)) }
+     | atomexp
+        { $1 }
+
+snd(a, b) : a b { $2 }
+
+atomexp : <INT> { mk_Expr(mk_EInt(toint($1)), mkpos($1)) }
+        | <FLOAT> { mk_Expr(mk_EFlt(tofloat($1)), mkpos($1)) }
+        | <ESCAPED_STRING> { mk_Expr(mk_EStr(unescape(str($1))), mkpos($1)) }
+        | "$" <INT> { mk_Expr(mk_ESlot(toint($2)), mkpos($1)) }
+        | "[" eslist(",", expr) "]" { mk_Expr(mk_EList($2), mkpos($1)) }
+        | "(" ")" { mk_Expr(mk_ETuple([]), mkpos($1)) }
+        | "(" slist(",", expr) ")" { mk_Expr(mk_ETuple($2), mkpos($1)) }
+        | <CNAMEPLUS> { mk_Expr(mk_EVar(str($1)), mkpos($1)) }
+        | atomexp "." <CNAMEPLUS> { mk_Expr(mk_EField($1, str($3)), getpos($1)) }
+        | "true" { mk_Expr(mk_EBool(true), mkpos($1)) }
+        | "false" { mk_Expr(mk_EBool(false), mkpos($1)) }
+
+// Lexical definitions
+
+extern var getunicoderange : str -> lexerule
+extern var getrange : str -> lexerule
+extern var mk_LWildcard: lexerule
+extern var mk_LNumber: lexerule
+extern var mk_LStr: str -> lexerule
+extern var mk_LSeq : list<lexerule> -> lexerule
+extern var mk_LOr : list<lexerule> -> lexerule
+extern var mk_LNot: lexerule -> lexerule
+extern var mk_LPlus: lexerule -> lexerule
+extern var mk_LStar: lexerule -> lexerule
+extern var mk_LOptional: lexerule -> lexerule
+extern var mk_LGroup: lexerule -> lexerule
+extern var mk_LRef: str -> lexerule
+
+lexer :  slist("|", lexer_and) { mk_LOr($1) }
+
+lexer_and : list(lexer_atomexpr) { mk_LSeq($1) }
+
+lexer_atomexpr :
+         lexer_atomexpr "+"            { mk_LPlus($1) }
+      |  lexer_atomexpr "*"            { mk_LStar($1) }
+      |  lexer_atomexpr "?"            { mk_LOptional($1) }
+      |  lexer_atom { $1 }
+
+lexer_atom :  <ESCAPED_STRING> { mk_LStr(unescape(str($1))) }
+      | "!" lexer_atom  { mk_LNot($2) }
+      |  "(" lexer ")"  { mk_LGroup($2) }
+      |  "\\d"          { mk_LNumber }
+      | <RANGE> { getrange(str($1)) }
+      | <UNICODE_RANGE> { getunicoderange(str($1)) }
+      | "_" { mk_LWildcard }
+      | "." { mk_LWildcard }
+      | <CNAMEPLUS> {  mk_LRef(str($1)) }
+
+lexerdef : <CNAMEPLUS> "=" lexer ";"
+         { mk_Deflexer(str($1), $3, mkpos($1)) }
+
+UCODE = DIGIT | [a-f] | [A-F];
+UNICODE = "\\" "u" UCODE UCODE UCODE UCODE;
+UNICODE_RANGE = "[" UNICODE "-" UNICODE "]";
+RANGE = "[" . "-" . "]";
+LCASE_LETTER = [a-z];
+UCASE_LETTER = [A-Z];
+
+LETTER = UCASE_LETTER | LCASE_LETTER;
+WORD = LETTER+;
+CNAMEPLUS = ("_"|LETTER) ("_"|"-"|LETTER|DIGIT)*;
+
+INT = DIGIT+;
+DIGIT = [0-9];
+WS = " " | "\t" | "\r" | "\n";
+FLOAT = INT ("." INT)? (("E" | "e") INT)?;
+ESCAPED_STRING = "\"" ("\\" _ | !"\"")* "\"";
+
+CPP_COMMENT = "/*" .*? "*/";
+C_COMMENT = "//" (!"\n")*;
+
+ignore CPP_COMMENT, C_COMMENT, WS

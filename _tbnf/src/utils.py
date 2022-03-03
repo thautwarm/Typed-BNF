@@ -1,21 +1,35 @@
 from array import array
-from typing import (Iterable, List, MutableSequence, Tuple, Any, TypeVar, Optional, Callable)
+from typing import (Any, List, MutableSequence, Tuple, TypeVar, Callable)
 from ..fable_modules.fable_library.list import (FSharpList, is_empty, head, tail, cons, singleton)
-from ..fable_modules.fable_library.option import some
+from ..fable_modules.fable_library.option import (some, Option)
 from ..fable_modules.fable_library.range import range_char
 from ..fable_modules.fable_library.seq import (to_array, delay, map)
 from ..fable_modules.fable_library.string import (replace, to_text, printf)
 from ..fable_modules.fable_library.system_text import (StringBuilder__ctor_Z721C83C5, StringBuilder__Append_Z721C83C5, StringBuilder__Append_244C7CD6)
 from ..fable_modules.fable_library.types import to_string
-from ..fable_modules.fable_library.util import (ignore, equals)
+from ..fable_modules.fable_library.util import (IEnumerable, ignore, equals)
 
-a_ = TypeVar("a_")
+__A = TypeVar("__A")
 
-b_ = TypeVar("b_")
+__B = TypeVar("__B")
 
-lower_chars : List[str] = to_array(delay(lambda _unit=None: map(lambda a: a, range_char("a", "z"))))
+def arrow_15(_unit: Any=None) -> IEnumerable[str]:
+    def arrow_14(a: str) -> str:
+        return a
+    
+    return map(arrow_14, range_char("a", "z"))
 
-upper_chars : List[str] = to_array(delay(lambda _unit=None: map(lambda a: a, range_char("A", "Z"))))
+
+lower_chars : List[str] = to_array(delay(arrow_15))
+
+def arrow_17(_unit: Any=None) -> IEnumerable[str]:
+    def arrow_16(a: str) -> str:
+        return a
+    
+    return map(arrow_16, range_char("A", "Z"))
+
+
+upper_chars : List[str] = to_array(delay(arrow_17))
 
 sample_unicodes : MutableSequence[int] = array("i", [20320, 26159, 22612, 33778, 21527])
 
@@ -66,11 +80,11 @@ def is_unicode(c: str) -> bool:
 def _escapeString(s: str) -> str:
     sb : Any = StringBuilder__ctor_Z721C83C5("\"")
     for i in range(0, (len(s) - 1) + 1, 1):
-        def arrow_25(s: str=s) -> Any:
+        def arrow_18(s: str=s) -> Any:
             match_value : str = s[i]
             return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\"") if (match_value == "\"") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
         
-        ignore(arrow_25())
+        ignore(arrow_18())
     ignore(StringBuilder__Append_Z721C83C5(sb, "\""))
     return to_string(sb)
 
@@ -82,11 +96,11 @@ def i_to_u4(i: int) -> str:
 def _escapeStringSingleQuoted(s: str) -> str:
     sb : Any = StringBuilder__ctor_Z721C83C5("\u0027")
     for i in range(0, (len(s) - 1) + 1, 1):
-        def arrow_26(s: str=s) -> Any:
+        def arrow_19(s: str=s) -> Any:
             match_value : str = s[i]
             return StringBuilder__Append_Z721C83C5(sb, "\\t") if (match_value == "\t") else (StringBuilder__Append_Z721C83C5(sb, "\\n") if (match_value == "\n") else (StringBuilder__Append_Z721C83C5(sb, "\\r") if (match_value == "\r") else (StringBuilder__Append_Z721C83C5(sb, "\\\u0027") if (match_value == "\u0027") else (StringBuilder__Append_Z721C83C5(sb, "\\\\") if (match_value == "\\") else (StringBuilder__Append_244C7CD6(sb, match_value))))))
         
-        ignore(arrow_26())
+        ignore(arrow_19())
     ignore(StringBuilder__Append_Z721C83C5(sb, "\u0027"))
     return to_string(sb)
 
@@ -108,7 +122,7 @@ def capitalized(s: str) -> str:
     
 
 
-def List_tryLookup(key_mut: a_, x_mut: FSharpList[Tuple[a_, b_]]) -> Optional[b_]:
+def List_tryLookup(key_mut: __A, x_mut: FSharpList[Tuple[__A, __B]]) -> Option[__B]:
     while True:
         (key, x) = (key_mut, x_mut)
         if not is_empty(x):
@@ -130,7 +144,7 @@ def List_tryLookup(key_mut: a_, x_mut: FSharpList[Tuple[a_, b_]]) -> Optional[b_
         break
 
 
-def List_lookup(key_mut: a_, x_mut: FSharpList[Tuple[a_, b_]]) -> b_:
+def List_lookup(key_mut: __A, x_mut: FSharpList[Tuple[__A, __B]]) -> __B:
     while True:
         (key, x) = (key_mut, x_mut)
         if not is_empty(x):
@@ -152,7 +166,7 @@ def List_lookup(key_mut: a_, x_mut: FSharpList[Tuple[a_, b_]]) -> b_:
         break
 
 
-def List_replaceWith(key: a_, func: Callable[[Optional[b_]], b_], xs: FSharpList[Tuple[a_, b_]]) -> FSharpList[Tuple[a_, b_]]:
+def List_replaceWith(key: __A, func: Callable[[Option[__B]], __B], xs: FSharpList[Tuple[__A, __B]]) -> FSharpList[Tuple[__A, __B]]:
     if not is_empty(xs):
         if equals(head(xs)[0], key):
             return cons((head(xs)[0], func(some(head(xs)[1]))), tail(xs))

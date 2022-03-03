@@ -1,8 +1,9 @@
 from __future__ import annotations
-from typing import (Tuple, Any, Optional, List, Callable)
+from typing import (Tuple, Any, List, Callable)
 from ..fable_modules.fable_library.array import reverse as reverse_1
 from ..fable_modules.fable_library.list import (FSharpList, empty as empty_2, map, reverse, length, iterate, is_empty, cons, of_array as of_array_1, try_item, map_indexed, fold, contains as contains_1, to_array)
 from ..fable_modules.fable_library.map import (empty, of_array, contains_key, FSharpMap__get_Item, try_find, add)
+from ..fable_modules.fable_library.option import Option
 from ..fable_modules.fable_library.reflection import (TypeInfo, string_type, list_type, tuple_type, record_type, class_type, array_type)
 from ..fable_modules.fable_library.set import (empty as empty_1, contains, add as add_1)
 from ..fable_modules.fable_library.string import (to_text, interpolate, to_console, printf)
@@ -12,10 +13,10 @@ from .exceptions import (NotGlobalVariable, InvalidKind, UnboundTypeVariable, In
 from .grammar import (monot, monot_reflection, _predefined_typenames, polyt, monot__prune, monot__apply_to_children_z6a62bcbf, TTuple, position, position_reflection, definition, expr as expr_1, node as node_5, TConst_str, TConst_int, TConst_bool, TConst_float, TList, lexerule, production as production_1, symbol, TConst_token)
 from .macro_resolve import resolve_macro
 from .op import basename
-from .unification import (Manager, Manager__NewTyRef_Z721C83C5, Manager__Unify, Manager__Instantiate_Z25E5E15E, Manager_reflection, Manager__ctor)
+from .unification import (Manager, Manager__NewTyRef_Z721C83C5, Manager__Unify_Z1D753960, Manager__Instantiate_Z25E5E15E, Manager_reflection, Manager__ctor)
 from .utils import (List_replaceWith, List_tryLookup)
 
-def expr_60() -> TypeInfo:
+def expr_186() -> TypeInfo:
     return record_type("tbnf.Analysis.Shape", [], Shape, lambda: [["parameters", list_type(string_type)], ["fields", list_type(tuple_type(string_type, monot_reflection()))]])
 
 
@@ -26,50 +27,65 @@ class Shape(Record):
         self.fields = fields
     
 
-Shape_reflection = expr_60
+Shape_reflection = expr_186
 
-def expr_66() -> TypeInfo:
+def expr_197() -> TypeInfo:
     return class_type("tbnf.Analysis.Sigma", None, Sigma)
 
 
 class Sigma:
-    def __init__(self, UM: Manager=None) -> None:
+    def __init__(self, UM: Manager) -> None:
         self.UM = UM
-        class ObjectExpr61:
+        class ObjectExpr188:
             @property
             def Compare(self) -> Any:
-                return lambda x, y: compare_primitives(x, y)
+                def arrow_187(x: str, y: str) -> int:
+                    return compare_primitives(x, y)
+                
+                return arrow_187
             
-        self.shapes = empty(ObjectExpr61())
-        class ObjectExpr62:
+        self.shapes = empty(ObjectExpr188())
+        class ObjectExpr190:
             @property
             def Compare(self) -> Any:
-                return lambda x_1, y_1: compare_primitives(x_1, y_1)
+                def arrow_189(x_1: str, y_1: str) -> int:
+                    return compare_primitives(x_1, y_1)
+                
+                return arrow_189
             
-        self.kinds = of_array(_predefined_typenames, ObjectExpr62())
-        class ObjectExpr63:
+        self.kinds = of_array(_predefined_typenames, ObjectExpr190())
+        class ObjectExpr192:
             @property
             def Compare(self) -> Any:
-                return lambda x_2, y_2: compare_primitives(x_2, y_2)
+                def arrow_191(x_2: str, y_2: str) -> int:
+                    return compare_primitives(x_2, y_2)
+                
+                return arrow_191
             
-        self.global_variables = empty(ObjectExpr63())
-        class ObjectExpr64:
+        self.global_variables = empty(ObjectExpr192())
+        class ObjectExpr194:
             @property
             def Compare(self) -> Any:
-                return lambda x_3, y_3: compare_primitives(x_3, y_3)
+                def arrow_193(x_3: str, y_3: str) -> int:
+                    return compare_primitives(x_3, y_3)
+                
+                return arrow_193
             
-        self.constructors = empty_1(ObjectExpr64())
-        class ObjectExpr65:
+        self.constructors = empty_1(ObjectExpr194())
+        class ObjectExpr196:
             @property
             def Compare(self) -> Any:
-                return lambda x_4, y_4: compare_primitives(x_4, y_4)
+                def arrow_195(x_4: str, y_4: str) -> int:
+                    return compare_primitives(x_4, y_4)
+                
+                return arrow_195
             
-        self.external_types = empty_1(ObjectExpr65())
+        self.external_types = empty_1(ObjectExpr196())
         self.records = empty_2()
         self.adt_cases = empty_2()
     
 
-Sigma_reflection = expr_66
+Sigma_reflection = expr_197
 
 def Sigma__ctor_Z57FA2555(UM: Manager) -> Sigma:
     return Sigma(UM)
@@ -129,13 +145,16 @@ def Sigma__GetADTCases(__: Sigma) -> FSharpList[Tuple[str, Any]]:
 
 
 def Sigma__GetRecordTypes(__: Sigma) -> FSharpList[Tuple[str, Shape]]:
-    return map(lambda x, __=__: (x, FSharpMap__get_Item(__.shapes, x)), reverse(__.records))
+    def mapping(x: str, __: Sigma=__) -> Tuple[str, Shape]:
+        return (x, FSharpMap__get_Item(__.shapes, x))
+    
+    return map(mapping, reverse(__.records))
 
 
 def Sigma__checkKind__Z25145215(this: Sigma, t: monot) -> None:
     t_1 : monot = monot__prune(t)
     if t_1.tag == 1:
-        match_value : Optional[int] = try_find(t_1.fields[0], this.kinds)
+        match_value : Option[int] = try_find(t_1.fields[0], this.kinds)
         if match_value is not None:
             if match_value == 0:
                 pass
@@ -158,7 +177,7 @@ def Sigma__checkKind__Z25145215(this: Sigma, t: monot) -> None:
     
     elif t_1.tag == 2:
         if t_1.fields[0].tag == 1:
-            match_value_1 : Optional[int] = try_find(t_1.fields[0].fields[0], this.kinds)
+            match_value_1 : Option[int] = try_find(t_1.fields[0].fields[0], this.kinds)
             if match_value_1 is not None:
                 kind_1 : int = match_value_1 or 0
                 got_1 : int = length(t_1.fields[1]) or 0
@@ -169,10 +188,10 @@ def Sigma__checkKind__Z25145215(this: Sigma, t: monot) -> None:
                         "name": t_1.fields[0].fields[0]
                     })
                 
-                def arrow_67(t_2: monot, this: Sigma=this, t: monot=t) -> None:
+                def arrow_198(t_2: monot, this: Sigma=this, t: monot=t) -> None:
                     Sigma__checkKind__Z25145215(this, t_2)
                 
-                iterate(arrow_67, t_1.fields[1])
+                iterate(arrow_198, t_1.fields[1])
             
             else: 
                 raise UnboundTypeVariable(t_1.fields[0].fields[0])
@@ -183,10 +202,10 @@ def Sigma__checkKind__Z25145215(this: Sigma, t: monot) -> None:
         
     
     else: 
-        def arrow_68(t_3: monot, this: Sigma=this, t: monot=t) -> None:
+        def arrow_199(t_3: monot, this: Sigma=this, t: monot=t) -> None:
             Sigma__checkKind__Z25145215(this, t_3)
         
-        monot__apply_to_children_z6a62bcbf(t_1, arrow_68)
+        monot__apply_to_children_z6a62bcbf(t_1, arrow_199)
     
 
 
@@ -212,7 +231,7 @@ def Sigma__addCase(this: Sigma, typename: str, ctor_name: str, t: FSharpList[Tup
     if contains(typename, this.external_types):
         raise InvalidConstructorDefinination(InvalidConstructorDefininationCause(0))
     
-    match_value : Optional[Shape] = try_find(typename, this.shapes)
+    match_value : Option[Shape] = try_find(typename, this.shapes)
     (pattern_matching_result,) = (None,)
     if match_value is not None:
         if length(match_value.fields) != 0:
@@ -237,7 +256,7 @@ def Sigma__addCase(this: Sigma, typename: str, ctor_name: str, t: FSharpList[Tup
             raise InvalidConstructorDefinination(InvalidConstructorDefininationCause(2))
         
     
-    def func(_arg1: Optional[Any]=None, this: Sigma=this, typename: str=typename, ctor_name: str=ctor_name, t: FSharpList[Tuple[str, monot]]=t) -> Any:
+    def func(_arg1: Option[Any]=None, this: Sigma=this, typename: str=typename, ctor_name: str=ctor_name, t: FSharpList[Tuple[str, monot]]=t) -> Any:
         if _arg1 is not None:
             if contains_key(ctor_name, _arg1):
                 cases_1 : Any = _arg1
@@ -251,12 +270,15 @@ def Sigma__addCase(this: Sigma, typename: str, ctor_name: str, t: FSharpList[Tup
             
         
         else: 
-            class ObjectExpr69:
+            class ObjectExpr201:
                 @property
                 def Compare(self) -> Any:
-                    return lambda x, y: compare_primitives(x, y)
+                    def arrow_200(x: str, y: str) -> int:
+                        return compare_primitives(x, y)
+                    
+                    return arrow_200
                 
-            return of_array([(ctor_name, t)], ObjectExpr69())
+            return of_array([(ctor_name, t)], ObjectExpr201())
         
     
     adt_cases_0027 : FSharpList[Tuple[str, Any]] = List_replaceWith(typename, func, this.adt_cases)
@@ -268,7 +290,7 @@ def Sigma__defineShape(this: Sigma, external: bool, has_fields: bool, typename: 
         raise DuplicateTypeVariable(typename)
     
     else: 
-        match_value : Optional[int] = try_find(typename, this.kinds)
+        match_value : Option[int] = try_find(typename, this.kinds)
         if match_value is None:
             Sigma__registerType(this, typename, length(parameters))
         
@@ -286,7 +308,10 @@ def Sigma__defineShape(this: Sigma, external: bool, has_fields: bool, typename: 
             this.external_types = add_1(typename, this.external_types)
         
         elif has_fields:
-            Sigma__registerExistingVariable(this, typename, polyt(1, monot(3, fields, monot(1, typename))) if (is_empty(parameters)) else (polyt(0, parameters, monot(3, fields, monot(2, monot(1, typename), map(lambda arg0, this=this, external=external, has_fields=has_fields, typename=typename, parameters=parameters, fields=fields: monot(4, arg0), parameters))))))
+            def arrow_202(arg0: str, this: Sigma=this, external: bool=external, has_fields: bool=has_fields, typename: str=typename, parameters: FSharpList[str]=parameters, fields: FSharpList[Tuple[str, monot]]=fields) -> monot:
+                return monot(4, arg0)
+            
+            Sigma__registerExistingVariable(this, typename, polyt(1, monot(3, fields, monot(1, typename))) if (is_empty(parameters)) else (polyt(0, parameters, monot(3, fields, monot(2, monot(1, typename), map(arrow_202, parameters))))))
             this.records = cons(typename, this.records)
         
         this.shapes = add(typename, Shape(parameters, fields), this.shapes)
@@ -295,14 +320,17 @@ def Sigma__defineShape(this: Sigma, external: bool, has_fields: bool, typename: 
 
 def Sigma__lookupField(this: Sigma, t: monot, fieldname: str, tyref: monot) -> monot:
     typename : str = basename(t)
-    match_value : Optional[Shape] = try_find(typename, this.shapes)
+    match_value : Option[Shape] = try_find(typename, this.shapes)
     if match_value is not None:
         shape : Shape = match_value
-        match_value_1 : Optional[monot] = List_tryLookup(fieldname, shape.fields)
+        match_value_1 : Option[monot] = List_tryLookup(fieldname, shape.fields)
         if match_value_1 is not None:
             ft : monot = match_value_1
             inst_target : monot = TTuple(of_array_1([t, tyref]))
-            Manager__Unify(this.UM, inst_target, Manager__Instantiate_Z25E5E15E(this.UM, polyt(0, shape.parameters, TTuple(of_array_1([monot(2, monot(1, typename), map(lambda arg0, this=this, t=t, fieldname=fieldname, tyref=tyref: monot(4, arg0), shape.parameters)), ft]))))[1])
+            def mapping(arg0: str, this: Sigma=this, t: monot=t, fieldname: str=fieldname, tyref: monot=tyref) -> monot:
+                return monot(4, arg0)
+            
+            Manager__Unify_Z1D753960(this.UM, inst_target, Manager__Instantiate_Z25E5E15E(this.UM, polyt(0, shape.parameters, TTuple(of_array_1([monot(2, monot(1, typename), map(mapping, shape.parameters)), ft]))))[1])
             Sigma__checkKind__Z25145215(this, inst_target)
             return monot__prune(tyref)
         
@@ -354,7 +382,7 @@ def Sigma__registerCtorGVar(this: Sigma, varname: str, t: monot) -> None:
     
 
 
-def expr_70() -> TypeInfo:
+def expr_203() -> TypeInfo:
     return record_type("tbnf.Analysis.Analyzer", [], Analyzer, lambda: [["UM", Manager_reflection()], ["Sigma", Sigma_reflection()], ["currentPos", position_reflection()], ["Omega", class_type("Microsoft.FSharp.Collections.FSharpMap`2", [string_type, monot_reflection()])], ["LiteralTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["ReferencedNamedTokens", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])], ["TokenFragments", array_type(string_type)], ["IgnoreSet", class_type("Microsoft.FSharp.Collections.FSharpSet`1", [string_type])]])
 
 
@@ -371,37 +399,49 @@ class Analyzer(Record):
         self.IgnoreSet = IgnoreSet
     
 
-Analyzer_reflection = expr_70
+Analyzer_reflection = expr_203
 
 def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]:
     UM : Manager = Manager__ctor()
     Sigma_1 : Sigma = Sigma__ctor_Z57FA2555(UM)
     current_pos : position = None
-    class ObjectExpr71:
+    class ObjectExpr205:
         @property
         def Compare(self) -> Any:
-            return lambda x, y: compare_primitives(x, y)
+            def arrow_204(x: str, y: str) -> int:
+                return compare_primitives(x, y)
+            
+            return arrow_204
         
-    Omega : Any = empty(ObjectExpr71())
-    class ObjectExpr72:
+    Omega : Any = empty(ObjectExpr205())
+    class ObjectExpr207:
         @property
         def Compare(self) -> Any:
-            return lambda x_1, y_1: compare_primitives(x_1, y_1)
+            def arrow_206(x_1: str, y_1: str) -> int:
+                return compare_primitives(x_1, y_1)
+            
+            return arrow_206
         
-    LiteralTokens : Any = empty_1(ObjectExpr72())
-    class ObjectExpr73:
+    LiteralTokens : Any = empty_1(ObjectExpr207())
+    class ObjectExpr209:
         @property
         def Compare(self) -> Any:
-            return lambda x_2, y_2: compare_primitives(x_2, y_2)
+            def arrow_208(x_2: str, y_2: str) -> int:
+                return compare_primitives(x_2, y_2)
+            
+            return arrow_208
         
-    ReferencedNamedTokens : Any = empty_1(ObjectExpr73())
+    ReferencedNamedTokens : Any = empty_1(ObjectExpr209())
     TokenFragments : FSharpList[str] = empty_2()
-    class ObjectExpr74:
+    class ObjectExpr211:
         @property
         def Compare(self) -> Any:
-            return lambda x_3, y_3: compare_primitives(x_3, y_3)
+            def arrow_210(x_3: str, y_3: str) -> int:
+                return compare_primitives(x_3, y_3)
+            
+            return arrow_210
         
-    IgnoreSet : Any = empty_1(ObjectExpr74())
+    IgnoreSet : Any = empty_1(ObjectExpr211())
     def infer_e(s_gamma: Any, S: FSharpList[monot], e: expr_1, stmts: List[definition]=stmts) -> expr_1:
         nonlocal current_pos
         S_1 : FSharpList[monot] = S
@@ -409,7 +449,7 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
         match_value : node_5 = e.node
         if match_value.tag == 6:
             v_1 : str = match_value.fields[0]
-            match_value_1 : Optional[polyt] = try_find(v_1, s_gamma)
+            match_value_1 : Option[polyt] = try_find(v_1, s_gamma)
             if match_value_1 is not None:
                 pattern_input : Tuple[FSharpList[monot], monot] = Manager__Instantiate_Z25E5E15E(UM, match_value_1)
                 match_value.fields[1].contents = pattern_input[0]
@@ -439,11 +479,14 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
         
         elif match_value.tag == 2:
             t_r : monot = Manager__NewTyRef_Z721C83C5(UM, "list")
-            return expr_1(node_5(2, map(lambda elt_1, s_gamma=s_gamma, S=S, e=e: infer_e(s_gamma, S_1, elt_1), match_value.fields[0])), e.pos, TList(monot__prune(t_r)))
+            def mapping_1(elt_1: expr_1, s_gamma: Any=s_gamma, S: FSharpList[monot]=S, e: expr_1=e) -> expr_1:
+                return infer_e(s_gamma, S_1, elt_1)
+            
+            return expr_1(node_5(2, map(mapping_1, match_value.fields[0])), e.pos, TList(monot__prune(t_r)))
         
         elif match_value.tag == 7:
             i : int = match_value.fields[0] or 0
-            match_value_2 : Optional[monot] = try_item(i - 1, S_1)
+            match_value_2 : Option[monot] = try_item(i - 1, S_1)
             if match_value_2 is None:
                 raise ComponentAccessingOutOfBound(i)
             
@@ -454,10 +497,16 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
         elif match_value.tag == 0:
             f_1 : expr_1 = infer_e(s_gamma, S_1, match_value.fields[0])
             t_f : monot = f_1.t
-            args_1 : FSharpList[expr_1] = map(lambda expr, s_gamma=s_gamma, S=S, e=e: infer_e(s_gamma, S_1, expr), match_value.fields[1])
-            t_args : FSharpList[Tuple[str, monot]] = map_indexed(lambda i_1, x_7, s_gamma=s_gamma, S=S, e=e: (to_text(interpolate("arg%P()", [i_1])), x_7.t), args_1)
+            def mapping_2(expr: expr_1, s_gamma: Any=s_gamma, S: FSharpList[monot]=S, e: expr_1=e) -> expr_1:
+                return infer_e(s_gamma, S_1, expr)
+            
+            args_1 : FSharpList[expr_1] = map(mapping_2, match_value.fields[1])
+            def arrow_212(i_1: int, x_7: expr_1, s_gamma: Any=s_gamma, S: FSharpList[monot]=S, e: expr_1=e) -> Tuple[str, monot]:
+                return (to_text(interpolate("arg%P()", [i_1])), x_7.t)
+            
+            t_args : FSharpList[Tuple[str, monot]] = map_indexed(arrow_212, args_1)
             t_r_1 : monot = Manager__NewTyRef_Z721C83C5(UM, "@ret")
-            Manager__Unify(UM, t_f, monot(3, t_args, t_r_1))
+            Manager__Unify_Z1D753960(UM, monot(3, t_args, t_r_1), t_f)
             Sigma__KindCheckMono_Z25145215(Sigma_1, monot__prune(t_f))
             return expr_1(node_5(0, f_1, args_1), e.pos, monot__prune(t_r_1))
         
@@ -468,12 +517,21 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
         
         elif match_value.tag == 5:
             ann_args : FSharpList[Tuple[str, monot]] = match_value.fields[0]
-            body_3 : expr_1 = infer_e(fold(lambda state, tupled_arg_1, s_gamma=s_gamma, S=S, e=e: add(tupled_arg_1[0], polyt(1, Sigma__KindCheck_Z25145215(Sigma_1, tupled_arg_1[1])), state), s_gamma, ann_args), S_1, match_value.fields[1])
+            def folder(state: Any, tupled_arg_1: Tuple[str, monot], s_gamma: Any=s_gamma, S: FSharpList[monot]=S, e: expr_1=e) -> Any:
+                return add(tupled_arg_1[0], polyt(1, Sigma__KindCheck_Z25145215(Sigma_1, tupled_arg_1[1])), state)
+            
+            body_3 : expr_1 = infer_e(fold(folder, s_gamma, ann_args), S_1, match_value.fields[1])
             return expr_1(node_5(5, ann_args, body_3), e.pos, monot(3, ann_args, body_3.t))
         
         else: 
-            elts_1 : FSharpList[expr_1] = map(lambda elt, s_gamma=s_gamma, S=S, e=e: infer_e(s_gamma, S_1, elt), match_value.fields[0])
-            return expr_1(node_5(1, elts_1), e.pos, TTuple(map(lambda x_6, s_gamma=s_gamma, S=S, e=e: x_6.t, elts_1)))
+            def mapping(elt: expr_1, s_gamma: Any=s_gamma, S: FSharpList[monot]=S, e: expr_1=e) -> expr_1:
+                return infer_e(s_gamma, S_1, elt)
+            
+            elts_1 : FSharpList[expr_1] = map(mapping, match_value.fields[0])
+            def arrow_213(x_6: expr_1, s_gamma: Any=s_gamma, S: FSharpList[monot]=S, e: expr_1=e) -> monot:
+                return x_6.t
+            
+            return expr_1(node_5(1, elts_1), e.pos, TTuple(map(arrow_213, elts_1)))
         
     
     def check_lexerule(x_8_mut: lexerule, stmts: List[definition]=stmts) -> None:
@@ -517,16 +575,22 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                 l = x_8.fields[0]
             
             elif x_8.tag == 11:
-                class ObjectExpr75:
+                class ObjectExpr216:
                     @property
                     def Equals(self) -> Any:
-                        return lambda x_9, y_6: x_9 == y_6
+                        def arrow_214(x_9: str, y_6: str) -> bool:
+                            return x_9 == y_6
+                        
+                        return arrow_214
                     
                     @property
                     def GetHashCode(self) -> Any:
-                        return lambda x_9: string_hash(x_9)
+                        def arrow_215(x_9: str) -> int:
+                            return string_hash(x_9)
+                        
+                        return arrow_215
                     
-                if contains_1(x_8.fields[0], TokenFragments, ObjectExpr75()):
+                if contains_1(x_8.fields[0], TokenFragments, ObjectExpr216()):
                     pattern_matching_result = 3
                 
                 else: 
@@ -560,11 +624,11 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
             break
     
     try: 
-        def arrow_76(x_10: position) -> None:
+        def arrow_217(x_10: position) -> None:
             nonlocal current_pos
             current_pos = x_10
         
-        stmts_1 : List[definition] = resolve_macro(arrow_76, stmts)
+        stmts_1 : List[definition] = resolve_macro(arrow_217, stmts)
         for idx in range(0, (len(stmts_1) - 1) + 1, 1):
             stmt : definition = stmts_1[idx]
             (pattern_matching_result_1, decl_1, decl_2, decl_3, decl_4, decl_5) = (None, None, None, None, None, None)
@@ -617,7 +681,10 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
             
             elif pattern_matching_result_1 == 3:
                 current_pos = decl_4["pos"]
-                Sigma__RegisterType(Sigma_1, decl_4["external"], decl_4["hasFields"], decl_4["ident"], decl_4["parameters"], map(lambda tupled_arg: (tupled_arg[0], tupled_arg[1]), decl_4["fields"]))
+                def arrow_218(tupled_arg: Tuple[str, monot, position]) -> Tuple[str, monot]:
+                    return (tupled_arg[0], tupled_arg[1])
+                
+                Sigma__RegisterType(Sigma_1, decl_4["external"], decl_4["hasFields"], decl_4["ident"], decl_4["parameters"], map(arrow_218, decl_4["fields"]))
                 with get_enumerator(decl_4["fields"]) as enumerator_1:
                     while enumerator_1.System_Collections_IEnumerator_MoveNext():
                         for_loop_var : Tuple[str, monot, position] = enumerator_1.System_Collections_Generic_IEnumerator_00601_get_Current()
@@ -637,16 +704,22 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                     decl_7 = stmt.fields[0]
                 
                 elif stmt.tag == 2:
-                    class ObjectExpr77:
+                    class ObjectExpr221:
                         @property
                         def Equals(self) -> Any:
-                            return lambda x_4, y_4: x_4 == y_4
+                            def arrow_219(x_4: str, y_4: str) -> bool:
+                                return x_4 == y_4
+                            
+                            return arrow_219
                         
                         @property
                         def GetHashCode(self) -> Any:
-                            return lambda x_4: string_hash(x_4)
+                            def arrow_220(x_4: str) -> int:
+                                return string_hash(x_4)
+                            
+                            return arrow_220
                         
-                    if contains_1(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr77()):
+                    if contains_1(stmt.fields[0]["lhs"], TokenFragments, ObjectExpr221()):
                         pattern_matching_result_2 = 1
                         decl_8 = stmt.fields[0]
                     
@@ -693,16 +766,22 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                                     LiteralTokens = add_1(n, LiteralTokens)
                                 
                                 else: 
-                                    class ObjectExpr78:
+                                    class ObjectExpr224:
                                         @property
                                         def Equals(self) -> Any:
-                                            return lambda x_5, y_5: x_5 == y_5
+                                            def arrow_222(x_5: str, y_5: str) -> bool:
+                                                return x_5 == y_5
+                                            
+                                            return arrow_222
                                         
                                         @property
                                         def GetHashCode(self) -> Any:
-                                            return lambda x_5: string_hash(x_5)
+                                            def arrow_223(x_5: str) -> int:
+                                                return string_hash(x_5)
+                                            
+                                            return arrow_223
                                         
-                                    if not contains_1(n, TokenFragments, ObjectExpr78()):
+                                    if not contains_1(n, TokenFragments, ObjectExpr224()):
                                         raise UnboundLexer(n)
                                     
                                     else: 
@@ -723,15 +802,15 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                                 
                             
                             else: 
-                                def arrow_79(s: symbol=s) -> Exception:
+                                def arrow_225(s: symbol=s) -> Exception:
                                     raise Exception("macrocall not processed")
                                 
-                                raise arrow_79()
+                                raise arrow_225()
                             
                         
                         S_2 : FSharpList[monot] = map(infer_p, production.symbols)
                         action : expr_1 = infer_e(Sigma__get_GlobalVariables(Sigma_1), S_2, production.action)
-                        Manager__Unify(UM, action.t, t_6)
+                        Manager__Unify_Z1D753960(UM, action.t, t_6)
                         production.action = action
             
             elif stmt_2.tag == 2:
@@ -739,17 +818,17 @@ def build_analyzer(stmts: List[definition]) -> Tuple[List[definition], Analyzer]
                 current_pos = decl_11["pos"]
                 check_lexerule(decl_11["define"])
             
-        def arrow_80(_unit=None) -> Analyzer:
+        def arrow_226(_unit: Any=None) -> Analyzer:
             TokenFragments_1 : List[str] = reverse_1(to_array(TokenFragments))
             return Analyzer(UM, Sigma_1, current_pos, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet)
         
-        return (stmts_1, arrow_80())
+        return (stmts_1, arrow_226())
     
     except Exception as e_1:
         arg30_1 : str = current_pos.filename
         arg20_1 : int = current_pos.col or 0
-        arg10_6 : int = current_pos.line or 0
-        to_console(printf("line %d, column %d, file: %s\n%A"))(arg10_6)(arg20_1)(arg30_1)(e_1)
+        arg10_4 : int = current_pos.line or 0
+        to_console(printf("line %d, column %d, file: %s\n%A"))(arg10_4)(arg20_1)(arg30_1)(e_1)
         raise Exception("exit with error")
     
 
