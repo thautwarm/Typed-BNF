@@ -1,8 +1,9 @@
 from __future__ import annotations
-from typing import (Any, Callable, MutableSequence, Optional, List, Tuple)
+from typing import (Any, Callable, MutableSequence, List, Tuple)
 from ..fable_modules.fable_library.array import (compare_with, map as map_2)
 from ..fable_modules.fable_library.list import (empty as empty_1, FSharpList, of_array_with_tail, of_seq, of_array, cons, reverse, map as map_1, singleton, append)
 from ..fable_modules.fable_library.map import (empty, try_find, add)
+from ..fable_modules.fable_library.option import Option
 from ..fable_modules.fable_library.seq import map
 from ..fable_modules.fable_library.string import (to_text, printf, replace, interpolate)
 from ..fable_modules.fable_library.util import (compare, compare_primitives, int32_to_string, get_enumerator, ignore)
@@ -10,12 +11,15 @@ from .code_gen import (Doc, empty as empty_2, Doc_op_Addition_Z7CFFAC00, word, s
 from .sedlex import (compiled_unit, Automata_decision_tree, lang as lang_3, keep_token)
 
 def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
-    class ObjectExpr57:
+    class ObjectExpr7:
         @property
         def Compare(self) -> Any:
-            return lambda x, y: compare(x, y)
+            def arrow_6(x: Automata_decision_tree, y: Automata_decision_tree) -> int:
+                return compare(x, y)
+            
+            return arrow_6
         
-    decision_funcs : Any = empty(ObjectExpr57())
+    decision_funcs : Any = empty(ObjectExpr7())
     tbl_cnt : int = 0
     dt_cnt : int = 0
     rnd_cnt : int = 0
@@ -25,12 +29,18 @@ def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
         arg10_2 : int = rnd_cnt or 0
         return to_text(printf("_sedlex_rnd_%d"))(arg10_2)
     
-    class ObjectExpr58:
+    class ObjectExpr10:
         @property
         def Compare(self) -> Any:
-            return lambda x_1, y_1: compare_with(lambda x_2, y_2: compare_primitives(x_2, y_2), x_1, y_1)
+            def arrow_9(x_1: MutableSequence[int], y_1: MutableSequence[int]) -> int:
+                def arrow_8(x_2: int, y_2: int) -> int:
+                    return compare_primitives(x_2, y_2)
+                
+                return compare_with(arrow_8, x_1, y_1)
+            
+            return arrow_9
         
-    tables : Any = empty(ObjectExpr58())
+    tables : Any = empty(ObjectExpr10())
     toplevels : FSharpList[Doc] = empty_1()
     later_toplevels : FSharpList[Doc] = empty_1()
     def push_toplevel(doc: Doc, import_head: str=import_head, cu: compiled_unit=cu) -> None:
@@ -41,21 +51,26 @@ def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
         nonlocal later_toplevels
         later_toplevels = of_array_with_tail([doc_1, empty_2], later_toplevels)
     
-    st_func_name : Callable[[int], str] = lambda i, import_head=import_head, cu=cu: to_text(printf("_sedlex_st_%d"))(i)
+    def st_func_name(i: int, import_head: str=import_head, cu: compiled_unit=cu) -> str:
+        return to_text(printf("_sedlex_st_%d"))(i)
+    
     def _cg_decision_func(tree: Automata_decision_tree, import_head: str=import_head, cu: compiled_unit=cu) -> Doc:
         nonlocal tbl_cnt, tables
         if tree.tag == 2:
             return Doc_op_Addition_Z7CFFAC00(word("return"), word(int32_to_string(tree.fields[0])))
         
         elif tree.tag == 1:
-            tname = None
+            tname : str
             table : MutableSequence[int] = tree.fields[1]
-            match_value : Optional[str] = try_find(table, tables)
+            match_value : Option[str] = try_find(table, tables)
             if match_value is None:
-                table_doc = None
-                lst : FSharpList[Doc] = of_seq(map(lambda arg, tree=tree: word(int32_to_string(arg)), table))
+                table_doc : Doc
+                def mapping(arg: int, tree: Automata_decision_tree=tree) -> Doc:
+                    return word(int32_to_string(arg))
+                
+                lst : FSharpList[Doc] = of_seq(map(mapping, table))
                 table_doc = seplist(word(", "), lst)
-                n_1 = None
+                n_1 : str
                 tbl_cnt = (tbl_cnt + 1) or 0
                 arg10 : int = tbl_cnt or 0
                 n_1 = to_text(printf("_sedlex_DT_table_%d"))(arg10)
@@ -76,9 +91,9 @@ def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
     
     def cg_decision_func(tree_1: Automata_decision_tree, import_head: str=import_head, cu: compiled_unit=cu) -> str:
         nonlocal dt_cnt, decision_funcs
-        match_value_1 : Optional[str] = try_find(tree_1, decision_funcs)
+        match_value_1 : Option[str] = try_find(tree_1, decision_funcs)
         if match_value_1 is None:
-            dtname = None
+            dtname : str
             dt_cnt = (dt_cnt + 1) or 0
             arg10_1 : int = dt_cnt or 0
             dtname = to_text(printf("_sedlex_decide_%d"))(arg10_1)
@@ -110,11 +125,14 @@ def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
                 names = cons(name_1, names)
             names_1 : FSharpList[str] = reverse(names)
             func_table : str = new_rnd_name()
-            def arrow_59(lang: lang_3=lang) -> Doc:
-                lst_1 : FSharpList[Doc] = map_1(lambda s_2: word(s_2), names_1)
+            def arrow_12(lang: lang_3=lang) -> Doc:
+                def arrow_11(s_2: str) -> Doc:
+                    return word(s_2)
+                
+                lst_1 : FSharpList[Doc] = map_1(arrow_11, names_1)
                 return seplist(word(", "), lst_1)
             
-            push_later_toplevel(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(func_table), word("=")), bracket(arrow_59())))
+            push_later_toplevel(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(func_table), word("=")), bracket(arrow_12())))
             default_body : Doc = _cg_state_func(lang.fields[2])
             test : Doc = Doc_op_Multiply_Z7CFFAC00(word(cg_decision_func(lang.fields[0])), parens(word("public_next_int(lexerbuf)")))
             return vsep(of_array([Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("state_id"), word("=")), test), Doc_op_Addition_Z7CFFAC00(word("if"), Doc_op_Multiply_Z7CFFAC00(word(to_text(printf("state_id \u003e= 0"))), word(":"))), Doc_op_RightShift_2AAA0F3C(vsep(singleton(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("result"), word("=")), Doc_op_Multiply_Z7CFFAC00(word(to_text(printf("%s[state_id]"))(func_table)), parens(word("lexerbuf")))))), 4), word("else:"), Doc_op_RightShift_2AAA0F3C(default_body, 4)]))
@@ -130,11 +148,14 @@ def codegen_python(import_head: str, cu: compiled_unit) -> Doc:
     with get_enumerator(cu.referenced_decision_trees) as enumerator_1:
         while enumerator_1.System_Collections_IEnumerator_MoveNext():
             ignore(cg_decision_func(enumerator_1.System_Collections_Generic_IEnumerator_00601_get_Current()))
-    middle_toplevels = None
+    middle_toplevels : Doc
     pattern_input : Tuple[List[keep_token], str] = cu.lex_code
     error_msg_1 : str = ("\"" + replace(pattern_input[1], "\"", "\\\"")) + "\""
     initial_state_fun : str = st_func_name(0)
-    token_ids : FSharpList[Doc] = of_array(map_2(lambda _arg1, import_head=import_head, cu=cu: pretty(_arg1.fields[0]) if (_arg1.tag == 1) else (word("None")), pattern_input[0], None))
+    def arrow_13(_arg1: keep_token, import_head: str=import_head, cu: compiled_unit=cu) -> Doc:
+        return pretty(_arg1.fields[0]) if (_arg1.tag == 1) else (word("None"))
+    
+    token_ids : FSharpList[Doc] = of_array(map_2(arrow_13, pattern_input[0], None))
     construct_table : Doc = Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word("["), seplist(word(", "), token_ids)), word("]")), word(" # token_ids"))
     table_name : str = new_rnd_name()
     push_toplevel(Doc_op_Addition_Z7CFFAC00(Doc_op_Addition_Z7CFFAC00(word(table_name), word("=")), construct_table))

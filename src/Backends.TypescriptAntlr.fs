@@ -91,7 +91,10 @@ let CSharpKeywords =
        "virtual"
        "volatile"
        "void"
-       "while" |]
+       "while"
+       "lexer"
+       "parser"
+       |]
 
 let angled x = word "<" * x * word ">"
 

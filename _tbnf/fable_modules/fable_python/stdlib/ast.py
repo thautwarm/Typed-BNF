@@ -1,7 +1,8 @@
 from __future__ import annotations
 from abc import abstractmethod
-from typing import (List, Optional)
+from typing import List
 from .....fable_library.list import FSharpList
+from .....fable_library.option import Option
 
 class AST:
     @property
@@ -56,7 +57,7 @@ class FunctionDef(stmt, AST):
     
     @property
     @abstractmethod
-    def returns(self) -> Optional[expr]:
+    def returns(self) -> Option[expr]:
         ...
     
 
@@ -90,7 +91,7 @@ class ClassDef(stmt, AST):
 class Return(stmt, AST):
     @property
     @abstractmethod
-    def value(self) -> Optional[expr]:
+    def value(self) -> Option[expr]:
         ...
     
 
@@ -128,7 +129,7 @@ class ImportFrom(stmt, AST):
     
     @property
     @abstractmethod
-    def module(self) -> Optional[str]:
+    def module(self) -> Option[str]:
         ...
     
     @property
@@ -167,12 +168,12 @@ class arguments(AST):
     
     @property
     @abstractmethod
-    def kw_defaults(self) -> FSharpList[Optional[expr]]:
+    def kw_defaults(self) -> FSharpList[Option[expr]]:
         ...
     
     @property
     @abstractmethod
-    def kwarg(self) -> Optional[arg]:
+    def kwarg(self) -> Option[arg]:
         ...
     
     @property
@@ -187,14 +188,14 @@ class arguments(AST):
     
     @property
     @abstractmethod
-    def vararg(self) -> Optional[arg]:
+    def vararg(self) -> Option[arg]:
         ...
     
 
 class arg(AST):
     @property
     @abstractmethod
-    def annotation(self) -> Optional[expr]:
+    def annotation(self) -> Option[expr]:
         ...
     
     @property
@@ -206,7 +207,7 @@ class arg(AST):
 class keyword(AST):
     @property
     @abstractmethod
-    def arg(self) -> Optional[str]:
+    def arg(self) -> Option[str]:
         ...
     
     @property
@@ -218,7 +219,7 @@ class keyword(AST):
 class alias(AST):
     @property
     @abstractmethod
-    def asname(self) -> Optional[str]:
+    def asname(self) -> Option[str]:
         ...
     
     @property
