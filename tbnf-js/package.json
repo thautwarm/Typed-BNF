@@ -1,0 +1,30 @@
+{
+  "name": "tbnf",
+  "version": "0.1.0",
+  "type": "commonjs",
+  "description": "Backend-Agnostic Type-safe Parser Generators With AST Output",
+  "dependencies": {
+    "@types/node": "^17.0.21",
+    "antlr4ts": "^0.5.0-alpha.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
+    "@types/argparse": "^2.0.10",
+    "@vercel/ncc": "^0.33.3",
+    "argparse": "^2.0.1"
+  },
+  "scripts": {
+    "makecommonjs": "./node_modules/.bin/babel src --out-dir src --copy-files",
+    "assembly": "ncc -m build src/Main.js -o dist --no-source-map-register && mv dist/index.js ../tbnf.js"
+  },
+  "keywords": [
+    "parser",
+    "parser-generator",
+    "type-safety",
+    "type-checking"
+  ],
+  "author": "Taine Zhao <twshere@outlook.com> (thautwarm <twshere@outlook.com>)",
+  "license": "MIT"
+}

@@ -6,8 +6,8 @@ from lark.lexer import Lexer as Lexer
 from lark import Transformer as Transformer
 from lark import Lark as Lark
 from _tbnf.FableSedlex.sedlex import from_ustring as from_ustring
-tokenmaps = ["_I__S__I_", "_I__G__I_", "_I__N__I_", "_I__P__I_", "_I_FALSE_I_", "_I_NULL_I_", "_I_TRUE_I_", "_I__T__I_", "_I__V__I_", "FLOAT", "INT", "STR", "UNKNOWN"]
-tokenreprs = ["\",\"", "\":\"", "\"[\"", "\"]\"", "\"false\"", "\"null\"", "\"true\"", "\"{\"", "\"}\"", "float", "int", "str", "UNKNOWN"]
+tokenmaps = ["_I__S__I_", "_I__G__I_", "_I__N__I_", "_I__P__I_", "_I_FALSE_I_", "_I_NULL_I_", "_I_TRUE_I_", "_I__T__I_", "_I__V__I_", "INT", "FLOAT", "STR", "UNKNOWN"]
+tokenreprs = ["\",\"", "\":\"", "\"[\"", "\"]\"", "\"false\"", "\"null\"", "\"true\"", "\"{\"", "\"}\"", "int", "float", "str", "UNKNOWN"]
 
 def construct_token(token_id, lexeme, line, col, span, offset, file):
     if token_id == -1: return token("EOF", "")

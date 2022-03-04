@@ -6,13 +6,13 @@ from .lua_require import (mkBinOpSeq,mkOperand,mkOperator,op,none,some,maybe,lis
 
 @dataclasses.dataclass
 class DotName:
-    value1: funcname
-    value2: token
+    value0: funcname
+    value1: token
 
 @dataclasses.dataclass
 class MethodName:
-    value1: funcname
-    value2: token
+    value0: funcname
+    value1: token
 
 @dataclasses.dataclass
 class VarName:
@@ -25,8 +25,8 @@ else:
 
 @dataclasses.dataclass
 class PositionalArgs:
-    value1: token
-    value2: list[expr]
+    value0: token
+    value1: list[expr]
 
 @dataclasses.dataclass
 class StringArg:
@@ -43,8 +43,8 @@ else:
 
 @dataclasses.dataclass
 class TableConstructor:
-    value1: token
-    value2: list[table_field]
+    value0: token
+    value1: list[table_field]
 
 if typing.TYPE_CHECKING:
     table = TableConstructor
@@ -53,7 +53,7 @@ else:
 
 @dataclasses.dataclass
 class ElementField:
-    value1: expr
+    value0: expr
 
 @dataclasses.dataclass
 class IndexField:
@@ -73,9 +73,9 @@ else:
 
 @dataclasses.dataclass
 class Assignment:
-    value1: bool
-    value2: list[expr]
-    value3: maybe[list[expr]]
+    value0: bool
+    value1: list[expr]
+    value2: maybe[list[expr]]
 
 @dataclasses.dataclass
 class BreakStmt:
@@ -83,12 +83,12 @@ class BreakStmt:
 
 @dataclasses.dataclass
 class DoStmt:
-    value1: token
-    value2: block
+    value0: token
+    value1: block
 
 @dataclasses.dataclass
 class EmptyStmt:
-    value1: token
+    value0: token
 
 @dataclasses.dataclass
 class ExprStmt:
@@ -96,30 +96,30 @@ class ExprStmt:
 
 @dataclasses.dataclass
 class ForInStmt:
-    value1: token
-    value2: list[token]
-    value3: list[expr]
-    value4: block
+    value0: token
+    value1: list[token]
+    value2: list[expr]
+    value3: block
 
 @dataclasses.dataclass
 class ForRangeStmt:
+    value0: token
     value1: token
-    value2: token
-    value3: range
-    value4: block
+    value2: range
+    value3: block
 
 @dataclasses.dataclass
 class GotoStmt:
+    value0: token
     value1: token
-    value2: token
 
 @dataclasses.dataclass
 class IfStmt:
-    value1: token
-    value2: expr
-    value3: block
-    value4: list[if_elseif]
-    value5: maybe[if_else]
+    value0: token
+    value1: expr
+    value2: block
+    value3: list[if_elseif]
+    value4: maybe[if_else]
 
 @dataclasses.dataclass
 class LabelStmt:
@@ -127,20 +127,20 @@ class LabelStmt:
 
 @dataclasses.dataclass
 class RepeatStmt:
-    value1: token
-    value2: block
-    value3: expr
+    value0: token
+    value1: block
+    value2: expr
 
 @dataclasses.dataclass
 class ReturnStmt:
-    value1: token
-    value2: list[expr]
+    value0: token
+    value1: list[expr]
 
 @dataclasses.dataclass
 class WhileStmt:
-    value1: token
-    value2: expr
-    value3: block
+    value0: token
+    value1: expr
+    value2: block
 
 if typing.TYPE_CHECKING:
     stmt = typing.Union[WhileStmt,ReturnStmt,RepeatStmt,LabelStmt,IfStmt,GotoStmt,ForRangeStmt,ForInStmt,ExprStmt,EmptyStmt,DoStmt,BreakStmt,Assignment]
@@ -149,8 +149,8 @@ else:
 
 @dataclasses.dataclass
 class Attr:
-    value1: expr
-    value2: token
+    value0: expr
+    value1: token
 
 @dataclasses.dataclass
 class Bin:
@@ -160,28 +160,28 @@ class Bin:
 
 @dataclasses.dataclass
 class Bool:
-    value1: token
-    value2: bool
+    value0: token
+    value1: bool
 
 @dataclasses.dataclass
 class CallFunc:
-    value1: expr
-    value2: arguments
+    value0: expr
+    value1: arguments
 
 @dataclasses.dataclass
 class CallMethod:
-    value1: expr
-    value2: token
-    value3: arguments
+    value0: expr
+    value1: token
+    value2: arguments
 
 @dataclasses.dataclass
 class Ellipse:
-    value1: token
+    value0: token
 
 @dataclasses.dataclass
 class Exponent:
+    value0: expr
     value1: expr
-    value2: expr
 
 @dataclasses.dataclass
 class FuncDef:
@@ -193,28 +193,28 @@ class FuncDef:
 
 @dataclasses.dataclass
 class Index:
+    value0: expr
     value1: expr
-    value2: expr
 
 @dataclasses.dataclass
 class Inv:
-    value1: token
-    value2: expr
+    value0: token
+    value1: expr
 
 @dataclasses.dataclass
 class Len:
-    value1: token
-    value2: expr
+    value0: token
+    value1: expr
 
 @dataclasses.dataclass
 class Neg:
-    value1: token
-    value2: expr
+    value0: token
+    value1: expr
 
 @dataclasses.dataclass
 class NestedExp:
-    value1: token
-    value2: expr
+    value0: token
+    value1: expr
 
 @dataclasses.dataclass
 class Nil:
@@ -222,20 +222,20 @@ class Nil:
 
 @dataclasses.dataclass
 class Not:
-    value1: token
-    value2: expr
+    value0: token
+    value1: expr
 
 @dataclasses.dataclass
 class Num:
-    value1: token
+    value0: token
 
 @dataclasses.dataclass
 class String:
-    value1: token
+    value0: token
 
 @dataclasses.dataclass
 class TableExpr:
-    value1: table
+    value0: table
 
 @dataclasses.dataclass
 class UnsolvedBin:

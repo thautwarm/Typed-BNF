@@ -34,4 +34,4 @@ json : INT -> json_0
      | _I_FALSE_I_ -> json_7
      | _I__N__I_ seplist_o__i__s__i__s_json_p_ _I__P__I_ -> json_8
      | _I__T__I_ seplist_o__i__s__i__s_jsonpair_p_ _I__V__I_ -> json_9
-%declare _I__S__I_ _I__G__I_ _I__N__I_ _I__P__I_ _I_FALSE_I_ _I_NULL_I_ _I_TRUE_I_ _I__T__I_ _I__V__I_ FLOAT INT STR UNKNOWN
+%declare _I__S__I_ _I__G__I_ _I__N__I_ _I__P__I_ _I_FALSE_I_ _I_NULL_I_ _I_TRUE_I_ _I__T__I_ _I__V__I_ INT FLOAT STR UNKNOWN

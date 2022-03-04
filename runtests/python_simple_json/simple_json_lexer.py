@@ -2,7 +2,7 @@ from _tbnf.FableSedlex.sedlex import *
 import typing
 import typing_extensions
 import dataclasses
-_sedlex_rnd_69 = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, None, 11, 12, -1 ]  # token_ids
+_sedlex_rnd_69 = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, None, 12, -1 ]  # token_ids
 
 def _sedlex_st_30(lexerbuf: lexbuf):
     result = -1
@@ -203,7 +203,7 @@ def _sedlex_rnd_49(lexerbuf: lexbuf):
 
 def _sedlex_st_15(lexerbuf: lexbuf):
     result = -1
-    mark(lexerbuf, 10)
+    mark(lexerbuf, 9)
     state_id = _sedlex_decide_5(public_next_int(lexerbuf))
     if state_id >= 0:
         result = _sedlex_rnd_48[state_id](lexerbuf)
@@ -237,7 +237,7 @@ def _sedlex_rnd_44(lexerbuf: lexbuf):
 
 def _sedlex_st_13(lexerbuf: lexbuf):
     result = -1
-    mark(lexerbuf, 10)
+    mark(lexerbuf, 9)
     state_id = _sedlex_decide_5(public_next_int(lexerbuf))
     if state_id >= 0:
         result = _sedlex_rnd_43[state_id](lexerbuf)
@@ -266,7 +266,7 @@ def _sedlex_rnd_41(lexerbuf: lexbuf):
 
 def _sedlex_st_12(lexerbuf: lexbuf):
     result = -1
-    mark(lexerbuf, 9)
+    mark(lexerbuf, 10)
     state_id = _sedlex_decide_4(public_next_int(lexerbuf))
     if state_id >= 0:
         result = _sedlex_rnd_40[state_id](lexerbuf)
@@ -305,7 +305,7 @@ def _sedlex_rnd_37(lexerbuf: lexbuf):
 
 def _sedlex_st_9(lexerbuf: lexbuf):
     result = -1
-    mark(lexerbuf, 12)
+    mark(lexerbuf, 11)
     state_id = _sedlex_decide_3(public_next_int(lexerbuf))
     if state_id >= 0:
         result = _sedlex_rnd_36[state_id](lexerbuf)
@@ -320,7 +320,7 @@ def _sedlex_rnd_35(lexerbuf: lexbuf):
 
 def _sedlex_rnd_34(lexerbuf: lexbuf):
     result = -1
-    result = 12
+    result = 11
     return result
 
 def _sedlex_rnd_33(lexerbuf: lexbuf):
@@ -368,7 +368,7 @@ def _sedlex_rnd_27(lexerbuf: lexbuf):
 
 def _sedlex_rnd_26(lexerbuf: lexbuf):
     result = -1
-    result = 12
+    result = 11
     return result
 
 def _sedlex_rnd_25(lexerbuf: lexbuf):
@@ -402,7 +402,7 @@ def _sedlex_rnd_23(lexerbuf: lexbuf):
 
 def _sedlex_rnd_22(lexerbuf: lexbuf):
     result = -1
-    result = 12
+    result = 11
     return result
 
 def _sedlex_rnd_21(lexerbuf: lexbuf):
@@ -412,7 +412,7 @@ def _sedlex_rnd_21(lexerbuf: lexbuf):
 
 def _sedlex_st_4(lexerbuf: lexbuf):
     result = -1
-    mark(lexerbuf, 11)
+    mark(lexerbuf, 12)
     state_id = _sedlex_decide_2(public_next_int(lexerbuf))
     if state_id >= 0:
         result = _sedlex_rnd_20[state_id](lexerbuf)
@@ -427,7 +427,7 @@ def _sedlex_rnd_19(lexerbuf: lexbuf):
 
 def _sedlex_st_3(lexerbuf: lexbuf):
     result = -1
-    mark(lexerbuf, 11)
+    mark(lexerbuf, 12)
     state_id = _sedlex_decide_2(public_next_int(lexerbuf))
     if state_id >= 0:
         result = _sedlex_rnd_18[state_id](lexerbuf)

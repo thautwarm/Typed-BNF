@@ -92,129 +92,129 @@ public partial class luaLexer : Lexer {
 	{
 	    return (expr) new UnsolvedBin(value);
 	}
-	public static expr TableExpr (table value1)
+	public static expr TableExpr (table value0)
 	{
-	    return (expr) new TableExpr(value1);
+	    return (expr) new TableExpr(value0);
 	}
-	public static expr String (IToken value1)
+	public static expr String (IToken value0)
 	{
-	    return (expr) new String(value1);
+	    return (expr) new String(value0);
 	}
-	public static expr Num (IToken value1)
+	public static expr Num (IToken value0)
 	{
-	    return (expr) new Num(value1);
+	    return (expr) new Num(value0);
 	}
-	public static expr Not (IToken value1,expr value2)
+	public static expr Not (IToken value0,expr value1)
 	{
-	    return (expr) new Not(value1,value2);
+	    return (expr) new Not(value0,value1);
 	}
 	public static expr Nil (IToken value)
 	{
 	    return (expr) new Nil(value);
 	}
-	public static expr NestedExp (IToken value1,expr value2)
+	public static expr NestedExp (IToken value0,expr value1)
 	{
-	    return (expr) new NestedExp(value1,value2);
+	    return (expr) new NestedExp(value0,value1);
 	}
-	public static expr Neg (IToken value1,expr value2)
+	public static expr Neg (IToken value0,expr value1)
 	{
-	    return (expr) new Neg(value1,value2);
+	    return (expr) new Neg(value0,value1);
 	}
-	public static expr Len (IToken value1,expr value2)
+	public static expr Len (IToken value0,expr value1)
 	{
-	    return (expr) new Len(value1,value2);
+	    return (expr) new Len(value0,value1);
 	}
-	public static expr Inv (IToken value1,expr value2)
+	public static expr Inv (IToken value0,expr value1)
 	{
-	    return (expr) new Inv(value1,value2);
+	    return (expr) new Inv(value0,value1);
 	}
-	public static expr Index (expr value1,expr value2)
+	public static expr Index (expr value0,expr value1)
 	{
-	    return (expr) new Index(value1,value2);
+	    return (expr) new Index(value0,value1);
 	}
 	public static expr FuncDef (IToken pos,bool is_local,maybe<funcname> fname,maybe<parameters> parameters,block body)
 	{
 	    return (expr) new FuncDef(pos,is_local,fname,parameters,body);
 	}
-	public static expr Exponent (expr value1,expr value2)
+	public static expr Exponent (expr value0,expr value1)
 	{
-	    return (expr) new Exponent(value1,value2);
+	    return (expr) new Exponent(value0,value1);
 	}
-	public static expr Ellipse (IToken value1)
+	public static expr Ellipse (IToken value0)
 	{
-	    return (expr) new Ellipse(value1);
+	    return (expr) new Ellipse(value0);
 	}
-	public static expr CallMethod (expr value1,IToken value2,arguments value3)
+	public static expr CallMethod (expr value0,IToken value1,arguments value2)
 	{
-	    return (expr) new CallMethod(value1,value2,value3);
+	    return (expr) new CallMethod(value0,value1,value2);
 	}
-	public static expr CallFunc (expr value1,arguments value2)
+	public static expr CallFunc (expr value0,arguments value1)
 	{
-	    return (expr) new CallFunc(value1,value2);
+	    return (expr) new CallFunc(value0,value1);
 	}
-	public static expr Bool (IToken value1,bool value2)
+	public static expr Bool (IToken value0,bool value1)
 	{
-	    return (expr) new Bool(value1,value2);
+	    return (expr) new Bool(value0,value1);
 	}
 	public static expr Bin (IToken op,expr l,expr r)
 	{
 	    return (expr) new Bin(op,l,r);
 	}
-	public static expr Attr (expr value1,IToken value2)
+	public static expr Attr (expr value0,IToken value1)
 	{
-	    return (expr) new Attr(value1,value2);
+	    return (expr) new Attr(value0,value1);
 	}
-	public static stmt WhileStmt (IToken value1,expr value2,block value3)
+	public static stmt WhileStmt (IToken value0,expr value1,block value2)
 	{
-	    return (stmt) new WhileStmt(value1,value2,value3);
+	    return (stmt) new WhileStmt(value0,value1,value2);
 	}
-	public static stmt ReturnStmt (IToken value1,MyList<expr> value2)
+	public static stmt ReturnStmt (IToken value0,MyList<expr> value1)
 	{
-	    return (stmt) new ReturnStmt(value1,value2);
+	    return (stmt) new ReturnStmt(value0,value1);
 	}
-	public static stmt RepeatStmt (IToken value1,block value2,expr value3)
+	public static stmt RepeatStmt (IToken value0,block value1,expr value2)
 	{
-	    return (stmt) new RepeatStmt(value1,value2,value3);
+	    return (stmt) new RepeatStmt(value0,value1,value2);
 	}
 	public static stmt LabelStmt (IToken value)
 	{
 	    return (stmt) new LabelStmt(value);
 	}
-	public static stmt IfStmt (IToken value1,expr value2,block value3,MyList<if_elseif> value4,maybe<if_else> value5)
+	public static stmt IfStmt (IToken value0,expr value1,block value2,MyList<if_elseif> value3,maybe<if_else> value4)
 	{
-	    return (stmt) new IfStmt(value1,value2,value3,value4,value5);
+	    return (stmt) new IfStmt(value0,value1,value2,value3,value4);
 	}
-	public static stmt GotoStmt (IToken value1,IToken value2)
+	public static stmt GotoStmt (IToken value0,IToken value1)
 	{
-	    return (stmt) new GotoStmt(value1,value2);
+	    return (stmt) new GotoStmt(value0,value1);
 	}
-	public static stmt ForRangeStmt (IToken value1,IToken value2,range value3,block value4)
+	public static stmt ForRangeStmt (IToken value0,IToken value1,range value2,block value3)
 	{
-	    return (stmt) new ForRangeStmt(value1,value2,value3,value4);
+	    return (stmt) new ForRangeStmt(value0,value1,value2,value3);
 	}
-	public static stmt ForInStmt (IToken value1,MyList<IToken> value2,MyList<expr> value3,block value4)
+	public static stmt ForInStmt (IToken value0,MyList<IToken> value1,MyList<expr> value2,block value3)
 	{
-	    return (stmt) new ForInStmt(value1,value2,value3,value4);
+	    return (stmt) new ForInStmt(value0,value1,value2,value3);
 	}
 	public static stmt ExprStmt (expr value)
 	{
 	    return (stmt) new ExprStmt(value);
 	}
-	public static stmt EmptyStmt (IToken value1)
+	public static stmt EmptyStmt (IToken value0)
 	{
-	    return (stmt) new EmptyStmt(value1);
+	    return (stmt) new EmptyStmt(value0);
 	}
-	public static stmt DoStmt (IToken value1,block value2)
+	public static stmt DoStmt (IToken value0,block value1)
 	{
-	    return (stmt) new DoStmt(value1,value2);
+	    return (stmt) new DoStmt(value0,value1);
 	}
 	public static stmt BreakStmt (IToken value)
 	{
 	    return (stmt) new BreakStmt(value);
 	}
-	public static stmt Assignment (bool value1,MyList<expr> value2,maybe<MyList<expr>> value3)
+	public static stmt Assignment (bool value0,MyList<expr> value1,maybe<MyList<expr>> value2)
 	{
-	    return (stmt) new Assignment(value1,value2,value3);
+	    return (stmt) new Assignment(value0,value1,value2);
 	}
 	public static table_field NameField (IToken key,expr value)
 	{
@@ -224,13 +224,13 @@ public partial class luaLexer : Lexer {
 	{
 	    return (table_field) new IndexField(pos,value,item);
 	}
-	public static table_field ElementField (expr value1)
+	public static table_field ElementField (expr value0)
 	{
-	    return (table_field) new ElementField(value1);
+	    return (table_field) new ElementField(value0);
 	}
-	public static table TableConstructor (IToken value1,MyList<table_field> value2)
+	public static table TableConstructor (IToken value0,MyList<table_field> value1)
 	{
-	    return (table) new TableConstructor(value1,value2);
+	    return (table) new TableConstructor(value0,value1);
 	}
 	public static arguments TableArgs (table value)
 	{
@@ -240,21 +240,21 @@ public partial class luaLexer : Lexer {
 	{
 	    return (arguments) new StringArg(value);
 	}
-	public static arguments PositionalArgs (IToken value1,MyList<expr> value2)
+	public static arguments PositionalArgs (IToken value0,MyList<expr> value1)
 	{
-	    return (arguments) new PositionalArgs(value1,value2);
+	    return (arguments) new PositionalArgs(value0,value1);
 	}
 	public static funcname VarName (IToken value)
 	{
 	    return (funcname) new VarName(value);
 	}
-	public static funcname MethodName (funcname value1,IToken value2)
+	public static funcname MethodName (funcname value0,IToken value1)
 	{
-	    return (funcname) new MethodName(value1,value2);
+	    return (funcname) new MethodName(value0,value1);
 	}
-	public static funcname DotName (funcname value1,IToken value2)
+	public static funcname DotName (funcname value0,IToken value1)
 	{
-	    return (funcname) new DotName(value1,value2);
+	    return (funcname) new DotName(value0,value1);
 	}
 
 

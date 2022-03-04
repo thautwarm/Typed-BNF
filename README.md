@@ -2,7 +2,9 @@
 
 Type inference your BNF grammar that uses semantic actions, eliminating static errors and porting them into different parser generator architectures.
 
-The major part of this library is written in F\#. However, it is compiled into Python via Fable.Python and running under CPython/PyPy(>=3.8).
+The major part of this library is written in F\#. However, it is compiled into a single-file JavaScript `tbnf.js` using Fable.
+
+P.S: Typed BNF used to be implemented with Fable.Python and runs under CPython/PyPy(>=3.8), and I'd like to try Fable.Python again when it gets more stable.
 
 ## Overview
 
@@ -24,21 +26,20 @@ For usage, see `test-python.ps1`, `test-ocaml.ps1` and `test-csharp.ps1`.
 ## Usage
 
 ```bash
-usage: tbnf [-h] [--backend BACKEND] [--config_path CONFIG_PATH] tbnf_source_path out_dir lang
+> node tbnf.js --help
+usage: tbnf.js [-h] [-i TBNFSOURCEPATH] [-o OUTDIR] [-lang LANGUAGE] [-be BACKEND] [-conf CONFIGPATH]
 
-Typed BNF CLI tool.
+Argparse example
 
-
-positional arguments:
-  tbnf_source_path      <class 'pathlib.Path'>
-  out_dir               <class 'pathlib.Path'>
-  lang                  <class 'str'>
-
-options:
+optional arguments:
   -h, --help            show this help message and exit
-  --backend BACKEND     <class 'str'>
-  --config_path CONFIG_PATH
-                        <class 'str'>
+  -i TBNFSOURCEPATH, --tbnfSourcePath TBNFSOURCEPATH
+  -o OUTDIR, --outDir OUTDIR
+  -lang LANGUAGE, --language LANGUAGE
+                        name of your own language
+  -be BACKEND, --backend BACKEND
+  -conf CONFIGPATH, --configPath CONFIGPATH
+                        path to a config file
 ```
 
 ## A basic example: `JSON`
@@ -96,13 +97,31 @@ json : <int> { JInt(parseInt(getStr($1))) }
 
 ## Customizing name mapping
 
-You can specify the `renamer_config` parameter or use the default one(`renamer.tbnf.py` in the output directory).
+You can specify the `renamer_config` parameter or use the default one(`tbnf.config.js` in the output directory).
 
-In `renamer.tbnf.py`, you can define how typenames map from Typed BNF to the backend language.
+In `tbnf.config.js`, you can define how typenames map from Typed BNF to the backend language.
 
-For instance, this is what we did for CSharp-Antlr4 JSON example: [link](https://github.com/thautwarm/Typed-BNF/blob/main/runtests/ocaml_simple_json/rename.tbnf.py).
+For instance, this is what we did for CSharp-Antlr4 JSON example: [link](https://github.com/thautwarm/Typed-BNF/blob/main/runtests/ocaml_simple_json/tbnf.config.js).
 
-```python
+```javascript
+function rename_type(x)
+{
+    if (x == "str")
+        return "string";
+    else if (x == 'Json')
+        return 'JsonValue';
+    else if (x == 'list')
+        return 'MyList';
+    else if (x == 'token')
+        return 'IToken';
+    else
+        return x;
+}
+
+module.exports = { rename_type };
+```
+
+<!-- ```python
 # $out_dir/renamer.tbnf.py
 
 def rename_type(x):
@@ -119,34 +138,20 @@ def rename_type(x):
 # you might also rename external variables using:
 # def rename_var(varname: str): 
 #   ...
-```
+``` -->
 
 Typed BNF has 7 built-in types: `token`, `tuple`, `list`, `int`, `float`, `str` and `bool`.
 
 Typed BNF ships with no built-in functions, which makes it suitable to write portable grammars without ruling out semantic actions.
 
-P.S: Unlike other backends, the OCaml-Menhir backend requires some manual works and is tedious in this sense. It requires user to explicitly specify the module-qualified type of the `start` rule, which can be solved by adding a config variable `start_rule_qualified_type` in `rename.tbnf.py`. Besides, you must map the type `token` to `tbnf_token`.
+P.S: Unlike other backends, the OCaml-Menhir backend requires some manual works and is tedious in this sense. It requires user to explicitly specify the module-qualified type of the `start` rule, which can be solved by adding a config variable `start_rule_qualified_type` in `tbnf.config.js`. Besides, you must map the type `token` to `tbnf_token`.
 
-This is [the config for our example OCaml json parser](https://github.com/thautwarm/Typed-BNF/blob/73f9519cc4ac15d0c3a6474aefa66c40b009ffc8/runtests/ocaml_simple_json/rename.tbnf.py):
+This is [the config for our example OCaml json parser](https://github.com/thautwarm/Typed-BNF/blob/master/runtests/ocaml_simple_json/tbnf.config.js):
 
-```python
+```javascript
 start_rule_qualified_type = "Simple_json_construct.json"
 
-def rename_type(x):
-    if x == 'Json':
-        return 'json'
-    if x == "str":
-        return "string"
-    if x == "JsonPair":
-        return "json_pair"
-    if x == "token":
-        return "tbnf_token"  # <-- this is also important!
-    return x
-
-def rename_var(x: str):
-    if x[0].isupper():
-        return "mk_" + x
-    return x
+...
 ```
 
 
@@ -158,8 +163,16 @@ Check out `Backends.*.fs`
 
 ## Build from source
 
-### Build grammar for Typed BNF
+### Build Standalone JS Package
 
+This requires the original host implemented in Python. You might need to call `pip install -e .`.
+
+```
+git submodule add https://github.com/thautwarm/Fable.Sedlex FableSedlex
+bash ./build-js-package.sh
+```
+
+### Build grammar for Typed BNF
 ```
 ./build-metaparser.ps1
 ```
