@@ -1424,13 +1424,13 @@ def pchar(c: str) -> Callable[[Automata_node], Automata_node]:
 
 pany : Callable[[Automata_node], Automata_node] = pinterval(0, Cset_max_code)
 
-def arrow_120(_unit: Any=None) -> Callable[[Automata_node], Automata_node]:
+def arrow_118(_unit: Any=None) -> Callable[[Automata_node], Automata_node]:
     c : FSharpList[Tuple[int, int]] = Cset_singleton(-1)
-    def arrow_119(succ: Automata_node) -> Automata_node:
+    def arrow_117(succ: Automata_node) -> Automata_node:
         return Automata_chars(c, succ)
     
-    return arrow_119
+    return arrow_117
 
 
-peof : Callable[[Automata_node], Automata_node] = arrow_120()
+peof : Callable[[Automata_node], Automata_node] = arrow_118()
 

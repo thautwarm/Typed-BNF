@@ -1,3 +1,4 @@
+
 module TBNF_Utf8 = struct
 exception UnicodeEncodeError of int
 let uft8_encode_unchecked : (int * Buffer.t) -> unit = fun (code, buffer) ->
@@ -10,7 +11,7 @@ let uft8_encode_unchecked : (int * Buffer.t) -> unit = fun (code, buffer) ->
       Buffer.add_int8 buffer 0;
       end
     else
-    let count = 
+    let count =
       if code <= 0x7FF then 1
       else if code <= 0xFFFF then 2
       else 3;
@@ -61,8 +62,8 @@ let _unknown_token lexbuf =
     raise (Invalid_argument (Printf.sprintf "%s:%d:%d: codepoints %s not recognised" start.pos_fname start.pos_lnum start.pos_cnum m))
 
 
-type tbnf_token = { 
-    lexeme : string; 
+type tbnf_token = {
+    lexeme : string;
     line: int;
     col: int;
     offset : int;
@@ -79,7 +80,6 @@ let mktoken (buf: Sedlexing.lexbuf): tbnf_token =
     offset = Sedlexing.lexeme_start buf;
     span = lexeme_end buf - lexeme_start buf;
     file = start_pos.pos_fname }
-
 
 
 type token =

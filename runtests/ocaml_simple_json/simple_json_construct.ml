@@ -2,31 +2,31 @@ open Simple_json_require;;
 open Simple_json_lexer;;
 
 type ___used_t_head_90xasda
-and json = 
+and Json = 
 | JBool of { value : bool }
-| JDict of { value : (json_pair) list }
+| JDict of { value : (JsonPair) list }
 | JFlt of { value : float }
 | JInt of { value : int }
-| JList of { elements : (json) list }
+| JList of { elements : (Json) list }
 | JNull of unit
-| JStr of { value : string }
+| JStr of { value : str }
 
-and json_pair = {
-    name : string;
-    value : json;
+and JsonPair = {
+    name : str;
+    value : Json;
 }
-let mk_JsonPair (name, value) : json_pair =
+let JsonPair (name, value) : JsonPair =
      { name;value }
-let mk_JStr (value) : json =
+let JStr (value) : Json =
     JStr { value }
-let mk_JNull () = JNull ()
-let mk_JList (elements) : json =
+let JNull () = JNull ()
+let JList (elements) : Json =
     JList { elements }
-let mk_JInt (value) : json =
+let JInt (value) : Json =
     JInt { value }
-let mk_JFlt (value) : json =
+let JFlt (value) : Json =
     JFlt { value }
-let mk_JDict (value) : json =
+let JDict (value) : Json =
     JDict { value }
-let mk_JBool (value) : json =
+let JBool (value) : Json =
     JBool { value }

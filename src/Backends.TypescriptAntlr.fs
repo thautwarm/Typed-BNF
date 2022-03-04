@@ -341,7 +341,7 @@ let codegen
                         }
 
                     return
-                        word "<{cg_type curr_expr.t}>"
+                        word $"<{cg_type curr_expr.t}>"
                         * word "["
                         + (seplist (word ",") elts')
                         + word "]"

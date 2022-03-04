@@ -16,7 +16,7 @@ open Simple_json_construct;;
 %token<tbnf_token> FLOAT
 %token<tbnf_token> INT
 %token EOF
-%start <Simple_json_construct.json> start
+%start <Json> start
 %%
 
 start : start__y_ EOF { $1 }
@@ -30,7 +30,7 @@ start__y_ : json {
                           $1
                       }
 jsonpair : STR I__G__I_ json { 
-                         mk_JsonPair(unesc(getStr($1)), $3)
+                         JsonPair(unesc(getStr($1)), $3)
                      }
 seplist_o__i__s__i__s_json_p_ : json { 
                                               [$1]
@@ -45,32 +45,32 @@ seplist_o__i__s__i__s_jsonpair_p_ : jsonpair {
                                                   appendList($1, $3)
                                               }
 json : INT { 
-                     mk_JInt(parseInt(getStr($1)))
+                     JInt(parseInt(getStr($1)))
                  }
      | FLOAT { 
-                     mk_JFlt(parseFlt(getStr($1)))
+                     JFlt(parseFlt(getStr($1)))
                  }
      | I_NULL_I_ { 
-                     mk_JNull()
+                     JNull()
                  }
      | STR { 
-                     mk_JStr(unesc(getStr($1)))
+                     JStr(unesc(getStr($1)))
                  }
      | I__N__I_ I__P__I_ { 
-                     mk_JList([])
+                     JList([])
                  }
      | I__T__I_ I__V__I_ { 
-                     mk_JDict([])
+                     JDict([])
                  }
      | I_TRUE_I_ { 
-                     mk_JBool(true)
+                     JBool(true)
                  }
      | I_FALSE_I_ { 
-                     mk_JBool(false)
+                     JBool(false)
                  }
      | I__N__I_ seplist_o__i__s__i__s_json_p_ I__P__I_ { 
-                     mk_JList($2)
+                     JList($2)
                  }
      | I__T__I_ seplist_o__i__s__i__s_jsonpair_p_ I__V__I_ { 
-                     mk_JDict($2)
+                     JDict($2)
                  }

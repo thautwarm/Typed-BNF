@@ -34,17 +34,17 @@ def inspect_mono_type(t: monot) -> str:
         return s
     
     elif pattern_matching_result == 2:
-        def arrow_117(t_1: monot, t: monot=t) -> str:
+        def arrow_119(t_1: monot, t: monot=t) -> str:
             return inspect_mono_type(t_1)
         
-        return ("(" + join(" * ", map(arrow_117, args))) + ")"
+        return ("(" + join(" * ", map(arrow_119, args))) + ")"
     
     elif pattern_matching_result == 3:
         if t.tag == 2:
-            def arrow_118(t_2: monot, t: monot=t) -> str:
+            def arrow_120(t_2: monot, t: monot=t) -> str:
                 return inspect_mono_type(t_2)
             
-            return ((inspect_mono_type(t.fields[0]) + "\u003c") + join(", ", map(arrow_118, t.fields[1]))) + "\u003e"
+            return ((inspect_mono_type(t.fields[0]) + "\u003c") + join(", ", map(arrow_120, t.fields[1]))) + "\u003e"
         
         elif t.tag == 3:
             def mapping(tupled_arg: Tuple[str, monot], t: monot=t) -> str:

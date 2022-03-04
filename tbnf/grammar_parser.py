@@ -1,9 +1,4 @@
 # Generated from lark-action.
-def _get_location(token):
-    return (token.line, token.column)
-
-def _get_value(token):
-    return token.value
 
 
 from _tbnf.src.apis import *
@@ -19,6 +14,14 @@ def unesc(x, f=json.decoder.py_scanstring):
         unesc('"asd"') == "asd"
     """
     return f(x, 1)[0]
+
+if '_get_location' not in globals(): 
+    def _get_location(token):
+        return (token.line, token.column)
+
+if '_get_value' not in globals(): 
+    def _get_value(token):
+        return token.value
 
 
 def process_tparam(kvs):
