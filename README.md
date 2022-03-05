@@ -26,6 +26,8 @@ For usage, see `test-python.ps1`, `test-ocaml.ps1` and `test-csharp.ps1`.
 
 ## Usage
 
+You might check out [Typed BNF Documentations](https://github.com/thautwarm/Typed-BNF/blob/main/documentations.md).
+
 ```bash
 usage: tbnf.js [-h] [-o OUTDIR] [-lang LANGUAGE]
                [-be {python-lark,ocaml-menhir,csharp-antlr,purebnf}]
