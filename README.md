@@ -16,8 +16,9 @@ So far, we support 3 different architectures, which unveil the capability of Typ
 | menhir  | menhir+OCaml  | sedlex(UTF-8)   |  LR(1) | as-is  |
 | lark  | lark+Python   | [Fable.Sedlex](https://github.com/thautwarm/Fable.Sedlex)  | LALR(2)  | type -> union type<br /> constructor -> dataclass  |
 | antlr     | antlr4+typescript | antlr | ALL(*) | WIP |
+| \*pure bnf     | pure bnf | antlr notation | CFG |  |
 
-(**PL** = programming language; **PGEN** = parser generator)
+(**PL** = programming language; **PGEN** = parser generator; **pure bnf** means it is the pure BNF for readable syntax specification )
 
 This project is not production-ready, though already handy for practical use. 
 
@@ -26,18 +27,23 @@ For usage, see `test-python.ps1`, `test-ocaml.ps1` and `test-csharp.ps1`.
 ## Usage
 
 ```bash
-> node tbnf.js --help
-usage: tbnf.js [-h] [-i TBNFSOURCEPATH] [-o OUTDIR] [-lang LANGUAGE] [-be BACKEND] [-conf CONFIGPATH]
+usage: tbnf.js [-h] [-o OUTDIR] [-lang LANGUAGE]
+               [-be {python-lark,ocaml-menhir,csharp-antlr,purebnf}]
+               [-conf CONFIGPATH]
+               tbnfSourcePath
 
 Argparse example
+    node tbnf.js xxx.tbnf
+
+positional arguments:
+  tbnfSourcePath
 
 optional arguments:
   -h, --help            show this help message and exit
-  -i TBNFSOURCEPATH, --tbnfSourcePath TBNFSOURCEPATH
   -o OUTDIR, --outDir OUTDIR
   -lang LANGUAGE, --language LANGUAGE
                         name of your own language
-  -be BACKEND, --backend BACKEND
+  -be {python-lark,ocaml-menhir,csharp-antlr,purebnf}, --backend {python-lark,ocaml-menhir,csharp-antlr,purebnf}
   -conf CONFIGPATH, --configPath CONFIGPATH
                         path to a config file
 ```

@@ -5479,8 +5479,8 @@
             const S = r(7108);
             const T = r(7833);
             const x = r(823);
-            const C = r(6342);
-            const N = r(7165);
+            const N = r(6342);
+            const C = r(7165);
             const A = r(3231);
             const E = r(2069);
             const v = r(9174);
@@ -5499,9 +5499,9 @@
             const $ = r(8557);
             const j = r(7785);
             const U = r(5864);
-            const Z = r(7989);
-            const q = r(8146);
-            const H = r(8734);
+            const q = r(7989);
+            const H = r(8146);
+            const Z = r(8734);
             const z = r(7528);
             const K = r(4562);
             const G = r(4316);
@@ -5564,8 +5564,8 @@
                     let g = new a.ATN(l, p);
                     let S = [];
                     let x = [];
-                    let N = ATNDeserializer.toInt(e[t++]);
-                    for (let r = 0; r < N; r++) {
+                    let C = ATNDeserializer.toInt(e[t++]);
+                    for (let r = 0; r < C; r++) {
                         let r = ATNDeserializer.toInt(e[t++]);
                         if (r === _.ATNStateType.INVALID_TYPE) {
                             g.addState(new T.InvalidState);
@@ -5720,11 +5720,11 @@
                                     r.loopBackState = t
                                 }
                             }
-                        } else if (e instanceof q.StarLoopbackState) {
+                        } else if (e instanceof H.StarLoopbackState) {
                             let t = e;
                             for (let e = 0; e < t.numberOfTransitions; e++) {
                                 let r = t.transition(e).target;
-                                if (r instanceof H.StarLoopEntryState) {
+                                if (r instanceof Z.StarLoopEntryState) {
                                     r.loopBackState = t
                                 }
                             }
@@ -5763,7 +5763,7 @@
                                     }
                                     let i = n.ruleIndex;
                                     let s = n.actionIndex;
-                                    let a = new C.LexerCustomAction(i, s);
+                                    let a = new N.LexerCustomAction(i, s);
                                     t.setTransition(r, new o.ActionTransition(n.target, i, e.length, false));
                                     e.push(a)
                                 }
@@ -5802,7 +5802,7 @@
                                     if (t.ruleIndex !== e) {
                                         continue
                                     }
-                                    if (!(t instanceof H.StarLoopEntryState)) {
+                                    if (!(t instanceof Z.StarLoopEntryState)) {
                                         continue
                                     }
                                     let r = t.transition(t.numberOfTransitions - 1).target;
@@ -5889,7 +5889,7 @@
                 markPrecedenceDecisions(e) {
                     let t = new Map;
                     for (let r of e.states) {
-                        if (!(r instanceof H.StarLoopEntryState)) {
+                        if (!(r instanceof Z.StarLoopEntryState)) {
                             continue
                         }
                         if (e.ruleToStartState[r.ruleIndex].isPrecedenceRule) {
@@ -5926,23 +5926,23 @@
                         if (t instanceof L.PlusBlockStartState) {
                             this.checkCondition(t.loopBackState !== undefined)
                         }
-                        if (t instanceof H.StarLoopEntryState) {
+                        if (t instanceof Z.StarLoopEntryState) {
                             let e = t;
                             this.checkCondition(e.loopBackState !== undefined);
                             this.checkCondition(e.numberOfTransitions === 2);
-                            if (e.transition(0).target instanceof Z.StarBlockStartState) {
+                            if (e.transition(0).target instanceof q.StarBlockStartState) {
                                 this.checkCondition(e.transition(1).target instanceof b.LoopEndState);
                                 this.checkCondition(!e.nonGreedy)
                             } else if (e.transition(0).target instanceof b.LoopEndState) {
-                                this.checkCondition(e.transition(1).target instanceof Z.StarBlockStartState);
+                                this.checkCondition(e.transition(1).target instanceof q.StarBlockStartState);
                                 this.checkCondition(e.nonGreedy)
                             } else {
                                 throw new Error("IllegalStateException")
                             }
                         }
-                        if (t instanceof q.StarLoopbackState) {
+                        if (t instanceof H.StarLoopbackState) {
                             this.checkCondition(t.numberOfTransitions === 1);
-                            this.checkCondition(t.transition(0).target instanceof H.StarLoopEntryState)
+                            this.checkCondition(t.transition(0).target instanceof Z.StarLoopEntryState)
                         }
                         if (t instanceof b.LoopEndState) {
                             this.checkCondition(t.loopBackState !== undefined)
@@ -6319,7 +6319,7 @@
                             r = new L.PlusBlockStartState;
                             break;
                         case _.ATNStateType.STAR_BLOCK_START:
-                            r = new Z.StarBlockStartState;
+                            r = new q.StarBlockStartState;
                             break;
                         case _.ATNStateType.TOKEN_START:
                             r = new K.TokensStartState;
@@ -6331,10 +6331,10 @@
                             r = new f.BlockEndState;
                             break;
                         case _.ATNStateType.STAR_LOOP_BACK:
-                            r = new q.StarLoopbackState;
+                            r = new H.StarLoopbackState;
                             break;
                         case _.ATNStateType.STAR_LOOP_ENTRY:
-                            r = new H.StarLoopEntryState;
+                            r = new Z.StarLoopEntryState;
                             break;
                         case _.ATNStateType.PLUS_LOOP_BACK:
                             r = new P.PlusLoopbackState;
@@ -6354,9 +6354,9 @@
                         case 0:
                             return new x.LexerChannelAction(t);
                         case 1:
-                            return new C.LexerCustomAction(t, r);
+                            return new N.LexerCustomAction(t, r);
                         case 2:
-                            return new N.LexerModeAction(t);
+                            return new C.LexerModeAction(t);
                         case 3:
                             return A.LexerMoreAction.INSTANCE;
                         case 4:
@@ -7349,7 +7349,7 @@
             const S = r(8557);
             const T = r(7528);
             const x = r(9491);
-            let C = class LexerATNSimulator extends _.ATNSimulator {
+            let N = class LexerATNSimulator extends _.ATNSimulator {
                 constructor(e, t) {
                     super(e);
                     this.optimize_tail_calls = true;
@@ -7747,28 +7747,28 @@
                     return "'" + String.fromCharCode(e) + "'"
                 }
             };
-            n([g.NotNull], C.prototype, "prevAccept", void 0);
-            n([i(0, g.NotNull)], C.prototype, "copyState", null);
-            n([i(0, g.NotNull)], C.prototype, "match", null);
-            n([g.Override], C.prototype, "reset", null);
-            n([i(0, g.NotNull)], C.prototype, "matchATN", null);
-            n([i(0, g.NotNull), i(1, g.NotNull)], C.prototype, "execATN", null);
-            n([i(0, g.NotNull)], C.prototype, "getExistingTargetState", null);
-            n([g.NotNull, i(0, g.NotNull), i(1, g.NotNull)], C.prototype, "computeTargetState", null);
-            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], C.prototype, "getReachableConfigSet", null);
-            n([i(0, g.NotNull)], C.prototype, "accept", null);
-            n([g.NotNull, i(0, g.NotNull), i(1, g.NotNull)], C.prototype, "computeStartState", null);
-            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], C.prototype, "closure", null);
-            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull), i(3, g.NotNull)], C.prototype, "getEpsilonTarget", null);
-            n([i(0, g.NotNull)], C.prototype, "evaluatePredicate", null);
-            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], C.prototype, "captureSimState", null);
-            n([g.NotNull, i(0, g.NotNull)], C.prototype, "addDFAState", null);
-            n([g.NotNull], C.prototype, "getDFA", null);
-            n([g.NotNull, i(0, g.NotNull)], C.prototype, "getText", null);
-            n([i(0, g.NotNull)], C.prototype, "consume", null);
-            n([g.NotNull], C.prototype, "getTokenName", null);
-            C = n([i(0, g.NotNull)], C);
-            t.LexerATNSimulator = C;
+            n([g.NotNull], N.prototype, "prevAccept", void 0);
+            n([i(0, g.NotNull)], N.prototype, "copyState", null);
+            n([i(0, g.NotNull)], N.prototype, "match", null);
+            n([g.Override], N.prototype, "reset", null);
+            n([i(0, g.NotNull)], N.prototype, "matchATN", null);
+            n([i(0, g.NotNull), i(1, g.NotNull)], N.prototype, "execATN", null);
+            n([i(0, g.NotNull)], N.prototype, "getExistingTargetState", null);
+            n([g.NotNull, i(0, g.NotNull), i(1, g.NotNull)], N.prototype, "computeTargetState", null);
+            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], N.prototype, "getReachableConfigSet", null);
+            n([i(0, g.NotNull)], N.prototype, "accept", null);
+            n([g.NotNull, i(0, g.NotNull), i(1, g.NotNull)], N.prototype, "computeStartState", null);
+            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], N.prototype, "closure", null);
+            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull), i(3, g.NotNull)], N.prototype, "getEpsilonTarget", null);
+            n([i(0, g.NotNull)], N.prototype, "evaluatePredicate", null);
+            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], N.prototype, "captureSimState", null);
+            n([g.NotNull, i(0, g.NotNull)], N.prototype, "addDFAState", null);
+            n([g.NotNull], N.prototype, "getDFA", null);
+            n([g.NotNull, i(0, g.NotNull)], N.prototype, "getText", null);
+            n([i(0, g.NotNull)], N.prototype, "consume", null);
+            n([g.NotNull], N.prototype, "getTokenName", null);
+            N = n([i(0, g.NotNull)], N);
+            t.LexerATNSimulator = N;
             (function(e) {
                 e.debug = false;
                 e.dfa_debug = false;
@@ -7786,8 +7786,8 @@
                     }
                 }
                 e.SimState = SimState
-            })(C = t.LexerATNSimulator || (t.LexerATNSimulator = {}));
-            t.LexerATNSimulator = C
+            })(N = t.LexerATNSimulator || (t.LexerATNSimulator = {}));
+            t.LexerATNSimulator = N
         },
         6047: function(e, t, r) {
             /*!
@@ -8800,8 +8800,8 @@
             const S = r(2446);
             const T = r(6330);
             const x = r(3828);
-            const C = r(6966);
-            const N = r(4063);
+            const N = r(6966);
+            const C = r(4063);
             const A = r(1914);
             const E = r(4880);
             const v = r(9562);
@@ -9941,7 +9941,7 @@
                             if (r instanceof f.AtomTransition) {
                                 t = "Atom " + this.getTokenName(r._label)
                             } else if (r instanceof L.SetTransition) {
-                                let e = r instanceof N.NotSetTransition;
+                                let e = r instanceof C.NotSetTransition;
                                 t = (e ? "~" : "") + "Set " + r.set.toString()
                             }
                         }
@@ -10144,47 +10144,47 @@
                 }
                 return 0
             };
-            n([C.NotNull], j.prototype, "predictionMode", void 0);
-            n([C.NotNull], j.prototype, "getPredictionMode", null);
-            n([i(0, C.NotNull)], j.prototype, "setPredictionMode", null);
-            n([C.Override], j.prototype, "reset", null);
-            n([i(0, C.NotNull)], j.prototype, "adaptivePredict", null);
-            n([i(0, C.NotNull), i(1, C.NotNull), i(2, C.NotNull)], j.prototype, "getStartState", null);
-            n([i(0, C.NotNull), i(1, C.NotNull), i(3, C.NotNull)], j.prototype, "execDFA", null);
-            n([i(0, C.NotNull), i(1, C.NotNull), i(3, C.NotNull)], j.prototype, "execATN", null);
-            n([i(0, C.NotNull), i(2, C.NotNull)], j.prototype, "handleNoViableAlt", null);
-            n([i(0, C.NotNull)], j.prototype, "getExistingTargetState", null);
-            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "computeTargetState", null);
-            n([C.NotNull, i(0, C.NotNull)], j.prototype, "removeAllConfigsNotInRuleStopState", null);
-            n([C.NotNull], j.prototype, "computeStartState", null);
-            n([C.NotNull, i(0, C.NotNull)], j.prototype, "applyPrecedenceFilter", null);
-            n([i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "getReachableTarget", null);
-            n([i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "getPredsForAmbigAlts", null);
-            n([i(0, C.NotNull)], j.prototype, "evalSemanticContext", null);
-            n([i(0, C.NotNull)], j.prototype, "evalSemanticContextImpl", null);
-            n([i(1, C.NotNull), i(4, C.Nullable)], j.prototype, "closure", null);
-            n([i(0, C.NotNull), i(1, C.NotNull), i(2, C.Nullable), i(3, C.NotNull), i(6, C.NotNull)], j.prototype, "closureImpl", null);
-            n([C.NotNull], j.prototype, "getRuleName", null);
-            n([i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "getEpsilonTarget", null);
-            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "actionTransition", null);
-            n([C.Nullable, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "precedenceTransition", null);
-            n([C.Nullable, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "predTransition", null);
-            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull), i(2, C.Nullable)], j.prototype, "ruleTransition", null);
-            n([i(0, C.NotNull)], j.prototype, "isConflicted", null);
-            n([C.NotNull], j.prototype, "getTokenName", null);
-            n([i(0, C.NotNull)], j.prototype, "dumpDeadEndConfigs", null);
-            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull), i(2, C.NotNull)], j.prototype, "noViableAlt", null);
-            n([i(0, C.NotNull)], j.prototype, "getUniqueAlt", null);
-            n([i(0, C.NotNull)], j.prototype, "configWithAltAtStopState", null);
-            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull), i(4, C.NotNull)], j.prototype, "addDFAEdge", null);
-            n([i(0, C.Nullable), i(2, C.Nullable)], j.prototype, "setDFAEdge", null);
-            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "addDFAContextState", null);
-            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "addDFAState", null);
-            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "createDFAState", null);
-            n([i(0, C.NotNull), i(2, C.NotNull)], j.prototype, "reportAttemptingFullContext", null);
-            n([i(0, C.NotNull), i(2, C.NotNull)], j.prototype, "reportContextSensitivity", null);
-            n([i(0, C.NotNull), i(5, C.NotNull), i(6, C.NotNull)], j.prototype, "reportAmbiguity", null);
-            j = n([i(0, C.NotNull)], j);
+            n([N.NotNull], j.prototype, "predictionMode", void 0);
+            n([N.NotNull], j.prototype, "getPredictionMode", null);
+            n([i(0, N.NotNull)], j.prototype, "setPredictionMode", null);
+            n([N.Override], j.prototype, "reset", null);
+            n([i(0, N.NotNull)], j.prototype, "adaptivePredict", null);
+            n([i(0, N.NotNull), i(1, N.NotNull), i(2, N.NotNull)], j.prototype, "getStartState", null);
+            n([i(0, N.NotNull), i(1, N.NotNull), i(3, N.NotNull)], j.prototype, "execDFA", null);
+            n([i(0, N.NotNull), i(1, N.NotNull), i(3, N.NotNull)], j.prototype, "execATN", null);
+            n([i(0, N.NotNull), i(2, N.NotNull)], j.prototype, "handleNoViableAlt", null);
+            n([i(0, N.NotNull)], j.prototype, "getExistingTargetState", null);
+            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "computeTargetState", null);
+            n([N.NotNull, i(0, N.NotNull)], j.prototype, "removeAllConfigsNotInRuleStopState", null);
+            n([N.NotNull], j.prototype, "computeStartState", null);
+            n([N.NotNull, i(0, N.NotNull)], j.prototype, "applyPrecedenceFilter", null);
+            n([i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "getReachableTarget", null);
+            n([i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "getPredsForAmbigAlts", null);
+            n([i(0, N.NotNull)], j.prototype, "evalSemanticContext", null);
+            n([i(0, N.NotNull)], j.prototype, "evalSemanticContextImpl", null);
+            n([i(1, N.NotNull), i(4, N.Nullable)], j.prototype, "closure", null);
+            n([i(0, N.NotNull), i(1, N.NotNull), i(2, N.Nullable), i(3, N.NotNull), i(6, N.NotNull)], j.prototype, "closureImpl", null);
+            n([N.NotNull], j.prototype, "getRuleName", null);
+            n([i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "getEpsilonTarget", null);
+            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "actionTransition", null);
+            n([N.Nullable, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "precedenceTransition", null);
+            n([N.Nullable, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "predTransition", null);
+            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull), i(2, N.Nullable)], j.prototype, "ruleTransition", null);
+            n([i(0, N.NotNull)], j.prototype, "isConflicted", null);
+            n([N.NotNull], j.prototype, "getTokenName", null);
+            n([i(0, N.NotNull)], j.prototype, "dumpDeadEndConfigs", null);
+            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull), i(2, N.NotNull)], j.prototype, "noViableAlt", null);
+            n([i(0, N.NotNull)], j.prototype, "getUniqueAlt", null);
+            n([i(0, N.NotNull)], j.prototype, "configWithAltAtStopState", null);
+            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull), i(4, N.NotNull)], j.prototype, "addDFAEdge", null);
+            n([i(0, N.Nullable), i(2, N.Nullable)], j.prototype, "setDFAEdge", null);
+            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "addDFAContextState", null);
+            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "addDFAState", null);
+            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "createDFAState", null);
+            n([i(0, N.NotNull), i(2, N.NotNull)], j.prototype, "reportAttemptingFullContext", null);
+            n([i(0, N.NotNull), i(2, N.NotNull)], j.prototype, "reportContextSensitivity", null);
+            n([i(0, N.NotNull), i(5, N.NotNull), i(6, N.NotNull)], j.prototype, "reportAmbiguity", null);
+            j = n([i(0, N.NotNull)], j);
             t.ParserATNSimulator = j
         },
         6198: function(e, t, r) {
@@ -15559,8 +15559,8 @@
             const S = r(784);
             const T = r(4292);
             const x = r(3896);
-            const C = r(7528);
-            const N = r(1123);
+            const N = r(7528);
+            const C = r(1123);
             class ParseTreePatternMatcher {
                 constructor(e, t) {
                     this.start = "<";
@@ -15623,7 +15623,7 @@
                             throw e
                         }
                     }
-                    if (i.LA(1) !== C.Token.EOF) {
+                    if (i.LA(1) !== N.Token.EOF) {
                         throw new ParseTreePatternMatcher.StartRuleDoesNotConsumeFullPattern
                     }
                     return new h.ParseTreePattern(this, e, t, u)
@@ -15644,7 +15644,7 @@
                     if (e instanceof T.TerminalNode && t instanceof T.TerminalNode) {
                         let n;
                         if (e.symbol.type === t.symbol.type) {
-                            if (t.symbol instanceof N.TokenTagToken) {
+                            if (t.symbol instanceof C.TokenTagToken) {
                                 let n = t.symbol;
                                 r.map(n.tokenName, e);
                                 const i = n.label;
@@ -15718,10 +15718,10 @@
                             const i = t.tag.substr(0, 1);
                             if (i === i.toUpperCase()) {
                                 let n = this._parser.getTokenType(t.tag);
-                                if (n === C.Token.INVALID_TYPE) {
+                                if (n === N.Token.INVALID_TYPE) {
                                     throw new Error("Unknown token " + t.tag + " in pattern: " + e)
                                 }
-                                let i = new N.TokenTagToken(t.tag, n, t.label);
+                                let i = new C.TokenTagToken(t.tag, n, t.label);
                                 r.push(i)
                             } else if (i === i.toLowerCase()) {
                                 let n = this._parser.getRuleIndex(t.tag);
@@ -15737,7 +15737,7 @@
                             let e = n;
                             this._lexer.inputStream = s.CharStreams.fromString(e.text);
                             let t = this._lexer.nextToken();
-                            while (t.type !== C.Token.EOF) {
+                            while (t.type !== N.Token.EOF) {
                                 r.push(t);
                                 t = this._lexer.nextToken()
                             }
@@ -17371,7 +17371,7 @@
                     return t
                 }
             }));
-            const C = _camelcase_alias(_callable(class MetavarTypeHelpFormatter extends y {
+            const N = _camelcase_alias(_callable(class MetavarTypeHelpFormatter extends y {
                 _get_default_metavar_for_optional(e) {
                     return typeof e.type === "function" ? e.type.name : e.type
                 }
@@ -17393,7 +17393,7 @@
                     return undefined
                 }
             }
-            const N = _callable(class ArgumentError extends Error {
+            const C = _callable(class ArgumentError extends Error {
                 constructor(e, t) {
                     super();
                     this.name = "ArgumentError";
@@ -17812,7 +17812,7 @@
                             choices: this._name_parser_map.join(", ")
                         };
                         let t = p("unknown parser %(parser_name)r (choices: %(choices)s)", e);
-                        throw new N(this, t)
+                        throw new C(this, t)
                     }
                     let s;
                     [s, o] = e.parse_known_args(o, undefined);
@@ -18057,7 +18057,7 @@
                     return e
                 }
                 add_mutually_exclusive_group() {
-                    let e = Z(this, ...arguments);
+                    let e = q(this, ...arguments);
                     this._mutually_exclusive_groups.push(e);
                     return e
                 }
@@ -18207,7 +18207,7 @@
                 _handle_conflict_error(e, t) {
                     let r = t.length === 1 ? "conflicting option string: %s" : "conflicting option strings: %s";
                     let n = t.map((([e]) => e)).join(", ");
-                    throw new N(e, p(r, n))
+                    throw new C(e, p(r, n))
                 }
                 _handle_conflict_resolve(e, t) {
                     for (let [e, r] of t) {
@@ -18252,7 +18252,7 @@
                     _array_remove(this._group_actions, e)
                 }
             });
-            const Z = _callable(class _MutuallyExclusiveGroup extends U {
+            const q = _callable(class _MutuallyExclusiveGroup extends U {
                 constructor() {
                     let [e, t] = _parse_opts(arguments, {
                         container: g,
@@ -18276,7 +18276,7 @@
                     _array_remove(this._group_actions, e)
                 }
             });
-            const q = _camelcase_alias(_callable(class ArgumentParser extends(_AttributeHolder(j)) {
+            const H = _camelcase_alias(_callable(class ArgumentParser extends(_AttributeHolder(j)) {
                 constructor() {
                     let [e, t, r, i, o, s, a, l, _, u, d, h, g, m, S] = _parse_opts(arguments, {
                         prog: undefined,
@@ -18449,7 +18449,7 @@
                         try {
                             [t, e] = this._parse_known_args(e, t)
                         } catch (e) {
-                            if (e instanceof N) {
+                            if (e instanceof C) {
                                 this.error(e.message)
                             } else {
                                 throw e
@@ -18512,7 +18512,7 @@
                                 if (_.has(t)) {
                                     let r = "not allowed with argument %s";
                                     let n = _get_action_name(t);
-                                    throw new N(e, p(r, n))
+                                    throw new C(e, p(r, n))
                                 }
                             }
                         }
@@ -18544,7 +18544,7 @@
                                         s = t
                                     } else {
                                         let e = "ignored explicit argument %r";
-                                        throw new N(n, p(e, s))
+                                        throw new C(n, p(e, s))
                                     }
                                 } else if (e === 1) {
                                     _ = t + 1;
@@ -18553,7 +18553,7 @@
                                     break
                                 } else {
                                     let e = "ignored explicit argument %r";
-                                    throw new N(n, p(e, s))
+                                    throw new C(n, p(e, s))
                                 }
                             } else {
                                 let r = t + 1;
@@ -18680,7 +18680,7 @@
                         if (r === undefined) {
                             r = p(e.nargs === 1 ? "expected %s argument" : "expected %s arguments", e.nargs)
                         }
-                        throw new N(e, r)
+                        throw new C(e, r)
                     }
                     return n[1].length
                 }
@@ -18928,7 +18928,7 @@
                     let r = this._registry_get("type", e.type, e.type);
                     if (typeof r !== "function") {
                         let t = "%r is not callable";
-                        throw new N(e, p(t, r))
+                        throw new C(e, p(t, r))
                     }
                     let n;
                     try {
@@ -18944,7 +18944,7 @@
                     } catch (r) {
                         if (r instanceof A) {
                             let t = r.message;
-                            throw new N(e, t)
+                            throw new C(e, t)
                         } else if (r instanceof TypeError) {
                             let r = getattr(e.type, "name", h(e.type));
                             let n = {
@@ -18952,7 +18952,7 @@
                                 value: t
                             };
                             let i = "invalid %(type)s value: %(value)r";
-                            throw new N(e, p(i, n))
+                            throw new C(e, p(i, n))
                         } else {
                             throw r
                         }
@@ -18966,7 +18966,7 @@
                             choices: _choices_to_array(e.choices).map(h).join(", ")
                         };
                         let n = "invalid choice: %(value)r (choose from %(choices)s)";
-                        throw new N(e, p(n, r))
+                        throw new C(e, p(n, r))
                     }
                 }
                 format_usage() {
@@ -19023,8 +19023,8 @@
                 }
             }));
             e.exports = {
-                ArgumentParser: q,
-                ArgumentError: N,
+                ArgumentParser: H,
+                ArgumentError: C,
                 ArgumentTypeError: A,
                 BooleanOptionalAction: v,
                 FileType: k,
@@ -19032,7 +19032,7 @@
                 ArgumentDefaultsHelpFormatter: x,
                 RawDescriptionHelpFormatter: S,
                 RawTextHelpFormatter: T,
-                MetavarTypeHelpFormatter: C,
+                MetavarTypeHelpFormatter: N,
                 Namespace: $,
                 Action: E,
                 ONE_OR_MORE: s,
@@ -19479,10 +19479,10 @@
                 const S = t.lex_code;
                 const T = '"' + (0, i.replace)(S[1], '"', '\\"') + '"';
                 const x = st_func_name(0);
-                const C = (0, o.ofArray)((0, _.map)((e => e.tag === 1 ? (0, s.pretty)(e.fields[0]) : (0, s.word)("None")), S[0]));
-                const N = (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("["), (0, s.seplist)((0, s.word)(", "), C)), (0, s.word)("]")), (0, s.word)(" # token_ids"));
+                const N = (0, o.ofArray)((0, _.map)((e => e.tag === 1 ? (0, s.pretty)(e.fields[0]) : (0, s.word)("None")), S[0]));
+                const C = (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("["), (0, s.seplist)((0, s.word)(", "), N)), (0, s.word)("]")), (0, s.word)(" # token_ids"));
                 const A = new_rnd_name();
-                push_toplevel((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)(A), (0, s.word)("=")), N));
+                push_toplevel((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)(A), (0, s.word)("=")), C));
                 y = (0, s.vsep)((0, o.ofArray)([s.empty, (0, s.word)("@dataclasses.dataclass"), (0, s.word)("class Token:"), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.ofArray)([(0, s.word)("token_id: int"), (0, s.word)("lexeme : str"), (0, s.word)("line: int"), (0, s.word)("col: int"), (0, s.word)("span: int"), (0, s.word)("offset: int"), (0, s.word)("file: str")])), 4), s.empty, (0, s.word)('_Token = typing.TypeVar("_Token")'), s.empty, (0, s.word)("class TokenConstructor(typing_extensions.Protocol[_Token]):"), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.singleton)((0, s.word)("def __call__(self, token_id: int, lexeme: str, line: int, col: int, span: int, offset: int, file: str) -> _Token: ..."))), 4), s.empty, (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("def"), (0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.word)("lex"), (0, s.parens)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("lexerbuf: lexbuf"), (0, s.word)(", ")), (0, s.word)("construct_token: TokenConstructor[_Token]=Token")))), (0, s.word)(":"))), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.ofArray)([(0, s.word)("start(lexerbuf)"), (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("case_id"), (0, s.word)("=")), (0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.word)(x), (0, s.parens)((0, s.word)("lexerbuf")))), (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("if case_id < 0:"), (0, s.word)("raise")), (0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.word)("Exception"), (0, s.parens)((0, s.word)(T)))), (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("token_id"), (0, s.word)("=")), (0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.word)(A), (0, s.word)("[")), (0, s.word)("case_id")), (0, s.word)("]"))), (0, s.word)("if token_id is not None:"), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.singleton)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("return"), (0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.word)("construct_token"), (0, s.parens)((0, s.seplist)((0, s.word)(", "), (0, o.ofArray)([(0, s.word)("token_id"), (0, s.word)("lexeme(lexerbuf)"), (0, s.word)("lexerbuf.start_line"), (0, s.word)("lexerbuf.pos - lexerbuf.curr_bol"), (0, s.word)("lexerbuf.pos - lexerbuf.start_pos"), (0, s.word)("lexerbuf.start_pos"), (0, s.word)("lexerbuf.filename")]))))))), 4), (0, s.word)("return None")])), 4), (0, s.word)("def lexall(buf: lexbuf, construct: TokenConstructor[_Token], is_eof: Callable[[_Token], bool]):"), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.ofArray)([(0, s.word)("while True:"), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.ofArray)([(0, s.word)("token = lex(buf, construct)"), (0, s.word)("if token is None: continue"), (0, s.word)("if is_eof(token): break"), (0, s.word)("yield token")])), 4)])), 4)]));
                 return (0, s.vsep)((0, o.append)((0, o.singleton)((0, s.vsep)((0, o.ofArray)([(0, s.word)(`from ${e}.sedlex import *`), (0, s.word)("import typing"), (0, s.word)("import typing_extensions"), (0, s.word)("import dataclasses")]))), (0, o.append)(f, (0, o.append)((0, o.singleton)(y), h))))
             }
@@ -21036,11 +21036,11 @@
             }
             const x = pinterval(0, c);
             t.pany = x;
-            const C = (() => {
+            const N = (() => {
                 const e = Cset_singleton(-1);
                 return t => Automata_chars(e, t)
             })();
-            t.peof = C
+            t.peof = N
         },
         7688: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
@@ -27833,8 +27833,8 @@
             t.BigNatModule_FFT_Fp_mzero = T;
             const x = 1;
             t.BigNatModule_FFT_Fp_mone = x;
-            const C = 2;
-            t.BigNatModule_FFT_Fp_mtwo = C;
+            const N = 2;
+            t.BigNatModule_FFT_Fp_mtwo = N;
 
             function BigNatModule_FFT_Fp_mpow(e, t) {
                 e: while (true) {
@@ -27911,9 +27911,9 @@
                 const n = BigNatModule_FFT_Fp_minv(e >>> 0);
                 return (0, s.map)((e => (0, o.toInt)((0, o.op_Modulus)((0, o.op_Multiply)((0, o.fromInteger)(n, true, 6), (0, o.fromInteger)(e, true, 6)), S)) >>> 0), BigNatModule_FFT_computFftInPlace(e, BigNatModule_FFT_Fp_minv(t), r), Uint32Array)
             }
-            const N = 29;
-            t.BigNatModule_FFT_maxTwoPower = N;
-            const A = (0, s.initialize)(N - 1, (e => BigNatModule_FFT_pow32(2, e)), Int32Array);
+            const C = 29;
+            t.BigNatModule_FFT_maxTwoPower = C;
+            const A = (0, s.initialize)(C - 1, (e => BigNatModule_FFT_pow32(2, e)), Int32Array);
             t.BigNatModule_FFT_twoPowerTable = A;
 
             function BigNatModule_FFT_computeFftPaddedPolynomialProduct(e, t, r, n) {
@@ -28096,12 +28096,12 @@
                 e.bound = t | 0;
                 return e
             }
-            const Z = 2;
-            t.BigNatModule_boundInt = Z;
-            const q = 3;
-            t.BigNatModule_boundInt64 = q;
-            const H = 1;
-            t.BigNatModule_boundBase = H;
+            const q = 2;
+            t.BigNatModule_boundInt = q;
+            const H = 3;
+            t.BigNatModule_boundInt64 = H;
+            const Z = 1;
+            t.BigNatModule_boundBase = Z;
 
             function BigNatModule_embed(e) {
                 const t = (e < 0 ? 0 : e) | 0;
@@ -28110,8 +28110,8 @@
                     e.digits[0] = t | 0;
                     return BigNatModule_normN(e)
                 } else {
-                    const e = BigNatModule_createN(Z);
-                    for (let r = 0; r <= Z - 1; r++) {
+                    const e = BigNatModule_createN(q);
+                    for (let r = 0; r <= q - 1; r++) {
                         e.digits[r] = ~~(t / BigNatModule_pow32(b, r)) % b | 0
                     }
                     return BigNatModule_normN(e)
@@ -28120,8 +28120,8 @@
 
             function BigNatModule_embed64(e) {
                 const t = (0, o.compare)(e, (0, o.fromBits)(0, 0, false)) < 0 ? (0, o.fromBits)(0, 0, false) : e;
-                const r = BigNatModule_createN(q);
-                for (let e = 0; e <= q - 1; e++) {
+                const r = BigNatModule_createN(H);
+                for (let e = 0; e <= H - 1; e++) {
                     r.digits[e] = ~~(0, o.toInt)((0, o.op_Modulus)((0, o.op_Division)(t, BigNatModule_pow64(B, e)), B)) | 0
                 }
                 return BigNatModule_normN(r)
@@ -28420,7 +28420,7 @@
             }
 
             function BigNatModule_scale(e, t) {
-                const r = BigNatModule_createN(t.bound + Z);
+                const r = BigNatModule_createN(t.bound + q);
                 const n = (0, o.fromInteger)(e, false, 2);
                 for (let e = 0; e <= t.bound - 1; e++) {
                     BigNatModule_contributeArr(r.digits, e, (0, o.op_Multiply)(n, (0, o.fromInteger)(t.digits[e], false, 2)))
@@ -32756,10 +32756,10 @@
             t.op_LogicalNot = T;
             const x = i.lessThan;
             t.op_LessThan = x;
-            const C = i.lessThanOrEqual;
-            t.op_LessThanOrEqual = C;
-            const N = i.greaterThan;
-            t.op_GreaterThan = N;
+            const N = i.lessThanOrEqual;
+            t.op_LessThanOrEqual = N;
+            const C = i.greaterThan;
+            t.op_GreaterThan = C;
             const A = i.greaterThanOrEqual;
             t.op_GreaterThanOrEqual = A;
             const E = i.equals;
@@ -32796,8 +32796,8 @@
             t.getHighBits = j;
             const U = i.getLowBitsUnsigned;
             t.getLowBitsUnsigned = U;
-            const Z = i.getHighBitsUnsigned;
-            t.getHighBitsUnsigned = Z;
+            const q = i.getHighBitsUnsigned;
+            t.getHighBitsUnsigned = q;
 
             function getMaxValue(e, t, r) {
                 switch (t) {
@@ -40840,8 +40840,8 @@
                     S = n.slice(0, a),
                     T = S.length,
                     x = e,
-                    C = x.c = [],
-                    N = 0,
+                    N = x.c = [],
+                    C = 0,
                     A = s + (x.e = r.e - e.e) + 1;
                 x.s = o;
                 o = A < 0 ? 0 : A;
@@ -40874,16 +40874,16 @@
                             break
                         }
                     }
-                    C[N++] = c ? u : ++u;
+                    N[C++] = c ? u : ++u;
                     if (S[0] && c) S[T] = n[f] || 0;
                     else S = [n[f]]
                 } while ((f++ < g || S[0] !== y) && o--);
-                if (!C[0] && N != 1) {
-                    C.shift();
+                if (!N[0] && C != 1) {
+                    N.shift();
                     x.e--;
                     A--
                 }
-                if (N > A) round(x, A, t.RM, S[0] !== y);
+                if (C > A) round(x, A, t.RM, S[0] !== y);
                 return x
             };
             o.eq = function(e) {
@@ -41731,7 +41731,7 @@
                     else return fromBits(r >>> t - 32, 0, e.unsigned)
                 }
             }
-            const C = function rotateLeft(e) {
+            const N = function rotateLeft(e) {
                 var t;
                 if (isLong(e)) e = e.toInt();
                 if ((e &= 63) === 0) return this;
@@ -41744,8 +41744,8 @@
                 t = 32 - e;
                 return fromBits(this.high << e | this.low >>> t, this.low << e | this.high >>> t, this.unsigned)
             };
-            t.rotateLeft = C;
-            const N = function rotateRight(e) {
+            t.rotateLeft = N;
+            const C = function rotateRight(e) {
                 var t;
                 if (isLong(e)) e = e.toInt();
                 if ((e &= 63) === 0) return this;
@@ -41758,7 +41758,7 @@
                 t = 32 - e;
                 return fromBits(this.low << t | this.high >>> e, this.high << t | this.low >>> e, this.unsigned)
             };
-            t.rotateRight = N;
+            t.rotateRight = C;
 
             function toSigned(e) {
                 if (!e.unsigned) return e;
@@ -42881,8 +42881,8 @@
             function codegen(e, t, r, S) {
                 let T;
                 const x = (0, n.defaultArg)(t.rename_var, (e => e));
-                const C = (0, n.defaultArg)(t.rename_ctor, (e => e));
-                const N = (0, n.defaultArg)(t.rename_var, (e => e));
+                const N = (0, n.defaultArg)(t.rename_ctor, (e => e));
+                const C = (0, n.defaultArg)(t.rename_var, (e => e));
                 const A = (0, n.defaultArg)(t.rename_field, (e => e));
                 const E = (0, n.defaultArg)(t.rename_type, (e => e));
                 const typeParameter_mangling = e => "_GEN_" + e;
@@ -43177,11 +43177,11 @@
                         return (0, _.append)((0, _.singleton)((0, g.word)(`public partial interface ${t} {  }`)), (0, _.delay)((() => (0, _.append)((0, _.collect)((e => {
                             const r = e[0];
                             const n = (0, i.map)((e => [(0, g.word)(A(e[0])), (0, g.word)(cg_type(e[1]))]), e[1]);
-                            const o = C(r);
+                            const o = N(r);
                             const s = (0, g.parens)((0, g.seplist)((0, g.word)(","), (0, _.toList)((0, _.delay)((() => (0, _.collect)((e => (0, _.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)(e[1], e[0]))), n))))));
                             return (0, _.append)((0, _.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.word)(`public partial record ${o}`), s), (0, g.word)(`: ${t};`))), (0, _.delay)((() => {
                                 const e = (0, g.word)(t);
-                                D = (0, i.cons)(["", C(r), o, n, e], D);
+                                D = (0, i.cons)(["", N(r), o, n, e], D);
                                 return (0, _.empty)()
                             })))
                         }), (0, l.toArray)(e[1])), (0, _.delay)((() => (0, _.singleton)(g.empty)))))))
@@ -43189,7 +43189,7 @@
                         const t = e[0];
                         const r = e[1];
                         const n = E(t);
-                        const o = N(t);
+                        const o = C(t);
                         let s;
                         if ((0, i.isEmpty)(r.parameters)) {
                             s = ["", (0, g.word)(n)]
@@ -43618,8 +43618,8 @@
             function codegen(e, t, r, S) {
                 let T;
                 const x = (0, n.defaultArg)(t.rename_var, (e => e));
-                const C = (0, n.defaultArg)(t.rename_ctor, (e => e));
-                const N = (0, n.defaultArg)(t.rename_field, (e => e));
+                const N = (0, n.defaultArg)(t.rename_ctor, (e => e));
+                const C = (0, n.defaultArg)(t.rename_field, (e => e));
                 const A = (0, n.defaultArg)(t.rename_type, (e => e));
                 const E = t.start_rule_qualified_type;
                 const v = t.request_resource(i.ocaml_rts_file);
@@ -43939,8 +43939,8 @@
                                 const r = A(e[0]);
                                 return (0, _.append)((0, _.singleton)((0, g.word)(`and ${r} = `)), (0, _.delay)((() => (0, _.append)((0, _.collect)((e => {
                                     const n = e[0];
-                                    const i = (0, o.map)((e => [N(e[0]), cg_type(e[1])]), e[1]);
-                                    const s = C(n);
+                                    const i = (0, o.map)((e => [C(e[0]), cg_type(e[1])]), e[1]);
+                                    const s = N(n);
                                     const a = (0, g.word)(r);
                                     t = (0, o.cons)([x(n), s, i, a], t);
                                     if ((0, o.isEmpty)(i)) {
@@ -43956,7 +43956,7 @@
                                 const i = A(r);
                                 const s = x(r);
                                 const a = (0, o.isEmpty)(n.parameters) ? (0, g.word)(i) : (0, g.Doc_op_Addition_Z7CFFAC00)((0, g.parens)((0, g.word)((0, h.join)(", ", (0, o.map)((e => "'" + e), n.parameters)))), (0, g.word)(i));
-                                const l = (0, _.toList)((0, _.delay)((() => (0, _.collect)((e => (0, _.singleton)([N(e[0]), cg_type(e[1])])), n.fields))));
+                                const l = (0, _.toList)((0, _.delay)((() => (0, _.collect)((e => (0, _.singleton)([C(e[0]), cg_type(e[1])])), n.fields))));
                                 return (0, o.isEmpty)(l) ? (0, _.append)((0, _.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("and"), a), (0, g.word)("=")), (0, g.word)("MK_" + i)), (0, g.word)("of unit"))), (0, _.delay)((() => {
                                     t = (0, o.cons)([s, "MK_" + i, l, a], t);
                                     return (0, _.empty)()
@@ -44031,16 +44031,383 @@
                     D = (0, o.ofArrayWithTail)([(0, g.word)(`| _ -> _unknown_token ${b}`), (0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("|"), (0, g.word)("eof ->")), (0, g.word)("EOF"))], D);
                     const j = (0, o.reverse)(B);
                     const U = (0, o.reverse)(D);
-                    const Z = [n + ".ml", (0, g.vsep)((0, o.ofArray)([(0, g.word)(v), g.empty, (0, g.word)("type token ="), (0, g.vsep)((0, _.toList)((0, _.delay)((() => (0, _.append)((0, _.map)((e => (0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("|"), (0, g.word)(e)), (0, g.word)("of")), (0, g.word)("tbnf_token"))), j), (0, _.delay)((() => (0, _.singleton)((0, g.word)("| EOF"))))))))), g.empty, (0, g.vsep)(R), g.empty, (0, g.vsep)((0, o.ofArray)([(0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("let rec"), (0, g.word)(T)), (0, g.word)(b)), (0, g.word)("=")), (0, g.align)((0, g.indent)(4, (0, g.vsep)((0, o.cons)((0, g.word)(`match%sedlex ${b} with`), U))))]))]))];
-                    const q = (0, l.tryFind)("start", e.Omega);
-                    if (q != null) {
-                        const e = q;
+                    const q = [n + ".ml", (0, g.vsep)((0, o.ofArray)([(0, g.word)(v), g.empty, (0, g.word)("type token ="), (0, g.vsep)((0, _.toList)((0, _.delay)((() => (0, _.append)((0, _.map)((e => (0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("|"), (0, g.word)(e)), (0, g.word)("of")), (0, g.word)("tbnf_token"))), j), (0, _.delay)((() => (0, _.singleton)((0, g.word)("| EOF"))))))))), g.empty, (0, g.vsep)(R), g.empty, (0, g.vsep)((0, o.ofArray)([(0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("let rec"), (0, g.word)(T)), (0, g.word)(b)), (0, g.word)("=")), (0, g.align)((0, g.indent)(4, (0, g.vsep)((0, o.cons)((0, g.word)(`match%sedlex ${b} with`), U))))]))]))];
+                    const H = (0, l.tryFind)("start", e.Omega);
+                    if (H != null) {
+                        const e = H;
                         const r = cg_symbol(new p.symbol(1, "start"));
                         const o = cg_type((0, p.monot__Prune)(e));
                         return [F, [i + ".mly", (0, g.vsep)((0, _.toList)((0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("%{")), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)(`open ${(0,d.capitalized)(m)};;`)), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)(`open ${(0,d.capitalized)(n)};;`)), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)(`open ${(0,d.capitalized)(c)};;`)), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("%}")), (0, _.delay)((() => (0, _.append)((0, _.map)((e => (0, g.word)(`%token<tbnf_token> ${e}`)), j), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("%token EOF")), (0, _.delay)((() => {
                             let e;
                             return (0, _.append)(E != null ? (e = E, (0, _.singleton)((0, g.word)(`%start <${e}> start`))) : (0, _.singleton)((0, g.word)(`%start <${o}> start`)), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("%%")), (0, _.delay)((() => (0, _.append)((0, _.singleton)(g.empty), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)((0, h.toText)((0, h.printf)("start : %s EOF { $1 }"))(r))), (0, _.delay)((() => (0, _.singleton)(t)))))))))))))
-                        })))))))))))))))))))))))))], Z]
+                        })))))))))))))))))))))))))], q]
+                    } else {
+                        const e = (0, f.UnboundNonterminal)("start");
+                        throw e
+                    }
+                }))
+            }
+        },
+        6072: (e, t, r) => {
+            Object.defineProperty(t, "__esModule", {
+                value: true
+            });
+            t.angled = angled;
+            t.codegen = codegen;
+            var n = r(9386);
+            var i = r(5359);
+            var o = r(1337);
+            var s = r(4222);
+            var a = r(5466);
+            var l = r(2078);
+            var _ = r(543);
+            var u = r(1383);
+            var c = r(1697);
+            var d = r(3833);
+            var p = r(6256);
+            var f = r(4205);
+            var h = r(9937);
+            var g = r(7936);
+            var m = r(9054);
+
+            function angled(e) {
+                return (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)("<"), e), (0, n.word)(">"))
+            }
+
+            function codegen(e, t, r, y) {
+                let S;
+                const var_renamer = e => e;
+                const type_renamer = e => e;
+                let T = (0, i.empty)();
+                let x = (0, i.empty)();
+                const N = (0, o.empty)({
+                    Compare: s.compare
+                });
+                let C = (0, a.empty)();
+                let A = (0, i.empty)();
+                const E = (0, l.toList)((0, l.delay)((() => (0, l.map)((e => [e[0], var_renamer(e[0])]), (0, _.Sigma__get_GlobalVariables)(e.Sigma)))));
+                const v = (0, u.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, u.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => {
+                    const r = (((0, c.isLower)(t) ? true : (0, c.isUpper)(t)) ? true : (0, c.isUnicode)(t)) ? true : t === "_";
+                    return e === 0 ? r : r ? true : (0, c.isDigit)(t)
+                }), ((e, t) => (0, c.isDigit)(t) ? `_X${e}_` : `_${t.charCodeAt(0)}_`)), new u.NameMangling_nameEnv((0, o.ofList)((0, i.map)((e => e[1]), E), {
+                    Compare: s.comparePrimitives
+                })));
+                const cg_symbol = e => {
+                    switch (e.tag) {
+                        case 1: {
+                            return "<" + e.fields[0] + ">"
+                        }
+                        case 2: {
+                            throw new Error("macro not processed")
+                        }
+                        default: {
+                            const t = e.fields[0];
+                            if (e.fields[1]) {
+                                return (0, c.escapeStringSingleQuoted)(t)
+                            } else {
+                                return t
+                            }
+                        }
+                    }
+                };
+                const name_of_named_term = e => cg_symbol(new d.symbol(0, e, false));
+                const tryLookup = (e, t) => {
+                    e: while (true) {
+                        const r = e,
+                            n = t;
+                        if (!(0, i.isEmpty)(n)) {
+                            if ((0, s.equals)((0, i.head)(n)[0], r)) {
+                                return (0, p.some)((0, i.head)(n)[1])
+                            } else if (!(0, i.isEmpty)(n)) {
+                                e = r;
+                                t = (0, i.tail)(n);
+                                continue e
+                            } else {
+                                throw new Error("Match failure")
+                            }
+                        } else {
+                            return void 0
+                        }
+                        break
+                    }
+                };
+                const _cg_type = e => {
+                    let t, r, n, o, s;
+                    if (e.tag === 4) {
+                        t = 1;
+                        n = e.fields[0]
+                    } else if (e.tag === 0) {
+                        t = 2
+                    } else if (e.tag === 3) {
+                        t = 3;
+                        o = e.fields[0];
+                        s = e.fields[1]
+                    } else if (e.tag === 2) {
+                        if ((0, d.$007CTTuple$007C_$007C)(e.fields[0]) != null) {
+                            if ((0, i.isEmpty)(e.fields[1])) {
+                                t = 4
+                            } else {
+                                t = 5
+                            }
+                        } else {
+                            t = 5
+                        }
+                    } else {
+                        t = 0;
+                        r = e.fields[0]
+                    }
+                    switch (t) {
+                        case 0: {
+                            return type_renamer(r)
+                        }
+                        case 1: {
+                            return "_GEN_" + n
+                        }
+                        case 2: {
+                            const e = new f.UnsolvedTypeVariable;
+                            throw e
+                        }
+                        case 3: {
+                            return (0, h.join)(", ", (0, i.map)((e => e[0] + ":" + _cg_type(e[1])), o)) + " => " + _cg_type(s)
+                        }
+                        case 4: {
+                            throw new Error("[]")
+                        }
+                        case 5: {
+                            let t, r;
+                            if (e.tag === 2) {
+                                if ((0, d.$007CTTuple$007C_$007C)(e.fields[0]) != null) {
+                                    t = 0;
+                                    r = e.fields[1]
+                                } else {
+                                    t = 1
+                                }
+                            } else {
+                                t = 1
+                            }
+                            switch (t) {
+                                case 0: {
+                                    return "[" + (0, h.join)(", ", (0, i.map)(_cg_type, r)) + "]"
+                                }
+                                case 1: {
+                                    if (e.tag === 2) {
+                                        const t = (0, h.join)(", ", (0, i.map)(_cg_type, e.fields[1]));
+                                        return _cg_type(e.fields[0]) + "<" + t + ">"
+                                    } else {
+                                        throw new Error("Match failure")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+                const mk_lexer = e => {
+                    if (e.tag === 9) {
+                        return "(" + mk_lexer(e.fields[0]) + ")"
+                    } else if (e.tag === 5) {
+                        return `~${mk_lexer(e.fields[0])}`
+                    } else if (e.tag === 0) {
+                        return "[0-9]"
+                    } else if (e.tag === 6) {
+                        return `${mk_lexer(e.fields[0])}+`
+                    } else if (e.tag === 7) {
+                        return `${mk_lexer(e.fields[0])}*`
+                    } else if (e.tag === 1) {
+                        return "."
+                    } else if (e.tag === 11) {
+                        const t = (0, c.List_tryLookup)(e.fields[0], A);
+                        if (t == null) {
+                            const t = (0, f.UnboundLexer)(e.fields[0]);
+                            throw t
+                        } else {
+                            return name_of_named_term(e.fields[0])
+                        }
+                    } else if (e.tag === 2) {
+                        return (0, h.join)(" ", (0, i.toArray)((0, i.map)(mk_lexer, e.fields[0])))
+                    } else if (e.tag === 10) {
+                        return `[${(0,c.iToU4)(e.fields[0])}-${(0,c.iToU4)(e.fields[1])}]`
+                    } else if (e.tag === 4) {
+                        if ((0, i.isEmpty)(e.fields[0])) {
+                            throw new Error("impossible: alternatives cannot be empty.")
+                        } else {
+                            return (0, h.join)(" | ", (0, i.toArray)((0, i.map)(mk_lexer, e.fields[0])))
+                        }
+                    } else if (e.tag === 8) {
+                        return `${mk_lexer(e.fields[0])}?`
+                    } else {
+                        return (0, c.escapeStringSingleQuoted)(e.fields[0])
+                    }
+                };
+                const mk_lexer_debug = e => {
+                    const t = mk_lexer_debug;
+                    if (e.tag === 9) {
+                        return t(e.fields[0])
+                    } else if (e.tag === 5) {
+                        return `pnot(${t(e.fields[0])})`
+                    } else if (e.tag === 0) {
+                        return "pnumber"
+                    } else if (e.tag === 6) {
+                        return `pplus(${t(e.fields[0])})`
+                    } else if (e.tag === 7) {
+                        return `pstar(${t(e.fields[0])})`
+                    } else if (e.tag === 1) {
+                        return "pany"
+                    } else if (e.tag === 11) {
+                        return e.fields[0]
+                    } else if (e.tag === 2) {
+                        const t = (0, h.join)(", ", (0, l.ofList)((0, i.map)(mk_lexer_debug, e.fields[0])));
+                        return `pseq([${t}])`
+                    } else if (e.tag === 10) {
+                        return `pinterval(${e.fields[0]}, ${e.fields[1]})`
+                    } else if (e.tag === 4) {
+                        if (!(0, i.isEmpty)(e.fields[0])) {
+                            return (0, i.fold)(((e, t) => `por(${e}, ${t})`), t((0, i.head)(e.fields[0])), (0, i.map)(mk_lexer_debug, (0, i.tail)(e.fields[0])))
+                        } else {
+                            throw new Error("impossible: alternatives cannot be empty.")
+                        }
+                    } else if (e.tag === 8) {
+                        return `popt${t(e.fields[0])}`
+                    } else {
+                        return `pstring(${(0,c.escapeString)(e.fields[0])})`
+                    }
+                };
+                const simplify_lexerule = e => {
+                    switch (e.tag) {
+                        case 1:
+                        case 10:
+                        case 11:
+                        case 3: {
+                            return e
+                        }
+                        case 9: {
+                            return _must_be_atom_rule(e.fields[0])
+                        }
+                        case 5: {
+                            return new d.lexerule(5, _must_be_atom_rule(e.fields[0]))
+                        }
+                        case 8: {
+                            return new d.lexerule(8, _must_be_atom_rule(e.fields[0]))
+                        }
+                        case 6: {
+                            return new d.lexerule(6, _must_be_atom_rule(e.fields[0]))
+                        }
+                        case 7: {
+                            return new d.lexerule(7, _must_be_atom_rule(e.fields[0]))
+                        }
+                        case 4: {
+                            return new d.lexerule(4, (0, i.map)(_must_be_atom_rule, e.fields[0]))
+                        }
+                        case 2: {
+                            return new d.lexerule(2, (0, i.map)(_must_be_atom_rule, e.fields[0]))
+                        }
+                        default: {
+                            return e
+                        }
+                    }
+                };
+                const _must_be_atom_rule = e => {
+                    e: while (true) {
+                        const t = e;
+                        switch (t.tag) {
+                            case 1:
+                            case 10:
+                            case 11:
+                            case 3: {
+                                return t
+                            }
+                            case 5: {
+                                return new d.lexerule(5, _must_be_atom_rule(t.fields[0]))
+                            }
+                            case 8: {
+                                return new d.lexerule(8, _must_be_atom_rule(t.fields[0]))
+                            }
+                            case 6: {
+                                return new d.lexerule(6, _must_be_atom_rule(t.fields[0]))
+                            }
+                            case 7: {
+                                return new d.lexerule(7, _must_be_atom_rule(t.fields[0]))
+                            }
+                            case 4: {
+                                return new d.lexerule(9, new d.lexerule(4, (0, i.map)(_must_be_atom_rule, t.fields[0])))
+                            }
+                            case 2: {
+                                return new d.lexerule(9, new d.lexerule(2, (0, i.map)(_must_be_atom_rule, t.fields[0])))
+                            }
+                            case 9: {
+                                e = t.fields[0];
+                                continue e
+                            }
+                            default: {
+                                return t
+                            }
+                        }
+                        break
+                    }
+                };
+                return (0, g.withErrorHandler)((S = e.Sigma, () => (0, _.Sigma__GetErrorTrace)(S)), (() => {
+                    const parensIfLOr = e => {
+                        if (e.tag === 4) {
+                            return (0, n.parens)((0, n.word)(mk_lexer(e)))
+                        } else {
+                            return (0, n.word)(mk_lexer(e))
+                        }
+                    };
+                    const t = (0, a.tryFind)("start", e.Omega);
+                    if (t != null) {
+                        const s = t;
+                        const a = (0, n.vsep)((0, i.collect)((e => e), (0, i.ofArray)((0, m.map)((t => {
+                            let r, o, s;
+                            (0, _.Sigma__SetCurrentDefinition_Z759AB257)(e.Sigma, t);
+                            switch (t.tag) {
+                                case 2: {
+                                    const e = t.fields[0];
+                                    A = (0, i.cons)([e.lhs, e.define], A);
+                                    return (0, i.empty)()
+                                }
+                                case 6: {
+                                    return (0, i.empty)()
+                                }
+                                case 4: {
+                                    return (0, i.empty)()
+                                }
+                                case 3: {
+                                    T = (0, i.cons)(var_renamer(t.fields[0].ident), T);
+                                    return (0, i.empty)()
+                                }
+                                case 5: {
+                                    const e = t.fields[0];
+                                    if (e.external) {
+                                        x = (0, i.cons)(type_renamer(e.ident), x)
+                                    }
+                                    return (0, i.empty)()
+                                }
+                                case 0: {
+                                    throw new Error("macro not processed")
+                                }
+                                default: {
+                                    const a = t.fields[0];
+                                    return (0, i.singleton)((r = cg_symbol(new d.symbol(1, a.lhs)), o = 0, s = (0, n.align)((0, n.vsep)((0, i.mapIndexed)(((e, t) => (0, n.Doc_op_Addition_Z7CFFAC00)(e === 0 ? (0, n.word)(":") : (0, n.word)("|"), t)), (0, l.toList)((0, l.delay)((() => (0, l.collect)((t => {
+                                        let r;
+                                        (0, _.Sigma__SetCurrentPos_Z302187B)(e.Sigma, t[0]);
+                                        (0, _.Sigma__SetCurrentDefinitionBranch_Z524259A4)(e.Sigma, o);
+                                        o = o + 1 | 0;
+                                        return (0, l.append)((0, l.singleton)((r = (0, i.map)((e => (0, n.word)(cg_symbol(e))), t[1].symbols), (0, n.seplist)((0, n.word)(" "), r))), (0, l.delay)((() => {
+                                            o = o + 1 | 0;
+                                            return (0, l.empty)()
+                                        })))
+                                    }), a.define))))))), (0, n.vsep)((0, i.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(r), (0, n.word)("=")), (0, n.Doc_op_RightShift_2AAA0F3C)(s, 4))))))
+                                }
+                            }
+                        }), y))));
+                        const u = (0, l.toList)((0, l.delay)((() => (0, l.collect)((t => {
+                            const r = t[0];
+                            const i = simplify_lexerule(t[1]);
+                            const s = name_of_named_term(r);
+                            return (0, o.contains)(r, e.IgnoreSet) ? (0, l.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(s), (0, n.word)(":")), parensIfLOr(i)), (0, n.word)("-> channel(HIDDEN);"))) : (0, o.contains)(r, e.ReferencedNamedTokens) ? (0, l.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(s), (0, n.word)(":")), (0, n.word)(mk_lexer(i))), (0, n.word)(";"))) : (0, l.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("fragment"), (0, n.word)(s)), (0, n.word)(":")), parensIfLOr(i)), (0, n.word)(";")))
+                        }), (0, i.reverse)(A)))));
+                        return [
+                            [r + ".bnf", (0, n.vsep)((0, l.toList)((0, l.delay)((() => (0, l.append)((0, l.singleton)(a), (0, l.delay)((() => u)))))))]
+                        ]
                     } else {
                         const e = (0, f.UnboundNonterminal)("start");
                         throw e
@@ -44073,8 +44440,8 @@
 
             function codegen(e, t, r, T) {
                 let x;
-                const C = (0, n.defaultArg)(t.rename_var, (e => e));
-                const N = (0, n.defaultArg)(t.rename_ctor, (e => e));
+                const N = (0, n.defaultArg)(t.rename_var, (e => e));
+                const C = (0, n.defaultArg)(t.rename_ctor, (e => e));
                 const A = (0, n.defaultArg)(t.rename_field, (e => e));
                 const E = (0, n.defaultArg)(t.rename_type, (e => e));
                 const v = "_tbnf.FableSedlex";
@@ -44093,7 +44460,7 @@
                 let O = (0, i.empty)();
                 let R = (0, a.empty)();
                 let D = (0, i.empty)();
-                const k = (0, l.toList)((0, l.delay)((() => (0, l.map)((t => (0, _.Sigma__IsGlobalVariableConstructor_Z721C83C5)(e.Sigma, t[0]) ? [t[0], N(t[0])] : [t[0], C(t[0])]), (0, _.Sigma__get_GlobalVariables)(e.Sigma)))));
+                const k = (0, l.toList)((0, l.delay)((() => (0, l.map)((t => (0, _.Sigma__IsGlobalVariableConstructor_Z721C83C5)(e.Sigma, t[0]) ? [t[0], C(t[0])] : [t[0], N(t[0])]), (0, _.Sigma__get_GlobalVariables)(e.Sigma)))));
                 const $ = (0, u.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, u.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => {
                     const r = (((0, c.isLower)(t) ? true : (0, c.isUnicode)(t)) ? true : (0, c.isUpper)(t)) ? true : t === "_";
                     return e === 0 ? r : r ? true : (0, c.isDigit)(t)
@@ -44106,17 +44473,17 @@
                 const U = (0, u.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, u.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, c.isLower)(t) : ((0, c.isLower)(t) ? true : t === "_") ? true : (0, c.isDigit)(t)), ((e, t) => (0, c.isUpper)(t) ? t.toLowerCase() : "_" + (0, u.NameMangling_maskChar)(97, 122, t.charCodeAt(0)) + "_")), new u.NameMangling_nameEnv((0, o.ofArray)(["start"], {
                     Compare: s.comparePrimitives
                 })));
-                let Z;
-                const q = (0, o.union)(L, F);
-                Z = e => t => (0, u.NameMangling_mangle)(q, e, t);
+                let q;
+                const H = (0, o.union)(L, F);
+                q = e => t => (0, u.NameMangling_mangle)(H, e, t);
                 const cg_symbol = e => {
                     const t = (0, a.tryFind)(e, P);
                     if (t == null) {
                         let t;
                         if (e.tag === 0) {
-                            t = e.fields[1] ? Z(j)('"' + e.fields[0] + '"') : e.fields[0] === "EOF" ? "EOF" : Z(j)(e.fields[0])
+                            t = e.fields[1] ? q(j)('"' + e.fields[0] + '"') : e.fields[0] === "EOF" ? "EOF" : q(j)(e.fields[0])
                         } else if (e.tag === 1) {
-                            t = e.fields[0] === "start" ? "start" : Z(U)(e.fields[0])
+                            t = e.fields[0] === "start" ? "start" : q(U)(e.fields[0])
                         } else {
                             throw new Error("macro not processed")
                         }
@@ -44128,7 +44495,7 @@
                 };
                 const name_of_named_term = e => cg_symbol(new d.symbol(0, e, false));
                 const definePyFunc = (e, t, r) => (0, p.vsep)((0, i.ofArray)([(0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("def"), (0, p.Doc_op_Multiply_Z7CFFAC00)((0, p.Doc_op_Multiply_Z7CFFAC00)(e, (0, p.parens)((0, p.seplist)((0, p.word)(", "), t))), (0, p.word)(":"))), (0, p.Doc_op_RightShift_2AAA0F3C)(r, 4)]));
-                const H = "__tbnf_COMPONENTS";
+                const Z = "__tbnf_COMPONENTS";
                 const cg_expr = (t, r, n) => (0, _.Sigma__WithExpr)(e.Sigma, n, (() => (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => {
                     let e;
                     const o = n.node;
@@ -44149,14 +44516,14 @@
                         return (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.word)((0, c.escapeString)(o.fields[0])))
                     } else if (o.tag === 5) {
                         const e = (0, i.map)((e => e[0]), o.fields[0]);
-                        const n = (0, u.DocBuilder_runCG)(cg_expr(t, (0, i.append)((0, l.toList)((0, l.delay)((() => (0, l.map)((e => [e, Z($)(e)]), e)))), r), o.fields[1]));
-                        const s = Z($)("lambda");
+                        const n = (0, u.DocBuilder_runCG)(cg_expr(t, (0, i.append)((0, l.toList)((0, l.delay)((() => (0, l.map)((e => [e, q($)(e)]), e)))), r), o.fields[1]));
+                        const s = q($)("lambda");
                         return (0, u.DocBuilder_Builder__Combine_Z5C764E00)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Yield_417FD60)(u.DocBuilder_cg, definePyFunc((0, p.word)(s), (0, i.map)(p.word, e), (0, p.vsep)((0, i.ofArray)([(0, p.vsep)(n[1]), (0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("return"), n[0])])))), (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.word)(s)))))
                     } else {
                         return o.tag === 4 ? (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, cg_expr(t, r, o.fields[1]), (e => {
-                            const n = Z($)(o.fields[0]);
+                            const n = q($)(o.fields[0]);
                             return (0, u.DocBuilder_Builder__Combine_Z5C764E00)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Yield_417FD60)(u.DocBuilder_cg, (0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(n), (0, p.word)("=")), e)), (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, (0, i.cons)([o.fields[0], n], r), o.fields[2])))))
-                        })) : o.tag === 2 ? (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__For_2B96F4AF)(u.DocBuilder_cg, o.fields[0], (e => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, r, e))))))), (e => (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.bracket)((0, p.seplist)((0, p.word)(", "), e))))) : o.tag === 7 ? (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.word)((e = o.fields[0] - 1 | 0, (0, h.toText)((0, h.printf)("%s[%d]"))(H)(e)))) : o.tag === 1 ? (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__For_2B96F4AF)(u.DocBuilder_cg, o.fields[0], (e => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, r, e))))))), (e => {
+                        })) : o.tag === 2 ? (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__For_2B96F4AF)(u.DocBuilder_cg, o.fields[0], (e => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, r, e))))))), (e => (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.bracket)((0, p.seplist)((0, p.word)(", "), e))))) : o.tag === 7 ? (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.word)((e = o.fields[0] - 1 | 0, (0, h.toText)((0, h.printf)("%s[%d]"))(Z)(e)))) : o.tag === 1 ? (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__For_2B96F4AF)(u.DocBuilder_cg, o.fields[0], (e => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, r, e))))))), (e => {
                             const t = e;
                             return !(0, i.isEmpty)(t) ? (0, i.isEmpty)((0, i.tail)(t)) ? (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.parens)((0, p.Doc_op_Addition_Z7CFFAC00)((0, i.head)(t), (0, p.word)(",")))) : (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.parens)((0, p.seplist)((0, p.word)(", "), t))) : (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.parens)(p.empty))
                         })) : (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, cg_expr(t, r, o.fields[0]), (e => (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__For_2B96F4AF)(u.DocBuilder_cg, o.fields[1], (e => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, r, e))))))), (t => (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.Doc_op_Multiply_Z7CFFAC00)(e, (0, p.parens)((0, p.seplist)((0, p.word)(", "), t))))))))
@@ -44238,18 +44605,18 @@
                 const G = (0, h.toText)((0, h.printf)("%s_parser"))(r);
                 const V = (0, h.toText)((0, h.printf)("%s_construct"))(r);
                 const W = B;
-                const Y = Z($)("Lexer");
-                const X = Z($)("Sedlex");
+                const Y = q($)("Lexer");
+                const X = q($)("Sedlex");
                 const Q = E("token");
-                const J = Z($)("is_eof");
-                const ee = Z($)("construct_token");
-                const te = Z($)("lexall");
-                const re = Z($)("from_ustring");
-                const ne = Z($)("Transformer");
-                const ie = Z($)("RBNFTransformer");
-                const oe = Z($)("Lark");
-                const se = Z($)("dataclasses");
-                const ae = Z($)("typing");
+                const J = q($)("is_eof");
+                const ee = q($)("construct_token");
+                const te = q($)("lexall");
+                const re = q($)("from_ustring");
+                const ne = q($)("Transformer");
+                const ie = q($)("RBNFTransformer");
+                const oe = q($)("Lark");
+                const se = q($)("dataclasses");
+                const ae = q($)("typing");
                 const _cg_type = e => {
                     let t, r, n, o;
                     if (e.tag === 4) {
@@ -44340,7 +44707,7 @@
                                 return p.empty
                             }
                             case 3: {
-                                M = (0, i.cons)(C(t.fields[0].ident), M);
+                                M = (0, i.cons)(N(t.fields[0].ident), M);
                                 return p.empty
                             }
                             case 4: {
@@ -44369,7 +44736,7 @@
                                     s = (0, h.toText)((0, h.printf)("%s_%i"))(n)(a);
                                     return (0, l.append)((0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.seplist)((0, p.word)(" "), (0, i.map)((e => (0, p.word)(cg_symbol(e))), r.symbols)), (0, p.word)("->")), (0, p.word)(s))), (0, l.delay)((() => {
                                         const e = (0, u.DocBuilder_runCG)(cg_expr(s, k, r.action));
-                                        const t = definePyFunc((0, p.word)(s), (0, i.ofArray)([(0, p.word)("self"), (0, p.word)(H)]), (0, p.vsep)((0, i.ofArray)([(0, p.vsep)(e[1]), (0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("return"), e[0])])));
+                                        const t = definePyFunc((0, p.word)(s), (0, i.ofArray)([(0, p.word)("self"), (0, p.word)(Z)]), (0, p.vsep)((0, i.ofArray)([(0, p.vsep)(e[1]), (0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("return"), e[0])])));
                                         O = (0, i.ofArrayWithTail)([t, p.empty], O);
                                         o = o + 1 | 0;
                                         return (0, l.empty)()
@@ -44387,7 +44754,7 @@
                             let r = (0, i.empty)();
                             return (0, l.append)((0, l.collect)((e => {
                                 const t = e[1];
-                                const n = N(e[0]);
+                                const n = C(e[0]);
                                 r = (0, i.cons)((0, p.word)(n), r);
                                 return (0, l.append)((0, l.singleton)((0, p.word)(`@${se}.dataclass`)), (0, l.delay)((() => (0, l.append)((0, i.length)(t) === 0 ? (0, l.append)((0, l.singleton)((0, p.word)(`class ${n}:`)), (0, l.delay)((() => (0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.word)("pass"), 4))))) : (0, l.append)((0, l.singleton)((0, p.word)(`class ${n}:`)), (0, l.delay)((() => (0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)((0, l.toList)((0, l.delay)((() => (0, l.collect)((e => (0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Multiply_Z7CFFAC00)((0, p.word)(A(e[0])), (0, p.word)(":")), (0, p.word)(cg_type(e[1]))))), t))))), 4))))), (0, l.delay)((() => (0, l.singleton)(p.empty)))))))
                             }), (0, a.toArray)(e[1])), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`if ${ae}.TYPE_CHECKING:`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)((0, l.toList)((0, l.delay)((() => {
@@ -44398,7 +44765,7 @@
                             const t = e[0];
                             const r = e[1];
                             const n = E(t);
-                            const o = C(t);
+                            const o = N(t);
                             return (0, l.append)((0, l.singleton)((0, p.word)(`@${se}.dataclass`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`class ${n}:`)), (0, l.delay)((() => (0, l.append)((0, i.isEmpty)(r.fields) ? (0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.word)("pass"), 4)) : (0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)((0, l.toList)((0, l.delay)((() => (0, l.collect)((e => {
                                 const t = A(e[0]);
                                 const r = cg_type(e[1]);
@@ -44445,500 +44812,11 @@
                     F = (0, i.cons)("UNKNOWN", F);
                     const j = (0, i.reverse)(x);
                     const U = (0, i.reverse)(F);
-                    const Z = (0, i.toArray)((0, i.reverse)((0, i.cons)([g.peof, new g.keep_token(1, -1)], m)));
+                    const q = (0, i.toArray)((0, i.reverse)((0, i.cons)([g.peof, new g.keep_token(1, -1)], m)));
                     return [f, [r + ".lark", (0, p.vsep)((0, i.ofArray)([t, (0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("%declare"), (0, p.seplist)((0, p.word)(" "), (0, i.map)(p.word, j)))]))],
-                        [z + ".py", (0, S.codegen_python)(v, (0, g.build)(Z, "the last branch must be a catch-all error case!"))],
+                        [z + ".py", (0, S.codegen_python)(v, (0, g.build)(q, "the last branch must be a catch-all error case!"))],
                         [G + ".py", (0, p.vsep)((0, l.toList)((0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)("from __future__ import annotations")), (0, l.delay)((() => (0, l.append)(!(0, i.isEmpty)(M) ? (0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(`from .${K} import`), n)) : (0, l.empty)(), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from .${z} import lexall as ${te}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from .${V} import *`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from lark.lexer import Lexer as ${Y}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from lark import Transformer as ${ne}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from lark import Lark as ${oe}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from ${v}.sedlex import from_ustring as ${re}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(W), (0, p.word)("=")), (0, p.bracket)((0, p.seplist)((0, p.word)(", "), (0, i.map)((e => (0, p.word)((0, c.escapeString)(e))), j))))), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(I), (0, p.word)("=")), (0, p.bracket)((0, p.seplist)((0, p.word)(", "), (0, i.map)((e => (0, p.word)((0, c.escapeString)(e))), U))))), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)(definePyFunc((0, p.word)(ee), (0, i.ofArray)([(0, p.word)("token_id"), (0, p.word)("lexeme"), (0, p.word)("line"), (0, p.word)("col"), (0, p.word)("span"), (0, p.word)("offset"), (0, p.word)("file")]), (0, p.vsep)((0, i.ofArray)([(0, p.word)(`if token_id == -1: return ${Q}("EOF", "")`), (0, p.word)(`return ${Q}(${W}[token_id], lexeme, offset, line, col, None, None, span + offset)`)])))), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)(definePyFunc((0, p.word)(J), (0, i.singleton)((0, p.word)("token")), (0, p.word)('return token.type == "EOF"'))), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`class ${X}(${Y}):`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)((0, i.ofArray)([definePyFunc((0, p.word)("__init__"), (0, i.ofArray)([(0, p.word)("self"), (0, p.word)("lex_conf")]), (0, p.word)("pass")), definePyFunc((0, p.word)("lex"), (0, i.ofArray)([(0, p.word)("self"), (0, p.word)("raw_string")]), (0, p.vsep)((0, i.ofArray)([(0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("lexbuf"), (0, p.word)("=")), (0, p.word)(`${re}(raw_string)`)), (0, p.word)(`return ${te}(lexbuf, ${ee}, ${J})`)])))])), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`class ${ie}(${ne}):`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)(O), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.word)("pass"), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`with (__import__('pathlib').Path(__file__).parent /'${r}.lark').open(encoding='utf8') as __0123fx9:`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(b), (0, p.word)("= __0123fx9.read()")), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(w), (0, p.word)("=")), (0, p.Doc_op_Multiply_Z7CFFAC00)((0, p.word)(oe), (0, p.parens)((0, p.seplist)((0, p.word)(", "), (0, i.ofArray)([(0, p.word)(b), (0, p.word)("start='start'"), (0, p.word)("parser='lalr'"), (0, p.word)(`lexer=${X}`), (0, p.word)(`transformer=${ie}()`), (0, p.word)("keep_all_tokens=True")]))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))]
                     ]
-                }))
-            }
-        },
-        1500: (e, t, r) => {
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.CSharpKeywords = void 0;
-            t.angled = angled;
-            t.codegen = codegen;
-            var n = r(9386);
-            var i = r(6256);
-            var o = r(5359);
-            var s = r(1337);
-            var a = r(9054);
-            var l = r(4222);
-            var _ = r(5466);
-            var u = r(2078);
-            var c = r(543);
-            var d = r(1383);
-            var p = r(1697);
-            var f = r(3833);
-            var h = r(4205);
-            var g = r(9937);
-            var m = r(7936);
-            const y = ["__arglist", "__makeref", "__reftype", "__refvalue", "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "volatile", "void", "while", "lexer", "parser"];
-            t.CSharpKeywords = y;
-
-            function angled(e) {
-                return (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)("<"), e), (0, n.word)(">"))
-            }
-
-            function codegen(e, t, r, S) {
-                let T;
-                const x = (0, i.defaultArg)(t.rename_var, (e => e));
-                const C = (0, i.defaultArg)(t.rename_ctor, (e => e));
-                const N = (0, i.defaultArg)(t.rename_var, (e => e));
-                const A = (0, i.defaultArg)(t.rename_field, (e => e));
-                const E = (0, i.defaultArg)(t.rename_type, (e => e));
-                let v = (0, o.empty)();
-                let M = (0, o.empty)();
-                const w = (0, s.ofArray)((0, a.append)(["result"], y), {
-                    Compare: l.comparePrimitives
-                });
-                let b = (0, _.empty)();
-                let F = (0, o.empty)();
-                const B = (0, u.toList)((0, u.delay)((() => (0, u.map)((e => [e[0], x(e[0])]), (0, c.Sigma__get_GlobalVariables)(e.Sigma)))));
-                const I = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => {
-                    const r = (((0, p.isLower)(t) ? true : (0, p.isUpper)(t)) ? true : (0, p.isUnicode)(t)) ? true : t === "_";
-                    return e === 0 ? r : r ? true : (0, p.isDigit)(t)
-                }), ((e, t) => (0, p.isDigit)(t) ? `_X${e}_` : `_${t.charCodeAt(0)}_`)), new d.NameMangling_nameEnv((0, s.ofList)((0, o.map)((e => e[1]), B), {
-                    Compare: l.comparePrimitives
-                })));
-                const L = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, p.isUpper)(t) : ((0, p.isUpper)(t) ? true : t === "_") ? true : (0, p.isDigit)(t)), ((e, t) => (0, p.isLower)(t) ? t.toUpperCase() : e === 0 ? (0, d.NameMangling_maskChar)(65, 90, t.charCodeAt(0)) + "_" : "_" + (0, d.NameMangling_maskChar)(65, 90, t.charCodeAt(0)) + "_")), new d.NameMangling_nameEnv((0, s.ofArray)(["EOF"], {
-                    Compare: l.comparePrimitives
-                })));
-                const P = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, p.isLower)(t) : ((0, p.isLower)(t) ? true : t === "_") ? true : (0, p.isDigit)(t)), ((e, t) => (0, p.isUpper)(t) ? t.toLowerCase() : "_" + (0, d.NameMangling_maskChar)(97, 122, t.charCodeAt(0)) + "_")), new d.NameMangling_nameEnv((0, s.ofArray)(["start"], {
-                    Compare: l.comparePrimitives
-                })));
-                const mangle = (e, t) => (0, d.NameMangling_mangle)(w, e, t);
-                const cg_symbol = e => {
-                    const t = (0, _.tryFind)(e, b);
-                    if (t == null) {
-                        let t;
-                        switch (e.tag) {
-                            case 0: {
-                                const r = e.fields[0];
-                                t = e.fields[1] ? (0, p.escapeStringSingleQuoted)(r) : mangle(L, r);
-                                break
-                            }
-                            case 1: {
-                                t = mangle(P, e.fields[0]);
-                                break
-                            }
-                            default: {
-                                throw new Error("macro not processed")
-                            }
-                        }
-                        b = (0, _.add)(e, t, b);
-                        return t
-                    } else {
-                        return t
-                    }
-                };
-                const name_of_named_term = e => cg_symbol(new f.symbol(0, e, false));
-                const tryLookup = (e, t) => {
-                    e: while (true) {
-                        const r = e,
-                            n = t;
-                        if (!(0, o.isEmpty)(n)) {
-                            if ((0, l.equals)((0, o.head)(n)[0], r)) {
-                                return (0, i.some)((0, o.head)(n)[1])
-                            } else if (!(0, o.isEmpty)(n)) {
-                                e = r;
-                                t = (0, o.tail)(n);
-                                continue e
-                            } else {
-                                throw new Error("Match failure")
-                            }
-                        } else {
-                            return void 0
-                        }
-                        break
-                    }
-                };
-                const _cg_type = e => {
-                    let t, r, n, i, s;
-                    if (e.tag === 4) {
-                        t = 1;
-                        n = e.fields[0]
-                    } else if (e.tag === 0) {
-                        t = 2
-                    } else if (e.tag === 3) {
-                        t = 3;
-                        i = e.fields[0];
-                        s = e.fields[1]
-                    } else if (e.tag === 2) {
-                        if ((0, f.$007CTTuple$007C_$007C)(e.fields[0]) != null) {
-                            if ((0, o.isEmpty)(e.fields[1])) {
-                                t = 4
-                            } else {
-                                t = 5
-                            }
-                        } else {
-                            t = 5
-                        }
-                    } else {
-                        t = 0;
-                        r = e.fields[0]
-                    }
-                    switch (t) {
-                        case 0: {
-                            return E(r)
-                        }
-                        case 1: {
-                            return "_GEN_" + n
-                        }
-                        case 2: {
-                            const e = new h.UnsolvedTypeVariable;
-                            throw e
-                        }
-                        case 3: {
-                            return (0, g.join)(", ", (0, o.map)((e => e[0] + ":" + _cg_type(e[1])), i)) + " => " + _cg_type(s)
-                        }
-                        case 4: {
-                            throw new Error("[]")
-                        }
-                        case 5: {
-                            let t, r;
-                            if (e.tag === 2) {
-                                if ((0, f.$007CTTuple$007C_$007C)(e.fields[0]) != null) {
-                                    t = 0;
-                                    r = e.fields[1]
-                                } else {
-                                    t = 1
-                                }
-                            } else {
-                                t = 1
-                            }
-                            switch (t) {
-                                case 0: {
-                                    return "[" + (0, g.join)(", ", (0, o.map)(_cg_type, r)) + "]"
-                                }
-                                case 1: {
-                                    if (e.tag === 2) {
-                                        const t = (0, g.join)(", ", (0, o.map)(_cg_type, e.fields[1]));
-                                        return _cg_type(e.fields[0]) + "<" + t + ">"
-                                    } else {
-                                        throw new Error("Match failure")
-                                    }
-                                }
-                            }
-                        }
-                    }
-                };
-                const cg_type = e => _cg_type((0, f.monot__Prune)(e));
-                const slotName = (e, t) => `${e}__${t}`;
-                const O = "result";
-                const mk_lexer = e => {
-                    if (e.tag === 9) {
-                        return "(" + mk_lexer(e.fields[0]) + ")"
-                    } else if (e.tag === 5) {
-                        return `~${mk_lexer(e.fields[0])}`
-                    } else if (e.tag === 0) {
-                        return "[0-9]"
-                    } else if (e.tag === 6) {
-                        return `${mk_lexer(e.fields[0])}+`
-                    } else if (e.tag === 7) {
-                        return `${mk_lexer(e.fields[0])}*`
-                    } else if (e.tag === 1) {
-                        return "."
-                    } else if (e.tag === 11) {
-                        const t = (0, p.List_tryLookup)(e.fields[0], F);
-                        if (t == null) {
-                            const t = (0, h.UnboundLexer)(e.fields[0]);
-                            throw t
-                        } else {
-                            return name_of_named_term(e.fields[0])
-                        }
-                    } else if (e.tag === 2) {
-                        return (0, g.join)(" ", (0, o.toArray)((0, o.map)(mk_lexer, e.fields[0])))
-                    } else if (e.tag === 10) {
-                        return `[${(0,p.iToU4)(e.fields[0])}-${(0,p.iToU4)(e.fields[1])}]`
-                    } else if (e.tag === 4) {
-                        if ((0, o.isEmpty)(e.fields[0])) {
-                            throw new Error("impossible: alternatives cannot be empty.")
-                        } else {
-                            return (0, g.join)(" | ", (0, o.toArray)((0, o.map)(mk_lexer, e.fields[0])))
-                        }
-                    } else if (e.tag === 8) {
-                        return `${mk_lexer(e.fields[0])}?`
-                    } else {
-                        return (0, p.escapeStringSingleQuoted)(e.fields[0])
-                    }
-                };
-                const mk_lexer_debug = e => {
-                    const t = mk_lexer_debug;
-                    if (e.tag === 9) {
-                        return t(e.fields[0])
-                    } else if (e.tag === 5) {
-                        return `pnot(${t(e.fields[0])})`
-                    } else if (e.tag === 0) {
-                        return "pnumber"
-                    } else if (e.tag === 6) {
-                        return `pplus(${t(e.fields[0])})`
-                    } else if (e.tag === 7) {
-                        return `pstar(${t(e.fields[0])})`
-                    } else if (e.tag === 1) {
-                        return "pany"
-                    } else if (e.tag === 11) {
-                        return e.fields[0]
-                    } else if (e.tag === 2) {
-                        const t = (0, g.join)(", ", (0, u.ofList)((0, o.map)(mk_lexer_debug, e.fields[0])));
-                        return `pseq([${t}])`
-                    } else if (e.tag === 10) {
-                        return `pinterval(${e.fields[0]}, ${e.fields[1]})`
-                    } else if (e.tag === 4) {
-                        if (!(0, o.isEmpty)(e.fields[0])) {
-                            return (0, o.fold)(((e, t) => `por(${e}, ${t})`), t((0, o.head)(e.fields[0])), (0, o.map)(mk_lexer_debug, (0, o.tail)(e.fields[0])))
-                        } else {
-                            throw new Error("impossible: alternatives cannot be empty.")
-                        }
-                    } else if (e.tag === 8) {
-                        return `popt${t(e.fields[0])}`
-                    } else {
-                        return `pstring(${(0,p.escapeString)(e.fields[0])})`
-                    }
-                };
-                const simplify_lexerule = e => {
-                    switch (e.tag) {
-                        case 1:
-                        case 10:
-                        case 11:
-                        case 3: {
-                            return e
-                        }
-                        case 9: {
-                            return _must_be_atom_rule(e.fields[0])
-                        }
-                        case 5: {
-                            return new f.lexerule(5, _must_be_atom_rule(e.fields[0]))
-                        }
-                        case 8: {
-                            return new f.lexerule(8, _must_be_atom_rule(e.fields[0]))
-                        }
-                        case 6: {
-                            return new f.lexerule(6, _must_be_atom_rule(e.fields[0]))
-                        }
-                        case 7: {
-                            return new f.lexerule(7, _must_be_atom_rule(e.fields[0]))
-                        }
-                        case 4: {
-                            return new f.lexerule(4, (0, o.map)(_must_be_atom_rule, e.fields[0]))
-                        }
-                        case 2: {
-                            return new f.lexerule(2, (0, o.map)(_must_be_atom_rule, e.fields[0]))
-                        }
-                        default: {
-                            return e
-                        }
-                    }
-                };
-                const _must_be_atom_rule = e => {
-                    e: while (true) {
-                        const t = e;
-                        switch (t.tag) {
-                            case 1:
-                            case 10:
-                            case 11:
-                            case 3: {
-                                return t
-                            }
-                            case 5: {
-                                return new f.lexerule(5, _must_be_atom_rule(t.fields[0]))
-                            }
-                            case 8: {
-                                return new f.lexerule(8, _must_be_atom_rule(t.fields[0]))
-                            }
-                            case 6: {
-                                return new f.lexerule(6, _must_be_atom_rule(t.fields[0]))
-                            }
-                            case 7: {
-                                return new f.lexerule(7, _must_be_atom_rule(t.fields[0]))
-                            }
-                            case 4: {
-                                return new f.lexerule(9, new f.lexerule(4, (0, o.map)(_must_be_atom_rule, t.fields[0])))
-                            }
-                            case 2: {
-                                return new f.lexerule(9, new f.lexerule(2, (0, o.map)(_must_be_atom_rule, t.fields[0])))
-                            }
-                            case 9: {
-                                e = t.fields[0];
-                                continue e
-                            }
-                            default: {
-                                return t
-                            }
-                        }
-                        break
-                    }
-                };
-                return (0, m.withErrorHandler)((T = e.Sigma, () => (0, c.Sigma__GetErrorTrace)(T)), (() => {
-                    if (!(0, o.isEmpty)((0, c.Sigma__GetADTCases)(e.Sigma))) {
-                        throw new Error("typescript backend does not support defining ADTs yet.")
-                    }
-                    if (!(0, o.isEmpty)((0, c.Sigma__GetRecordTypes)(e.Sigma))) {
-                        throw new Error("typescript backend does not support defining records yet.")
-                    }
-                    const parensIfLOr = e => {
-                        if (e.tag === 4) {
-                            return (0, n.parens)((0, n.word)(mk_lexer(e)))
-                        } else {
-                            return (0, n.word)(mk_lexer(e))
-                        }
-                    };
-                    const t = (0, _.tryFind)("start", e.Omega);
-                    if (t != null) {
-                        const i = t;
-                        const m = (0, n.vsep)((0, o.ofArray)((0, a.map)((t => {
-                            (0, c.Sigma__SetCurrentDefinition_Z759AB257)(e.Sigma, t);
-                            switch (t.tag) {
-                                case 2: {
-                                    const e = t.fields[0];
-                                    F = (0, o.cons)([e.lhs, e.define], F);
-                                    return n.empty
-                                }
-                                case 6: {
-                                    return (0, n.vsep)((0, o.empty)())
-                                }
-                                case 4: {
-                                    return (0, n.vsep)((0, o.empty)())
-                                }
-                                case 3: {
-                                    v = (0, o.cons)(x(t.fields[0].ident), v);
-                                    return (0, n.vsep)((0, o.empty)())
-                                }
-                                case 5: {
-                                    const e = t.fields[0];
-                                    if (e.external) {
-                                        M = (0, o.cons)(E(e.ident), M)
-                                    }
-                                    return (0, n.vsep)((0, o.empty)())
-                                }
-                                case 0: {
-                                    throw new Error("macro not processed")
-                                }
-                                default: {
-                                    const r = t.fields[0];
-                                    const i = r.lhs;
-                                    const a = cg_symbol(new f.symbol(1, i));
-                                    let m;
-                                    const y = new f.symbol(1, i);
-                                    switch (y.tag) {
-                                        case 0: {
-                                            m = f.TConst_token;
-                                            break
-                                        }
-                                        case 1: {
-                                            m = (0, _.FSharpMap__get_Item)(e.Omega, y.fields[0]);
-                                            break
-                                        }
-                                        default: {
-                                            throw new Error("macro not processed")
-                                        }
-                                    }
-                                    let S = 0;
-                                    const T = (0, n.align)((0, n.vsep)((0, o.mapIndexed)(((e, t) => (0, n.Doc_op_Addition_Z7CFFAC00)(e === 0 ? (0, n.word)(":") : (0, n.word)("|"), t)), (0, u.toList)((0, u.delay)((() => (0, u.collect)((t => {
-                                        let r, i, _, m, y, T;
-                                        let x;
-                                        const C = S | 0;
-                                        x = (0, g.toText)((0, g.printf)("%s_%i"))(a)(C);
-                                        (0, c.Sigma__SetCurrentPos_Z302187B)(e.Sigma, t[0]);
-                                        (0, c.Sigma__SetCurrentDefinitionBranch_Z524259A4)(e.Sigma, S);
-                                        S = S + 1 | 0;
-                                        return (0, u.append)((0, u.singleton)((r = t[1], i = x, _ = (m = r.action, y = (0, u.toArray)((0, u.delay)((() => (0, u.map)((e => e.tag === 0), r.symbols)))), (0, c.Sigma__WithExpr)(e.Sigma, m, (() => {
-                                            let e = (0, s.empty)({
-                                                Compare: l.comparePrimitives
-                                            });
-                                            const cg_expr = (t, r) => (0, d.DocBuilder_Builder__Run_ZD0BB270)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => {
-                                                let a, l, _, c;
-                                                const m = r.node;
-                                                if (m.tag === 6) {
-                                                    const e = tryLookup(m.fields[0], t);
-                                                    if (e != null) {
-                                                        const t = e;
-                                                        return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, o.length)(m.fields[1].contents) === 0 ? (0, n.word)(t) : (a = (l = (0, o.map)((e => (0, n.word)(cg_type(e))), (0, o.map)(f.monot__Prune, m.fields[1].contents)), (0, n.seplist)((0, n.word)(", "), l)), (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)(t), (0, n.word)("<")), a), (0, n.word)(">"))))
-                                                    } else {
-                                                        return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (() => {
-                                                            throw (0, h.UnboundVariable)(m.fields[0])
-                                                        })())
-                                                    }
-                                                } else if (m.tag === 11) {
-                                                    return m.fields[0] ? (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.word)("true")) : (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.word)("false"))
-                                                } else if (m.tag === 3) {
-                                                    return (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, cg_expr(t, m.fields[0]), (e => (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)(e, (0, n.word)(".")), (0, n.word)(m.fields[1])))))
-                                                } else if (m.tag === 8) {
-                                                    return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.word)((0, g.toText)((0, g.printf)("%d"))(m.fields[0])))
-                                                } else if (m.tag === 10) {
-                                                    return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.word)((0, g.toText)((0, g.printf)("%f"))(m.fields[0])))
-                                                } else if (m.tag === 9) {
-                                                    return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.word)((0, p.escapeString)(m.fields[0])))
-                                                } else if (m.tag === 5) {
-                                                    const e = (0, d.DocBuilder_runCG)(cg_expr((0, o.append)((0, u.toList)((0, u.delay)((() => (0, u.collect)((e => {
-                                                        const t = e[0];
-                                                        return (0, u.singleton)([t, mangle(I, t)])
-                                                    }), m.fields[0])))), t), m.fields[1]));
-                                                    return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (_ = (0, n.vsep)((0, o.ofArray)([(0, n.vsep)(e[1]), (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("return"), (0, n.Doc_op_Multiply_Z7CFFAC00)(e[0], (0, n.word)(";")))])), c = (0, o.map)((e => (0, n.word)(cg_type(e[1]) + " " + e[0])), m.fields[0]), (0, n.parens)((0, n.vsep)((0, o.ofArray)([(0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("function"), (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.parens)((0, n.seplist)((0, n.word)(", "), c)), (0, n.word)("{"))), (0, n.Doc_op_RightShift_2AAA0F3C)(_, 4), (0, n.word)("}")])))))
-                                                } else if (m.tag === 4) {
-                                                    return (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, cg_expr(t, m.fields[1]), (e => {
-                                                        const r = mangle(I, m.fields[0]);
-                                                        return (0, d.DocBuilder_Builder__Combine_Z5C764E00)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Yield_417FD60)(d.DocBuilder_cg, (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("let"), (0, n.word)(r)), (0, n.word)(":")), (0, n.word)(cg_type(m.fields[1].t))), (0, n.word)("=")), (0, n.Doc_op_Multiply_Z7CFFAC00)(e, (0, n.word)(";")))), (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => (0, d.DocBuilder_Builder__ReturnFrom_ZD0BB270)(d.DocBuilder_cg, cg_expr((0, o.cons)([m.fields[0], r], t), m.fields[2])))))
-                                                    }))
-                                                } else if (m.tag === 2) {
-                                                    return (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Run_ZD0BB270)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => (0, d.DocBuilder_Builder__For_2B96F4AF)(d.DocBuilder_cg, m.fields[0], (e => (0, d.DocBuilder_Builder__ReturnFrom_ZD0BB270)(d.DocBuilder_cg, cg_expr(t, e))))))), (e => (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)(`<${cg_type(r.t)}>`), (0, n.word)("[")), (0, n.seplist)((0, n.word)(","), e)), (0, n.word)("]")))))
-                                                } else if (m.tag === 7) {
-                                                    const t = slotName(i, m.fields[0]);
-                                                    e = (0, s.add)(m.fields[0], e);
-                                                    const r = (0, n.word)(`_localctx._${t}`);
-                                                    return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, y[m.fields[0] - 1] ? r : (0, n.Doc_op_Multiply_Z7CFFAC00)(r, (0, n.word)(".result")))
-                                                } else {
-                                                    return m.tag === 1 ? (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Run_ZD0BB270)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => (0, d.DocBuilder_Builder__For_2B96F4AF)(d.DocBuilder_cg, m.fields[0], (e => (0, d.DocBuilder_Builder__ReturnFrom_ZD0BB270)(d.DocBuilder_cg, cg_expr(t, e))))))), (e => (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)(`<${cg_type(r.t)}>`), (0, n.bracket)((0, n.seplist)((0, n.word)(", "), e)))))) : (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, cg_expr(t, m.fields[0]), (e => (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Run_ZD0BB270)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => (0, d.DocBuilder_Builder__For_2B96F4AF)(d.DocBuilder_cg, m.fields[1], (e => {
-                                                        const r = e;
-                                                        return (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, cg_expr(t, r), (e => (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.Doc_op_Addition_Z7CFFAC00)(angled((0, n.word)(cg_type(r.t))), e))))
-                                                    }))))), (t => {
-                                                        const i = cg_type(r.t);
-                                                        return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(`<${i}>`), (0, n.Doc_op_Multiply_Z7CFFAC00)(e, (0, n.parens)((0, n.seplist)((0, n.word)(", "), t)))))
-                                                    }))))
-                                                }
-                                            })));
-                                            const t = (0, d.DocBuilder_runCG)(cg_expr(B, m));
-                                            return [e, t]
-                                        }))), (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((T = (0, o.mapIndexed)(((e, t) => {
-                                            const r = e + 1 | 0;
-                                            const o = (0, n.word)(cg_symbol(t));
-                                            if ((0, s.contains)(r, _[0])) {
-                                                return (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)(slotName(i, r)), (0, n.word)("=")), o)
-                                            } else {
-                                                return o
-                                            }
-                                        }), r.symbols), (0, n.seplist)((0, n.word)(" "), T)), (0, n.word)("{")), (0, n.Doc_op_RightShift_2AAA0F3C)((0, n.vsep)((0, o.ofArray)([n.empty, (0, n.Doc_op_RightShift_2AAA0F3C)((0, n.vsep)((0, o.ofArray)([(0, n.vsep)(_[1][1]), (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("$" + O), (0, n.word)("=")), (0, n.Doc_op_Multiply_Z7CFFAC00)(_[1][0], (0, n.word)(";")))])), 4), (0, n.word)("}")])), 12)))), (0, u.delay)((() => {
-                                            S = S + 1 | 0;
-                                            return (0, u.empty)()
-                                        })))
-                                    }), r.define)))))));
-                                    return (0, n.vsep)((0, o.ofArray)([(0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(a), (0, n.word)("returns")), (0, n.bracket)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(cg_type(m)), (0, n.word)(O)))), (0, n.Doc_op_RightShift_2AAA0F3C)(T, 4), (0, n.word)(";")]))
-                                }
-                            }
-                        }), S)));
-                        const y = (0, u.toList)((0, u.delay)((() => (0, u.collect)((t => {
-                            const r = t[0];
-                            const i = simplify_lexerule(t[1]);
-                            const o = name_of_named_term(r);
-                            return (0, s.contains)(r, e.IgnoreSet) ? (0, u.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(o), (0, n.word)(":")), parensIfLOr(i)), (0, n.word)("-> channel(HIDDEN);"))) : (0, s.contains)(r, e.ReferencedNamedTokens) ? (0, u.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(o), (0, n.word)(":")), (0, n.word)(mk_lexer(i))), (0, n.word)(";"))) : (0, u.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("fragment"), (0, n.word)(o)), (0, n.word)(":")), parensIfLOr(i)), (0, n.word)(";")))
-                        }), (0, o.reverse)(F)))));
-                        const T = cg_symbol(new f.symbol(1, "start"));
-                        const C = (0, o.append)(M, v);
-                        return [
-                            [r + ".g4", (0, n.vsep)((0, u.toList)((0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)(`grammar ${r};`)), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("@header {")), (0, u.delay)((() => {
-                                let e, t;
-                                return (0, u.append)(!(0, o.isEmpty)(C) ? (e = (0, g.join)(", ", C), t = (0, p.escapeString)(`./${r}_require`), (0, u.singleton)((0, n.word)(`import { ${e} } from ${t}`))) : (0, u.empty)(), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("}")), (0, u.delay)((() => {
-                                    let e;
-                                    return (0, u.append)((0, u.singleton)((0, n.word)((e = cg_type(i), (0, g.toText)((0, g.printf)("start returns [result: %s]: v=%s EOF { $result = _localctx._v.result; };"))(e)(T)))), (0, u.delay)((() => (0, u.append)((0, u.singleton)(m), (0, u.delay)((() => y))))))
-                                }))))))
-                            }))))))))))]
-                        ]
-                    } else {
-                        const e = (0, h.UnboundNonterminal)("start");
-                        throw e
-                    }
                 }))
             }
         },
@@ -45104,8 +44982,8 @@
                         }
                     }
                     const x = T[1];
-                    const C = T[0];
-                    g = x === "" ? `File '${m}', line ${y}, character ${S}\n` + `  at '${C}'\n` + `  ${o}\n` : `File '${m}', line ${y}, character ${S}\n` + `  at rule '${C}':\n  '${x}'\n` + f + `  ${o}\n`;
+                    const N = T[0];
+                    g = x === "" ? `File '${m}', line ${y}, character ${S}\n` + `  at '${N}'\n` + `  ${o}\n` : `File '${m}', line ${y}, character ${S}\n` + `  at rule '${N}':\n  '${x}'\n` + f + `  ${o}\n`;
                     if (r[0]) {
                         (0, n.toConsole)((0, n.printf)("%s"))(g);
                         u.contents(1);
@@ -46531,18 +46409,18 @@
                         }
                         case 2: {
                             const x = t.fields[2];
-                            const C = t.fields[0];
+                            const N = t.fields[0];
                             e(x);
-                            const N = (0, l.toList)((0, l.delay)((() => (0, l.map)((e => solve_sym(e)(r)), t.fields[1]))));
-                            let A = new i.symbol(2, C, N, x);
+                            const C = (0, l.toList)((0, l.delay)((() => (0, l.map)((e => solve_sym(e)(r)), t.fields[1]))));
+                            let A = new i.symbol(2, N, C, x);
                             const E = toPositionIndependent(A);
-                            return new i.symbol(1, (s = (0, a.tryFind)(E, g), s == null ? (c = (0, a.tryFind)(C, u), c != null ? (d = c, p = d.parameters, (0, n.length)(p) !== (0, n.length)(N) ? (h = (0, o.join)(", ", p), m = new _.MacroResolveError(`macro ${C} expects ${(0,n.length)(p)} argument(s): (${h}); got ${(0,n.length)(N)}`), (() => {
+                            return new i.symbol(1, (s = (0, a.tryFind)(E, g), s == null ? (c = (0, a.tryFind)(N, u), c != null ? (d = c, p = d.parameters, (0, n.length)(p) !== (0, n.length)(C) ? (h = (0, o.join)(", ", p), m = new _.MacroResolveError(`macro ${N} expects ${(0,n.length)(p)} argument(s): (${h}); got ${(0,n.length)(C)}`), (() => {
                                 throw m
-                            })()) : void 0, y = (0, a.ofList)((0, n.map2)(((e, t) => [e, t]), p, N)), S = toPositionIndependentString(A), g = (0, a.add)(E, S, g), f = (0, n.cons)([{
+                            })()) : void 0, y = (0, a.ofList)((0, n.map2)(((e, t) => [e, t]), p, C)), S = toPositionIndependentString(A), g = (0, a.add)(E, S, g), f = (0, n.cons)([{
                                 define: d.define,
                                 lhs: S,
                                 pos: x
-                            }, y], f), S) : (T = new _.MacroResolveError(`macro definition ${C} not found.`), (() => {
+                            }, y], f), S) : (T = new _.MacroResolveError(`macro definition ${N} not found.`), (() => {
                                 throw T
                             })())) : s))
                         }
@@ -47065,7 +46943,7 @@
         var s = _interopRequireWildcard(__nccwpck_require__(3474));
         var a = _interopRequireWildcard(__nccwpck_require__(2835));
         var l = _interopRequireWildcard(__nccwpck_require__(9956));
-        var _ = _interopRequireWildcard(__nccwpck_require__(1500));
+        var _ = _interopRequireWildcard(__nccwpck_require__(6072));
         var u = __nccwpck_require__(9386);
         var c = __nccwpck_require__(7936);
 
@@ -47113,7 +46991,7 @@
             "python-lark": s.codegen,
             "ocaml-menhir": a.codegen,
             "csharp-antlr": l.codegen,
-            "typescript-antlr": _.codegen
+            purebnf: _.codegen
         }; {
             let e = c.setExitFunc;
             e((e => process.exit(e)))

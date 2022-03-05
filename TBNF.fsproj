@@ -1,17 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!-- <OutputType>Exe</OutputType> -->
     <TargetFramework>net6.0</TargetFramework>
     <NoWarn>3370</NoWarn>
     <!-- <DefineConstants>DEBUG</DefineConstants> -->
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="FableSedlex/CodeGen.fs" />
     <Compile Include="FableSedlex/Sedlex.fs" />
     <Compile Include="FableSedlex/CodeGen.Python.fs" />
-
     <!-- <Compile Include="lark_fs/Lark.fs" /> -->
     <Compile Include="src/ResourceKeys.fs" />
     <Compile Include="src/Utils.fs" />
@@ -28,13 +25,12 @@
     <Compile Include="src/Backends.OCamlMenhir.fs" />
     <Compile Include="src/Backends.CSharpAntlr.fs" />
     <Compile Include="src/Backends.TypeScriptAntlr.fs" />
+    <Compile Include="src/Backends.PureBNF.fs" />
     <Compile Include="src/APIs.fs" />
     <Compile Include="src/Main.fs" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Fable.Core.Experimental" Version="4.0.0-alpha-021" />
     <PackageReference Include="Fable.Python" Version="0.16.0" />
   </ItemGroup>
-
 </Project>

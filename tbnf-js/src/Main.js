@@ -18,7 +18,7 @@ var codegen_ocaml = _interopRequireWildcard(require("./src/Backends.OCamlMenhir"
 
 var codegen_csharp = _interopRequireWildcard(require("./src/Backends.CSharpAntlr"));
 
-var codegen_ts = _interopRequireWildcard(require("./src/Backends.TypeScriptAntlr"));
+var codegen_bnf = _interopRequireWildcard(require("./src/Backends.PureBNF"));
 
 var _CodeGen = require("./FableSedlex/CodeGen");
 
@@ -32,7 +32,7 @@ const backends = {
   "python-lark": codegen_py.codegen,
   "ocaml-menhir": codegen_ocaml.codegen,
   "csharp-antlr": codegen_csharp.codegen,
-  "typescript-antlr": codegen_ts.codegen
+  "purebnf": codegen_bnf.codegen
 };
 {
   let setExitFuncTyped = _ErrorReport.setExitFunc;
