@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.filter_error = filter_error;
 exports.result$2 = void 0;
 exports.result$2$reflection = result$2$reflection;
-exports.showExpr = showExpr;
 
 var _Types = require("../fable_modules/fable-library.3.7.5/Types.js");
 
@@ -35,10 +34,6 @@ exports.result$2 = result$2;
 
 function result$2$reflection(gen0, gen1) {
   return (0, _Reflection.union_type)("tbnf.ErrorReport.result`2", [gen0, gen1], result$2, () => [[["Item", gen0]], [["Item", gen1]]]);
-}
-
-function showExpr(e) {
-  throw new Error("");
 }
 
 function filter_error(errorTrace, action) {

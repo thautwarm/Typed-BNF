@@ -59,11 +59,11 @@ var _Reflection = require("../fable_modules/fable-library.3.7.5/Reflection.js");
 var _Util = require("../fable_modules/fable-library.3.7.5/Util.js");
 
 class ErrorTrace extends _Types.Record {
-  constructor(whichDef, exprStack, currentRexpr) {
+  constructor(whichDef, exprStack, currentPos) {
     super();
     this.whichDef = whichDef;
     this.exprStack = exprStack;
-    this.currentRexpr = currentRexpr;
+    this.currentPos = currentPos;
   }
 
 }
@@ -71,7 +71,7 @@ class ErrorTrace extends _Types.Record {
 exports.ErrorTrace = ErrorTrace;
 
 function ErrorTrace$reflection() {
-  return (0, _Reflection.record_type)("tbnf.Exceptions.ErrorTrace", [], ErrorTrace, () => [["whichDef", (0, _Grammar.definition$reflection)()], ["exprStack", (0, _Reflection.list_type)((0, _Grammar.expr$reflection)())], ["currentRexpr", (0, _Grammar.expr$reflection)()]]);
+  return (0, _Reflection.record_type)("tbnf.Exceptions.ErrorTrace", [], ErrorTrace, () => [["whichDef", (0, _Grammar.definition$reflection)()], ["exprStack", (0, _Reflection.list_type)((0, _Grammar.expr$reflection)())], ["currentPos", (0, _Grammar.position$reflection)()]]);
 }
 
 class NameErrorScope extends _Types.Union {

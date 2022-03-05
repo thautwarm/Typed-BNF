@@ -56,7 +56,6 @@ function codegen(analyzer, cg_options, langName, stmts) {
   });
   let symmap = (0, _Map.empty)();
   let toplevel_transformer = (0, _List.empty)();
-  let currentPos = analyzer.currentPos;
   let lexerMaps = (0, _Map.empty)();
   let larkDeclsForNamedTerminals = (0, _List.empty)();
   const global_scope = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.map)(k => (0, _Analysis.Sigma__IsGlobalVariableConstructor_Z721C83C5)(analyzer.Sigma, k[0]) ? [k[0], rename_ctor(k[0])] : [k[0], rename_var(k[0])], (0, _Analysis.Sigma__get_GlobalVariables)(analyzer.Sigma))));
@@ -104,7 +103,7 @@ function codegen(analyzer, cg_options, langName, stmts) {
 
   const TREE_NAME = "__tbnf_COMPONENTS";
 
-  const cg_expr = (actionName, scope, expr) => (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => {
+  const cg_expr = (actionName, scope, expr) => (0, _Analysis.Sigma__WithExpr)(analyzer.Sigma, expr, () => (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => {
     let arg20_1;
     const matchValue_1 = expr.node;
 
@@ -137,7 +136,7 @@ function codegen(analyzer, cg_options, langName, stmts) {
         return !(0, _List.isEmpty)(elts$0027_1) ? (0, _List.isEmpty)((0, _List.tail)(elts$0027_1)) ? (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.parens)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _List.head)(elts$0027_1), (0, _CodeGen.word)(",")))) : (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), elts$0027_1))) : (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.parens)(_CodeGen.empty));
       }) : (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, cg_expr(actionName, scope, matchValue_1.fields[0]), _arg2_1 => (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => (0, _BackendsCommon.DocBuilder_Builder__For_2B96F4AF)(_BackendsCommon.DocBuilder_cg, matchValue_1.fields[1], _arg3 => (0, _BackendsCommon.DocBuilder_Builder__ReturnFrom_ZD0BB270)(_BackendsCommon.DocBuilder_cg, cg_expr(actionName, scope, _arg3))))), _arg4 => (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(_arg2_1, (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), _arg4))))));
     }
-  }));
+  })));
 
   const mk_lexer = def => {
     const op_Dereference = mk_lexer;
@@ -328,11 +327,12 @@ function codegen(analyzer, cg_options, langName, stmts) {
   const cg_type = t_1 => _cg_type((0, _Grammar.monot__Prune)(t_1));
 
   const file_grammar = (0, _CodeGen.vsep)((0, _List.ofArray)((0, _Array.map)(stmt => {
+    (0, _Analysis.Sigma__SetCurrentDefinition_Z759AB257)(analyzer.Sigma, stmt);
+
     switch (stmt.tag) {
       case 2:
         {
           const decl_1 = stmt.fields[0];
-          currentPos = decl_1.pos;
           lexerMaps = (0, _Map.add)(decl_1.lhs, mk_lexer(decl_1.define), lexerMaps);
 
           if ((0, _Set.contains)(decl_1.lhs, analyzer.ReferencedNamedTokens)) {
@@ -345,7 +345,6 @@ function codegen(analyzer, cg_options, langName, stmts) {
 
       case 6:
         {
-          currentPos = stmt.fields[0].pos;
           return _CodeGen.empty;
         }
 
@@ -379,12 +378,11 @@ function codegen(analyzer, cg_options, langName, stmts) {
       default:
         {
           const decl = stmt.fields[0];
-          currentPos = decl.pos;
           const ntname_1 = cg_symbol(new _Grammar.symbol(1, decl.lhs));
           let idx_1 = 0;
           const body_4 = (0, _CodeGen.align)((0, _CodeGen.vsep)((0, _List.mapIndexed)((i_6, e_1) => (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)(i_6 === 0 ? (0, _CodeGen.word)(":") : (0, _CodeGen.word)("|"), e_1), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_3 => {
             const production = matchValue_3[1];
-            currentPos = matchValue_3[0];
+            (0, _Analysis.Sigma__SetCurrentPos_Z302187B)(analyzer.Sigma, matchValue_3[0]);
             let actionName_2;
             const idx = idx_1 | 0;
             actionName_2 = (0, _String.toText)((0, _String.printf)("%s_%i"))(ntname_1)(idx);

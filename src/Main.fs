@@ -12,6 +12,5 @@ let z = definition.Defrule {|
 let main (a: int, b: int, c: int) =
     printfn "%d" <| a + b / c
     let x = build_analyzer [|definition.Defrule {| lhs="Float"; define = []; pos = {line = 0; col=0; filename=""} |}|]
-    
     [| 1; 2; 3; 4|]
 

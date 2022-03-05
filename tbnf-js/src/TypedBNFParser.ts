@@ -232,7 +232,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 109;
 			_localctx._list_o_toplevel_p__0__1 = this.toplevel();
 			 
-			                _localctx.result =  <list<definition>>[ _localctx._list_o_toplevel_p__0__1.result ];
+			                _localctx.result =  <Array<definition>>[ _localctx._list_o_toplevel_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -257,7 +257,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 113;
 					_localctx._list_o_toplevel_p__1__2 = this.toplevel();
 					 
-					                          _localctx.result =  <list<definition>> addList<definition>(<list<definition>> _localctx._list_o_toplevel_p__1__1.result, <definition> _localctx._list_o_toplevel_p__1__2.result);
+					                          _localctx.result =  <Array<definition>> addList<definition>(<Array<definition>> _localctx._list_o_toplevel_p__1__1.result, <definition> _localctx._list_o_toplevel_p__1__2.result);
 					                      
 					}
 					}
@@ -320,7 +320,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 124;
 			_localctx._identstr_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
 			 
-			                _localctx.result =  <str> str(<token> _localctx._identstr_0__1);
+			                _localctx.result =  <string> str(<Token> _localctx._identstr_0__1);
 			            
 			}
 		}
@@ -389,7 +389,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 131;
 			_localctx._slist_o__i__s__i__s_param_type_p__0__1 = this.param_type();
 			 
-			                _localctx.result =  <list<[str, monot]>>[ _localctx._slist_o__i__s__i__s_param_type_p__0__1.result ];
+			                _localctx.result =  <Array<[string, monot]>>[ _localctx._slist_o__i__s__i__s_param_type_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -416,7 +416,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 136;
 					_localctx._slist_o__i__s__i__s_param_type_p__1__3 = this.param_type();
 					 
-					                          _localctx.result =  <list<[str, monot]>> addList<[str, monot]>(<list<[str, monot]>> _localctx._slist_o__i__s__i__s_param_type_p__1__1.result, <[str, monot]> _localctx._slist_o__i__s__i__s_param_type_p__1__3.result);
+					                          _localctx.result =  <Array<[string, monot]>> addList<[string, monot]>(<Array<[string, monot]>> _localctx._slist_o__i__s__i__s_param_type_p__1__1.result, <[string, monot]> _localctx._slist_o__i__s__i__s_param_type_p__1__3.result);
 					                      
 					}
 					}
@@ -453,7 +453,7 @@ export class TypedBNFParser extends Parser {
 				this.enterOuterAlt(_localctx, 1);
 				{
 				 
-				                _localctx.result =  <list<[str, monot]>>[  ];
+				                _localctx.result =  <Array<[string, monot]>>[  ];
 				            
 				}
 				break;
@@ -533,7 +533,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 155;
 				_localctx._arrow_typ_0__3 = this.arrow_typ();
 				 
-				                _localctx.result =  <monot> MK_TFun(<list<[str, monot]>> <list<[str, monot]>>[ <[str, monot]>["value", _localctx._arrow_typ_0__1.result] ], <monot> _localctx._arrow_typ_0__3.result);
+				                _localctx.result =  <monot> MK_TFun(<Array<[string, monot]>> <Array<[string, monot]>>[ <[string, monot]>["value", _localctx._arrow_typ_0__1.result] ], <monot> _localctx._arrow_typ_0__3.result);
 				            
 				}
 				break;
@@ -552,7 +552,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 162;
 				_localctx._arrow_typ_1__5 = this.arrow_typ();
 				 
-				                _localctx.result =  <monot> MK_TFun(<list<[str, monot]>> <list<[str, monot]>> process_tparam(<list<[str, monot]>> _localctx._arrow_typ_1__2.result), <monot> _localctx._arrow_typ_1__5.result);
+				                _localctx.result =  <monot> MK_TFun(<Array<[string, monot]>> <Array<[string, monot]>> process_tparam(<Array<[string, monot]>> _localctx._arrow_typ_1__2.result), <monot> _localctx._arrow_typ_1__5.result);
 				            
 				}
 				break;
@@ -563,7 +563,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 165;
 				_localctx._arrow_typ_2__1 = this.type_product(0);
 				 
-				                _localctx.result =  <monot> MK_TTuple(<list<monot>> _localctx._arrow_typ_2__1.result);
+				                _localctx.result =  <monot> MK_TTuple(<Array<monot>> _localctx._arrow_typ_2__1.result);
 				            
 				}
 				break;
@@ -606,7 +606,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 171;
 			_localctx._slist_o__i__s__i__s_typ_p__0__1 = this.typ();
 			 
-			                _localctx.result =  <list<monot>>[ _localctx._slist_o__i__s__i__s_typ_p__0__1.result ];
+			                _localctx.result =  <Array<monot>>[ _localctx._slist_o__i__s__i__s_typ_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -633,7 +633,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 176;
 					_localctx._slist_o__i__s__i__s_typ_p__1__3 = this.typ();
 					 
-					                          _localctx.result =  <list<monot>> addList<monot>(<list<monot>> _localctx._slist_o__i__s__i__s_typ_p__1__1.result, <monot> _localctx._slist_o__i__s__i__s_typ_p__1__3.result);
+					                          _localctx.result =  <Array<monot>> addList<monot>(<Array<monot>> _localctx._slist_o__i__s__i__s_typ_p__1__1.result, <monot> _localctx._slist_o__i__s__i__s_typ_p__1__3.result);
 					                      
 					}
 					}
@@ -685,7 +685,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 185;
 				_localctx._typ2_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
 				 
-				                _localctx.result =  <monot> MK_TConst(<str> <str> str(<token> _localctx._typ2_0__1));
+				                _localctx.result =  <monot> MK_TConst(<string> <string> str(<Token> _localctx._typ2_0__1));
 				            
 				}
 				break;
@@ -727,7 +727,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 195;
 					this.match(TypedBNFParser.T__5);
 					 
-					                          _localctx.result =  <monot> MK_TApp(<monot> _localctx._typ2_2__1.result, <list<monot>> _localctx._typ2_2__3.result);
+					                          _localctx.result =  <monot> MK_TApp(<monot> _localctx._typ2_2__1.result, <Array<monot>> _localctx._typ2_2__3.result);
 					                      
 					}
 					}
@@ -775,7 +775,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 204;
 			_localctx._type_product_1__1 = this.typ2(0);
 			 
-			                _localctx.result =  <list<monot>>[ _localctx._type_product_1__1.result ];
+			                _localctx.result =  <Array<monot>>[ _localctx._type_product_1__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -802,7 +802,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 209;
 					_localctx._type_product_0__3 = this.typ2(0);
 					 
-					                          _localctx.result =  <list<monot>> addList<monot>(<list<monot>> _localctx._type_product_0__1.result, <monot> _localctx._type_product_0__3.result);
+					                          _localctx.result =  <Array<monot>> addList<monot>(<Array<monot>> _localctx._type_product_0__1.result, <monot> _localctx._type_product_0__3.result);
 					                      
 					}
 					}
@@ -847,7 +847,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 220;
 				_localctx._top_typ_0__4 = this.typ();
 				 
-				                _localctx.result =  <polyt> MK_Poly(<list<str>> _localctx._top_typ_0__2.result, <monot> _localctx._top_typ_0__4.result);
+				                _localctx.result =  <polyt> MK_Poly(<Array<string>> _localctx._top_typ_0__2.result, <monot> _localctx._top_typ_0__4.result);
 				            
 				}
 				break;
@@ -893,7 +893,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 229;
 			_localctx._tvar_0__2 = this.match(TypedBNFParser.CNAMEPLUS);
 			 
-			                _localctx.result =  <monot> MK_TVar(<str> <str> str(<token> _localctx._tvar_0__2));
+			                _localctx.result =  <monot> MK_TVar(<string> <string> str(<Token> _localctx._tvar_0__2));
 			            
 			}
 		}
@@ -923,7 +923,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 233;
 			_localctx._tvar_str_0__2 = this.match(TypedBNFParser.CNAMEPLUS);
 			 
-			                _localctx.result =  <str> str(<token> _localctx._tvar_str_0__2);
+			                _localctx.result =  <string> str(<Token> _localctx._tvar_str_0__2);
 			            
 			}
 		}
@@ -959,7 +959,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 238;
 				_localctx._param_type_0__3 = this.typ();
 				 
-				                _localctx.result =  <[str, monot]>[<str> str(<token> _localctx._param_type_0__1), _localctx._param_type_0__3.result];
+				                _localctx.result =  <[string, monot]>[<string> str(<Token> _localctx._param_type_0__1), _localctx._param_type_0__3.result];
 				            
 				}
 				break;
@@ -970,7 +970,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 241;
 				_localctx._param_type_1__1 = this.typ();
 				 
-				                _localctx.result =  <[str, monot]>["_", _localctx._param_type_1__1.result];
+				                _localctx.result =  <[string, monot]>["_", _localctx._param_type_1__1.result];
 				            
 				}
 				break;
@@ -1013,7 +1013,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 247;
 			_localctx._slist_o__i__s__i__s_tvar_str_p__0__1 = this.tvar_str();
 			 
-			                _localctx.result =  <list<str>>[ _localctx._slist_o__i__s__i__s_tvar_str_p__0__1.result ];
+			                _localctx.result =  <Array<string>>[ _localctx._slist_o__i__s__i__s_tvar_str_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1040,7 +1040,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 252;
 					_localctx._slist_o__i__s__i__s_tvar_str_p__1__3 = this.tvar_str();
 					 
-					                          _localctx.result =  <list<str>> addList<str>(<list<str>> _localctx._slist_o__i__s__i__s_tvar_str_p__1__1.result, <str> _localctx._slist_o__i__s__i__s_tvar_str_p__1__3.result);
+					                          _localctx.result =  <Array<string>> addList<string>(<Array<string>> _localctx._slist_o__i__s__i__s_tvar_str_p__1__1.result, <string> _localctx._slist_o__i__s__i__s_tvar_str_p__1__3.result);
 					                      
 					}
 					}
@@ -1092,7 +1092,7 @@ export class TypedBNFParser extends Parser {
 				this.enterOuterAlt(_localctx, 2);
 				{
 				 
-				                _localctx.result =  <list<str>>[  ];
+				                _localctx.result =  <Array<string>>[  ];
 				            
 				}
 				break;
@@ -1126,7 +1126,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 270;
 			_localctx._field_ann_0__3 = this.typ();
 			 
-			                _localctx.result =  <[str, monot, position]>[<str> str(<token> _localctx._field_ann_0__1), _localctx._field_ann_0__3.result, <position> mkpos(<token> _localctx._field_ann_0__1)];
+			                _localctx.result =  <[string, monot, position]>[<string> str(<Token> _localctx._field_ann_0__1), _localctx._field_ann_0__3.result, <position> mkpos(<Token> _localctx._field_ann_0__1)];
 			            
 			}
 		}
@@ -1167,7 +1167,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 274;
 			_localctx._slist_o__i__s__i__s_field_ann_p__0__1 = this.field_ann();
 			 
-			                _localctx.result =  <list<[str, monot, position]>>[ _localctx._slist_o__i__s__i__s_field_ann_p__0__1.result ];
+			                _localctx.result =  <Array<[string, monot, position]>>[ _localctx._slist_o__i__s__i__s_field_ann_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1194,7 +1194,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 279;
 					_localctx._slist_o__i__s__i__s_field_ann_p__1__3 = this.field_ann();
 					 
-					                          _localctx.result =  <list<[str, monot, position]>> addList<[str, monot, position]>(<list<[str, monot, position]>> _localctx._slist_o__i__s__i__s_field_ann_p__1__1.result, <[str, monot, position]> _localctx._slist_o__i__s__i__s_field_ann_p__1__3.result);
+					                          _localctx.result =  <Array<[string, monot, position]>> addList<[string, monot, position]>(<Array<[string, monot, position]>> _localctx._slist_o__i__s__i__s_field_ann_p__1__1.result, <[string, monot, position]> _localctx._slist_o__i__s__i__s_field_ann_p__1__3.result);
 					                      
 					}
 					}
@@ -1231,7 +1231,7 @@ export class TypedBNFParser extends Parser {
 				this.enterOuterAlt(_localctx, 1);
 				{
 				 
-				                _localctx.result =  <list<[str, monot, position]>>[  ];
+				                _localctx.result =  <Array<[string, monot, position]>>[  ];
 				            
 				}
 				break;
@@ -1309,7 +1309,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 298;
 				this.match(TypedBNFParser.T__3);
 				 
-				                _localctx.result =  <[bool, list<[str, monot, position]>]>[true, _localctx._field_anns_0__2.result];
+				                _localctx.result =  <[boolean, Array<[string, monot, position]>]>[true, _localctx._field_anns_0__2.result];
 				            
 				}
 				break;
@@ -1318,7 +1318,7 @@ export class TypedBNFParser extends Parser {
 				this.enterOuterAlt(_localctx, 2);
 				{
 				 
-				                _localctx.result =  <[bool, list<[str, monot, position]>]>[false, <list<[str, monot, position]>>[  ]];
+				                _localctx.result =  <[boolean, Array<[string, monot, position]>]>[false, <Array<[string, monot, position]>>[  ]];
 				            
 				}
 				break;
@@ -1360,7 +1360,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 308;
 				_localctx._decl_0__5 = this.top_typ();
 				 
-				                _localctx.result =  <definition> MK_Declvar(<str> _localctx._decl_0__3.result, <polyt> _localctx._decl_0__5.result, <position> <position> mkpos(<token> _localctx._decl_0__2));
+				                _localctx.result =  <definition> MK_Declvar(<string> _localctx._decl_0__3.result, <polyt> _localctx._decl_0__5.result, <position> <position> mkpos(<Token> _localctx._decl_0__2));
 				            
 				}
 				break;
@@ -1377,7 +1377,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 314;
 				_localctx._decl_1__4 = this.typ();
 				 
-				                _localctx.result =  <definition> MK_Declctor(<str> _localctx._decl_1__2.result, <monot> _localctx._decl_1__4.result, <position> <position> mkpos(<token> _localctx._decl_1__1));
+				                _localctx.result =  <definition> MK_Declctor(<string> _localctx._decl_1__2.result, <monot> _localctx._decl_1__4.result, <position> <position> mkpos(<Token> _localctx._decl_1__1));
 				            
 				}
 				break;
@@ -1396,7 +1396,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 321;
 				_localctx._decl_2__5 = this.field_anns();
 				 
-				                _localctx.result =  <definition> MK_Decltype(<bool> true, <bool> <bool> fst<bool, list<[str, monot, position]>>(<[bool, list<[str, monot, position]>]> _localctx._decl_2__5.result), <str> _localctx._decl_2__3.result, <list<str>> _localctx._decl_2__4.result, <list<[str, monot, position]>> <list<[str, monot, position]>> snd<bool, list<[str, monot, position]>>(<[bool, list<[str, monot, position]>]> _localctx._decl_2__5.result), <position> <position> mkpos(<token> _localctx._decl_2__1));
+				                _localctx.result =  <definition> MK_Decltype(<boolean> true, <boolean> <boolean> fst<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_2__5.result), <string> _localctx._decl_2__3.result, <Array<string>> _localctx._decl_2__4.result, <Array<[string, monot, position]>> <Array<[string, monot, position]>> snd<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_2__5.result), <position> <position> mkpos(<Token> _localctx._decl_2__1));
 				            
 				}
 				break;
@@ -1413,7 +1413,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 327;
 				_localctx._decl_3__4 = this.field_anns();
 				 
-				                _localctx.result =  <definition> MK_Decltype(<bool> false, <bool> <bool> fst<bool, list<[str, monot, position]>>(<[bool, list<[str, monot, position]>]> _localctx._decl_3__4.result), <str> _localctx._decl_3__2.result, <list<str>> _localctx._decl_3__3.result, <list<[str, monot, position]>> <list<[str, monot, position]>> snd<bool, list<[str, monot, position]>>(<[bool, list<[str, monot, position]>]> _localctx._decl_3__4.result), <position> <position> mkpos(<token> _localctx._decl_3__1));
+				                _localctx.result =  <definition> MK_Decltype(<boolean> false, <boolean> <boolean> fst<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_3__4.result), <string> _localctx._decl_3__2.result, <Array<string>> _localctx._decl_3__3.result, <Array<[string, monot, position]>> <Array<[string, monot, position]>> snd<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_3__4.result), <position> <position> mkpos(<Token> _localctx._decl_3__1));
 				            
 				}
 				break;
@@ -1482,7 +1482,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 342;
 				_localctx._toplevel_3__2 = this.slist_o__i__s__i__s_identstr_p_(0);
 				 
-				                _localctx.result =  <definition> MK_Defignore(<list<str>> _localctx._toplevel_3__2.result, <position> <position> mkpos(<token> _localctx._toplevel_3__1));
+				                _localctx.result =  <definition> MK_Defignore(<Array<string>> _localctx._toplevel_3__2.result, <position> <position> mkpos(<Token> _localctx._toplevel_3__1));
 				            
 				}
 				break;
@@ -1525,7 +1525,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 348;
 			_localctx._slist_o__i__s__i__s_identstr_p__0__1 = this.identstr();
 			 
-			                _localctx.result =  <list<str>>[ _localctx._slist_o__i__s__i__s_identstr_p__0__1.result ];
+			                _localctx.result =  <Array<string>>[ _localctx._slist_o__i__s__i__s_identstr_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1552,7 +1552,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 353;
 					_localctx._slist_o__i__s__i__s_identstr_p__1__3 = this.identstr();
 					 
-					                          _localctx.result =  <list<str>> addList<str>(<list<str>> _localctx._slist_o__i__s__i__s_identstr_p__1__1.result, <str> _localctx._slist_o__i__s__i__s_identstr_p__1__3.result);
+					                          _localctx.result =  <Array<string>> addList<string>(<Array<string>> _localctx._slist_o__i__s__i__s_identstr_p__1__1.result, <string> _localctx._slist_o__i__s__i__s_identstr_p__1__3.result);
 					                      
 					}
 					}
@@ -1599,7 +1599,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 365;
 				_localctx._def_0__5 = this.productions(0);
 				 
-				                _localctx.result =  <definition> MK_Defmacro(<str> <str> str(<token> _localctx._def_0__1), <list<str>> _localctx._def_0__3.result, <list<[position, production]>> _localctx._def_0__5.result, <position> <position> mkpos(<token> _localctx._def_0__1));
+				                _localctx.result =  <definition> MK_Defmacro(<string> <string> str(<Token> _localctx._def_0__1), <Array<string>> _localctx._def_0__3.result, <Array<[position, production]>> _localctx._def_0__5.result, <position> <position> mkpos(<Token> _localctx._def_0__1));
 				            
 				}
 				break;
@@ -1612,7 +1612,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 369;
 				_localctx._def_1__2 = this.productions(0);
 				 
-				                _localctx.result =  <definition> MK_Defrule(<str> <str> str(<token> _localctx._def_1__1), <list<[position, production]>> _localctx._def_1__2.result, <position> <position> mkpos(<token> _localctx._def_1__1));
+				                _localctx.result =  <definition> MK_Defrule(<string> <string> str(<Token> _localctx._def_1__1), <Array<[position, production]>> _localctx._def_1__2.result, <position> <position> mkpos(<Token> _localctx._def_1__1));
 				            
 				}
 				break;
@@ -1657,7 +1657,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 376;
 			_localctx._productions_0__2 = this.production();
 			 
-			                _localctx.result =  <list<[position, production]>>[ <[position, production]>[<position> mkpos(<token> _localctx._productions_0__1), _localctx._productions_0__2.result] ];
+			                _localctx.result =  <Array<[position, production]>>[ <[position, production]>[<position> mkpos(<Token> _localctx._productions_0__1), _localctx._productions_0__2.result] ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1684,7 +1684,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 381;
 					_localctx._productions_1__3 = this.production();
 					 
-					                          _localctx.result =  <list<[position, production]>> addList<[position, production]>(<list<[position, production]>> _localctx._productions_1__1.result, <[position, production]> <[position, production]>[<position> mkpos(<token> _localctx._productions_1__2), _localctx._productions_1__3.result]);
+					                          _localctx.result =  <Array<[position, production]>> addList<[position, production]>(<Array<[position, production]>> _localctx._productions_1__1.result, <[position, production]> <[position, production]>[<position> mkpos(<Token> _localctx._productions_1__2), _localctx._productions_1__3.result]);
 					                      
 					}
 					}
@@ -1732,7 +1732,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 390;
 			_localctx._list_o_psym_p__0__1 = this.psym();
 			 
-			                _localctx.result =  <list<symbol>>[ _localctx._list_o_psym_p__0__1.result ];
+			                _localctx.result =  <Array<symbol>>[ _localctx._list_o_psym_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1757,7 +1757,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 394;
 					_localctx._list_o_psym_p__1__2 = this.psym();
 					 
-					                          _localctx.result =  <list<symbol>> addList<symbol>(<list<symbol>> _localctx._list_o_psym_p__1__1.result, <symbol> _localctx._list_o_psym_p__1__2.result);
+					                          _localctx.result =  <Array<symbol>> addList<symbol>(<Array<symbol>> _localctx._list_o_psym_p__1__1.result, <symbol> _localctx._list_o_psym_p__1__2.result);
 					                      
 					}
 					}
@@ -1794,7 +1794,7 @@ export class TypedBNFParser extends Parser {
 				this.enterOuterAlt(_localctx, 1);
 				{
 				 
-				                _localctx.result =  <list<symbol>>[  ];
+				                _localctx.result =  <Array<symbol>>[  ];
 				            
 				}
 				break;
@@ -1872,7 +1872,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 414;
 			this.match(TypedBNFParser.T__16);
 			 
-			                _localctx.result =  <production> MK_production(<list<symbol>> _localctx._production_0__1.result, <expr> _localctx._production_0__3.result);
+			                _localctx.result =  <production> MK_production(<Array<symbol>> _localctx._production_0__1.result, <expr> _localctx._production_0__3.result);
 			            
 			}
 		}
@@ -1913,7 +1913,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 418;
 			_localctx._slist_o__i__s__i__s_psym_p__0__1 = this.psym();
 			 
-			                _localctx.result =  <list<symbol>>[ _localctx._slist_o__i__s__i__s_psym_p__0__1.result ];
+			                _localctx.result =  <Array<symbol>>[ _localctx._slist_o__i__s__i__s_psym_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1940,7 +1940,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 423;
 					_localctx._slist_o__i__s__i__s_psym_p__1__3 = this.psym();
 					 
-					                          _localctx.result =  <list<symbol>> addList<symbol>(<list<symbol>> _localctx._slist_o__i__s__i__s_psym_p__1__1.result, <symbol> _localctx._slist_o__i__s__i__s_psym_p__1__3.result);
+					                          _localctx.result =  <Array<symbol>> addList<symbol>(<Array<symbol>> _localctx._slist_o__i__s__i__s_psym_p__1__1.result, <symbol> _localctx._slist_o__i__s__i__s_psym_p__1__3.result);
 					                      
 					}
 					}
@@ -1983,7 +1983,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 433;
 				this.match(TypedBNFParser.T__5);
 				 
-				                _localctx.result =  <symbol> MK_Term(<str> _localctx._psym_0__2.result, <bool> false);
+				                _localctx.result =  <symbol> MK_Term(<string> _localctx._psym_0__2.result, <boolean> false);
 				            
 				}
 				break;
@@ -1994,7 +1994,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 436;
 				_localctx._psym_1__1 = this.match(TypedBNFParser.ESCAPED_STRING);
 				 
-				                _localctx.result =  <symbol> MK_Term(<str> <str> unescape(<str> <str> str(<token> _localctx._psym_1__1)), <bool> true);
+				                _localctx.result =  <symbol> MK_Term(<string> <string> unescape(<string> <string> str(<Token> _localctx._psym_1__1)), <boolean> true);
 				            
 				}
 				break;
@@ -2005,7 +2005,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 438;
 				_localctx._psym_2__1 = this.identstr();
 				 
-				                _localctx.result =  <symbol> MK_Nonterm(<str> _localctx._psym_2__1.result);
+				                _localctx.result =  <symbol> MK_Nonterm(<string> _localctx._psym_2__1.result);
 				            
 				}
 				break;
@@ -2022,7 +2022,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 444;
 				this.match(TypedBNFParser.T__3);
 				 
-				                _localctx.result =  <symbol> MK_Macrocall(<str> <str> str(<token> _localctx._psym_3__1), <list<symbol>> _localctx._psym_3__3.result, <position> <position> mkpos(<token> _localctx._psym_3__1));
+				                _localctx.result =  <symbol> MK_Macrocall(<string> <string> str(<Token> _localctx._psym_3__1), <Array<symbol>> _localctx._psym_3__3.result, <position> <position> mkpos(<Token> _localctx._psym_3__1));
 				            
 				}
 				break;
@@ -2056,7 +2056,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 451;
 			_localctx._ann_0__3 = this.typ();
 			 
-			                _localctx.result =  <[str, monot]>[_localctx._ann_0__1.result, _localctx._ann_0__3.result];
+			                _localctx.result =  <[string, monot]>[_localctx._ann_0__1.result, _localctx._ann_0__3.result];
 			            
 			}
 		}
@@ -2097,7 +2097,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 455;
 			_localctx._slist_o__i__s__i__s_ann_p__0__1 = this.ann();
 			 
-			                _localctx.result =  <list<[str, monot]>>[ _localctx._slist_o__i__s__i__s_ann_p__0__1.result ];
+			                _localctx.result =  <Array<[string, monot]>>[ _localctx._slist_o__i__s__i__s_ann_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2124,7 +2124,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 460;
 					_localctx._slist_o__i__s__i__s_ann_p__1__3 = this.ann();
 					 
-					                          _localctx.result =  <list<[str, monot]>> addList<[str, monot]>(<list<[str, monot]>> _localctx._slist_o__i__s__i__s_ann_p__1__1.result, <[str, monot]> _localctx._slist_o__i__s__i__s_ann_p__1__3.result);
+					                          _localctx.result =  <Array<[string, monot]>> addList<[string, monot]>(<Array<[string, monot]>> _localctx._slist_o__i__s__i__s_ann_p__1__1.result, <[string, monot]> _localctx._slist_o__i__s__i__s_ann_p__1__3.result);
 					                      
 					}
 					}
@@ -2161,7 +2161,7 @@ export class TypedBNFParser extends Parser {
 				this.enterOuterAlt(_localctx, 1);
 				{
 				 
-				                _localctx.result =  <list<[str, monot]>>[  ];
+				                _localctx.result =  <Array<[string, monot]>>[  ];
 				            
 				}
 				break;
@@ -2277,7 +2277,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 487;
 				_localctx._expr_0__6 = this.expr();
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ELet(<str> _localctx._expr_0__2.result, <expr> _localctx._expr_0__4.result, <expr> _localctx._expr_0__6.result), <position> <position> mkpos(<token> _localctx._expr_0__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ELet(<string> _localctx._expr_0__2.result, <expr> _localctx._expr_0__4.result, <expr> _localctx._expr_0__6.result), <position> <position> mkpos(<Token> _localctx._expr_0__1));
 				            
 				}
 				break;
@@ -2294,7 +2294,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 493;
 				_localctx._expr_1__4 = this.expr();
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EFun(<list<[str, monot]>> _localctx._expr_1__2.result, <expr> _localctx._expr_1__4.result), <position> <position> mkpos(<token> _localctx._expr_1__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EFun(<Array<[string, monot]>> _localctx._expr_1__2.result, <expr> _localctx._expr_1__4.result), <position> <position> mkpos(<Token> _localctx._expr_1__1));
 				            
 				}
 				break;
@@ -2320,7 +2320,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 501;
 				_localctx._expr_3__3 = this.expr();
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ELet(<str> "_", <expr> _localctx._expr_3__1.result, <expr> _localctx._expr_3__3.result), <position> <position> getpos(<expr> _localctx._expr_3__1.result));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ELet(<string> "_", <expr> _localctx._expr_3__1.result, <expr> _localctx._expr_3__3.result), <position> <position> getpos(<expr> _localctx._expr_3__1.result));
 				            
 				}
 				break;
@@ -2392,7 +2392,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 513;
 					this.match(TypedBNFParser.T__3);
 					 
-					                          _localctx.result =  <expr> MK_Expr(<node> <node> MK_EApp(<expr> _localctx._call_0__1.result, <list<expr>> _localctx._call_0__3.result), <position> <position> getpos(<expr> _localctx._call_0__1.result));
+					                          _localctx.result =  <expr> MK_Expr(<node> <node> MK_EApp(<expr> _localctx._call_0__1.result, <Array<expr>> _localctx._call_0__3.result), <position> <position> getpos(<expr> _localctx._call_0__1.result));
 					                      
 					}
 					}
@@ -2430,7 +2430,7 @@ export class TypedBNFParser extends Parser {
 				this.enterOuterAlt(_localctx, 1);
 				{
 				 
-				                _localctx.result =  <list<expr>>[  ];
+				                _localctx.result =  <Array<expr>>[  ];
 				            
 				}
 				break;
@@ -2523,7 +2523,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 531;
 			_localctx._slist_o__i__s__i__s_expr_p__0__1 = this.expr();
 			 
-			                _localctx.result =  <list<expr>>[ _localctx._slist_o__i__s__i__s_expr_p__0__1.result ];
+			                _localctx.result =  <Array<expr>>[ _localctx._slist_o__i__s__i__s_expr_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2550,7 +2550,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 536;
 					_localctx._slist_o__i__s__i__s_expr_p__1__3 = this.expr();
 					 
-					                          _localctx.result =  <list<expr>> addList<expr>(<list<expr>> _localctx._slist_o__i__s__i__s_expr_p__1__1.result, <expr> _localctx._slist_o__i__s__i__s_expr_p__1__3.result);
+					                          _localctx.result =  <Array<expr>> addList<expr>(<Array<expr>> _localctx._slist_o__i__s__i__s_expr_p__1__1.result, <expr> _localctx._slist_o__i__s__i__s_expr_p__1__3.result);
 					                      
 					}
 					}
@@ -2602,7 +2602,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 545;
 				_localctx._atomexp_0__1 = this.match(TypedBNFParser.INT);
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EInt(<int> <int> toint(<token> _localctx._atomexp_0__1)), <position> <position> mkpos(<token> _localctx._atomexp_0__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EInt(<number> <number> toint(<Token> _localctx._atomexp_0__1)), <position> <position> mkpos(<Token> _localctx._atomexp_0__1));
 				            
 				}
 				break;
@@ -2612,7 +2612,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 547;
 				_localctx._atomexp_1__1 = this.match(TypedBNFParser.FLOAT);
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EFlt(<float> <float> tofloat(<token> _localctx._atomexp_1__1)), <position> <position> mkpos(<token> _localctx._atomexp_1__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EFlt(<number> <number> tofloat(<Token> _localctx._atomexp_1__1)), <position> <position> mkpos(<Token> _localctx._atomexp_1__1));
 				            
 				}
 				break;
@@ -2622,7 +2622,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 549;
 				_localctx._atomexp_2__1 = this.match(TypedBNFParser.ESCAPED_STRING);
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EStr(<str> <str> unescape(<str> <str> str(<token> _localctx._atomexp_2__1))), <position> <position> mkpos(<token> _localctx._atomexp_2__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EStr(<string> <string> unescape(<string> <string> str(<Token> _localctx._atomexp_2__1))), <position> <position> mkpos(<Token> _localctx._atomexp_2__1));
 				            
 				}
 				break;
@@ -2634,7 +2634,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 552;
 				_localctx._atomexp_3__2 = this.match(TypedBNFParser.INT);
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ESlot(<int> <int> toint(<token> _localctx._atomexp_3__2)), <position> <position> mkpos(<token> _localctx._atomexp_3__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ESlot(<number> <number> toint(<Token> _localctx._atomexp_3__2)), <position> <position> mkpos(<Token> _localctx._atomexp_3__1));
 				            
 				}
 				break;
@@ -2648,7 +2648,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 556;
 				this.match(TypedBNFParser.T__24);
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EList(<list<expr>> _localctx._atomexp_4__2.result), <position> <position> mkpos(<token> _localctx._atomexp_4__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EList(<Array<expr>> _localctx._atomexp_4__2.result), <position> <position> mkpos(<Token> _localctx._atomexp_4__1));
 				            
 				}
 				break;
@@ -2660,7 +2660,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 560;
 				this.match(TypedBNFParser.T__3);
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ETuple(<list<expr>> <list<expr>>[  ]), <position> <position> mkpos(<token> _localctx._atomexp_5__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ETuple(<Array<expr>> <Array<expr>>[  ]), <position> <position> mkpos(<Token> _localctx._atomexp_5__1));
 				            
 				}
 				break;
@@ -2674,7 +2674,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 564;
 				this.match(TypedBNFParser.T__3);
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ETuple(<list<expr>> _localctx._atomexp_6__2.result), <position> <position> mkpos(<token> _localctx._atomexp_6__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ETuple(<Array<expr>> _localctx._atomexp_6__2.result), <position> <position> mkpos(<Token> _localctx._atomexp_6__1));
 				            
 				}
 				break;
@@ -2684,7 +2684,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 567;
 				_localctx._atomexp_7__1 = this.match(TypedBNFParser.CNAMEPLUS);
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EVar(<str> <str> str(<token> _localctx._atomexp_7__1)), <position> <position> mkpos(<token> _localctx._atomexp_7__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EVar(<string> <string> str(<Token> _localctx._atomexp_7__1)), <position> <position> mkpos(<Token> _localctx._atomexp_7__1));
 				            
 				}
 				break;
@@ -2694,7 +2694,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 569;
 				_localctx._atomexp_9__1 = this.match(TypedBNFParser.T__26);
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EBool(<bool> true), <position> <position> mkpos(<token> _localctx._atomexp_9__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EBool(<boolean> true), <position> <position> mkpos(<Token> _localctx._atomexp_9__1));
 				            
 				}
 				break;
@@ -2704,7 +2704,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 571;
 				_localctx._atomexp_10__1 = this.match(TypedBNFParser.T__27);
 				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EBool(<bool> false), <position> <position> mkpos(<token> _localctx._atomexp_10__1));
+				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EBool(<boolean> false), <position> <position> mkpos(<Token> _localctx._atomexp_10__1));
 				            
 				}
 				break;
@@ -2733,7 +2733,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 577;
 					_localctx._atomexp_8__3 = this.match(TypedBNFParser.CNAMEPLUS);
 					 
-					                          _localctx.result =  <expr> MK_Expr(<node> <node> MK_EField(<expr> _localctx._atomexp_8__1.result, <str> <str> str(<token> _localctx._atomexp_8__3)), <position> <position> getpos(<expr> _localctx._atomexp_8__1.result));
+					                          _localctx.result =  <expr> MK_Expr(<node> <node> MK_EField(<expr> _localctx._atomexp_8__1.result, <string> <string> str(<Token> _localctx._atomexp_8__3)), <position> <position> getpos(<expr> _localctx._atomexp_8__1.result));
 					                      
 					}
 					}
@@ -2781,7 +2781,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 585;
 			_localctx._slist_o__i__u__i__s_lexer_and_p__0__1 = this.lexer_and();
 			 
-			                _localctx.result =  <list<lexerule>>[ _localctx._slist_o__i__u__i__s_lexer_and_p__0__1.result ];
+			                _localctx.result =  <Array<lexerule>>[ _localctx._slist_o__i__u__i__s_lexer_and_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2808,7 +2808,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 590;
 					_localctx._slist_o__i__u__i__s_lexer_and_p__1__3 = this.lexer_and();
 					 
-					                          _localctx.result =  <list<lexerule>> addList<lexerule>(<list<lexerule>> _localctx._slist_o__i__u__i__s_lexer_and_p__1__1.result, <lexerule> _localctx._slist_o__i__u__i__s_lexer_and_p__1__3.result);
+					                          _localctx.result =  <Array<lexerule>> addList<lexerule>(<Array<lexerule>> _localctx._slist_o__i__u__i__s_lexer_and_p__1__1.result, <lexerule> _localctx._slist_o__i__u__i__s_lexer_and_p__1__3.result);
 					                      
 					}
 					}
@@ -2843,7 +2843,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 598;
 			_localctx._lexer__y__0__1 = this.slist_o__i__u__i__s_lexer_and_p_(0);
 			 
-			                _localctx.result =  <lexerule> MK_LOr(<list<lexerule>> _localctx._lexer__y__0__1.result);
+			                _localctx.result =  <lexerule> MK_LOr(<Array<lexerule>> _localctx._lexer__y__0__1.result);
 			            
 			}
 		}
@@ -2884,7 +2884,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 602;
 			_localctx._list_o_lexer_atomexpr_p__0__1 = this.lexer_atomexpr(0);
 			 
-			                _localctx.result =  <list<lexerule>>[ _localctx._list_o_lexer_atomexpr_p__0__1.result ];
+			                _localctx.result =  <Array<lexerule>>[ _localctx._list_o_lexer_atomexpr_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2909,7 +2909,7 @@ export class TypedBNFParser extends Parser {
 					this.state = 606;
 					_localctx._list_o_lexer_atomexpr_p__1__2 = this.lexer_atomexpr(0);
 					 
-					                          _localctx.result =  <list<lexerule>> addList<lexerule>(<list<lexerule>> _localctx._list_o_lexer_atomexpr_p__1__1.result, <lexerule> _localctx._list_o_lexer_atomexpr_p__1__2.result);
+					                          _localctx.result =  <Array<lexerule>> addList<lexerule>(<Array<lexerule>> _localctx._list_o_lexer_atomexpr_p__1__1.result, <lexerule> _localctx._list_o_lexer_atomexpr_p__1__2.result);
 					                      
 					}
 					}
@@ -2944,7 +2944,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 614;
 			_localctx._lexer_and_0__1 = this.list_o_lexer_atomexpr_p_(0);
 			 
-			                _localctx.result =  <lexerule> MK_LSeq(<list<lexerule>> _localctx._lexer_and_0__1.result);
+			                _localctx.result =  <lexerule> MK_LSeq(<Array<lexerule>> _localctx._lexer_and_0__1.result);
 			            
 			}
 		}
@@ -3089,7 +3089,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 635;
 				_localctx._lexer_atom_0__1 = this.match(TypedBNFParser.ESCAPED_STRING);
 				 
-				                _localctx.result =  <lexerule> MK_LStr(<str> <str> unescape(<str> <str> str(<token> _localctx._lexer_atom_0__1)));
+				                _localctx.result =  <lexerule> MK_LStr(<string> <string> unescape(<string> <string> str(<Token> _localctx._lexer_atom_0__1)));
 				            
 				}
 				break;
@@ -3135,7 +3135,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 648;
 				_localctx._lexer_atom_4__1 = this.match(TypedBNFParser.RANGE);
 				 
-				                _localctx.result =  <lexerule> getrange(<str> <str> str(<token> _localctx._lexer_atom_4__1));
+				                _localctx.result =  <lexerule> getrange(<string> <string> str(<Token> _localctx._lexer_atom_4__1));
 				            
 				}
 				break;
@@ -3145,7 +3145,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 650;
 				_localctx._lexer_atom_5__1 = this.match(TypedBNFParser.UNICODE_RANGE);
 				 
-				                _localctx.result =  <lexerule> getunicoderange(<str> <str> str(<token> _localctx._lexer_atom_5__1));
+				                _localctx.result =  <lexerule> getunicoderange(<string> <string> str(<Token> _localctx._lexer_atom_5__1));
 				            
 				}
 				break;
@@ -3175,7 +3175,7 @@ export class TypedBNFParser extends Parser {
 				this.state = 656;
 				_localctx._lexer_atom_8__1 = this.match(TypedBNFParser.CNAMEPLUS);
 				 
-				                _localctx.result =  <lexerule> MK_LRef(<str> <str> str(<token> _localctx._lexer_atom_8__1));
+				                _localctx.result =  <lexerule> MK_LRef(<string> <string> str(<Token> _localctx._lexer_atom_8__1));
 				            
 				}
 				break;
@@ -3213,7 +3213,7 @@ export class TypedBNFParser extends Parser {
 			this.state = 663;
 			this.match(TypedBNFParser.T__21);
 			 
-			                _localctx.result =  <definition> MK_Deflexer(<str> <str> str(<token> _localctx._lexerdef_0__1), <lexerule> _localctx._lexerdef_0__3.result, <position> <position> mkpos(<token> _localctx._lexerdef_0__1));
+			                _localctx.result =  <definition> MK_Deflexer(<string> <string> str(<Token> _localctx._lexerdef_0__1), <lexerule> _localctx._lexerdef_0__3.result, <position> <position> mkpos(<Token> _localctx._lexerdef_0__1));
 			            
 			}
 		}
@@ -3751,7 +3751,7 @@ export class TypedBNFParser extends Parser {
 }
 
 export class StartContext extends ParserRuleContext {
-	public result: list<definition>;
+	public result: Array<definition>;
 	public _v!: Start__y_Context;
 	public EOF(): TerminalNode { return this.getToken(TypedBNFParser.EOF, 0); }
 	public start__y_(): Start__y_Context {
@@ -3778,7 +3778,7 @@ export class StartContext extends ParserRuleContext {
 
 
 export class List_o_toplevel_p_Context extends ParserRuleContext {
-	public result: list<definition>;
+	public result: Array<definition>;
 	public _list_o_toplevel_p__1__1!: List_o_toplevel_p_Context;
 	public _list_o_toplevel_p__0__1!: ToplevelContext;
 	public _list_o_toplevel_p__1__2!: ToplevelContext;
@@ -3809,7 +3809,7 @@ export class List_o_toplevel_p_Context extends ParserRuleContext {
 
 
 export class Start__y_Context extends ParserRuleContext {
-	public result: list<definition>;
+	public result: Array<definition>;
 	public _start__y__0__1!: List_o_toplevel_p_Context;
 	public list_o_toplevel_p_(): List_o_toplevel_p_Context {
 		return this.getRuleContext(0, List_o_toplevel_p_Context);
@@ -3835,7 +3835,7 @@ export class Start__y_Context extends ParserRuleContext {
 
 
 export class IdentstrContext extends ParserRuleContext {
-	public result: str;
+	public result: string;
 	public _identstr_0__1!: Token;
 	public CNAMEPLUS(): TerminalNode { return this.getToken(TypedBNFParser.CNAMEPLUS, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -3885,7 +3885,7 @@ export class TypContext extends ParserRuleContext {
 
 
 export class Slist_o__i__s__i__s_param_type_p_Context extends ParserRuleContext {
-	public result: list<[str, monot]>;
+	public result: Array<[string, monot]>;
 	public _slist_o__i__s__i__s_param_type_p__1__1!: Slist_o__i__s__i__s_param_type_p_Context;
 	public _slist_o__i__s__i__s_param_type_p__0__1!: Param_typeContext;
 	public _slist_o__i__s__i__s_param_type_p__1__3!: Param_typeContext;
@@ -3916,7 +3916,7 @@ export class Slist_o__i__s__i__s_param_type_p_Context extends ParserRuleContext 
 
 
 export class Empty_o_slist_o__i__s__i__s_param_type_p__p_Context extends ParserRuleContext {
-	public result: list<[str, monot]>;
+	public result: Array<[string, monot]>;
 	public _empty_o_slist_o__i__s__i__s_param_type_p__p__1__1!: Slist_o__i__s__i__s_param_type_p_Context;
 	public slist_o__i__s__i__s_param_type_p_(): Slist_o__i__s__i__s_param_type_p_Context | undefined {
 		return this.tryGetRuleContext(0, Slist_o__i__s__i__s_param_type_p_Context);
@@ -3942,7 +3942,7 @@ export class Empty_o_slist_o__i__s__i__s_param_type_p__p_Context extends ParserR
 
 
 export class Eslist_o__i__s__i__s_param_type_p_Context extends ParserRuleContext {
-	public result: list<[str, monot]>;
+	public result: Array<[string, monot]>;
 	public _eslist_o__i__s__i__s_param_type_p__0__1!: Empty_o_slist_o__i__s__i__s_param_type_p__p_Context;
 	public empty_o_slist_o__i__s__i__s_param_type_p__p_(): Empty_o_slist_o__i__s__i__s_param_type_p__p_Context {
 		return this.getRuleContext(0, Empty_o_slist_o__i__s__i__s_param_type_p__p_Context);
@@ -4007,7 +4007,7 @@ export class Arrow_typContext extends ParserRuleContext {
 
 
 export class Slist_o__i__s__i__s_typ_p_Context extends ParserRuleContext {
-	public result: list<monot>;
+	public result: Array<monot>;
 	public _slist_o__i__s__i__s_typ_p__1__1!: Slist_o__i__s__i__s_typ_p_Context;
 	public _slist_o__i__s__i__s_typ_p__0__1!: TypContext;
 	public _slist_o__i__s__i__s_typ_p__1__3!: TypContext;
@@ -4074,7 +4074,7 @@ export class Typ2Context extends ParserRuleContext {
 
 
 export class Type_productContext extends ParserRuleContext {
-	public result: list<monot>;
+	public result: Array<monot>;
 	public _type_product_0__1!: Type_productContext;
 	public _type_product_1__1!: Typ2Context;
 	public _type_product_0__3!: Typ2Context;
@@ -4160,7 +4160,7 @@ export class TvarContext extends ParserRuleContext {
 
 
 export class Tvar_strContext extends ParserRuleContext {
-	public result: str;
+	public result: string;
 	public _tvar_str_0__2!: Token;
 	public CNAMEPLUS(): TerminalNode { return this.getToken(TypedBNFParser.CNAMEPLUS, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -4184,7 +4184,7 @@ export class Tvar_strContext extends ParserRuleContext {
 
 
 export class Param_typeContext extends ParserRuleContext {
-	public result: [str, monot];
+	public result: [string, monot];
 	public _param_type_0__1!: Token;
 	public _param_type_0__3!: TypContext;
 	public _param_type_1__1!: TypContext;
@@ -4213,7 +4213,7 @@ export class Param_typeContext extends ParserRuleContext {
 
 
 export class Slist_o__i__s__i__s_tvar_str_p_Context extends ParserRuleContext {
-	public result: list<str>;
+	public result: Array<string>;
 	public _slist_o__i__s__i__s_tvar_str_p__1__1!: Slist_o__i__s__i__s_tvar_str_p_Context;
 	public _slist_o__i__s__i__s_tvar_str_p__0__1!: Tvar_strContext;
 	public _slist_o__i__s__i__s_tvar_str_p__1__3!: Tvar_strContext;
@@ -4244,7 +4244,7 @@ export class Slist_o__i__s__i__s_tvar_str_p_Context extends ParserRuleContext {
 
 
 export class Type_paramsContext extends ParserRuleContext {
-	public result: list<str>;
+	public result: Array<string>;
 	public _type_params_0__2!: Slist_o__i__s__i__s_tvar_str_p_Context;
 	public slist_o__i__s__i__s_tvar_str_p_(): Slist_o__i__s__i__s_tvar_str_p_Context | undefined {
 		return this.tryGetRuleContext(0, Slist_o__i__s__i__s_tvar_str_p_Context);
@@ -4270,7 +4270,7 @@ export class Type_paramsContext extends ParserRuleContext {
 
 
 export class Field_annContext extends ParserRuleContext {
-	public result: [str, monot, position];
+	public result: [string, monot, position];
 	public _field_ann_0__1!: Token;
 	public _field_ann_0__3!: TypContext;
 	public CNAMEPLUS(): TerminalNode { return this.getToken(TypedBNFParser.CNAMEPLUS, 0); }
@@ -4298,7 +4298,7 @@ export class Field_annContext extends ParserRuleContext {
 
 
 export class Slist_o__i__s__i__s_field_ann_p_Context extends ParserRuleContext {
-	public result: list<[str, monot, position]>;
+	public result: Array<[string, monot, position]>;
 	public _slist_o__i__s__i__s_field_ann_p__1__1!: Slist_o__i__s__i__s_field_ann_p_Context;
 	public _slist_o__i__s__i__s_field_ann_p__0__1!: Field_annContext;
 	public _slist_o__i__s__i__s_field_ann_p__1__3!: Field_annContext;
@@ -4329,7 +4329,7 @@ export class Slist_o__i__s__i__s_field_ann_p_Context extends ParserRuleContext {
 
 
 export class Empty_o_slist_o__i__s__i__s_field_ann_p__p_Context extends ParserRuleContext {
-	public result: list<[str, monot, position]>;
+	public result: Array<[string, monot, position]>;
 	public _empty_o_slist_o__i__s__i__s_field_ann_p__p__1__1!: Slist_o__i__s__i__s_field_ann_p_Context;
 	public slist_o__i__s__i__s_field_ann_p_(): Slist_o__i__s__i__s_field_ann_p_Context | undefined {
 		return this.tryGetRuleContext(0, Slist_o__i__s__i__s_field_ann_p_Context);
@@ -4355,7 +4355,7 @@ export class Empty_o_slist_o__i__s__i__s_field_ann_p__p_Context extends ParserRu
 
 
 export class Eslist_o__i__s__i__s_field_ann_p_Context extends ParserRuleContext {
-	public result: list<[str, monot, position]>;
+	public result: Array<[string, monot, position]>;
 	public _eslist_o__i__s__i__s_field_ann_p__0__1!: Empty_o_slist_o__i__s__i__s_field_ann_p__p_Context;
 	public empty_o_slist_o__i__s__i__s_field_ann_p__p_(): Empty_o_slist_o__i__s__i__s_field_ann_p__p_Context {
 		return this.getRuleContext(0, Empty_o_slist_o__i__s__i__s_field_ann_p__p_Context);
@@ -4381,7 +4381,7 @@ export class Eslist_o__i__s__i__s_field_ann_p_Context extends ParserRuleContext 
 
 
 export class Field_annsContext extends ParserRuleContext {
-	public result: [bool, list<[str, monot, position]>];
+	public result: [boolean, Array<[string, monot, position]>];
 	public _field_anns_0__2!: Eslist_o__i__s__i__s_field_ann_p_Context;
 	public eslist_o__i__s__i__s_field_ann_p_(): Eslist_o__i__s__i__s_field_ann_p_Context | undefined {
 		return this.tryGetRuleContext(0, Eslist_o__i__s__i__s_field_ann_p_Context);
@@ -4497,7 +4497,7 @@ export class ToplevelContext extends ParserRuleContext {
 
 
 export class Slist_o__i__s__i__s_identstr_p_Context extends ParserRuleContext {
-	public result: list<str>;
+	public result: Array<string>;
 	public _slist_o__i__s__i__s_identstr_p__1__1!: Slist_o__i__s__i__s_identstr_p_Context;
 	public _slist_o__i__s__i__s_identstr_p__0__1!: IdentstrContext;
 	public _slist_o__i__s__i__s_identstr_p__1__3!: IdentstrContext;
@@ -4562,7 +4562,7 @@ export class DefContext extends ParserRuleContext {
 
 
 export class ProductionsContext extends ParserRuleContext {
-	public result: list<[position, production]>;
+	public result: Array<[position, production]>;
 	public _productions_1__1!: ProductionsContext;
 	public _productions_0__1!: Token;
 	public _productions_0__2!: ProductionContext;
@@ -4595,7 +4595,7 @@ export class ProductionsContext extends ParserRuleContext {
 
 
 export class List_o_psym_p_Context extends ParserRuleContext {
-	public result: list<symbol>;
+	public result: Array<symbol>;
 	public _list_o_psym_p__1__1!: List_o_psym_p_Context;
 	public _list_o_psym_p__0__1!: PsymContext;
 	public _list_o_psym_p__1__2!: PsymContext;
@@ -4626,7 +4626,7 @@ export class List_o_psym_p_Context extends ParserRuleContext {
 
 
 export class Empty_o_list_o_psym_p__p_Context extends ParserRuleContext {
-	public result: list<symbol>;
+	public result: Array<symbol>;
 	public _empty_o_list_o_psym_p__p__1__1!: List_o_psym_p_Context;
 	public list_o_psym_p_(): List_o_psym_p_Context | undefined {
 		return this.tryGetRuleContext(0, List_o_psym_p_Context);
@@ -4652,7 +4652,7 @@ export class Empty_o_list_o_psym_p__p_Context extends ParserRuleContext {
 
 
 export class Elist_o_psym_p_Context extends ParserRuleContext {
-	public result: list<symbol>;
+	public result: Array<symbol>;
 	public _elist_o_psym_p__0__1!: Empty_o_list_o_psym_p__p_Context;
 	public empty_o_list_o_psym_p__p_(): Empty_o_list_o_psym_p__p_Context {
 		return this.getRuleContext(0, Empty_o_list_o_psym_p__p_Context);
@@ -4708,7 +4708,7 @@ export class ProductionContext extends ParserRuleContext {
 
 
 export class Slist_o__i__s__i__s_psym_p_Context extends ParserRuleContext {
-	public result: list<symbol>;
+	public result: Array<symbol>;
 	public _slist_o__i__s__i__s_psym_p__1__1!: Slist_o__i__s__i__s_psym_p_Context;
 	public _slist_o__i__s__i__s_psym_p__0__1!: PsymContext;
 	public _slist_o__i__s__i__s_psym_p__1__3!: PsymContext;
@@ -4774,7 +4774,7 @@ export class PsymContext extends ParserRuleContext {
 
 
 export class AnnContext extends ParserRuleContext {
-	public result: [str, monot];
+	public result: [string, monot];
 	public _ann_0__1!: IdentstrContext;
 	public _ann_0__3!: TypContext;
 	public identstr(): IdentstrContext {
@@ -4804,7 +4804,7 @@ export class AnnContext extends ParserRuleContext {
 
 
 export class Slist_o__i__s__i__s_ann_p_Context extends ParserRuleContext {
-	public result: list<[str, monot]>;
+	public result: Array<[string, monot]>;
 	public _slist_o__i__s__i__s_ann_p__1__1!: Slist_o__i__s__i__s_ann_p_Context;
 	public _slist_o__i__s__i__s_ann_p__0__1!: AnnContext;
 	public _slist_o__i__s__i__s_ann_p__1__3!: AnnContext;
@@ -4835,7 +4835,7 @@ export class Slist_o__i__s__i__s_ann_p_Context extends ParserRuleContext {
 
 
 export class Empty_o_slist_o__i__s__i__s_ann_p__p_Context extends ParserRuleContext {
-	public result: list<[str, monot]>;
+	public result: Array<[string, monot]>;
 	public _empty_o_slist_o__i__s__i__s_ann_p__p__1__1!: Slist_o__i__s__i__s_ann_p_Context;
 	public slist_o__i__s__i__s_ann_p_(): Slist_o__i__s__i__s_ann_p_Context | undefined {
 		return this.tryGetRuleContext(0, Slist_o__i__s__i__s_ann_p_Context);
@@ -4861,7 +4861,7 @@ export class Empty_o_slist_o__i__s__i__s_ann_p__p_Context extends ParserRuleCont
 
 
 export class Eslist_o__i__s__i__s_ann_p_Context extends ParserRuleContext {
-	public result: list<[str, monot]>;
+	public result: Array<[string, monot]>;
 	public _eslist_o__i__s__i__s_ann_p__0__1!: Empty_o_slist_o__i__s__i__s_ann_p__p_Context;
 	public empty_o_slist_o__i__s__i__s_ann_p__p_(): Empty_o_slist_o__i__s__i__s_ann_p__p_Context {
 		return this.getRuleContext(0, Empty_o_slist_o__i__s__i__s_ann_p__p_Context);
@@ -4887,7 +4887,7 @@ export class Eslist_o__i__s__i__s_ann_p_Context extends ParserRuleContext {
 
 
 export class Func_parametersContext extends ParserRuleContext {
-	public result: list<[str, monot]>;
+	public result: Array<[string, monot]>;
 	public _func_parameters_0__2!: Eslist_o__i__s__i__s_ann_p_Context;
 	public eslist_o__i__s__i__s_ann_p_(): Eslist_o__i__s__i__s_ann_p_Context {
 		return this.getRuleContext(0, Eslist_o__i__s__i__s_ann_p_Context);
@@ -4997,7 +4997,7 @@ export class CallContext extends ParserRuleContext {
 
 
 export class Empty_o_slist_o__i__s__i__s_expr_p__p_Context extends ParserRuleContext {
-	public result: list<expr>;
+	public result: Array<expr>;
 	public _empty_o_slist_o__i__s__i__s_expr_p__p__1__1!: Slist_o__i__s__i__s_expr_p_Context;
 	public slist_o__i__s__i__s_expr_p_(): Slist_o__i__s__i__s_expr_p_Context | undefined {
 		return this.tryGetRuleContext(0, Slist_o__i__s__i__s_expr_p_Context);
@@ -5023,7 +5023,7 @@ export class Empty_o_slist_o__i__s__i__s_expr_p__p_Context extends ParserRuleCon
 
 
 export class Eslist_o__i__s__i__s_expr_p_Context extends ParserRuleContext {
-	public result: list<expr>;
+	public result: Array<expr>;
 	public _eslist_o__i__s__i__s_expr_p__0__1!: Empty_o_slist_o__i__s__i__s_expr_p__p_Context;
 	public empty_o_slist_o__i__s__i__s_expr_p__p_(): Empty_o_slist_o__i__s__i__s_expr_p__p_Context {
 		return this.getRuleContext(0, Empty_o_slist_o__i__s__i__s_expr_p__p_Context);
@@ -5049,7 +5049,7 @@ export class Eslist_o__i__s__i__s_expr_p_Context extends ParserRuleContext {
 
 
 export class Slist_o__i__s__i__s_expr_p_Context extends ParserRuleContext {
-	public result: list<expr>;
+	public result: Array<expr>;
 	public _slist_o__i__s__i__s_expr_p__1__1!: Slist_o__i__s__i__s_expr_p_Context;
 	public _slist_o__i__s__i__s_expr_p__0__1!: ExprContext;
 	public _slist_o__i__s__i__s_expr_p__1__3!: ExprContext;
@@ -5130,7 +5130,7 @@ export class AtomexpContext extends ParserRuleContext {
 
 
 export class Slist_o__i__u__i__s_lexer_and_p_Context extends ParserRuleContext {
-	public result: list<lexerule>;
+	public result: Array<lexerule>;
 	public _slist_o__i__u__i__s_lexer_and_p__1__1!: Slist_o__i__u__i__s_lexer_and_p_Context;
 	public _slist_o__i__u__i__s_lexer_and_p__0__1!: Lexer_andContext;
 	public _slist_o__i__u__i__s_lexer_and_p__1__3!: Lexer_andContext;
@@ -5187,7 +5187,7 @@ export class Lexer__y_Context extends ParserRuleContext {
 
 
 export class List_o_lexer_atomexpr_p_Context extends ParserRuleContext {
-	public result: list<lexerule>;
+	public result: Array<lexerule>;
 	public _list_o_lexer_atomexpr_p__1__1!: List_o_lexer_atomexpr_p_Context;
 	public _list_o_lexer_atomexpr_p__0__1!: Lexer_atomexprContext;
 	public _list_o_lexer_atomexpr_p__1__2!: Lexer_atomexprContext;

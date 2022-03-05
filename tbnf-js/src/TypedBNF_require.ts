@@ -155,4 +155,3 @@ export function getrange(x: string)
     let [a, b] = x.substring(1, x.length - 1).split('-');
     return MK_LRange(a.codePointAt(0), b.codePointAt(0));
 }
-

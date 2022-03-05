@@ -49,7 +49,6 @@ function codegen(analyzer, cg_options, langName, stmts) {
   });
   let symmap = (0, _Map.empty)();
   let toplevel_transformer = (0, _List.empty)();
-  let currentPos = analyzer.currentPos;
   let lexerMaps = (0, _List.empty)();
   const global_scope = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.map)(k => [k[0], variable_renamer(k[0])], (0, _Analysis.Sigma__get_GlobalVariables)(analyzer.Sigma))));
   const ocamlVarIdentDescr = (0, _BackendsCommon.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, _BackendsCommon.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)((i, c) => {
@@ -148,7 +147,7 @@ function codegen(analyzer, cg_options, langName, stmts) {
 
   const cg_type = t_1 => _cg_type((0, _Grammar.monot__Prune)(t_1));
 
-  const cg_expr = (scope, curr_expr) => {
+  const cg_expr = (scope, curr_expr) => (0, _Analysis.Sigma__WithExpr)(analyzer.Sigma, curr_expr, () => {
     const matchValue_1 = curr_expr.node;
 
     if (matchValue_1.tag === 6) {
@@ -160,11 +159,7 @@ function codegen(analyzer, cg_options, langName, stmts) {
         throw (0, _Exceptions.UnboundVariable)(matchValue_1.fields[0]);
       }
     } else if (matchValue_1.tag === 11) {
-      if (matchValue_1.fields[0]) {
-        return (0, _CodeGen.word)("true");
-      } else {
-        return (0, _CodeGen.word)("false");
-      }
+      return matchValue_1.fields[0] ? (0, _CodeGen.word)("true") : (0, _CodeGen.word)("false");
     } else if (matchValue_1.tag === 3) {
       return (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)(cg_expr(scope, matchValue_1.fields[0]), (0, _CodeGen.word)(":")), (0, _CodeGen.word)(cg_type(curr_expr.t))), (0, _CodeGen.word)(".")), (0, _CodeGen.word)(matchValue_1.fields[1]));
     } else if (matchValue_1.tag === 8) {
@@ -197,7 +192,7 @@ function codegen(analyzer, cg_options, langName, stmts) {
       const args$0027 = (0, _List.map)(x_11 => cg_expr(scope, x_11), matchValue_1.fields[1]);
       return (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(f$0027, (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), args$0027)));
     }
-  };
+  });
 
   const mk_lexer = def => {
     const op_Dereference = mk_lexer;
@@ -360,18 +355,18 @@ function codegen(analyzer, cg_options, langName, stmts) {
   };
 
   const file_grammar = (0, _CodeGen.vsep)((0, _List.ofArray)((0, _Array.map)(stmt => {
+    (0, _Analysis.Sigma__SetCurrentDefinition_Z759AB257)(analyzer.Sigma, stmt);
+
     switch (stmt.tag) {
       case 2:
         {
           const decl_1 = stmt.fields[0];
-          currentPos = decl_1.pos;
           lexerMaps = (0, _List.cons)([decl_1.lhs, (0, _CodeGen.word)(mk_lexer(decl_1.define))], lexerMaps);
           return _CodeGen.empty;
         }
 
       case 6:
         {
-          currentPos = stmt.fields[0].pos;
           return _CodeGen.empty;
         }
 
@@ -400,11 +395,10 @@ function codegen(analyzer, cg_options, langName, stmts) {
       default:
         {
           const decl = stmt.fields[0];
-          currentPos = decl.pos;
           const ntname_1 = cg_symbol(new _Grammar.symbol(1, decl.lhs));
           const body_4 = (0, _CodeGen.align)((0, _CodeGen.vsep)((0, _List.mapIndexed)((i_7, e_1) => (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)(i_7 === 0 ? (0, _CodeGen.word)(":") : (0, _CodeGen.word)("|"), e_1), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_4 => {
             let prod;
-            currentPos = matchValue_4[0];
+            (0, _Analysis.Sigma__SetCurrentPos_Z302187B)(analyzer.Sigma, matchValue_4[0]);
             return (0, _Seq.singleton)((prod = matchValue_4[1], (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.seplist)((0, _CodeGen.word)(" "), (0, _List.map)(arg_1 => (0, _CodeGen.word)(cg_symbol(arg_1)), prod.symbols)), (0, _CodeGen.word)("{")), (0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _List.ofArray)([_CodeGen.empty, (0, _CodeGen.Doc_op_RightShift_2AAA0F3C)(cg_expr(global_scope, prod.action), 4), (0, _CodeGen.word)("}")])), 12))));
           }, decl.define))))));
           return (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(ntname_1), body_4);

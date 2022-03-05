@@ -16,11 +16,11 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
     let type_renamer = Option.defaultValue id cg_options.rename_type
     let start_rule_qualified_type = cg_options.start_rule_qualified_type
     let rts_file_string = cg_options.request_resource(tbnf.ResourceKeys.ocaml_rts_file)
-    
-    
+
+
 
     let mutable importVarNames = []
-    let mutable importTypeNames = []   
+    let mutable importTypeNames = []
 
     let abandoned_names =
         Set.ofArray [| "and"
@@ -191,7 +191,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
             word "let" + name + word "=" + value + word "in"
             body
         ]
-        
+
     let defineOCamlFunc anns body =
         parens(
         vsep [ word "fun"
@@ -204,7 +204,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
         | [] -> None
         | (key', value) :: tl when key' = key -> Some value
         | _ :: tl -> tryLookup key tl
-    
+
     let rec _cg_type (t: monot) =
         match t with
         | monot.TConst n -> type_renamer n
@@ -214,22 +214,22 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
             args
             |> List.map (fun (_, b) -> _cg_type b)
             |> String.concat " * "
-            |> fun it -> 
+            |> fun it ->
                 "(" + it + ") -> " + _cg_type r
-        
+
         | monot.TApp(TTuple, args) ->
             args
-            |> List.map _cg_type 
+            |> List.map _cg_type
             |> String.concat " * "
             |> fun it -> "(" + it + ")"
         | monot.TApp(f, args) ->
             args
-            |> List.map _cg_type 
+            |> List.map _cg_type
             |> String.concat ", "
             |> fun it -> "(" + it + ") " + _cg_type f
 
     let cg_type (t: monot) = _cg_type  (t.Prune())
-    
+
     let rec cg_expr (scope: list<string * string>) (curr_expr: expr) : Doc =
         let inline (!) x = cg_expr scope x
         match curr_expr.node with
@@ -255,7 +255,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
             let scope' =
                 [ for (arg, _) in args -> arg, mangle ocamlVarIdentDescr arg ]
                 @ scope
-            
+
             let code = cg_expr scope' body
             defineOCamlFunc (List.map (fun (a, b) -> word (a + ":" + cg_type b)) args) code
         | node.ELet (n, value, body) ->
@@ -275,7 +275,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
         + (vsep [
               empty
               cg_expr global_scope prod.action >>> 4
-              word "}" 
+              word "}"
            ] >>> 12)
 
     let rec cg_ruledef (lhs: string) (define: list<position * production>) =
@@ -294,9 +294,9 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
         match def with
         | lexerule.LStr s -> escapeString s
-        | lexerule.LGroup (LGroup e) 
+        | lexerule.LGroup (LGroup e)
         | lexerule.LGroup e ->  "(" + !e + ")"
-        | lexerule.LNot e -> $"Compl({(!e)})" 
+        | lexerule.LNot e -> $"Compl({(!e)})"
         | lexerule.LNumber -> "('0' .. '9')"
         | lexerule.LPlus e -> $"Plus({(!e)})"
         | lexerule.LStar e -> $"Star({(!e)})"
@@ -372,15 +372,15 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
         let filename_lexer = sprintf "%s_lexer" langName
         let filename_parser = sprintf "%s_parser" langName
         let filename_constructors = sprintf "%s_construct" langName
-        
+
         (* _require.ml is provided by user *)
         let filename_require = sprintf "%s_require" langName
         let var_tokenizer = mangle ocamlVarIdentDescr "tokenizer"
         let var_lexbuf = mangle ocamlVarIdentDescr "lexbuf"
-        
-        
+
+
         // datatype generator
-        /// when there are no fields for an ADT constructor, 
+        /// when there are no fields for an ADT constructor,
         ///     it's a constructor of `unit`;
         /// when there are no fields for a record,
         ///     it's a type with only one constuctor `MK_{typename}` of `unit`.
@@ -397,31 +397,31 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
             for (typename, cases) in adtCases do
                 let typename' = type_renamer typename
-                yield word $"and {typename'} = "    
+                yield word $"and {typename'} = "
                 for (ctorName, fields) in Map.toArray cases do // TODO: give a proper error when cases are empty
                     // mangling
                     let fields = List.map (fun (fname, t) -> field_renamer fname, cg_type t) fields
                     let ctorName' = constructor_renamer ctorName
-                    
+
                     // for later wrap
                     let ret_t = word typename'
                     docCtorWrapFuncs <- (variable_renamer ctorName, ctorName', fields, ret_t) :: docCtorWrapFuncs
-                    
+
                     if List.isEmpty fields then
                         yield word "|" + word ctorName' + word "of" + word "unit"
                     else
                         let ano_record_typ = seplist (word ";") ([for (fname, t) in fields -> word fname + word ":" + word t])
                         yield word "|" + word ctorName' + word "of" + word "{" + ano_record_typ + word "}"
                 yield empty
-            
+
             // generate records
-                
+
             for (typename, shape) in  analyzer.Sigma.GetRecordTypes() do
                 let typename' = type_renamer typename
                 let varname = variable_renamer typename
                 let ret_t =
                     if List.isEmpty shape.parameters then
-                        word typename' 
+                        word typename'
                     else
                         let tparms =
                             shape.parameters
@@ -430,7 +430,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                             |> word
                             |> parens
                         tparms + word typename'
-                
+
                 let fields = [for (fname, t) in shape.fields -> field_renamer fname, cg_type t]
                 if List.isEmpty fields then
                     yield word "and" + ret_t + word "=" + word ("MK_" + typename') + word "of unit"
@@ -443,8 +443,8 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                     ] >>> 4
                     yield word "}"
                     docCtorWrapFuncs <- (varname, "", fields, ret_t) :: docCtorWrapFuncs
-                    
-            
+
+
             for (function_name, ctor_name, fields, ret_t) in docCtorWrapFuncs do
                 if List.isEmpty fields then
                     yield word "let" + word function_name + word "()" + word "=" + word ctor_name + word "()"
@@ -458,7 +458,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                          ] >>> 4
                     ]
         ]
-        
+
         // lexer generator
         let mutable tokenNames = []
 
@@ -469,10 +469,10 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 #if DEBUG
         printfn "referenced named tokens: %A" ReferencedNamedTokens
 #endif
-        
+
         let mutable lexical_rule_defs = []
         let mutable tokenizer_cases = []
-        
+
         for k in Array.sort (Array.ofSeq analyzer.LiteralTokens) do
             let v = word (mk_lexer (LStr (k)))
 
@@ -482,10 +482,10 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                 word "let" + word (lexical_rule_name) + word "=" +
                     bracket(word "%sedlex.regexp?" + v)
             lexical_rule_defs <- lexical_rule_def :: lexical_rule_defs
-            
+
             let tokenizer_case =
-                word "|" + word lexical_rule_name + word $"-> {tokenName} (mktoken {var_lexbuf})" 
-            
+                word "|" + word lexical_rule_name + word $"-> {tokenName} (mktoken {var_lexbuf})"
+
             tokenizer_cases <- tokenizer_case :: tokenizer_cases
             tokenNames <- tokenName :: tokenNames
 
@@ -499,7 +499,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                 lexical_rule_defs <- lexical_rule_def :: lexical_rule_defs
 
                 let tokenizer_case =
-                    word "|" + word lexical_rule_name + word $"-> {var_tokenizer} {var_lexbuf}" 
+                    word "|" + word lexical_rule_name + word $"-> {var_tokenizer} {var_lexbuf}"
                 tokenizer_cases <- tokenizer_case :: tokenizer_cases
             else
                 let tokenName =  name_of_named_term k
@@ -509,13 +509,13 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                     word "let" + word (lexical_rule_name) + word "=" +
                         bracket(word "%sedlex.regexp?" + v)
                 lexical_rule_defs <- lexical_rule_def :: lexical_rule_defs
-                
+
                 if Array.contains k ReferencedNamedTokens then
                     let tokenizer_case =
-                        word "|" + word lexical_rule_name + word $"-> {tokenName} (mktoken {var_lexbuf})" 
-                    
+                        word "|" + word lexical_rule_name + word $"-> {tokenName} (mktoken {var_lexbuf})"
+
                     tokenizer_cases <- tokenizer_case :: tokenizer_cases
-                    tokenNames <- tokenName :: tokenNames        
+                    tokenNames <- tokenName :: tokenNames
 
         tokenizer_cases <-
             (word $"| _ -> _unknown_token {var_lexbuf}")
@@ -524,7 +524,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
         let tokenNames = List.rev tokenNames
         let tokenizer_cases = List.rev tokenizer_cases
-        
+
         let custom_token_t =  "tbnf_token"
         let file_lexer = filename_lexer + ".ml", vsep [
             word rts_file_string

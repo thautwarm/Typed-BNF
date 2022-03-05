@@ -12,7 +12,7 @@ type CodeGenOptions =
     abstract rename_type : (string -> string) option
     abstract rename_ctor : (string -> string) option
     abstract rename_field : (string -> string) option
-    
+
     // used by ocaml-menhir; specify the **qualified** type of start rule.
     abstract start_rule_qualified_type: string option
 
@@ -23,7 +23,7 @@ type CodeGenOptions =
 module NameMangling =
     open System.Text
     type nameEnv = {  mutable usedNames : string Set }
-    
+
     type IdentifierDescriptor = {
        isValidChar : int -> char -> bool
        charToValid : int -> char -> string
@@ -38,7 +38,7 @@ module NameMangling =
             }
         member this.WithNameEnv x = { this with nameEnv = x }
 
-    
+
     let maskChar low high i = char (low + i % (high - low + 1))
 
     let is_valid_identifier (idr: IdentifierDescriptor) s =
@@ -48,8 +48,8 @@ module NameMangling =
                 if i >= s.Length then true
                 else
                 idr.isValidChar i s.[i] && loop (i + 1)
-            loop 0                    
-    
+            loop 0
+
     let to_valid_identifier (idr: IdentifierDescriptor) s =
             if s = "" then invalidOp "empty identifier"
             else
@@ -68,13 +68,13 @@ module NameMangling =
     let mangle (abandoned_names: string Set)
                (idr: IdentifierDescriptor)
                (n: string) =
-        
+
         let mutable s =
             if is_valid_identifier idr n then
                 n
             else
                 to_valid_identifier idr n
-        
+
         while Set.contains s abandoned_names do
             let add =
                 if idr.isValidChar s.Length '_' then
@@ -82,7 +82,7 @@ module NameMangling =
                 else
                     idr.charToValid s.Length (lowerChars.[s.Length % lowerChars.Length])
             s <- s + add
-        
+
         let nameEnv = idr.nameEnv
 
         while Set.contains s nameEnv.usedNames do
@@ -105,7 +105,7 @@ module DocBuilder =
         member __.Bind<'b, 'c>(m: block<'b>, k : 'b -> block<'c>): block<'c> =
             let m' = k(m.value)
             { m' with suite = m'.suite @ m.suite }
-        
+
         member __.Return<'a>(v: 'a) =
              { suite = [];  value = v }
 
@@ -113,15 +113,15 @@ module DocBuilder =
 
         member __.Combine<'a, 'b>(m1: block<'a>, m2: block<'b>) =
             { m2 with suite = m2.suite @ m1.suite }
-        
+
         member __.Yield(a) =
             { value = []; suite = [a] }
-        
+
         member __.YieldFrom(a) =
             { value = (); suite = List.rev a }
-        
+
         member __.Zero() = { value = (); suite = [] }
-        
+
         member __.Delay<'a>(x: unit -> block<'a>) = x()
 
         member __.For<'t, 'u>(m: seq<'t>, f: 't -> block<'u>) =
@@ -133,9 +133,9 @@ module DocBuilder =
                     yield m'.value
             ]
             { suite = suite; value = value }
-       
+
         member __.ReturnFrom (m: block<'a>) = m
-        
+
     let runCG(m: block<'a>) = (m.value, List.rev m.suite)
 
     let cg = Builder()

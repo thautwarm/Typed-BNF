@@ -48,7 +48,7 @@ let _escapeStringSingleQuoted (s: string) =
 let escapeStringSingleQuoted (s: string) = _escapeStringSingleQuoted s
 let escapeString (s: string) = _escapeString s
 
-let capitalized (s: string) = 
+let capitalized (s: string) =
     if s = "" then s
     else string(System.Char.ToUpperInvariant (s.[0])) + s.[1..s.Length - 1]
 
@@ -58,13 +58,13 @@ module List =
         | [] -> None
         | (key', value)::tl when key' = key -> Some value
         | _::tl -> tryLookup key tl
-    
+
     let rec lookup key x =
         match x with
         | [] -> invalidOp "key not found"
         | (key', value)::tl when key' = key -> value
         | _::tl -> lookup key tl
-    
+
     let rec replaceWith key func xs =
         match xs with
         | [] -> [key, func None]

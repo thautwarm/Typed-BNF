@@ -16,6 +16,7 @@ exports.TTuple = TTuple;
 exports.definition = exports._predefined_typenames = void 0;
 exports.definition$reflection = definition$reflection;
 exports.definition__Inspect = definition__Inspect;
+exports.definition__get_Position = definition__get_Position;
 exports.expr = void 0;
 exports.expr$reflection = expr$reflection;
 exports.expr_WithNode = expr_WithNode;
@@ -445,6 +446,45 @@ function symbol__Inspect(this$) {
     return (0, _Utils.escapeString)(this$.fields[0]);
   } else {
     return "\u003c" + this$.fields[0] + "\u003e";
+  }
+}
+
+function definition__get_Position(this$) {
+  switch (this$.tag) {
+    case 1:
+      {
+        return this$.fields[0].pos;
+      }
+
+    case 2:
+      {
+        return this$.fields[0].pos;
+      }
+
+    case 3:
+      {
+        return this$.fields[0].pos;
+      }
+
+    case 4:
+      {
+        return this$.fields[0].pos;
+      }
+
+    case 5:
+      {
+        return this$.fields[0].pos;
+      }
+
+    case 6:
+      {
+        return this$.fields[0].pos;
+      }
+
+    default:
+      {
+        return this$.fields[0].pos;
+      }
   }
 }
 

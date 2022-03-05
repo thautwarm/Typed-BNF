@@ -12,11 +12,11 @@ open tbnf.Backends.Common.DocBuilder
 open tbnf.Backends.Common.NameMangling
 
 
-let codegen (analyzer: Analyzer) 
+let codegen (analyzer: Analyzer)
             (cg_options: CodeGenOptions)
             (langName: string)
             (stmts: definition array) =
-    
+
     let rename_var = Option.defaultValue id cg_options.rename_var
     let rename_ctor = Option.defaultValue id cg_options.rename_ctor
     let rename_field = Option.defaultValue id cg_options.rename_field
@@ -74,8 +74,8 @@ let codegen (analyzer: Analyzer)
     |]
 
 
-    let mutable symmap : Map<symbol, string> = Map.empty    
-    
+    let mutable symmap : Map<symbol, string> = Map.empty
+
     let mutable toplevel_transformer : Doc list = []
     let mutable currentPos = analyzer.currentPos
 
@@ -123,7 +123,7 @@ let codegen (analyzer: Analyzer)
                      else "_" + string(maskChar (int 'a') (int 'z') (int c)) + "_")
             ).WithNameEnv { usedNames = Set.ofArray [| "start" |] }
 
-    
+
     let mangle = mangle (Set.union abandoned_names export_names)
 
 
@@ -274,7 +274,7 @@ let codegen (analyzer: Analyzer)
         | lexerule.LOr [] -> invalidOp "impossible: alternatives cannot be empty."
         | lexerule.LOr (hd::tl) -> List.fold (por) (!hd) (List.map mk_lexer tl)
         | lexerule.LOptional e -> popt (!e)
-    
+
     let rec mk_lexer_debug (def: lexerule) : string =
         let (!) = mk_lexer_debug
         match def with
@@ -296,8 +296,8 @@ let codegen (analyzer: Analyzer)
         | lexerule.LOr (hd::tl) -> List.fold (fun a b -> $"por({a}, {b})") (!hd) (List.map mk_lexer_debug tl)
         | lexerule.LOptional e -> $"popt{(!e)}"
 
-    
-    
+
+
     let rec cg_stmt stmt =
         match stmt with
         | definition.Defrule decl ->
@@ -330,7 +330,7 @@ let codegen (analyzer: Analyzer)
                 importNames <- rename_type decl.ident :: importNames
             empty
         | definition.Defmacro _ -> invalidOp "macro not processed"
-    
+
     let filename_lexer = sprintf "%s_lexer" langName
     let filename_require = sprintf "%s_require" langName
     let filename_python = sprintf "%s_parser" langName
@@ -351,7 +351,7 @@ let codegen (analyzer: Analyzer)
     let classvar_LarkBuilder = mangle pythonIdentifierDescr "Lark"
     let modulevar_dataclass = mangle pythonIdentifierDescr "dataclasses"
     let modulevar_typing = mangle pythonIdentifierDescr "typing"
-    
+
     let rec _cg_type (t: monot) =
         match t with
         | monot.TConst n -> rename_type n
@@ -384,7 +384,7 @@ let codegen (analyzer: Analyzer)
     |> vsep
     |> fun file_grammar ->
 
-    
+
     let import_items = parens(seplist (word ",") (List.map word importNames))
 
     // data classes generator
@@ -393,7 +393,7 @@ let codegen (analyzer: Analyzer)
         yield word $"from lark import Token as {classvar_LarkToken}"
         yield word $"import dataclasses as {modulevar_dataclass}"
         yield word $"import typing as {modulevar_typing}"
-        
+
         // generate ADTs
         let adtCases = analyzer.Sigma.GetADTCases()
         if not (List.isEmpty importNames) then
@@ -401,7 +401,7 @@ let codegen (analyzer: Analyzer)
         yield empty
         for (typename, cases) in adtCases do
             let typename' = rename_type typename
-            
+
             let mutable docCtorNames = []
             for (ctorName, fields) in Map.toArray cases do
                 let ctorName = rename_ctor ctorName
@@ -437,7 +437,7 @@ let codegen (analyzer: Analyzer)
             let typename' = rename_type typename
             let varname = rename_var typename
             yield word $"@{modulevar_dataclass}.dataclass"
-            
+
             // TODO: generic type variables
             yield word $"class {typename'}:"
             if List.isEmpty shape.fields then
@@ -469,7 +469,7 @@ let codegen (analyzer: Analyzer)
 #if DEBUG
     printfn "referenced named tokens: %A" ReferencedNamedTokens
 #endif
-    
+
     for k in Array.sort (Array.ofSeq analyzer.LiteralTokens) do
         let v = pstring(k)
         lexerInfo <- (v, Tokenize token_id) :: lexerInfo
@@ -477,7 +477,7 @@ let codegen (analyzer: Analyzer)
         tokenReprs <- escapeString k :: tokenReprs
         token_id <- token_id + 1
         idx <- idx + 1
-    
+
     for k in ReferencedNamedTokens do
         let v = lexerMaps.[k]
         if Set.contains k analyzer.IgnoreSet then
@@ -497,11 +497,11 @@ let codegen (analyzer: Analyzer)
 #if DEBUG
     printfn "literal tokens %A" analyzer.LiteralTokens
 #endif
-    
+
     lexerInfo <- (pany, Tokenize token_id) :: lexerInfo
     tokenNames <- "UNKNOWN" :: tokenNames
     tokenReprs <- "UNKNOWN" :: tokenReprs
-    
+
     let tokenNames = List.rev tokenNames
     let tokenReprs = List.rev tokenReprs
 
@@ -521,7 +521,7 @@ let codegen (analyzer: Analyzer)
 
     let file_python = vsep [
         yield word "from __future__ import annotations"
-        
+
         if not (List.isEmpty importNames) then
                 yield word ($"from .{filename_require} import") + import_items
 
@@ -532,7 +532,7 @@ let codegen (analyzer: Analyzer)
         yield word $"from lark import Lark as {classvar_LarkBuilder}"
         yield word $"from {PythonPackage_Sedlex}.sedlex import from_ustring as {var_from_ustring}"
 
-                
+
         yield word var_tokenmaps + word "=" + bracket(seplist (word ", ") (List.map (escapeString >> word) tokenNames))
         yield word var_tokenreprs + word "=" + bracket(seplist (word ", ") (List.map (escapeString >> word) tokenReprs))
         yield empty

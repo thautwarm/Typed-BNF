@@ -6,9 +6,7 @@
 /**.g4
 __pycache__
 /runtests/ocaml_simple_json/_build/
-/FableSedlex/.git
-/FableSedlex/**/*
-/FableSedlex/*
+/FableSedlex/
 bin/
 obj/
 .ionide/

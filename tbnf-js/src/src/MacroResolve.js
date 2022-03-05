@@ -53,7 +53,7 @@ function toPositionIndependentString(term) {
   }
 }
 
-function resolve_macro(setPos, stmts) {
+function resolve_macro(setPos, setDef, stmts) {
   let macro_defs = (0, _Map.empty)();
   let stmts_to_solve = (0, _List.empty)();
   let fixed_stmts = (0, _List.empty)();
@@ -90,6 +90,7 @@ function resolve_macro(setPos, stmts) {
 
   const solve_specialization = tupledArg => {
     const decl_2 = tupledArg[0];
+    setDef(new _Grammar.definition(1, decl_2));
     let define = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue => {
       const pos = matchValue[0];
       const case$ = matchValue[1];

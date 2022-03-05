@@ -9,8 +9,9 @@ exports.Shape = void 0;
 exports.Shape$reflection = Shape$reflection;
 exports.Sigma = void 0;
 exports.Sigma$reflection = Sigma$reflection;
-exports.Sigma_$ctor_Z57FA2555 = Sigma_$ctor_Z57FA2555;
+exports.Sigma_$ctor_3EA8CBCD = Sigma_$ctor_3EA8CBCD;
 exports.Sigma__GetADTCases = Sigma__GetADTCases;
+exports.Sigma__GetCurrentDefinition = Sigma__GetCurrentDefinition;
 exports.Sigma__GetRecordTypes = Sigma__GetRecordTypes;
 exports.Sigma__IsGlobalVariableConstructor_Z721C83C5 = Sigma__IsGlobalVariableConstructor_Z721C83C5;
 exports.Sigma__KindCheckMono_Z25145215 = Sigma__KindCheckMono_Z25145215;
@@ -20,6 +21,10 @@ exports.Sigma__LookupField = Sigma__LookupField;
 exports.Sigma__RegisterCtorGVar = Sigma__RegisterCtorGVar;
 exports.Sigma__RegisterExtGVar = Sigma__RegisterExtGVar;
 exports.Sigma__RegisterType = Sigma__RegisterType;
+exports.Sigma__SetCurrentDefinition_Z759AB257 = Sigma__SetCurrentDefinition_Z759AB257;
+exports.Sigma__SetCurrentPos_Z302187B = Sigma__SetCurrentPos_Z302187B;
+exports.Sigma__WithExpr = Sigma__WithExpr;
+exports.Sigma__get_CurrentPos = Sigma__get_CurrentPos;
 exports.Sigma__get_GlobalVariables = Sigma__get_GlobalVariables;
 exports.build_analyzer = build_analyzer;
 
@@ -67,8 +72,9 @@ function Shape$reflection() {
 }
 
 class Sigma {
-  constructor(UM) {
+  constructor(UM, errorTrace) {
     this.UM = UM;
+    this.errorTrace = errorTrace;
     this.shapes = (0, _Map.empty)();
     this.kinds = (0, _Map.ofArray)(_Grammar._predefined_typenames);
     this.global_variables = (0, _Map.empty)();
@@ -90,8 +96,34 @@ function Sigma$reflection() {
   return (0, _Reflection.class_type)("tbnf.Analysis.Sigma", void 0, Sigma);
 }
 
-function Sigma_$ctor_Z57FA2555(UM) {
-  return new Sigma(UM);
+function Sigma_$ctor_3EA8CBCD(UM, errorTrace) {
+  return new Sigma(UM, errorTrace);
+}
+
+function Sigma__WithExpr(__, e, f) {
+  const oldExprStack = __.errorTrace.exprStack;
+  __.errorTrace.currentPos = e.pos;
+  __.errorTrace.exprStack = (0, _List.cons)(e, oldExprStack);
+  const res = f();
+  __.errorTrace.currentPos = e.pos;
+  __.errorTrace.exprStack = oldExprStack;
+  return res;
+}
+
+function Sigma__SetCurrentPos_Z302187B(__, pos) {
+  __.errorTrace.currentPos = pos;
+}
+
+function Sigma__get_CurrentPos(__) {
+  return __.errorTrace.currentPos;
+}
+
+function Sigma__SetCurrentDefinition_Z759AB257(__, def) {
+  __.errorTrace.whichDef = def;
+}
+
+function Sigma__GetCurrentDefinition(__) {
+  return __.errorTrace.whichDef;
 }
 
 function Sigma__KindCheck_Z25145215(__, t) {
@@ -391,11 +423,10 @@ function Sigma__registerCtorGVar(this$, varname, t) {
 }
 
 class Analyzer extends _Types.Record {
-  constructor(UM, Sigma, currentPos, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments, IgnoreSet) {
+  constructor(UM, Sigma, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments, IgnoreSet) {
     super();
     this.UM = UM;
     this.Sigma = Sigma;
-    this.currentPos = currentPos;
     this.Omega = Omega;
     this.LiteralTokens = LiteralTokens;
     this.ReferencedNamedTokens = ReferencedNamedTokens;
@@ -408,14 +439,14 @@ class Analyzer extends _Types.Record {
 exports.Analyzer = Analyzer;
 
 function Analyzer$reflection() {
-  return (0, _Reflection.record_type)("tbnf.Analysis.Analyzer", [], Analyzer, () => [["UM", (0, _Unification.Manager$reflection)()], ["Sigma", Sigma$reflection()], ["currentPos", (0, _Grammar.position$reflection)()], ["Omega", (0, _Reflection.class_type)("Microsoft.FSharp.Collections.FSharpMap`2", [_Reflection.string_type, (0, _Grammar.monot$reflection)()])], ["LiteralTokens", (0, _Reflection.class_type)("Microsoft.FSharp.Collections.FSharpSet`1", [_Reflection.string_type])], ["ReferencedNamedTokens", (0, _Reflection.class_type)("Microsoft.FSharp.Collections.FSharpSet`1", [_Reflection.string_type])], ["TokenFragments", (0, _Reflection.array_type)(_Reflection.string_type)], ["IgnoreSet", (0, _Reflection.class_type)("Microsoft.FSharp.Collections.FSharpSet`1", [_Reflection.string_type])]]);
+  return (0, _Reflection.record_type)("tbnf.Analysis.Analyzer", [], Analyzer, () => [["UM", (0, _Unification.Manager$reflection)()], ["Sigma", Sigma$reflection()], ["Omega", (0, _Reflection.class_type)("Microsoft.FSharp.Collections.FSharpMap`2", [_Reflection.string_type, (0, _Grammar.monot$reflection)()])], ["LiteralTokens", (0, _Reflection.class_type)("Microsoft.FSharp.Collections.FSharpSet`1", [_Reflection.string_type])], ["ReferencedNamedTokens", (0, _Reflection.class_type)("Microsoft.FSharp.Collections.FSharpSet`1", [_Reflection.string_type])], ["TokenFragments", (0, _Reflection.array_type)(_Reflection.string_type)], ["IgnoreSet", (0, _Reflection.class_type)("Microsoft.FSharp.Collections.FSharpSet`1", [_Reflection.string_type])]]);
 }
 
 function build_analyzer(stmts) {
   let TokenFragments_1;
+  const errorTrace = new _Exceptions.ErrorTrace(stmts[0], (0, _List.empty)(), (0, _Grammar.position_get_Fake)());
   const UM = (0, _Unification.Manager_$ctor)();
-  const Sigma_1 = Sigma_$ctor_Z57FA2555(UM);
-  let currentPos = null;
+  const Sigma_1 = Sigma_$ctor_3EA8CBCD(UM, errorTrace);
   let Omega = (0, _Map.empty)();
   let LiteralTokens = (0, _Set.empty)({
     Compare: _Util.comparePrimitives
@@ -430,104 +461,109 @@ function build_analyzer(stmts) {
 
   const infer_e = (s_Gamma, S, e) => {
     const S_1 = S;
-    currentPos = e.pos;
-    const matchValue = e.node;
+    return Sigma__WithExpr(Sigma_1, e, () => {
+      const matchValue = e.node;
 
-    switch (matchValue.tag) {
-      case 6:
-        {
-          const v_1 = matchValue.fields[0];
-          const matchValue_1 = (0, _Map.tryFind)(v_1, s_Gamma);
+      switch (matchValue.tag) {
+        case 6:
+          {
+            const v_1 = matchValue.fields[0];
+            const matchValue_1 = (0, _Map.tryFind)(v_1, s_Gamma);
 
-          if (matchValue_1 != null) {
-            const patternInput = (0, _Unification.Manager__Instantiate_Z25E5E15E)(UM, matchValue_1);
-            matchValue.fields[1].contents = patternInput[0];
-            return new _Grammar.expr(e.node, e.pos, patternInput[1]);
-          } else {
-            const exn_5 = (0, _Exceptions.UnboundVariable)(v_1);
-            throw exn_5;
+            if (matchValue_1 != null) {
+              const patternInput = (0, _Unification.Manager__Instantiate_Z25E5E15E)(UM, matchValue_1);
+              matchValue.fields[1].contents = patternInput[0];
+              return new _Grammar.expr(e.node, e.pos, patternInput[1]);
+            } else {
+              const exn_5 = (0, _Exceptions.UnboundVariable)(v_1);
+              throw exn_5;
+            }
           }
-        }
 
-      case 9:
-        {
-          return new _Grammar.expr(e.node, e.pos, _Grammar.TConst_str);
-        }
-
-      case 8:
-        {
-          return new _Grammar.expr(e.node, e.pos, _Grammar.TConst_int);
-        }
-
-      case 11:
-        {
-          return new _Grammar.expr(e.node, e.pos, _Grammar.TConst_bool);
-        }
-
-      case 10:
-        {
-          return new _Grammar.expr(e.node, e.pos, _Grammar.TConst_float);
-        }
-
-      case 4:
-        {
-          const name_3 = matchValue.fields[0];
-          const value_2 = infer_e(s_Gamma, S_1, matchValue.fields[1]);
-          const body_1 = infer_e((0, _Map.add)(name_3, new _Grammar.polyt(1, value_2.t), s_Gamma), S_1, matchValue.fields[2]);
-          return new _Grammar.expr(new _Grammar.node(4, name_3, value_2, body_1), e.pos, body_1.t);
-        }
-
-      case 2:
-        {
-          const t_r = (0, _Unification.Manager__NewTyRef_Z721C83C5)(UM, "list");
-          return new _Grammar.expr(new _Grammar.node(2, (0, _List.map)(elt_1 => infer_e(s_Gamma, S_1, elt_1), matchValue.fields[0])), e.pos, (0, _Grammar.TList)((0, _Grammar.monot__Prune)(t_r)));
-        }
-
-      case 7:
-        {
-          const i = matchValue.fields[0] | 0;
-          const matchValue_2 = (0, _List.tryItem)(i - 1, S_1);
-
-          if (matchValue_2 == null) {
-            const exn_6 = new _Exceptions.ComponentAccessingOutOfBound(i);
-            throw exn_6;
-          } else {
-            return new _Grammar.expr(e.node, e.pos, matchValue_2);
+        case 9:
+          {
+            return new _Grammar.expr(e.node, e.pos, _Grammar.TConst_str);
           }
-        }
 
-      case 0:
-        {
-          const f_1 = infer_e(s_Gamma, S_1, matchValue.fields[0]);
-          const t_f = f_1.t;
-          const args_1 = (0, _List.map)(expr => infer_e(s_Gamma, S_1, expr), matchValue.fields[1]);
-          const t_args = (0, _List.mapIndexed)((i_1, x_6) => [`arg${i_1}`, x_6.t], args_1);
-          const t_r_1 = (0, _Unification.Manager__NewTyRef_Z721C83C5)(UM, "@ret");
-          (0, _Unification.Manager__Unify_Z1D753960)(UM, new _Grammar.monot(3, t_args, t_r_1), t_f);
-          Sigma__KindCheckMono_Z25145215(Sigma_1, (0, _Grammar.monot__Prune)(t_f));
-          return new _Grammar.expr(new _Grammar.node(0, f_1, args_1), e.pos, (0, _Grammar.monot__Prune)(t_r_1));
-        }
+        case 8:
+          {
+            return new _Grammar.expr(e.node, e.pos, _Grammar.TConst_int);
+          }
 
-      case 3:
-        {
-          const fieldname_1 = matchValue.fields[1];
-          const value_4 = infer_e(s_Gamma, S_1, matchValue.fields[0]);
-          return new _Grammar.expr(new _Grammar.node(3, value_4, fieldname_1), e.pos, Sigma__LookupField(Sigma_1, value_4.t, fieldname_1));
-        }
+        case 11:
+          {
+            return new _Grammar.expr(e.node, e.pos, _Grammar.TConst_bool);
+          }
 
-      case 5:
-        {
-          const ann_args = matchValue.fields[0];
-          const body_3 = infer_e((0, _List.fold)((state, tupledArg_1) => (0, _Map.add)(tupledArg_1[0], new _Grammar.polyt(1, Sigma__KindCheck_Z25145215(Sigma_1, tupledArg_1[1])), state), s_Gamma, ann_args), S_1, matchValue.fields[1]);
-          return new _Grammar.expr(new _Grammar.node(5, ann_args, body_3), e.pos, new _Grammar.monot(3, ann_args, body_3.t));
-        }
+        case 10:
+          {
+            return new _Grammar.expr(e.node, e.pos, _Grammar.TConst_float);
+          }
 
-      default:
-        {
-          const elts_1 = (0, _List.map)(elt => infer_e(s_Gamma, S_1, elt), matchValue.fields[0]);
-          return new _Grammar.expr(new _Grammar.node(1, elts_1), e.pos, (0, _Grammar.TTuple)((0, _List.map)(x_5 => x_5.t, elts_1)));
-        }
-    }
+        case 4:
+          {
+            const name_3 = matchValue.fields[0];
+            const value_2 = infer_e(s_Gamma, S_1, matchValue.fields[1]);
+            const body_1 = infer_e((0, _Map.add)(name_3, new _Grammar.polyt(1, value_2.t), s_Gamma), S_1, matchValue.fields[2]);
+            return new _Grammar.expr(new _Grammar.node(4, name_3, value_2, body_1), e.pos, body_1.t);
+          }
+
+        case 2:
+          {
+            const t_r = (0, _Unification.Manager__NewTyRef_Z721C83C5)(UM, "list");
+            return new _Grammar.expr(new _Grammar.node(2, (0, _List.map)(elt_1 => {
+              const e_1 = infer_e(s_Gamma, S_1, elt_1);
+              (0, _Unification.Manager__Unify_Z1D753960)(UM, t_r, e_1.t);
+              return e_1;
+            }, matchValue.fields[0])), e.pos, (0, _Grammar.TList)((0, _Grammar.monot__Prune)(t_r)));
+          }
+
+        case 7:
+          {
+            const i = matchValue.fields[0] | 0;
+            const matchValue_2 = (0, _List.tryItem)(i - 1, S_1);
+
+            if (matchValue_2 == null) {
+              const exn_6 = new _Exceptions.ComponentAccessingOutOfBound(i);
+              throw exn_6;
+            } else {
+              return new _Grammar.expr(e.node, e.pos, matchValue_2);
+            }
+          }
+
+        case 0:
+          {
+            const f_1 = infer_e(s_Gamma, S_1, matchValue.fields[0]);
+            const t_f = f_1.t;
+            const args_1 = (0, _List.map)(expr => infer_e(s_Gamma, S_1, expr), matchValue.fields[1]);
+            const t_args = (0, _List.mapIndexed)((i_1, x_6) => [`arg${i_1}`, x_6.t], args_1);
+            const t_r_1 = (0, _Unification.Manager__NewTyRef_Z721C83C5)(UM, "@ret");
+            (0, _Unification.Manager__Unify_Z1D753960)(UM, new _Grammar.monot(3, t_args, t_r_1), t_f);
+            Sigma__KindCheckMono_Z25145215(Sigma_1, (0, _Grammar.monot__Prune)(t_f));
+            return new _Grammar.expr(new _Grammar.node(0, f_1, args_1), e.pos, (0, _Grammar.monot__Prune)(t_r_1));
+          }
+
+        case 3:
+          {
+            const fieldname_1 = matchValue.fields[1];
+            const value_4 = infer_e(s_Gamma, S_1, matchValue.fields[0]);
+            return new _Grammar.expr(new _Grammar.node(3, value_4, fieldname_1), e.pos, Sigma__LookupField(Sigma_1, value_4.t, fieldname_1));
+          }
+
+        case 5:
+          {
+            const ann_args = matchValue.fields[0];
+            const body_3 = infer_e((0, _List.fold)((state, tupledArg_1) => (0, _Map.add)(tupledArg_1[0], new _Grammar.polyt(1, Sigma__KindCheck_Z25145215(Sigma_1, tupledArg_1[1])), state), s_Gamma, ann_args), S_1, matchValue.fields[1]);
+            return new _Grammar.expr(new _Grammar.node(5, ann_args, body_3), e.pos, new _Grammar.monot(3, ann_args, body_3.t));
+          }
+
+        default:
+          {
+            const elts_1 = (0, _List.map)(elt => infer_e(s_Gamma, S_1, elt), matchValue.fields[0]);
+            return new _Grammar.expr(new _Grammar.node(1, elts_1), e.pos, (0, _Grammar.TTuple)((0, _List.map)(x_5 => x_5.t, elts_1)));
+          }
+      }
+    });
   };
 
   const check_lexerule = x_7_mut => {
@@ -616,12 +652,15 @@ function build_analyzer(stmts) {
   };
 
   try {
-    const stmts_1 = (0, _MacroResolve.resolve_macro)(x_9 => {
-      currentPos = x_9;
+    const stmts_1 = (0, _MacroResolve.resolve_macro)(arg00_6 => {
+      Sigma__SetCurrentPos_Z302187B(Sigma_1, arg00_6);
+    }, arg00_7 => {
+      Sigma__SetCurrentDefinition_Z759AB257(Sigma_1, arg00_7);
     }, stmts);
 
     for (let idx = 0; idx <= stmts_1.length - 1; idx++) {
       const stmt = stmts_1[idx];
+      Sigma__SetCurrentDefinition_Z759AB257(Sigma_1, stmt);
       let pattern_matching_result_1, decl_1, decl_2, decl_3, decl_4, decl_5;
 
       if (stmt.tag === 6) {
@@ -652,7 +691,6 @@ function build_analyzer(stmts) {
       switch (pattern_matching_result_1) {
         case 0:
           {
-            currentPos = decl_1.pos;
             const enumerator = (0, _Util.getEnumerator)(decl_1.ignoreList);
 
             try {
@@ -670,29 +708,24 @@ function build_analyzer(stmts) {
 
         case 1:
           {
-            currentPos = decl_2.pos;
             Sigma__RegisterExtGVar(Sigma_1, decl_2.ident, Sigma__KindCheck_Z25E5E15E(Sigma_1, decl_2.t));
             break;
           }
 
         case 2:
           {
-            currentPos = decl_3.pos;
             Sigma__RegisterCtorGVar(Sigma_1, decl_3.ident, Sigma__KindCheck_Z25145215(Sigma_1, decl_3.t));
             break;
           }
 
         case 3:
           {
-            currentPos = decl_4.pos;
             Sigma__RegisterType(Sigma_1, decl_4.external, decl_4.hasFields, decl_4.ident, decl_4.parameters, (0, _List.map)(tupledArg => [tupledArg[0], tupledArg[1]], decl_4.fields));
             const enumerator_1 = (0, _Util.getEnumerator)(decl_4.fields);
 
             try {
               while (enumerator_1["System.Collections.IEnumerator.MoveNext"]()) {
-                const forLoopVar = enumerator_1["System.Collections.Generic.IEnumerator`1.get_Current"]();
-                currentPos = forLoopVar[2];
-                Sigma__KindCheckMono_Z25145215(Sigma_1, forLoopVar[1]);
+                Sigma__KindCheckMono_Z25145215(Sigma_1, enumerator_1["System.Collections.Generic.IEnumerator`1.get_Current"]()[1]);
               }
             } finally {
               (0, _Util.disposeSafe)(enumerator_1);
@@ -769,12 +802,12 @@ function build_analyzer(stmts) {
 
     for (let idx_1 = 0; idx_1 <= stmts_1.length - 1; idx_1++) {
       const stmt_2 = stmts_1[idx_1];
+      Sigma__SetCurrentDefinition_Z759AB257(Sigma_1, stmt_2);
 
       switch (stmt_2.tag) {
         case 1:
           {
             const decl_10 = stmt_2.fields[0];
-            currentPos = decl_10.pos;
             const tupledArg_2 = [decl_10.lhs, decl_10.define];
             const t_6 = (0, _Map.FSharpMap__get_Item)(Omega, tupledArg_2[0]);
             const enumerator_2 = (0, _Util.getEnumerator)(tupledArg_2[1]);
@@ -783,7 +816,7 @@ function build_analyzer(stmts) {
               while (enumerator_2["System.Collections.IEnumerator.MoveNext"]()) {
                 const forLoopVar_1 = enumerator_2["System.Collections.Generic.IEnumerator`1.get_Current"]();
                 const production = forLoopVar_1[1];
-                currentPos = forLoopVar_1[0];
+                Sigma__SetCurrentPos_Z302187B(Sigma_1, forLoopVar_1[0]);
                 const S_2 = (0, _List.map)(s => {
                   if (s.tag === 0) {
                     const n = s.fields[0];
@@ -829,9 +862,7 @@ function build_analyzer(stmts) {
 
         case 2:
           {
-            const decl_11 = stmt_2.fields[0];
-            currentPos = decl_11.pos;
-            check_lexerule(decl_11.define);
+            check_lexerule(stmt_2.fields[0].define);
             break;
           }
 
@@ -840,12 +871,12 @@ function build_analyzer(stmts) {
       }
     }
 
-    return [stmts_1, (TokenFragments_1 = (0, _Array.reverse)((0, _List.toArray)(TokenFragments)), new Analyzer(UM, Sigma_1, currentPos, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet))];
-  } catch (e_1) {
-    const arg30_1 = currentPos.filename;
-    const arg20_1 = currentPos.col | 0;
-    const arg10_4 = currentPos.line | 0;
-    (0, _String.toConsole)((0, _String.printf)("line %d, column %d, file: %s\n%A"))(arg10_4)(arg20_1)(arg30_1)(e_1);
+    return [stmts_1, (TokenFragments_1 = (0, _Array.reverse)((0, _List.toArray)(TokenFragments)), new Analyzer(UM, Sigma_1, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet))];
+  } catch (e_2) {
+    const arg30_1 = Sigma__get_CurrentPos(Sigma_1).filename;
+    const arg20_1 = Sigma__get_CurrentPos(Sigma_1).col | 0;
+    const arg10_5 = Sigma__get_CurrentPos(Sigma_1).line | 0;
+    (0, _String.toConsole)((0, _String.printf)("line %d, column %d, file: %s\n%A"))(arg10_5)(arg20_1)(arg30_1)(e_2);
     throw new Error("exit with error");
   }
 }

@@ -19,10 +19,10 @@ let filter_error<'a> (errorTrace: ErrorTrace) (action: unit -> 'a) =
         let t1 = t1.Prune() |> inspectMonoType
         let t2 = t2.Prune() |> inspectMonoType
         Err $"recursive types are invalid: {t1} ~ {t2}"
-    
+
     | TypeUnexpected(got, expected) ->
         let got = got.Prune() |> inspectMonoType
         let expected = expected.Prune() |> inspectMonoType
         Err $"expected {got} ~ {expected}"
-        
-        
+
+

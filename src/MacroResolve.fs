@@ -8,7 +8,7 @@ let rec toPositionIndependent (term: symbol) =
     | Nonterm _ | Term _ -> term
     | Macrocall(name, syms, _) ->
         Macrocall(name, List.map toPositionIndependent syms, position.Fake)
-    
+
 let rec toPositionIndependentString (term: symbol) =
     match term with
     | Term(define, true)  -> escapeString define
@@ -32,7 +32,7 @@ let resolve_macro(setPos : position -> unit) (stmts: definition array) =
         | _ ->
             fixed_stmts <- each :: fixed_stmts
     // printfn "solving..."
-    // stmts_to_solve 
+    // stmts_to_solve
     // |> List.map (fun (x, _) -> x.lhs)
     // |> printfn "%A"
 
@@ -41,12 +41,12 @@ let resolve_macro(setPos : position -> unit) (stmts: definition array) =
         let mutable final_results = []
         let mutable solved = Map.empty
 
-        
+
         let rec solve_specialization (decl : {| define: list<position * production> ; lhs : string ; pos: position |}, scope: Map<string, symbol>) =
-            let mutable define = 
+            let mutable define =
                 [ for (pos, case) in decl.define do
                     setPos pos
-                    yield pos, { 
+                    yield pos, {
                         symbols = List.map (fun x -> solve_sym x scope) case.symbols;
                         action = case.action.DeepCopy() }
                 ]
@@ -60,8 +60,8 @@ let resolve_macro(setPos : position -> unit) (stmts: definition array) =
             //         |> printfn "%s"
             // printfn "adding %s" decl.lhs
             final_results <- Defrule {| decl with define = define |} :: final_results
-            
-        
+
+
         and solve_sym (sym: symbol) (scope: Map<string, symbol>) =
             match sym with
             | Term _ -> sym
@@ -72,13 +72,13 @@ let resolve_macro(setPos : position -> unit) (stmts: definition array) =
                     // printfn "found no subst for %A" n
                     sym
             | Macrocall(n, args, pos) ->
-            
+
             setPos pos
-            
+
             let args = [for arg in args -> solve_sym arg scope]
-            let mutable sym = Macrocall(n, args, pos) 
+            let mutable sym = Macrocall(n, args, pos)
             let key = toPositionIndependent sym
-            
+
             match Map.tryFind key solved with
             | Some resolved_name -> resolved_name
             | None ->
@@ -92,29 +92,29 @@ let resolve_macro(setPos : position -> unit) (stmts: definition array) =
                         let str_parameters = String.concat ", " parameters
                         let msg = $"macro {n} expects {parameters.Length} argument(s): ({str_parameters}); got {args.Length}"
                         raise <| MacroResolveError msg
-                    
+
                     let scope' =  List.map2 (fun k v -> k, v) parameters args
                                  |> Map.ofList
                     let mutable resolved_name = toPositionIndependentString sym
-                    
+
                     solved <- Map.add key resolved_name solved
                     // if resolved_name = "nempty_list[stat]" then
                     //     printfn "inst 1"
                     //     printfn "%A" args
                     //     printfn "old scope: %A" scope
                     //     printfn "new scope: %A" scope'
-                    
+
                     stmts_to_solve <- ({| lhs = resolved_name; define = macro_def.define; pos = pos |}, scope') :: stmts_to_solve
                     // printfn "%s" resolved_name
                     resolved_name
             |> fun resolved_name -> Nonterm(resolved_name)
-            
-        
+
+
         while not (List.isEmpty stmts_to_solve) do
             let decl = List.head stmts_to_solve
             stmts_to_solve <- List.tail stmts_to_solve
             solve_specialization decl
-        
+
         final_results
 
     let final_results = fixedPoint ()

@@ -53,7 +53,6 @@ function codegen(analyzer, cg_options, langName, stmts) {
   });
   let symmap = (0, _Map.empty)();
   let toplevel_transformer = (0, _List.empty)();
-  let currentPos = analyzer.currentPos;
   let lexerMaps = (0, _List.empty)();
   const global_scope = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.map)(k => [k[0], var_renamer(k[0])], (0, _Analysis.Sigma__get_GlobalVariables)(analyzer.Sigma))));
   const csharpIdentDescr = (0, _BackendsCommon.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, _BackendsCommon.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)((i, c) => {
@@ -462,24 +461,23 @@ function codegen(analyzer, cg_options, langName, stmts) {
   if (matchValue_12 != null) {
     const start_t = matchValue_12;
     const file_grammar = (0, _CodeGen.vsep)((0, _List.ofArray)((0, _Array.map)(stmt => {
+      (0, _Analysis.Sigma__SetCurrentDefinition_Z759AB257)(analyzer.Sigma, stmt);
+
       switch (stmt.tag) {
         case 2:
           {
             const decl_1 = stmt.fields[0];
-            currentPos = decl_1.pos;
             lexerMaps = (0, _List.cons)([decl_1.lhs, decl_1.define], lexerMaps);
             return _CodeGen.empty;
           }
 
         case 6:
           {
-            currentPos = stmt.fields[0].pos;
             return (0, _CodeGen.vsep)((0, _List.empty)());
           }
 
         case 4:
           {
-            currentPos = stmt.fields[0].pos;
             return (0, _CodeGen.vsep)((0, _List.empty)());
           }
 
@@ -503,7 +501,6 @@ function codegen(analyzer, cg_options, langName, stmts) {
         default:
           {
             const decl = stmt.fields[0];
-            currentPos = decl.pos;
             const lhs = decl.lhs;
             const ntname_1 = cg_symbol(new _Grammar.symbol(1, lhs));
             let t_3;
@@ -531,66 +528,70 @@ function codegen(analyzer, cg_options, langName, stmts) {
 
             let idx_1 = 0;
             const body_3 = (0, _CodeGen.align)((0, _CodeGen.vsep)((0, _List.mapIndexed)((i_10, e_1) => (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)(i_10 === 0 ? (0, _CodeGen.word)(":") : (0, _CodeGen.word)("|"), e_1), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_4 => {
-              let prod, actionName_2, patternInput_1, curr_expr, isTerminal, usedSlots, cg_expr, snd, lst_1;
-              let actionName_3;
-              const idx = idx_1 | 0;
-              actionName_3 = (0, _String.toText)((0, _String.printf)("%s_%i"))(ntname_1)(idx);
-              currentPos = matchValue_4[0];
-              return (0, _Seq.append)((0, _Seq.singleton)((prod = matchValue_4[1], (actionName_2 = actionName_3, (patternInput_1 = (curr_expr = prod.action, (isTerminal = (0, _Seq.toArray)((0, _Seq.delay)(() => (0, _Seq.map)(sym => sym.tag === 0, prod.symbols))), (usedSlots = (0, _Set.empty)({
-                Compare: _Util.comparePrimitives
-              }), (cg_expr = (scope_1, curr_expr_1) => (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => {
-                let typeArgs, lst, body, anns;
-                const matchValue_1 = curr_expr_1.node;
+              let prod, actionName_2, idx, patternInput_1, curr_expr, isTerminal, lst_1;
+              (0, _Analysis.Sigma__SetCurrentPos_Z302187B)(analyzer.Sigma, matchValue_4[0]);
+              return (0, _Seq.append)((0, _Seq.singleton)((prod = matchValue_4[1], (actionName_2 = (idx = idx_1 | 0, (0, _String.toText)((0, _String.printf)("%s_%i"))(ntname_1)(idx)), (patternInput_1 = (curr_expr = prod.action, (isTerminal = (0, _Seq.toArray)((0, _Seq.delay)(() => (0, _Seq.map)(sym => sym.tag === 0, prod.symbols))), (0, _Analysis.Sigma__WithExpr)(analyzer.Sigma, curr_expr, () => {
+                let usedSlots = (0, _Set.empty)({
+                  Compare: _Util.comparePrimitives
+                });
 
-                if (matchValue_1.tag === 6) {
-                  const matchValue_2 = tryLookup(matchValue_1.fields[0], scope_1);
+                const cg_expr = (scope_1, curr_expr_1) => (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => {
+                  let typeArgs, lst, body, anns;
+                  const matchValue_1 = curr_expr_1.node;
 
-                  if (matchValue_2 != null) {
-                    const v_1 = matchValue_2;
-                    return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _List.length)(matchValue_1.fields[1].contents) === 0 ? (0, _CodeGen.word)(v_1) : (typeArgs = (lst = (0, _List.map)(arg_1 => (0, _CodeGen.word)(cg_type(arg_1)), (0, _List.map)(_Grammar.monot__Prune, matchValue_1.fields[1].contents)), (0, _CodeGen.seplist)((0, _CodeGen.word)(", "), lst)), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(v_1), (0, _CodeGen.word)("\u003c")), typeArgs), (0, _CodeGen.word)("\u003e"))));
+                  if (matchValue_1.tag === 6) {
+                    const matchValue_2 = tryLookup(matchValue_1.fields[0], scope_1);
+
+                    if (matchValue_2 != null) {
+                      const v_1 = matchValue_2;
+                      return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _List.length)(matchValue_1.fields[1].contents) === 0 ? (0, _CodeGen.word)(v_1) : (typeArgs = (lst = (0, _List.map)(arg_1 => (0, _CodeGen.word)(cg_type(arg_1)), (0, _List.map)(_Grammar.monot__Prune, matchValue_1.fields[1].contents)), (0, _CodeGen.seplist)((0, _CodeGen.word)(", "), lst)), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(v_1), (0, _CodeGen.word)("\u003c")), typeArgs), (0, _CodeGen.word)("\u003e"))));
+                    } else {
+                      return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (() => {
+                        throw (0, _Exceptions.UnboundVariable)(matchValue_1.fields[0]);
+                      })());
+                    }
+                  } else if (matchValue_1.tag === 11) {
+                    return matchValue_1.fields[0] ? (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.word)("true")) : (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.word)("false"));
+                  } else if (matchValue_1.tag === 3) {
+                    return (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, matchValue_1.fields[0]), _arg6 => (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(_arg6, (0, _CodeGen.word)(".")), (0, _CodeGen.word)(matchValue_1.fields[1]))));
+                  } else if (matchValue_1.tag === 8) {
+                    return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.word)((0, _String.toText)((0, _String.printf)("%d"))(matchValue_1.fields[0])));
+                  } else if (matchValue_1.tag === 10) {
+                    return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.word)((0, _String.toText)((0, _String.printf)("%f"))(matchValue_1.fields[0])));
+                  } else if (matchValue_1.tag === 9) {
+                    return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.word)((0, _Utils.escapeString)(matchValue_1.fields[0])));
+                  } else if (matchValue_1.tag === 5) {
+                    const patternInput = (0, _BackendsCommon.DocBuilder_runCG)(cg_expr((0, _List.append)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_3 => {
+                      const arg_2 = matchValue_3[0];
+                      return (0, _Seq.singleton)([arg_2, mangle(csharpIdentDescr, arg_2)]);
+                    }, matchValue_1.fields[0]))), scope_1), matchValue_1.fields[1]));
+                    return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (body = (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.vsep)(patternInput[1]), (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("return"), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(patternInput[0], (0, _CodeGen.word)(";")))])), (anns = (0, _List.map)(tupledArg_1 => (0, _CodeGen.word)(cg_type(tupledArg_1[1]) + " " + tupledArg_1[0]), matchValue_1.fields[0]), (0, _CodeGen.parens)((0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), anns)), (0, _CodeGen.word)("=\u003e")), (0, _CodeGen.Doc_op_RightShift_2AAA0F3C)(body, 4)]))))));
+                  } else if (matchValue_1.tag === 4) {
+                    return (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, matchValue_1.fields[1]), _arg7 => {
+                      const m_name = mangle(csharpIdentDescr, matchValue_1.fields[0]);
+                      return (0, _BackendsCommon.DocBuilder_Builder__Combine_Z5C764E00)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Yield_417FD60)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(cg_type(matchValue_1.fields[1].t)), (0, _CodeGen.word)(m_name)), (0, _CodeGen.word)("=")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(_arg7, (0, _CodeGen.word)(";")))), (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => (0, _BackendsCommon.DocBuilder_Builder__ReturnFrom_ZD0BB270)(_BackendsCommon.DocBuilder_cg, cg_expr((0, _List.cons)([matchValue_1.fields[0], m_name], scope_1), matchValue_1.fields[2]))));
+                    });
+                  } else if (matchValue_1.tag === 2) {
+                    return (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => (0, _BackendsCommon.DocBuilder_Builder__For_2B96F4AF)(_BackendsCommon.DocBuilder_cg, matchValue_1.fields[0], _arg8 => (0, _BackendsCommon.DocBuilder_Builder__ReturnFrom_ZD0BB270)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, _arg8))))), _arg9 => (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("new"), (0, _CodeGen.word)(cg_type(curr_expr_1.t))), (0, _CodeGen.word)("{")), (0, _CodeGen.seplist)((0, _CodeGen.word)(","), _arg9)), (0, _CodeGen.word)("}"))));
+                  } else if (matchValue_1.tag === 7) {
+                    const n_5 = slotName(actionName_2, matchValue_1.fields[0]);
+                    usedSlots = (0, _Set.add)(matchValue_1.fields[0], usedSlots);
+                    const v_2 = (0, _CodeGen.word)(`_localctx.${n_5}`);
+                    return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, isTerminal[matchValue_1.fields[0] - 1] ? v_2 : (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(v_2, (0, _CodeGen.word)(".result")));
                   } else {
-                    return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (() => {
-                      throw (0, _Exceptions.UnboundVariable)(matchValue_1.fields[0]);
-                    })());
+                    return matchValue_1.tag === 1 ? (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => (0, _BackendsCommon.DocBuilder_Builder__For_2B96F4AF)(_BackendsCommon.DocBuilder_cg, matchValue_1.fields[0], _arg10 => (0, _BackendsCommon.DocBuilder_Builder__ReturnFrom_ZD0BB270)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, _arg10))))), _arg11 => (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), _arg11)))) : (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, matchValue_1.fields[0]), _arg2_1 => (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => (0, _BackendsCommon.DocBuilder_Builder__For_2B96F4AF)(_BackendsCommon.DocBuilder_cg, matchValue_1.fields[1], _arg3 => {
+                      const arg = _arg3;
+                      return (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, arg), _arg4 => (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.parens)((0, _CodeGen.word)(cg_type(arg.t))), _arg4)));
+                    }))), _arg5 => {
+                      const t_repr = cg_type(curr_expr_1.t);
+                      return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(`(${t_repr})`), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(_arg2_1, (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), _arg5)))));
+                    }));
                   }
-                } else if (matchValue_1.tag === 11) {
-                  return matchValue_1.fields[0] ? (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.word)("true")) : (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.word)("false"));
-                } else if (matchValue_1.tag === 3) {
-                  return (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, matchValue_1.fields[0]), _arg6 => (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(_arg6, (0, _CodeGen.word)(".")), (0, _CodeGen.word)(matchValue_1.fields[1]))));
-                } else if (matchValue_1.tag === 8) {
-                  return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.word)((0, _String.toText)((0, _String.printf)("%d"))(matchValue_1.fields[0])));
-                } else if (matchValue_1.tag === 10) {
-                  return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.word)((0, _String.toText)((0, _String.printf)("%f"))(matchValue_1.fields[0])));
-                } else if (matchValue_1.tag === 9) {
-                  return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.word)((0, _Utils.escapeString)(matchValue_1.fields[0])));
-                } else if (matchValue_1.tag === 5) {
-                  const patternInput = (0, _BackendsCommon.DocBuilder_runCG)(cg_expr((0, _List.append)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_3 => {
-                    const arg_2 = matchValue_3[0];
-                    return (0, _Seq.singleton)([arg_2, mangle(csharpIdentDescr, arg_2)]);
-                  }, matchValue_1.fields[0]))), scope_1), matchValue_1.fields[1]));
-                  return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (body = (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.vsep)(patternInput[1]), (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("return"), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(patternInput[0], (0, _CodeGen.word)(";")))])), (anns = (0, _List.map)(tupledArg_1 => (0, _CodeGen.word)(cg_type(tupledArg_1[1]) + " " + tupledArg_1[0]), matchValue_1.fields[0]), (0, _CodeGen.parens)((0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), anns)), (0, _CodeGen.word)("=\u003e")), (0, _CodeGen.Doc_op_RightShift_2AAA0F3C)(body, 4)]))))));
-                } else if (matchValue_1.tag === 4) {
-                  return (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, matchValue_1.fields[1]), _arg7 => {
-                    const m_name = mangle(csharpIdentDescr, matchValue_1.fields[0]);
-                    return (0, _BackendsCommon.DocBuilder_Builder__Combine_Z5C764E00)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Yield_417FD60)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(cg_type(matchValue_1.fields[1].t)), (0, _CodeGen.word)(m_name)), (0, _CodeGen.word)("=")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(_arg7, (0, _CodeGen.word)(";")))), (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => (0, _BackendsCommon.DocBuilder_Builder__ReturnFrom_ZD0BB270)(_BackendsCommon.DocBuilder_cg, cg_expr((0, _List.cons)([matchValue_1.fields[0], m_name], scope_1), matchValue_1.fields[2]))));
-                  });
-                } else if (matchValue_1.tag === 2) {
-                  return (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => (0, _BackendsCommon.DocBuilder_Builder__For_2B96F4AF)(_BackendsCommon.DocBuilder_cg, matchValue_1.fields[0], _arg8 => (0, _BackendsCommon.DocBuilder_Builder__ReturnFrom_ZD0BB270)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, _arg8))))), _arg9 => (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("new"), (0, _CodeGen.word)(cg_type(curr_expr_1.t))), (0, _CodeGen.word)("{")), (0, _CodeGen.seplist)((0, _CodeGen.word)(","), _arg9)), (0, _CodeGen.word)("}"))));
-                } else if (matchValue_1.tag === 7) {
-                  const n_5 = slotName(actionName_2, matchValue_1.fields[0]);
-                  usedSlots = (0, _Set.add)(matchValue_1.fields[0], usedSlots);
-                  const v_2 = (0, _CodeGen.word)(`_localctx.${n_5}`);
-                  return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, isTerminal[matchValue_1.fields[0] - 1] ? v_2 : (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(v_2, (0, _CodeGen.word)(".result")));
-                } else {
-                  return matchValue_1.tag === 1 ? (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => (0, _BackendsCommon.DocBuilder_Builder__For_2B96F4AF)(_BackendsCommon.DocBuilder_cg, matchValue_1.fields[0], _arg10 => (0, _BackendsCommon.DocBuilder_Builder__ReturnFrom_ZD0BB270)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, _arg10))))), _arg11 => (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), _arg11)))) : (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, matchValue_1.fields[0]), _arg2_1 => (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Run_ZD0BB270)(_BackendsCommon.DocBuilder_cg, (0, _BackendsCommon.DocBuilder_Builder__Delay_Z3A9C5A06)(_BackendsCommon.DocBuilder_cg, () => (0, _BackendsCommon.DocBuilder_Builder__For_2B96F4AF)(_BackendsCommon.DocBuilder_cg, matchValue_1.fields[1], _arg3 => {
-                    const arg = _arg3;
-                    return (0, _BackendsCommon.DocBuilder_Builder__Bind_30A200B3)(_BackendsCommon.DocBuilder_cg, cg_expr(scope_1, arg), _arg4 => (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.parens)((0, _CodeGen.word)(cg_type(arg.t))), _arg4)));
-                  }))), _arg5 => {
-                    const t_repr = cg_type(curr_expr_1.t);
-                    return (0, _BackendsCommon.DocBuilder_Builder__Return_1505)(_BackendsCommon.DocBuilder_cg, (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(`(${t_repr})`), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(_arg2_1, (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), _arg5)))));
-                  }));
-                }
-              })), (snd = (0, _BackendsCommon.DocBuilder_runCG)(cg_expr(global_scope, curr_expr)), [usedSlots, snd]))))), (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((lst_1 = (0, _List.mapIndexed)((i_8, s_5) => {
+                }));
+
+                const snd = (0, _BackendsCommon.DocBuilder_runCG)(cg_expr(global_scope, curr_expr));
+                return [usedSlots, snd];
+              }))), (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((lst_1 = (0, _List.mapIndexed)((i_8, s_5) => {
                 const i_9 = i_8 + 1 | 0;
                 const sym_1 = (0, _CodeGen.word)(cg_symbol(s_5));
 
@@ -622,8 +623,8 @@ function codegen(analyzer, cg_options, langName, stmts) {
       const args_10 = (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(","), (0, _List.map)(tupledArg_4 => tupledArg_4[0], fields_3)));
       return (0, _Seq.singleton)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("public static"), ret_t_2), (0, _CodeGen.word)(matchValue_14[1])), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(matchValue_14[0]), func_params_2))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("{")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _List.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("return"), (0, _CodeGen.parens)(ret_t_2)), (0, _CodeGen.word)("new")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(matchValue_14[2]), args_10), (0, _CodeGen.word)(";"))))), 4)), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.word)("}"))))))))))));
     }, docCtorWrapFuncs), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("}")), (0, _Seq.delay)(() => {
-      let arg10_3;
-      return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)((arg10_3 = cg_type(start_t), (0, _String.toText)((0, _String.printf)("start returns [%s result]: v=%s EOF { $result = _localctx.v.result; };"))(arg10_3)(start_mangled)))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(file_grammar), (0, _Seq.delay)(() => lexerDefs))));
+      let arg10_4;
+      return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)((arg10_4 = cg_type(start_t), (0, _String.toText)((0, _String.printf)("start returns [%s result]: v=%s EOF { $result = _localctx.v.result; };"))(arg10_4)(start_mangled)))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(file_grammar), (0, _Seq.delay)(() => lexerDefs))));
     })))))))))))))], file_constructors];
   } else {
     const exn_2 = (0, _Exceptions.UnboundNonterminal)("start");
