@@ -35,6 +35,8 @@ function parse_tbnf(text, filename) {
     m_Lexer.addErrorListener(new ExcErrorListener());
     const m_tokenStream = new antlr.CommonTokenStream(m_Lexer);
     const m_Parser = new parser.TypedBNFParser(m_tokenStream);
+    m_Parser.removeErrorListeners();
+    m_Parser.addErrorListener(new ExcErrorListener());
     var start = m_Parser.start();
     return start.result;
   } finally {

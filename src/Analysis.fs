@@ -14,7 +14,7 @@ type Shape =
     { parameters: string list
       fields: list<fieldname * monot> }
 
-type Sigma(UM: Unification.Manager) =
+type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
     (* to access field information *)
     let mutable shapes: Map<typename, Shape> = Map.empty
 
@@ -76,22 +76,22 @@ type Sigma(UM: Unification.Manager) =
 
     let addCase (typename: typename) ctorName t =
         if Set.contains typename externalTypes then
-            raise <| InvalidConstructorDefinination CauseExternalType
+            raise <| InvalidConstructorDefinination(ctorName, CauseExternalType typename)
         match Map.tryFind typename shapes with
         | Some { fields = fields } when List.length fields <> 0 ->
-            raise <| InvalidConstructorDefinination CauseRecordType
-        | Some { parameters = _::_ } ->
-            raise <| InvalidConstructorDefinination CauseGenericADTType
+            raise <| InvalidConstructorDefinination(ctorName, CauseRecordType typename)
+        | Some { parameters = _::_ as parameters } ->
+            raise <| InvalidConstructorDefinination(ctorName, CauseGenericADTType(typename, parameters))
         | None ->
             registerType typename 0
             shapes <- Map.add typename {fields = []; parameters = []} shapes
         | _ -> ()
-        let mutable adtCases' = 
+        let mutable adtCases' =
             adtCases
             |> List.replaceWith typename (function
                 | None -> Map.ofArray [|ctorName, t|]
                 | Some cases when Map.containsKey ctorName cases ->
-                    raise <| InvalidConstructorDefinination (CauseDuplicateConstructorName ctorName)
+                    raise <| InvalidConstructorDefinination (ctorName, CauseDuplicateConstructorName)
                 | Some cases ->
                     Map.add ctorName t cases)
         adtCases <- adtCases'
@@ -172,8 +172,31 @@ type Sigma(UM: Unification.Manager) =
             match t with
             | TFun(args, TConst typename) ->
                 addCase typename varname args
-            | _ -> raise <| InvalidConstructorDefinination (CauseInvalidConstructorType t)
+            | _ -> raise <| InvalidConstructorDefinination (varname, CauseInvalidConstructorType t)
 
+    // #region error handling
+    member __.WithExpr (e: expr) f =
+        let oldPos = e.pos
+        let oldExprStack = errorTrace.exprStack
+        errorTrace.currentPos <- e.pos
+        errorTrace.exprStack <- e :: oldExprStack
+        let res = f() // if not exit normally, the new state remains
+        errorTrace.currentPos <- oldPos
+        errorTrace.exprStack <- oldExprStack
+        res
+    member __.SetCurrentPos (pos: position) =
+        errorTrace.currentPos <- pos
+    member __.CurrentPos =
+        errorTrace.currentPos
+    member __.SetCurrentDefinition (def: definition) =
+        errorTrace.whichDef <- def
+        errorTrace.branch <- 0
+    member __.SetCurrentDefinitionBranch (branch: int) =
+        errorTrace.branch <- branch
+    member __.GetErrorTrace () = errorTrace
+    // #endregion
+
+    //#region type checking
     member __.KindCheck(t: monot) =
         checkKind_ t
         t
@@ -207,7 +230,7 @@ type Sigma(UM: Unification.Manager) =
             else
                 raise <| NotGlobalVariable varname
 
-    member __.GetADTCases() = 
+    member __.GetADTCases() =
         // printfn "adt types: %d" adtCases.Length
         adtCases
 
@@ -216,13 +239,13 @@ type Sigma(UM: Unification.Manager) =
         |> List.rev // keep define order though no impact here;
                     // orders are insignificant
         |> List.map (fun x -> x, shapes.[x])
+    //#endregion
 
 and Gamma = Map<string, polyt>
 
 type Analyzer = {
     mutable UM : Unification.Manager;
     mutable Sigma : Sigma;
-    mutable currentPos : position;
     mutable Omega : Map<nonterminalName, monot>;
     mutable LiteralTokens: string Set;
     mutable ReferencedNamedTokens : string Set;
@@ -232,9 +255,9 @@ type Analyzer = {
 }
 
 let build_analyzer(stmts: definition array) =
+    let errorTrace = { ErrorTrace.whichDef = stmts.[0]; ErrorTrace.exprStack = []; currentPos = position.Fake; branch = 0 }
     let UM = Unification.Manager()
-    let Sigma = Sigma(UM)
-    let mutable currentPos = Unchecked.defaultof<position>
+    let Sigma = Sigma(UM, errorTrace)
 
     (* from grammar nonterminal to monot *)
     let mutable Omega: Map<nonterminalName, monot> = Map.empty
@@ -247,31 +270,27 @@ let build_analyzer(stmts: definition array) =
 
     (* check toplevel definitions, filter out nonterminal rules  *)
     let pre_process (stmt: definition) =
+        Sigma.SetCurrentDefinition(stmt)
         match stmt with
         | definition.Defignore decl ->
-            currentPos <- decl.pos
             for each in decl.ignoreList do
                 ReferencedNamedTokens <- Set.add each IgnoreSet
                 IgnoreSet <- Set.add each IgnoreSet
 
         | definition.Declvar decl ->
-            currentPos <- decl.pos
 
             Sigma.KindCheck decl.t
             |> Sigma.RegisterExtGVar decl.ident
         | definition.Declctor decl ->
-            currentPos <- decl.pos
 
             Sigma.KindCheck decl.t
             |> Sigma.RegisterCtorGVar decl.ident
             // |> Sigma.RegisterGlobalVariable true decl.ident
 
         | definition.Decltype decl ->
-            currentPos <- decl.pos
             let fields = List.map (fun (k, v, _) -> k, v)  decl.fields
             Sigma.RegisterType decl.external decl.hasFields decl.ident decl.parameters fields
             for fieldname, t, pos in decl.fields do
-                currentPos <- pos
                 ignore(Sigma.KindCheckMono t)
 
         | definition.Defmacro _ -> invalidOp "macro definition must be processed before type checking"
@@ -300,8 +319,7 @@ let build_analyzer(stmts: definition array) =
         | symbol.Nonterm name -> raise <| UnboundNonterminal(name)
 
     let rec infer_e (s_Gamma: Gamma) (S: monot list) (e: expr) =
-        currentPos <- e.pos
-
+        Sigma.WithExpr e <| fun () ->
         match e.node with
         | node.ETuple elts ->
             elts
@@ -333,7 +351,10 @@ let build_analyzer(stmts: definition array) =
             let t_r = UM.NewTyRef("list")
 
             elts
-            |> List.map (fun elt -> infer_e s_Gamma S elt)
+            |> List.map (fun elt ->
+                let e = infer_e s_Gamma S elt
+                UM.Unify(t_r, e.t)
+                e)
             |> fun elts ->
                 { node = node.EList elts
                   t = TList(t_r.Prune())
@@ -341,7 +362,7 @@ let build_analyzer(stmts: definition array) =
         | node.ESlot i ->
             match List.tryItem (i - 1) S with
             | Some t_slot -> { e with t = t_slot }
-            | None -> raise <| ComponentAccessingOutOfBound i
+            | None -> raise <| ComponentAccessingOutOfBound(i, List.length S)
         | node.EApp (f, args) ->
             let { t = t_f } as f = infer_e s_Gamma S f
             let args = args |> List.map (fun expr -> infer_e s_Gamma S expr)
@@ -379,12 +400,15 @@ let build_analyzer(stmts: definition array) =
     let check_productions(lhs: string, define: (position * production) list) =
         // assured by preprocessing
         let t = Omega.[lhs]
+        let mutable i = 0
         for (pos, production) in define do
-            currentPos <- pos
+            Sigma.SetCurrentPos pos
+            Sigma.SetCurrentDefinitionBranch i
             let S = List.map infer_p production.symbols
             let action = infer_e Sigma.GlobalVariables S production.action
             UM.Unify(action.t, t)
             production.action <- action
+            i <- i + 1
 
     let rec check_lexerule(x: lexerule) =
         match x with
@@ -395,18 +419,22 @@ let build_analyzer(stmts: definition array) =
         | LRef n -> raise <| UnboundLexer(n)
 
     let main() =
-        let stmts = MacroResolve.resolve_macro (fun x -> currentPos <- x) stmts
+        let stmts =
+            MacroResolve.resolve_macro
+                Sigma.SetCurrentPos
+                Sigma.SetCurrentDefinition
+                Sigma.SetCurrentDefinitionBranch
+                stmts
 
         for stmt in stmts do
             pre_process stmt
 
         for stmt in stmts do
+            Sigma.SetCurrentDefinition stmt
             match stmt with
             | Defrule decl ->
-                currentPos <- decl.pos
                 check_productions(decl.lhs, decl.define)
             | Deflexer decl ->
-                currentPos <- decl.pos
                 check_lexerule decl.define
             // | Declvar decl when decl.isConstructor ->
             //     Sigma.KindCheck(decl.t)
@@ -420,16 +448,7 @@ let build_analyzer(stmts: definition array) =
             ReferencedNamedTokens = ReferencedNamedTokens;
             LiteralTokens = LiteralTokens;
             Omega = Omega;
-            currentPos = currentPos;
             Sigma = Sigma
         }
 
-    try
-        main()
-    with e ->
-        printfn "line %d, column %d, file: %s\n%A"
-                currentPos.line
-                currentPos.col
-                currentPos.filename
-                e
-        invalidOp "exit with error"
+    tbnf.ErrorReport.withErrorHandler Sigma.GetErrorTrace <| main

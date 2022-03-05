@@ -77,7 +77,6 @@ let codegen (analyzer: Analyzer)
     let mutable symmap : Map<symbol, string> = Map.empty
 
     let mutable toplevel_transformer : Doc list = []
-    let mutable currentPos = analyzer.currentPos
 
     let mutable lexerMaps : Map<string, Automata.regexp> = Map.empty
 
@@ -178,6 +177,7 @@ let codegen (analyzer: Analyzer)
     let TREE_NAME = "__tbnf_COMPONENTS"
     let rec cg_expr (actionName: string) (scope: list<string * string>) (expr: expr): block<Doc> =
         let inline (!) x = cg_expr actionName scope x
+        analyzer.Sigma.WithExpr expr <| fun () ->
         cg {
             match expr.node with
             | node.EApp(f, args) ->
@@ -234,7 +234,8 @@ let codegen (analyzer: Analyzer)
         let ntname = cg_symbol (Nonterm lhs)
         let mutable idx = 0
         [ for (pos, production) in define do
-            currentPos <- pos
+            analyzer.Sigma.SetCurrentPos pos
+            analyzer.Sigma.SetCurrentDefinitionBranch idx
             let actionName = mkActionName ntname idx
             yield cg_prod actionName production
             let returned, body = runCG <| cg_expr actionName global_scope production.action
@@ -298,13 +299,12 @@ let codegen (analyzer: Analyzer)
 
 
 
-    let rec cg_stmt stmt =
+    let rec cg_stmt (stmt: definition) =
+        analyzer.Sigma.SetCurrentDefinition stmt
         match stmt with
         | definition.Defrule decl ->
-            currentPos <- decl.pos
             cg_ruledef decl.lhs decl.define
         | definition.Deflexer decl ->
-            currentPos <- decl.pos
 #if DEBUG
             printfn "%s = %s" decl.lhs (mk_lexer_debug decl.define)
 #endif
@@ -314,7 +314,6 @@ let codegen (analyzer: Analyzer)
                 larkDeclsForNamedTerminals <- tname :: larkDeclsForNamedTerminals
             empty
         | definition.Defignore decl ->
-            currentPos <- decl.pos
             empty (* generated later *)
             // vsep [
             //     for each in decl.ignoreList do
@@ -378,6 +377,8 @@ let codegen (analyzer: Analyzer)
             |> fun it -> _cg_type f + "[" + it + "]"
 
     let cg_type (t: monot) = _cg_type(t.Prune())
+
+    tbnf.ErrorReport.withErrorHandler analyzer.Sigma.GetErrorTrace <| fun () ->
 
     Array.map cg_stmt stmts
     |> List.ofArray

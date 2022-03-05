@@ -84,7 +84,6 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
     let mutable symmap: Map<symbol, string> = Map.empty
 
     let mutable toplevel_transformer: Doc list = []
-    let mutable currentPos = analyzer.currentPos
 
     let mutable lexerMaps: list<string * Doc> = []
 
@@ -231,6 +230,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
     let cg_type (t: monot) = _cg_type  (t.Prune())
 
     let rec cg_expr (scope: list<string * string>) (curr_expr: expr) : Doc =
+        analyzer.Sigma.WithExpr curr_expr <| fun () ->
         let inline (!) x = cg_expr scope x
         match curr_expr.node with
         | node.EApp (f, args) ->
@@ -280,9 +280,11 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
     let rec cg_ruledef (lhs: string) (define: list<position * production>) =
         let ntname = cg_symbol (Nonterm lhs)
-
+        let mutable idx = 0
         [ for (pos, production) in define do
-              currentPos <- pos
+              analyzer.Sigma.SetCurrentPos pos
+              analyzer.Sigma.SetCurrentDefinitionBranch idx
+              idx <- idx + 1
               yield cg_prod production ]
         |> List.mapi (fun i e -> (if i = 0 then word ":" else word "|") + e)
         |> vsep
@@ -334,20 +336,18 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
         | lexerule.LOptional e -> $"popt{(!e)}"
 
 
-    let rec cg_stmt stmt =
+    let rec cg_stmt (stmt: definition) =
+        analyzer.Sigma.SetCurrentDefinition stmt
         match stmt with
         | definition.Defrule decl ->
-            currentPos <- decl.pos
             cg_ruledef decl.lhs decl.define
         | definition.Deflexer decl ->
-            currentPos <- decl.pos
 #if DEBUG
             printfn "%s = %s" decl.lhs (mk_lexer_debug decl.define)
 #endif
             lexerMaps <- (decl.lhs, word (mk_lexer decl.define)) :: lexerMaps
             empty
         | definition.Defignore decl ->
-            currentPos <- decl.pos
             empty (* generated later *)
         // vsep [
         //     for each in decl.ignoreList do
@@ -362,6 +362,8 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
         | definition.Declctor _ -> vsep []
         | definition.Defmacro _ -> invalidOp "macro not processed"
 
+
+    tbnf.ErrorReport.withErrorHandler analyzer.Sigma.GetErrorTrace <| fun () ->
 
     Array.map cg_stmt stmts
     |> List.ofArray

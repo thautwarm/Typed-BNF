@@ -17,7 +17,11 @@ let rec toPositionIndependentString (term: symbol) =
     | Macrocall(n, syms, _) ->
         sprintf "%s(%s)" n <| String.concat "," (List.map toPositionIndependentString syms)
 
-let resolve_macro(setPos : position -> unit) (stmts: definition array) =
+let resolve_macro
+    (setPos : position -> unit)
+    (setDef: definition -> unit)
+    (setBranch: int -> unit)
+    (stmts: definition array) =
     let mutable macro_defs = Map.empty
     let mutable stmts_to_solve = []
     let mutable fixed_stmts = []
@@ -43,22 +47,15 @@ let resolve_macro(setPos : position -> unit) (stmts: definition array) =
 
 
         let rec solve_specialization (decl : {| define: list<position * production> ; lhs : string ; pos: position |}, scope: Map<string, symbol>) =
+            setDef <| Defrule decl
             let mutable define =
-                [ for (pos, case) in decl.define do
+                decl.define
+                |> List.mapi (fun i (pos, case) ->
                     setPos pos
-                    yield pos, {
+                    setBranch i
+                    pos, {
                         symbols = List.map (fun x -> solve_sym x scope) case.symbols;
-                        action = case.action.DeepCopy() }
-                ]
-            // if decl.lhs = "nempty_list[stat]" then
-            //     printfn "inst 2"
-            //     printfn "%A" scope
-            //     for (_, each) in define do
-            //         each.symbols
-            //         |> List.map (fun x -> x.Inspect())
-            //         |> String.concat " "
-            //         |> printfn "%s"
-            // printfn "adding %s" decl.lhs
+                        action = case.action.DeepCopy() })
             final_results <- Defrule {| decl with define = define |} :: final_results
 
 
@@ -69,7 +66,6 @@ let resolve_macro(setPos : position -> unit) (stmts: definition array) =
                 match Map.tryFind n scope with
                 | Some v -> v
                 | None ->
-                    // printfn "found no subst for %A" n
                     sym
             | Macrocall(n, args, pos) ->
 

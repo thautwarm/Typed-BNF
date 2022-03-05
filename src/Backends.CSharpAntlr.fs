@@ -117,7 +117,6 @@ let codegen
     let mutable symmap: Map<symbol, string> = Map.empty
 
     let mutable toplevel_transformer: Doc list = []
-    let mutable currentPos = analyzer.currentPos
 
     let mutable lexerMaps: list<string * lexerule> = []
 
@@ -260,6 +259,7 @@ let codegen
     let resultName = "result"
 
     let cg_expr (isTerminal: bool array) (actionName: string) (scope: list<string * string>) (curr_expr: expr) =
+        analyzer.Sigma.WithExpr curr_expr <| fun () ->
         let mutable usedSlots = Set.empty
 
         let rec cg_expr (scope: list<string * string>) (curr_expr: expr) : block<Doc> =
@@ -396,8 +396,9 @@ let codegen
         let mutable idx = 0
 
         [ for (pos, production) in define do
+              analyzer.Sigma.SetCurrentPos pos
+              analyzer.Sigma.SetCurrentDefinitionBranch idx
               let actionName = mkActionName ntname idx
-              currentPos <- pos
               yield cg_prod actionName production
               idx <- idx + 1 ]
         |> List.mapi (fun i e -> (if i = 0 then word ":" else word "|") + e)
@@ -462,12 +463,11 @@ let codegen
 
 
     let rec cg_stmt stmt =
+        analyzer.Sigma.SetCurrentDefinition stmt
         match stmt with
         | definition.Defrule decl ->
-            currentPos <- decl.pos
             cg_ruledef decl.lhs decl.define
         | definition.Deflexer decl ->
-            currentPos <- decl.pos
 #if DEBUG
             printfn "%s = %s" decl.lhs (mk_lexer_debug decl.define)
 #endif
@@ -477,10 +477,8 @@ let codegen
 
             empty
         | definition.Defignore decl ->
-            currentPos <- decl.pos
             vsep [] (* generated later *)
         | definition.Declctor decl ->
-            currentPos <- decl.pos
             vsep []
         | definition.Declvar decl ->
             importVarNames <- var_renamer decl.ident :: importVarNames
@@ -571,6 +569,8 @@ let codegen
         if isLOr x then
             parens(word (mk_lexer x))
         else word(mk_lexer x)
+
+    tbnf.ErrorReport.withErrorHandler (analyzer.Sigma.GetErrorTrace) <| fun () ->
 
     match Map.tryFind "start" analyzer.Omega with
     | None -> raise <| UnboundNonterminal "start"

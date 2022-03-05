@@ -11,7 +11,7 @@
     <Compile Include="FableSedlex/CodeGen.fs" />
     <Compile Include="FableSedlex/Sedlex.fs" />
     <Compile Include="FableSedlex/CodeGen.Python.fs" />
-    
+
     <!-- <Compile Include="lark_fs/Lark.fs" /> -->
     <Compile Include="src/ResourceKeys.fs" />
     <Compile Include="src/Utils.fs" />
@@ -21,6 +21,7 @@
     <Compile Include="src/MacroResolve.fs" />
     <Compile Include="src/Op.fs" />
     <Compile Include="src/Unification.fs" />
+    <Compile Include="src/ErrorReport.fs" />
     <Compile Include="src/Analysis.fs" />
     <Compile Include="src/Backends.Common.fs" />
     <Compile Include="src/Backends.PythonLark.fs" />
@@ -28,7 +29,6 @@
     <Compile Include="src/Backends.CSharpAntlr.fs" />
     <Compile Include="src/Backends.TypeScriptAntlr.fs" />
     <Compile Include="src/APIs.fs" />
-    <Compile Include="src/ErrorReport.fs" />
     <Compile Include="src/Main.fs" />
   </ItemGroup>
 

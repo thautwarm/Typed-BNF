@@ -22,6 +22,8 @@ export function parse_tbnf(text: string, filename: string) {
         m_Lexer.addErrorListener(new ExcErrorListener());
         const m_tokenStream = new CommonTokenStream(m_Lexer);
         const m_Parser = new parser.TypedBNFParser(m_tokenStream);
+        m_Parser.removeErrorListeners();
+        m_Parser.addErrorListener(new ExcErrorListener());
         var start = m_Parser.start();
         return start.result;
     }

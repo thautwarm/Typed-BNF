@@ -3,8 +3,9 @@ open Grammar
 
 type ErrorTrace =
     { mutable whichDef: definition
-    ; mutable exprStack : expr list
-    ; mutable currentRexpr: expr
+    ; mutable branch: int
+    ; mutable exprStack: expr list
+    ; mutable currentPos : position
     }
 
 type NameErrorScope =
@@ -42,18 +43,18 @@ let UnboundLexer(name) = NameError(name,  NameErrorScope.LEXER, Unbound)
 let DuplicateLexer(name) = NameError(name,  NameErrorScope.LEXER, Duplicate)
 
 
-exception ComponentAccessingOutOfBound of int
+exception ComponentAccessingOutOfBound of access:int * maxsize:int
 exception MacroResolveError of string
 exception UnsolvedTypeVariable
 
 exception NotGlobalVariable of string
-exception MalformedConstructor of string * monot
+// exception MalformedConstructor of string * monot
 
 type InvalidConstructorDefininationCause =
-    | CauseExternalType
-    | CauseRecordType
-    | CauseGenericADTType
-    | CauseDuplicateConstructorName of string
+    | CauseExternalType of typename: string
+    | CauseRecordType of typename: string
+    | CauseGenericADTType of typename: string * parameters : string list
+    | CauseDuplicateConstructorName
     | CauseInvalidConstructorType of monot
-    
-exception  InvalidConstructorDefinination of InvalidConstructorDefininationCause
+
+exception  InvalidConstructorDefinination of ctorName: string * cause: InvalidConstructorDefininationCause

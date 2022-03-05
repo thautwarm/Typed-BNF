@@ -10,6 +10,7 @@ open tbnf.Backends.Common.DocBuilder
 open tbnf.Backends.Common.NameMangling
 
 
+// TOOD: change to typescript keywords
 let CSharpKeywords =
     [| "__arglist"
        "__makeref"
@@ -120,9 +121,6 @@ let codegen
         <| Array.append [| "result" |] CSharpKeywords
 
     let mutable symmap: Map<symbol, string> = Map.empty
-
-    let mutable toplevel_transformer: Doc list = []
-    let mutable currentPos = analyzer.currentPos
 
     let mutable lexerMaps: list<string * lexerule> = []
 
@@ -265,6 +263,7 @@ let codegen
     let resultName = "result"
 
     let cg_expr (isTerminal: bool array) (actionName: string) (scope: list<string * string>) (curr_expr: expr) =
+        analyzer.Sigma.WithExpr curr_expr <| fun () ->
         let mutable usedSlots = Set.empty
 
         let rec cg_expr (scope: list<string * string>) (curr_expr: expr) : block<Doc> =
@@ -400,7 +399,9 @@ let codegen
 
         [ for (pos, production) in define do
               let actionName = mkActionName ntname idx
-              currentPos <- pos
+              analyzer.Sigma.SetCurrentPos pos
+              analyzer.Sigma.SetCurrentDefinitionBranch idx
+              idx <- idx + 1
               yield cg_prod actionName production
               idx <- idx + 1 ]
         |> List.mapi (fun i e -> (if i = 0 then word ":" else word "|") + e)
@@ -464,13 +465,12 @@ let codegen
         | lexerule.LOptional e -> $"popt{(!e)}"
 
 
-    let rec cg_stmt stmt =
+    let rec cg_stmt (stmt: definition) =
+        analyzer.Sigma.SetCurrentDefinition stmt
         match stmt with
         | definition.Defrule decl ->
-            currentPos <- decl.pos
             cg_ruledef decl.lhs decl.define
         | definition.Deflexer decl ->
-            currentPos <- decl.pos
 #if DEBUG
             printfn "%s = %s" decl.lhs (mk_lexer_debug decl.define)
 #endif
@@ -480,10 +480,8 @@ let codegen
 
             empty
         | definition.Defignore decl ->
-            currentPos <- decl.pos
             vsep [] (* generated later *)
         | definition.Declctor decl ->
-            currentPos <- decl.pos
             vsep []
         | definition.Declvar decl ->
             importVarNames <- var_renamer decl.ident :: importVarNames
@@ -517,15 +515,14 @@ let codegen
         | lexerule.LSeq args -> LGroup (LSeq (List.map _must_be_atom_rule args))
         | LGroup x -> _must_be_atom_rule x
 
-    let mutable docCtorWrapFuncs = []
 
-    
+    tbnf.ErrorReport.withErrorHandler analyzer.Sigma.GetErrorTrace <| fun () ->
+
     if not (List.isEmpty <| analyzer.Sigma.GetADTCases()) then
         invalidOp "typescript backend does not support defining ADTs yet."
     if not (List.isEmpty <| analyzer.Sigma.GetRecordTypes()) then
         invalidOp "typescript backend does not support defining records yet."
-    
-    
+
     // antlr grammar generator
     let isLOr = function LOr _ -> true | _ -> false
     let parensIfLOr x =

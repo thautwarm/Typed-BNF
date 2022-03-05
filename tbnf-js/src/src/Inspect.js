@@ -64,7 +64,7 @@ function inspectMonoType(t) {
 
           case 3:
             {
-              return "(" + (0, _String.join)(", ", (0, _List.map)(tupledArg => tupledArg[0] + ": " + inspectMonoType(tupledArg[1]), t.fields[0])) + ") -\u003e" + inspectMonoType(t);
+              return "(" + (0, _String.join)(", ", (0, _List.map)(tupledArg => tupledArg[0] + ": " + inspectMonoType(tupledArg[1]), t.fields[0])) + ") -\u003e" + inspectMonoType(t.fields[1]);
             }
 
           case 4:

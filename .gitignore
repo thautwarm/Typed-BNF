@@ -1,3 +1,4 @@
+/tbnf-js/**/*.js
 /cross-editor-highlighter/
 .antlr/
 /parser-data/

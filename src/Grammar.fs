@@ -166,6 +166,16 @@ and definition =
            fields: (string * monot * position) list
            pos: position |}
     | Defignore of {| pos: position; ignoreList : string list |}
+    member this.Position =
+        match this with
+        | Defmacro def -> def.pos
+        | Defrule def -> def.pos
+        | Deflexer def -> def.pos
+        | Declvar def -> def.pos
+        | Declctor def -> def.pos
+        | Decltype def -> def.pos
+        | Defignore def -> def.pos
+
     member this.Inspect() =
         match this with
         | Defrule decl ->

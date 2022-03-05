@@ -25,8 +25,6 @@ exports.InvalidTypeApplication = void 0;
 exports.InvalidTypeApplication$reflection = InvalidTypeApplication$reflection;
 exports.MacroResolveError = void 0;
 exports.MacroResolveError$reflection = MacroResolveError$reflection;
-exports.MalformedConstructor = void 0;
-exports.MalformedConstructor$reflection = MalformedConstructor$reflection;
 exports.NameError = void 0;
 exports.NameError$reflection = NameError$reflection;
 exports.NameErrorKind = void 0;
@@ -59,9 +57,10 @@ var _Reflection = require("../fable_modules/fable-library.3.7.5/Reflection.js");
 var _Util = require("../fable_modules/fable-library.3.7.5/Util.js");
 
 class ErrorTrace extends _Types.Record {
-  constructor(whichDef, exprStack, currentPos) {
+  constructor(whichDef, branch, exprStack, currentPos) {
     super();
     this.whichDef = whichDef;
+    this.branch = branch | 0;
     this.exprStack = exprStack;
     this.currentPos = currentPos;
   }
@@ -71,7 +70,7 @@ class ErrorTrace extends _Types.Record {
 exports.ErrorTrace = ErrorTrace;
 
 function ErrorTrace$reflection() {
-  return (0, _Reflection.record_type)("tbnf.Exceptions.ErrorTrace", [], ErrorTrace, () => [["whichDef", (0, _Grammar.definition$reflection)()], ["exprStack", (0, _Reflection.list_type)((0, _Grammar.expr$reflection)())], ["currentPos", (0, _Grammar.position$reflection)()]]);
+  return (0, _Reflection.record_type)("tbnf.Exceptions.ErrorTrace", [], ErrorTrace, () => [["whichDef", (0, _Grammar.definition$reflection)()], ["branch", _Reflection.int32_type], ["exprStack", (0, _Reflection.list_type)((0, _Grammar.expr$reflection)())], ["currentPos", (0, _Grammar.position$reflection)()]]);
 }
 
 class NameErrorScope extends _Types.Union {
@@ -463,9 +462,10 @@ function DuplicateLexer(name) {
 }
 
 class ComponentAccessingOutOfBound extends _Types.FSharpException {
-  constructor(Data0) {
+  constructor(access, maxsize) {
     super();
-    this.Data0 = Data0 | 0;
+    this.access = access | 0;
+    this.maxsize = maxsize | 0;
   }
 
 }
@@ -480,7 +480,11 @@ function ComponentAccessingOutOfBound__Equals_229D3F39(this$, obj) {
   if (!(0, _Util.equals)(this$, null)) {
     if (!(0, _Util.equals)(obj, null)) {
       if (obj instanceof ComponentAccessingOutOfBound) {
-        return this$.Data0 === obj.Data0;
+        if (this$.access === obj.access) {
+          return this$.maxsize === obj.maxsize;
+        } else {
+          return false;
+        }
       } else {
         return false;
       }
@@ -589,43 +593,6 @@ function NotGlobalVariable__Equals_229D3F39(this$, obj) {
   }
 }
 
-class MalformedConstructor extends _Types.FSharpException {
-  constructor(Data0, Data1) {
-    super();
-    this.Data0 = Data0;
-    this.Data1 = Data1;
-  }
-
-}
-
-exports.MalformedConstructor = MalformedConstructor;
-
-function MalformedConstructor$reflection() {
-  return (0, _Reflection.class_type)("tbnf.Exceptions.MalformedConstructor", void 0, MalformedConstructor, (0, _Reflection.class_type)("System.Exception"));
-}
-
-function MalformedConstructor__Equals_229D3F39(this$, obj) {
-  if (!(0, _Util.equals)(this$, null)) {
-    if (!(0, _Util.equals)(obj, null)) {
-      if (obj instanceof MalformedConstructor) {
-        if (this$.Data0 === obj.Data0) {
-          return (0, _Util.equals)(this$.Data1, obj.Data1);
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  } else if (!(0, _Util.equals)(obj, null)) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
 class InvalidConstructorDefininationCause extends _Types.Union {
   constructor(tag, ...fields) {
     super();
@@ -642,13 +609,14 @@ class InvalidConstructorDefininationCause extends _Types.Union {
 exports.InvalidConstructorDefininationCause = InvalidConstructorDefininationCause;
 
 function InvalidConstructorDefininationCause$reflection() {
-  return (0, _Reflection.union_type)("tbnf.Exceptions.InvalidConstructorDefininationCause", [], InvalidConstructorDefininationCause, () => [[], [], [], [["Item", _Reflection.string_type]], [["Item", (0, _Grammar.monot$reflection)()]]]);
+  return (0, _Reflection.union_type)("tbnf.Exceptions.InvalidConstructorDefininationCause", [], InvalidConstructorDefininationCause, () => [[["typename", _Reflection.string_type]], [["typename", _Reflection.string_type]], [["typename", _Reflection.string_type], ["parameters", (0, _Reflection.list_type)(_Reflection.string_type)]], [], [["Item", (0, _Grammar.monot$reflection)()]]]);
 }
 
 class InvalidConstructorDefinination extends _Types.FSharpException {
-  constructor(Data0) {
+  constructor(ctorName, cause) {
     super();
-    this.Data0 = Data0;
+    this.ctorName = ctorName;
+    this.cause = cause;
   }
 
 }
@@ -663,7 +631,11 @@ function InvalidConstructorDefinination__Equals_229D3F39(this$, obj) {
   if (!(0, _Util.equals)(this$, null)) {
     if (!(0, _Util.equals)(obj, null)) {
       if (obj instanceof InvalidConstructorDefinination) {
-        return (0, _Util.equals)(this$.Data0, obj.Data0);
+        if (this$.ctorName === obj.ctorName) {
+          return (0, _Util.equals)(this$.cause, obj.cause);
+        } else {
+          return false;
+        }
       } else {
         return false;
       }

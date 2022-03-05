@@ -5,99 +5,104 @@ import * as path from 'path';
 import * as resource_keys from "./src/ResourceKeys";
 import * as api from "./src/APIs";
 
-import * as codegen_py from  "./src/Backends.PythonLark"
-import * as codegen_ocaml from  "./src/Backends.OCamlMenhir"
-import * as codegen_csharp from  "./src/Backends.CSharpAntlr"
-import * as codegen_ts from  "./src/Backends.TypeScriptAntlr"
+import * as codegen_py from "./src/Backends.PythonLark"
+import * as codegen_ocaml from "./src/Backends.OCamlMenhir"
+import * as codegen_csharp from "./src/Backends.CSharpAntlr"
+import * as codegen_ts from "./src/Backends.TypeScriptAntlr"
 import { genDoc } from "./FableSedlex/CodeGen"
+import { setExitFunc } from "./src/ErrorReport"
 
 const backends = {
   "python-lark": codegen_py.codegen,
   "ocaml-menhir": codegen_ocaml.codegen,
   "csharp-antlr": codegen_csharp.codegen,
   "typescript-antlr": codegen_ts.codegen,
+};
+
+{
+  let setExitFuncTyped = <(f: (i: number) => void) => void> setExitFunc
+  setExitFuncTyped((i: number) => process.exit(i));
 }
+
 const parser = new ArgumentParser({
-    description: 'Argparse example'
+  description: 'Argparse example'
 });
 
-parser.add_argument('-i', '--tbnfSourcePath');
-parser.add_argument('-o', '--outDir');
+parser.add_argument('tbnfSourcePath');
+parser.add_argument('-o', '--outDir', { default: "" });
 parser.add_argument('-lang', '--language', { help: "name of your own language", default: "mylang" });
-parser.add_argument('-be', '--backend', { help: "" });
+parser.add_argument('-be', '--backend', { choices: Object.keys(backends), default: "python-lark" });
 parser.add_argument('-conf', '--configPath', { help: "path to a config file", default: "" });
 
 
 const _resources = new Map<string, any>();
 
-function getDefaultScope()
-{
+function getDefaultScope() {
 
-    return {
-        request_resource : (resource_key: string) => {
-            let x = _resources.get(resource_key)
-            if (x === undefined) {
-                throw new Error("Resource not found: " + resource_key);
-            }
-            return x;
-        },
-        start_rule_qualified_type: null,
-        rename_var: (x: string) => x,
-        rename_constructor: (x: string) => x,
-        rename_type: (x: string) => x,
-        rename_field: (x: string) => x,
-    }
+  return {
+    request_resource: (resource_key: string) => {
+      let x = _resources.get(resource_key)
+      if (x === undefined) {
+        throw new Error("Resource not found: " + resource_key);
+      }
+      return x;
+    },
+    start_rule_qualified_type: null,
+    rename_var: (x: string) => x,
+    rename_constructor: (x: string) => x,
+    rename_type: (x: string) => x,
+    rename_field: (x: string) => x,
+  }
 }
 
 function runcommand() {
-    let args = parser.parse_args();
-    let srcPath: string = args.tbnfSourcePath;
-    let outDir: string = args.outDir;
-    let language: string = args.language;
-    let backend: string = args.backend;
-    let configPath: string = args.configPath;
-    let sourceCode = fs.readFileSync(srcPath, 'utf8');
-    var defs = parse_tbnf(sourceCode, srcPath);
-    let defaultScope = getDefaultScope();
+  let args = parser.parse_args();
+  let srcPath: string = args.tbnfSourcePath;
+  let outDir: string = args.outDir;
+  let language: string = args.language;
+  let backend: string = args.backend;
+  let configPath: string = args.configPath;
+  let sourceCode = fs.readFileSync(srcPath, 'utf8');
+  var defs = parse_tbnf(sourceCode, srcPath);
+  let defaultScope = getDefaultScope();
+  if (outDir == "") {
+    outDir = path.dirname(srcPath);
+  }
+  if (configPath == "") {
+    // if not defined, set 'configPath' to 'srcPath/../tbnf.config.js'
+    configPath = path.join(outDir, "tbnf.config.js");
+  }
+  if (fs.existsSync(configPath)) {
+    let rel = path.relative(fs.realpathSync(__dirname), process.cwd())
+    let modulepath = path.join(rel, configPath);
+    modulepath = "./" + modulepath.replace(/\\/g, "/");
+    let mod: object = require(modulepath);
+    // iterate over all keys in the config file
+    for (let key in mod) {
+      defaultScope[key] = mod[key];
+    }
+  }
+  var [defs, analyzer] = api.build_analyzer(defs);
+  let call_backend = backends[backend];
+  if (call_backend == undefined) {
+    throw new Error("Backend not found: " + backend);
+  }
+  let fs_out = call_backend(analyzer, defaultScope, language, defs);
 
-    if (configPath == "") {
-        // if not defined, set 'configPath' to 'srcPath/../tbnf.config.js'
-        configPath = path.join(outDir, "tbnf.config.js");
-    }
-    if (fs.existsSync(configPath)) {
-        let rel = path.relative(fs.realpathSync(__dirname), process.cwd())
-        let modulepath = path.join(rel, configPath);
-        modulepath = "./" + modulepath.replace(/\\/g, "/");
-        let mod: object = require(modulepath);
-        // iterate over all keys in the config file
-        for (let key in mod) {
-          defaultScope[key] = mod[key];
-        }
-    }
-    var [defs, analyzer] = api.build_analyzer(defs);
-    let call_backend = backends[backend];
-    if (call_backend == undefined) {
-        throw new Error("Backend not found: " + backend);
-    }
-    let fs_out = call_backend(analyzer, defaultScope, language, defs);
+  for (let [filename, doc] of fs_out) {
+    let outPath = path.join(outDir, filename);
+    let sb: string[] = []
+    var writeToFile = function (s: string) {
+      if (typeof (s) == "string") {
+        sb.push(s);
+        return;
+      }
 
-    for(let [filename, doc] of fs_out)
-    {
-        let outPath = path.join(outDir, filename);
-        let sb: string[] = []
-        var writeToFile = function (s: string)
-        {
-          if (typeof(s) == "string")
-          {
-            sb.push(s);
-            return;
-          }
-
-          throw new Error("Expected string, got " + typeof(s));
-        }
-        genDoc(doc, writeToFile);
-        fs.writeFileSync(outPath, sb.join(""));
+      throw new Error("Expected string, got " + typeof (s));
     }
+    genDoc(doc, writeToFile);
+    fs.writeFileSync(outPath, sb.join(""));
+  }
 }
 
 const _ocaml_rts_file: string = `
@@ -184,8 +189,8 @@ let mktoken (buf: Sedlexing.lexbuf): tbnf_token =
     file = start_pos.pos_fname }
 `
 _resources.set(
-    resource_keys.ocaml_rts_file,
-    _ocaml_rts_file
+  resource_keys.ocaml_rts_file,
+  _ocaml_rts_file
 );
 
 

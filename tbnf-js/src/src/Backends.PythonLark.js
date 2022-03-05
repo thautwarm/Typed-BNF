@@ -33,11 +33,14 @@ var _String = require("../fable_modules/fable-library.3.7.5/String.js");
 
 var _Sedlex = require("../FableSedlex/Sedlex.js");
 
+var _ErrorReport = require("./ErrorReport.js");
+
 var _Array = require("../fable_modules/fable-library.3.7.5/Array.js");
 
 var _CodeGenPython = require("../FableSedlex/CodeGen.Python.js");
 
 function codegen(analyzer, cg_options, langName, stmts) {
+  let objectArg_1;
   const rename_var = (0, _Option.defaultArg)(cg_options.rename_var, x => x);
   const rename_ctor = (0, _Option.defaultArg)(cg_options.rename_ctor, x_1 => x_1);
   const rename_field = (0, _Option.defaultArg)(cg_options.rename_field, x_2 => x_2);
@@ -326,149 +329,152 @@ function codegen(analyzer, cg_options, langName, stmts) {
 
   const cg_type = t_1 => _cg_type((0, _Grammar.monot__Prune)(t_1));
 
-  const file_grammar = (0, _CodeGen.vsep)((0, _List.ofArray)((0, _Array.map)(stmt => {
-    (0, _Analysis.Sigma__SetCurrentDefinition_Z759AB257)(analyzer.Sigma, stmt);
+  return (0, _ErrorReport.withErrorHandler)((objectArg_1 = analyzer.Sigma, () => (0, _Analysis.Sigma__GetErrorTrace)(objectArg_1)), () => {
+    const file_grammar = (0, _CodeGen.vsep)((0, _List.ofArray)((0, _Array.map)(stmt => {
+      (0, _Analysis.Sigma__SetCurrentDefinition_Z759AB257)(analyzer.Sigma, stmt);
 
-    switch (stmt.tag) {
-      case 2:
-        {
-          const decl_1 = stmt.fields[0];
-          lexerMaps = (0, _Map.add)(decl_1.lhs, mk_lexer(decl_1.define), lexerMaps);
+      switch (stmt.tag) {
+        case 2:
+          {
+            const decl_1 = stmt.fields[0];
+            lexerMaps = (0, _Map.add)(decl_1.lhs, mk_lexer(decl_1.define), lexerMaps);
 
-          if ((0, _Set.contains)(decl_1.lhs, analyzer.ReferencedNamedTokens)) {
-            const tname = name_of_named_term(decl_1.lhs);
-            larkDeclsForNamedTerminals = (0, _List.cons)(tname, larkDeclsForNamedTerminals);
+            if ((0, _Set.contains)(decl_1.lhs, analyzer.ReferencedNamedTokens)) {
+              const tname = name_of_named_term(decl_1.lhs);
+              larkDeclsForNamedTerminals = (0, _List.cons)(tname, larkDeclsForNamedTerminals);
+            }
+
+            return _CodeGen.empty;
           }
 
-          return _CodeGen.empty;
-        }
-
-      case 6:
-        {
-          return _CodeGen.empty;
-        }
-
-      case 3:
-        {
-          importNames = (0, _List.cons)(rename_var(stmt.fields[0].ident), importNames);
-          return _CodeGen.empty;
-        }
-
-      case 4:
-        {
-          return _CodeGen.empty;
-        }
-
-      case 5:
-        {
-          const decl_5 = stmt.fields[0];
-
-          if (decl_5.external) {
-            importNames = (0, _List.cons)(rename_type(decl_5.ident), importNames);
+        case 6:
+          {
+            return _CodeGen.empty;
           }
 
-          return _CodeGen.empty;
-        }
+        case 3:
+          {
+            importNames = (0, _List.cons)(rename_var(stmt.fields[0].ident), importNames);
+            return _CodeGen.empty;
+          }
 
-      case 0:
-        {
-          throw new Error("macro not processed");
-        }
+        case 4:
+          {
+            return _CodeGen.empty;
+          }
 
-      default:
-        {
-          const decl = stmt.fields[0];
-          const ntname_1 = cg_symbol(new _Grammar.symbol(1, decl.lhs));
-          let idx_1 = 0;
-          const body_4 = (0, _CodeGen.align)((0, _CodeGen.vsep)((0, _List.mapIndexed)((i_6, e_1) => (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)(i_6 === 0 ? (0, _CodeGen.word)(":") : (0, _CodeGen.word)("|"), e_1), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_3 => {
-            const production = matchValue_3[1];
-            (0, _Analysis.Sigma__SetCurrentPos_Z302187B)(analyzer.Sigma, matchValue_3[0]);
-            let actionName_2;
-            const idx = idx_1 | 0;
-            actionName_2 = (0, _String.toText)((0, _String.printf)("%s_%i"))(ntname_1)(idx);
-            return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.seplist)((0, _CodeGen.word)(" "), (0, _List.map)(arg_2 => (0, _CodeGen.word)(cg_symbol(arg_2)), production.symbols)), (0, _CodeGen.word)("-\u003e")), (0, _CodeGen.word)(actionName_2))), (0, _Seq.delay)(() => {
-              const patternInput_1 = (0, _BackendsCommon.DocBuilder_runCG)(cg_expr(actionName_2, global_scope, production.action));
-              const a = definePyFunc((0, _CodeGen.word)(actionName_2), (0, _List.ofArray)([(0, _CodeGen.word)("self"), (0, _CodeGen.word)(TREE_NAME)]), (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.vsep)(patternInput_1[1]), (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("return"), patternInput_1[0])])));
-              toplevel_transformer = (0, _List.ofArrayWithTail)([a, _CodeGen.empty], toplevel_transformer);
-              idx_1 = idx_1 + 1 | 0;
-              return (0, _Seq.empty)();
-            }));
-          }, decl.define))))));
-          return (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(ntname_1), body_4);
-        }
-    }
-  }, stmts)));
-  const import_items = (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(","), (0, _List.map)(_CodeGen.word, importNames)));
-  const file_constructors = [filename_constructors + ".py", (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("from __future__ import annotations as __01asda1ha")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from lark import Token as ${classvar_LarkToken}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`import dataclasses as ${modulevar_dataclass}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`import typing as ${modulevar_typing}`)), (0, _Seq.delay)(() => {
-    const adtCases = (0, _Analysis.Sigma__GetADTCases)(analyzer.Sigma);
-    return (0, _Seq.append)(!(0, _List.isEmpty)(importNames) ? (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(`from .${filename_require} import`), import_items)) : (0, _Seq.empty)(), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.collect)(matchValue_5 => {
-      const typename$0027 = rename_type(matchValue_5[0]);
-      let docCtorNames = (0, _List.empty)();
-      return (0, _Seq.append)((0, _Seq.collect)(matchValue_6 => {
-        const fields = matchValue_6[1];
-        const ctorName_1 = rename_ctor(matchValue_6[0]);
-        docCtorNames = (0, _List.cons)((0, _CodeGen.word)(ctorName_1), docCtorNames);
-        return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`@${modulevar_dataclass}.dataclass`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _List.length)(fields) === 0 ? (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`class ${ctorName_1}:`)), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.word)("pass"), 4)))) : (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`class ${ctorName_1}:`)), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_7 => (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(rename_field(matchValue_7[0])), (0, _CodeGen.word)(":")), (0, _CodeGen.word)(cg_type(matchValue_7[1])))), fields)))), 4)))), (0, _Seq.delay)(() => (0, _Seq.singleton)(_CodeGen.empty)))));
-      }, (0, _Map.toArray)(matchValue_5[1])), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`if ${modulevar_typing}.TYPE_CHECKING:`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => {
-        let t_3;
-        return !(0, _List.isEmpty)(docCtorNames) ? (0, _List.isEmpty)((0, _List.tail)(docCtorNames)) ? (t_3 = (0, _List.head)(docCtorNames), (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(typename$0027), (0, _CodeGen.word)("=")), t_3))) : (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(typename$0027), (0, _CodeGen.word)("=")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(`${modulevar_typing}.Union[`), (0, _CodeGen.seplist)((0, _CodeGen.word)(","), docCtorNames)), (0, _CodeGen.word)("]")))) : (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(typename$0027), (0, _CodeGen.word)("=")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(`${modulevar_typing}.Union[`), (0, _CodeGen.seplist)((0, _CodeGen.word)(","), docCtorNames)), (0, _CodeGen.word)("]"))));
-      }))), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("else:")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _List.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(typename$0027), (0, _CodeGen.word)("=")), (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(","), docCtorNames))))), 4)), (0, _Seq.delay)(() => (0, _Seq.singleton)(_CodeGen.empty)))))))))));
-    }, adtCases), (0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_8 => {
-      const typename_1 = matchValue_8[0];
-      const shape = matchValue_8[1];
-      const typename$0027_1 = rename_type(typename_1);
-      const varname = rename_var(typename_1);
-      return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`@${modulevar_dataclass}.dataclass`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`class ${typename$0027_1}:`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _List.isEmpty)(shape.fields) ? (0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.word)("pass"), 4)) : (0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_9 => {
-        const field_1 = rename_field(matchValue_9[0]);
-        const t_4 = cg_type(matchValue_9[1]);
-        return (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(field_1), (0, _CodeGen.word)(":")), (0, _CodeGen.word)(t_4)));
-      }, shape.fields)))), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(varname), (0, _CodeGen.word)("=")), (0, _CodeGen.word)(typename$0027_1))), (0, _Seq.delay)(() => (0, _Seq.singleton)(_CodeGen.empty)))))))))));
-    }, (0, _Analysis.Sigma__GetRecordTypes)(analyzer.Sigma))))))));
-  })))))))))))];
-  let lexerInfo = (0, _List.empty)();
-  let tokenNames = (0, _List.empty)();
-  let tokenReprs = (0, _List.empty)();
-  let idx_2 = 0;
-  let token_id = 0;
-  const ReferencedNamedTokens = Array.from(analyzer.ReferencedNamedTokens);
-  (0, _Array.sortInPlaceBy)(k_2 => analyzer.TokenFragments.findIndex(y_5 => k_2 === y_5), ReferencedNamedTokens, {
-    Compare: _Util.comparePrimitives
-  });
-  const arr = (0, _Array.sort)(Array.from(analyzer.LiteralTokens), {
-    Compare: _Util.comparePrimitives
-  });
+        case 5:
+          {
+            const decl_5 = stmt.fields[0];
 
-  for (let idx_3 = 0; idx_3 <= arr.length - 1; idx_3++) {
-    const k_3 = arr[idx_3];
-    const v_4 = (0, _Sedlex.pstring)(k_3);
-    lexerInfo = (0, _List.cons)([v_4, new _Sedlex.keep_token(1, token_id)], lexerInfo);
-    tokenNames = (0, _List.cons)(cg_symbol(new _Grammar.symbol(0, k_3, true)), tokenNames);
-    tokenReprs = (0, _List.cons)((0, _Utils.escapeString)(k_3), tokenReprs);
-    token_id = token_id + 1 | 0;
-    idx_2 = idx_2 + 1 | 0;
-  }
+            if (decl_5.external) {
+              importNames = (0, _List.cons)(rename_type(decl_5.ident), importNames);
+            }
 
-  for (let idx_4 = 0; idx_4 <= ReferencedNamedTokens.length - 1; idx_4++) {
-    const k_4 = ReferencedNamedTokens[idx_4];
-    const v_5 = (0, _Map.FSharpMap__get_Item)(lexerMaps, k_4);
+            return _CodeGen.empty;
+          }
 
-    if ((0, _Set.contains)(k_4, analyzer.IgnoreSet)) {
-      lexerInfo = (0, _List.cons)([v_5, new _Sedlex.keep_token(0)], lexerInfo);
-    } else {
-      lexerInfo = (0, _List.cons)([v_5, new _Sedlex.keep_token(1, token_id)], lexerInfo);
-      tokenNames = (0, _List.cons)(name_of_named_term(k_4), tokenNames);
-      tokenReprs = (0, _List.cons)(k_4, tokenReprs);
+        case 0:
+          {
+            throw new Error("macro not processed");
+          }
+
+        default:
+          {
+            const decl = stmt.fields[0];
+            const ntname_1 = cg_symbol(new _Grammar.symbol(1, decl.lhs));
+            let idx_1 = 0;
+            const body_4 = (0, _CodeGen.align)((0, _CodeGen.vsep)((0, _List.mapIndexed)((i_6, e_1) => (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)(i_6 === 0 ? (0, _CodeGen.word)(":") : (0, _CodeGen.word)("|"), e_1), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_3 => {
+              const production = matchValue_3[1];
+              (0, _Analysis.Sigma__SetCurrentPos_Z302187B)(analyzer.Sigma, matchValue_3[0]);
+              (0, _Analysis.Sigma__SetCurrentDefinitionBranch_Z524259A4)(analyzer.Sigma, idx_1);
+              let actionName_2;
+              const idx = idx_1 | 0;
+              actionName_2 = (0, _String.toText)((0, _String.printf)("%s_%i"))(ntname_1)(idx);
+              return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.seplist)((0, _CodeGen.word)(" "), (0, _List.map)(arg_2 => (0, _CodeGen.word)(cg_symbol(arg_2)), production.symbols)), (0, _CodeGen.word)("-\u003e")), (0, _CodeGen.word)(actionName_2))), (0, _Seq.delay)(() => {
+                const patternInput_1 = (0, _BackendsCommon.DocBuilder_runCG)(cg_expr(actionName_2, global_scope, production.action));
+                const a = definePyFunc((0, _CodeGen.word)(actionName_2), (0, _List.ofArray)([(0, _CodeGen.word)("self"), (0, _CodeGen.word)(TREE_NAME)]), (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.vsep)(patternInput_1[1]), (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("return"), patternInput_1[0])])));
+                toplevel_transformer = (0, _List.ofArrayWithTail)([a, _CodeGen.empty], toplevel_transformer);
+                idx_1 = idx_1 + 1 | 0;
+                return (0, _Seq.empty)();
+              }));
+            }, decl.define))))));
+            return (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(ntname_1), body_4);
+          }
+      }
+    }, stmts)));
+    const import_items = (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(","), (0, _List.map)(_CodeGen.word, importNames)));
+    const file_constructors = [filename_constructors + ".py", (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("from __future__ import annotations as __01asda1ha")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from lark import Token as ${classvar_LarkToken}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`import dataclasses as ${modulevar_dataclass}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`import typing as ${modulevar_typing}`)), (0, _Seq.delay)(() => {
+      const adtCases = (0, _Analysis.Sigma__GetADTCases)(analyzer.Sigma);
+      return (0, _Seq.append)(!(0, _List.isEmpty)(importNames) ? (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(`from .${filename_require} import`), import_items)) : (0, _Seq.empty)(), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.collect)(matchValue_5 => {
+        const typename$0027 = rename_type(matchValue_5[0]);
+        let docCtorNames = (0, _List.empty)();
+        return (0, _Seq.append)((0, _Seq.collect)(matchValue_6 => {
+          const fields = matchValue_6[1];
+          const ctorName_1 = rename_ctor(matchValue_6[0]);
+          docCtorNames = (0, _List.cons)((0, _CodeGen.word)(ctorName_1), docCtorNames);
+          return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`@${modulevar_dataclass}.dataclass`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _List.length)(fields) === 0 ? (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`class ${ctorName_1}:`)), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.word)("pass"), 4)))) : (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`class ${ctorName_1}:`)), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_7 => (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(rename_field(matchValue_7[0])), (0, _CodeGen.word)(":")), (0, _CodeGen.word)(cg_type(matchValue_7[1])))), fields)))), 4)))), (0, _Seq.delay)(() => (0, _Seq.singleton)(_CodeGen.empty)))));
+        }, (0, _Map.toArray)(matchValue_5[1])), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`if ${modulevar_typing}.TYPE_CHECKING:`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => {
+          let t_3;
+          return !(0, _List.isEmpty)(docCtorNames) ? (0, _List.isEmpty)((0, _List.tail)(docCtorNames)) ? (t_3 = (0, _List.head)(docCtorNames), (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(typename$0027), (0, _CodeGen.word)("=")), t_3))) : (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(typename$0027), (0, _CodeGen.word)("=")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(`${modulevar_typing}.Union[`), (0, _CodeGen.seplist)((0, _CodeGen.word)(","), docCtorNames)), (0, _CodeGen.word)("]")))) : (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(typename$0027), (0, _CodeGen.word)("=")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(`${modulevar_typing}.Union[`), (0, _CodeGen.seplist)((0, _CodeGen.word)(","), docCtorNames)), (0, _CodeGen.word)("]"))));
+        }))), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("else:")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _List.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(typename$0027), (0, _CodeGen.word)("=")), (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(","), docCtorNames))))), 4)), (0, _Seq.delay)(() => (0, _Seq.singleton)(_CodeGen.empty)))))))))));
+      }, adtCases), (0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_8 => {
+        const typename_1 = matchValue_8[0];
+        const shape = matchValue_8[1];
+        const typename$0027_1 = rename_type(typename_1);
+        const varname = rename_var(typename_1);
+        return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`@${modulevar_dataclass}.dataclass`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`class ${typename$0027_1}:`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _List.isEmpty)(shape.fields) ? (0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.word)("pass"), 4)) : (0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_9 => {
+          const field_1 = rename_field(matchValue_9[0]);
+          const t_4 = cg_type(matchValue_9[1]);
+          return (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(field_1), (0, _CodeGen.word)(":")), (0, _CodeGen.word)(t_4)));
+        }, shape.fields)))), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(varname), (0, _CodeGen.word)("=")), (0, _CodeGen.word)(typename$0027_1))), (0, _Seq.delay)(() => (0, _Seq.singleton)(_CodeGen.empty)))))))))));
+      }, (0, _Analysis.Sigma__GetRecordTypes)(analyzer.Sigma))))))));
+    })))))))))))];
+    let lexerInfo = (0, _List.empty)();
+    let tokenNames = (0, _List.empty)();
+    let tokenReprs = (0, _List.empty)();
+    let idx_2 = 0;
+    let token_id = 0;
+    const ReferencedNamedTokens = Array.from(analyzer.ReferencedNamedTokens);
+    (0, _Array.sortInPlaceBy)(k_2 => analyzer.TokenFragments.findIndex(y_5 => k_2 === y_5), ReferencedNamedTokens, {
+      Compare: _Util.comparePrimitives
+    });
+    const arr = (0, _Array.sort)(Array.from(analyzer.LiteralTokens), {
+      Compare: _Util.comparePrimitives
+    });
+
+    for (let idx_3 = 0; idx_3 <= arr.length - 1; idx_3++) {
+      const k_3 = arr[idx_3];
+      const v_4 = (0, _Sedlex.pstring)(k_3);
+      lexerInfo = (0, _List.cons)([v_4, new _Sedlex.keep_token(1, token_id)], lexerInfo);
+      tokenNames = (0, _List.cons)(cg_symbol(new _Grammar.symbol(0, k_3, true)), tokenNames);
+      tokenReprs = (0, _List.cons)((0, _Utils.escapeString)(k_3), tokenReprs);
       token_id = token_id + 1 | 0;
+      idx_2 = idx_2 + 1 | 0;
     }
 
-    idx_2 = idx_2 + 1 | 0;
-  }
+    for (let idx_4 = 0; idx_4 <= ReferencedNamedTokens.length - 1; idx_4++) {
+      const k_4 = ReferencedNamedTokens[idx_4];
+      const v_5 = (0, _Map.FSharpMap__get_Item)(lexerMaps, k_4);
 
-  lexerInfo = (0, _List.cons)([_Sedlex.pany, new _Sedlex.keep_token(1, token_id)], lexerInfo);
-  tokenNames = (0, _List.cons)("UNKNOWN", tokenNames);
-  tokenReprs = (0, _List.cons)("UNKNOWN", tokenReprs);
-  const tokenNames_1 = (0, _List.reverse)(tokenNames);
-  const tokenReprs_1 = (0, _List.reverse)(tokenReprs);
-  const lexerInfo_1 = (0, _List.toArray)((0, _List.reverse)((0, _List.cons)([_Sedlex.peof, new _Sedlex.keep_token(1, -1)], lexerInfo)));
-  return [file_constructors, [langName + ".lark", (0, _CodeGen.vsep)((0, _List.ofArray)([file_grammar, (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("%declare"), (0, _CodeGen.seplist)((0, _CodeGen.word)(" "), (0, _List.map)(_CodeGen.word, tokenNames_1)))]))], [filename_lexer + ".py", (0, _CodeGenPython.codegen_python)(PythonPackage_Sedlex, (0, _Sedlex.build)(lexerInfo_1, "the last branch must be a catch-all error case!"))], [filename_python + ".py", (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("from __future__ import annotations")), (0, _Seq.delay)(() => (0, _Seq.append)(!(0, _List.isEmpty)(importNames) ? (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(`from .${filename_require} import`), import_items)) : (0, _Seq.empty)(), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from .${filename_lexer} import lexall as ${var_lexall}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from .${filename_constructors} import *`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from lark.lexer import Lexer as ${classvar_LarkLexer}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from lark import Transformer as ${classvar_LarkTransformer}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from lark import Lark as ${classvar_LarkBuilder}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from ${PythonPackage_Sedlex}.sedlex import from_ustring as ${var_from_ustring}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(var_tokenmaps), (0, _CodeGen.word)("=")), (0, _CodeGen.bracket)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), (0, _List.map)(arg_3 => (0, _CodeGen.word)((0, _Utils.escapeString)(arg_3)), tokenNames_1))))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(export_tokenreprs), (0, _CodeGen.word)("=")), (0, _CodeGen.bracket)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), (0, _List.map)(arg_4 => (0, _CodeGen.word)((0, _Utils.escapeString)(arg_4)), tokenReprs_1))))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(definePyFunc((0, _CodeGen.word)(var_construct_token), (0, _List.ofArray)([(0, _CodeGen.word)("token_id"), (0, _CodeGen.word)("lexeme"), (0, _CodeGen.word)("line"), (0, _CodeGen.word)("col"), (0, _CodeGen.word)("span"), (0, _CodeGen.word)("offset"), (0, _CodeGen.word)("file")]), (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.word)(`if token_id == -1: return ${classvar_LarkToken}("EOF", "")`), (0, _CodeGen.word)(`return ${classvar_LarkToken}(${var_tokenmaps}[token_id], lexeme, offset, line, col, None, None, span + offset)`)])))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(definePyFunc((0, _CodeGen.word)(var_iseof), (0, _List.singleton)((0, _CodeGen.word)("token")), (0, _CodeGen.word)("return token.type == \"EOF\""))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`class ${classvar_SedlexLexer}(${classvar_LarkLexer}):`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _List.ofArray)([definePyFunc((0, _CodeGen.word)("__init__"), (0, _List.ofArray)([(0, _CodeGen.word)("self"), (0, _CodeGen.word)("lex_conf")]), (0, _CodeGen.word)("pass")), definePyFunc((0, _CodeGen.word)("lex"), (0, _List.ofArray)([(0, _CodeGen.word)("self"), (0, _CodeGen.word)("raw_string")]), (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("lexbuf"), (0, _CodeGen.word)("=")), (0, _CodeGen.word)(`${var_from_ustring}(raw_string)`)), (0, _CodeGen.word)(`return ${var_lexall}(lexbuf, ${var_construct_token}, ${var_iseof})`)])))])), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`class ${classvar_RBNFTransformer}(${classvar_LarkTransformer}):`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)(toplevel_transformer), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.word)("pass"), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`with (__import__('pathlib').Path(__file__).parent /'${langName}.lark').open(encoding='utf8') as __0123fx9:`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(export_Grammar), (0, _CodeGen.word)("= __0123fx9.read()")), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(export_Parser), (0, _CodeGen.word)("=")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(classvar_LarkBuilder), (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), (0, _List.ofArray)([(0, _CodeGen.word)(export_Grammar), (0, _CodeGen.word)("start=\u0027start\u0027"), (0, _CodeGen.word)("parser=\u0027lalr\u0027"), (0, _CodeGen.word)(`lexer=${classvar_SedlexLexer}`), (0, _CodeGen.word)(`transformer=${classvar_RBNFTransformer}()`), (0, _CodeGen.word)("keep_all_tokens=True")])))))))))))))))))))))))))))))))))))))))))))))))))))))))))]];
+      if ((0, _Set.contains)(k_4, analyzer.IgnoreSet)) {
+        lexerInfo = (0, _List.cons)([v_5, new _Sedlex.keep_token(0)], lexerInfo);
+      } else {
+        lexerInfo = (0, _List.cons)([v_5, new _Sedlex.keep_token(1, token_id)], lexerInfo);
+        tokenNames = (0, _List.cons)(name_of_named_term(k_4), tokenNames);
+        tokenReprs = (0, _List.cons)(k_4, tokenReprs);
+        token_id = token_id + 1 | 0;
+      }
+
+      idx_2 = idx_2 + 1 | 0;
+    }
+
+    lexerInfo = (0, _List.cons)([_Sedlex.pany, new _Sedlex.keep_token(1, token_id)], lexerInfo);
+    tokenNames = (0, _List.cons)("UNKNOWN", tokenNames);
+    tokenReprs = (0, _List.cons)("UNKNOWN", tokenReprs);
+    const tokenNames_1 = (0, _List.reverse)(tokenNames);
+    const tokenReprs_1 = (0, _List.reverse)(tokenReprs);
+    const lexerInfo_1 = (0, _List.toArray)((0, _List.reverse)((0, _List.cons)([_Sedlex.peof, new _Sedlex.keep_token(1, -1)], lexerInfo)));
+    return [file_constructors, [langName + ".lark", (0, _CodeGen.vsep)((0, _List.ofArray)([file_grammar, (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("%declare"), (0, _CodeGen.seplist)((0, _CodeGen.word)(" "), (0, _List.map)(_CodeGen.word, tokenNames_1)))]))], [filename_lexer + ".py", (0, _CodeGenPython.codegen_python)(PythonPackage_Sedlex, (0, _Sedlex.build)(lexerInfo_1, "the last branch must be a catch-all error case!"))], [filename_python + ".py", (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("from __future__ import annotations")), (0, _Seq.delay)(() => (0, _Seq.append)(!(0, _List.isEmpty)(importNames) ? (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(`from .${filename_require} import`), import_items)) : (0, _Seq.empty)(), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from .${filename_lexer} import lexall as ${var_lexall}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from .${filename_constructors} import *`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from lark.lexer import Lexer as ${classvar_LarkLexer}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from lark import Transformer as ${classvar_LarkTransformer}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from lark import Lark as ${classvar_LarkBuilder}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`from ${PythonPackage_Sedlex}.sedlex import from_ustring as ${var_from_ustring}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(var_tokenmaps), (0, _CodeGen.word)("=")), (0, _CodeGen.bracket)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), (0, _List.map)(arg_3 => (0, _CodeGen.word)((0, _Utils.escapeString)(arg_3)), tokenNames_1))))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(export_tokenreprs), (0, _CodeGen.word)("=")), (0, _CodeGen.bracket)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), (0, _List.map)(arg_4 => (0, _CodeGen.word)((0, _Utils.escapeString)(arg_4)), tokenReprs_1))))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(definePyFunc((0, _CodeGen.word)(var_construct_token), (0, _List.ofArray)([(0, _CodeGen.word)("token_id"), (0, _CodeGen.word)("lexeme"), (0, _CodeGen.word)("line"), (0, _CodeGen.word)("col"), (0, _CodeGen.word)("span"), (0, _CodeGen.word)("offset"), (0, _CodeGen.word)("file")]), (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.word)(`if token_id == -1: return ${classvar_LarkToken}("EOF", "")`), (0, _CodeGen.word)(`return ${classvar_LarkToken}(${var_tokenmaps}[token_id], lexeme, offset, line, col, None, None, span + offset)`)])))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(definePyFunc((0, _CodeGen.word)(var_iseof), (0, _List.singleton)((0, _CodeGen.word)("token")), (0, _CodeGen.word)("return token.type == \"EOF\""))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`class ${classvar_SedlexLexer}(${classvar_LarkLexer}):`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _List.ofArray)([definePyFunc((0, _CodeGen.word)("__init__"), (0, _List.ofArray)([(0, _CodeGen.word)("self"), (0, _CodeGen.word)("lex_conf")]), (0, _CodeGen.word)("pass")), definePyFunc((0, _CodeGen.word)("lex"), (0, _List.ofArray)([(0, _CodeGen.word)("self"), (0, _CodeGen.word)("raw_string")]), (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("lexbuf"), (0, _CodeGen.word)("=")), (0, _CodeGen.word)(`${var_from_ustring}(raw_string)`)), (0, _CodeGen.word)(`return ${var_lexall}(lexbuf, ${var_construct_token}, ${var_iseof})`)])))])), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`class ${classvar_RBNFTransformer}(${classvar_LarkTransformer}):`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)(toplevel_transformer), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.word)("pass"), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`with (__import__('pathlib').Path(__file__).parent /'${langName}.lark').open(encoding='utf8') as __0123fx9:`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(export_Grammar), (0, _CodeGen.word)("= __0123fx9.read()")), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(export_Parser), (0, _CodeGen.word)("=")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(classvar_LarkBuilder), (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), (0, _List.ofArray)([(0, _CodeGen.word)(export_Grammar), (0, _CodeGen.word)("start=\u0027start\u0027"), (0, _CodeGen.word)("parser=\u0027lalr\u0027"), (0, _CodeGen.word)(`lexer=${classvar_SedlexLexer}`), (0, _CodeGen.word)(`transformer=${classvar_RBNFTransformer}()`), (0, _CodeGen.word)("keep_all_tokens=True")])))))))))))))))))))))))))))))))))))))))))))))))))))))))))]];
+  });
 }

@@ -2,7 +2,6 @@ module tbnf.Unification
 open Grammar
 open Exceptions
 type Manager() =
-
     let newTyRef (name: string) =
         let cell = Cell()
         let tref = TRef(cell)

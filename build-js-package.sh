@@ -7,3 +7,4 @@ cd tbnf-js && tsc
 npm run makecommonjs
 npm run assembly
 cd ..
+js-beautify tbnf.js -r --preserve-newlines

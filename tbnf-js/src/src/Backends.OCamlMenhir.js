@@ -33,9 +33,12 @@ var _String = require("../fable_modules/fable-library.3.7.5/String.js");
 
 var _CodeGen = require("../FableSedlex/CodeGen.js");
 
+var _ErrorReport = require("./ErrorReport.js");
+
 var _Array = require("../fable_modules/fable-library.3.7.5/Array.js");
 
 function codegen(analyzer, cg_options, langName, stmts) {
+  let objectArg_1;
   const variable_renamer = (0, _Option.defaultArg)(cg_options.rename_var, x => x);
   const constructor_renamer = (0, _Option.defaultArg)(cg_options.rename_ctor, x_1 => x_1);
   const field_renamer = (0, _Option.defaultArg)(cg_options.rename_field, x_2 => x_2);
@@ -354,184 +357,189 @@ function codegen(analyzer, cg_options, langName, stmts) {
     }
   };
 
-  const file_grammar = (0, _CodeGen.vsep)((0, _List.ofArray)((0, _Array.map)(stmt => {
-    (0, _Analysis.Sigma__SetCurrentDefinition_Z759AB257)(analyzer.Sigma, stmt);
+  return (0, _ErrorReport.withErrorHandler)((objectArg_1 = analyzer.Sigma, () => (0, _Analysis.Sigma__GetErrorTrace)(objectArg_1)), () => {
+    const file_grammar = (0, _CodeGen.vsep)((0, _List.ofArray)((0, _Array.map)(stmt => {
+      (0, _Analysis.Sigma__SetCurrentDefinition_Z759AB257)(analyzer.Sigma, stmt);
 
-    switch (stmt.tag) {
-      case 2:
-        {
-          const decl_1 = stmt.fields[0];
-          lexerMaps = (0, _List.cons)([decl_1.lhs, (0, _CodeGen.word)(mk_lexer(decl_1.define))], lexerMaps);
-          return _CodeGen.empty;
-        }
-
-      case 6:
-        {
-          return _CodeGen.empty;
-        }
-
-      case 3:
-        {
-          importVarNames = (0, _List.cons)(variable_renamer(stmt.fields[0].ident), importVarNames);
-          return (0, _CodeGen.vsep)((0, _List.empty)());
-        }
-
-      case 5:
-        {
-          importTypeNames = (0, _List.cons)(type_renamer(stmt.fields[0].ident), importTypeNames);
-          return (0, _CodeGen.vsep)((0, _List.empty)());
-        }
-
-      case 4:
-        {
-          return (0, _CodeGen.vsep)((0, _List.empty)());
-        }
-
-      case 0:
-        {
-          throw new Error("macro not processed");
-        }
-
-      default:
-        {
-          const decl = stmt.fields[0];
-          const ntname_1 = cg_symbol(new _Grammar.symbol(1, decl.lhs));
-          const body_4 = (0, _CodeGen.align)((0, _CodeGen.vsep)((0, _List.mapIndexed)((i_7, e_1) => (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)(i_7 === 0 ? (0, _CodeGen.word)(":") : (0, _CodeGen.word)("|"), e_1), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_4 => {
-            let prod;
-            (0, _Analysis.Sigma__SetCurrentPos_Z302187B)(analyzer.Sigma, matchValue_4[0]);
-            return (0, _Seq.singleton)((prod = matchValue_4[1], (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.seplist)((0, _CodeGen.word)(" "), (0, _List.map)(arg_1 => (0, _CodeGen.word)(cg_symbol(arg_1)), prod.symbols)), (0, _CodeGen.word)("{")), (0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _List.ofArray)([_CodeGen.empty, (0, _CodeGen.Doc_op_RightShift_2AAA0F3C)(cg_expr(global_scope, prod.action), 4), (0, _CodeGen.word)("}")])), 12))));
-          }, decl.define))))));
-          return (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(ntname_1), body_4);
-        }
-    }
-  }, stmts)));
-  const filename_lexer = (0, _String.toText)((0, _String.printf)("%s_lexer"))(langName);
-  const filename_parser = (0, _String.toText)((0, _String.printf)("%s_parser"))(langName);
-  const filename_constructors = (0, _String.toText)((0, _String.printf)("%s_construct"))(langName);
-  const filename_require = (0, _String.toText)((0, _String.printf)("%s_require"))(langName);
-  const var_tokenizer = mangle(ocamlVarIdentDescr, "tokenizer");
-  const var_lexbuf = mangle(ocamlVarIdentDescr, "lexbuf");
-  const file_constructors = [filename_constructors + ".ml", (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => {
-    let docCtorWrapFuncs = (0, _List.empty)();
-    return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`open ${(0, _Utils.capitalized)(filename_require)};;`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`open ${(0, _Utils.capitalized)(filename_lexer)};;`)), (0, _Seq.delay)(() => {
-      const adtCases = (0, _Analysis.Sigma__GetADTCases)(analyzer.Sigma);
-      return (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("type ___used_t_head_90xasda")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.collect)(matchValue_6 => {
-        const typename$0027 = type_renamer(matchValue_6[0]);
-        return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`and ${typename$0027} = `)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.collect)(matchValue_7 => {
-          const ctorName = matchValue_7[0];
-          const fields_1 = (0, _List.map)(tupledArg_2 => [field_renamer(tupledArg_2[0]), cg_type(tupledArg_2[1])], matchValue_7[1]);
-          const ctorName$0027 = constructor_renamer(ctorName);
-          const ret_t = (0, _CodeGen.word)(typename$0027);
-          docCtorWrapFuncs = (0, _List.cons)([variable_renamer(ctorName), ctorName$0027, fields_1, ret_t], docCtorWrapFuncs);
-
-          if ((0, _List.isEmpty)(fields_1)) {
-            return (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(ctorName$0027)), (0, _CodeGen.word)("of")), (0, _CodeGen.word)("unit")));
-          } else {
-            const ano_record_typ = (0, _CodeGen.seplist)((0, _CodeGen.word)(";"), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_8 => (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(matchValue_8[0]), (0, _CodeGen.word)(":")), (0, _CodeGen.word)(matchValue_8[1]))), fields_1))));
-            return (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(ctorName$0027)), (0, _CodeGen.word)("of")), (0, _CodeGen.word)("{")), ano_record_typ), (0, _CodeGen.word)("}")));
+      switch (stmt.tag) {
+        case 2:
+          {
+            const decl_1 = stmt.fields[0];
+            lexerMaps = (0, _List.cons)([decl_1.lhs, (0, _CodeGen.word)(mk_lexer(decl_1.define))], lexerMaps);
+            return _CodeGen.empty;
           }
-        }, (0, _Map.toArray)(matchValue_6[1])), (0, _Seq.delay)(() => (0, _Seq.singleton)(_CodeGen.empty)))));
-      }, adtCases), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.collect)(matchValue_9 => {
-        const typename_1 = matchValue_9[0];
-        const shape = matchValue_9[1];
-        const typename$0027_1 = type_renamer(typename_1);
-        const varname = variable_renamer(typename_1);
-        const ret_t_1 = (0, _List.isEmpty)(shape.parameters) ? (0, _CodeGen.word)(typename$0027_1) : (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.parens)((0, _CodeGen.word)((0, _String.join)(", ", (0, _List.map)(s_10 => "\u0027" + s_10, shape.parameters)))), (0, _CodeGen.word)(typename$0027_1));
-        const fields_2 = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_10 => (0, _Seq.singleton)([field_renamer(matchValue_10[0]), cg_type(matchValue_10[1])]), shape.fields)));
-        return (0, _List.isEmpty)(fields_2) ? (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("and"), ret_t_1), (0, _CodeGen.word)("=")), (0, _CodeGen.word)("MK_" + typename$0027_1)), (0, _CodeGen.word)("of unit"))), (0, _Seq.delay)(() => {
-          docCtorWrapFuncs = (0, _List.cons)([varname, "MK_" + typename$0027_1, fields_2, ret_t_1], docCtorWrapFuncs);
-          return (0, _Seq.empty)();
-        })) : (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("and"), ret_t_1), (0, _CodeGen.word)("=")), (0, _CodeGen.word)("{"))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_11 => (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(matchValue_11[0]), (0, _CodeGen.word)(":")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(matchValue_11[1]), (0, _CodeGen.word)(";")))), fields_2)))), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("}")), (0, _Seq.delay)(() => {
-          docCtorWrapFuncs = (0, _List.cons)([varname, "", fields_2, ret_t_1], docCtorWrapFuncs);
-          return (0, _Seq.empty)();
-        }))))));
-      }, (0, _Analysis.Sigma__GetRecordTypes)(analyzer.Sigma)), (0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_12 => {
-        const function_name = matchValue_12[0];
-        const fields_3 = matchValue_12[2];
-        const ctor_name = matchValue_12[1];
 
-        if ((0, _List.isEmpty)(fields_3)) {
-          return (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let"), (0, _CodeGen.word)(function_name)), (0, _CodeGen.word)("()")), (0, _CodeGen.word)("=")), (0, _CodeGen.word)(ctor_name)), (0, _CodeGen.word)("()")));
+        case 6:
+          {
+            return _CodeGen.empty;
+          }
+
+        case 3:
+          {
+            importVarNames = (0, _List.cons)(variable_renamer(stmt.fields[0].ident), importVarNames);
+            return (0, _CodeGen.vsep)((0, _List.empty)());
+          }
+
+        case 5:
+          {
+            importTypeNames = (0, _List.cons)(type_renamer(stmt.fields[0].ident), importTypeNames);
+            return (0, _CodeGen.vsep)((0, _List.empty)());
+          }
+
+        case 4:
+          {
+            return (0, _CodeGen.vsep)((0, _List.empty)());
+          }
+
+        case 0:
+          {
+            throw new Error("macro not processed");
+          }
+
+        default:
+          {
+            const decl = stmt.fields[0];
+            const ntname_1 = cg_symbol(new _Grammar.symbol(1, decl.lhs));
+            let idx_1 = 0;
+            const body_4 = (0, _CodeGen.align)((0, _CodeGen.vsep)((0, _List.mapIndexed)((i_7, e_1) => (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)(i_7 === 0 ? (0, _CodeGen.word)(":") : (0, _CodeGen.word)("|"), e_1), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_4 => {
+              let prod;
+              (0, _Analysis.Sigma__SetCurrentPos_Z302187B)(analyzer.Sigma, matchValue_4[0]);
+              (0, _Analysis.Sigma__SetCurrentDefinitionBranch_Z524259A4)(analyzer.Sigma, idx_1);
+              idx_1 = idx_1 + 1 | 0;
+              return (0, _Seq.singleton)((prod = matchValue_4[1], (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.seplist)((0, _CodeGen.word)(" "), (0, _List.map)(arg_1 => (0, _CodeGen.word)(cg_symbol(arg_1)), prod.symbols)), (0, _CodeGen.word)("{")), (0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _List.ofArray)([_CodeGen.empty, (0, _CodeGen.Doc_op_RightShift_2AAA0F3C)(cg_expr(global_scope, prod.action), 4), (0, _CodeGen.word)("}")])), 12))));
+            }, decl.define))))));
+            return (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(ntname_1), body_4);
+          }
+      }
+    }, stmts)));
+    const filename_lexer = (0, _String.toText)((0, _String.printf)("%s_lexer"))(langName);
+    const filename_parser = (0, _String.toText)((0, _String.printf)("%s_parser"))(langName);
+    const filename_constructors = (0, _String.toText)((0, _String.printf)("%s_construct"))(langName);
+    const filename_require = (0, _String.toText)((0, _String.printf)("%s_require"))(langName);
+    const var_tokenizer = mangle(ocamlVarIdentDescr, "tokenizer");
+    const var_lexbuf = mangle(ocamlVarIdentDescr, "lexbuf");
+    const file_constructors = [filename_constructors + ".ml", (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => {
+      let docCtorWrapFuncs = (0, _List.empty)();
+      return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`open ${(0, _Utils.capitalized)(filename_require)};;`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`open ${(0, _Utils.capitalized)(filename_lexer)};;`)), (0, _Seq.delay)(() => {
+        const adtCases = (0, _Analysis.Sigma__GetADTCases)(analyzer.Sigma);
+        return (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("type ___used_t_head_90xasda")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.collect)(matchValue_6 => {
+          const typename$0027 = type_renamer(matchValue_6[0]);
+          return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`and ${typename$0027} = `)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.collect)(matchValue_7 => {
+            const ctorName = matchValue_7[0];
+            const fields_1 = (0, _List.map)(tupledArg_2 => [field_renamer(tupledArg_2[0]), cg_type(tupledArg_2[1])], matchValue_7[1]);
+            const ctorName$0027 = constructor_renamer(ctorName);
+            const ret_t = (0, _CodeGen.word)(typename$0027);
+            docCtorWrapFuncs = (0, _List.cons)([variable_renamer(ctorName), ctorName$0027, fields_1, ret_t], docCtorWrapFuncs);
+
+            if ((0, _List.isEmpty)(fields_1)) {
+              return (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(ctorName$0027)), (0, _CodeGen.word)("of")), (0, _CodeGen.word)("unit")));
+            } else {
+              const ano_record_typ = (0, _CodeGen.seplist)((0, _CodeGen.word)(";"), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_8 => (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(matchValue_8[0]), (0, _CodeGen.word)(":")), (0, _CodeGen.word)(matchValue_8[1]))), fields_1))));
+              return (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(ctorName$0027)), (0, _CodeGen.word)("of")), (0, _CodeGen.word)("{")), ano_record_typ), (0, _CodeGen.word)("}")));
+            }
+          }, (0, _Map.toArray)(matchValue_6[1])), (0, _Seq.delay)(() => (0, _Seq.singleton)(_CodeGen.empty)))));
+        }, adtCases), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.collect)(matchValue_9 => {
+          const typename_1 = matchValue_9[0];
+          const shape = matchValue_9[1];
+          const typename$0027_1 = type_renamer(typename_1);
+          const varname = variable_renamer(typename_1);
+          const ret_t_1 = (0, _List.isEmpty)(shape.parameters) ? (0, _CodeGen.word)(typename$0027_1) : (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.parens)((0, _CodeGen.word)((0, _String.join)(", ", (0, _List.map)(s_10 => "\u0027" + s_10, shape.parameters)))), (0, _CodeGen.word)(typename$0027_1));
+          const fields_2 = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_10 => (0, _Seq.singleton)([field_renamer(matchValue_10[0]), cg_type(matchValue_10[1])]), shape.fields)));
+          return (0, _List.isEmpty)(fields_2) ? (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("and"), ret_t_1), (0, _CodeGen.word)("=")), (0, _CodeGen.word)("MK_" + typename$0027_1)), (0, _CodeGen.word)("of unit"))), (0, _Seq.delay)(() => {
+            docCtorWrapFuncs = (0, _List.cons)([varname, "MK_" + typename$0027_1, fields_2, ret_t_1], docCtorWrapFuncs);
+            return (0, _Seq.empty)();
+          })) : (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("and"), ret_t_1), (0, _CodeGen.word)("=")), (0, _CodeGen.word)("{"))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_11 => (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(matchValue_11[0]), (0, _CodeGen.word)(":")), (0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(matchValue_11[1]), (0, _CodeGen.word)(";")))), fields_2)))), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("}")), (0, _Seq.delay)(() => {
+            docCtorWrapFuncs = (0, _List.cons)([varname, "", fields_2, ret_t_1], docCtorWrapFuncs);
+            return (0, _Seq.empty)();
+          }))))));
+        }, (0, _Analysis.Sigma__GetRecordTypes)(analyzer.Sigma)), (0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_12 => {
+          const function_name = matchValue_12[0];
+          const fields_3 = matchValue_12[2];
+          const ctor_name = matchValue_12[1];
+
+          if ((0, _List.isEmpty)(fields_3)) {
+            return (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let"), (0, _CodeGen.word)(function_name)), (0, _CodeGen.word)("()")), (0, _CodeGen.word)("=")), (0, _CodeGen.word)(ctor_name)), (0, _CodeGen.word)("()")));
+          } else {
+            const args_5 = (0, _List.map)(arg_2 => (0, _CodeGen.word)(arg_2[0]), fields_3);
+            return (0, _Seq.singleton)((0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let"), (0, _CodeGen.word)(function_name)), (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), args_5))), (0, _CodeGen.word)(":")), matchValue_12[3]), (0, _CodeGen.word)("=")), (0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _List.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(ctor_name), (0, _CodeGen.word)("{")), (0, _CodeGen.seplist)((0, _CodeGen.word)(";"), args_5)), (0, _CodeGen.word)("}")))), 4)])));
+          }
+        }, docCtorWrapFuncs)))))))));
+      }))));
+    })))];
+    let tokenNames = (0, _List.empty)();
+    const ReferencedNamedTokens = Array.from(analyzer.ReferencedNamedTokens);
+    (0, _Array.sortInPlaceBy)(k_1 => analyzer.TokenFragments.findIndex(y_4 => k_1 === y_4), ReferencedNamedTokens, {
+      Compare: _Util.comparePrimitives
+    });
+    let lexical_rule_defs = (0, _List.empty)();
+    let tokenizer_cases = (0, _List.empty)();
+    const arr = (0, _Array.sort)(Array.from(analyzer.LiteralTokens), {
+      Compare: _Util.comparePrimitives
+    });
+
+    for (let idx_2 = 0; idx_2 <= arr.length - 1; idx_2++) {
+      const k_2 = arr[idx_2];
+      const v_2 = (0, _CodeGen.word)(mk_lexer(new _Grammar.lexerule(3, k_2)));
+      const tokenName = cg_symbol(new _Grammar.symbol(0, k_2, true));
+      const lexical_rule_name = "rule_" + tokenName;
+      const lexical_rule_def = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let"), (0, _CodeGen.word)(lexical_rule_name)), (0, _CodeGen.word)("=")), (0, _CodeGen.bracket)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("%sedlex.regexp?"), v_2)));
+      lexical_rule_defs = (0, _List.cons)(lexical_rule_def, lexical_rule_defs);
+      const tokenizer_case = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(lexical_rule_name)), (0, _CodeGen.word)(`-> ${tokenName} (mktoken ${var_lexbuf})`));
+      tokenizer_cases = (0, _List.cons)(tokenizer_case, tokenizer_cases);
+      tokenNames = (0, _List.cons)(tokenName, tokenNames);
+    }
+
+    const enumerator = (0, _Util.getEnumerator)(lexerMaps);
+
+    try {
+      while (enumerator["System.Collections.IEnumerator.MoveNext"]()) {
+        const forLoopVar = enumerator["System.Collections.Generic.IEnumerator`1.get_Current"]();
+        const v_3 = forLoopVar[1];
+        const k_3 = forLoopVar[0];
+
+        if ((0, _Set.contains)(k_3, analyzer.IgnoreSet)) {
+          const lexical_rule_name_1 = "rule_" + name_of_named_term(k_3);
+          const lexical_rule_def_1 = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let"), (0, _CodeGen.word)(lexical_rule_name_1)), (0, _CodeGen.word)("=")), (0, _CodeGen.bracket)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("%sedlex.regexp?"), v_3)));
+          lexical_rule_defs = (0, _List.cons)(lexical_rule_def_1, lexical_rule_defs);
+          const tokenizer_case_1 = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(lexical_rule_name_1)), (0, _CodeGen.word)(`-> ${var_tokenizer} ${var_lexbuf}`));
+          tokenizer_cases = (0, _List.cons)(tokenizer_case_1, tokenizer_cases);
         } else {
-          const args_5 = (0, _List.map)(arg_2 => (0, _CodeGen.word)(arg_2[0]), fields_3);
-          return (0, _Seq.singleton)((0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let"), (0, _CodeGen.word)(function_name)), (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(", "), args_5))), (0, _CodeGen.word)(":")), matchValue_12[3]), (0, _CodeGen.word)("=")), (0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _List.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(ctor_name), (0, _CodeGen.word)("{")), (0, _CodeGen.seplist)((0, _CodeGen.word)(";"), args_5)), (0, _CodeGen.word)("}")))), 4)])));
-        }
-      }, docCtorWrapFuncs)))))))));
-    }))));
-  })))];
-  let tokenNames = (0, _List.empty)();
-  const ReferencedNamedTokens = Array.from(analyzer.ReferencedNamedTokens);
-  (0, _Array.sortInPlaceBy)(k_1 => analyzer.TokenFragments.findIndex(y_4 => k_1 === y_4), ReferencedNamedTokens, {
-    Compare: _Util.comparePrimitives
-  });
-  let lexical_rule_defs = (0, _List.empty)();
-  let tokenizer_cases = (0, _List.empty)();
-  const arr = (0, _Array.sort)(Array.from(analyzer.LiteralTokens), {
-    Compare: _Util.comparePrimitives
-  });
+          const tokenName_1 = name_of_named_term(k_3);
+          const lexical_rule_name_2 = "rule_" + tokenName_1;
+          const lexical_rule_def_2 = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let"), (0, _CodeGen.word)(lexical_rule_name_2)), (0, _CodeGen.word)("=")), (0, _CodeGen.bracket)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("%sedlex.regexp?"), v_3)));
+          lexical_rule_defs = (0, _List.cons)(lexical_rule_def_2, lexical_rule_defs);
 
-  for (let idx_1 = 0; idx_1 <= arr.length - 1; idx_1++) {
-    const k_2 = arr[idx_1];
-    const v_2 = (0, _CodeGen.word)(mk_lexer(new _Grammar.lexerule(3, k_2)));
-    const tokenName = cg_symbol(new _Grammar.symbol(0, k_2, true));
-    const lexical_rule_name = "rule_" + tokenName;
-    const lexical_rule_def = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let"), (0, _CodeGen.word)(lexical_rule_name)), (0, _CodeGen.word)("=")), (0, _CodeGen.bracket)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("%sedlex.regexp?"), v_2)));
-    lexical_rule_defs = (0, _List.cons)(lexical_rule_def, lexical_rule_defs);
-    const tokenizer_case = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(lexical_rule_name)), (0, _CodeGen.word)(`-> ${tokenName} (mktoken ${var_lexbuf})`));
-    tokenizer_cases = (0, _List.cons)(tokenizer_case, tokenizer_cases);
-    tokenNames = (0, _List.cons)(tokenName, tokenNames);
-  }
-
-  const enumerator = (0, _Util.getEnumerator)(lexerMaps);
-
-  try {
-    while (enumerator["System.Collections.IEnumerator.MoveNext"]()) {
-      const forLoopVar = enumerator["System.Collections.Generic.IEnumerator`1.get_Current"]();
-      const v_3 = forLoopVar[1];
-      const k_3 = forLoopVar[0];
-
-      if ((0, _Set.contains)(k_3, analyzer.IgnoreSet)) {
-        const lexical_rule_name_1 = "rule_" + name_of_named_term(k_3);
-        const lexical_rule_def_1 = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let"), (0, _CodeGen.word)(lexical_rule_name_1)), (0, _CodeGen.word)("=")), (0, _CodeGen.bracket)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("%sedlex.regexp?"), v_3)));
-        lexical_rule_defs = (0, _List.cons)(lexical_rule_def_1, lexical_rule_defs);
-        const tokenizer_case_1 = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(lexical_rule_name_1)), (0, _CodeGen.word)(`-> ${var_tokenizer} ${var_lexbuf}`));
-        tokenizer_cases = (0, _List.cons)(tokenizer_case_1, tokenizer_cases);
-      } else {
-        const tokenName_1 = name_of_named_term(k_3);
-        const lexical_rule_name_2 = "rule_" + tokenName_1;
-        const lexical_rule_def_2 = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let"), (0, _CodeGen.word)(lexical_rule_name_2)), (0, _CodeGen.word)("=")), (0, _CodeGen.bracket)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("%sedlex.regexp?"), v_3)));
-        lexical_rule_defs = (0, _List.cons)(lexical_rule_def_2, lexical_rule_defs);
-
-        if ((0, _Array.contains)(k_3, ReferencedNamedTokens, {
-          Equals: (x_16, y_7) => x_16 === y_7,
-          GetHashCode: _Util.stringHash
-        })) {
-          const tokenizer_case_2 = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(lexical_rule_name_2)), (0, _CodeGen.word)(`-> ${tokenName_1} (mktoken ${var_lexbuf})`));
-          tokenizer_cases = (0, _List.cons)(tokenizer_case_2, tokenizer_cases);
-          tokenNames = (0, _List.cons)(tokenName_1, tokenNames);
+          if ((0, _Array.contains)(k_3, ReferencedNamedTokens, {
+            Equals: (x_16, y_7) => x_16 === y_7,
+            GetHashCode: _Util.stringHash
+          })) {
+            const tokenizer_case_2 = (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(lexical_rule_name_2)), (0, _CodeGen.word)(`-> ${tokenName_1} (mktoken ${var_lexbuf})`));
+            tokenizer_cases = (0, _List.cons)(tokenizer_case_2, tokenizer_cases);
+            tokenNames = (0, _List.cons)(tokenName_1, tokenNames);
+          }
         }
       }
+    } finally {
+      (0, _Util.disposeSafe)(enumerator);
     }
-  } finally {
-    (0, _Util.disposeSafe)(enumerator);
-  }
 
-  tokenizer_cases = (0, _List.ofArrayWithTail)([(0, _CodeGen.word)(`| _ -> _unknown_token ${var_lexbuf}`), (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)("eof -\u003e")), (0, _CodeGen.word)("EOF"))], tokenizer_cases);
-  const tokenNames_1 = (0, _List.reverse)(tokenNames);
-  const tokenizer_cases_1 = (0, _List.reverse)(tokenizer_cases);
-  const file_lexer = [filename_lexer + ".ml", (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.word)(rts_file_string), _CodeGen.empty, (0, _CodeGen.word)("type token ="), (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.map)(tkn => (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(tkn)), (0, _CodeGen.word)("of")), (0, _CodeGen.word)("tbnf_token")), tokenNames_1), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.word)("| EOF"))))))), _CodeGen.empty, (0, _CodeGen.vsep)(lexical_rule_defs), _CodeGen.empty, (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let rec"), (0, _CodeGen.word)(var_tokenizer)), (0, _CodeGen.word)(var_lexbuf)), (0, _CodeGen.word)("=")), (0, _CodeGen.align)((0, _CodeGen.indent)(4, (0, _CodeGen.vsep)((0, _List.cons)((0, _CodeGen.word)(`match%sedlex ${var_lexbuf} with`), tokenizer_cases_1))))]))]))];
-  const matchValue_13 = (0, _Map.tryFind)("start", analyzer.Omega);
+    tokenizer_cases = (0, _List.ofArrayWithTail)([(0, _CodeGen.word)(`| _ -> _unknown_token ${var_lexbuf}`), (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)("eof -\u003e")), (0, _CodeGen.word)("EOF"))], tokenizer_cases);
+    const tokenNames_1 = (0, _List.reverse)(tokenNames);
+    const tokenizer_cases_1 = (0, _List.reverse)(tokenizer_cases);
+    const file_lexer = [filename_lexer + ".ml", (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.word)(rts_file_string), _CodeGen.empty, (0, _CodeGen.word)("type token ="), (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.map)(tkn => (0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("|"), (0, _CodeGen.word)(tkn)), (0, _CodeGen.word)("of")), (0, _CodeGen.word)("tbnf_token")), tokenNames_1), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.word)("| EOF"))))))), _CodeGen.empty, (0, _CodeGen.vsep)(lexical_rule_defs), _CodeGen.empty, (0, _CodeGen.vsep)((0, _List.ofArray)([(0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("let rec"), (0, _CodeGen.word)(var_tokenizer)), (0, _CodeGen.word)(var_lexbuf)), (0, _CodeGen.word)("=")), (0, _CodeGen.align)((0, _CodeGen.indent)(4, (0, _CodeGen.vsep)((0, _List.cons)((0, _CodeGen.word)(`match%sedlex ${var_lexbuf} with`), tokenizer_cases_1))))]))]))];
+    const matchValue_13 = (0, _Map.tryFind)("start", analyzer.Omega);
 
-  if (matchValue_13 != null) {
-    const start_t = matchValue_13;
-    const start_name = cg_symbol(new _Grammar.symbol(1, "start"));
-    const start_t_1 = cg_type((0, _Grammar.monot__Prune)(start_t));
-    return [file_constructors, [filename_parser + ".mly", (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("%{")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`open ${(0, _Utils.capitalized)(filename_require)};;`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`open ${(0, _Utils.capitalized)(filename_lexer)};;`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`open ${(0, _Utils.capitalized)(filename_constructors)};;`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("%}")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.map)(tokenName_2 => (0, _CodeGen.word)(`%token<tbnf_token> ${tokenName_2}`), tokenNames_1), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("%token EOF")), (0, _Seq.delay)(() => {
-      let start_t_2;
-      return (0, _Seq.append)(start_rule_qualified_type != null ? (start_t_2 = start_rule_qualified_type, (0, _Seq.singleton)((0, _CodeGen.word)(`%start <${start_t_2}> start`))) : (0, _Seq.singleton)((0, _CodeGen.word)(`%start <${start_t_1}> start`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("%%")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)((0, _String.toText)((0, _String.printf)("start : %s EOF { $1 }"))(start_name))), (0, _Seq.delay)(() => (0, _Seq.singleton)(file_grammar)))))))));
-    })))))))))))))))))], file_lexer];
-  } else {
-    const exn_2 = (0, _Exceptions.UnboundNonterminal)("start");
-    throw exn_2;
-  }
+    if (matchValue_13 != null) {
+      const start_t = matchValue_13;
+      const start_name = cg_symbol(new _Grammar.symbol(1, "start"));
+      const start_t_1 = cg_type((0, _Grammar.monot__Prune)(start_t));
+      return [file_constructors, [filename_parser + ".mly", (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("%{")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`open ${(0, _Utils.capitalized)(filename_require)};;`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`open ${(0, _Utils.capitalized)(filename_lexer)};;`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`open ${(0, _Utils.capitalized)(filename_constructors)};;`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("%}")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.map)(tokenName_2 => (0, _CodeGen.word)(`%token<tbnf_token> ${tokenName_2}`), tokenNames_1), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("%token EOF")), (0, _Seq.delay)(() => {
+        let start_t_2;
+        return (0, _Seq.append)(start_rule_qualified_type != null ? (start_t_2 = start_rule_qualified_type, (0, _Seq.singleton)((0, _CodeGen.word)(`%start <${start_t_2}> start`))) : (0, _Seq.singleton)((0, _CodeGen.word)(`%start <${start_t_1}> start`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("%%")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)((0, _String.toText)((0, _String.printf)("start : %s EOF { $1 }"))(start_name))), (0, _Seq.delay)(() => (0, _Seq.singleton)(file_grammar)))))))));
+      })))))))))))))))))], file_lexer];
+    } else {
+      const exn_2 = (0, _Exceptions.UnboundNonterminal)("start");
+      throw exn_2;
+    }
+  });
 }

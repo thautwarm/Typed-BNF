@@ -11,7 +11,7 @@ exports.Sigma = void 0;
 exports.Sigma$reflection = Sigma$reflection;
 exports.Sigma_$ctor_3EA8CBCD = Sigma_$ctor_3EA8CBCD;
 exports.Sigma__GetADTCases = Sigma__GetADTCases;
-exports.Sigma__GetCurrentDefinition = Sigma__GetCurrentDefinition;
+exports.Sigma__GetErrorTrace = Sigma__GetErrorTrace;
 exports.Sigma__GetRecordTypes = Sigma__GetRecordTypes;
 exports.Sigma__IsGlobalVariableConstructor_Z721C83C5 = Sigma__IsGlobalVariableConstructor_Z721C83C5;
 exports.Sigma__KindCheckMono_Z25145215 = Sigma__KindCheckMono_Z25145215;
@@ -21,6 +21,7 @@ exports.Sigma__LookupField = Sigma__LookupField;
 exports.Sigma__RegisterCtorGVar = Sigma__RegisterCtorGVar;
 exports.Sigma__RegisterExtGVar = Sigma__RegisterExtGVar;
 exports.Sigma__RegisterType = Sigma__RegisterType;
+exports.Sigma__SetCurrentDefinitionBranch_Z524259A4 = Sigma__SetCurrentDefinitionBranch_Z524259A4;
 exports.Sigma__SetCurrentDefinition_Z759AB257 = Sigma__SetCurrentDefinition_Z759AB257;
 exports.Sigma__SetCurrentPos_Z302187B = Sigma__SetCurrentPos_Z302187B;
 exports.Sigma__WithExpr = Sigma__WithExpr;
@@ -50,7 +51,7 @@ var _Utils = require("./Utils.js");
 
 var _Op = require("./Op.js");
 
-var _String = require("../fable_modules/fable-library.3.7.5/String.js");
+var _ErrorReport = require("./ErrorReport.js");
 
 var _MacroResolve = require("./MacroResolve.js");
 
@@ -120,10 +121,15 @@ function Sigma__get_CurrentPos(__) {
 
 function Sigma__SetCurrentDefinition_Z759AB257(__, def) {
   __.errorTrace.whichDef = def;
+  __.errorTrace.branch = 0;
 }
 
-function Sigma__GetCurrentDefinition(__) {
-  return __.errorTrace.whichDef;
+function Sigma__SetCurrentDefinitionBranch_Z524259A4(__, branch) {
+  __.errorTrace.branch = branch | 0;
+}
+
+function Sigma__GetErrorTrace(__) {
+  return __.errorTrace;
 }
 
 function Sigma__KindCheck_Z25145215(__, t) {
@@ -261,7 +267,7 @@ function Sigma__registerType(this$, typename, kind) {
 
 function Sigma__addCase(this$, typename, ctorName, t) {
   if ((0, _Set.contains)(typename, this$.externalTypes)) {
-    const exn = new _Exceptions.InvalidConstructorDefinination(new _Exceptions.InvalidConstructorDefininationCause(0));
+    const exn = new _Exceptions.InvalidConstructorDefinination(ctorName, new _Exceptions.InvalidConstructorDefininationCause(0, typename));
     throw exn;
   }
 
@@ -281,7 +287,7 @@ function Sigma__addCase(this$, typename, ctorName, t) {
   switch (pattern_matching_result) {
     case 0:
       {
-        const exn_1 = new _Exceptions.InvalidConstructorDefinination(new _Exceptions.InvalidConstructorDefininationCause(1));
+        const exn_1 = new _Exceptions.InvalidConstructorDefinination(ctorName, new _Exceptions.InvalidConstructorDefininationCause(1, typename));
         throw exn_1;
         break;
       }
@@ -292,7 +298,8 @@ function Sigma__addCase(this$, typename, ctorName, t) {
           Sigma__registerType(this$, typename, 0);
           this$.shapes = (0, _Map.add)(typename, new Shape((0, _List.empty)(), (0, _List.empty)()), this$.shapes);
         } else if (!(0, _List.isEmpty)(matchValue.parameters)) {
-          const exn_2 = new _Exceptions.InvalidConstructorDefinination(new _Exceptions.InvalidConstructorDefininationCause(2));
+          const parameters = matchValue.parameters;
+          const exn_2 = new _Exceptions.InvalidConstructorDefinination(ctorName, new _Exceptions.InvalidConstructorDefininationCause(2, typename, parameters));
           throw exn_2;
         }
 
@@ -304,7 +311,7 @@ function Sigma__addCase(this$, typename, ctorName, t) {
     if (_arg1 != null) {
       if ((0, _Map.containsKey)(ctorName, _arg1)) {
         const cases_1 = _arg1;
-        const exn_3 = new _Exceptions.InvalidConstructorDefinination(new _Exceptions.InvalidConstructorDefininationCause(3, ctorName));
+        const exn_3 = new _Exceptions.InvalidConstructorDefinination(ctorName, new _Exceptions.InvalidConstructorDefininationCause(3));
         throw exn_3;
       } else if (_arg1 != null) {
         return (0, _Map.add)(ctorName, t, _arg1);
@@ -414,7 +421,7 @@ function Sigma__registerCtorGVar(this$, varname, t) {
 
       case 1:
         {
-          const exn_1 = new _Exceptions.InvalidConstructorDefinination(new _Exceptions.InvalidConstructorDefininationCause(4, t));
+          const exn_1 = new _Exceptions.InvalidConstructorDefinination(varname, new _Exceptions.InvalidConstructorDefininationCause(4, t));
           throw exn_1;
           break;
         }
@@ -443,8 +450,7 @@ function Analyzer$reflection() {
 }
 
 function build_analyzer(stmts) {
-  let TokenFragments_1;
-  const errorTrace = new _Exceptions.ErrorTrace(stmts[0], (0, _List.empty)(), (0, _Grammar.position_get_Fake)());
+  const errorTrace = new _Exceptions.ErrorTrace(stmts[0], 0, (0, _List.empty)(), (0, _Grammar.position_get_Fake)());
   const UM = (0, _Unification.Manager_$ctor)();
   const Sigma_1 = Sigma_$ctor_3EA8CBCD(UM, errorTrace);
   let Omega = (0, _Map.empty)();
@@ -524,7 +530,7 @@ function build_analyzer(stmts) {
             const matchValue_2 = (0, _List.tryItem)(i - 1, S_1);
 
             if (matchValue_2 == null) {
-              const exn_6 = new _Exceptions.ComponentAccessingOutOfBound(i);
+              const exn_6 = new _Exceptions.ComponentAccessingOutOfBound(i, (0, _List.length)(S_1));
               throw exn_6;
             } else {
               return new _Grammar.expr(e.node, e.pos, matchValue_2);
@@ -651,11 +657,14 @@ function build_analyzer(stmts) {
     }
   };
 
-  try {
+  return (0, _ErrorReport.withErrorHandler)(() => Sigma__GetErrorTrace(Sigma_1), () => {
+    let TokenFragments_1;
     const stmts_1 = (0, _MacroResolve.resolve_macro)(arg00_6 => {
       Sigma__SetCurrentPos_Z302187B(Sigma_1, arg00_6);
     }, arg00_7 => {
       Sigma__SetCurrentDefinition_Z759AB257(Sigma_1, arg00_7);
+    }, arg00_8 => {
+      Sigma__SetCurrentDefinitionBranch_Z524259A4(Sigma_1, arg00_8);
     }, stmts);
 
     for (let idx = 0; idx <= stmts_1.length - 1; idx++) {
@@ -810,6 +819,7 @@ function build_analyzer(stmts) {
             const decl_10 = stmt_2.fields[0];
             const tupledArg_2 = [decl_10.lhs, decl_10.define];
             const t_6 = (0, _Map.FSharpMap__get_Item)(Omega, tupledArg_2[0]);
+            let i_2 = 0;
             const enumerator_2 = (0, _Util.getEnumerator)(tupledArg_2[1]);
 
             try {
@@ -817,6 +827,7 @@ function build_analyzer(stmts) {
                 const forLoopVar_1 = enumerator_2["System.Collections.Generic.IEnumerator`1.get_Current"]();
                 const production = forLoopVar_1[1];
                 Sigma__SetCurrentPos_Z302187B(Sigma_1, forLoopVar_1[0]);
+                Sigma__SetCurrentDefinitionBranch_Z524259A4(Sigma_1, i_2);
                 const S_2 = (0, _List.map)(s => {
                   if (s.tag === 0) {
                     const n = s.fields[0];
@@ -852,6 +863,7 @@ function build_analyzer(stmts) {
                 const action = infer_e(Sigma__get_GlobalVariables(Sigma_1), S_2, production.action);
                 (0, _Unification.Manager__Unify_Z1D753960)(UM, action.t, t_6);
                 production.action = action;
+                i_2 = i_2 + 1 | 0;
               }
             } finally {
               (0, _Util.disposeSafe)(enumerator_2);
@@ -872,11 +884,5 @@ function build_analyzer(stmts) {
     }
 
     return [stmts_1, (TokenFragments_1 = (0, _Array.reverse)((0, _List.toArray)(TokenFragments)), new Analyzer(UM, Sigma_1, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet))];
-  } catch (e_2) {
-    const arg30_1 = Sigma__get_CurrentPos(Sigma_1).filename;
-    const arg20_1 = Sigma__get_CurrentPos(Sigma_1).col | 0;
-    const arg10_5 = Sigma__get_CurrentPos(Sigma_1).line | 0;
-    (0, _String.toConsole)((0, _String.printf)("line %d, column %d, file: %s\n%A"))(arg10_5)(arg20_1)(arg30_1)(e_2);
-    throw new Error("exit with error");
-  }
+  });
 }

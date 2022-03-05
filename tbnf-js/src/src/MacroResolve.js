@@ -53,7 +53,7 @@ function toPositionIndependentString(term) {
   }
 }
 
-function resolve_macro(setPos, setDef, stmts) {
+function resolve_macro(setPos, setDef, setBranch, stmts) {
   let macro_defs = (0, _Map.empty)();
   let stmts_to_solve = (0, _List.empty)();
   let fixed_stmts = (0, _List.empty)();
@@ -91,12 +91,13 @@ function resolve_macro(setPos, setDef, stmts) {
   const solve_specialization = tupledArg => {
     const decl_2 = tupledArg[0];
     setDef(new _Grammar.definition(1, decl_2));
-    let define = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue => {
-      const pos = matchValue[0];
-      const case$ = matchValue[1];
+    let define = (0, _List.mapIndexed)((i, tupledArg_1) => {
+      const pos = tupledArg_1[0];
+      const case$ = tupledArg_1[1];
       setPos(pos);
-      return (0, _Seq.singleton)([pos, new _Grammar.production((0, _List.map)(x => solve_sym(x)(tupledArg[1]), case$.symbols), (0, _Grammar.expr__DeepCopy)(case$.action))]);
-    }, decl_2.define)));
+      setBranch(i);
+      return [pos, new _Grammar.production((0, _List.map)(x => solve_sym(x)(tupledArg[1]), case$.symbols), (0, _Grammar.expr__DeepCopy)(case$.action))];
+    }, decl_2.define);
     final_results = (0, _List.cons)(new _Grammar.definition(1, {
       define: define,
       lhs: decl_2.lhs,
@@ -105,13 +106,13 @@ function resolve_macro(setPos, setDef, stmts) {
   };
 
   const solve_sym = sym => scope_2 => {
-    let matchValue_2, matchValue_3, macro_def, parameters, str_parameters, exn_1, scope$0027, resolved_name_1, exn;
+    let matchValue_1, matchValue_2, macro_def, parameters, str_parameters, exn_1, scope$0027, resolved_name_1, exn;
 
     switch (sym.tag) {
       case 1:
         {
-          const matchValue_1 = (0, _Map.tryFind)(sym.fields[0], scope_2);
-          return matchValue_1 == null ? sym : matchValue_1;
+          const matchValue = (0, _Map.tryFind)(sym.fields[0], scope_2);
+          return matchValue == null ? sym : matchValue;
         }
 
       case 2:
@@ -122,7 +123,7 @@ function resolve_macro(setPos, setDef, stmts) {
           const args_1 = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.map)(arg => solve_sym(arg)(scope_2), sym.fields[1])));
           let sym_1 = new _Grammar.symbol(2, n_1, args_1, pos_1);
           const key = toPositionIndependent(sym_1);
-          return new _Grammar.symbol(1, (matchValue_2 = (0, _Map.tryFind)(key, solved), matchValue_2 == null ? (matchValue_3 = (0, _Map.tryFind)(n_1, macro_defs), matchValue_3 != null ? (macro_def = matchValue_3, (parameters = macro_def.parameters, ((0, _List.length)(parameters) !== (0, _List.length)(args_1) ? (str_parameters = (0, _String.join)(", ", parameters), (exn_1 = new _Exceptions.MacroResolveError(`macro ${n_1} expects ${(0, _List.length)(parameters)} argument(s): (${str_parameters}); got ${(0, _List.length)(args_1)}`), (() => {
+          return new _Grammar.symbol(1, (matchValue_1 = (0, _Map.tryFind)(key, solved), matchValue_1 == null ? (matchValue_2 = (0, _Map.tryFind)(n_1, macro_defs), matchValue_2 != null ? (macro_def = matchValue_2, (parameters = macro_def.parameters, ((0, _List.length)(parameters) !== (0, _List.length)(args_1) ? (str_parameters = (0, _String.join)(", ", parameters), (exn_1 = new _Exceptions.MacroResolveError(`macro ${n_1} expects ${(0, _List.length)(parameters)} argument(s): (${str_parameters}); got ${(0, _List.length)(args_1)}`), (() => {
             throw exn_1;
           })())) : void 0, (scope$0027 = (0, _Map.ofList)((0, _List.map2)((k, v_1) => [k, v_1], parameters, args_1)), (resolved_name_1 = toPositionIndependentString(sym_1), (solved = (0, _Map.add)(key, resolved_name_1, solved), (stmts_to_solve_1 = (0, _List.cons)([{
             define: macro_def.define,
@@ -130,7 +131,7 @@ function resolve_macro(setPos, setDef, stmts) {
             pos: pos_1
           }, scope$0027], stmts_to_solve_1), resolved_name_1))))))) : (exn = new _Exceptions.MacroResolveError(`macro definition ${n_1} not found.`), (() => {
             throw exn;
-          })())) : matchValue_2));
+          })())) : matchValue_1));
         }
 
       default:

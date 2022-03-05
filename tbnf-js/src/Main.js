@@ -22,6 +22,8 @@ var codegen_ts = _interopRequireWildcard(require("./src/Backends.TypeScriptAntlr
 
 var _CodeGen = require("./FableSedlex/CodeGen");
 
+var _ErrorReport = require("./src/ErrorReport");
+
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -32,17 +34,24 @@ const backends = {
   "csharp-antlr": codegen_csharp.codegen,
   "typescript-antlr": codegen_ts.codegen
 };
+{
+  let setExitFuncTyped = _ErrorReport.setExitFunc;
+  setExitFuncTyped(i => process.exit(i));
+}
 const parser = new _argparse.ArgumentParser({
   description: 'Argparse example'
 });
-parser.add_argument('-i', '--tbnfSourcePath');
-parser.add_argument('-o', '--outDir');
+parser.add_argument('tbnfSourcePath');
+parser.add_argument('-o', '--outDir', {
+  default: ""
+});
 parser.add_argument('-lang', '--language', {
   help: "name of your own language",
   default: "mylang"
 });
 parser.add_argument('-be', '--backend', {
-  help: ""
+  choices: Object.keys(backends),
+  default: "python-lark"
 });
 parser.add_argument('-conf', '--configPath', {
   help: "path to a config file",
@@ -80,6 +89,10 @@ function runcommand() {
   let sourceCode = fs.readFileSync(srcPath, 'utf8');
   var defs = (0, _ParserMain.parse_tbnf)(sourceCode, srcPath);
   let defaultScope = getDefaultScope();
+
+  if (outDir == "") {
+    outDir = path.dirname(srcPath);
+  }
 
   if (configPath == "") {
     // if not defined, set 'configPath' to 'srcPath/../tbnf.config.js'
