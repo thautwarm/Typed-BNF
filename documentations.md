@@ -60,7 +60,7 @@ a : b c { $1 } // '$1' is the result of parsing 'b'!
 a : b c { $2 } // '$2' is the result of parsing 'c'!
 ```
 
-#### Let bindings and Variables
+#### Let bindings and variables
 ```ocamlyacc
 a : b c { let x = $1 in x }
 ```
@@ -93,18 +93,18 @@ Parameters need annotations.
 
 NOTE: This is slightly different from the paper. In the paper, we show the core language where parameters need no type annotations. However, for practical use, we want to support the handy field accessing `a.b`, where the type checker reports better error messages when parameter types are explicitly given.
 
-#### Tuples and Lists
+#### Tuples and lists
 
 ```ocamlyacc
 a: b c { ($1, $2) }
 a: b b { [$1, $2] }
 ```
 
-### Type/Value Definitions/Declarations
+### Type/value definitions/declarations
 
 Before writing the nonterminal rules, you can define/declare some values/types, where a few of them can be polymorphic!
 
-#### External Value Declarations
+#### External value declarations
 
 ```ocaml
 extern var parseInt: token -> int
@@ -118,14 +118,14 @@ def parseInt(x: Token):
     return int(str(x))
 ```
 
-#### External Type Declarations
+#### External type declarations
 
 ```ocaml
 extern type A
 extern type GenericType<A, B, C>
 ```
 
-#### ADT Definitions
+#### ADT definitions
 
 ```ocaml
 type expr
@@ -135,7 +135,7 @@ case LetExpr : (name: string, value: expr, body: expr) -> expr
 expr : <INT> { IntExpr(parseInt($1)) } // constructors can be called directly
 ```
 
-#### Record Definitions
+#### Record definitions
 
 ```ocaml
 type Pair<A, B>(fst: A, snd: B)
@@ -144,7 +144,7 @@ pair(a, b) : a b { Pair($1, $2) } // the typename of a record type can be called
 ```
 
 
-### Lexical Rules
+### Lexical rules
 
 A lexical rule `LEX` can be defined as a
 
