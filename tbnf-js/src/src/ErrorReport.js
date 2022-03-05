@@ -125,7 +125,7 @@ function withErrorHandler(getErrorTrace, action) {
 
     if (_arg1 != null) {
       const str = _arg1;
-      exprStack = `  in ${str}
+      exprStack = `  in '${str}'
 `;
     } else {
       exprStack = "";

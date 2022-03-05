@@ -119,7 +119,7 @@ let withErrorHandler<'a> (getErrorTrace: unit -> ErrorTrace) (action: unit -> 'a
         |> Option.map Inspect.showExpr
         |> function
         | None -> ""
-        | Some str -> $"  in {str}\n"
+        | Some str -> $"  in '{str}'\n"
 
     let stackTrace =
         let file = currentPostion.filename

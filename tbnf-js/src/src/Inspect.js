@@ -108,7 +108,7 @@ function showExpr(e) {
   } else if (matchValue.tag === 3) {
     return showExpr(matchValue.fields[0]) + "." + matchValue.fields[1];
   } else if (matchValue.tag === 7) {
-    return "$ " + (0, _Util.int32ToString)(matchValue.fields[0]);
+    return "$" + (0, _Util.int32ToString)(matchValue.fields[0]);
   } else if (matchValue.tag === 4) {
     return "let " + matchValue.fields[0] + " = " + showExpr(matchValue.fields[1]) + " in " + showExpr(matchValue.fields[2]);
   } else if (matchValue.tag === 5) {

@@ -32,7 +32,7 @@ let rec showExpr (e: expr): string =
     | node.ETuple(es) -> "(" + String.concat ", " (List.map showExpr es) + ")"
     | node.EList(es) -> "[" + String.concat ", " (List.map showExpr es) + "]"
     | node.EField(e, attr) -> showExpr e + "." + attr
-    | node.ESlot(i) -> "$ " + i.ToString()
+    | node.ESlot(i) -> "$" + i.ToString()
     | node.ELet(n, e, b) ->
         "let " + n + " = " + showExpr e + " in " + showExpr b
     | node.EFun(args, b) ->

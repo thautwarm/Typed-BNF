@@ -45056,7 +45056,7 @@
                     const h = (0, _.map)(s.showExpr, (0, i.tryHead)(l.exprStack));
                     if (h != null) {
                         const e = h;
-                        f = `  in ${e}\n`
+                        f = `  in '${e}'\n`
                     } else {
                         f = ""
                     }
@@ -46426,7 +46426,7 @@
                 } else if (t.tag === 3) {
                     return showExpr(t.fields[0]) + "." + t.fields[1]
                 } else if (t.tag === 7) {
-                    return "$ " + (0, a.int32ToString)(t.fields[0])
+                    return "$" + (0, a.int32ToString)(t.fields[0])
                 } else if (t.tag === 4) {
                     return "let " + t.fields[0] + " = " + showExpr(t.fields[1]) + " in " + showExpr(t.fields[2])
                 } else if (t.tag === 5) {
