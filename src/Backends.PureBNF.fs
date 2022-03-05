@@ -130,10 +130,10 @@ let codegen
               idx <- idx + 1
               yield cg_prod production
               idx <- idx + 1 ]
-        |> List.mapi (fun i e -> (if i = 0 then word ":" else word "|") + e)
+        |> List.mapi (fun i e -> (if i = 0 then word "::=" else word "|  ") + e)
         |> vsep
         |> align
-        |> fun body -> vsep [ word ntname + word "=" + (body >>> 4) ]
+        |> fun body -> vsep [ word ntname + (body >>> 4) ]
 
     let rec mk_lexer (def: lexerule) : string =
         let inline (!) def = mk_lexer def

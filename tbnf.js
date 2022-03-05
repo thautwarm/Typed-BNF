@@ -44386,7 +44386,7 @@
                                 }
                                 default: {
                                     const a = t.fields[0];
-                                    return (0, i.singleton)((r = cg_symbol(new d.symbol(1, a.lhs)), o = 0, s = (0, n.align)((0, n.vsep)((0, i.mapIndexed)(((e, t) => (0, n.Doc_op_Addition_Z7CFFAC00)(e === 0 ? (0, n.word)(":") : (0, n.word)("|"), t)), (0, l.toList)((0, l.delay)((() => (0, l.collect)((t => {
+                                    return (0, i.singleton)((r = cg_symbol(new d.symbol(1, a.lhs)), o = 0, s = (0, n.align)((0, n.vsep)((0, i.mapIndexed)(((e, t) => (0, n.Doc_op_Addition_Z7CFFAC00)(e === 0 ? (0, n.word)("::=") : (0, n.word)("|  "), t)), (0, l.toList)((0, l.delay)((() => (0, l.collect)((t => {
                                         let r;
                                         (0, _.Sigma__SetCurrentPos_Z302187B)(e.Sigma, t[0]);
                                         (0, _.Sigma__SetCurrentDefinitionBranch_Z524259A4)(e.Sigma, o);
@@ -44395,7 +44395,7 @@
                                             o = o + 1 | 0;
                                             return (0, l.empty)()
                                         })))
-                                    }), a.define))))))), (0, n.vsep)((0, i.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(r), (0, n.word)("=")), (0, n.Doc_op_RightShift_2AAA0F3C)(s, 4))))))
+                                    }), a.define))))))), (0, n.vsep)((0, i.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(r), (0, n.Doc_op_RightShift_2AAA0F3C)(s, 4))))))
                                 }
                             }
                         }), y))));
