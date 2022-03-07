@@ -26,7 +26,7 @@ For usage, see `test-python.ps1`, `test-ocaml.ps1` and `test-csharp.ps1`.
 
 ## Usage
 
-You might check out [Typed BNF Documentations](https://github.com/thautwarm/Typed-BNF/blob/main/documentations.md).
+Download the single JavaScript file `tbnf.js` from the root directory.
 
 ```bash
 usage: tbnf.js [-h] [-o OUTDIR] [-lang LANGUAGE]
@@ -49,6 +49,8 @@ optional arguments:
   -conf CONFIGPATH, --configPath CONFIGPATH
                         path to a config file
 ```
+
+You might check out [Typed BNF Documentations](https://github.com/thautwarm/Typed-BNF/blob/main/documentations.md).
 
 ## A basic example: `JSON`
 
