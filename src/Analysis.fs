@@ -112,6 +112,7 @@ type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
                            got = List.length parameters
                            expect = kind |}
             | None -> registerType typename parameters.Length
+            let mutable fieldsRef = fields
             if external then
                 externalTypes <- Set.add typename externalTypes
             elif hasFields then // define record
@@ -119,16 +120,22 @@ type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
                     if List.isEmpty parameters then
                         Mono(TFun(fields, TConst typename))
                     else
-                        Poly(parameters, TFun(fields, TApp(TConst typename, List.map TVar parameters)))
-                        |> processPolyType'
+                        let tapp = TFun(fields, TApp(TConst typename, List.map TVar parameters))
+                                   |> processPolyType' parameters
+                        let fields =
+                            match tapp with
+                            | TFun(fields, _) ->
+                                fields
+                            | _ -> failwith "impossible: substition affects type shape"
+                        fieldsRef <- fields
+                        Poly(parameters, tapp)
                 registerExistingVariable typename t
                 records <- typename :: records
-
             shapes <-
                 shapes
                 |> Map.add
                     typename
-                    { fields = fields
+                    { fields = fieldsRef
                       parameters = parameters }
 
     // return a pair: (a:polyt, b:monot) such that
@@ -149,7 +156,6 @@ type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
 
                 let gen_spec =
                     Poly(shape.parameters, TTuple([ gen_sig; ft ]))
-                    |> processPolyType'
 
                 UM.Instantiate(gen_spec)
                 |> snd
@@ -273,6 +279,7 @@ let build_analyzer(stmts: definition array) =
     (* check toplevel definitions, filter out nonterminal rules  *)
     let pre_process (stmt: definition) =
         Sigma.SetCurrentDefinition(stmt)
+        let mutable return_stmt = stmt
         match stmt with
         | definition.Defignore decl ->
             for each in decl.ignoreList do
@@ -280,11 +287,10 @@ let build_analyzer(stmts: definition array) =
                 IgnoreSet <- Set.add each IgnoreSet
 
         | definition.Declvar decl ->
-
             Sigma.KindCheck decl.t
             |> Sigma.RegisterExtGVar decl.ident
-        | definition.Declctor decl ->
 
+        | definition.Declctor decl ->
             Sigma.KindCheck decl.t
             |> Sigma.RegisterCtorGVar decl.ident
             // |> Sigma.RegisterGlobalVariable true decl.ident
@@ -292,9 +298,13 @@ let build_analyzer(stmts: definition array) =
         | definition.Decltype decl ->
             let fields = List.map (fun (k, v, _) -> k, v)  decl.fields
             Sigma.RegisterType decl.external decl.hasFields decl.ident decl.parameters fields
+            let mutable newFields = []
             for fieldname, t, pos in decl.fields do
+                let t = processPolyType' decl.parameters t
                 ignore(Sigma.KindCheckMono t)
-
+                newFields <- (fieldname, t, pos) :: newFields
+            if not <| List.isEmpty newFields then
+                return_stmt <- definition.Decltype {| decl with fields = List.rev newFields |}
         | definition.Defmacro _ -> invalidOp "macro definition must be processed before type checking"
         | definition.Defrule decl when Map.containsKey decl.lhs Omega -> raise <| DuplicateNonterminal(decl.lhs)
         | definition.Defrule decl ->
@@ -302,6 +312,8 @@ let build_analyzer(stmts: definition array) =
             Omega <- Map.add decl.lhs nt Omega
         | definition.Deflexer decl when List.contains decl.lhs TokenFragments -> raise <| DuplicateLexer(decl.lhs)
         | definition.Deflexer decl -> TokenFragments <- decl.lhs :: TokenFragments
+        
+        return_stmt
 
     // see \vdash_p in the paper
     let infer_p (s: symbol) =
@@ -438,8 +450,8 @@ let build_analyzer(stmts: definition array) =
                 Sigma.SetCurrentDefinitionBranch
                 stmts
 
-        for stmt in stmts do
-            pre_process stmt
+
+        let stmts = Array.map pre_process stmts
 
         for stmt in stmts do
             Sigma.SetCurrentDefinition stmt

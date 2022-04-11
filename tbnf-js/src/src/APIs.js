@@ -282,7 +282,7 @@ function MK_Macrocall(n, syms, position) {
 }
 
 function MK_Poly(bounds, monot) {
-  return (0, _Grammar.processPolyType$0027)(new _Grammar.polyt(0, (0, _List.ofArray)(bounds), monot));
+  return new _Grammar.polyt(0, (0, _List.ofArray)(bounds), (0, _Grammar.processPolyType$0027)(bounds, monot));
 }
 
 function MK_Mono(monot) {

@@ -1,7 +1,4 @@
-try
-{ mkdir ./runtests/ocaml_lua -ErrorAction Stop }
-catch { }
-
+mkdir -p ./runtests/ocaml_lua
 
 node tbnf.js ./runtests/lua.tbnf -o ./runtests/ocaml_lua -lang "lua" --backend=ocaml-menhir
 

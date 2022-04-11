@@ -66,7 +66,7 @@ class RBNFTransformer(Transformer):
         return [__tbnf_COMPONENTS[0]]
     
     def jsonpair_0(self, __tbnf_COMPONENTS):
-        return JsonPair(unesc(getStr(__tbnf_COMPONENTS[0])), __tbnf_COMPONENTS[2])
+        return NameValuePair(unesc(getStr(__tbnf_COMPONENTS[0])), __tbnf_COMPONENTS[2])
     
     def start_0(self, __tbnf_COMPONENTS):
         return __tbnf_COMPONENTS[0]

@@ -42019,7 +42019,7 @@
             }
 
             function MK_Poly(e, t) {
-                return (0, n.processPolyType$0027)(new n.polyt(0, (0, i.ofArray)(e), t))
+                return new n.polyt(0, (0, i.ofArray)(e), (0, n.processPolyType$0027)(e, t))
             }
 
             function MK_Mono(e) {
@@ -42071,8 +42071,8 @@
             var d = r(1697);
             var p = r(5891);
             var f = r(7936);
-            var h = r(6109);
-            var g = r(28);
+            var h = r(28);
+            var g = r(6109);
             class Shape extends n.Record {
                 constructor(e, t) {
                     super();
@@ -42327,15 +42327,16 @@
             }
 
             function Sigma__defineShape(e, t, r, n, i, l) {
+                let u, d, p;
                 if ((0, s.containsKey)(n, e.shapes)) {
                     const e = (0, c.DuplicateTypeVariable)(n);
                     throw e
                 } else {
-                    const u = (0, s.tryFind)(n, e.kinds);
-                    if (u == null) {
+                    const f = (0, s.tryFind)(n, e.kinds);
+                    if (f == null) {
                         Sigma__registerType(e, n, (0, _.length)(i))
                     } else {
-                        const e = u | 0;
+                        const e = f | 0;
                         if (e >= 0 && (0, _.length)(i) !== e) {
                             const t = new c.InvalidKind({
                                 expect: e,
@@ -42345,13 +42346,16 @@
                             throw t
                         }
                     }
+                    let h = l;
                     if (t) {
                         e.externalTypes = (0, a.add)(n, e.externalTypes)
                     } else if (r) {
-                        Sigma__registerExistingVariable(e, n, (0, _.isEmpty)(i) ? new o.polyt(1, new o.monot(3, l, new o.monot(1, n))) : (0, o.processPolyType$0027)(new o.polyt(0, i, new o.monot(3, l, new o.monot(2, new o.monot(1, n), (0, _.map)((e => new o.monot(4, e)), i))))));
+                        Sigma__registerExistingVariable(e, n, (0, _.isEmpty)(i) ? new o.polyt(1, new o.monot(3, l, new o.monot(1, n))) : (u = (0, o.processPolyType$0027)(i, new o.monot(3, l, new o.monot(2, new o.monot(1, n), (0, _.map)((e => new o.monot(4, e)), i)))), d = u.tag === 3 ? u.fields[0] : (() => {
+                            throw new Error("impossible: substition affects type shape")
+                        })(), h = d, new o.polyt(0, i, u)));
                         e.records = (0, _.cons)(n, e.records)
                     }
-                    e.shapes = (0, s.add)(n, new Shape(i, l), e.shapes)
+                    e.shapes = (p = e.shapes, (0, s.add)(n, new Shape(i, h), p))
                 }
             }
 
@@ -42364,7 +42368,7 @@
                     if (l != null) {
                         const r = l;
                         const a = (0, o.TTuple)((0, _.ofArray)([t, n]));
-                        (0, u.Manager__Unify_Z1D753960)(e.UM, a, (0, u.Manager__Instantiate_Z25E5E15E)(e.UM, (0, o.processPolyType$0027)(new o.polyt(0, s.parameters, (0, o.TTuple)((0, _.ofArray)([new o.monot(2, new o.monot(1, i), (0, _.map)((e => new o.monot(4, e)), s.parameters)), r])))))[1]);
+                        (0, u.Manager__Unify_Z1D753960)(e.UM, a, (0, u.Manager__Instantiate_Z25E5E15E)(e.UM, new o.polyt(0, s.parameters, (0, o.TTuple)((0, _.ofArray)([new o.monot(2, new o.monot(1, i), (0, _.map)((e => new o.monot(4, e)), s.parameters)), r]))))[1]);
                         Sigma__checkKind__Z25145215(e, a);
                         return (0, o.monot__Prune)(n)
                     } else {
@@ -42612,52 +42616,37 @@
                 };
                 return (0, f.withErrorHandler)((() => Sigma__GetErrorTrace(n)), (() => {
                     let t, f;
-                    const S = (0, h.resolve_macro)((e => {
-                        Sigma__SetCurrentPos_Z302187B(n, e)
-                    }), (e => {
-                        Sigma__SetCurrentDefinition_Z759AB257(n, e)
-                    }), (e => {
-                        Sigma__SetCurrentDefinitionBranch_Z524259A4(n, e)
-                    }), (0, g.append)([new o.definition(0, (t = (0, o.position_get_Fake)(), {
-                        define: (0, _.ofArray)([
-                            [(0, o.position_get_Fake)(), new o.production((0, _.singleton)(new o.symbol(1, "a")), new o.expr(new o.node(7, 1), (0, o.position_get_Fake)(), o.TConst_int))],
-                            [(0, o.position_get_Fake)(), new o.production((0, _.singleton)(new o.symbol(1, "b")), new o.expr(new o.node(7, 1), (0, o.position_get_Fake)(), o.TConst_int))]
-                        ]),
-                        lhs: "tbnf-alternative2",
-                        parameters: (0, _.ofArray)(["a", "b"]),
-                        pos: t
-                    }))], e));
-                    for (let e = 0; e <= S.length - 1; e++) {
-                        const t = S[e];
-                        Sigma__SetCurrentDefinition_Z759AB257(n, t);
-                        let o, d, f, h, g, T;
-                        if (t.tag === 6) {
-                            o = 0;
-                            d = t.fields[0]
-                        } else if (t.tag === 3) {
-                            o = 1;
-                            f = t.fields[0]
-                        } else if (t.tag === 4) {
-                            o = 2;
-                            h = t.fields[0]
-                        } else if (t.tag === 5) {
-                            o = 3;
-                            g = t.fields[0]
-                        } else if (t.tag === 0) {
-                            o = 4
-                        } else if (t.tag === 1) {
-                            if ((0, s.containsKey)(t.fields[0].lhs, i)) {
-                                o = 5;
-                                T = t.fields[0]
+                    const S = (0, h.map)((e => {
+                        Sigma__SetCurrentDefinition_Z759AB257(n, e);
+                        let t = e;
+                        let d, f, h, g, S, T;
+                        if (e.tag === 6) {
+                            d = 0;
+                            f = e.fields[0]
+                        } else if (e.tag === 3) {
+                            d = 1;
+                            h = e.fields[0]
+                        } else if (e.tag === 4) {
+                            d = 2;
+                            g = e.fields[0]
+                        } else if (e.tag === 5) {
+                            d = 3;
+                            S = e.fields[0]
+                        } else if (e.tag === 0) {
+                            d = 4
+                        } else if (e.tag === 1) {
+                            if ((0, s.containsKey)(e.fields[0].lhs, i)) {
+                                d = 5;
+                                T = e.fields[0]
                             } else {
-                                o = 6
+                                d = 6
                             }
                         } else {
-                            o = 6
+                            d = 6
                         }
-                        switch (o) {
+                        switch (d) {
                             case 0: {
-                                const e = (0, l.getEnumerator)(d.ignoreList);
+                                const e = (0, l.getEnumerator)(f.ignoreList);
                                 try {
                                     while (e["System.Collections.IEnumerator.MoveNext"]()) {
                                         const t = e["System.Collections.Generic.IEnumerator`1.get_Current"]();
@@ -42670,22 +42659,36 @@
                                 break
                             }
                             case 1: {
-                                Sigma__RegisterExtGVar(n, f.ident, Sigma__KindCheck_Z25E5E15E(n, f.t));
+                                Sigma__RegisterExtGVar(n, h.ident, Sigma__KindCheck_Z25E5E15E(n, h.t));
                                 break
                             }
                             case 2: {
-                                Sigma__RegisterCtorGVar(n, h.ident, Sigma__KindCheck_Z25145215(n, h.t));
+                                Sigma__RegisterCtorGVar(n, g.ident, Sigma__KindCheck_Z25145215(n, g.t));
                                 break
                             }
                             case 3: {
-                                Sigma__RegisterType(n, g.external, g.hasFields, g.ident, g.parameters, (0, _.map)((e => [e[0], e[1]]), g.fields));
-                                const e = (0, l.getEnumerator)(g.fields);
+                                Sigma__RegisterType(n, S.external, S.hasFields, S.ident, S.parameters, (0, _.map)((e => [e[0], e[1]]), S.fields));
+                                let e = (0, _.empty)();
+                                const r = (0, l.getEnumerator)(S.fields);
                                 try {
-                                    while (e["System.Collections.IEnumerator.MoveNext"]()) {
-                                        Sigma__KindCheckMono_Z25145215(n, e["System.Collections.Generic.IEnumerator`1.get_Current"]()[1])
+                                    while (r["System.Collections.IEnumerator.MoveNext"]()) {
+                                        const t = r["System.Collections.Generic.IEnumerator`1.get_Current"]();
+                                        const i = (0, o.processPolyType$0027)(S.parameters, t[1]);
+                                        Sigma__KindCheckMono_Z25145215(n, i);
+                                        e = (0, _.cons)([t[0], i, t[2]], e)
                                     }
                                 } finally {
-                                    (0, l.disposeSafe)(e)
+                                    (0, l.disposeSafe)(r)
+                                }
+                                if (!(0, _.isEmpty)(e)) {
+                                    t = new o.definition(5, {
+                                        external: S.external,
+                                        fields: (0, _.reverse)(e),
+                                        hasFields: S.hasFields,
+                                        ident: S.ident,
+                                        parameters: S.parameters,
+                                        pos: S.pos
+                                    })
                                 }
                                 break
                             }
@@ -42699,24 +42702,24 @@
                                 break
                             }
                             case 6: {
-                                let e, n, o;
-                                if (t.tag === 1) {
-                                    e = 0;
-                                    n = t.fields[0]
-                                } else if (t.tag === 2) {
-                                    if ((0, _.contains)(t.fields[0].lhs, m, {
+                                let t, n, o;
+                                if (e.tag === 1) {
+                                    t = 0;
+                                    n = e.fields[0]
+                                } else if (e.tag === 2) {
+                                    if ((0, _.contains)(e.fields[0].lhs, m, {
                                             Equals: (e, t) => e === t,
                                             GetHashCode: l.stringHash
                                         })) {
-                                        e = 1;
-                                        o = t.fields[0]
+                                        t = 1;
+                                        o = e.fields[0]
                                     } else {
-                                        e = 2
+                                        t = 2
                                     }
                                 } else {
-                                    e = 2
+                                    t = 2
                                 }
-                                switch (e) {
+                                switch (t) {
                                     case 0: {
                                         const e = (0, u.Manager__NewTyRef_Z721C83C5)(r, "'" + n.lhs);
                                         i = (0, s.add)(n.lhs, e, i);
@@ -42728,8 +42731,8 @@
                                         break
                                     }
                                     case 2: {
-                                        if (t.tag === 2) {
-                                            m = (0, _.cons)(t.fields[0].lhs, m)
+                                        if (e.tag === 2) {
+                                            m = (0, _.cons)(e.fields[0].lhs, m)
                                         } else {
                                             throw new Error("Match failure")
                                         }
@@ -42739,7 +42742,22 @@
                                 break
                             }
                         }
-                    }
+                        return t
+                    }), (0, g.resolve_macro)((e => {
+                        Sigma__SetCurrentPos_Z302187B(n, e)
+                    }), (e => {
+                        Sigma__SetCurrentDefinition_Z759AB257(n, e)
+                    }), (e => {
+                        Sigma__SetCurrentDefinitionBranch_Z524259A4(n, e)
+                    }), (0, h.append)([new o.definition(0, (t = (0, o.position_get_Fake)(), {
+                        define: (0, _.ofArray)([
+                            [(0, o.position_get_Fake)(), new o.production((0, _.singleton)(new o.symbol(1, "a")), new o.expr(new o.node(7, 1), (0, o.position_get_Fake)(), o.TConst_int))],
+                            [(0, o.position_get_Fake)(), new o.production((0, _.singleton)(new o.symbol(1, "b")), new o.expr(new o.node(7, 1), (0, o.position_get_Fake)(), o.TConst_int))]
+                        ]),
+                        lhs: "tbnf-alternative2",
+                        parameters: (0, _.ofArray)(["a", "b"]),
+                        pos: t
+                    }))], e)));
                     for (let e = 0; e <= S.length - 1; e++) {
                         const t = S[e];
                         Sigma__SetCurrentDefinition_Z759AB257(n, t);
@@ -42803,7 +42821,7 @@
                             default: {}
                         }
                     }
-                    return [S, (f = (0, g.reverse)((0, _.toArray)(m)), new Analyzer(r, n, i, d, p, f, y))]
+                    return [S, (f = (0, h.reverse)((0, _.toArray)(m)), new Analyzer(r, n, i, d, p, f, y))]
                 }))
             }
         },
@@ -43148,7 +43166,7 @@
                             s = ["", (0, g.word)(n)]
                         } else {
                             const e = "<" + (0, h.join)(", ", (0, i.map)(typeParameter_mangling, r.parameters)) + ">";
-                            s = [e, (0, g.word)(`${n}<${e}>`)]
+                            s = [e, (0, g.word)(`${n}${e}`)]
                         }
                         const a = s[0];
                         const l = (0, _.toList)((0, _.delay)((() => (0, _.collect)((e => (0, _.singleton)([(0, g.word)(A(e[0])), (0, g.word)(cg_type(e[1]))])), r.fields))));
@@ -43302,11 +43320,13 @@
                         const T = cg_symbol(new p.symbol(1, "start"));
                         return [
                             [r + ".g4", (0, g.vsep)((0, _.toList)((0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)(`grammar ${r};`)), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("options { language = CSharp; }")), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("@members {")), (0, _.delay)((() => (0, _.append)((0, _.collect)((e => {
-                                const t = e[4];
-                                const r = e[3];
-                                const n = (0, g.parens)((0, g.seplist)((0, g.word)(","), (0, i.map)((e => (0, g.Doc_op_Addition_Z7CFFAC00)(e[1], e[0])), r)));
-                                const o = (0, g.parens)((0, g.seplist)((0, g.word)(","), (0, i.map)((e => e[0]), r)));
-                                return (0, _.singleton)((0, g.vsep)((0, _.toList)((0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("public static"), t), (0, g.word)(e[1])), (0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.word)(e[0]), n))), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("{")), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.Doc_op_RightShift_2AAA0F3C)((0, g.vsep)((0, i.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("return"), (0, g.parens)(t)), (0, g.word)("new")), (0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.word)(e[2]), o), (0, g.word)(";"))))), 4)), (0, _.delay)((() => (0, _.singleton)((0, g.word)("}"))))))))))))))))
+                                const t = e[0];
+                                const r = e[4];
+                                const n = e[3];
+                                const o = e[2];
+                                const s = (0, g.parens)((0, g.seplist)((0, g.word)(","), (0, i.map)((e => (0, g.Doc_op_Addition_Z7CFFAC00)(e[1], e[0])), n)));
+                                const a = (0, g.parens)((0, g.seplist)((0, g.word)(","), (0, i.map)((e => e[0]), n)));
+                                return (0, _.singleton)((0, g.vsep)((0, _.toList)((0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("public static"), r), (0, g.word)(e[1])), (0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.word)(t), s))), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("{")), (0, _.delay)((() => (0, _.append)((0, _.singleton)(t === "" ? (0, g.Doc_op_RightShift_2AAA0F3C)((0, g.vsep)((0, i.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("return"), (0, g.parens)(r)), (0, g.word)("new")), (0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.word)(o), a), (0, g.word)(";"))))), 4) : (0, g.Doc_op_RightShift_2AAA0F3C)((0, g.vsep)((0, i.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("return"), (0, g.parens)(r)), (0, g.word)("new")), (0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.word)(o), (0, g.word)(t)), a), (0, g.word)(";"))))), 4)), (0, _.delay)((() => (0, _.singleton)((0, g.word)("}"))))))))))))))))
                             }), D), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("}")), (0, _.delay)((() => {
                                 let e;
                                 return (0, _.append)((0, _.singleton)((0, g.word)((e = cg_type(n), (0, h.toText)((0, h.printf)("start returns [%s result]: v=%s EOF { $result = _localctx.v.result; };"))(e)(T)))), (0, _.delay)((() => (0, _.append)((0, _.singleton)(m), (0, _.delay)((() => y))))))
@@ -46689,13 +46709,8 @@
                 }
             }
 
-            function processPolyType$0027(e) {
-                if (e.tag === 0) {
-                    const t = e.fields[0];
-                    return new polyt(0, t, monot__SubstGen_1D5B3D8E(e.fields[1], (0, s.ofList)((0, u.toList)((0, u.delay)((() => (0, u.map)((e => [e, new monot(4, e)]), t)))))))
-                } else {
-                    return e
-                }
+            function processPolyType$0027(e, t) {
+                return monot__SubstGen_1D5B3D8E(t, (0, s.ofList)((0, u.toList)((0, u.delay)((() => (0, u.map)((e => [e, new monot(4, e)]), e))))))
             }
         },
         380: (e, t, r) => {

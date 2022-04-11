@@ -180,7 +180,7 @@ let MK_Nonterm define = Nonterm define
 let MK_Macrocall n syms position = Macrocall(n, Array.toList syms, position)
 
 [<CompiledName("MK_" + nameof (Poly))>]
-let MK_Poly bounds monot = processPolyType' <| Poly(Array.toList bounds, monot)
+let MK_Poly bounds monot = Poly(Array.toList bounds, processPolyType' bounds monot)
 
 [<CompiledName("MK_" + nameof (Mono))>]
 let MK_Mono (monot) = Mono monot

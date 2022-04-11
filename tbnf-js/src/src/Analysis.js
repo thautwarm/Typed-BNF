@@ -53,9 +53,9 @@ var _Op = require("./Op.js");
 
 var _ErrorReport = require("./ErrorReport.js");
 
-var _MacroResolve = require("./MacroResolve.js");
-
 var _Array = require("../fable_modules/fable-library.3.7.9/Array.js");
+
+var _MacroResolve = require("./MacroResolve.js");
 
 class Shape extends _Types.Record {
   constructor(parameters, fields) {
@@ -326,6 +326,8 @@ function Sigma__addCase(this$, typename, ctorName, t) {
 }
 
 function Sigma__defineShape(this$, external, hasFields, typename, parameters, fields) {
+  let tapp, fields_2, table;
+
   if ((0, _Map.containsKey)(typename, this$.shapes)) {
     const exn = (0, _Exceptions.DuplicateTypeVariable)(typename);
     throw exn;
@@ -347,14 +349,18 @@ function Sigma__defineShape(this$, external, hasFields, typename, parameters, fi
       }
     }
 
+    let fieldsRef = fields;
+
     if (external) {
       this$.externalTypes = (0, _Set.add)(typename, this$.externalTypes);
     } else if (hasFields) {
-      Sigma__registerExistingVariable(this$, typename, (0, _List.isEmpty)(parameters) ? new _Grammar.polyt(1, new _Grammar.monot(3, fields, new _Grammar.monot(1, typename))) : (0, _Grammar.processPolyType$0027)(new _Grammar.polyt(0, parameters, new _Grammar.monot(3, fields, new _Grammar.monot(2, new _Grammar.monot(1, typename), (0, _List.map)(arg0 => new _Grammar.monot(4, arg0), parameters))))));
+      Sigma__registerExistingVariable(this$, typename, (0, _List.isEmpty)(parameters) ? new _Grammar.polyt(1, new _Grammar.monot(3, fields, new _Grammar.monot(1, typename))) : (tapp = (0, _Grammar.processPolyType$0027)(parameters, new _Grammar.monot(3, fields, new _Grammar.monot(2, new _Grammar.monot(1, typename), (0, _List.map)(arg0 => new _Grammar.monot(4, arg0), parameters)))), (fields_2 = tapp.tag === 3 ? tapp.fields[0] : (() => {
+        throw new Error("impossible: substition affects type shape");
+      })(), (fieldsRef = fields_2, new _Grammar.polyt(0, parameters, tapp)))));
       this$.records = (0, _List.cons)(typename, this$.records);
     }
 
-    this$.shapes = (0, _Map.add)(typename, new Shape(parameters, fields), this$.shapes);
+    this$.shapes = (table = this$.shapes, (0, _Map.add)(typename, new Shape(parameters, fieldsRef), table));
   }
 }
 
@@ -369,7 +375,7 @@ function Sigma__lookupField(this$, t, fieldname, tyref) {
     if (matchValue_1 != null) {
       const ft = matchValue_1;
       const inst_target = (0, _Grammar.TTuple)((0, _List.ofArray)([t, tyref]));
-      (0, _Unification.Manager__Unify_Z1D753960)(this$.UM, inst_target, (0, _Unification.Manager__Instantiate_Z25E5E15E)(this$.UM, (0, _Grammar.processPolyType$0027)(new _Grammar.polyt(0, shape.parameters, (0, _Grammar.TTuple)((0, _List.ofArray)([new _Grammar.monot(2, new _Grammar.monot(1, typename), (0, _List.map)(arg0 => new _Grammar.monot(4, arg0), shape.parameters)), ft])))))[1]);
+      (0, _Unification.Manager__Unify_Z1D753960)(this$.UM, inst_target, (0, _Unification.Manager__Instantiate_Z25E5E15E)(this$.UM, new _Grammar.polyt(0, shape.parameters, (0, _Grammar.TTuple)((0, _List.ofArray)([new _Grammar.monot(2, new _Grammar.monot(1, typename), (0, _List.map)(arg0 => new _Grammar.monot(4, arg0), shape.parameters)), ft]))))[1]);
       Sigma__checkKind__Z25145215(this$, inst_target);
       return (0, _Grammar.monot__Prune)(tyref);
     } else {
@@ -509,9 +515,9 @@ function build_analyzer(stmts) {
         case 4:
           {
             const name_3 = matchValue.fields[0];
-            const value_2 = infer_e(s_Gamma, S_1, matchValue.fields[1]);
-            const body_1 = infer_e((0, _Map.add)(name_3, new _Grammar.polyt(1, value_2.t), s_Gamma), S_1, matchValue.fields[2]);
-            return new _Grammar.expr(new _Grammar.node(4, name_3, value_2, body_1), e.pos, body_1.t);
+            const value_3 = infer_e(s_Gamma, S_1, matchValue.fields[1]);
+            const body_1 = infer_e((0, _Map.add)(name_3, new _Grammar.polyt(1, value_3.t), s_Gamma), S_1, matchValue.fields[2]);
+            return new _Grammar.expr(new _Grammar.node(4, name_3, value_3, body_1), e.pos, body_1.t);
           }
 
         case 2:
@@ -552,8 +558,8 @@ function build_analyzer(stmts) {
         case 3:
           {
             const fieldname_1 = matchValue.fields[1];
-            const value_4 = infer_e(s_Gamma, S_1, matchValue.fields[0]);
-            return new _Grammar.expr(new _Grammar.node(3, value_4, fieldname_1), e.pos, Sigma__LookupField(Sigma_1, value_4.t, fieldname_1));
+            const value_5 = infer_e(s_Gamma, S_1, matchValue.fields[0]);
+            return new _Grammar.expr(new _Grammar.node(3, value_5, fieldname_1), e.pos, Sigma__LookupField(Sigma_1, value_5.t, fieldname_1));
           }
 
         case 5:
@@ -659,22 +665,9 @@ function build_analyzer(stmts) {
 
   return (0, _ErrorReport.withErrorHandler)(() => Sigma__GetErrorTrace(Sigma_1), () => {
     let pos_2, TokenFragments_1;
-    const stmts_2 = (0, _MacroResolve.resolve_macro)(arg00_6 => {
-      Sigma__SetCurrentPos_Z302187B(Sigma_1, arg00_6);
-    }, arg00_7 => {
-      Sigma__SetCurrentDefinition_Z759AB257(Sigma_1, arg00_7);
-    }, arg00_8 => {
-      Sigma__SetCurrentDefinitionBranch_Z524259A4(Sigma_1, arg00_8);
-    }, (0, _Array.append)([new _Grammar.definition(0, (pos_2 = (0, _Grammar.position_get_Fake)(), {
-      define: (0, _List.ofArray)([[(0, _Grammar.position_get_Fake)(), new _Grammar.production((0, _List.singleton)(new _Grammar.symbol(1, "a")), new _Grammar.expr(new _Grammar.node(7, 1), (0, _Grammar.position_get_Fake)(), _Grammar.TConst_int))], [(0, _Grammar.position_get_Fake)(), new _Grammar.production((0, _List.singleton)(new _Grammar.symbol(1, "b")), new _Grammar.expr(new _Grammar.node(7, 1), (0, _Grammar.position_get_Fake)(), _Grammar.TConst_int))]]),
-      lhs: "tbnf-alternative2",
-      parameters: (0, _List.ofArray)(["a", "b"]),
-      pos: pos_2
-    }))], stmts));
-
-    for (let idx = 0; idx <= stmts_2.length - 1; idx++) {
-      const stmt = stmts_2[idx];
+    const stmts_3 = (0, _Array.map)(stmt => {
       Sigma__SetCurrentDefinition_Z759AB257(Sigma_1, stmt);
+      let return_stmt = stmt;
       let pattern_matching_result_1, decl_1, decl_2, decl_3, decl_4, decl_5;
 
       if (stmt.tag === 6) {
@@ -735,14 +728,29 @@ function build_analyzer(stmts) {
         case 3:
           {
             Sigma__RegisterType(Sigma_1, decl_4.external, decl_4.hasFields, decl_4.ident, decl_4.parameters, (0, _List.map)(tupledArg => [tupledArg[0], tupledArg[1]], decl_4.fields));
+            let newFields = (0, _List.empty)();
             const enumerator_1 = (0, _Util.getEnumerator)(decl_4.fields);
 
             try {
               while (enumerator_1["System.Collections.IEnumerator.MoveNext"]()) {
-                Sigma__KindCheckMono_Z25145215(Sigma_1, enumerator_1["System.Collections.Generic.IEnumerator`1.get_Current"]()[1]);
+                const forLoopVar = enumerator_1["System.Collections.Generic.IEnumerator`1.get_Current"]();
+                const t_1 = (0, _Grammar.processPolyType$0027)(decl_4.parameters, forLoopVar[1]);
+                Sigma__KindCheckMono_Z25145215(Sigma_1, t_1);
+                newFields = (0, _List.cons)([forLoopVar[0], t_1, forLoopVar[2]], newFields);
               }
             } finally {
               (0, _Util.disposeSafe)(enumerator_1);
+            }
+
+            if (!(0, _List.isEmpty)(newFields)) {
+              return_stmt = new _Grammar.definition(5, {
+                external: decl_4.external,
+                fields: (0, _List.reverse)(newFields),
+                hasFields: decl_4.hasFields,
+                ident: decl_4.ident,
+                parameters: decl_4.parameters,
+                pos: decl_4.pos
+              });
             }
 
             break;
@@ -812,18 +820,31 @@ function build_analyzer(stmts) {
             break;
           }
       }
-    }
 
-    for (let idx_1 = 0; idx_1 <= stmts_2.length - 1; idx_1++) {
-      const stmt_2 = stmts_2[idx_1];
-      Sigma__SetCurrentDefinition_Z759AB257(Sigma_1, stmt_2);
+      return return_stmt;
+    }, (0, _MacroResolve.resolve_macro)(arg00_6 => {
+      Sigma__SetCurrentPos_Z302187B(Sigma_1, arg00_6);
+    }, arg00_7 => {
+      Sigma__SetCurrentDefinition_Z759AB257(Sigma_1, arg00_7);
+    }, arg00_8 => {
+      Sigma__SetCurrentDefinitionBranch_Z524259A4(Sigma_1, arg00_8);
+    }, (0, _Array.append)([new _Grammar.definition(0, (pos_2 = (0, _Grammar.position_get_Fake)(), {
+      define: (0, _List.ofArray)([[(0, _Grammar.position_get_Fake)(), new _Grammar.production((0, _List.singleton)(new _Grammar.symbol(1, "a")), new _Grammar.expr(new _Grammar.node(7, 1), (0, _Grammar.position_get_Fake)(), _Grammar.TConst_int))], [(0, _Grammar.position_get_Fake)(), new _Grammar.production((0, _List.singleton)(new _Grammar.symbol(1, "b")), new _Grammar.expr(new _Grammar.node(7, 1), (0, _Grammar.position_get_Fake)(), _Grammar.TConst_int))]]),
+      lhs: "tbnf-alternative2",
+      parameters: (0, _List.ofArray)(["a", "b"]),
+      pos: pos_2
+    }))], stmts)));
 
-      switch (stmt_2.tag) {
+    for (let idx = 0; idx <= stmts_3.length - 1; idx++) {
+      const stmt_1 = stmts_3[idx];
+      Sigma__SetCurrentDefinition_Z759AB257(Sigma_1, stmt_1);
+
+      switch (stmt_1.tag) {
         case 1:
           {
-            const decl_10 = stmt_2.fields[0];
+            const decl_10 = stmt_1.fields[0];
             const tupledArg_2 = [decl_10.lhs, decl_10.define];
-            const t_6 = (0, _Map.FSharpMap__get_Item)(Omega, tupledArg_2[0]);
+            const t_7 = (0, _Map.FSharpMap__get_Item)(Omega, tupledArg_2[0]);
             let i_2 = 0;
             const enumerator_2 = (0, _Util.getEnumerator)(tupledArg_2[1]);
 
@@ -866,7 +887,7 @@ function build_analyzer(stmts) {
                   }
                 }, production.symbols);
                 const action = infer_e(Sigma__get_GlobalVariables(Sigma_1), S_2, production.action);
-                (0, _Unification.Manager__Unify_Z1D753960)(UM, action.t, t_6);
+                (0, _Unification.Manager__Unify_Z1D753960)(UM, action.t, t_7);
                 production.action = action;
                 i_2 = i_2 + 1 | 0;
               }
@@ -879,7 +900,7 @@ function build_analyzer(stmts) {
 
         case 2:
           {
-            check_lexerule(stmt_2.fields[0].define);
+            check_lexerule(stmt_1.fields[0].define);
             break;
           }
 
@@ -888,6 +909,6 @@ function build_analyzer(stmts) {
       }
     }
 
-    return [stmts_2, (TokenFragments_1 = (0, _Array.reverse)((0, _List.toArray)(TokenFragments)), new Analyzer(UM, Sigma_1, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet))];
+    return [stmts_3, (TokenFragments_1 = (0, _Array.reverse)((0, _List.toArray)(TokenFragments)), new Analyzer(UM, Sigma_1, Omega, LiteralTokens, ReferencedNamedTokens, TokenFragments_1, IgnoreSet))];
   });
 }

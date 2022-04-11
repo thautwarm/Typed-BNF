@@ -5,14 +5,14 @@ extern var unesc : str -> str
 extern var appendList : <a> (list<a>, a) -> list<a>
 
 type Json
-type JsonPair(name: str, value: Json)
+type NameValuePair<A, B>(name: A, value: B)
 
 case JInt : int -> Json
 case JFlt : float -> Json
 case JStr : str -> Json
 case JNull : () -> Json
 case JList : (elements: list<Json>) -> Json
-case JDict : list<JsonPair> -> Json
+case JDict : list<NameValuePair<str, Json>> -> Json
 case JBool : bool -> Json
 
 ignore space
@@ -30,7 +30,7 @@ seplist(sep, elt) : elt { [$1] }
                   | seplist(sep, elt) sep elt
                     { appendList($1, $3) }
 
-jsonpair : <str> ":" json { JsonPair(unesc(getStr($1)), $3) }
+jsonpair : <str> ":" json { NameValuePair(unesc(getStr($1)), $3) }
 
 /* CPP comments */
 

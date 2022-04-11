@@ -122,7 +122,7 @@ def parseInt(x: Token):
 
 ```ocaml
 extern type A
-extern type GenericType<'A, 'B, 'C>
+extern type GenericType<A, B, C>
 ```
 
 #### ADT definitions

@@ -585,11 +585,6 @@ function $007CTTuple$007C_$007C(x) {
   }
 }
 
-function processPolyType$0027(t) {
-  if (t.tag === 0) {
-    const bounds = t.fields[0];
-    return new polyt(0, bounds, monot__SubstGen_1D5B3D8E(t.fields[1], (0, _Map.ofList)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.map)(k => [k, new monot(4, k)], bounds))))));
-  } else {
-    return t;
-  }
+function processPolyType$0027(bounds, monot_1) {
+  return monot__SubstGen_1D5B3D8E(monot_1, (0, _Map.ofList)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.map)(k => [k, new monot(4, k)], bounds)))));
 }

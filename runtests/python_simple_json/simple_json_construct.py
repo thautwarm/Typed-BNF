@@ -10,7 +10,7 @@ class JBool:
 
 @dataclasses.dataclass
 class JDict:
-    value: list[JsonPair]
+    value: list[NameValuePair[str, Json]]
 
 @dataclasses.dataclass
 class JFlt:
@@ -38,9 +38,9 @@ else:
     Json = (JStr,JNull,JList,JInt,JFlt,JDict,JBool)
 
 @dataclasses.dataclass
-class JsonPair:
-    name: str
-    value: Json
+class NameValuePair:
+    name: object
+    value: object
 
-JsonPair = JsonPair
+NameValuePair = NameValuePair
 

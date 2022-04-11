@@ -554,7 +554,7 @@ let codegen
                             |> List.map (fun s -> typeParameter_mangling s)
                             |> String.concat ", "
                             |> fun tparams -> "<" + tparams + ">"
-                        tparams, word $"{typename'}<{tparams}>"
+                        tparams, word $"{typename'}{tparams}"
 
                 let fields = [for (fname, t) in shape.fields -> word (rename_field fname), word (cg_type t)]
                 let func_params = parens(seplist (word ",") [for (fname, t) in fields -> t + fname])
@@ -605,9 +605,15 @@ let codegen
                         yield vsep [
                              yield word "public static" + ret_t + word function_name + word tparams * func_params
                              yield word "{"
-                             yield vsep [
-                                    word "return" + parens(ret_t) + word "new" + word ctor_name * args * word ";"
-                             ] >>> 4
+                             
+                             yield  if tparams = "" then
+                                        vsep [
+                                            word "return" + parens(ret_t) + word "new" + word ctor_name * args * word ";"
+                                        ] >>> 4
+                                    else
+                                        vsep [
+                                            word "return" + parens(ret_t) + word "new" + word ctor_name * word tparams * args * word ";"
+                                        ] >>> 4
                              yield word "}"
                         ]
 
