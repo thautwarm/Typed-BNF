@@ -90,6 +90,13 @@ and monot =
         | TApp (f, args) -> TApp(ap f, List.map ap args)
         | TFun (args, ret) -> TFun(List.map (fun ab -> fst ab, ap (snd ab)) args, ap ret)
 
+    member this.SubstGen(ty_arguments: Map<string, monot>) =
+        let rec findAndSubst (t) =
+            match t with
+            | TConst x when Map.containsKey x ty_arguments -> ty_arguments.[x]
+            | _ -> t.TransformChildren findAndSubst
+        findAndSubst this
+
     member this.ApplyToChildren((!): monot -> unit) =
         match this with
         | TConst _

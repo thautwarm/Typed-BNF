@@ -5,19 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.codegen_python = codegen_python;
 
-var _Map = require("../fable_modules/fable-library.3.7.5/Map.js");
+var _Map = require("../fable_modules/fable-library.3.7.9/Map.js");
 
-var _String = require("../fable_modules/fable-library.3.7.5/String.js");
+var _String = require("../fable_modules/fable-library.3.7.9/String.js");
 
-var _List = require("../fable_modules/fable-library.3.7.5/List.js");
+var _List = require("../fable_modules/fable-library.3.7.9/List.js");
 
 var _CodeGen = require("./CodeGen.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.5/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
 
-var _Seq = require("../fable_modules/fable-library.3.7.5/Seq.js");
+var _Seq = require("../fable_modules/fable-library.3.7.9/Seq.js");
 
-var _Array = require("../fable_modules/fable-library.3.7.5/Array.js");
+var _Array = require("../fable_modules/fable-library.3.7.9/Array.js");
 
 function codegen_python(import_head, cu) {
   let decision_funcs = (0, _Map.empty)();

@@ -17,6 +17,7 @@ const backends = {
   "python-lark": codegen_py.codegen,
   "ocaml-menhir": codegen_ocaml.codegen,
   "csharp-antlr": codegen_csharp.codegen,
+  "typescript-antlr": codegen_ts.codegen,
   "purebnf": codegen_bnf.codegen,
 };
 

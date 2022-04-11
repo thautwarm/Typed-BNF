@@ -16,8 +16,9 @@
     "argparse": "^2.0.1"
   },
   "scripts": {
-    "makecommonjs": "./node_modules/.bin/babel src --out-dir src --copy-files",
-    "assembly": "ncc -m build src/Main.js -o dist --no-source-map-register && mv dist/index.js ../tbnf.js"
+    "makecommonjs": "babel src --out-dir src --copy-files",
+    "assembly": "ncc -m build src/Main.js -o dist && mv dist/index.js ../tbnf.js",
+    "js-beautify": "js-beautify ../tbnf.js -r --preserve-newlines"
   },
   "keywords": [
     "parser",

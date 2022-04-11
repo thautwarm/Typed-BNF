@@ -6,15 +6,15 @@ Object.defineProperty(exports, "__esModule", {
 exports.inspectMonoType = inspectMonoType;
 exports.showExpr = showExpr;
 
-var _Types = require("../fable_modules/fable-library.3.7.5/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
 
-var _String = require("../fable_modules/fable-library.3.7.5/String.js");
+var _String = require("../fable_modules/fable-library.3.7.9/String.js");
 
-var _List = require("../fable_modules/fable-library.3.7.5/List.js");
+var _List = require("../fable_modules/fable-library.3.7.9/List.js");
 
 var _Grammar = require("./Grammar.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.5/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
 
 var _Utils = require("./Utils.js");
 

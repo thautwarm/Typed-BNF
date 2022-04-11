@@ -50,16 +50,21 @@ exports.MK_expr = MK_expr;
 exports.MK_position = MK_position;
 exports.MK_production = MK_production;
 exports.build_analyzer = build_analyzer;
+exports.processPolyType = processPolyType;
 
 var _Grammar = require("./Grammar.js");
 
-var _List = require("../fable_modules/fable-library.3.7.5/List.js");
+var _List = require("../fable_modules/fable-library.3.7.9/List.js");
 
-var _Types = require("../fable_modules/fable-library.3.7.5/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
 
-var _Array = require("../fable_modules/fable-library.3.7.5/Array.js");
+var _Array = require("../fable_modules/fable-library.3.7.9/Array.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.5/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
+
+var _Map = require("../fable_modules/fable-library.3.7.9/Map.js");
+
+var _Seq = require("../fable_modules/fable-library.3.7.9/Seq.js");
 
 var _Analysis = require("./Analysis.js");
 
@@ -287,6 +292,15 @@ function MK_Poly(bounds, monot) {
 
 function MK_Mono(monot) {
   return new _Grammar.polyt(1, monot);
+}
+
+function processPolyType(t) {
+  if (t.tag === 0) {
+    const bounds = t.fields[0];
+    return new _Grammar.polyt(0, bounds, (0, _Grammar.monot__SubstGen_1D5B3D8E)(t.fields[1], (0, _Map.ofList)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.map)(k => [k, new _Grammar.monot(4, k)], bounds))))));
+  } else {
+    return t;
+  }
 }
 
 function build_analyzer(stmts) {

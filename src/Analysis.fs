@@ -420,6 +420,16 @@ let build_analyzer(stmts: definition array) =
 
     let main() =
         let stmts =
+            Array.append [|definition.Defmacro {|
+                lhs = "tbnf-alternative2"
+                parameters = ["a"; "b"]
+                pos = position.Fake
+                define = [
+                    position.Fake, {symbols = [ symbol.Nonterm("a") ]; action = { node = ESlot 1; t = TConst_int; pos = position.Fake } }
+                    position.Fake, {symbols = [ symbol.Nonterm("b") ]; action = { node = ESlot 1; t = TConst_int; pos = position.Fake } }
+                ] |}
+            |] stmts
+        let stmts =
             MacroResolve.resolve_macro
                 Sigma.SetCurrentPos
                 Sigma.SetCurrentDefinition

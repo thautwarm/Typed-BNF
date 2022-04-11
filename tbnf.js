@@ -3919,7 +3919,7 @@
             n([l.Override], RuleContext.prototype, "toStringTree", null);
             t.RuleContext = RuleContext
         },
-        6218: function(e, t, r) {
+        5638: function(e, t, r) {
             /*!
              * Copyright 2016 The ANTLR Project. All rights reserved.
              * Licensed under the BSD-3-Clause license. See LICENSE file in the project root for license information.
@@ -5479,13 +5479,13 @@
             const S = r(7108);
             const T = r(7833);
             const x = r(823);
-            const N = r(6342);
-            const C = r(7165);
+            const C = r(6342);
+            const N = r(7165);
             const A = r(3231);
             const E = r(2069);
             const v = r(9174);
-            const M = r(829);
-            const w = r(6407);
+            const w = r(829);
+            const M = r(6407);
             const b = r(6994);
             const F = r(6966);
             const B = r(4063);
@@ -5499,9 +5499,9 @@
             const $ = r(8557);
             const j = r(7785);
             const U = r(5864);
-            const q = r(7989);
-            const H = r(8146);
-            const Z = r(8734);
+            const Z = r(7989);
+            const q = r(8146);
+            const H = r(8734);
             const z = r(7528);
             const K = r(4562);
             const G = r(4316);
@@ -5564,8 +5564,8 @@
                     let g = new a.ATN(l, p);
                     let S = [];
                     let x = [];
-                    let C = ATNDeserializer.toInt(e[t++]);
-                    for (let r = 0; r < C; r++) {
+                    let N = ATNDeserializer.toInt(e[t++]);
+                    for (let r = 0; r < N; r++) {
                         let r = ATNDeserializer.toInt(e[t++]);
                         if (r === _.ATNStateType.INVALID_TYPE) {
                             g.addState(new T.InvalidState);
@@ -5606,12 +5606,12 @@
                         let r = ATNDeserializer.toInt(e[t++]);
                         g.states[r].isPrecedenceRule = true
                     }
-                    let M = ATNDeserializer.toInt(e[t++]);
+                    let w = ATNDeserializer.toInt(e[t++]);
                     if (g.grammarType === 0) {
-                        g.ruleToTokenType = new Int32Array(M)
+                        g.ruleToTokenType = new Int32Array(w)
                     }
-                    g.ruleToStartState = new Array(M);
-                    for (let r = 0; r < M; r++) {
+                    g.ruleToStartState = new Array(w);
+                    for (let r = 0; r < w; r++) {
                         let i = ATNDeserializer.toInt(e[t++]);
                         let o = g.states[i];
                         o.leftFactored = ATNDeserializer.toInt(e[t++]) !== 0;
@@ -5630,7 +5630,7 @@
                             }
                         }
                     }
-                    g.ruleToStopState = new Array(M);
+                    g.ruleToStopState = new Array(w);
                     for (let e of g.states) {
                         if (!(e instanceof $.RuleStopState)) {
                             continue
@@ -5638,13 +5638,13 @@
                         g.ruleToStopState[e.ruleIndex] = e;
                         g.ruleToStartState[e.ruleIndex].stopState = e
                     }
-                    let w = ATNDeserializer.toInt(e[t++]);
-                    for (let r = 0; r < w; r++) {
+                    let M = ATNDeserializer.toInt(e[t++]);
+                    for (let r = 0; r < M; r++) {
                         let r = ATNDeserializer.toInt(e[t++]);
                         g.modeToStartState.push(g.states[r])
                     }
-                    g.modeToDFA = new Array(w);
-                    for (let e = 0; e < w; e++) {
+                    g.modeToDFA = new Array(M);
+                    for (let e = 0; e < M; e++) {
                         g.modeToDFA[e] = new m.DFA(g.modeToStartState[e])
                     }
                     let F = [];
@@ -5720,11 +5720,11 @@
                                     r.loopBackState = t
                                 }
                             }
-                        } else if (e instanceof H.StarLoopbackState) {
+                        } else if (e instanceof q.StarLoopbackState) {
                             let t = e;
                             for (let e = 0; e < t.numberOfTransitions; e++) {
                                 let r = t.transition(e).target;
-                                if (r instanceof Z.StarLoopEntryState) {
+                                if (r instanceof H.StarLoopEntryState) {
                                     r.loopBackState = t
                                 }
                             }
@@ -5763,7 +5763,7 @@
                                     }
                                     let i = n.ruleIndex;
                                     let s = n.actionIndex;
-                                    let a = new N.LexerCustomAction(i, s);
+                                    let a = new C.LexerCustomAction(i, s);
                                     t.setTransition(r, new o.ActionTransition(n.target, i, e.length, false));
                                     e.push(a)
                                 }
@@ -5802,7 +5802,7 @@
                                     if (t.ruleIndex !== e) {
                                         continue
                                     }
-                                    if (!(t instanceof Z.StarLoopEntryState)) {
+                                    if (!(t instanceof H.StarLoopEntryState)) {
                                         continue
                                     }
                                     let r = t.transition(t.numberOfTransitions - 1).target;
@@ -5889,7 +5889,7 @@
                 markPrecedenceDecisions(e) {
                     let t = new Map;
                     for (let r of e.states) {
-                        if (!(r instanceof Z.StarLoopEntryState)) {
+                        if (!(r instanceof H.StarLoopEntryState)) {
                             continue
                         }
                         if (e.ruleToStartState[r.ruleIndex].isPrecedenceRule) {
@@ -5926,23 +5926,23 @@
                         if (t instanceof L.PlusBlockStartState) {
                             this.checkCondition(t.loopBackState !== undefined)
                         }
-                        if (t instanceof Z.StarLoopEntryState) {
+                        if (t instanceof H.StarLoopEntryState) {
                             let e = t;
                             this.checkCondition(e.loopBackState !== undefined);
                             this.checkCondition(e.numberOfTransitions === 2);
-                            if (e.transition(0).target instanceof q.StarBlockStartState) {
+                            if (e.transition(0).target instanceof Z.StarBlockStartState) {
                                 this.checkCondition(e.transition(1).target instanceof b.LoopEndState);
                                 this.checkCondition(!e.nonGreedy)
                             } else if (e.transition(0).target instanceof b.LoopEndState) {
-                                this.checkCondition(e.transition(1).target instanceof q.StarBlockStartState);
+                                this.checkCondition(e.transition(1).target instanceof Z.StarBlockStartState);
                                 this.checkCondition(e.nonGreedy)
                             } else {
                                 throw new Error("IllegalStateException")
                             }
                         }
-                        if (t instanceof H.StarLoopbackState) {
+                        if (t instanceof q.StarLoopbackState) {
                             this.checkCondition(t.numberOfTransitions === 1);
-                            this.checkCondition(t.transition(0).target instanceof Z.StarLoopEntryState)
+                            this.checkCondition(t.transition(0).target instanceof H.StarLoopEntryState)
                         }
                         if (t instanceof b.LoopEndState) {
                             this.checkCondition(t.loopBackState !== undefined)
@@ -6275,29 +6275,29 @@
                             } else {
                                 return new D.RangeTransition(_, i, s)
                             }
-                            case 3:
-                                let t = new j.RuleTransition(e.states[i], s, a, _);
-                                return t;
-                            case 4:
-                                let r = new R.PredicateTransition(_, i, s, a !== 0);
-                                return r;
-                            case 10:
-                                return new O.PrecedencePredicateTransition(_, i);
-                            case 5:
-                                if (a !== 0) {
-                                    return new u.AtomTransition(_, z.Token.EOF)
-                                } else {
-                                    return new u.AtomTransition(_, i)
-                                }
-                                case 6:
-                                    let n = new o.ActionTransition(_, i, s, a !== 0);
-                                    return n;
-                                case 7:
-                                    return new U.SetTransition(_, l[i]);
-                                case 8:
-                                    return new B.NotSetTransition(_, l[i]);
-                                case 9:
-                                    return new V.WildcardTransition(_)
+                        case 3:
+                            let t = new j.RuleTransition(e.states[i], s, a, _);
+                            return t;
+                        case 4:
+                            let r = new R.PredicateTransition(_, i, s, a !== 0);
+                            return r;
+                        case 10:
+                            return new O.PrecedencePredicateTransition(_, i);
+                        case 5:
+                            if (a !== 0) {
+                                return new u.AtomTransition(_, z.Token.EOF)
+                            } else {
+                                return new u.AtomTransition(_, i)
+                            }
+                        case 6:
+                            let n = new o.ActionTransition(_, i, s, a !== 0);
+                            return n;
+                        case 7:
+                            return new U.SetTransition(_, l[i]);
+                        case 8:
+                            return new B.NotSetTransition(_, l[i]);
+                        case 9:
+                            return new V.WildcardTransition(_)
                     }
                     throw new Error("The specified transition type is not valid.")
                 }
@@ -6319,7 +6319,7 @@
                             r = new L.PlusBlockStartState;
                             break;
                         case _.ATNStateType.STAR_BLOCK_START:
-                            r = new q.StarBlockStartState;
+                            r = new Z.StarBlockStartState;
                             break;
                         case _.ATNStateType.TOKEN_START:
                             r = new K.TokensStartState;
@@ -6331,10 +6331,10 @@
                             r = new f.BlockEndState;
                             break;
                         case _.ATNStateType.STAR_LOOP_BACK:
-                            r = new H.StarLoopbackState;
+                            r = new q.StarLoopbackState;
                             break;
                         case _.ATNStateType.STAR_LOOP_ENTRY:
-                            r = new Z.StarLoopEntryState;
+                            r = new H.StarLoopEntryState;
                             break;
                         case _.ATNStateType.PLUS_LOOP_BACK:
                             r = new P.PlusLoopbackState;
@@ -6354,9 +6354,9 @@
                         case 0:
                             return new x.LexerChannelAction(t);
                         case 1:
-                            return new N.LexerCustomAction(t, r);
+                            return new C.LexerCustomAction(t, r);
                         case 2:
-                            return new C.LexerModeAction(t);
+                            return new N.LexerModeAction(t);
                         case 3:
                             return A.LexerMoreAction.INSTANCE;
                         case 4:
@@ -6364,9 +6364,9 @@
                         case 5:
                             return new v.LexerPushModeAction(t);
                         case 6:
-                            return M.LexerSkipAction.INSTANCE;
+                            return w.LexerSkipAction.INSTANCE;
                         case 7:
-                            return new w.LexerTypeAction(t);
+                            return new M.LexerTypeAction(t);
                         default:
                             let n = `The specified lexer action type ${e} is not valid.`;
                             throw new Error(n)
@@ -7349,7 +7349,7 @@
             const S = r(8557);
             const T = r(7528);
             const x = r(9491);
-            let N = class LexerATNSimulator extends _.ATNSimulator {
+            let C = class LexerATNSimulator extends _.ATNSimulator {
                 constructor(e, t) {
                     super(e);
                     this.optimize_tail_calls = true;
@@ -7621,23 +7621,23 @@
                                 s = t.transform(r.target, true);
                                 break
                             }
-                            case 1:
-                                s = t.transform(r.target, true);
-                                break;
-                            case 5:
-                            case 2:
-                            case 7:
-                                if (o) {
-                                    if (r.matches(d.IntStream.EOF, p.Lexer.MIN_CHAR_VALUE, p.Lexer.MAX_CHAR_VALUE)) {
-                                        s = t.transform(r.target, false);
-                                        break
-                                    }
+                        case 1:
+                            s = t.transform(r.target, true);
+                            break;
+                        case 5:
+                        case 2:
+                        case 7:
+                            if (o) {
+                                if (r.matches(d.IntStream.EOF, p.Lexer.MIN_CHAR_VALUE, p.Lexer.MAX_CHAR_VALUE)) {
+                                    s = t.transform(r.target, false);
+                                    break
                                 }
-                                s = undefined;
-                                break;
-                            default:
-                                s = undefined;
-                                break
+                            }
+                            s = undefined;
+                            break;
+                        default:
+                            s = undefined;
+                            break
                     }
                     return s
                 }
@@ -7747,28 +7747,28 @@
                     return "'" + String.fromCharCode(e) + "'"
                 }
             };
-            n([g.NotNull], N.prototype, "prevAccept", void 0);
-            n([i(0, g.NotNull)], N.prototype, "copyState", null);
-            n([i(0, g.NotNull)], N.prototype, "match", null);
-            n([g.Override], N.prototype, "reset", null);
-            n([i(0, g.NotNull)], N.prototype, "matchATN", null);
-            n([i(0, g.NotNull), i(1, g.NotNull)], N.prototype, "execATN", null);
-            n([i(0, g.NotNull)], N.prototype, "getExistingTargetState", null);
-            n([g.NotNull, i(0, g.NotNull), i(1, g.NotNull)], N.prototype, "computeTargetState", null);
-            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], N.prototype, "getReachableConfigSet", null);
-            n([i(0, g.NotNull)], N.prototype, "accept", null);
-            n([g.NotNull, i(0, g.NotNull), i(1, g.NotNull)], N.prototype, "computeStartState", null);
-            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], N.prototype, "closure", null);
-            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull), i(3, g.NotNull)], N.prototype, "getEpsilonTarget", null);
-            n([i(0, g.NotNull)], N.prototype, "evaluatePredicate", null);
-            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], N.prototype, "captureSimState", null);
-            n([g.NotNull, i(0, g.NotNull)], N.prototype, "addDFAState", null);
-            n([g.NotNull], N.prototype, "getDFA", null);
-            n([g.NotNull, i(0, g.NotNull)], N.prototype, "getText", null);
-            n([i(0, g.NotNull)], N.prototype, "consume", null);
-            n([g.NotNull], N.prototype, "getTokenName", null);
-            N = n([i(0, g.NotNull)], N);
-            t.LexerATNSimulator = N;
+            n([g.NotNull], C.prototype, "prevAccept", void 0);
+            n([i(0, g.NotNull)], C.prototype, "copyState", null);
+            n([i(0, g.NotNull)], C.prototype, "match", null);
+            n([g.Override], C.prototype, "reset", null);
+            n([i(0, g.NotNull)], C.prototype, "matchATN", null);
+            n([i(0, g.NotNull), i(1, g.NotNull)], C.prototype, "execATN", null);
+            n([i(0, g.NotNull)], C.prototype, "getExistingTargetState", null);
+            n([g.NotNull, i(0, g.NotNull), i(1, g.NotNull)], C.prototype, "computeTargetState", null);
+            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], C.prototype, "getReachableConfigSet", null);
+            n([i(0, g.NotNull)], C.prototype, "accept", null);
+            n([g.NotNull, i(0, g.NotNull), i(1, g.NotNull)], C.prototype, "computeStartState", null);
+            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], C.prototype, "closure", null);
+            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull), i(3, g.NotNull)], C.prototype, "getEpsilonTarget", null);
+            n([i(0, g.NotNull)], C.prototype, "evaluatePredicate", null);
+            n([i(0, g.NotNull), i(1, g.NotNull), i(2, g.NotNull)], C.prototype, "captureSimState", null);
+            n([g.NotNull, i(0, g.NotNull)], C.prototype, "addDFAState", null);
+            n([g.NotNull], C.prototype, "getDFA", null);
+            n([g.NotNull, i(0, g.NotNull)], C.prototype, "getText", null);
+            n([i(0, g.NotNull)], C.prototype, "consume", null);
+            n([g.NotNull], C.prototype, "getTokenName", null);
+            C = n([i(0, g.NotNull)], C);
+            t.LexerATNSimulator = C;
             (function(e) {
                 e.debug = false;
                 e.dfa_debug = false;
@@ -7786,8 +7786,8 @@
                     }
                 }
                 e.SimState = SimState
-            })(N = t.LexerATNSimulator || (t.LexerATNSimulator = {}));
-            t.LexerATNSimulator = N
+            })(C = t.LexerATNSimulator || (t.LexerATNSimulator = {}));
+            t.LexerATNSimulator = C
         },
         6047: function(e, t, r) {
             /*!
@@ -8800,13 +8800,13 @@
             const S = r(2446);
             const T = r(6330);
             const x = r(3828);
-            const N = r(6966);
-            const C = r(4063);
+            const C = r(6966);
+            const N = r(4063);
             const A = r(1914);
             const E = r(4880);
             const v = r(9562);
-            const M = r(5047);
-            const w = r(7545);
+            const w = r(5047);
+            const M = r(7545);
             const b = r(2093);
             const F = r(8557);
             const B = r(7785);
@@ -9080,7 +9080,7 @@
                     let o = n.useContext;
                     let s = t.LA(1);
                     let a = n;
-                    let l = new w.PredictionContextCache;
+                    let l = new M.PredictionContextCache;
                     while (true) {
                         let n = this.computeReachSet(e, a, s, l);
                         if (n == null) {
@@ -9311,7 +9311,7 @@
                                 r = r.parent
                             }
                             a.add(e);
-                            if (e !== M.PredictionContext.EMPTY_FULL_STATE_KEY) {
+                            if (e !== w.PredictionContext.EMPTY_FULL_STATE_KEY) {
                                 for (let t = 0; t < s.length; t++) {
                                     s[t] = s[t].appendContext(e, o)
                                 }
@@ -9350,13 +9350,13 @@
                     let o = e.atnStartState;
                     let s = 0;
                     let a = t;
-                    let l = r ? M.PredictionContext.EMPTY_FULL : M.PredictionContext.EMPTY_LOCAL;
-                    let _ = new w.PredictionContextCache;
+                    let l = r ? w.PredictionContext.EMPTY_FULL : w.PredictionContext.EMPTY_LOCAL;
+                    let _ = new M.PredictionContextCache;
                     if (r) {
                         if (!this.enable_global_context_dfa) {
                             while (a != null) {
                                 if (a.isEmpty) {
-                                    s = M.PredictionContext.EMPTY_FULL_STATE_KEY;
+                                    s = w.PredictionContext.EMPTY_FULL_STATE_KEY;
                                     a = undefined
                                 } else {
                                     s = this.getReturnState(a);
@@ -9369,8 +9369,8 @@
                             let e;
                             a = this.skipTailCalls(a);
                             if (a.isEmpty) {
-                                e = n.getContextTarget(M.PredictionContext.EMPTY_FULL_STATE_KEY);
-                                s = M.PredictionContext.EMPTY_FULL_STATE_KEY;
+                                e = n.getContextTarget(w.PredictionContext.EMPTY_FULL_STATE_KEY);
+                                s = w.PredictionContext.EMPTY_FULL_STATE_KEY;
                                 a = undefined
                             } else {
                                 s = this.getReturnState(a);
@@ -9448,7 +9448,7 @@
                         } else {
                             a = a.parent
                         }
-                        if (y !== M.PredictionContext.EMPTY_FULL_STATE_KEY) {
+                        if (y !== w.PredictionContext.EMPTY_FULL_STATE_KEY) {
                             l = l.appendSingleContext(y, _)
                         }
                         s = y
@@ -9583,7 +9583,7 @@
                 }
                 closure(e, t, r, n, i, o) {
                     if (i == null) {
-                        i = w.PredictionContextCache.UNCACHED
+                        i = M.PredictionContextCache.UNCACHED
                     }
                     let s = e;
                     let l = new a.Array2DHashSet(E.ObjectEqualityComparator.INSTANCE);
@@ -9615,7 +9615,7 @@
                             if (!s || !o) {
                                 return
                             }
-                            e = e.transform(e.state, false, M.PredictionContext.EMPTY_LOCAL)
+                            e = e.transform(e.state, false, w.PredictionContext.EMPTY_LOCAL)
                         } else if (!o) {
                             t.add(e, a);
                             return
@@ -9623,9 +9623,9 @@
                             if (ParserATNSimulator.debug) {
                                 console.log("FALLING off rule " + this.getRuleName(e.state.ruleIndex))
                             }
-                            if (e.context === M.PredictionContext.EMPTY_FULL) {
-                                e = e.transform(e.state, false, M.PredictionContext.EMPTY_LOCAL)
-                            } else if (!e.reachesIntoOuterContext && M.PredictionContext.isEmptyLocal(e.context)) {
+                            if (e.context === w.PredictionContext.EMPTY_FULL) {
+                                e = e.transform(e.state, false, w.PredictionContext.EMPTY_LOCAL)
+                            } else if (!e.reachesIntoOuterContext && w.PredictionContext.isEmptyLocal(e.context)) {
                                 t.add(e, a)
                             }
                         }
@@ -9679,11 +9679,11 @@
                                     console.log("dips into outer ctx: " + h)
                                 }
                             } else if (d instanceof B.RuleTransition) {
-                                if (this.optimize_tail_calls && d.optimizedTailCall && (!this.tail_call_preserves_sll || !M.PredictionContext.isEmptyLocal(e.context))) {
+                                if (this.optimize_tail_calls && d.optimizedTailCall && (!this.tail_call_preserves_sll || !w.PredictionContext.isEmptyLocal(e.context))) {
                                     D(h.context === e.context);
                                     if (s === 0) {
                                         s--;
-                                        if (!this.tail_call_preserves_sll && M.PredictionContext.isEmptyLocal(e.context)) {
+                                        if (!this.tail_call_preserves_sll && w.PredictionContext.isEmptyLocal(e.context)) {
                                             h.outerContextDepth = h.outerContextDepth + 1
                                         }
                                     }
@@ -9782,7 +9782,7 @@
                     }
                     let n = t.followState;
                     let i;
-                    if (this.optimize_tail_calls && t.optimizedTailCall && (!this.tail_call_preserves_sll || !M.PredictionContext.isEmptyLocal(e.context))) {
+                    if (this.optimize_tail_calls && t.optimizedTailCall && (!this.tail_call_preserves_sll || !w.PredictionContext.isEmptyLocal(e.context))) {
                         i = e.context
                     } else if (r != null) {
                         i = r.getChild(e.context, n.stateNumber)
@@ -9941,7 +9941,7 @@
                             if (r instanceof f.AtomTransition) {
                                 t = "Atom " + this.getTokenName(r._label)
                             } else if (r instanceof L.SetTransition) {
-                                let e = r instanceof C.NotSetTransition;
+                                let e = r instanceof N.NotSetTransition;
                                 t = (e ? "~" : "") + "Set " + r.set.toString()
                             }
                         }
@@ -9978,7 +9978,7 @@
                     let a = this.addDFAState(e, i, o);
                     if (n != null) {
                         for (let t of n.toArray()) {
-                            if (t === M.PredictionContext.EMPTY_FULL_STATE_KEY) {
+                            if (t === w.PredictionContext.EMPTY_FULL_STATE_KEY) {
                                 if (s.configs.isOutermostConfigSet) {
                                     continue
                                 }
@@ -9991,7 +9991,7 @@
                                 continue
                             }
                             n = this.addDFAContextState(e, s.configs, t, o);
-                            D(t !== M.PredictionContext.EMPTY_FULL_STATE_KEY || n.configs.isOutermostConfigSet);
+                            D(t !== w.PredictionContext.EMPTY_FULL_STATE_KEY || n.configs.isOutermostConfigSet);
                             s.setContextTarget(t, n);
                             s = n
                         }
@@ -10011,7 +10011,7 @@
                     }
                 }
                 addDFAContextState(e, t, r, n) {
-                    if (r !== M.PredictionContext.EMPTY_FULL_STATE_KEY) {
+                    if (r !== w.PredictionContext.EMPTY_FULL_STATE_KEY) {
                         let i = new c.ATNConfigSet;
                         for (let e of t) {
                             i.add(e.appendContext(r, n))
@@ -10105,7 +10105,7 @@
                 }
                 getReturnState(e) {
                     if (e.isEmpty) {
-                        return M.PredictionContext.EMPTY_FULL_STATE_KEY
+                        return w.PredictionContext.EMPTY_FULL_STATE_KEY
                     }
                     let t = this.atn.states[e.invokingState];
                     let r = t.transition(0);
@@ -10144,47 +10144,47 @@
                 }
                 return 0
             };
-            n([N.NotNull], j.prototype, "predictionMode", void 0);
-            n([N.NotNull], j.prototype, "getPredictionMode", null);
-            n([i(0, N.NotNull)], j.prototype, "setPredictionMode", null);
-            n([N.Override], j.prototype, "reset", null);
-            n([i(0, N.NotNull)], j.prototype, "adaptivePredict", null);
-            n([i(0, N.NotNull), i(1, N.NotNull), i(2, N.NotNull)], j.prototype, "getStartState", null);
-            n([i(0, N.NotNull), i(1, N.NotNull), i(3, N.NotNull)], j.prototype, "execDFA", null);
-            n([i(0, N.NotNull), i(1, N.NotNull), i(3, N.NotNull)], j.prototype, "execATN", null);
-            n([i(0, N.NotNull), i(2, N.NotNull)], j.prototype, "handleNoViableAlt", null);
-            n([i(0, N.NotNull)], j.prototype, "getExistingTargetState", null);
-            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "computeTargetState", null);
-            n([N.NotNull, i(0, N.NotNull)], j.prototype, "removeAllConfigsNotInRuleStopState", null);
-            n([N.NotNull], j.prototype, "computeStartState", null);
-            n([N.NotNull, i(0, N.NotNull)], j.prototype, "applyPrecedenceFilter", null);
-            n([i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "getReachableTarget", null);
-            n([i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "getPredsForAmbigAlts", null);
-            n([i(0, N.NotNull)], j.prototype, "evalSemanticContext", null);
-            n([i(0, N.NotNull)], j.prototype, "evalSemanticContextImpl", null);
-            n([i(1, N.NotNull), i(4, N.Nullable)], j.prototype, "closure", null);
-            n([i(0, N.NotNull), i(1, N.NotNull), i(2, N.Nullable), i(3, N.NotNull), i(6, N.NotNull)], j.prototype, "closureImpl", null);
-            n([N.NotNull], j.prototype, "getRuleName", null);
-            n([i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "getEpsilonTarget", null);
-            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "actionTransition", null);
-            n([N.Nullable, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "precedenceTransition", null);
-            n([N.Nullable, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "predTransition", null);
-            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull), i(2, N.Nullable)], j.prototype, "ruleTransition", null);
-            n([i(0, N.NotNull)], j.prototype, "isConflicted", null);
-            n([N.NotNull], j.prototype, "getTokenName", null);
-            n([i(0, N.NotNull)], j.prototype, "dumpDeadEndConfigs", null);
-            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull), i(2, N.NotNull)], j.prototype, "noViableAlt", null);
-            n([i(0, N.NotNull)], j.prototype, "getUniqueAlt", null);
-            n([i(0, N.NotNull)], j.prototype, "configWithAltAtStopState", null);
-            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull), i(4, N.NotNull)], j.prototype, "addDFAEdge", null);
-            n([i(0, N.Nullable), i(2, N.Nullable)], j.prototype, "setDFAEdge", null);
-            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "addDFAContextState", null);
-            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "addDFAState", null);
-            n([N.NotNull, i(0, N.NotNull), i(1, N.NotNull)], j.prototype, "createDFAState", null);
-            n([i(0, N.NotNull), i(2, N.NotNull)], j.prototype, "reportAttemptingFullContext", null);
-            n([i(0, N.NotNull), i(2, N.NotNull)], j.prototype, "reportContextSensitivity", null);
-            n([i(0, N.NotNull), i(5, N.NotNull), i(6, N.NotNull)], j.prototype, "reportAmbiguity", null);
-            j = n([i(0, N.NotNull)], j);
+            n([C.NotNull], j.prototype, "predictionMode", void 0);
+            n([C.NotNull], j.prototype, "getPredictionMode", null);
+            n([i(0, C.NotNull)], j.prototype, "setPredictionMode", null);
+            n([C.Override], j.prototype, "reset", null);
+            n([i(0, C.NotNull)], j.prototype, "adaptivePredict", null);
+            n([i(0, C.NotNull), i(1, C.NotNull), i(2, C.NotNull)], j.prototype, "getStartState", null);
+            n([i(0, C.NotNull), i(1, C.NotNull), i(3, C.NotNull)], j.prototype, "execDFA", null);
+            n([i(0, C.NotNull), i(1, C.NotNull), i(3, C.NotNull)], j.prototype, "execATN", null);
+            n([i(0, C.NotNull), i(2, C.NotNull)], j.prototype, "handleNoViableAlt", null);
+            n([i(0, C.NotNull)], j.prototype, "getExistingTargetState", null);
+            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "computeTargetState", null);
+            n([C.NotNull, i(0, C.NotNull)], j.prototype, "removeAllConfigsNotInRuleStopState", null);
+            n([C.NotNull], j.prototype, "computeStartState", null);
+            n([C.NotNull, i(0, C.NotNull)], j.prototype, "applyPrecedenceFilter", null);
+            n([i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "getReachableTarget", null);
+            n([i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "getPredsForAmbigAlts", null);
+            n([i(0, C.NotNull)], j.prototype, "evalSemanticContext", null);
+            n([i(0, C.NotNull)], j.prototype, "evalSemanticContextImpl", null);
+            n([i(1, C.NotNull), i(4, C.Nullable)], j.prototype, "closure", null);
+            n([i(0, C.NotNull), i(1, C.NotNull), i(2, C.Nullable), i(3, C.NotNull), i(6, C.NotNull)], j.prototype, "closureImpl", null);
+            n([C.NotNull], j.prototype, "getRuleName", null);
+            n([i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "getEpsilonTarget", null);
+            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "actionTransition", null);
+            n([C.Nullable, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "precedenceTransition", null);
+            n([C.Nullable, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "predTransition", null);
+            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull), i(2, C.Nullable)], j.prototype, "ruleTransition", null);
+            n([i(0, C.NotNull)], j.prototype, "isConflicted", null);
+            n([C.NotNull], j.prototype, "getTokenName", null);
+            n([i(0, C.NotNull)], j.prototype, "dumpDeadEndConfigs", null);
+            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull), i(2, C.NotNull)], j.prototype, "noViableAlt", null);
+            n([i(0, C.NotNull)], j.prototype, "getUniqueAlt", null);
+            n([i(0, C.NotNull)], j.prototype, "configWithAltAtStopState", null);
+            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull), i(4, C.NotNull)], j.prototype, "addDFAEdge", null);
+            n([i(0, C.Nullable), i(2, C.Nullable)], j.prototype, "setDFAEdge", null);
+            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "addDFAContextState", null);
+            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "addDFAState", null);
+            n([C.NotNull, i(0, C.NotNull), i(1, C.NotNull)], j.prototype, "createDFAState", null);
+            n([i(0, C.NotNull), i(2, C.NotNull)], j.prototype, "reportAttemptingFullContext", null);
+            n([i(0, C.NotNull), i(2, C.NotNull)], j.prototype, "reportContextSensitivity", null);
+            n([i(0, C.NotNull), i(5, C.NotNull), i(6, C.NotNull)], j.prototype, "reportAmbiguity", null);
+            j = n([i(0, C.NotNull)], j);
             t.ParserATNSimulator = j
         },
         6198: function(e, t, r) {
@@ -12795,7 +12795,7 @@
             i(r(8145), t);
             i(r(3602), t);
             i(r(8617), t);
-            i(r(6218), t);
+            i(r(5638), t);
             i(r(85), t);
             i(r(9480), t);
             i(r(7528), t);
@@ -15559,8 +15559,8 @@
             const S = r(784);
             const T = r(4292);
             const x = r(3896);
-            const N = r(7528);
-            const C = r(1123);
+            const C = r(7528);
+            const N = r(1123);
             class ParseTreePatternMatcher {
                 constructor(e, t) {
                     this.start = "<";
@@ -15623,7 +15623,7 @@
                             throw e
                         }
                     }
-                    if (i.LA(1) !== N.Token.EOF) {
+                    if (i.LA(1) !== C.Token.EOF) {
                         throw new ParseTreePatternMatcher.StartRuleDoesNotConsumeFullPattern
                     }
                     return new h.ParseTreePattern(this, e, t, u)
@@ -15644,7 +15644,7 @@
                     if (e instanceof T.TerminalNode && t instanceof T.TerminalNode) {
                         let n;
                         if (e.symbol.type === t.symbol.type) {
-                            if (t.symbol instanceof C.TokenTagToken) {
+                            if (t.symbol instanceof N.TokenTagToken) {
                                 let n = t.symbol;
                                 r.map(n.tokenName, e);
                                 const i = n.label;
@@ -15718,10 +15718,10 @@
                             const i = t.tag.substr(0, 1);
                             if (i === i.toUpperCase()) {
                                 let n = this._parser.getTokenType(t.tag);
-                                if (n === N.Token.INVALID_TYPE) {
+                                if (n === C.Token.INVALID_TYPE) {
                                     throw new Error("Unknown token " + t.tag + " in pattern: " + e)
                                 }
-                                let i = new C.TokenTagToken(t.tag, n, t.label);
+                                let i = new N.TokenTagToken(t.tag, n, t.label);
                                 r.push(i)
                             } else if (i === i.toLowerCase()) {
                                 let n = this._parser.getRuleIndex(t.tag);
@@ -15737,7 +15737,7 @@
                             let e = n;
                             this._lexer.inputStream = s.CharStreams.fromString(e.text);
                             let t = this._lexer.nextToken();
-                            while (t.type !== N.Token.EOF) {
+                            while (t.type !== C.Token.EOF) {
                                 r.push(t);
                                 t = this._lexer.nextToken()
                             }
@@ -17371,7 +17371,7 @@
                     return t
                 }
             }));
-            const N = _camelcase_alias(_callable(class MetavarTypeHelpFormatter extends y {
+            const C = _camelcase_alias(_callable(class MetavarTypeHelpFormatter extends y {
                 _get_default_metavar_for_optional(e) {
                     return typeof e.type === "function" ? e.type.name : e.type
                 }
@@ -17393,7 +17393,7 @@
                     return undefined
                 }
             }
-            const C = _callable(class ArgumentError extends Error {
+            const N = _callable(class ArgumentError extends Error {
                 constructor(e, t) {
                     super();
                     this.name = "ArgumentError";
@@ -17501,7 +17501,7 @@
                     return this.option_strings.join(" | ")
                 }
             }));
-            const M = _callable(class _StoreAction extends E {
+            const w = _callable(class _StoreAction extends E {
                 constructor() {
                     let [e, t, r, n, o, s, a, l, _, u] = _parse_opts(arguments, {
                         option_strings: g,
@@ -17538,7 +17538,7 @@
                     setattr(t, this.dest, r)
                 }
             });
-            const w = _callable(class _StoreConstAction extends E {
+            const M = _callable(class _StoreConstAction extends E {
                 constructor() {
                     let [e, t, r, n, i, o] = _parse_opts(arguments, {
                         option_strings: g,
@@ -17563,7 +17563,7 @@
                     setattr(t, this.dest, this.const)
                 }
             });
-            const b = _callable(class _StoreTrueAction extends w {
+            const b = _callable(class _StoreTrueAction extends M {
                 constructor() {
                     let [e, t, r, n, i] = _parse_opts(arguments, {
                         option_strings: g,
@@ -17582,7 +17582,7 @@
                     })
                 }
             });
-            const F = _callable(class _StoreFalseAction extends w {
+            const F = _callable(class _StoreFalseAction extends M {
                 constructor() {
                     let [e, t, r, n, i] = _parse_opts(arguments, {
                         option_strings: g,
@@ -17812,7 +17812,7 @@
                             choices: this._name_parser_map.join(", ")
                         };
                         let t = p("unknown parser %(parser_name)r (choices: %(choices)s)", e);
-                        throw new C(this, t)
+                        throw new N(this, t)
                     }
                     let s;
                     [s, o] = e.parse_known_args(o, undefined);
@@ -17950,9 +17950,9 @@
                     this.prefix_chars = t;
                     this.conflict_handler = n;
                     this._registries = {};
-                    this.register("action", undefined, M);
-                    this.register("action", "store", M);
-                    this.register("action", "store_const", w);
+                    this.register("action", undefined, w);
+                    this.register("action", "store", w);
+                    this.register("action", "store_const", M);
                     this.register("action", "store_true", b);
                     this.register("action", "store_false", F);
                     this.register("action", "append", B);
@@ -18057,7 +18057,7 @@
                     return e
                 }
                 add_mutually_exclusive_group() {
-                    let e = q(this, ...arguments);
+                    let e = Z(this, ...arguments);
                     this._mutually_exclusive_groups.push(e);
                     return e
                 }
@@ -18207,7 +18207,7 @@
                 _handle_conflict_error(e, t) {
                     let r = t.length === 1 ? "conflicting option string: %s" : "conflicting option strings: %s";
                     let n = t.map((([e]) => e)).join(", ");
-                    throw new C(e, p(r, n))
+                    throw new N(e, p(r, n))
                 }
                 _handle_conflict_resolve(e, t) {
                     for (let [e, r] of t) {
@@ -18252,7 +18252,7 @@
                     _array_remove(this._group_actions, e)
                 }
             });
-            const q = _callable(class _MutuallyExclusiveGroup extends U {
+            const Z = _callable(class _MutuallyExclusiveGroup extends U {
                 constructor() {
                     let [e, t] = _parse_opts(arguments, {
                         container: g,
@@ -18276,7 +18276,7 @@
                     _array_remove(this._group_actions, e)
                 }
             });
-            const H = _camelcase_alias(_callable(class ArgumentParser extends(_AttributeHolder(j)) {
+            const q = _camelcase_alias(_callable(class ArgumentParser extends(_AttributeHolder(j)) {
                 constructor() {
                     let [e, t, r, i, o, s, a, l, _, u, d, h, g, m, S] = _parse_opts(arguments, {
                         prog: undefined,
@@ -18449,7 +18449,7 @@
                         try {
                             [t, e] = this._parse_known_args(e, t)
                         } catch (e) {
-                            if (e instanceof C) {
+                            if (e instanceof N) {
                                 this.error(e.message)
                             } else {
                                 throw e
@@ -18512,7 +18512,7 @@
                                 if (_.has(t)) {
                                     let r = "not allowed with argument %s";
                                     let n = _get_action_name(t);
-                                    throw new C(e, p(r, n))
+                                    throw new N(e, p(r, n))
                                 }
                             }
                         }
@@ -18544,7 +18544,7 @@
                                         s = t
                                     } else {
                                         let e = "ignored explicit argument %r";
-                                        throw new C(n, p(e, s))
+                                        throw new N(n, p(e, s))
                                     }
                                 } else if (e === 1) {
                                     _ = t + 1;
@@ -18553,7 +18553,7 @@
                                     break
                                 } else {
                                     let e = "ignored explicit argument %r";
-                                    throw new C(n, p(e, s))
+                                    throw new N(n, p(e, s))
                                 }
                             } else {
                                 let r = t + 1;
@@ -18680,7 +18680,7 @@
                         if (r === undefined) {
                             r = p(e.nargs === 1 ? "expected %s argument" : "expected %s arguments", e.nargs)
                         }
-                        throw new C(e, r)
+                        throw new N(e, r)
                     }
                     return n[1].length
                 }
@@ -18928,7 +18928,7 @@
                     let r = this._registry_get("type", e.type, e.type);
                     if (typeof r !== "function") {
                         let t = "%r is not callable";
-                        throw new C(e, p(t, r))
+                        throw new N(e, p(t, r))
                     }
                     let n;
                     try {
@@ -18944,7 +18944,7 @@
                     } catch (r) {
                         if (r instanceof A) {
                             let t = r.message;
-                            throw new C(e, t)
+                            throw new N(e, t)
                         } else if (r instanceof TypeError) {
                             let r = getattr(e.type, "name", h(e.type));
                             let n = {
@@ -18952,7 +18952,7 @@
                                 value: t
                             };
                             let i = "invalid %(type)s value: %(value)r";
-                            throw new C(e, p(i, n))
+                            throw new N(e, p(i, n))
                         } else {
                             throw r
                         }
@@ -18966,7 +18966,7 @@
                             choices: _choices_to_array(e.choices).map(h).join(", ")
                         };
                         let n = "invalid choice: %(value)r (choose from %(choices)s)";
-                        throw new C(e, p(n, r))
+                        throw new N(e, p(n, r))
                     }
                 }
                 format_usage() {
@@ -19023,8 +19023,8 @@
                 }
             }));
             e.exports = {
-                ArgumentParser: H,
-                ArgumentError: C,
+                ArgumentParser: q,
+                ArgumentError: N,
                 ArgumentTypeError: A,
                 BooleanOptionalAction: v,
                 FileType: k,
@@ -19032,7 +19032,7 @@
                 ArgumentDefaultsHelpFormatter: x,
                 RawDescriptionHelpFormatter: S,
                 RawTextHelpFormatter: T,
-                MetavarTypeHelpFormatter: N,
+                MetavarTypeHelpFormatter: C,
                 Namespace: $,
                 Action: E,
                 ONE_OR_MORE: s,
@@ -19351,13 +19351,13 @@
                 value: true
             });
             t.codegen_python = codegen_python;
-            var n = r(5466);
-            var i = r(9937);
-            var o = r(5359);
+            var n = r(1316);
+            var i = r(7350);
+            var o = r(126);
             var s = r(9386);
-            var a = r(4222);
-            var l = r(2078);
-            var _ = r(9054);
+            var a = r(4522);
+            var l = r(3827);
+            var _ = r(28);
 
             function codegen_python(e, t) {
                 let r = (0, n.empty)();
@@ -19479,10 +19479,10 @@
                 const S = t.lex_code;
                 const T = '"' + (0, i.replace)(S[1], '"', '\\"') + '"';
                 const x = st_func_name(0);
-                const N = (0, o.ofArray)((0, _.map)((e => e.tag === 1 ? (0, s.pretty)(e.fields[0]) : (0, s.word)("None")), S[0]));
-                const C = (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("["), (0, s.seplist)((0, s.word)(", "), N)), (0, s.word)("]")), (0, s.word)(" # token_ids"));
+                const C = (0, o.ofArray)((0, _.map)((e => e.tag === 1 ? (0, s.pretty)(e.fields[0]) : (0, s.word)("None")), S[0]));
+                const N = (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("["), (0, s.seplist)((0, s.word)(", "), C)), (0, s.word)("]")), (0, s.word)(" # token_ids"));
                 const A = new_rnd_name();
-                push_toplevel((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)(A), (0, s.word)("=")), C));
+                push_toplevel((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)(A), (0, s.word)("=")), N));
                 y = (0, s.vsep)((0, o.ofArray)([s.empty, (0, s.word)("@dataclasses.dataclass"), (0, s.word)("class Token:"), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.ofArray)([(0, s.word)("token_id: int"), (0, s.word)("lexeme : str"), (0, s.word)("line: int"), (0, s.word)("col: int"), (0, s.word)("span: int"), (0, s.word)("offset: int"), (0, s.word)("file: str")])), 4), s.empty, (0, s.word)('_Token = typing.TypeVar("_Token")'), s.empty, (0, s.word)("class TokenConstructor(typing_extensions.Protocol[_Token]):"), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.singleton)((0, s.word)("def __call__(self, token_id: int, lexeme: str, line: int, col: int, span: int, offset: int, file: str) -> _Token: ..."))), 4), s.empty, (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("def"), (0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.word)("lex"), (0, s.parens)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("lexerbuf: lexbuf"), (0, s.word)(", ")), (0, s.word)("construct_token: TokenConstructor[_Token]=Token")))), (0, s.word)(":"))), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.ofArray)([(0, s.word)("start(lexerbuf)"), (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("case_id"), (0, s.word)("=")), (0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.word)(x), (0, s.parens)((0, s.word)("lexerbuf")))), (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("if case_id < 0:"), (0, s.word)("raise")), (0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.word)("Exception"), (0, s.parens)((0, s.word)(T)))), (0, s.Doc_op_Addition_Z7CFFAC00)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("token_id"), (0, s.word)("=")), (0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.word)(A), (0, s.word)("[")), (0, s.word)("case_id")), (0, s.word)("]"))), (0, s.word)("if token_id is not None:"), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.singleton)((0, s.Doc_op_Addition_Z7CFFAC00)((0, s.word)("return"), (0, s.Doc_op_Multiply_Z7CFFAC00)((0, s.word)("construct_token"), (0, s.parens)((0, s.seplist)((0, s.word)(", "), (0, o.ofArray)([(0, s.word)("token_id"), (0, s.word)("lexeme(lexerbuf)"), (0, s.word)("lexerbuf.start_line"), (0, s.word)("lexerbuf.pos - lexerbuf.curr_bol"), (0, s.word)("lexerbuf.pos - lexerbuf.start_pos"), (0, s.word)("lexerbuf.start_pos"), (0, s.word)("lexerbuf.filename")]))))))), 4), (0, s.word)("return None")])), 4), (0, s.word)("def lexall(buf: lexbuf, construct: TokenConstructor[_Token], is_eof: Callable[[_Token], bool]):"), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.ofArray)([(0, s.word)("while True:"), (0, s.Doc_op_RightShift_2AAA0F3C)((0, s.vsep)((0, o.ofArray)([(0, s.word)("token = lex(buf, construct)"), (0, s.word)("if token is None: continue"), (0, s.word)("if is_eof(token): break"), (0, s.word)("yield token")])), 4)])), 4)]));
                 return (0, s.vsep)((0, o.append)((0, o.singleton)((0, s.vsep)((0, o.ofArray)([(0, s.word)(`from ${e}.sedlex import *`), (0, s.word)("import typing"), (0, s.word)("import typing_extensions"), (0, s.word)("import dataclasses")]))), (0, o.append)(f, (0, o.append)((0, o.singleton)(y), h))))
             }
@@ -19520,14 +19520,14 @@
             t.showDoc = showDoc;
             t.vsep = vsep;
             t.word = word;
-            var n = r(6638);
-            var i = r(6356);
-            var o = r(9054);
-            var s = r(2078);
-            var a = r(5359);
-            var l = r(9937);
-            var _ = r(4222);
-            var u = r(8443);
+            var n = r(9303);
+            var i = r(2762);
+            var o = r(28);
+            var s = r(3827);
+            var a = r(126);
+            var l = r(7350);
+            var _ = r(4522);
+            var u = r(6774);
             class Doc extends n.Union {
                 constructor(e, ...t) {
                     super();
@@ -19903,14 +19903,14 @@
             t.regexp_for_string = regexp_for_string;
             t.start = start;
             t.with_tokenizer = with_tokenizer;
-            var n = r(5359);
-            var i = r(4222);
-            var o = r(6638);
-            var s = r(6356);
-            var a = r(9054);
-            var l = r(5466);
-            var _ = r(6256);
-            var u = r(1337);
+            var n = r(126);
+            var i = r(4522);
+            var o = r(9303);
+            var s = r(2762);
+            var a = r(28);
+            var l = r(1316);
+            var _ = r(8241);
+            var u = r(8610);
 
             function incr(e) {
                 e.contents = e.contents + 1 | 0
@@ -21036,11 +21036,11 @@
             }
             const x = pinterval(0, c);
             t.pany = x;
-            const N = (() => {
+            const C = (() => {
                 const e = Cset_singleton(-1);
                 return t => Automata_chars(e, t)
             })();
-            t.peof = N
+            t.peof = C
         },
         7688: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
@@ -21231,29 +21231,28 @@
             TypedBNFLexer.T__29 = 30;
             TypedBNFLexer.T__30 = 31;
             TypedBNFLexer.T__31 = 32;
-            TypedBNFLexer.T__32 = 33;
-            TypedBNFLexer.UNICODE_RANGE = 34;
-            TypedBNFLexer.RANGE = 35;
-            TypedBNFLexer.CNAMEPLUS = 36;
-            TypedBNFLexer.INT = 37;
-            TypedBNFLexer.WS = 38;
-            TypedBNFLexer.FLOAT = 39;
-            TypedBNFLexer.ESCAPED_STRING = 40;
-            TypedBNFLexer.CPP_COMMENT = 41;
-            TypedBNFLexer.C_COMMENT = 42;
+            TypedBNFLexer.UNICODE_RANGE = 33;
+            TypedBNFLexer.RANGE = 34;
+            TypedBNFLexer.CNAMEPLUS = 35;
+            TypedBNFLexer.INT = 36;
+            TypedBNFLexer.WS = 37;
+            TypedBNFLexer.FLOAT = 38;
+            TypedBNFLexer.ESCAPED_STRING = 39;
+            TypedBNFLexer.CPP_COMMENT = 40;
+            TypedBNFLexer.C_COMMENT = 41;
             TypedBNFLexer.channelNames = ["DEFAULT_TOKEN_CHANNEL", "HIDDEN"];
             TypedBNFLexer.modeNames = ["DEFAULT_MODE"];
-            TypedBNFLexer.ruleNames = ["T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "T__8", "T__9", "T__10", "T__11", "T__12", "T__13", "T__14", "T__15", "T__16", "T__17", "T__18", "T__19", "T__20", "T__21", "T__22", "T__23", "T__24", "T__25", "T__26", "T__27", "T__28", "T__29", "T__30", "T__31", "T__32", "UCODE", "UNICODE", "UNICODE_RANGE", "RANGE", "LCASE_LETTER", "UCASE_LETTER", "LETTER", "WORD", "CNAMEPLUS", "INT", "DIGIT", "WS", "FLOAT", "ESC", "ESCAPED_STRING", "CPP_COMMENT", "C_COMMENT"];
-            TypedBNFLexer._LITERAL_NAMES = [undefined, "','", "'->'", "'('", "')'", "'<'", "'>'", "'*'", "'''", "':'", "'extern'", "'var'", "'case'", "'type'", "'ignore'", "'|'", "'{'", "'}'", "'let'", "'='", "'in'", "'fun'", "';'", "'$'", "'['", "']'", "'.'", "'true'", "'false'", "'+'", "'?'", "'!'", "'\\'", "'_'"];
-            TypedBNFLexer._SYMBOLIC_NAMES = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, "UNICODE_RANGE", "RANGE", "CNAMEPLUS", "INT", "WS", "FLOAT", "ESCAPED_STRING", "CPP_COMMENT", "C_COMMENT"];
+            TypedBNFLexer.ruleNames = ["T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "T__8", "T__9", "T__10", "T__11", "T__12", "T__13", "T__14", "T__15", "T__16", "T__17", "T__18", "T__19", "T__20", "T__21", "T__22", "T__23", "T__24", "T__25", "T__26", "T__27", "T__28", "T__29", "T__30", "T__31", "UCODE", "UNICODE", "UNICODE_RANGE", "RANGE", "LCASE_LETTER", "UCASE_LETTER", "LETTER", "WORD", "CNAMEPLUS", "INT", "DIGIT", "WS", "FLOAT", "ESC1", "ESC2", "ESCAPED_STRING", "CPP_COMMENT", "C_COMMENT"];
+            TypedBNFLexer._LITERAL_NAMES = [undefined, "','", "'->'", "'('", "')'", "'<'", "'>'", "'*'", "':'", "'extern'", "'var'", "'case'", "'type'", "'ignore'", "'|'", "'{'", "'}'", "'let'", "'='", "'in'", "'fun'", "';'", "'$'", "'['", "']'", "'.'", "'true'", "'false'", "'+'", "'?'", "'!'", "'\\'", "'_'"];
+            TypedBNFLexer._SYMBOLIC_NAMES = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, "UNICODE_RANGE", "RANGE", "CNAMEPLUS", "INT", "WS", "FLOAT", "ESCAPED_STRING", "CPP_COMMENT", "C_COMMENT"];
             TypedBNFLexer.VOCABULARY = new s.VocabularyImpl(TypedBNFLexer._LITERAL_NAMES, TypedBNFLexer._SYMBOLIC_NAMES, []);
-            TypedBNFLexer._serializedATN = "줝쪺֍꾺体؇쉁,ĳ\b" + "\t\t\t\t\t" + "\t\b\t\b\t\t\t\n\t\n\v\t\v\f\t\f\r" + "\t\r\t\t\t\t\t" + "\t\t\t\t\t" + "\t\t\t\t\t" + '\t\t\t \t !\t!"\t' + "\"#\t#$\t$%\t%&\t&'\t'(\t()\t)*\t*" + "+\t+,\t,-\t-.\t./\t/0\t01\t12\t23\t3" + "" + "\b\b\t\t\n\n\v" + "\v\v\v\v\v\v\f\f\f\f\r" + "\r\r\r\r" + "" + "" + "" + "" + "" + '  !!!"' + '"###Ì\n#$$$$$$$%%' + "%%%%&&&&&&''(" + "()))ç\n)**ê\n*\r**ë+++ð" + "\n+++++õ\n+\f++ø\v+,,û\n,\r," + ",ü--....////Ĉ\n//" + "//Č\n/0011111Ĕ\n1\f1" + "1ė\v11122222ğ\n2\f22Ģ\v" + "22222233333ĭ\n3\f33İ" + "\v333Ġ4\t" + "\v\r\b\t\n\v\f" + "\r!#" + "%')+-/13" + '579;= ?!A"C#E' + "GI$K%MOQSU&W" + "'Y[(])_a*c+e,\fC" + 'Hchc|C\\//aa2;\v\f""' + "GGgg\b$$^^cdppttvv$$^^\f\fĸ" + "\t" + "\v\r" + "" + "" + "!" + "#%'" + ")+-" + "/135" + "79;" + "=?AC" + "IKU" + "W[]" + "aceg" + "il\tn" + "\vp\rrtv" + "xz" + "" + "!#" + "%' )¢+¥" + "-©/«1­" + "3¯5±7³" + "9¸;¾=À?Â" + "AÄCÇEË" + "GÍIÔKÚMà" + "OâQæSé" + "UïWúYþ" + "[Ā]Ą_č" + "aďcĚeĨ" + "gh.hij/jk@k" + "lm*m\bno+o\n" + "pq>q\frs@s" + "tu,uvw)w" + "xy<yz{g{|" + "z|}v}~g~t" + "pxc" + "te" + "cug" + "v{" + "rgk" + "ipq" + "tg" + '~ }"' + "$n" + "gv& " + "¡?¡(¢£k£¤" + "p¤*¥¦h¦§w" + "§¨p¨,©ª=ª." + "«¬&¬0­®]" + "®2¯°_°4±" + "²0²6³´v´µ" + "tµ¶w¶·g·8" + "¸¹h¹ºcº»n»¼" + "u¼½g½:¾¿-" + "¿<ÀÁAÁ>Â" + "Ã#Ã@ÄÅ^ÅÆ" + "fÆBÇÈaÈD" + "ÉÌY-ÊÌ\tËÉËÊ" + "ÌFÍÎ^ÎÏ" + "wÏÐE#ÐÑE#ÑÒE#ÒÓ" + "E#ÓHÔÕ]ÕÖG$" + "Ö×/×ØG$ØÙ_ÙJ" + "ÚÛ]ÛÜ\vÜÝ/" + "ÝÞ\vÞß_ßLà" + "á\táNâã\tãP" + "äçO(åçM'æä" + "æåçRèêQ)é" + "èêëëéë" + "ììTíðaîð" + "Q)ïíïîðö" + "ñõ\tòõQ)óõY-" + "ôñôòôó" + "õøöôö÷" + "÷VøöùûY-úù" + "ûüüúüý" + "ýXþÿ\tÿZ" + "Āā\tāĂĂă" + "\b.ă\\ĄćW,ąĆ" + "0ĆĈW,ćąć" + "ĈĈċĉĊ\t\b" + "ĊČW,ċĉċČ" + "Č^čĎ\t\tĎ`" + "ďĕ$Đđ^đĔ" + "_0ĒĔ\n\nēĐēĒ" + "Ĕėĕē" + "ĕĖĖĘėĕ" + "Ęę$ębĚě" + "1ěĜ,ĜĠĝ" + "ğ\vĞĝğĢ" + "ĠġĠĞġģ" + "ĢĠģĤ," + "Ĥĥ1ĥĦĦħ\b2" + "ħdĨĩ1ĩĪ1" + "ĪĮīĭ\n\vĬī" + "ĭİĮĬ" + "ĮįįıİĮ" + "ıĲ\b3ĲfË" + "æëïôöüćċēĕĠĮ" + ""
+            TypedBNFLexer._serializedATN = "줝쪺֍꾺体؇쉁+ľ\b" + "\t\t\t\t\t" + "\t\b\t\b\t\t\t\n\t\n\v\t\v\f\t\f\r" + "\t\r\t\t\t\t\t" + "\t\t\t\t\t" + "\t\t\t\t\t" + '\t\t\t \t !\t!"\t' + "\"#\t#$\t$%\t%&\t&'\t'(\t()\t)*\t*" + "+\t+,\t,-\t-.\t./\t/0\t01\t12\t23\t3" + "" + "\b\b\t\t\n\n\n" + "\n\n\n\n\v\v\v\v\f\f\f" + "\f\f\r\r\r\r\r" + "" + "" + "" + "" + "" + '   !!""' + '"Ê\n"#######$$$$' + "$$%%%%%%&&''(" + "((å\n())è\n)\r))é***î\n**" + "***ó\n*\f**ö\v*++ù\n+\r++ú" + ",,----....Ć\n..." + ".Ċ\n.//0011111Ĕ\n1\f1" + "1ė\v1111111Ğ\n1\f11ġ\v1" + "11Ĥ\n122222Ī\n2\f22ĭ\v2" + "2222233333ĸ\n3\f33Ļ" + "\v333ī4\t" + "\v\r\b\t\n\v\f" + "\r!#" + "%')+-/13" + '579;= ?!A"CE' + "G#I$KMOQS%U&W" + "Y'[(]_a)c*e+" + "CHchc|C\\//aa2;\v\f" + '""GGgg\b$$^^cdppttvv\b))^^cdppttvv$$^^' + "))^^\f\fŅ" + "\t\v" + "\r" + "" + "" + "!#" + "%')+" + "-/1" + "357" + "9;=?" + "AGI" + "SUY" + "[ace" + "gil" + "\tn\vp\rrt" + "vx" + "" + "!" + "#%' )" + "£+§-©/«" + "1­3¯5±" + "7¶9¼;¾=À" + "?ÂAÅCÉ" + "EËGÒIØ" + "KÞMàOäQç" + "SíUøWü" + "Yþ[Ă]ċ" + "_čaģcĥ" + "eĳgh.hij/" + "jk@klm*m\b" + "no+o\npq>q\f" + "rs@stu,u" + "vw<wxygyzzz{" + "v{|g|}t}~p~" + "xct" + "ec" + "ug" + "v{rg" + "ki" + "pqt" + "g~" + "} " + '"ng' + "v$?&" + " ¡k¡¢p¢(" + "£¤h¤¥w¥¦p¦*" + "§¨=¨,©ª&" + "ª.«¬]¬0­" + "®_®2¯°0°4" + "±²v²³t³´w" + "´µgµ6¶·h·¸" + "c¸¹n¹ºuº»g" + "»8¼½-½:¾" + "¿A¿<ÀÁ#Á>" + "ÂÃ^ÃÄfÄ@" + "ÅÆaÆBÇÊW,ÈÊ\t" + "ÉÇÉÈÊD" + 'ËÌ^ÌÍwÍÎC"' + 'ÎÏC"ÏÐC"ÐÑC"ÑF' + "ÒÓ]ÓÔE#ÔÕ/" + "ÕÖE#Ö×_×HØÙ" + "]ÙÚ\vÚÛ/ÛÜ\v" + "ÜÝ_ÝJÞß\tß" + "Làá\táNâå" + "M'ãåK&äâäã" + "åPæèO(çæè" + "ééçéêê" + "RëîaìîO(íë" + "íìîôïó\t" + "ðóO(ñóW,òïò" + "ðòñóöô" + "òôõõTö" + "ô÷ùW,ø÷ùú" + "úøúûûV" + "üý\týXþÿ\t" + "ÿĀĀā\b-āZ" + "ĂąU+ăĄ0ĄĆ" + "U+ąăąĆĆ" + "ĉćĈ\t\bĈĊU+ĉ" + "ćĉĊĊ\\" + "ċČ\t\tČ^čĎ\t\n" + "Ď`ďĕ$Đđ^" + "đĔ]/ĒĔ\n\vēĐ" + "ēĒĔėĕ" + "ēĕĖĖĘ" + "ėĕĘĤ$ęğ" + ")Ěě^ěĞ_0ĜĞ" + "\n\fĝĚĝĜĞ" + "ġğĝğĠ" + "ĠĢġğĢ" + "Ĥ)ģďģę" + "ĤbĥĦ1Ħħ," + "ħīĨĪ\vĩĨ" + "ĪĭīĬ" + "īĩĬĮĭī" + "Įį,įİ1İı" + "ıĲ\b2ĲdĳĴ" + "1Ĵĵ1ĵĹĶ" + "ĸ\n\rķĶĸĻ" + "ĹķĹĺĺļ" + "ĻĹļĽ\b3Ľ" + "fÉäéíòôúąĉē" + "ĕĝğģīĹ"
         },
         668: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
-            t.TypedBNFParser = t.Type_productContext = t.Type_paramsContext = t.TypContext = t.Typ2Context = t.Tvar_strContext = t.TvarContext = t.ToplevelContext = t.Top_typContext = t.Start__y_Context = t.StartContext = t.Slist_o__i__u__i__s_lexer_and_p_Context = t.Slist_o__i__s__i__s_typ_p_Context = t.Slist_o__i__s__i__s_tvar_str_p_Context = t.Slist_o__i__s__i__s_psym_p_Context = t.Slist_o__i__s__i__s_param_type_p_Context = t.Slist_o__i__s__i__s_identstr_p_Context = t.Slist_o__i__s__i__s_field_ann_p_Context = t.Slist_o__i__s__i__s_expr_p_Context = t.Slist_o__i__s__i__s_ann_p_Context = t.PsymContext = t.ProductionsContext = t.ProductionContext = t.Param_typeContext = t.List_o_toplevel_p_Context = t.List_o_psym_p_Context = t.List_o_lexer_atomexpr_p_Context = t.LexerdefContext = t.Lexer_atomexprContext = t.Lexer_atomContext = t.Lexer_andContext = t.Lexer__y_Context = t.IdentstrContext = t.Func_parametersContext = t.Field_annsContext = t.Field_annContext = t.ExprContext = t.Eslist_o__i__s__i__s_param_type_p_Context = t.Eslist_o__i__s__i__s_field_ann_p_Context = t.Eslist_o__i__s__i__s_expr_p_Context = t.Eslist_o__i__s__i__s_ann_p_Context = t.Empty_o_slist_o__i__s__i__s_param_type_p__p_Context = t.Empty_o_slist_o__i__s__i__s_field_ann_p__p_Context = t.Empty_o_slist_o__i__s__i__s_expr_p__p_Context = t.Empty_o_slist_o__i__s__i__s_ann_p__p_Context = t.Empty_o_list_o_psym_p__p_Context = t.Elist_o_psym_p_Context = t.DefContext = t.DeclContext = t.CallContext = t.AtomexpContext = t.Arrow_typContext = t.AnnContext = void 0;
+            t.TypedBNFParser = t.Type_productContext = t.Type_paramsContext = t.TypContext = t.Typ2Context = t.Tvar_strContext = t.ToplevelContext = t.Top_typContext = t.Start__y_Context = t.StartContext = t.Slist_o__i__u__i__s_lexer_and_p_Context = t.Slist_o__i__s__i__s_typ_p_Context = t.Slist_o__i__s__i__s_tvar_str_p_Context = t.Slist_o__i__s__i__s_psym_p_Context = t.Slist_o__i__s__i__s_param_type_p_Context = t.Slist_o__i__s__i__s_identstr_p_Context = t.Slist_o__i__s__i__s_field_ann_p_Context = t.Slist_o__i__s__i__s_expr_p_Context = t.Slist_o__i__s__i__s_ann_p_Context = t.PsymContext = t.ProductionsContext = t.ProductionContext = t.Param_typeContext = t.List_o_toplevel_p_Context = t.List_o_psym_p_Context = t.List_o_lexer_atomexpr_p_Context = t.LexerdefContext = t.Lexer_atomexprContext = t.Lexer_atomContext = t.Lexer_andContext = t.Lexer__y_Context = t.IdentstrContext = t.Func_parametersContext = t.Field_annsContext = t.Field_annContext = t.ExprContext = t.Eslist_o__i__s__i__s_param_type_p_Context = t.Eslist_o__i__s__i__s_field_ann_p_Context = t.Eslist_o__i__s__i__s_expr_p_Context = t.Eslist_o__i__s__i__s_ann_p_Context = t.Empty_o_slist_o__i__s__i__s_param_type_p__p_Context = t.Empty_o_slist_o__i__s__i__s_field_ann_p__p_Context = t.Empty_o_slist_o__i__s__i__s_expr_p__p_Context = t.Empty_o_slist_o__i__s__i__s_ann_p__p_Context = t.Empty_o_list_o_psym_p__p_Context = t.Elist_o_psym_p_Context = t.DefContext = t.DeclContext = t.CallContext = t.AtomexpContext = t.Arrow_typContext = t.AnnContext = void 0;
             var n = r(2004);
             var i = r(7747);
             var o = r(6027);
@@ -21331,9 +21330,9 @@
                     this.enterRule(e, 0, TypedBNFParser.RULE_start);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 104;
+                            this.state = 102;
                             e._v = this.start__y_();
-                            this.state = 105;
+                            this.state = 103;
                             this.match(TypedBNFParser.EOF);
                             e.result = e._v.result
                         }
@@ -21364,12 +21363,12 @@
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 109;
+                                this.state = 107;
                                 o._list_o_toplevel_p__0__1 = this.toplevel();
                                 o.result = [o._list_o_toplevel_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 118;
+                            this.state = 116;
                             this._errHandler.sync(this);
                             e = this.interpreter.adaptivePredict(this._input, 0, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
@@ -21380,19 +21379,19 @@
                                     s = o; {
                                         {
                                             o = new List_o_toplevel_p_Context(t, r);
-                                            o._list_o_toplevel_p__1__1 = s;
+                                            o._list_o_toplevel_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_list_o_toplevel_p_);
-                                            this.state = 112;
+                                            this.state = 110;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 113;
-                                            o._list_o_toplevel_p__1__2 = this.toplevel();
-                                            o.result = (0, n.addList)(o._list_o_toplevel_p__1__1.result, o._list_o_toplevel_p__1__2.result)
+                                            this.state = 111;
+                                            o._list_o_toplevel_p__2__2 = this.toplevel();
+                                            o.result = (0, n.addList)(o._list_o_toplevel_p__2__1.result, o._list_o_toplevel_p__2__2.result)
                                         }
                                     }
                                 }
-                                this.state = 120;
+                                this.state = 118;
                                 this._errHandler.sync(this);
                                 e = this.interpreter.adaptivePredict(this._input, 0, this._ctx)
                             }
@@ -21415,7 +21414,7 @@
                     this.enterRule(e, 4, TypedBNFParser.RULE_start__y_);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 121;
+                            this.state = 119;
                             e._start__y__0__1 = this.list_o_toplevel_p_(0);
                             e.result = e._start__y__0__1.result
                         }
@@ -21437,7 +21436,7 @@
                     this.enterRule(e, 6, TypedBNFParser.RULE_identstr);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 124;
+                            this.state = 122;
                             e._identstr_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
                             e.result = (0, n.str)(e._identstr_0__1)
                         }
@@ -21459,7 +21458,7 @@
                     this.enterRule(e, 8, TypedBNFParser.RULE_typ);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 127;
+                            this.state = 125;
                             e._typ_0__1 = this.arrow_typ();
                             e.result = e._typ_0__1.result
                         }
@@ -21490,12 +21489,12 @@
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 131;
+                                this.state = 129;
                                 o._slist_o__i__s__i__s_param_type_p__0__1 = this.param_type();
                                 o.result = [o._slist_o__i__s__i__s_param_type_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 141;
+                            this.state = 139;
                             this._errHandler.sync(this);
                             e = this.interpreter.adaptivePredict(this._input, 1, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
@@ -21506,21 +21505,21 @@
                                     s = o; {
                                         {
                                             o = new Slist_o__i__s__i__s_param_type_p_Context(t, r);
-                                            o._slist_o__i__s__i__s_param_type_p__1__1 = s;
+                                            o._slist_o__i__s__i__s_param_type_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_slist_o__i__s__i__s_param_type_p_);
-                                            this.state = 134;
+                                            this.state = 132;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 135;
+                                            this.state = 133;
                                             this.match(TypedBNFParser.T__0);
-                                            this.state = 136;
-                                            o._slist_o__i__s__i__s_param_type_p__1__3 = this.param_type();
-                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_param_type_p__1__1.result, o._slist_o__i__s__i__s_param_type_p__1__3.result)
+                                            this.state = 134;
+                                            o._slist_o__i__s__i__s_param_type_p__2__3 = this.param_type();
+                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_param_type_p__2__1.result, o._slist_o__i__s__i__s_param_type_p__2__3.result)
                                         }
                                     }
                                 }
-                                this.state = 143;
+                                this.state = 141;
                                 this._errHandler.sync(this);
                                 e = this.interpreter.adaptivePredict(this._input, 1, this._ctx)
                             }
@@ -21542,7 +21541,7 @@
                     let e = new Empty_o_slist_o__i__s__i__s_param_type_p__p_Context(this._ctx, this.state);
                     this.enterRule(e, 12, TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_param_type_p__p_);
                     try {
-                        this.state = 148;
+                        this.state = 146;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
                             case TypedBNFParser.T__3:
@@ -21551,12 +21550,11 @@
                                 }
                                 break;
                             case TypedBNFParser.T__2:
-                            case TypedBNFParser.T__7:
                             case TypedBNFParser.CNAMEPLUS:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 145;
-                                    e._empty_o_slist_o__i__s__i__s_param_type_p__p__1__1 = this.slist_o__i__s__i__s_param_type_p_(0);
-                                    e.result = e._empty_o_slist_o__i__s__i__s_param_type_p__p__1__1.result
+                                    this.state = 143;
+                                    e._empty_o_slist_o__i__s__i__s_param_type_p__p__2__1 = this.slist_o__i__s__i__s_param_type_p_(0);
+                                    e.result = e._empty_o_slist_o__i__s__i__s_param_type_p__p__2__1.result
                                 }
                                 break;
                             default:
@@ -21580,7 +21578,7 @@
                     this.enterRule(e, 14, TypedBNFParser.RULE_eslist_o__i__s__i__s_param_type_p_);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 150;
+                            this.state = 148;
                             e._eslist_o__i__s__i__s_param_type_p__0__1 = this.empty_o_slist_o__i__s__i__s_param_type_p__p_();
                             e.result = e._eslist_o__i__s__i__s_param_type_p__0__1.result
                         }
@@ -21601,16 +21599,16 @@
                     let e = new Arrow_typContext(this._ctx, this.state);
                     this.enterRule(e, 16, TypedBNFParser.RULE_arrow_typ);
                     try {
-                        this.state = 168;
+                        this.state = 166;
                         this._errHandler.sync(this);
                         switch (this.interpreter.adaptivePredict(this._input, 3, this._ctx)) {
                             case 1:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 153;
+                                    this.state = 151;
                                     e._arrow_typ_0__1 = this.typ2(0);
-                                    this.state = 154;
+                                    this.state = 152;
                                     this.match(TypedBNFParser.T__1);
-                                    this.state = 155;
+                                    this.state = 153;
                                     e._arrow_typ_0__3 = this.arrow_typ();
                                     e.result = (0, n.MK_TFun)([
                                         ["value", e._arrow_typ_0__1.result]
@@ -21619,24 +21617,24 @@
                                 break;
                             case 2:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 158;
+                                    this.state = 156;
                                     this.match(TypedBNFParser.T__2);
-                                    this.state = 159;
-                                    e._arrow_typ_1__2 = this.eslist_o__i__s__i__s_param_type_p_();
-                                    this.state = 160;
+                                    this.state = 157;
+                                    e._arrow_typ_2__2 = this.eslist_o__i__s__i__s_param_type_p_();
+                                    this.state = 158;
                                     this.match(TypedBNFParser.T__3);
-                                    this.state = 161;
+                                    this.state = 159;
                                     this.match(TypedBNFParser.T__1);
-                                    this.state = 162;
-                                    e._arrow_typ_1__5 = this.arrow_typ();
-                                    e.result = (0, n.MK_TFun)((0, n.process_tparam)(e._arrow_typ_1__2.result), e._arrow_typ_1__5.result)
+                                    this.state = 160;
+                                    e._arrow_typ_2__5 = this.arrow_typ();
+                                    e.result = (0, n.MK_TFun)((0, n.process_tparam)(e._arrow_typ_2__2.result), e._arrow_typ_2__5.result)
                                 }
                                 break;
                             case 3:
                                 this.enterOuterAlt(e, 3); {
-                                    this.state = 165;
-                                    e._arrow_typ_2__1 = this.type_product(0);
-                                    e.result = (0, n.MK_TTuple)(e._arrow_typ_2__1.result)
+                                    this.state = 163;
+                                    e._arrow_typ_4__1 = this.type_product(0);
+                                    e.result = (0, n.MK_TTuple)(e._arrow_typ_4__1.result)
                                 }
                                 break
                         }
@@ -21667,12 +21665,12 @@
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 171;
+                                this.state = 169;
                                 o._slist_o__i__s__i__s_typ_p__0__1 = this.typ();
                                 o.result = [o._slist_o__i__s__i__s_typ_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 181;
+                            this.state = 179;
                             this._errHandler.sync(this);
                             e = this.interpreter.adaptivePredict(this._input, 4, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
@@ -21683,21 +21681,21 @@
                                     s = o; {
                                         {
                                             o = new Slist_o__i__s__i__s_typ_p_Context(t, r);
-                                            o._slist_o__i__s__i__s_typ_p__1__1 = s;
+                                            o._slist_o__i__s__i__s_typ_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_slist_o__i__s__i__s_typ_p_);
-                                            this.state = 174;
+                                            this.state = 172;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 175;
+                                            this.state = 173;
                                             this.match(TypedBNFParser.T__0);
-                                            this.state = 176;
-                                            o._slist_o__i__s__i__s_typ_p__1__3 = this.typ();
-                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_typ_p__1__1.result, o._slist_o__i__s__i__s_typ_p__1__3.result)
+                                            this.state = 174;
+                                            o._slist_o__i__s__i__s_typ_p__2__3 = this.typ();
+                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_typ_p__2__1.result, o._slist_o__i__s__i__s_typ_p__2__3.result)
                                         }
                                     }
                                 }
-                                this.state = 183;
+                                this.state = 181;
                                 this._errHandler.sync(this);
                                 e = this.interpreter.adaptivePredict(this._input, 4, this._ctx)
                             }
@@ -21723,33 +21721,20 @@
                     let r = this.state;
                     let o = new Typ2Context(this._ctx, r);
                     let s = o;
-                    let l = 20;
+                    let a = 20;
                     this.enterRecursionRule(o, 20, TypedBNFParser.RULE_typ2, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
-                            this.state = 190;
-                            this._errHandler.sync(this);
-                            switch (this._input.LA(1)) {
-                                case TypedBNFParser.CNAMEPLUS: {
-                                    this.state = 185;
-                                    o._typ2_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                                    o.result = (0, n.MK_TConst)((0, n.str)(o._typ2_0__1))
-                                }
-                                break;
-                            case TypedBNFParser.T__7: {
-                                this.state = 187;
-                                o._typ2_1__1 = this.tvar();
-                                o.result = o._typ2_1__1.result
-                            }
-                            break;
-                            default:
-                                throw new a.NoViableAltException(this)
+                            {
+                                this.state = 183;
+                                o._typ2_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
+                                o.result = (0, n.MK_TConst)((0, n.str)(o._typ2_0__1))
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 200;
+                            this.state = 194;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 6, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 5, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -21759,24 +21744,24 @@
                                         {
                                             o = new Typ2Context(t, r);
                                             o._typ2_2__1 = s;
-                                            this.pushNewRecursionContext(o, l, TypedBNFParser.RULE_typ2);
-                                            this.state = 192;
+                                            this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_typ2);
+                                            this.state = 186;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 193;
+                                            this.state = 187;
                                             this.match(TypedBNFParser.T__4);
-                                            this.state = 194;
+                                            this.state = 188;
                                             o._typ2_2__3 = this.slist_o__i__s__i__s_typ_p_(0);
-                                            this.state = 195;
+                                            this.state = 189;
                                             this.match(TypedBNFParser.T__5);
                                             o.result = (0, n.MK_TApp)(o._typ2_2__1.result, o._typ2_2__3.result)
                                         }
                                     }
                                 }
-                                this.state = 202;
+                                this.state = 196;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 6, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 5, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -21806,14 +21791,14 @@
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 204;
-                                o._type_product_1__1 = this.typ2(0);
-                                o.result = [o._type_product_1__1.result]
+                                this.state = 198;
+                                o._type_product_2__1 = this.typ2(0);
+                                o.result = [o._type_product_2__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 214;
+                            this.state = 208;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 7, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 6, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -21824,21 +21809,21 @@
                                             o = new Type_productContext(t, r);
                                             o._type_product_0__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_type_product);
-                                            this.state = 207;
+                                            this.state = 201;
                                             if (!this.precpred(this._ctx, 2)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 2)")
                                             }
-                                            this.state = 208;
+                                            this.state = 202;
                                             this.match(TypedBNFParser.T__6);
-                                            this.state = 209;
+                                            this.state = 203;
                                             o._type_product_0__3 = this.typ2(0);
                                             o.result = (0, n.addList)(o._type_product_0__1.result, o._type_product_0__3.result)
                                         }
                                     }
                                 }
-                                this.state = 216;
+                                this.state = 210;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 7, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 6, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -21858,29 +21843,28 @@
                     let e = new Top_typContext(this._ctx, this.state);
                     this.enterRule(e, 24, TypedBNFParser.RULE_top_typ);
                     try {
-                        this.state = 226;
+                        this.state = 220;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
                             case TypedBNFParser.T__4:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 217;
+                                    this.state = 211;
                                     this.match(TypedBNFParser.T__4);
-                                    this.state = 218;
+                                    this.state = 212;
                                     e._top_typ_0__2 = this.slist_o__i__s__i__s_tvar_str_p_(0);
-                                    this.state = 219;
+                                    this.state = 213;
                                     this.match(TypedBNFParser.T__5);
-                                    this.state = 220;
+                                    this.state = 214;
                                     e._top_typ_0__4 = this.typ();
-                                    e.result = (0, n.MK_Poly)(e._top_typ_0__2.result, e._top_typ_0__4.result)
+                                    e.result = (0, n.processPolyType)((0, n.MK_Poly)(e._top_typ_0__2.result, e._top_typ_0__4.result))
                                 }
                                 break;
                             case TypedBNFParser.T__2:
-                            case TypedBNFParser.T__7:
                             case TypedBNFParser.CNAMEPLUS:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 223;
-                                    e._top_typ_1__1 = this.typ();
-                                    e.result = (0, n.MK_Mono)(e._top_typ_1__1.result)
+                                    this.state = 217;
+                                    e._top_typ_2__1 = this.typ();
+                                    e.result = (0, n.MK_Mono)(e._top_typ_2__1.result)
                                 }
                                 break;
                             default:
@@ -21899,40 +21883,14 @@
                     }
                     return e
                 }
-                tvar() {
-                    let e = new TvarContext(this._ctx, this.state);
-                    this.enterRule(e, 26, TypedBNFParser.RULE_tvar);
-                    try {
-                        this.enterOuterAlt(e, 1); {
-                            this.state = 228;
-                            this.match(TypedBNFParser.T__7);
-                            this.state = 229;
-                            e._tvar_0__2 = this.match(TypedBNFParser.CNAMEPLUS);
-                            e.result = (0, n.MK_TVar)((0, n.str)(e._tvar_0__2))
-                        }
-                    } catch (t) {
-                        if (t instanceof c.RecognitionException) {
-                            e.exception = t;
-                            this._errHandler.reportError(this, t);
-                            this._errHandler.recover(this, t)
-                        } else {
-                            throw t
-                        }
-                    } finally {
-                        this.exitRule()
-                    }
-                    return e
-                }
                 tvar_str() {
                     let e = new Tvar_strContext(this._ctx, this.state);
-                    this.enterRule(e, 28, TypedBNFParser.RULE_tvar_str);
+                    this.enterRule(e, 26, TypedBNFParser.RULE_tvar_str);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 232;
-                            this.match(TypedBNFParser.T__7);
-                            this.state = 233;
-                            e._tvar_str_0__2 = this.match(TypedBNFParser.CNAMEPLUS);
-                            e.result = (0, n.str)(e._tvar_str_0__2)
+                            this.state = 222;
+                            e._tvar_str_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
+                            e.result = (0, n.str)(e._tvar_str_0__1)
                         }
                     } catch (t) {
                         if (t instanceof c.RecognitionException) {
@@ -21949,27 +21907,27 @@
                 }
                 param_type() {
                     let e = new Param_typeContext(this._ctx, this.state);
-                    this.enterRule(e, 30, TypedBNFParser.RULE_param_type);
+                    this.enterRule(e, 28, TypedBNFParser.RULE_param_type);
                     try {
-                        this.state = 244;
+                        this.state = 233;
                         this._errHandler.sync(this);
-                        switch (this.interpreter.adaptivePredict(this._input, 9, this._ctx)) {
+                        switch (this.interpreter.adaptivePredict(this._input, 8, this._ctx)) {
                             case 1:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 236;
+                                    this.state = 225;
                                     e._param_type_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                                    this.state = 237;
-                                    this.match(TypedBNFParser.T__8);
-                                    this.state = 238;
+                                    this.state = 226;
+                                    this.match(TypedBNFParser.T__7);
+                                    this.state = 227;
                                     e._param_type_0__3 = this.typ();
                                     e.result = [(0, n.str)(e._param_type_0__1), e._param_type_0__3.result]
                                 }
                                 break;
                             case 2:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 241;
-                                    e._param_type_1__1 = this.typ();
-                                    e.result = ["_", e._param_type_1__1.result]
+                                    this.state = 230;
+                                    e._param_type_2__1 = this.typ();
+                                    e.result = ["_", e._param_type_2__1.result]
                                 }
                                 break
                         }
@@ -21994,20 +21952,20 @@
                     let r = this.state;
                     let o = new Slist_o__i__s__i__s_tvar_str_p_Context(this._ctx, r);
                     let s = o;
-                    let a = 32;
-                    this.enterRecursionRule(o, 32, TypedBNFParser.RULE_slist_o__i__s__i__s_tvar_str_p_, e);
+                    let a = 30;
+                    this.enterRecursionRule(o, 30, TypedBNFParser.RULE_slist_o__i__s__i__s_tvar_str_p_, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 247;
+                                this.state = 236;
                                 o._slist_o__i__s__i__s_tvar_str_p__0__1 = this.tvar_str();
                                 o.result = [o._slist_o__i__s__i__s_tvar_str_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 257;
+                            this.state = 246;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 10, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 9, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -22016,23 +21974,23 @@
                                     s = o; {
                                         {
                                             o = new Slist_o__i__s__i__s_tvar_str_p_Context(t, r);
-                                            o._slist_o__i__s__i__s_tvar_str_p__1__1 = s;
+                                            o._slist_o__i__s__i__s_tvar_str_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_slist_o__i__s__i__s_tvar_str_p_);
-                                            this.state = 250;
+                                            this.state = 239;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 251;
+                                            this.state = 240;
                                             this.match(TypedBNFParser.T__0);
-                                            this.state = 252;
-                                            o._slist_o__i__s__i__s_tvar_str_p__1__3 = this.tvar_str();
-                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_tvar_str_p__1__1.result, o._slist_o__i__s__i__s_tvar_str_p__1__3.result)
+                                            this.state = 241;
+                                            o._slist_o__i__s__i__s_tvar_str_p__2__3 = this.tvar_str();
+                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_tvar_str_p__2__1.result, o._slist_o__i__s__i__s_tvar_str_p__2__3.result)
                                         }
                                     }
                                 }
-                                this.state = 259;
+                                this.state = 248;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 10, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 9, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -22050,18 +22008,18 @@
                 }
                 type_params() {
                     let e = new Type_paramsContext(this._ctx, this.state);
-                    this.enterRule(e, 34, TypedBNFParser.RULE_type_params);
+                    this.enterRule(e, 32, TypedBNFParser.RULE_type_params);
                     try {
-                        this.state = 266;
+                        this.state = 255;
                         this._errHandler.sync(this);
-                        switch (this.interpreter.adaptivePredict(this._input, 11, this._ctx)) {
+                        switch (this.interpreter.adaptivePredict(this._input, 10, this._ctx)) {
                             case 1:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 260;
+                                    this.state = 249;
                                     this.match(TypedBNFParser.T__4);
-                                    this.state = 261;
+                                    this.state = 250;
                                     e._type_params_0__2 = this.slist_o__i__s__i__s_tvar_str_p_(0);
-                                    this.state = 262;
+                                    this.state = 251;
                                     this.match(TypedBNFParser.T__5);
                                     e.result = e._type_params_0__2.result
                                 }
@@ -22087,14 +22045,14 @@
                 }
                 field_ann() {
                     let e = new Field_annContext(this._ctx, this.state);
-                    this.enterRule(e, 36, TypedBNFParser.RULE_field_ann);
+                    this.enterRule(e, 34, TypedBNFParser.RULE_field_ann);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 268;
+                            this.state = 257;
                             e._field_ann_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                            this.state = 269;
-                            this.match(TypedBNFParser.T__8);
-                            this.state = 270;
+                            this.state = 258;
+                            this.match(TypedBNFParser.T__7);
+                            this.state = 259;
                             e._field_ann_0__3 = this.typ();
                             e.result = [(0, n.str)(e._field_ann_0__1), e._field_ann_0__3.result, (0, n.mkpos)(e._field_ann_0__1)]
                         }
@@ -22119,20 +22077,20 @@
                     let r = this.state;
                     let o = new Slist_o__i__s__i__s_field_ann_p_Context(this._ctx, r);
                     let s = o;
-                    let a = 38;
-                    this.enterRecursionRule(o, 38, TypedBNFParser.RULE_slist_o__i__s__i__s_field_ann_p_, e);
+                    let a = 36;
+                    this.enterRecursionRule(o, 36, TypedBNFParser.RULE_slist_o__i__s__i__s_field_ann_p_, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 274;
+                                this.state = 263;
                                 o._slist_o__i__s__i__s_field_ann_p__0__1 = this.field_ann();
                                 o.result = [o._slist_o__i__s__i__s_field_ann_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 284;
+                            this.state = 273;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 12, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 11, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -22141,23 +22099,23 @@
                                     s = o; {
                                         {
                                             o = new Slist_o__i__s__i__s_field_ann_p_Context(t, r);
-                                            o._slist_o__i__s__i__s_field_ann_p__1__1 = s;
+                                            o._slist_o__i__s__i__s_field_ann_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_slist_o__i__s__i__s_field_ann_p_);
-                                            this.state = 277;
+                                            this.state = 266;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 278;
+                                            this.state = 267;
                                             this.match(TypedBNFParser.T__0);
-                                            this.state = 279;
-                                            o._slist_o__i__s__i__s_field_ann_p__1__3 = this.field_ann();
-                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_field_ann_p__1__1.result, o._slist_o__i__s__i__s_field_ann_p__1__3.result)
+                                            this.state = 268;
+                                            o._slist_o__i__s__i__s_field_ann_p__2__3 = this.field_ann();
+                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_field_ann_p__2__1.result, o._slist_o__i__s__i__s_field_ann_p__2__3.result)
                                         }
                                     }
                                 }
-                                this.state = 286;
+                                this.state = 275;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 12, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 11, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -22175,9 +22133,9 @@
                 }
                 empty_o_slist_o__i__s__i__s_field_ann_p__p_() {
                     let e = new Empty_o_slist_o__i__s__i__s_field_ann_p__p_Context(this._ctx, this.state);
-                    this.enterRule(e, 40, TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_field_ann_p__p_);
+                    this.enterRule(e, 38, TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_field_ann_p__p_);
                     try {
-                        this.state = 291;
+                        this.state = 280;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
                             case TypedBNFParser.T__3:
@@ -22187,9 +22145,9 @@
                                 break;
                             case TypedBNFParser.CNAMEPLUS:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 288;
-                                    e._empty_o_slist_o__i__s__i__s_field_ann_p__p__1__1 = this.slist_o__i__s__i__s_field_ann_p_(0);
-                                    e.result = e._empty_o_slist_o__i__s__i__s_field_ann_p__p__1__1.result
+                                    this.state = 277;
+                                    e._empty_o_slist_o__i__s__i__s_field_ann_p__p__2__1 = this.slist_o__i__s__i__s_field_ann_p_(0);
+                                    e.result = e._empty_o_slist_o__i__s__i__s_field_ann_p__p__2__1.result
                                 }
                                 break;
                             default:
@@ -22210,10 +22168,10 @@
                 }
                 eslist_o__i__s__i__s_field_ann_p_() {
                     let e = new Eslist_o__i__s__i__s_field_ann_p_Context(this._ctx, this.state);
-                    this.enterRule(e, 42, TypedBNFParser.RULE_eslist_o__i__s__i__s_field_ann_p_);
+                    this.enterRule(e, 40, TypedBNFParser.RULE_eslist_o__i__s__i__s_field_ann_p_);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 293;
+                            this.state = 282;
                             e._eslist_o__i__s__i__s_field_ann_p__0__1 = this.empty_o_slist_o__i__s__i__s_field_ann_p__p_();
                             e.result = e._eslist_o__i__s__i__s_field_ann_p__0__1.result
                         }
@@ -22232,18 +22190,18 @@
                 }
                 field_anns() {
                     let e = new Field_annsContext(this._ctx, this.state);
-                    this.enterRule(e, 44, TypedBNFParser.RULE_field_anns);
+                    this.enterRule(e, 42, TypedBNFParser.RULE_field_anns);
                     try {
-                        this.state = 302;
+                        this.state = 291;
                         this._errHandler.sync(this);
-                        switch (this.interpreter.adaptivePredict(this._input, 14, this._ctx)) {
+                        switch (this.interpreter.adaptivePredict(this._input, 13, this._ctx)) {
                             case 1:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 296;
+                                    this.state = 285;
                                     this.match(TypedBNFParser.T__2);
-                                    this.state = 297;
+                                    this.state = 286;
                                     e._field_anns_0__2 = this.eslist_o__i__s__i__s_field_ann_p_();
-                                    this.state = 298;
+                                    this.state = 287;
                                     this.match(TypedBNFParser.T__3);
                                     e.result = [true, e._field_anns_0__2.result]
                                 }
@@ -22269,65 +22227,65 @@
                 }
                 decl() {
                     let e = new DeclContext(this._ctx, this.state);
-                    this.enterRule(e, 46, TypedBNFParser.RULE_decl);
+                    this.enterRule(e, 44, TypedBNFParser.RULE_decl);
                     try {
-                        this.state = 330;
+                        this.state = 319;
                         this._errHandler.sync(this);
-                        switch (this.interpreter.adaptivePredict(this._input, 15, this._ctx)) {
+                        switch (this.interpreter.adaptivePredict(this._input, 14, this._ctx)) {
                             case 1:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 304;
-                                    this.match(TypedBNFParser.T__9);
-                                    this.state = 305;
-                                    e._decl_0__2 = this.match(TypedBNFParser.T__10);
-                                    this.state = 306;
-                                    e._decl_0__3 = this.identstr();
-                                    this.state = 307;
+                                    this.state = 293;
                                     this.match(TypedBNFParser.T__8);
-                                    this.state = 308;
+                                    this.state = 294;
+                                    e._decl_0__2 = this.match(TypedBNFParser.T__9);
+                                    this.state = 295;
+                                    e._decl_0__3 = this.identstr();
+                                    this.state = 296;
+                                    this.match(TypedBNFParser.T__7);
+                                    this.state = 297;
                                     e._decl_0__5 = this.top_typ();
                                     e.result = (0, n.MK_Declvar)(e._decl_0__3.result, e._decl_0__5.result, (0, n.mkpos)(e._decl_0__2))
                                 }
                                 break;
                             case 2:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 311;
-                                    e._decl_1__1 = this.match(TypedBNFParser.T__11);
-                                    this.state = 312;
-                                    e._decl_1__2 = this.identstr();
-                                    this.state = 313;
-                                    this.match(TypedBNFParser.T__8);
-                                    this.state = 314;
-                                    e._decl_1__4 = this.typ();
-                                    e.result = (0, n.MK_Declctor)(e._decl_1__2.result, e._decl_1__4.result, (0, n.mkpos)(e._decl_1__1))
+                                    this.state = 300;
+                                    e._decl_2__1 = this.match(TypedBNFParser.T__10);
+                                    this.state = 301;
+                                    e._decl_2__2 = this.identstr();
+                                    this.state = 302;
+                                    this.match(TypedBNFParser.T__7);
+                                    this.state = 303;
+                                    e._decl_2__4 = this.typ();
+                                    e.result = (0, n.MK_Declctor)(e._decl_2__2.result, e._decl_2__4.result, (0, n.mkpos)(e._decl_2__1))
                                 }
                                 break;
                             case 3:
                                 this.enterOuterAlt(e, 3); {
-                                    this.state = 317;
-                                    e._decl_2__1 = this.match(TypedBNFParser.T__9);
-                                    this.state = 318;
-                                    this.match(TypedBNFParser.T__12);
-                                    this.state = 319;
-                                    e._decl_2__3 = this.identstr();
-                                    this.state = 320;
-                                    e._decl_2__4 = this.type_params();
-                                    this.state = 321;
-                                    e._decl_2__5 = this.field_anns();
-                                    e.result = (0, n.MK_Decltype)(true, (0, n.fst)(e._decl_2__5.result), e._decl_2__3.result, e._decl_2__4.result, (0, n.snd)(e._decl_2__5.result), (0, n.mkpos)(e._decl_2__1))
+                                    this.state = 306;
+                                    e._decl_4__1 = this.match(TypedBNFParser.T__8);
+                                    this.state = 307;
+                                    this.match(TypedBNFParser.T__11);
+                                    this.state = 308;
+                                    e._decl_4__3 = this.identstr();
+                                    this.state = 309;
+                                    e._decl_4__4 = this.type_params();
+                                    this.state = 310;
+                                    e._decl_4__5 = this.field_anns();
+                                    e.result = (0, n.MK_Decltype)(true, (0, n.fst)(e._decl_4__5.result), e._decl_4__3.result, e._decl_4__4.result, (0, n.snd)(e._decl_4__5.result), (0, n.mkpos)(e._decl_4__1))
                                 }
                                 break;
                             case 4:
                                 this.enterOuterAlt(e, 4); {
-                                    this.state = 324;
-                                    e._decl_3__1 = this.match(TypedBNFParser.T__12);
-                                    this.state = 325;
-                                    e._decl_3__2 = this.identstr();
-                                    this.state = 326;
-                                    e._decl_3__3 = this.type_params();
-                                    this.state = 327;
-                                    e._decl_3__4 = this.field_anns();
-                                    e.result = (0, n.MK_Decltype)(false, (0, n.fst)(e._decl_3__4.result), e._decl_3__2.result, e._decl_3__3.result, (0, n.snd)(e._decl_3__4.result), (0, n.mkpos)(e._decl_3__1))
+                                    this.state = 313;
+                                    e._decl_6__1 = this.match(TypedBNFParser.T__11);
+                                    this.state = 314;
+                                    e._decl_6__2 = this.identstr();
+                                    this.state = 315;
+                                    e._decl_6__3 = this.type_params();
+                                    this.state = 316;
+                                    e._decl_6__4 = this.field_anns();
+                                    e.result = (0, n.MK_Decltype)(false, (0, n.fst)(e._decl_6__4.result), e._decl_6__2.result, e._decl_6__3.result, (0, n.snd)(e._decl_6__4.result), (0, n.mkpos)(e._decl_6__1))
                                 }
                                 break
                         }
@@ -22346,39 +22304,39 @@
                 }
                 toplevel() {
                     let e = new ToplevelContext(this._ctx, this.state);
-                    this.enterRule(e, 48, TypedBNFParser.RULE_toplevel);
+                    this.enterRule(e, 46, TypedBNFParser.RULE_toplevel);
                     try {
-                        this.state = 345;
+                        this.state = 334;
                         this._errHandler.sync(this);
-                        switch (this.interpreter.adaptivePredict(this._input, 16, this._ctx)) {
+                        switch (this.interpreter.adaptivePredict(this._input, 15, this._ctx)) {
                             case 1:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 332;
+                                    this.state = 321;
                                     e._toplevel_0__1 = this.def();
                                     e.result = e._toplevel_0__1.result
                                 }
                                 break;
                             case 2:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 335;
-                                    e._toplevel_1__1 = this.decl();
-                                    e.result = e._toplevel_1__1.result
+                                    this.state = 324;
+                                    e._toplevel_2__1 = this.decl();
+                                    e.result = e._toplevel_2__1.result
                                 }
                                 break;
                             case 3:
                                 this.enterOuterAlt(e, 3); {
-                                    this.state = 338;
-                                    e._toplevel_2__1 = this.lexerdef();
-                                    e.result = e._toplevel_2__1.result
+                                    this.state = 327;
+                                    e._toplevel_4__1 = this.lexerdef();
+                                    e.result = e._toplevel_4__1.result
                                 }
                                 break;
                             case 4:
                                 this.enterOuterAlt(e, 4); {
-                                    this.state = 341;
-                                    e._toplevel_3__1 = this.match(TypedBNFParser.T__13);
-                                    this.state = 342;
-                                    e._toplevel_3__2 = this.slist_o__i__s__i__s_identstr_p_(0);
-                                    e.result = (0, n.MK_Defignore)(e._toplevel_3__2.result, (0, n.mkpos)(e._toplevel_3__1))
+                                    this.state = 330;
+                                    e._toplevel_6__1 = this.match(TypedBNFParser.T__12);
+                                    this.state = 331;
+                                    e._toplevel_6__2 = this.slist_o__i__s__i__s_identstr_p_(0);
+                                    e.result = (0, n.MK_Defignore)(e._toplevel_6__2.result, (0, n.mkpos)(e._toplevel_6__1))
                                 }
                                 break
                         }
@@ -22403,20 +22361,20 @@
                     let r = this.state;
                     let o = new Slist_o__i__s__i__s_identstr_p_Context(this._ctx, r);
                     let s = o;
-                    let a = 50;
-                    this.enterRecursionRule(o, 50, TypedBNFParser.RULE_slist_o__i__s__i__s_identstr_p_, e);
+                    let a = 48;
+                    this.enterRecursionRule(o, 48, TypedBNFParser.RULE_slist_o__i__s__i__s_identstr_p_, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 348;
+                                this.state = 337;
                                 o._slist_o__i__s__i__s_identstr_p__0__1 = this.identstr();
                                 o.result = [o._slist_o__i__s__i__s_identstr_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 358;
+                            this.state = 347;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 17, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 16, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -22425,23 +22383,23 @@
                                     s = o; {
                                         {
                                             o = new Slist_o__i__s__i__s_identstr_p_Context(t, r);
-                                            o._slist_o__i__s__i__s_identstr_p__1__1 = s;
+                                            o._slist_o__i__s__i__s_identstr_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_slist_o__i__s__i__s_identstr_p_);
-                                            this.state = 351;
+                                            this.state = 340;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 352;
+                                            this.state = 341;
                                             this.match(TypedBNFParser.T__0);
-                                            this.state = 353;
-                                            o._slist_o__i__s__i__s_identstr_p__1__3 = this.identstr();
-                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_identstr_p__1__1.result, o._slist_o__i__s__i__s_identstr_p__1__3.result)
+                                            this.state = 342;
+                                            o._slist_o__i__s__i__s_identstr_p__2__3 = this.identstr();
+                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_identstr_p__2__1.result, o._slist_o__i__s__i__s_identstr_p__2__3.result)
                                         }
                                     }
                                 }
-                                this.state = 360;
+                                this.state = 349;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 17, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 16, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -22459,33 +22417,33 @@
                 }
                 def() {
                     let e = new DefContext(this._ctx, this.state);
-                    this.enterRule(e, 52, TypedBNFParser.RULE_def);
+                    this.enterRule(e, 50, TypedBNFParser.RULE_def);
                     try {
-                        this.state = 372;
+                        this.state = 361;
                         this._errHandler.sync(this);
-                        switch (this.interpreter.adaptivePredict(this._input, 18, this._ctx)) {
+                        switch (this.interpreter.adaptivePredict(this._input, 17, this._ctx)) {
                             case 1:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 361;
+                                    this.state = 350;
                                     e._def_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                                    this.state = 362;
+                                    this.state = 351;
                                     this.match(TypedBNFParser.T__2);
-                                    this.state = 363;
+                                    this.state = 352;
                                     e._def_0__3 = this.slist_o__i__s__i__s_identstr_p_(0);
-                                    this.state = 364;
+                                    this.state = 353;
                                     this.match(TypedBNFParser.T__3);
-                                    this.state = 365;
+                                    this.state = 354;
                                     e._def_0__5 = this.productions(0);
                                     e.result = (0, n.MK_Defmacro)((0, n.str)(e._def_0__1), e._def_0__3.result, e._def_0__5.result, (0, n.mkpos)(e._def_0__1))
                                 }
                                 break;
                             case 2:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 368;
-                                    e._def_1__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                                    this.state = 369;
-                                    e._def_1__2 = this.productions(0);
-                                    e.result = (0, n.MK_Defrule)((0, n.str)(e._def_1__1), e._def_1__2.result, (0, n.mkpos)(e._def_1__1))
+                                    this.state = 357;
+                                    e._def_2__1 = this.match(TypedBNFParser.CNAMEPLUS);
+                                    this.state = 358;
+                                    e._def_2__2 = this.productions(0);
+                                    e.result = (0, n.MK_Defrule)((0, n.str)(e._def_2__1), e._def_2__2.result, (0, n.mkpos)(e._def_2__1))
                                 }
                                 break
                         }
@@ -22510,24 +22468,24 @@
                     let r = this.state;
                     let o = new ProductionsContext(this._ctx, r);
                     let s = o;
-                    let a = 54;
-                    this.enterRecursionRule(o, 54, TypedBNFParser.RULE_productions, e);
+                    let a = 52;
+                    this.enterRecursionRule(o, 52, TypedBNFParser.RULE_productions, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 375;
-                                o._productions_0__1 = this.match(TypedBNFParser.T__8);
-                                this.state = 376;
+                                this.state = 364;
+                                o._productions_0__1 = this.match(TypedBNFParser.T__7);
+                                this.state = 365;
                                 o._productions_0__2 = this.production();
                                 o.result = [
                                     [(0, n.mkpos)(o._productions_0__1), o._productions_0__2.result]
                                 ]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 386;
+                            this.state = 375;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 19, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 18, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -22536,23 +22494,23 @@
                                     s = o; {
                                         {
                                             o = new ProductionsContext(t, r);
-                                            o._productions_1__1 = s;
+                                            o._productions_2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_productions);
-                                            this.state = 379;
+                                            this.state = 368;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 380;
-                                            o._productions_1__2 = this.match(TypedBNFParser.T__14);
-                                            this.state = 381;
-                                            o._productions_1__3 = this.production();
-                                            o.result = (0, n.addList)(o._productions_1__1.result, [(0, n.mkpos)(o._productions_1__2), o._productions_1__3.result])
+                                            this.state = 369;
+                                            o._productions_2__2 = this.match(TypedBNFParser.T__13);
+                                            this.state = 370;
+                                            o._productions_2__3 = this.production();
+                                            o.result = (0, n.addList)(o._productions_2__1.result, [(0, n.mkpos)(o._productions_2__2), o._productions_2__3.result])
                                         }
                                     }
                                 }
-                                this.state = 388;
+                                this.state = 377;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 19, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 18, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -22576,20 +22534,20 @@
                     let r = this.state;
                     let o = new List_o_psym_p_Context(this._ctx, r);
                     let s = o;
-                    let a = 56;
-                    this.enterRecursionRule(o, 56, TypedBNFParser.RULE_list_o_psym_p_, e);
+                    let a = 54;
+                    this.enterRecursionRule(o, 54, TypedBNFParser.RULE_list_o_psym_p_, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 390;
+                                this.state = 379;
                                 o._list_o_psym_p__0__1 = this.psym();
                                 o.result = [o._list_o_psym_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 399;
+                            this.state = 388;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 20, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 19, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -22598,21 +22556,21 @@
                                     s = o; {
                                         {
                                             o = new List_o_psym_p_Context(t, r);
-                                            o._list_o_psym_p__1__1 = s;
+                                            o._list_o_psym_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_list_o_psym_p_);
-                                            this.state = 393;
+                                            this.state = 382;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 394;
-                                            o._list_o_psym_p__1__2 = this.psym();
-                                            o.result = (0, n.addList)(o._list_o_psym_p__1__1.result, o._list_o_psym_p__1__2.result)
+                                            this.state = 383;
+                                            o._list_o_psym_p__2__2 = this.psym();
+                                            o.result = (0, n.addList)(o._list_o_psym_p__2__1.result, o._list_o_psym_p__2__2.result)
                                         }
                                     }
                                 }
-                                this.state = 401;
+                                this.state = 390;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 20, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 19, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -22630,12 +22588,12 @@
                 }
                 empty_o_list_o_psym_p__p_() {
                     let e = new Empty_o_list_o_psym_p__p_Context(this._ctx, this.state);
-                    this.enterRule(e, 58, TypedBNFParser.RULE_empty_o_list_o_psym_p__p_);
+                    this.enterRule(e, 56, TypedBNFParser.RULE_empty_o_list_o_psym_p__p_);
                     try {
-                        this.state = 406;
+                        this.state = 395;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
-                            case TypedBNFParser.T__15:
+                            case TypedBNFParser.T__14:
                                 this.enterOuterAlt(e, 1); {
                                     e.result = []
                                 }
@@ -22644,9 +22602,9 @@
                             case TypedBNFParser.CNAMEPLUS:
                             case TypedBNFParser.ESCAPED_STRING:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 403;
-                                    e._empty_o_list_o_psym_p__p__1__1 = this.list_o_psym_p_(0);
-                                    e.result = e._empty_o_list_o_psym_p__p__1__1.result
+                                    this.state = 392;
+                                    e._empty_o_list_o_psym_p__p__2__1 = this.list_o_psym_p_(0);
+                                    e.result = e._empty_o_list_o_psym_p__p__2__1.result
                                 }
                                 break;
                             default:
@@ -22667,10 +22625,10 @@
                 }
                 elist_o_psym_p_() {
                     let e = new Elist_o_psym_p_Context(this._ctx, this.state);
-                    this.enterRule(e, 60, TypedBNFParser.RULE_elist_o_psym_p_);
+                    this.enterRule(e, 58, TypedBNFParser.RULE_elist_o_psym_p_);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 408;
+                            this.state = 397;
                             e._elist_o_psym_p__0__1 = this.empty_o_list_o_psym_p__p_();
                             e.result = e._elist_o_psym_p__0__1.result
                         }
@@ -22689,17 +22647,17 @@
                 }
                 production() {
                     let e = new ProductionContext(this._ctx, this.state);
-                    this.enterRule(e, 62, TypedBNFParser.RULE_production);
+                    this.enterRule(e, 60, TypedBNFParser.RULE_production);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 411;
+                            this.state = 400;
                             e._production_0__1 = this.elist_o_psym_p_();
-                            this.state = 412;
-                            this.match(TypedBNFParser.T__15);
-                            this.state = 413;
+                            this.state = 401;
+                            this.match(TypedBNFParser.T__14);
+                            this.state = 402;
                             e._production_0__3 = this.expr();
-                            this.state = 414;
-                            this.match(TypedBNFParser.T__16);
+                            this.state = 403;
+                            this.match(TypedBNFParser.T__15);
                             e.result = (0, n.MK_production)(e._production_0__1.result, e._production_0__3.result)
                         }
                     } catch (t) {
@@ -22723,20 +22681,20 @@
                     let r = this.state;
                     let o = new Slist_o__i__s__i__s_psym_p_Context(this._ctx, r);
                     let s = o;
-                    let a = 64;
-                    this.enterRecursionRule(o, 64, TypedBNFParser.RULE_slist_o__i__s__i__s_psym_p_, e);
+                    let a = 62;
+                    this.enterRecursionRule(o, 62, TypedBNFParser.RULE_slist_o__i__s__i__s_psym_p_, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 418;
+                                this.state = 407;
                                 o._slist_o__i__s__i__s_psym_p__0__1 = this.psym();
                                 o.result = [o._slist_o__i__s__i__s_psym_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 428;
+                            this.state = 417;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 22, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 21, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -22745,23 +22703,23 @@
                                     s = o; {
                                         {
                                             o = new Slist_o__i__s__i__s_psym_p_Context(t, r);
-                                            o._slist_o__i__s__i__s_psym_p__1__1 = s;
+                                            o._slist_o__i__s__i__s_psym_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_slist_o__i__s__i__s_psym_p_);
-                                            this.state = 421;
+                                            this.state = 410;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 422;
+                                            this.state = 411;
                                             this.match(TypedBNFParser.T__0);
-                                            this.state = 423;
-                                            o._slist_o__i__s__i__s_psym_p__1__3 = this.psym();
-                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_psym_p__1__1.result, o._slist_o__i__s__i__s_psym_p__1__3.result)
+                                            this.state = 412;
+                                            o._slist_o__i__s__i__s_psym_p__2__3 = this.psym();
+                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_psym_p__2__1.result, o._slist_o__i__s__i__s_psym_p__2__3.result)
                                         }
                                     }
                                 }
-                                this.state = 430;
+                                this.state = 419;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 22, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 21, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -22779,47 +22737,47 @@
                 }
                 psym() {
                     let e = new PsymContext(this._ctx, this.state);
-                    this.enterRule(e, 66, TypedBNFParser.RULE_psym);
+                    this.enterRule(e, 64, TypedBNFParser.RULE_psym);
                     try {
-                        this.state = 447;
+                        this.state = 436;
                         this._errHandler.sync(this);
-                        switch (this.interpreter.adaptivePredict(this._input, 23, this._ctx)) {
+                        switch (this.interpreter.adaptivePredict(this._input, 22, this._ctx)) {
                             case 1:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 431;
+                                    this.state = 420;
                                     this.match(TypedBNFParser.T__4);
-                                    this.state = 432;
+                                    this.state = 421;
                                     e._psym_0__2 = this.identstr();
-                                    this.state = 433;
+                                    this.state = 422;
                                     this.match(TypedBNFParser.T__5);
                                     e.result = (0, n.MK_Term)(e._psym_0__2.result, false)
                                 }
                                 break;
                             case 2:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 436;
-                                    e._psym_1__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-                                    e.result = (0, n.MK_Term)((0, n.unescape)((0, n.str)(e._psym_1__1)), true)
+                                    this.state = 425;
+                                    e._psym_2__1 = this.match(TypedBNFParser.ESCAPED_STRING);
+                                    e.result = (0, n.MK_Term)((0, n.unescape)((0, n.str)(e._psym_2__1)), true)
                                 }
                                 break;
                             case 3:
                                 this.enterOuterAlt(e, 3); {
-                                    this.state = 438;
-                                    e._psym_2__1 = this.identstr();
-                                    e.result = (0, n.MK_Nonterm)(e._psym_2__1.result)
+                                    this.state = 427;
+                                    e._psym_4__1 = this.identstr();
+                                    e.result = (0, n.MK_Nonterm)(e._psym_4__1.result)
                                 }
                                 break;
                             case 4:
                                 this.enterOuterAlt(e, 4); {
-                                    this.state = 441;
-                                    e._psym_3__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                                    this.state = 442;
+                                    this.state = 430;
+                                    e._psym_6__1 = this.match(TypedBNFParser.CNAMEPLUS);
+                                    this.state = 431;
                                     this.match(TypedBNFParser.T__2);
-                                    this.state = 443;
-                                    e._psym_3__3 = this.slist_o__i__s__i__s_psym_p_(0);
-                                    this.state = 444;
+                                    this.state = 432;
+                                    e._psym_6__3 = this.slist_o__i__s__i__s_psym_p_(0);
+                                    this.state = 433;
                                     this.match(TypedBNFParser.T__3);
-                                    e.result = (0, n.MK_Macrocall)((0, n.str)(e._psym_3__1), e._psym_3__3.result, (0, n.mkpos)(e._psym_3__1))
+                                    e.result = (0, n.MK_Macrocall)((0, n.str)(e._psym_6__1), e._psym_6__3.result, (0, n.mkpos)(e._psym_6__1))
                                 }
                                 break
                         }
@@ -22838,14 +22796,14 @@
                 }
                 ann() {
                     let e = new AnnContext(this._ctx, this.state);
-                    this.enterRule(e, 68, TypedBNFParser.RULE_ann);
+                    this.enterRule(e, 66, TypedBNFParser.RULE_ann);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 449;
+                            this.state = 438;
                             e._ann_0__1 = this.identstr();
-                            this.state = 450;
-                            this.match(TypedBNFParser.T__8);
-                            this.state = 451;
+                            this.state = 439;
+                            this.match(TypedBNFParser.T__7);
+                            this.state = 440;
                             e._ann_0__3 = this.typ();
                             e.result = [e._ann_0__1.result, e._ann_0__3.result]
                         }
@@ -22870,20 +22828,20 @@
                     let r = this.state;
                     let o = new Slist_o__i__s__i__s_ann_p_Context(this._ctx, r);
                     let s = o;
-                    let a = 70;
-                    this.enterRecursionRule(o, 70, TypedBNFParser.RULE_slist_o__i__s__i__s_ann_p_, e);
+                    let a = 68;
+                    this.enterRecursionRule(o, 68, TypedBNFParser.RULE_slist_o__i__s__i__s_ann_p_, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 455;
+                                this.state = 444;
                                 o._slist_o__i__s__i__s_ann_p__0__1 = this.ann();
                                 o.result = [o._slist_o__i__s__i__s_ann_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 465;
+                            this.state = 454;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 24, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 23, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -22892,23 +22850,23 @@
                                     s = o; {
                                         {
                                             o = new Slist_o__i__s__i__s_ann_p_Context(t, r);
-                                            o._slist_o__i__s__i__s_ann_p__1__1 = s;
+                                            o._slist_o__i__s__i__s_ann_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_slist_o__i__s__i__s_ann_p_);
-                                            this.state = 458;
+                                            this.state = 447;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 459;
+                                            this.state = 448;
                                             this.match(TypedBNFParser.T__0);
-                                            this.state = 460;
-                                            o._slist_o__i__s__i__s_ann_p__1__3 = this.ann();
-                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_ann_p__1__1.result, o._slist_o__i__s__i__s_ann_p__1__3.result)
+                                            this.state = 449;
+                                            o._slist_o__i__s__i__s_ann_p__2__3 = this.ann();
+                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_ann_p__2__1.result, o._slist_o__i__s__i__s_ann_p__2__3.result)
                                         }
                                     }
                                 }
-                                this.state = 467;
+                                this.state = 456;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 24, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 23, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -22926,9 +22884,9 @@
                 }
                 empty_o_slist_o__i__s__i__s_ann_p__p_() {
                     let e = new Empty_o_slist_o__i__s__i__s_ann_p__p_Context(this._ctx, this.state);
-                    this.enterRule(e, 72, TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_ann_p__p_);
+                    this.enterRule(e, 70, TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_ann_p__p_);
                     try {
-                        this.state = 472;
+                        this.state = 461;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
                             case TypedBNFParser.T__3:
@@ -22938,9 +22896,9 @@
                                 break;
                             case TypedBNFParser.CNAMEPLUS:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 469;
-                                    e._empty_o_slist_o__i__s__i__s_ann_p__p__1__1 = this.slist_o__i__s__i__s_ann_p_(0);
-                                    e.result = e._empty_o_slist_o__i__s__i__s_ann_p__p__1__1.result
+                                    this.state = 458;
+                                    e._empty_o_slist_o__i__s__i__s_ann_p__p__2__1 = this.slist_o__i__s__i__s_ann_p_(0);
+                                    e.result = e._empty_o_slist_o__i__s__i__s_ann_p__p__2__1.result
                                 }
                                 break;
                             default:
@@ -22961,10 +22919,10 @@
                 }
                 eslist_o__i__s__i__s_ann_p_() {
                     let e = new Eslist_o__i__s__i__s_ann_p_Context(this._ctx, this.state);
-                    this.enterRule(e, 74, TypedBNFParser.RULE_eslist_o__i__s__i__s_ann_p_);
+                    this.enterRule(e, 72, TypedBNFParser.RULE_eslist_o__i__s__i__s_ann_p_);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 474;
+                            this.state = 463;
                             e._eslist_o__i__s__i__s_ann_p__0__1 = this.empty_o_slist_o__i__s__i__s_ann_p__p_();
                             e.result = e._eslist_o__i__s__i__s_ann_p__0__1.result
                         }
@@ -22983,14 +22941,14 @@
                 }
                 func_parameters() {
                     let e = new Func_parametersContext(this._ctx, this.state);
-                    this.enterRule(e, 76, TypedBNFParser.RULE_func_parameters);
+                    this.enterRule(e, 74, TypedBNFParser.RULE_func_parameters);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 477;
+                            this.state = 466;
                             this.match(TypedBNFParser.T__2);
-                            this.state = 478;
+                            this.state = 467;
                             e._func_parameters_0__2 = this.eslist_o__i__s__i__s_ann_p_();
-                            this.state = 479;
+                            this.state = 468;
                             this.match(TypedBNFParser.T__3);
                             e.result = e._func_parameters_0__2.result
                         }
@@ -23009,57 +22967,57 @@
                 }
                 expr() {
                     let e = new ExprContext(this._ctx, this.state);
-                    this.enterRule(e, 78, TypedBNFParser.RULE_expr);
+                    this.enterRule(e, 76, TypedBNFParser.RULE_expr);
                     try {
-                        this.state = 504;
+                        this.state = 493;
                         this._errHandler.sync(this);
-                        switch (this.interpreter.adaptivePredict(this._input, 26, this._ctx)) {
+                        switch (this.interpreter.adaptivePredict(this._input, 25, this._ctx)) {
                             case 1:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 482;
-                                    e._expr_0__1 = this.match(TypedBNFParser.T__17);
-                                    this.state = 483;
+                                    this.state = 471;
+                                    e._expr_0__1 = this.match(TypedBNFParser.T__16);
+                                    this.state = 472;
                                     e._expr_0__2 = this.identstr();
-                                    this.state = 484;
-                                    this.match(TypedBNFParser.T__18);
-                                    this.state = 485;
+                                    this.state = 473;
+                                    this.match(TypedBNFParser.T__17);
+                                    this.state = 474;
                                     e._expr_0__4 = this.expr();
-                                    this.state = 486;
-                                    this.match(TypedBNFParser.T__19);
-                                    this.state = 487;
+                                    this.state = 475;
+                                    this.match(TypedBNFParser.T__18);
+                                    this.state = 476;
                                     e._expr_0__6 = this.expr();
                                     e.result = (0, n.MK_Expr)((0, n.MK_ELet)(e._expr_0__2.result, e._expr_0__4.result, e._expr_0__6.result), (0, n.mkpos)(e._expr_0__1))
                                 }
                                 break;
                             case 2:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 490;
-                                    e._expr_1__1 = this.match(TypedBNFParser.T__20);
-                                    this.state = 491;
-                                    e._expr_1__2 = this.func_parameters();
-                                    this.state = 492;
+                                    this.state = 479;
+                                    e._expr_2__1 = this.match(TypedBNFParser.T__19);
+                                    this.state = 480;
+                                    e._expr_2__2 = this.func_parameters();
+                                    this.state = 481;
                                     this.match(TypedBNFParser.T__1);
-                                    this.state = 493;
-                                    e._expr_1__4 = this.expr();
-                                    e.result = (0, n.MK_Expr)((0, n.MK_EFun)(e._expr_1__2.result, e._expr_1__4.result), (0, n.mkpos)(e._expr_1__1))
+                                    this.state = 482;
+                                    e._expr_2__4 = this.expr();
+                                    e.result = (0, n.MK_Expr)((0, n.MK_EFun)(e._expr_2__2.result, e._expr_2__4.result), (0, n.mkpos)(e._expr_2__1))
                                 }
                                 break;
                             case 3:
                                 this.enterOuterAlt(e, 3); {
-                                    this.state = 496;
-                                    e._expr_2__1 = this.call(0);
-                                    e.result = e._expr_2__1.result
+                                    this.state = 485;
+                                    e._expr_4__1 = this.call(0);
+                                    e.result = e._expr_4__1.result
                                 }
                                 break;
                             case 4:
                                 this.enterOuterAlt(e, 4); {
-                                    this.state = 499;
-                                    e._expr_3__1 = this.call(0);
-                                    this.state = 500;
-                                    this.match(TypedBNFParser.T__21);
-                                    this.state = 501;
-                                    e._expr_3__3 = this.expr();
-                                    e.result = (0, n.MK_Expr)((0, n.MK_ELet)("_", e._expr_3__1.result, e._expr_3__3.result), (0, n.getpos)(e._expr_3__1.result))
+                                    this.state = 488;
+                                    e._expr_6__1 = this.call(0);
+                                    this.state = 489;
+                                    this.match(TypedBNFParser.T__20);
+                                    this.state = 490;
+                                    e._expr_6__3 = this.expr();
+                                    e.result = (0, n.MK_Expr)((0, n.MK_ELet)("_", e._expr_6__1.result, e._expr_6__3.result), (0, n.getpos)(e._expr_6__1.result))
                                 }
                                 break
                         }
@@ -23084,20 +23042,20 @@
                     let r = this.state;
                     let o = new CallContext(this._ctx, r);
                     let s = o;
-                    let a = 80;
-                    this.enterRecursionRule(o, 80, TypedBNFParser.RULE_call, e);
+                    let a = 78;
+                    this.enterRecursionRule(o, 78, TypedBNFParser.RULE_call, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 507;
-                                o._call_1__1 = this.atomexp(0);
-                                o.result = o._call_1__1.result
+                                this.state = 496;
+                                o._call_2__1 = this.atomexp(0);
+                                o.result = o._call_2__1.result
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 518;
+                            this.state = 507;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 27, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 26, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -23108,23 +23066,23 @@
                                             o = new CallContext(t, r);
                                             o._call_0__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_call);
-                                            this.state = 510;
+                                            this.state = 499;
                                             if (!this.precpred(this._ctx, 2)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 2)")
                                             }
-                                            this.state = 511;
+                                            this.state = 500;
                                             this.match(TypedBNFParser.T__2);
-                                            this.state = 512;
+                                            this.state = 501;
                                             o._call_0__3 = this.eslist_o__i__s__i__s_expr_p_();
-                                            this.state = 513;
+                                            this.state = 502;
                                             this.match(TypedBNFParser.T__3);
                                             o.result = (0, n.MK_Expr)((0, n.MK_EApp)(o._call_0__1.result, o._call_0__3.result), (0, n.getpos)(o._call_0__1.result))
                                         }
                                     }
                                 }
-                                this.state = 520;
+                                this.state = 509;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 27, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 26, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -23142,32 +23100,32 @@
                 }
                 empty_o_slist_o__i__s__i__s_expr_p__p_() {
                     let e = new Empty_o_slist_o__i__s__i__s_expr_p__p_Context(this._ctx, this.state);
-                    this.enterRule(e, 82, TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_expr_p__p_);
+                    this.enterRule(e, 80, TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_expr_p__p_);
                     try {
-                        this.state = 525;
+                        this.state = 514;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
                             case TypedBNFParser.T__3:
-                            case TypedBNFParser.T__24:
+                            case TypedBNFParser.T__23:
                                 this.enterOuterAlt(e, 1); {
                                     e.result = []
                                 }
                                 break;
                             case TypedBNFParser.T__2:
-                            case TypedBNFParser.T__17:
-                            case TypedBNFParser.T__20:
+                            case TypedBNFParser.T__16:
+                            case TypedBNFParser.T__19:
+                            case TypedBNFParser.T__21:
                             case TypedBNFParser.T__22:
-                            case TypedBNFParser.T__23:
+                            case TypedBNFParser.T__25:
                             case TypedBNFParser.T__26:
-                            case TypedBNFParser.T__27:
                             case TypedBNFParser.CNAMEPLUS:
                             case TypedBNFParser.INT:
                             case TypedBNFParser.FLOAT:
                             case TypedBNFParser.ESCAPED_STRING:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 522;
-                                    e._empty_o_slist_o__i__s__i__s_expr_p__p__1__1 = this.slist_o__i__s__i__s_expr_p_(0);
-                                    e.result = e._empty_o_slist_o__i__s__i__s_expr_p__p__1__1.result
+                                    this.state = 511;
+                                    e._empty_o_slist_o__i__s__i__s_expr_p__p__2__1 = this.slist_o__i__s__i__s_expr_p_(0);
+                                    e.result = e._empty_o_slist_o__i__s__i__s_expr_p__p__2__1.result
                                 }
                                 break;
                             default:
@@ -23188,10 +23146,10 @@
                 }
                 eslist_o__i__s__i__s_expr_p_() {
                     let e = new Eslist_o__i__s__i__s_expr_p_Context(this._ctx, this.state);
-                    this.enterRule(e, 84, TypedBNFParser.RULE_eslist_o__i__s__i__s_expr_p_);
+                    this.enterRule(e, 82, TypedBNFParser.RULE_eslist_o__i__s__i__s_expr_p_);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 527;
+                            this.state = 516;
                             e._eslist_o__i__s__i__s_expr_p__0__1 = this.empty_o_slist_o__i__s__i__s_expr_p__p_();
                             e.result = e._eslist_o__i__s__i__s_expr_p__0__1.result
                         }
@@ -23216,20 +23174,20 @@
                     let r = this.state;
                     let o = new Slist_o__i__s__i__s_expr_p_Context(this._ctx, r);
                     let s = o;
-                    let a = 86;
-                    this.enterRecursionRule(o, 86, TypedBNFParser.RULE_slist_o__i__s__i__s_expr_p_, e);
+                    let a = 84;
+                    this.enterRecursionRule(o, 84, TypedBNFParser.RULE_slist_o__i__s__i__s_expr_p_, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 531;
+                                this.state = 520;
                                 o._slist_o__i__s__i__s_expr_p__0__1 = this.expr();
                                 o.result = [o._slist_o__i__s__i__s_expr_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 541;
+                            this.state = 530;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 29, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 28, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -23238,23 +23196,23 @@
                                     s = o; {
                                         {
                                             o = new Slist_o__i__s__i__s_expr_p_Context(t, r);
-                                            o._slist_o__i__s__i__s_expr_p__1__1 = s;
+                                            o._slist_o__i__s__i__s_expr_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_slist_o__i__s__i__s_expr_p_);
-                                            this.state = 534;
+                                            this.state = 523;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 535;
+                                            this.state = 524;
                                             this.match(TypedBNFParser.T__0);
-                                            this.state = 536;
-                                            o._slist_o__i__s__i__s_expr_p__1__3 = this.expr();
-                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_expr_p__1__1.result, o._slist_o__i__s__i__s_expr_p__1__3.result)
+                                            this.state = 525;
+                                            o._slist_o__i__s__i__s_expr_p__2__3 = this.expr();
+                                            o.result = (0, n.addList)(o._slist_o__i__s__i__s_expr_p__2__1.result, o._slist_o__i__s__i__s_expr_p__2__3.result)
                                         }
                                     }
                                 }
-                                this.state = 543;
+                                this.state = 532;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 29, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 28, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -23278,91 +23236,91 @@
                     let r = this.state;
                     let o = new AtomexpContext(this._ctx, r);
                     let s = o;
-                    let a = 88;
-                    this.enterRecursionRule(o, 88, TypedBNFParser.RULE_atomexp, e);
+                    let a = 86;
+                    this.enterRecursionRule(o, 86, TypedBNFParser.RULE_atomexp, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
-                            this.state = 573;
+                            this.state = 562;
                             this._errHandler.sync(this);
-                            switch (this.interpreter.adaptivePredict(this._input, 30, this._ctx)) {
+                            switch (this.interpreter.adaptivePredict(this._input, 29, this._ctx)) {
                                 case 1: {
-                                    this.state = 545;
+                                    this.state = 534;
                                     o._atomexp_0__1 = this.match(TypedBNFParser.INT);
                                     o.result = (0, n.MK_Expr)((0, n.MK_EInt)((0, n.toint)(o._atomexp_0__1)), (0, n.mkpos)(o._atomexp_0__1))
                                 }
                                 break;
-                            case 2: {
-                                this.state = 547;
-                                o._atomexp_1__1 = this.match(TypedBNFParser.FLOAT);
-                                o.result = (0, n.MK_Expr)((0, n.MK_EFlt)((0, n.tofloat)(o._atomexp_1__1)), (0, n.mkpos)(o._atomexp_1__1))
-                            }
-                            break;
-                            case 3: {
-                                this.state = 549;
-                                o._atomexp_2__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-                                o.result = (0, n.MK_Expr)((0, n.MK_EStr)((0, n.unescape)((0, n.str)(o._atomexp_2__1))), (0, n.mkpos)(o._atomexp_2__1))
-                            }
-                            break;
-                            case 4: {
-                                this.state = 551;
-                                o._atomexp_3__1 = this.match(TypedBNFParser.T__22);
-                                this.state = 552;
-                                o._atomexp_3__2 = this.match(TypedBNFParser.INT);
-                                o.result = (0, n.MK_Expr)((0, n.MK_ESlot)((0, n.toint)(o._atomexp_3__2)), (0, n.mkpos)(o._atomexp_3__1))
-                            }
-                            break;
-                            case 5: {
-                                this.state = 554;
-                                o._atomexp_4__1 = this.match(TypedBNFParser.T__23);
-                                this.state = 555;
-                                o._atomexp_4__2 = this.eslist_o__i__s__i__s_expr_p_();
-                                this.state = 556;
-                                this.match(TypedBNFParser.T__24);
-                                o.result = (0, n.MK_Expr)((0, n.MK_EList)(o._atomexp_4__2.result), (0, n.mkpos)(o._atomexp_4__1))
-                            }
-                            break;
-                            case 6: {
-                                this.state = 559;
-                                o._atomexp_5__1 = this.match(TypedBNFParser.T__2);
-                                this.state = 560;
-                                this.match(TypedBNFParser.T__3);
-                                o.result = (0, n.MK_Expr)((0, n.MK_ETuple)([]), (0, n.mkpos)(o._atomexp_5__1))
-                            }
-                            break;
-                            case 7: {
-                                this.state = 562;
-                                o._atomexp_6__1 = this.match(TypedBNFParser.T__2);
-                                this.state = 563;
-                                o._atomexp_6__2 = this.slist_o__i__s__i__s_expr_p_(0);
-                                this.state = 564;
-                                this.match(TypedBNFParser.T__3);
-                                o.result = (0, n.MK_Expr)((0, n.MK_ETuple)(o._atomexp_6__2.result), (0, n.mkpos)(o._atomexp_6__1))
-                            }
-                            break;
-                            case 8: {
-                                this.state = 567;
-                                o._atomexp_7__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                                o.result = (0, n.MK_Expr)((0, n.MK_EVar)((0, n.str)(o._atomexp_7__1)), (0, n.mkpos)(o._atomexp_7__1))
-                            }
-                            break;
-                            case 9: {
-                                this.state = 569;
-                                o._atomexp_9__1 = this.match(TypedBNFParser.T__26);
-                                o.result = (0, n.MK_Expr)((0, n.MK_EBool)(true), (0, n.mkpos)(o._atomexp_9__1))
-                            }
-                            break;
-                            case 10: {
-                                this.state = 571;
-                                o._atomexp_10__1 = this.match(TypedBNFParser.T__27);
-                                o.result = (0, n.MK_Expr)((0, n.MK_EBool)(false), (0, n.mkpos)(o._atomexp_10__1))
-                            }
-                            break
+                                case 2: {
+                                    this.state = 536;
+                                    o._atomexp_2__1 = this.match(TypedBNFParser.FLOAT);
+                                    o.result = (0, n.MK_Expr)((0, n.MK_EFlt)((0, n.tofloat)(o._atomexp_2__1)), (0, n.mkpos)(o._atomexp_2__1))
+                                }
+                                break;
+                                case 3: {
+                                    this.state = 538;
+                                    o._atomexp_4__1 = this.match(TypedBNFParser.ESCAPED_STRING);
+                                    o.result = (0, n.MK_Expr)((0, n.MK_EStr)((0, n.unescape)((0, n.str)(o._atomexp_4__1))), (0, n.mkpos)(o._atomexp_4__1))
+                                }
+                                break;
+                                case 4: {
+                                    this.state = 540;
+                                    o._atomexp_6__1 = this.match(TypedBNFParser.T__21);
+                                    this.state = 541;
+                                    o._atomexp_6__2 = this.match(TypedBNFParser.INT);
+                                    o.result = (0, n.MK_Expr)((0, n.MK_ESlot)((0, n.toint)(o._atomexp_6__2)), (0, n.mkpos)(o._atomexp_6__1))
+                                }
+                                break;
+                                case 5: {
+                                    this.state = 543;
+                                    o._atomexp_8__1 = this.match(TypedBNFParser.T__22);
+                                    this.state = 544;
+                                    o._atomexp_8__2 = this.eslist_o__i__s__i__s_expr_p_();
+                                    this.state = 545;
+                                    this.match(TypedBNFParser.T__23);
+                                    o.result = (0, n.MK_Expr)((0, n.MK_EList)(o._atomexp_8__2.result), (0, n.mkpos)(o._atomexp_8__1))
+                                }
+                                break;
+                                case 6: {
+                                    this.state = 548;
+                                    o._atomexp_10__1 = this.match(TypedBNFParser.T__2);
+                                    this.state = 549;
+                                    this.match(TypedBNFParser.T__3);
+                                    o.result = (0, n.MK_Expr)((0, n.MK_ETuple)([]), (0, n.mkpos)(o._atomexp_10__1))
+                                }
+                                break;
+                                case 7: {
+                                    this.state = 551;
+                                    o._atomexp_12__1 = this.match(TypedBNFParser.T__2);
+                                    this.state = 552;
+                                    o._atomexp_12__2 = this.slist_o__i__s__i__s_expr_p_(0);
+                                    this.state = 553;
+                                    this.match(TypedBNFParser.T__3);
+                                    o.result = (0, n.MK_Expr)((0, n.MK_ETuple)(o._atomexp_12__2.result), (0, n.mkpos)(o._atomexp_12__1))
+                                }
+                                break;
+                                case 8: {
+                                    this.state = 556;
+                                    o._atomexp_14__1 = this.match(TypedBNFParser.CNAMEPLUS);
+                                    o.result = (0, n.MK_Expr)((0, n.MK_EVar)((0, n.str)(o._atomexp_14__1)), (0, n.mkpos)(o._atomexp_14__1))
+                                }
+                                break;
+                                case 9: {
+                                    this.state = 558;
+                                    o._atomexp_18__1 = this.match(TypedBNFParser.T__25);
+                                    o.result = (0, n.MK_Expr)((0, n.MK_EBool)(true), (0, n.mkpos)(o._atomexp_18__1))
+                                }
+                                break;
+                                case 10: {
+                                    this.state = 560;
+                                    o._atomexp_20__1 = this.match(TypedBNFParser.T__26);
+                                    o.result = (0, n.MK_Expr)((0, n.MK_EBool)(false), (0, n.mkpos)(o._atomexp_20__1))
+                                }
+                                break
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 581;
+                            this.state = 570;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 31, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 30, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -23371,23 +23329,23 @@
                                     s = o; {
                                         {
                                             o = new AtomexpContext(t, r);
-                                            o._atomexp_8__1 = s;
+                                            o._atomexp_16__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_atomexp);
-                                            this.state = 575;
+                                            this.state = 564;
                                             if (!this.precpred(this._ctx, 3)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 3)")
                                             }
-                                            this.state = 576;
-                                            this.match(TypedBNFParser.T__25);
-                                            this.state = 577;
-                                            o._atomexp_8__3 = this.match(TypedBNFParser.CNAMEPLUS);
-                                            o.result = (0, n.MK_Expr)((0, n.MK_EField)(o._atomexp_8__1.result, (0, n.str)(o._atomexp_8__3)), (0, n.getpos)(o._atomexp_8__1.result))
+                                            this.state = 565;
+                                            this.match(TypedBNFParser.T__24);
+                                            this.state = 566;
+                                            o._atomexp_16__3 = this.match(TypedBNFParser.CNAMEPLUS);
+                                            o.result = (0, n.MK_Expr)((0, n.MK_EField)(o._atomexp_16__1.result, (0, n.str)(o._atomexp_16__3)), (0, n.getpos)(o._atomexp_16__1.result))
                                         }
                                     }
                                 }
-                                this.state = 583;
+                                this.state = 572;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 31, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 30, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -23411,20 +23369,20 @@
                     let r = this.state;
                     let o = new Slist_o__i__u__i__s_lexer_and_p_Context(this._ctx, r);
                     let s = o;
-                    let a = 90;
-                    this.enterRecursionRule(o, 90, TypedBNFParser.RULE_slist_o__i__u__i__s_lexer_and_p_, e);
+                    let a = 88;
+                    this.enterRecursionRule(o, 88, TypedBNFParser.RULE_slist_o__i__u__i__s_lexer_and_p_, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 585;
+                                this.state = 574;
                                 o._slist_o__i__u__i__s_lexer_and_p__0__1 = this.lexer_and();
                                 o.result = [o._slist_o__i__u__i__s_lexer_and_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 595;
+                            this.state = 584;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 32, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 31, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -23433,23 +23391,23 @@
                                     s = o; {
                                         {
                                             o = new Slist_o__i__u__i__s_lexer_and_p_Context(t, r);
-                                            o._slist_o__i__u__i__s_lexer_and_p__1__1 = s;
+                                            o._slist_o__i__u__i__s_lexer_and_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_slist_o__i__u__i__s_lexer_and_p_);
-                                            this.state = 588;
+                                            this.state = 577;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 589;
-                                            this.match(TypedBNFParser.T__14);
-                                            this.state = 590;
-                                            o._slist_o__i__u__i__s_lexer_and_p__1__3 = this.lexer_and();
-                                            o.result = (0, n.addList)(o._slist_o__i__u__i__s_lexer_and_p__1__1.result, o._slist_o__i__u__i__s_lexer_and_p__1__3.result)
+                                            this.state = 578;
+                                            this.match(TypedBNFParser.T__13);
+                                            this.state = 579;
+                                            o._slist_o__i__u__i__s_lexer_and_p__2__3 = this.lexer_and();
+                                            o.result = (0, n.addList)(o._slist_o__i__u__i__s_lexer_and_p__2__1.result, o._slist_o__i__u__i__s_lexer_and_p__2__3.result)
                                         }
                                     }
                                 }
-                                this.state = 597;
+                                this.state = 586;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 32, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 31, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -23467,10 +23425,10 @@
                 }
                 lexer__y_() {
                     let e = new Lexer__y_Context(this._ctx, this.state);
-                    this.enterRule(e, 92, TypedBNFParser.RULE_lexer__y_);
+                    this.enterRule(e, 90, TypedBNFParser.RULE_lexer__y_);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 598;
+                            this.state = 587;
                             e._lexer__y__0__1 = this.slist_o__i__u__i__s_lexer_and_p_(0);
                             e.result = (0, n.MK_LOr)(e._lexer__y__0__1.result)
                         }
@@ -23495,20 +23453,20 @@
                     let r = this.state;
                     let o = new List_o_lexer_atomexpr_p_Context(this._ctx, r);
                     let s = o;
-                    let a = 94;
-                    this.enterRecursionRule(o, 94, TypedBNFParser.RULE_list_o_lexer_atomexpr_p_, e);
+                    let a = 92;
+                    this.enterRecursionRule(o, 92, TypedBNFParser.RULE_list_o_lexer_atomexpr_p_, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 602;
+                                this.state = 591;
                                 o._list_o_lexer_atomexpr_p__0__1 = this.lexer_atomexpr(0);
                                 o.result = [o._list_o_lexer_atomexpr_p__0__1.result]
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 611;
+                            this.state = 600;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 33, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 32, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
@@ -23517,21 +23475,21 @@
                                     s = o; {
                                         {
                                             o = new List_o_lexer_atomexpr_p_Context(t, r);
-                                            o._list_o_lexer_atomexpr_p__1__1 = s;
+                                            o._list_o_lexer_atomexpr_p__2__1 = s;
                                             this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_list_o_lexer_atomexpr_p_);
-                                            this.state = 605;
+                                            this.state = 594;
                                             if (!this.precpred(this._ctx, 1)) {
                                                 throw this.createFailedPredicateException("this.precpred(this._ctx, 1)")
                                             }
-                                            this.state = 606;
-                                            o._list_o_lexer_atomexpr_p__1__2 = this.lexer_atomexpr(0);
-                                            o.result = (0, n.addList)(o._list_o_lexer_atomexpr_p__1__1.result, o._list_o_lexer_atomexpr_p__1__2.result)
+                                            this.state = 595;
+                                            o._list_o_lexer_atomexpr_p__2__2 = this.lexer_atomexpr(0);
+                                            o.result = (0, n.addList)(o._list_o_lexer_atomexpr_p__2__1.result, o._list_o_lexer_atomexpr_p__2__2.result)
                                         }
                                     }
                                 }
-                                this.state = 613;
+                                this.state = 602;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 33, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 32, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -23549,10 +23507,10 @@
                 }
                 lexer_and() {
                     let e = new Lexer_andContext(this._ctx, this.state);
-                    this.enterRule(e, 96, TypedBNFParser.RULE_lexer_and);
+                    this.enterRule(e, 94, TypedBNFParser.RULE_lexer_and);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 614;
+                            this.state = 603;
                             e._lexer_and_0__1 = this.list_o_lexer_atomexpr_p_(0);
                             e.result = (0, n.MK_LSeq)(e._lexer_and_0__1.result)
                         }
@@ -23577,74 +23535,74 @@
                     let r = this.state;
                     let o = new Lexer_atomexprContext(this._ctx, r);
                     let s = o;
-                    let a = 98;
-                    this.enterRecursionRule(o, 98, TypedBNFParser.RULE_lexer_atomexpr, e);
+                    let a = 96;
+                    this.enterRecursionRule(o, 96, TypedBNFParser.RULE_lexer_atomexpr, e);
                     try {
                         let e;
                         this.enterOuterAlt(o, 1); {
                             {
-                                this.state = 618;
-                                o._lexer_atomexpr_3__1 = this.lexer_atom();
-                                o.result = o._lexer_atomexpr_3__1.result
+                                this.state = 607;
+                                o._lexer_atomexpr_6__1 = this.lexer_atom();
+                                o.result = o._lexer_atomexpr_6__1.result
                             }
                             this._ctx._stop = this._input.tryLT(-1);
-                            this.state = 632;
+                            this.state = 621;
                             this._errHandler.sync(this);
-                            e = this.interpreter.adaptivePredict(this._input, 35, this._ctx);
+                            e = this.interpreter.adaptivePredict(this._input, 34, this._ctx);
                             while (e !== 2 && e !== i.ATN.INVALID_ALT_NUMBER) {
                                 if (e === 1) {
                                     if (this._parseListeners != null) {
                                         this.triggerExitRuleEvent()
                                     }
                                     s = o; {
-                                        this.state = 630;
+                                        this.state = 619;
                                         this._errHandler.sync(this);
-                                        switch (this.interpreter.adaptivePredict(this._input, 34, this._ctx)) {
+                                        switch (this.interpreter.adaptivePredict(this._input, 33, this._ctx)) {
                                             case 1: {
                                                 o = new Lexer_atomexprContext(t, r);
                                                 o._lexer_atomexpr_0__1 = s;
                                                 this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_lexer_atomexpr);
-                                                this.state = 621;
+                                                this.state = 610;
                                                 if (!this.precpred(this._ctx, 4)) {
                                                     throw this.createFailedPredicateException("this.precpred(this._ctx, 4)")
                                                 }
-                                                this.state = 622;
-                                                this.match(TypedBNFParser.T__28);
+                                                this.state = 611;
+                                                this.match(TypedBNFParser.T__27);
                                                 o.result = (0, n.MK_LPlus)(o._lexer_atomexpr_0__1.result)
                                             }
                                             break;
-                                        case 2: {
-                                            o = new Lexer_atomexprContext(t, r);
-                                            o._lexer_atomexpr_1__1 = s;
-                                            this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_lexer_atomexpr);
-                                            this.state = 624;
-                                            if (!this.precpred(this._ctx, 3)) {
-                                                throw this.createFailedPredicateException("this.precpred(this._ctx, 3)")
+                                            case 2: {
+                                                o = new Lexer_atomexprContext(t, r);
+                                                o._lexer_atomexpr_2__1 = s;
+                                                this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_lexer_atomexpr);
+                                                this.state = 613;
+                                                if (!this.precpred(this._ctx, 3)) {
+                                                    throw this.createFailedPredicateException("this.precpred(this._ctx, 3)")
+                                                }
+                                                this.state = 614;
+                                                this.match(TypedBNFParser.T__6);
+                                                o.result = (0, n.MK_LStar)(o._lexer_atomexpr_2__1.result)
                                             }
-                                            this.state = 625;
-                                            this.match(TypedBNFParser.T__6);
-                                            o.result = (0, n.MK_LStar)(o._lexer_atomexpr_1__1.result)
-                                        }
-                                        break;
-                                        case 3: {
-                                            o = new Lexer_atomexprContext(t, r);
-                                            o._lexer_atomexpr_2__1 = s;
-                                            this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_lexer_atomexpr);
-                                            this.state = 627;
-                                            if (!this.precpred(this._ctx, 2)) {
-                                                throw this.createFailedPredicateException("this.precpred(this._ctx, 2)")
+                                            break;
+                                            case 3: {
+                                                o = new Lexer_atomexprContext(t, r);
+                                                o._lexer_atomexpr_4__1 = s;
+                                                this.pushNewRecursionContext(o, a, TypedBNFParser.RULE_lexer_atomexpr);
+                                                this.state = 616;
+                                                if (!this.precpred(this._ctx, 2)) {
+                                                    throw this.createFailedPredicateException("this.precpred(this._ctx, 2)")
+                                                }
+                                                this.state = 617;
+                                                this.match(TypedBNFParser.T__28);
+                                                o.result = (0, n.MK_LOptional)(o._lexer_atomexpr_4__1.result)
                                             }
-                                            this.state = 628;
-                                            this.match(TypedBNFParser.T__29);
-                                            o.result = (0, n.MK_LOptional)(o._lexer_atomexpr_2__1.result)
-                                        }
-                                        break
+                                            break
                                         }
                                     }
                                 }
-                                this.state = 634;
+                                this.state = 623;
                                 this._errHandler.sync(this);
-                                e = this.interpreter.adaptivePredict(this._input, 35, this._ctx)
+                                e = this.interpreter.adaptivePredict(this._input, 34, this._ctx)
                             }
                         }
                     } catch (e) {
@@ -23662,78 +23620,78 @@
                 }
                 lexer_atom() {
                     let e = new Lexer_atomContext(this._ctx, this.state);
-                    this.enterRule(e, 100, TypedBNFParser.RULE_lexer_atom);
+                    this.enterRule(e, 98, TypedBNFParser.RULE_lexer_atom);
                     try {
-                        this.state = 658;
+                        this.state = 647;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
                             case TypedBNFParser.ESCAPED_STRING:
                                 this.enterOuterAlt(e, 1); {
-                                    this.state = 635;
+                                    this.state = 624;
                                     e._lexer_atom_0__1 = this.match(TypedBNFParser.ESCAPED_STRING);
                                     e.result = (0, n.MK_LStr)((0, n.unescape)((0, n.str)(e._lexer_atom_0__1)))
                                 }
                                 break;
-                            case TypedBNFParser.T__30:
+                            case TypedBNFParser.T__29:
                                 this.enterOuterAlt(e, 2); {
-                                    this.state = 637;
-                                    this.match(TypedBNFParser.T__30);
-                                    this.state = 638;
-                                    e._lexer_atom_1__2 = this.lexer_atom();
-                                    e.result = (0, n.MK_LNot)(e._lexer_atom_1__2.result)
+                                    this.state = 626;
+                                    this.match(TypedBNFParser.T__29);
+                                    this.state = 627;
+                                    e._lexer_atom_2__2 = this.lexer_atom();
+                                    e.result = (0, n.MK_LNot)(e._lexer_atom_2__2.result)
                                 }
                                 break;
                             case TypedBNFParser.T__2:
                                 this.enterOuterAlt(e, 3); {
-                                    this.state = 641;
+                                    this.state = 630;
                                     this.match(TypedBNFParser.T__2);
-                                    this.state = 642;
-                                    e._lexer_atom_2__2 = this.lexer__y_();
-                                    this.state = 643;
+                                    this.state = 631;
+                                    e._lexer_atom_4__2 = this.lexer__y_();
+                                    this.state = 632;
                                     this.match(TypedBNFParser.T__3);
-                                    e.result = (0, n.MK_LGroup)(e._lexer_atom_2__2.result)
+                                    e.result = (0, n.MK_LGroup)(e._lexer_atom_4__2.result)
                                 }
                                 break;
-                            case TypedBNFParser.T__31:
+                            case TypedBNFParser.T__30:
                                 this.enterOuterAlt(e, 4); {
-                                    this.state = 646;
-                                    this.match(TypedBNFParser.T__31);
+                                    this.state = 635;
+                                    this.match(TypedBNFParser.T__30);
                                     e.result = n.MK_LNumber
                                 }
                                 break;
                             case TypedBNFParser.RANGE:
                                 this.enterOuterAlt(e, 5); {
-                                    this.state = 648;
-                                    e._lexer_atom_4__1 = this.match(TypedBNFParser.RANGE);
-                                    e.result = (0, n.getrange)((0, n.str)(e._lexer_atom_4__1))
+                                    this.state = 637;
+                                    e._lexer_atom_8__1 = this.match(TypedBNFParser.RANGE);
+                                    e.result = (0, n.getrange)((0, n.str)(e._lexer_atom_8__1))
                                 }
                                 break;
                             case TypedBNFParser.UNICODE_RANGE:
                                 this.enterOuterAlt(e, 6); {
-                                    this.state = 650;
-                                    e._lexer_atom_5__1 = this.match(TypedBNFParser.UNICODE_RANGE);
-                                    e.result = (0, n.getunicoderange)((0, n.str)(e._lexer_atom_5__1))
+                                    this.state = 639;
+                                    e._lexer_atom_10__1 = this.match(TypedBNFParser.UNICODE_RANGE);
+                                    e.result = (0, n.getunicoderange)((0, n.str)(e._lexer_atom_10__1))
                                 }
                                 break;
-                            case TypedBNFParser.T__32:
+                            case TypedBNFParser.T__31:
                                 this.enterOuterAlt(e, 7); {
-                                    this.state = 652;
-                                    this.match(TypedBNFParser.T__32);
+                                    this.state = 641;
+                                    this.match(TypedBNFParser.T__31);
                                     e.result = n.MK_LWildcard
                                 }
                                 break;
-                            case TypedBNFParser.T__25:
+                            case TypedBNFParser.T__24:
                                 this.enterOuterAlt(e, 8); {
-                                    this.state = 654;
-                                    this.match(TypedBNFParser.T__25);
+                                    this.state = 643;
+                                    this.match(TypedBNFParser.T__24);
                                     e.result = n.MK_LWildcard
                                 }
                                 break;
                             case TypedBNFParser.CNAMEPLUS:
                                 this.enterOuterAlt(e, 9); {
-                                    this.state = 656;
-                                    e._lexer_atom_8__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                                    e.result = (0, n.MK_LRef)((0, n.str)(e._lexer_atom_8__1))
+                                    this.state = 645;
+                                    e._lexer_atom_16__1 = this.match(TypedBNFParser.CNAMEPLUS);
+                                    e.result = (0, n.MK_LRef)((0, n.str)(e._lexer_atom_16__1))
                                 }
                                 break;
                             default:
@@ -23754,17 +23712,17 @@
                 }
                 lexerdef() {
                     let e = new LexerdefContext(this._ctx, this.state);
-                    this.enterRule(e, 102, TypedBNFParser.RULE_lexerdef);
+                    this.enterRule(e, 100, TypedBNFParser.RULE_lexerdef);
                     try {
                         this.enterOuterAlt(e, 1); {
-                            this.state = 660;
+                            this.state = 649;
                             e._lexerdef_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                            this.state = 661;
-                            this.match(TypedBNFParser.T__18);
-                            this.state = 662;
+                            this.state = 650;
+                            this.match(TypedBNFParser.T__17);
+                            this.state = 651;
                             e._lexerdef_0__3 = this.lexer__y_();
-                            this.state = 663;
-                            this.match(TypedBNFParser.T__21);
+                            this.state = 652;
+                            this.match(TypedBNFParser.T__20);
                             e.result = (0, n.MK_Deflexer)((0, n.str)(e._lexerdef_0__1), e._lexerdef_0__3.result, (0, n.mkpos)(e._lexerdef_0__1))
                         }
                     } catch (t) {
@@ -23792,31 +23750,31 @@
                             return this.typ2_sempred(e, r);
                         case 11:
                             return this.type_product_sempred(e, r);
-                        case 16:
+                        case 15:
                             return this.slist_o__i__s__i__s_tvar_str_p__sempred(e, r);
-                        case 19:
+                        case 18:
                             return this.slist_o__i__s__i__s_field_ann_p__sempred(e, r);
-                        case 25:
+                        case 24:
                             return this.slist_o__i__s__i__s_identstr_p__sempred(e, r);
-                        case 27:
+                        case 26:
                             return this.productions_sempred(e, r);
-                        case 28:
+                        case 27:
                             return this.list_o_psym_p__sempred(e, r);
-                        case 32:
+                        case 31:
                             return this.slist_o__i__s__i__s_psym_p__sempred(e, r);
-                        case 35:
+                        case 34:
                             return this.slist_o__i__s__i__s_ann_p__sempred(e, r);
-                        case 40:
+                        case 39:
                             return this.call_sempred(e, r);
-                        case 43:
+                        case 42:
                             return this.slist_o__i__s__i__s_expr_p__sempred(e, r);
-                        case 44:
+                        case 43:
                             return this.atomexp_sempred(e, r);
-                        case 45:
+                        case 44:
                             return this.slist_o__i__u__i__s_lexer_and_p__sempred(e, r);
-                        case 47:
+                        case 46:
                             return this.list_o_lexer_atomexpr_p__sempred(e, r);
-                        case 49:
+                        case 48:
                             return this.lexer_atomexpr_sempred(e, r)
                     }
                     return true
@@ -23991,16 +23949,15 @@
             TypedBNFParser.T__29 = 30;
             TypedBNFParser.T__30 = 31;
             TypedBNFParser.T__31 = 32;
-            TypedBNFParser.T__32 = 33;
-            TypedBNFParser.UNICODE_RANGE = 34;
-            TypedBNFParser.RANGE = 35;
-            TypedBNFParser.CNAMEPLUS = 36;
-            TypedBNFParser.INT = 37;
-            TypedBNFParser.WS = 38;
-            TypedBNFParser.FLOAT = 39;
-            TypedBNFParser.ESCAPED_STRING = 40;
-            TypedBNFParser.CPP_COMMENT = 41;
-            TypedBNFParser.C_COMMENT = 42;
+            TypedBNFParser.UNICODE_RANGE = 33;
+            TypedBNFParser.RANGE = 34;
+            TypedBNFParser.CNAMEPLUS = 35;
+            TypedBNFParser.INT = 36;
+            TypedBNFParser.WS = 37;
+            TypedBNFParser.FLOAT = 38;
+            TypedBNFParser.ESCAPED_STRING = 39;
+            TypedBNFParser.CPP_COMMENT = 40;
+            TypedBNFParser.C_COMMENT = 41;
             TypedBNFParser.RULE_start = 0;
             TypedBNFParser.RULE_list_o_toplevel_p_ = 1;
             TypedBNFParser.RULE_start__y_ = 2;
@@ -24014,52 +23971,51 @@
             TypedBNFParser.RULE_typ2 = 10;
             TypedBNFParser.RULE_type_product = 11;
             TypedBNFParser.RULE_top_typ = 12;
-            TypedBNFParser.RULE_tvar = 13;
-            TypedBNFParser.RULE_tvar_str = 14;
-            TypedBNFParser.RULE_param_type = 15;
-            TypedBNFParser.RULE_slist_o__i__s__i__s_tvar_str_p_ = 16;
-            TypedBNFParser.RULE_type_params = 17;
-            TypedBNFParser.RULE_field_ann = 18;
-            TypedBNFParser.RULE_slist_o__i__s__i__s_field_ann_p_ = 19;
-            TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_field_ann_p__p_ = 20;
-            TypedBNFParser.RULE_eslist_o__i__s__i__s_field_ann_p_ = 21;
-            TypedBNFParser.RULE_field_anns = 22;
-            TypedBNFParser.RULE_decl = 23;
-            TypedBNFParser.RULE_toplevel = 24;
-            TypedBNFParser.RULE_slist_o__i__s__i__s_identstr_p_ = 25;
-            TypedBNFParser.RULE_def = 26;
-            TypedBNFParser.RULE_productions = 27;
-            TypedBNFParser.RULE_list_o_psym_p_ = 28;
-            TypedBNFParser.RULE_empty_o_list_o_psym_p__p_ = 29;
-            TypedBNFParser.RULE_elist_o_psym_p_ = 30;
-            TypedBNFParser.RULE_production = 31;
-            TypedBNFParser.RULE_slist_o__i__s__i__s_psym_p_ = 32;
-            TypedBNFParser.RULE_psym = 33;
-            TypedBNFParser.RULE_ann = 34;
-            TypedBNFParser.RULE_slist_o__i__s__i__s_ann_p_ = 35;
-            TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_ann_p__p_ = 36;
-            TypedBNFParser.RULE_eslist_o__i__s__i__s_ann_p_ = 37;
-            TypedBNFParser.RULE_func_parameters = 38;
-            TypedBNFParser.RULE_expr = 39;
-            TypedBNFParser.RULE_call = 40;
-            TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_expr_p__p_ = 41;
-            TypedBNFParser.RULE_eslist_o__i__s__i__s_expr_p_ = 42;
-            TypedBNFParser.RULE_slist_o__i__s__i__s_expr_p_ = 43;
-            TypedBNFParser.RULE_atomexp = 44;
-            TypedBNFParser.RULE_slist_o__i__u__i__s_lexer_and_p_ = 45;
-            TypedBNFParser.RULE_lexer__y_ = 46;
-            TypedBNFParser.RULE_list_o_lexer_atomexpr_p_ = 47;
-            TypedBNFParser.RULE_lexer_and = 48;
-            TypedBNFParser.RULE_lexer_atomexpr = 49;
-            TypedBNFParser.RULE_lexer_atom = 50;
-            TypedBNFParser.RULE_lexerdef = 51;
-            TypedBNFParser.ruleNames = ["start", "list_o_toplevel_p_", "start__y_", "identstr", "typ", "slist_o__i__s__i__s_param_type_p_", "empty_o_slist_o__i__s__i__s_param_type_p__p_", "eslist_o__i__s__i__s_param_type_p_", "arrow_typ", "slist_o__i__s__i__s_typ_p_", "typ2", "type_product", "top_typ", "tvar", "tvar_str", "param_type", "slist_o__i__s__i__s_tvar_str_p_", "type_params", "field_ann", "slist_o__i__s__i__s_field_ann_p_", "empty_o_slist_o__i__s__i__s_field_ann_p__p_", "eslist_o__i__s__i__s_field_ann_p_", "field_anns", "decl", "toplevel", "slist_o__i__s__i__s_identstr_p_", "def", "productions", "list_o_psym_p_", "empty_o_list_o_psym_p__p_", "elist_o_psym_p_", "production", "slist_o__i__s__i__s_psym_p_", "psym", "ann", "slist_o__i__s__i__s_ann_p_", "empty_o_slist_o__i__s__i__s_ann_p__p_", "eslist_o__i__s__i__s_ann_p_", "func_parameters", "expr", "call", "empty_o_slist_o__i__s__i__s_expr_p__p_", "eslist_o__i__s__i__s_expr_p_", "slist_o__i__s__i__s_expr_p_", "atomexp", "slist_o__i__u__i__s_lexer_and_p_", "lexer__y_", "list_o_lexer_atomexpr_p_", "lexer_and", "lexer_atomexpr", "lexer_atom", "lexerdef"];
-            TypedBNFParser._LITERAL_NAMES = [undefined, "','", "'->'", "'('", "')'", "'<'", "'>'", "'*'", "'''", "':'", "'extern'", "'var'", "'case'", "'type'", "'ignore'", "'|'", "'{'", "'}'", "'let'", "'='", "'in'", "'fun'", "';'", "'$'", "'['", "']'", "'.'", "'true'", "'false'", "'+'", "'?'", "'!'", "'\\'", "'_'"];
-            TypedBNFParser._SYMBOLIC_NAMES = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, "UNICODE_RANGE", "RANGE", "CNAMEPLUS", "INT", "WS", "FLOAT", "ESCAPED_STRING", "CPP_COMMENT", "C_COMMENT"];
+            TypedBNFParser.RULE_tvar_str = 13;
+            TypedBNFParser.RULE_param_type = 14;
+            TypedBNFParser.RULE_slist_o__i__s__i__s_tvar_str_p_ = 15;
+            TypedBNFParser.RULE_type_params = 16;
+            TypedBNFParser.RULE_field_ann = 17;
+            TypedBNFParser.RULE_slist_o__i__s__i__s_field_ann_p_ = 18;
+            TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_field_ann_p__p_ = 19;
+            TypedBNFParser.RULE_eslist_o__i__s__i__s_field_ann_p_ = 20;
+            TypedBNFParser.RULE_field_anns = 21;
+            TypedBNFParser.RULE_decl = 22;
+            TypedBNFParser.RULE_toplevel = 23;
+            TypedBNFParser.RULE_slist_o__i__s__i__s_identstr_p_ = 24;
+            TypedBNFParser.RULE_def = 25;
+            TypedBNFParser.RULE_productions = 26;
+            TypedBNFParser.RULE_list_o_psym_p_ = 27;
+            TypedBNFParser.RULE_empty_o_list_o_psym_p__p_ = 28;
+            TypedBNFParser.RULE_elist_o_psym_p_ = 29;
+            TypedBNFParser.RULE_production = 30;
+            TypedBNFParser.RULE_slist_o__i__s__i__s_psym_p_ = 31;
+            TypedBNFParser.RULE_psym = 32;
+            TypedBNFParser.RULE_ann = 33;
+            TypedBNFParser.RULE_slist_o__i__s__i__s_ann_p_ = 34;
+            TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_ann_p__p_ = 35;
+            TypedBNFParser.RULE_eslist_o__i__s__i__s_ann_p_ = 36;
+            TypedBNFParser.RULE_func_parameters = 37;
+            TypedBNFParser.RULE_expr = 38;
+            TypedBNFParser.RULE_call = 39;
+            TypedBNFParser.RULE_empty_o_slist_o__i__s__i__s_expr_p__p_ = 40;
+            TypedBNFParser.RULE_eslist_o__i__s__i__s_expr_p_ = 41;
+            TypedBNFParser.RULE_slist_o__i__s__i__s_expr_p_ = 42;
+            TypedBNFParser.RULE_atomexp = 43;
+            TypedBNFParser.RULE_slist_o__i__u__i__s_lexer_and_p_ = 44;
+            TypedBNFParser.RULE_lexer__y_ = 45;
+            TypedBNFParser.RULE_list_o_lexer_atomexpr_p_ = 46;
+            TypedBNFParser.RULE_lexer_and = 47;
+            TypedBNFParser.RULE_lexer_atomexpr = 48;
+            TypedBNFParser.RULE_lexer_atom = 49;
+            TypedBNFParser.RULE_lexerdef = 50;
+            TypedBNFParser.ruleNames = ["start", "list_o_toplevel_p_", "start__y_", "identstr", "typ", "slist_o__i__s__i__s_param_type_p_", "empty_o_slist_o__i__s__i__s_param_type_p__p_", "eslist_o__i__s__i__s_param_type_p_", "arrow_typ", "slist_o__i__s__i__s_typ_p_", "typ2", "type_product", "top_typ", "tvar_str", "param_type", "slist_o__i__s__i__s_tvar_str_p_", "type_params", "field_ann", "slist_o__i__s__i__s_field_ann_p_", "empty_o_slist_o__i__s__i__s_field_ann_p__p_", "eslist_o__i__s__i__s_field_ann_p_", "field_anns", "decl", "toplevel", "slist_o__i__s__i__s_identstr_p_", "def", "productions", "list_o_psym_p_", "empty_o_list_o_psym_p__p_", "elist_o_psym_p_", "production", "slist_o__i__s__i__s_psym_p_", "psym", "ann", "slist_o__i__s__i__s_ann_p_", "empty_o_slist_o__i__s__i__s_ann_p__p_", "eslist_o__i__s__i__s_ann_p_", "func_parameters", "expr", "call", "empty_o_slist_o__i__s__i__s_expr_p__p_", "eslist_o__i__s__i__s_expr_p_", "slist_o__i__s__i__s_expr_p_", "atomexp", "slist_o__i__u__i__s_lexer_and_p_", "lexer__y_", "list_o_lexer_atomexpr_p_", "lexer_and", "lexer_atomexpr", "lexer_atom", "lexerdef"];
+            TypedBNFParser._LITERAL_NAMES = [undefined, "','", "'->'", "'('", "')'", "'<'", "'>'", "'*'", "':'", "'extern'", "'var'", "'case'", "'type'", "'ignore'", "'|'", "'{'", "'}'", "'let'", "'='", "'in'", "'fun'", "';'", "'$'", "'['", "']'", "'.'", "'true'", "'false'", "'+'", "'?'", "'!'", "'\\'", "'_'"];
+            TypedBNFParser._SYMBOLIC_NAMES = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, "UNICODE_RANGE", "RANGE", "CNAMEPLUS", "INT", "WS", "FLOAT", "ESCAPED_STRING", "CPP_COMMENT", "C_COMMENT"];
             TypedBNFParser.VOCABULARY = new d.VocabularyImpl(TypedBNFParser._LITERAL_NAMES, TypedBNFParser._SYMBOLIC_NAMES, []);
             TypedBNFParser._serializedATNSegments = 2;
-            TypedBNFParser._serializedATNSegment0 = "줝쪺֍꾺体؇쉁,ʝ" + "\t\t\t\t\t" + "\t\b\t\b\t\t\t\n\t\n\v\t\v\f\t\f\r\t\r" + "\t\t\t\t\t" + "\t\t\t\t\t" + "\t\t\t\t\t" + '\t\t\t \t !\t!"\t"#' + "\t#$\t$%\t%&\t&'\t'(\t()\t)*\t*+\t+" + ",\t,-\t-.\t./\t/0\t01\t12\t23\t34" + "\t45\t5" + "w\n\fz\v" + "" + "" + "\n\f\v\b\b\b\b" + "\b\n\b\t\t\t\n\n\n\n\n\n\n" + "\n\n\n\n\n\n\n\n\n«\n\n\v" + "\v\v\v\v\v\v\v\v\v¶\n\v\f\v\v¹" + "\v\v\f\f\f\f\f\f\fÁ\n\f\f\f" + "\f\f\f\f\fÉ\n\f\f\f\fÌ\v\f\r\r\r" + "\r\r\r\r\r\r\r×\n\r\f\r\rÚ\v\r" + "" + "å\n" + "" + "÷\n" + "Ă\n\fą\v" + "č\n" + "" + "ĝ\n\fĠ" + "\vĦ\n" + "ı" + "\n" + "" + "" + "ō\n" + "Ŝ\n" + "" + "ŧ\n\fŪ\v" + "" + "ŷ\n" + "ƃ\n\fƆ\v" + "Ɛ" + "\n\fƓ\v" + 'ƙ\n   !!!!!!""' + '""""""""ƭ\n"\f""ư' + '\v"#############' + "####ǂ\n#$$$$$%%%" + "%%%%%%%ǒ\n%\f%%Ǖ\v%&" + "&&&&Ǜ\n&'''(((((" + "))))))))))))))" + ")))))))))ǻ\n)***" + "********ȇ\n*\f**Ȋ\v*+" + "++++Ȑ\n+,,,-----" + "-----Ȟ\n-\f--ȡ\v-...." + ".............." + "............ɀ\n." + ".....Ɇ\n.\f..ɉ\v.////" + "//////ɔ\n/\f//ɗ\v/000" + "111111111ɤ\n1\f11ɧ\v1" + "22233333333333" + "333ɹ\n3\f33ɼ\v3444444" + "44444444444444" + "4444ʕ\n45555555" + '\f"(48:BHRXZ\\`d6\b\n' + "\f" + ' "$&(*,.0246' + "8:<>@BDFHJLNPR" + "TVXZ\\^`bdfhʦ" + "jn{\b~" + "\n\f" + "ª¬" + "ÀÍä" + "æê ö" + '"ø$Č&Ď' + "(ē*ĥ,ħ" + ".İ0Ō2ś" + "4ŝ6Ŷ8Ÿ" + ":Ƈ<Ƙ>ƚ" + "@ƝBƣDǁ" + "FǃHǈJǚ" + "LǜNǟPǺ" + "RǼTȏVȑ" + "XȔZȿ\\Ɋ" + "^ɘ`ɛbɨ" + "dɫfʔhʖ" + "jkkllm\bm" + "no\bop2pq\bqx" + "rs\fst2tu\buw" + "vrwzxvxy" + "yzx{||}\b" + "}~&\b" + "\t\n\b\v" + "\b \b" + "\f" + " \b" + "" + "\r" + "\b\b\f\b\b" + "" + "\b\b\t" + "\f" + "\n\b\n« ¡" + "¡¢\t¢££¤" + "¤¥\n¥¦\b\n¦«" + "§¨\r¨©\b\n©«" + "ªª ª§" + "«¬­\b\v­®\n" + "®¯\b\v¯·°±\f±" + "²²³\n³´\b\v´¶" + "µ°¶¹·µ" + "·¸¸¹·" + "º»\b\f»¼&¼Á\b\f" + "½¾¾¿\b\f¿Á" + "ÀºÀ½ÁÊ" + "ÂÃ\fÃÄÄÅ\v" + "ÅÆ\bÆÇ\b\fÇÉÈ" + "ÂÉÌÊÈÊ" + "ËËÌÊÍ" + "Î\b\rÎÏ\fÏÐ\b\rÐØ" + "ÑÒ\fÒÓ\tÓÔ" + "\fÔÕ\b\rÕ×ÖÑ" + "×ÚØÖØÙ" + "ÙÚØÛÜ" + 'ÜÝ"ÝÞ\bÞß\n' + "ßà\bàåáâ\nâ" + "ã\bãåäÛä" + "áåæç\nç" + "è&èé\béêë" + "\nëì&ìí\bí" + "îï&ïð\vðñ\n" + "ñò\bò÷óô\n" + "ôõ\bõ÷öî" + "öó÷!øù\b" + "ùúúû\bûă" + "üý\fýþþÿ" + "ÿĀ\bĀĂāü" + "Ăąăāă" + "ĄĄ#ąă" + 'ĆććĈ"Ĉĉ' + "\bĉĊ\bĊčċ" + "č\bČĆČċ" + "č%Ďď&ďĐ\v" + "Đđ\nđĒ\bĒ'" + "ēĔ\bĔĕ&ĕ" + "Ė\bĖĞėĘ\f" + "ĘęęĚ&Ěě" + "\běĝĜė" + "ĝĠĞĜĞğ" + "ğ)ĠĞġ" + "Ħ\bĢģ(ģĤ\b" + "ĤĦĥġĥĢ" + "Ħ+ħĨ*Ĩĩ" + "\bĩ-Īīī" + "Ĭ,ĬĭĭĮ\b" + "Įıįı\bİĪ" + "İįı/Ĳ" + "ĳ\fĳĴ\rĴĵ\b" + "ĵĶ\vĶķķĸ\b" + "ĸōĹĺĺ" + "Ļ\bĻļ\vļĽ\n" + "Ľľ\bľōĿŀ" + "\fŀŁŁł\bł" + "Ń$Ńń.ńŅ\b" + "ŅōņŇŇň" + "\bňŉ$ŉŊ.Ŋŋ" + "\bŋōŌĲ" + "ŌĹŌĿŌņ" + "ō1Ŏŏ6ŏŐ" + "\bŐŜőŒ0Œ" + "œ\bœŜŔŕh5" + "ŕŖ\bŖŜŗŘ" + "Řř4řŚ\bŚ" + "ŜśŎśő" + "śŔśŗŜ" + "3ŝŞ\bŞş\b" + "şŠ\bŠŨšŢ\f" + "ŢţţŤ\bŤť" + "\bťŧŦš" + "ŧŪŨŦŨũ" + "ũ5ŪŨū" + "Ŭ&ŬŭŭŮ4" + "ŮůůŰ8Űű\b" + "űŷŲų&ųŴ" + "8Ŵŵ\bŵŷŶ" + "ūŶŲŷ7" + "ŸŹ\bŹź\vźŻ" + "@!Żż\bżƄŽž" + "\fžſſƀ@!ƀ" + "Ɓ\bƁƃƂŽ" + "ƃƆƄƂƄƅ" + "ƅ9ƆƄƇ" + "ƈ\bƈƉD#ƉƊ\bƊ" + "ƑƋƌ\fƌƍD#" + "ƍƎ\bƎƐƏƋ" + "ƐƓƑƏƑ" + "ƒƒ;ƓƑ" + "Ɣƙ\bƕƖ:ƖƗ\b" + "ƗƙƘƔƘ" + "ƕƙ=ƚƛ<" + "ƛƜ\b Ɯ?Ɲƞ> ƞ" + "ƟƟƠP)Ơơ" + 'ơƢ\b!ƢAƣƤ\b"' + 'ƤƥD#ƥƦ\b"ƦƮ' + "Ƨƨ\fƨƩƩƪ" + 'D#ƪƫ\b"ƫƭƬƧ' + "ƭưƮƬ" + "ƮƯƯCưƮ" + "ƱƲƲƳ\bƳƴ" + "\bƴƵ\b#Ƶǂƶ" + "Ʒ*Ʒǂ\b#Ƹƹ\bƹ" + "ƺ\b#ƺǂƻƼ&" + 'ƼƽƽƾB"ƾƿ' + "ƿǀ\b#ǀǂǁƱ" + "ǁƶǁƸ" + "ǁƻǂEǃǄ\b" + "Ǆǅ\vǅǆ\nǆǇ" + "\b$ǇGǈǉ\b%ǉǊ" + "F$Ǌǋ\b%ǋǓǌǍ" + "\fǍǎǎǏF$Ǐ" + "ǐ\b%ǐǒǑǌ" + "ǒǕǓǑǓǔ" + "ǔIǕǓǖ" + "Ǜ\b&ǗǘH%ǘǙ\b&ǙǛ" + "ǚǖǚǗ" + "ǛKǜǝJ&ǝǞ\b'" + "ǞMǟǠǠǡL'" + "ǡǢǢǣ\b(ǣO" + "ǤǥǥǦ\bǦǧ" + "ǧǨP)Ǩǩǩ" + "ǪP)Ǫǫ\b)ǫǻǬ" + "ǭǭǮN(Ǯǯ" + "ǯǰP)ǰǱ\b)Ǳǻ" + "ǲǳR*ǳǴ\b)Ǵǻ" + "ǵǶR*ǶǷǷǸ" + "P)Ǹǹ\b)ǹǻǺǤ" + "ǺǬǺǲ" + "ǺǵǻQǼǽ\b*" + "ǽǾZ.Ǿǿ\b*ǿȈ" + "Ȁȁ\fȁȂȂȃ" + "V,ȃȄȄȅ\b*ȅȇ" + "ȆȀȇȊ" + "ȈȆȈȉȉS" + "ȊȈȋȐ\b+Ȍȍ" + "X-ȍȎ\b+ȎȐȏȋ" + "ȏȌȐUȑ" + "ȒT+Ȓȓ\b,ȓWȔȕ" + "\b-ȕȖP)Ȗȗ\b-ȗȟ" + "Șș\fșȚȚ" + "țP)țȜ\b-ȜȞȝ" + "ȘȞȡȟȝ" + "ȟȠȠYȡȟ" + "Ȣȣ\b.ȣȤ'Ȥ" + "ɀ\b.ȥȦ)Ȧɀ\b.ȧ" + "Ȩ*Ȩɀ\b.ȩȪ" + "Ȫȫ'ȫɀ\b.Ȭȭ" + "ȭȮV,ȮȯȯȰ" + "\b.ȰɀȱȲȲ" + "ȳȳɀ\b.ȴȵ" + "ȵȶX-ȶȷȷȸ\b." + "ȸɀȹȺ&Ⱥɀ" + "\b.Ȼȼȼɀ\b.ȽȾ" + "Ⱦɀ\b.ȿȢȿ" + "ȥȿȧȿȩ" + "ȿȬȿȱȿ" + "ȴȿȹȿȻ" + "ȿȽɀɇɁ" + "ɂ\fɂɃɃɄ&" + "ɄɆ\b.ɅɁɆɉ" + "ɇɅɇɈ";
-            TypedBNFParser._serializedATNSegment1 = "Ɉ[ɉɇɊ" + "ɋ\b/ɋɌb2Ɍɍ\b/ɍɕ" + "Ɏɏ\fɏɐ" + "ɐɑb2ɑɒ\b/ɒɔ" + "ɓɎɔɗɕɓ" + "ɕɖɖ]ɗ" + "ɕɘə\\/əɚ\b0ɚ" + "_ɛɜ\b1ɜɝd3ɝɞ" + "\b1ɞɥɟɠ\fɠ" + "ɡd3ɡɢ\b1ɢɤɣ" + "ɟɤɧɥɣ" + "ɥɦɦaɧɥ" + "ɨɩ`1ɩɪ\b2ɪc" + "ɫɬ\b3ɬɭf4ɭɮ" + "\b3ɮɺɯɰ\fɰ" + "ɱɱɹ\b3ɲɳ\f" + "ɳɴ\tɴɹ\b3ɵɶ\f" + "ɶɷ ɷɹ\b3ɸɯ" + "ɸɲɸɵɹ" + "ɼɺɸɺɻ" + "ɻeɼɺɽɾ" + "*ɾʕ\b4ɿʀ!ʀʁ" + "f4ʁʂ\b4ʂʕʃʄ" + "ʄʅ^0ʅʆʆ" + 'ʇ\b4ʇʕʈʉ"' + "ʉʕ\b4ʊʋ%ʋʕ\b4" + "ʌʍ$ʍʕ\b4ʎʏ#" + "ʏʕ\b4ʐʑʑʕ\b" + "4ʒʓ&ʓʕ\b4ʔɽ" + "ʔɿʔʃ" + "ʔʈʔʊʔʌ" + "ʔʎʔʐʔ" + "ʒʕgʖʗ&" + "ʗʘʘʙ^0ʙʚ" + "ʚʛ\b5ʛi'xª" + "·ÀÊØäöăČĞĥİŌśŨ" + "ŶƄƑƘƮǁǓǚǺȈȏȟ" + "ȿɇɕɥɸɺʔ";
+            TypedBNFParser._serializedATNSegment0 = "줝쪺֍꾺体؇쉁+ʒ" + "\t\t\t\t\t" + "\t\b\t\b\t\t\t\n\t\n\v\t\v\f\t\f\r\t\r" + "\t\t\t\t\t" + "\t\t\t\t\t" + "\t\t\t\t\t" + '\t\t\t \t !\t!"\t"#' + "\t#$\t$%\t%&\t&'\t'(\t()\t)*\t*+\t+" + ",\t,-\t-.\t./\t/0\t01\t12\t23\t34" + "\t4" + "u\n\fx\v" + "" + "" + "\n\f\v\b\b\b\b\b\n" + "\b\t\t\t\n\n\n\n\n\n\n\n" + "\n\n\n\n\n\n\n\n©\n\n\v\v\v" + "\v\v\v\v\v\v\v´\n\v\f\v\v·\v\v" + "\f\f\f\f\f\f\f\f\f\f\fÃ\n\f" + "\f\f\fÆ\v\f\r\r\r\r\r\r\r\r" + "\r\rÑ\n\r\f\r\rÔ\v\r" + "ß\n" + "" + "ì\n" + "÷\n\fú\v" + "Ă\n" + "" + "Ē\n\fĕ\v" + "ě\n" + "Ħ" + "\n" + "" + "" + "ł\n" + "ő\n" + "" + "Ŝ\n\fş\v" + "" + "Ŭ\n" + "Ÿ\n\fŻ\v" + "ƅ" + "\n\fƈ\v" + "Ǝ\n      " + "!!!!!!!!!!Ƣ\n!\f!!ƥ" + '\v!"""""""""""' + '""""""Ʒ\n"####' + "#$$$$$$$$$$Ǉ\n$\f$$Ǌ" + "\v$%%%%%ǐ\n%&&&'''" + "''(((((((((((" + "((((((((((((ǰ\n(" + ")))))))))))Ǽ\n)\f))ǿ" + "\v)*****ȅ\n*+++,,," + ",,,,,,,ȓ\n,\f,,Ȗ\v,--" + "--------------" + "--------------ȵ" + "\n------Ȼ\n-\f--Ⱦ\v-..." + ".......ɉ\n.\f..Ɍ\v./" + "//000000000ə\n0\f00ɜ" + "\v01112222222222" + "2222ɮ\n2\f22ɱ\v233333" + "33333333333333" + "33333ʊ\n34444444" + "\f &268@FPVXZ^b5\b" + "\n\f" + ' "$&(*,.0246' + "8:<>@BDFHJLNP" + "RTVXZ\\^`bdfʛ" + "hly\b|" + "\n\f" + "¨ª" + "¸ÇÞ" + "àë í" + '"ā$ă&Ĉ' + "(Ě*Ĝ,ĥ" + ".Ł0Ő2Œ" + "4ū6ŭ8ż" + ":ƍ<Ə>ƒ" + "@ƘBƶDƸ" + "FƽHǏJǑ" + "LǔNǯPǱ" + "RȄTȆVȉ" + "XȴZȿ\\ɍ" + "^ɐ`ɝbɠ" + "dʉfʋhi" + "ijjk\bklm\b" + "mn0no\bovpq\fqr" + "0rs\bsutpux" + "vtvwwxv" + "yzz{\b{|}" + "%}~\b~\t\n" + "\b\v\b" + "\b" + "\f" + "\b" + "" + "\r\b\b" + "\f\b\b" + "" + "\b\b\t" + "\f\n\b\n" + "© \t" + " ¡¡¢¢£\n" + "£¤\b\n¤©¥¦\r¦" + "§\b\n§©¨¨" + "¨¥©ª«" + "\b\v«¬\n¬­\b\v­µ" + "®¯\f¯°°±\n" + "±²\b\v²´³®" + "´·µ³µ¶" + "¶·µ¸¹\b\f¹" + "º%º»\b\f»Ä¼½" + "\f½¾¾¿\v¿À" + "\bÀÁ\b\fÁÃÂ¼" + "ÃÆÄÂÄÅ" + "ÅÆÄÇÈ\b\r" + "ÈÉ\fÉÊ\b\rÊÒ" + "ËÌ\fÌÍ\tÍÎ\fÎ" + "Ï\b\rÏÑÐËÑÔ" + "ÒÐÒÓÓ" + "ÔÒÕÖÖ×" + " ×Ø\bØÙ\nÙÚ\b" + "ÚßÛÜ\nÜÝ\b" + "ÝßÞÕÞÛ" + "ßàá%áâ\b" + "âãä%äå\nå" + "æ\næç\bçìèé" + "\néê\bêìëã" + "ëèìíî\b" + "îïïð\bðø" + "ñò\fòóóô" + "ôõ\bõ÷öñ" + "÷úøöøù" + "ù!úøûü" + "üý ýþ\bþÿ\b" + "ÿĂĀĂ\bāû" + "āĀĂ#ă" + "Ą%Ąą\nąĆ\n" + "Ćć\bć%Ĉĉ\b" + "ĉĊ$Ċċ\bċē" + "Čč\fčĎĎ" + "ď$ďĐ\bĐĒ" + "đČĒĕēđ" + "ēĔĔ'ĕ" + "ēĖě\bėĘ&" + "Ęę\bęěĚĖ" + "Ěėě)Ĝ" + "ĝ(ĝĞ\bĞ+ğ" + "ĠĠġ*ġĢ" + "Ģģ\bģĦĤĦ" + "\bĥğĥĤ" + "Ħ-ħĨ\vĨĩ\f" + "ĩĪ\bĪī\nīĬ" + "Ĭĭ\bĭłĮ" + "į\rįİ\bİı\n" + "ıĲ\nĲĳ\bĳł" + "Ĵĵ\vĵĶĶķ" + '\bķĸ"ĸĹ,Ĺ' + "ĺ\bĺłĻļ" + 'ļĽ\bĽľ"ľĿ' + ",Ŀŀ\bŀłŁ" + "ħŁĮŁĴ" + "ŁĻł/Ńń" + "4ńŅ\bŅőņ" + "Ň.Ňň\bňő" + "ŉŊf4Ŋŋ\bŋő" + "ŌōōŎ2Ŏŏ" + "\bŏőŐŃ" + "ŐņŐŉŐŌ" + "ő1Œœ\bœŔ" + "\bŔŕ\bŕŝŖ" + "ŗ\fŗŘŘř\b" + "řŚ\bŚŜśŖ" + "Ŝşŝś" + "ŝŞŞ3şŝ" + "Šš%šŢŢţ" + "2ţŤŤť6ť" + "Ŧ\bŦŬŧŨ%" + "Ũũ6ũŪ\bŪŬ" + "ūŠūŧŬ" + "5ŭŮ\bŮů\n" + "ůŰ> Űű\bűŹ" + "Ųų\fųŴŴŵ" + "> ŵŶ\bŶŸŷ" + "ŲŸŻŹŷ" + "Źźź7ŻŹ" + 'żŽ\bŽžB"ž' + "ſ\bſƆƀƁ\f" + 'ƁƂB"Ƃƃ\bƃƅ' + "ƄƀƅƈƆ" + "ƄƆƇƇ9" + "ƈƆƉƎ\bƊƋ" + "8Ƌƌ\bƌƎƍ" + "ƉƍƊƎ;" + "ƏƐ:ƐƑ\bƑ=" + "ƒƓ<ƓƔƔƕ" + "N(ƕƖƖƗ\b Ɨ?" + 'Ƙƙ\b!ƙƚB"ƚƛ' + "\b!ƛƣƜƝ\fƝ" + 'ƞƞƟB"ƟƠ\b!Ơ' + "ƢơƜƢƥ" + "ƣơƣƤƤ" + "AƥƣƦƧ" + "Ƨƨ\bƨƩ\bƩƪ\b" + '"ƪƷƫƬ)Ƭ' + 'Ʒ\b"ƭƮ\bƮƯ\b"Ư' + "ƷưƱ%ƱƲ" + 'ƲƳ@!ƳƴƴƵ\b"' + "ƵƷƶƦƶ" + "ƫƶƭƶư" + "ƷCƸƹ\bƹƺ" + "\nƺƻ\nƻƼ\b#Ƽ" + "Eƽƾ\b$ƾƿD#ƿǀ" + "\b$ǀǈǁǂ\fǂ" + "ǃǃǄD#Ǆǅ\b$ǅ" + "ǇǆǁǇǊ" + "ǈǆǈǉǉ" + "GǊǈǋǐ\b%ǌ" + "ǍF$Ǎǎ\b%ǎǐǏ" + "ǋǏǌǐI" + "ǑǒH%ǒǓ\b&ǓK" + "ǔǕǕǖJ&ǖǗ" + "Ǘǘ\b'ǘMǙǚ" + "ǚǛ\bǛǜǜ" + "ǝN(ǝǞǞǟN(ǟ" + "Ǡ\b(ǠǰǡǢ" + "ǢǣL'ǣǤǤǥ" + "N(ǥǦ\b(ǦǰǧǨ" + "P)Ǩǩ\b(ǩǰǪǫ" + "P)ǫǬǬǭN(ǭǮ" + "\b(ǮǰǯǙǯ" + "ǡǯǧǯǪ" + "ǰOǱǲ\b)ǲǳ" + "X-ǳǴ\b)ǴǽǵǶ" + "\fǶǷǷǸT+Ǹ" + "ǹǹǺ\b)ǺǼ" + "ǻǵǼǿǽǻ" + "ǽǾǾQǿ" + "ǽȀȅ\b*ȁȂV,Ȃ" + "ȃ\b*ȃȅȄȀ" + "ȄȁȅSȆȇ" + "R*ȇȈ\b+ȈUȉȊ\b," + "ȊȋN(ȋȌ\b,ȌȔ" + "ȍȎ\fȎȏȏȐ" + "N(Ȑȑ\b,ȑȓȒȍ" + "ȓȖȔȒ" + "ȔȕȕWȖȔ" + "ȗȘ\b-Șș&șȵ\b" + "-Țț(țȵ\b-Ȝȝ" + ")ȝȵ\b-Ȟȟȟ" + "Ƞ&Ƞȵ\b-ȡȢ" + "ȢȣT+ȣȤȤȥ\b-" + "ȥȵȦȧȧȨ" + "Ȩȵ\b-ȩȪȪ" + "ȫV,ȫȬȬȭ\b-ȭ" + "ȵȮȯ%ȯȵ\b-" + "Ȱȱȱȵ\b-Ȳȳ" + "ȳȵ\b-ȴȗȴȚ" + "ȴȜȴȞ" + "ȴȡȴȦȴȩ" + "ȴȮȴȰȴ" + "Ȳȵȼȶȷ\f" + "ȷȸȸȹ%ȹȻ" + "\b-ȺȶȻȾȼ" + "ȺȼȽȽY" + "Ⱦȼȿɀ\b.ɀɁ" + "`1Ɂɂ\b.ɂɊɃɄ" + "\fɄɅɅɆ`1Ɇ" + "ɇ\b.ɇɉɈɃ" + "ɉɌɊɈɊɋ" + "";
+            TypedBNFParser._serializedATNSegment1 = "ɋ[ɌɊɍ" + "ɎZ.Ɏɏ\b/ɏ]ɐɑ" + "\b0ɑɒb2ɒɓ\b0ɓɚ" + "ɔɕ\fɕɖb2ɖɗ" + "\b0ɗəɘɔə" + "ɜɚɘɚɛ" + "ɛ_ɜɚɝɞ" + "^0ɞɟ\b1ɟaɠɡ\b" + "2ɡɢd3ɢɣ\b2ɣɯ" + "ɤɥ\fɥɦɦ" + "ɮ\b2ɧɨ\fɨɩ\t" + "ɩɮ\b2ɪɫ\fɫɬ" + "ɬɮ\b2ɭɤɭɧ" + "ɭɪɮɱ" + "ɯɭɯɰɰc" + "ɱɯɲɳ)ɳʊ" + "\b3ɴɵ ɵɶd3ɶɷ" + "\b3ɷʊɸɹɹ" + "ɺ\\/ɺɻɻɼ\b3ɼ" + "ʊɽɾ!ɾʊ\b3" + "ɿʀ$ʀʊ\b3ʁʂ#" + 'ʂʊ\b3ʃʄ"ʄʊ\b3' + "ʅʆʆʊ\b3ʇʈ" + "%ʈʊ\b3ʉɲʉɴ" + "ʉɸʉɽ" + "ʉɿʉʁʉʃ" + "ʉʅʉʇʊ" + "eʋʌ%ʌʍ" + "ʍʎ\\/ʎʏʏʐ\b4" + "ʐg&v¨µÄÒÞëøā" + "ēĚĥŁŐŝūŹƆƍƣƶ" + "ǈǏǯǽȄȔȴȼɊɚɭɯ" + "ʉ";
             TypedBNFParser._serializedATN = p.join([TypedBNFParser._serializedATNSegment0, TypedBNFParser._serializedATNSegment1], "");
             class StartContext extends _.ParserRuleContext {
                 constructor(e, t) {
@@ -24309,9 +24265,6 @@
                 CNAMEPLUS() {
                     return this.tryGetToken(TypedBNFParser.CNAMEPLUS, 0)
                 }
-                tvar() {
-                    return this.tryGetRuleContext(0, TvarContext)
-                }
                 typ2() {
                     return this.tryGetRuleContext(0, Typ2Context)
                 }
@@ -24383,28 +24336,6 @@
                 }
             }
             t.Top_typContext = Top_typContext;
-            class TvarContext extends _.ParserRuleContext {
-                constructor(e, t) {
-                    super(e, t)
-                }
-                CNAMEPLUS() {
-                    return this.getToken(TypedBNFParser.CNAMEPLUS, 0)
-                }
-                get ruleIndex() {
-                    return TypedBNFParser.RULE_tvar
-                }
-                enterRule(e) {
-                    if (e.enterTvar) {
-                        e.enterTvar(this)
-                    }
-                }
-                exitRule(e) {
-                    if (e.exitTvar) {
-                        e.exitTvar(this)
-                    }
-                }
-            }
-            t.TvarContext = TvarContext;
             class Tvar_strContext extends _.ParserRuleContext {
                 constructor(e, t) {
                     super(e, t)
@@ -25703,6 +25634,12 @@
                     return i.position
                 }
             });
+            Object.defineProperty(t, "processPolyType", {
+                enumerable: true,
+                get: function() {
+                    return n.processPolyType
+                }
+            });
             t.process_tparam = process_tparam;
             Object.defineProperty(t, "production", {
                 enumerable: true,
@@ -25842,7 +25779,7 @@
                 return (0, n.MK_LRange)(t.codePointAt(0), r.codePointAt(0))
             }
         },
-        9054: (e, t, r) => {
+        28: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -25964,9 +25901,9 @@
             t.windowed = windowed;
             t.zip = zip;
             t.zip3 = zip3;
-            var n = r(6256);
-            var i = r(4222);
-            var o = r(1103);
+            var n = r(8241);
+            var i = r(4522);
+            var o = r(7389);
 
             function Helpers_allocateArrayFromCons(e, t) {
                 if (typeof e === "function") {
@@ -26662,8 +26599,8 @@
 
             function setSlice(e, t, r, i) {
                 const o = (0, n.defaultArg)(t, 0) | 0;
-                const s = (0, n.defaultArg)(r, 0) | 0;
-                const a = (s > 0 ? s : e.length - 1) - o | 0;
+                const s = (0, n.defaultArg)(r, -1) | 0;
+                const a = (s >= 0 ? s : e.length - 1) - o | 0;
                 for (let t = 0; t <= a; t++) {
                     e[t + o] = i[t]
                 }
@@ -27230,7 +27167,7 @@
                 return i
             }
         },
-        5361: (e, t, r) => {
+        9305: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -27287,12 +27224,12 @@
             t.toUInt64 = toUInt64;
             t.tryParse = tryParse;
             t.zero = t.two = void 0;
-            var n = r(4949);
-            var i = r(2836);
-            var o = r(4222);
-            var s = r(6638);
-            var a = r(5359);
-            var l = r(9054);
+            var n = r(8662);
+            var i = r(9708);
+            var o = r(4522);
+            var s = r(9303);
+            var a = r(126);
+            var l = r(28);
 
             function isBigInt(e) {
                 return e instanceof n.BigInteger
@@ -27622,7 +27559,7 @@
                 }
             }
         },
-        3834: (e, t, r) => {
+        8890: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -27743,13 +27680,13 @@
             t.BigNatModule_twopowersI64 = t.BigNatModule_twopowers = t.BigNatModule_two = void 0;
             t.BigNatModule_wordBits = BigNatModule_wordBits;
             t.BigNatModule_zero = void 0;
-            var n = r(6638);
-            var i = r(6356);
-            var o = r(2836);
-            var s = r(9054);
-            var a = r(5359);
-            var l = r(4222);
-            var _ = r(9937);
+            var n = r(9303);
+            var i = r(2762);
+            var o = r(9708);
+            var s = r(28);
+            var a = r(126);
+            var l = r(4522);
+            var _ = r(7350);
             class BigNat extends n.Record {
                 constructor(e, t) {
                     super();
@@ -27833,8 +27770,8 @@
             t.BigNatModule_FFT_Fp_mzero = T;
             const x = 1;
             t.BigNatModule_FFT_Fp_mone = x;
-            const N = 2;
-            t.BigNatModule_FFT_Fp_mtwo = N;
+            const C = 2;
+            t.BigNatModule_FFT_Fp_mtwo = C;
 
             function BigNatModule_FFT_Fp_mpow(e, t) {
                 e: while (true) {
@@ -27911,9 +27848,9 @@
                 const n = BigNatModule_FFT_Fp_minv(e >>> 0);
                 return (0, s.map)((e => (0, o.toInt)((0, o.op_Modulus)((0, o.op_Multiply)((0, o.fromInteger)(n, true, 6), (0, o.fromInteger)(e, true, 6)), S)) >>> 0), BigNatModule_FFT_computFftInPlace(e, BigNatModule_FFT_Fp_minv(t), r), Uint32Array)
             }
-            const C = 29;
-            t.BigNatModule_FFT_maxTwoPower = C;
-            const A = (0, s.initialize)(C - 1, (e => BigNatModule_FFT_pow32(2, e)), Int32Array);
+            const N = 29;
+            t.BigNatModule_FFT_maxTwoPower = N;
+            const A = (0, s.initialize)(N - 1, (e => BigNatModule_FFT_pow32(2, e)), Int32Array);
             t.BigNatModule_FFT_twoPowerTable = A;
 
             function BigNatModule_FFT_computeFftPaddedPolynomialProduct(e, t, r, n) {
@@ -27952,8 +27889,8 @@
             t.BigNatModule_FFT_mzero = E;
             const v = x;
             t.BigNatModule_FFT_mone = v;
-            const M = (y + y - v) % y;
-            t.BigNatModule_FFT_maxFp = M;
+            const w = (y + y - v) % y;
+            t.BigNatModule_FFT_maxFp = w;
 
             function BigNatModule_bound(e) {
                 return e.bound
@@ -28032,8 +27969,8 @@
                     return t | 0
                 }
             }
-            const w = 24;
-            t.BigNatModule_baseBits = w;
+            const M = 24;
+            t.BigNatModule_baseBits = M;
             const b = 16777216;
             t.BigNatModule_baseN = b;
             const F = 16777215;
@@ -28062,7 +27999,7 @@
             t.BigNatModule_baseShift64C = U;
 
             function BigNatModule_divbase(e) {
-                return ~~(e >>> 0 >>> w)
+                return ~~(e >>> 0 >>> M)
             }
 
             function BigNatModule_modbase(e) {
@@ -28096,12 +28033,12 @@
                 e.bound = t | 0;
                 return e
             }
-            const q = 2;
-            t.BigNatModule_boundInt = q;
-            const H = 3;
-            t.BigNatModule_boundInt64 = H;
-            const Z = 1;
-            t.BigNatModule_boundBase = Z;
+            const Z = 2;
+            t.BigNatModule_boundInt = Z;
+            const q = 3;
+            t.BigNatModule_boundInt64 = q;
+            const H = 1;
+            t.BigNatModule_boundBase = H;
 
             function BigNatModule_embed(e) {
                 const t = (e < 0 ? 0 : e) | 0;
@@ -28110,8 +28047,8 @@
                     e.digits[0] = t | 0;
                     return BigNatModule_normN(e)
                 } else {
-                    const e = BigNatModule_createN(q);
-                    for (let r = 0; r <= q - 1; r++) {
+                    const e = BigNatModule_createN(Z);
+                    for (let r = 0; r <= Z - 1; r++) {
                         e.digits[r] = ~~(t / BigNatModule_pow32(b, r)) % b | 0
                     }
                     return BigNatModule_normN(e)
@@ -28120,8 +28057,8 @@
 
             function BigNatModule_embed64(e) {
                 const t = (0, o.compare)(e, (0, o.fromBits)(0, 0, false)) < 0 ? (0, o.fromBits)(0, 0, false) : e;
-                const r = BigNatModule_createN(H);
-                for (let e = 0; e <= H - 1; e++) {
+                const r = BigNatModule_createN(q);
+                for (let e = 0; e <= q - 1; e++) {
                     r.digits[e] = ~~(0, o.toInt)((0, o.op_Modulus)((0, o.op_Division)(t, BigNatModule_pow64(B, e)), B)) | 0
                 }
                 return BigNatModule_normN(r)
@@ -28420,7 +28357,7 @@
             }
 
             function BigNatModule_scale(e, t) {
-                const r = BigNatModule_createN(t.bound + q);
+                const r = BigNatModule_createN(t.bound + Z);
                 const n = (0, o.fromInteger)(e, false, 2);
                 for (let e = 0; e <= t.bound - 1; e++) {
                     BigNatModule_contributeArr(r.digits, e, (0, o.op_Multiply)(n, (0, o.fromInteger)(t.digits[e], false, 2)))
@@ -28526,7 +28463,7 @@
             }
 
             function BigNatModule_mkEncoding(e, t, r, n) {
-                return new BigNatModule_encoding(e, BigNatModule_pow32(2, e), t, r, n, ~~(w / e), (0, s.initialize)(~~(w / e), (t => BigNatModule_pow32(2, e * t)), Int32Array))
+                return new BigNatModule_encoding(e, BigNatModule_pow32(2, e), t, r, n, ~~(M / e), (0, s.initialize)(~~(M / e), (t => BigNatModule_pow32(2, e * t)), Int32Array))
             }
             const G = [BigNatModule_mkEncoding(1, 28, 268435456, 268435456), BigNatModule_mkEncoding(2, 26, 67108864, 134217728), BigNatModule_mkEncoding(3, 24, 16777216, 50331648), BigNatModule_mkEncoding(4, 22, 4194304, 16777216), BigNatModule_mkEncoding(5, 20, 1048576, 5242880), BigNatModule_mkEncoding(6, 18, 262144, 1572864), BigNatModule_mkEncoding(7, 16, 65536, 458752), BigNatModule_mkEncoding(8, 14, 16384, 131072), BigNatModule_mkEncoding(9, 12, 4096, 36864), BigNatModule_mkEncoding(10, 10, 1024, 10240), BigNatModule_mkEncoding(11, 8, 256, 2816), BigNatModule_mkEncoding(12, 6, 64, 768), BigNatModule_mkEncoding(13, 4, 16, 208)];
             t.BigNatModule_table = G;
@@ -28556,11 +28493,11 @@
                     return selectFrom(0)
                 }
             }
-            const V = (0, s.initialize)(w, (e => BigNatModule_pow32(2, e) - 1), Int32Array);
+            const V = (0, s.initialize)(M, (e => BigNatModule_pow32(2, e) - 1), Int32Array);
             t.BigNatModule_bitmask = V;
-            const W = (0, s.initialize)(w, (e => BigNatModule_pow32(2, e)), Int32Array);
+            const W = (0, s.initialize)(M, (e => BigNatModule_pow32(2, e)), Int32Array);
             t.BigNatModule_twopowers = W;
-            const Y = (0, s.initialize)(w, (e => BigNatModule_pow64((0, o.fromBits)(2, 0, false), e)));
+            const Y = (0, s.initialize)(M, (e => BigNatModule_pow64((0, o.fromBits)(2, 0, false), e)));
             t.BigNatModule_twopowersI64 = Y;
 
             function BigNatModule_wordBits(e) {
@@ -28578,32 +28515,32 @@
                         break
                     }
                 };
-                return hi(w) | 0
+                return hi(M) | 0
             }
 
             function BigNatModule_bits(e) {
                 if (e.bound === 0) {
                     return 0
                 } else {
-                    return BigNatModule_degree(e) * w + BigNatModule_wordBits(e.digits[BigNatModule_degree(e)]) | 0
+                    return BigNatModule_degree(e) * M + BigNatModule_wordBits(e.digits[BigNatModule_degree(e)]) | 0
                 }
             }
 
             function BigNatModule_extractBits(e, t, r) {
                 let n, i, o, s, a, l;
-                const _ = ~~(r / w) | 0;
-                const u = ~~((r + t.bigL - 1) / w) | 0;
+                const _ = ~~(r / M) | 0;
+                const u = ~~((r + t.bigL - 1) / M) | 0;
                 if (_ !== u) {
-                    const a = r % w | 0;
-                    return ((n = e, i = _ | 0, i < n.bound ? n.digits[i] : 0) >> a | (o = e, s = u | 0, s < o.bound ? o.digits[s] : 0) << w - a) & V[t.bigL] | 0
+                    const a = r % M | 0;
+                    return ((n = e, i = _ | 0, i < n.bound ? n.digits[i] : 0) >> a | (o = e, s = u | 0, s < o.bound ? o.digits[s] : 0) << M - a) & V[t.bigL] | 0
                 } else {
-                    return (a = e, l = _ | 0, l < a.bound ? a.digits[l] : 0) >> r % w & V[t.bigL] | 0
+                    return (a = e, l = _ | 0, l < a.bound ? a.digits[l] : 0) >> r % M & V[t.bigL] | 0
                 }
             }
 
             function BigNatModule_encodePoly(e, t) {
                 const r = (0, s.fill)(new Uint32Array(e.bigK), 0, e.bigK, BigNatModule_FFT_Fp_ofInt32(0));
-                const n = t.bound * w | 0;
+                const n = t.bound * M | 0;
                 const encoder = (i, o) => {
                     e: while (true) {
                         const s = i,
@@ -28633,7 +28570,7 @@
             }
 
             function BigNatModule_decodePoly(e, t) {
-                const r = ~~(BigNatModule_decodeResultBits(e, t) / w) + 1 | 0;
+                const r = ~~(BigNatModule_decodeResultBits(e, t) / M) + 1 | 0;
                 const n = BigNatModule_createN(r);
                 const evaluate = (i, s, a) => {
                     e: while (true) {
@@ -28645,7 +28582,7 @@
                                 BigNatModule_contributeArr(n.digits, _, (0, o.op_Multiply)((0, o.fromInteger)(BigNatModule_FFT_Fp_toInt(t[l]), false, 2), Y[u]))
                             }
                             const c = u + e.bigL | 0;
-                            const d = c >= w ? [_ + 1, c - w] : [_, c];
+                            const d = c >= M ? [_ + 1, c - M] : [_, c];
                             i = l + 1;
                             s = d[0];
                             a = d[1];
@@ -28685,11 +28622,11 @@
             function BigNatModule_mulKaratsuba(e, t) {
                 return BigNatModule_recMulKaratsuba(BigNatModule_mulKaratsuba, e, t)
             }
-            const Q = ~~(64e3 / w);
+            const Q = ~~(64e3 / M);
             t.BigNatModule_productDigitsUpperSchoolBook = Q;
-            const J = ~~(32e3 / w);
+            const J = ~~(32e3 / M);
             t.BigNatModule_singleDigitForceSchoolBook = J;
-            const ee = ~~(G[0].bigN / w);
+            const ee = ~~(G[0].bigN / M);
             t.BigNatModule_productDigitsUpperFft = ee;
 
             function BigNatModule_mul(e, t) {
@@ -29142,7 +29079,7 @@
                 return productR(z, e)
             }
         },
-        4949: (e, t, r) => {
+        8662: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -29209,13 +29146,13 @@
             t.BigInteger_op_UnaryPlus_Z665282C2 = BigInteger_op_UnaryPlus_Z665282C2;
             t.BigInteger_posn_Z67CCE57D = BigInteger_posn_Z67CCE57D;
             t.BigInteger_subnn_6A57060 = BigInteger_subnn_6A57060;
-            var n = r(3834);
-            var i = r(6638);
-            var o = r(6356);
-            var s = r(9054);
-            var a = r(2836);
-            var l = r(7526);
-            var _ = _interopRequireDefault(r(5638));
+            var n = r(8890);
+            var i = r(9303);
+            var o = r(2762);
+            var s = r(28);
+            var a = r(9708);
+            var l = r(2009);
+            var _ = _interopRequireDefault(r(2565));
 
             function _interopRequireDefault(e) {
                 return e && e.__esModule ? e : {
@@ -30188,7 +30125,7 @@
                 return BigInteger_$ctor_Z524259A4(e)
             }
         },
-        13: (e, t, r) => {
+        6285: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -30243,8 +30180,8 @@
             t.tryParse = tryParse;
             t.utcNow = utcNow;
             t.year = year;
-            var n = r(2836);
-            var i = r(4222);
+            var n = r(9708);
+            var i = r(4522);
 
             function dateOffsetToString(e) {
                 const t = e < 0;
@@ -30680,7 +30617,7 @@
             var a = DateTime;
             t["default"] = a
         },
-        5638: (e, t, r) => {
+        2565: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -30712,8 +30649,8 @@
             t.toString = toString;
             t.truncate = truncate;
             t.tryParse = tryParse;
-            var n = _interopRequireDefault(r(524));
-            var i = r(6638);
+            var n = _interopRequireDefault(r(9666));
+            var i = r(9303);
 
             function _interopRequireDefault(e) {
                 return e && e.__esModule ? e : {
@@ -30922,7 +30859,7 @@
                 return [i, o, s, u]
             }
         },
-        5153: (e, t, r) => {
+        5076: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -30931,7 +30868,7 @@
             t.HashIdentity_FromFunctions = HashIdentity_FromFunctions;
             t.HashIdentity_Reference = HashIdentity_Reference;
             t.HashIdentity_Structural = HashIdentity_Structural;
-            var n = r(4222);
+            var n = r(4522);
 
             function HashIdentity_FromFunctions(e, t) {
                 return {
@@ -30964,7 +30901,7 @@
                 return ComparisonIdentity_FromFunction(n.compare)
             }
         },
-        3093: (e, t, r) => {
+        2915: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -30981,9 +30918,9 @@
             t.Operators_Using = Operators_Using;
             t.PrintfModule_PrintFormatToStringBuilder = PrintfModule_PrintFormatToStringBuilder;
             t.PrintfModule_PrintFormatToStringBuilderThen = PrintfModule_PrintFormatToStringBuilderThen;
-            var n = r(4222);
-            var i = r(5153);
-            var o = r(8443);
+            var n = r(4522);
+            var i = r(5076);
+            var o = r(6774);
             const s = {
                 ["System.Collections.IEqualityComparer.Equals541DA560"](e, t) {
                     return (0, n.equals)(e, t)
@@ -31060,7 +30997,7 @@
                 return PrintfModule_PrintFormatToStringBuilderThen((() => {}), e, t)
             }
         },
-        1103: (e, t) => {
+        7389: (e, t) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -31082,7 +31019,7 @@
             const _ = "The input sequence has an insufficient number of elements.";
             t.SR_notEnoughElements = _
         },
-        7526: (e, t) => {
+        2009: (e, t) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -31222,7 +31159,7 @@
                 }
             }
         },
-        5359: (e, t, r) => {
+        126: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -31341,13 +31278,13 @@
             t.windowed = windowed;
             t.zip = zip;
             t.zip3 = zip3;
-            var n = r(9937);
-            var i = r(4222);
-            var o = r(6638);
-            var s = r(6356);
-            var a = r(1103);
-            var l = r(6256);
-            var _ = r(9054);
+            var n = r(7350);
+            var i = r(4522);
+            var o = r(9303);
+            var s = r(2762);
+            var a = r(7389);
+            var l = r(8241);
+            var _ = r(28);
             class FSharpList extends o.Record {
                 constructor(e, t) {
                     super();
@@ -32664,7 +32601,7 @@
                 return i
             }
         },
-        2836: (e, t, r) => {
+        9708: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -32679,8 +32616,8 @@
             t.toString = t.toNumber = t.toInt = t.toBytes = void 0;
             t.tryParse = tryParse;
             t.unixEpochMillisecondsToTicks = unixEpochMillisecondsToTicks;
-            var n = r(7526);
-            var i = _interopRequireWildcard(r(6865));
+            var n = r(2009);
+            var i = _interopRequireWildcard(r(3140));
 
             function _getRequireWildcardCache(e) {
                 if (typeof WeakMap !== "function") return null;
@@ -32756,20 +32693,20 @@
             t.op_LogicalNot = T;
             const x = i.lessThan;
             t.op_LessThan = x;
-            const N = i.lessThanOrEqual;
-            t.op_LessThanOrEqual = N;
-            const C = i.greaterThan;
-            t.op_GreaterThan = C;
+            const C = i.lessThanOrEqual;
+            t.op_LessThanOrEqual = C;
+            const N = i.greaterThan;
+            t.op_GreaterThan = N;
             const A = i.greaterThanOrEqual;
             t.op_GreaterThanOrEqual = A;
             const E = i.equals;
             t.op_Equality = E;
             const v = i.notEquals;
             t.op_Inequality = v;
-            const M = i.equals;
-            t.equals = M;
-            const w = i.compare;
-            t.compare = w;
+            const w = i.equals;
+            t.equals = w;
+            const M = i.compare;
+            t.compare = M;
             const b = i.fromInt;
             t.fromInt = b;
             const F = i.fromBits;
@@ -32796,8 +32733,8 @@
             t.getHighBits = j;
             const U = i.getLowBitsUnsigned;
             t.getLowBitsUnsigned = U;
-            const q = i.getHighBitsUnsigned;
-            t.getHighBitsUnsigned = q;
+            const Z = i.getHighBitsUnsigned;
+            t.getHighBitsUnsigned = Z;
 
             function getMaxValue(e, t, r) {
                 switch (t) {
@@ -32896,7 +32833,7 @@
                 }
             }
         },
-        5466: (e, t, r) => {
+        1316: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -33023,15 +32960,15 @@
             t.tryFindKey = tryFindKey;
             t.tryPick = tryPick;
             t.values = values;
-            var n = r(6356);
-            var i = r(6256);
-            var o = r(5359);
-            var s = r(9054);
-            var a = r(4222);
-            var l = r(6638);
-            var _ = r(2078);
-            var u = r(9937);
-            var c = r(3093);
+            var n = r(2762);
+            var i = r(8241);
+            var o = r(126);
+            var s = r(28);
+            var a = r(4522);
+            var l = r(9303);
+            var _ = r(3827);
+            var u = r(7350);
+            var c = r(2915);
             class MapTreeLeaf$2 {
                 constructor(e, t) {
                     this.k = e;
@@ -34343,7 +34280,7 @@
                 return FSharpMap__get_Count(e)
             }
         },
-        7384: (e, t, r) => {
+        6576: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34353,8 +34290,8 @@
             t.getItemFromDict = getItemFromDict;
             t.keyValueList = keyValueList;
             t.tryGetValue = tryGetValue;
-            var n = r(4222);
-            var i = r(6638);
+            var n = r(4522);
+            var i = r(9303);
             const o = {
                 None: 0,
                 LowerFirst: 1,
@@ -34469,7 +34406,7 @@
                 }
             }
         },
-        9131: (e, t, r) => {
+        4512: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34482,12 +34419,12 @@
             t.HashSet__Remove_2B595 = HashSet__Remove_2B595;
             t.HashSet__get_Comparer = HashSet__get_Comparer;
             t.HashSet__get_Count = HashSet__get_Count;
-            var n = r(4222);
-            var i = r(2078);
-            var o = r(6638);
-            var s = r(6356);
-            var a = r(7384);
-            var l = r(6256);
+            var n = r(4522);
+            var i = r(3827);
+            var o = r(9303);
+            var s = r(2762);
+            var a = r(6576);
+            var l = r(8241);
             class HashSet {
                 constructor(e, t) {
                     const r = new o.FSharpRef(null);
@@ -34724,7 +34661,7 @@
                 }
             }
         },
-        6468: (e, t) => {
+        3428: (e, t) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34791,7 +34728,7 @@
                 }
             }
         },
-        6256: (e, t, r) => {
+        8241: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34810,7 +34747,7 @@
             t.toNullable = toNullable;
             t.tryOp = tryOp;
             t.value = value;
-            var n = r(4222);
+            var n = r(4522);
             class Some {
                 constructor(e) {
                     this.value = e
@@ -34905,7 +34842,7 @@
                 }
             }
         },
-        857: (e, t, r) => {
+        5673: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34917,11 +34854,11 @@
             t.rangeDouble = rangeDouble;
             t.rangeInt64 = rangeInt64;
             t.rangeUInt64 = rangeUInt64;
-            var n = r(4222);
-            var i = r(2078);
-            var o = r(5361);
-            var s = r(5638);
-            var a = r(2836);
+            var n = r(4522);
+            var i = r(3827);
+            var o = r(9305);
+            var s = r(2565);
+            var a = r(9708);
 
             function makeRangeStepFunction(e, t, r, i) {
                 const o = (0, n.compare)(e, r) | 0;
@@ -34971,7 +34908,7 @@
                 }), e.charCodeAt(0))))
             }
         },
-        6356: (e, t, r) => {
+        2762: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -35041,10 +34978,10 @@
             t.uint8_type = t.uint32_type = t.uint16_type = void 0;
             t.union_type = union_type;
             t.unit_type = void 0;
-            var n = r(6638);
-            var i = r(4222);
-            var o = _interopRequireDefault(r(5638));
-            var s = r(2836);
+            var n = r(9303);
+            var i = r(4522);
+            var o = _interopRequireDefault(r(2565));
+            var s = r(9708);
 
             function _interopRequireDefault(e) {
                 return e && e.__esModule ? e : {
@@ -35507,7 +35444,7 @@
                 return e.fields
             }
         },
-        3493: (e, t) => {
+        4853: (e, t) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -35551,17 +35488,25 @@
             }
 
             function matches(e, t, r = 0) {
-                e.lastIndex = r;
+                if (t == null) {
+                    throw new Error("Input cannot ve null")
+                }
                 if (!e.global) {
                     throw new Error("Non-global RegExp")
                 }
-                let n = e.exec(t);
-                const i = [];
-                while (n !== null) {
-                    i.push(n);
-                    n = e.exec(t)
+                e.lastIndex = r;
+                const n = [];
+                let i;
+                let o = -1;
+                while ((i = e.exec(t)) != null) {
+                    if (i.index === o) {
+                        e.lastIndex++
+                    } else {
+                        o = i.index;
+                        n.push(i)
+                    }
                 }
-                return i
+                return n
             }
 
             function options(e) {
@@ -35626,7 +35571,7 @@
                 return t.split(e, r)
             }
         },
-        2078: (e, t, r) => {
+        3827: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -35759,14 +35704,14 @@
             t.windowed = windowed;
             t.zip = zip;
             t.zip3 = zip3;
-            var n = r(4222);
-            var i = r(6638);
-            var o = r(6356);
-            var s = r(6256);
-            var a = r(3093);
-            var l = r(9054);
-            var _ = r(5359);
-            var u = r(1103);
+            var n = r(4522);
+            var i = r(9303);
+            var o = r(2762);
+            var s = r(8241);
+            var a = r(2915);
+            var l = r(28);
+            var _ = r(126);
+            var u = r(7389);
             const c = "Enumeration already finished.";
             t.SR_enumerationAlreadyFinished = c;
             const d = "Enumeration has not started. Call MoveNext.";
@@ -37151,7 +37096,7 @@
                 }))
             }
         },
-        1337: (e, t, r) => {
+        8610: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -37294,15 +37239,15 @@
             t.union = union;
             t.unionMany = unionMany;
             t.unionWith = unionWith;
-            var n = r(6356);
-            var i = r(6256);
-            var o = r(6638);
-            var s = r(5359);
-            var a = r(9054);
-            var l = r(4222);
-            var _ = r(9937);
-            var u = r(2078);
-            var c = r(9131);
+            var n = r(2762);
+            var i = r(8241);
+            var o = r(9303);
+            var s = r(126);
+            var a = r(28);
+            var l = r(4522);
+            var _ = r(7350);
+            var u = r(3827);
+            var c = r(4512);
             class SetTreeLeaf$1 {
                 constructor(e) {
                     this.k = e
@@ -39045,7 +38990,7 @@
                 }
             }
         },
-        9937: (e, t, r) => {
+        7350: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -39087,10 +39032,10 @@
             t.trim = trim;
             t.trimEnd = trimEnd;
             t.trimStart = trimStart;
-            var n = r(13);
-            var i = r(6468);
-            var o = r(3493);
-            var s = r(6638);
+            var n = r(6285);
+            var i = r(3428);
+            var o = r(4853);
+            var s = r(9303);
             const a = /(^|[^%])%([0+\- ]*)(\*|\d+)?(?:\.(\d+))?(\w)/g;
             const l = /(?:(^|[^%])%([0+\- ]*)(\d+)?(?:\.(\d+))?(\w))?%P\(\)/g;
             const _ = /\{(\d+)(,-?\d+)?(?:\:([a-zA-Z])(\d{0,2})|\:(.+?))?\}/g;
@@ -39635,7 +39580,7 @@
                 return e.fmts ? e.strs.reduce(((t, r, n) => t + `{${String(n-1)+e.fmts[n-1]}}` + r)) : e.strs.reduce(((e, t, r) => e + `{${r-1}}` + t))
             }
         },
-        8443: (e, t, r) => {
+        6774: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -39659,10 +39604,10 @@
             t.StringBuilder__Clear = StringBuilder__Clear;
             t.StringBuilder__ToString_Z37302880 = StringBuilder__ToString_Z37302880;
             t.StringBuilder__get_Length = StringBuilder__get_Length;
-            var n = r(9937);
-            var i = r(6356);
-            var o = r(4222);
-            var s = r(6638);
+            var n = r(7350);
+            var i = r(2762);
+            var o = r(4522);
+            var s = r(9303);
             class StringBuilder {
                 constructor(e, t) {
                     this.buf = [];
@@ -39770,7 +39715,7 @@
                 return e
             }
         },
-        6638: (e, t, r) => {
+        9303: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -39779,7 +39724,7 @@
             t.seqToString = seqToString;
             t.toString = toString;
             t.unionToString = unionToString;
-            var n = r(4222);
+            var n = r(4522);
 
             function seqToString(e) {
                 let t = 0;
@@ -39996,7 +39941,7 @@
             class Attribute {}
             t.Attribute = Attribute
         },
-        4222: (e, t) => {
+        4522: (e, t) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -40628,13 +40573,13 @@
                 return r => mapArg(e, r, t, 0)
             }
         },
-        524: (e, t, r) => {
+        9666: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
             t["default"] = t.Big = void 0;
-            var n = r(4222);
-            var i = r(6468);
+            var n = r(4522);
+            var i = r(3428);
             var o = {
                 GetHashCode() {
                     return (0, n.combineHashCodes)([this.s, this.e].concat(this.c))
@@ -40840,8 +40785,8 @@
                     S = n.slice(0, a),
                     T = S.length,
                     x = e,
-                    N = x.c = [],
-                    C = 0,
+                    C = x.c = [],
+                    N = 0,
                     A = s + (x.e = r.e - e.e) + 1;
                 x.s = o;
                 o = A < 0 ? 0 : A;
@@ -40874,16 +40819,16 @@
                             break
                         }
                     }
-                    N[C++] = c ? u : ++u;
+                    C[N++] = c ? u : ++u;
                     if (S[0] && c) S[T] = n[f] || 0;
                     else S = [n[f]]
                 } while ((f++ < g || S[0] !== y) && o--);
-                if (!N[0] && C != 1) {
-                    N.shift();
+                if (!C[0] && N != 1) {
+                    C.shift();
                     x.e--;
                     A--
                 }
-                if (C > A) round(x, A, t.RM, S[0] !== y);
+                if (N > A) round(x, A, t.RM, S[0] !== y);
                 return x
             };
             o.eq = function(e) {
@@ -41207,7 +41152,7 @@
             var x = T;
             t["default"] = x
         },
-        6865: (e, t, r) => {
+        3140: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -41261,7 +41206,7 @@
             t.toString = toString;
             t.toUnsigned = toUnsigned;
             t.xor = xor;
-            var n = r(6468);
+            var n = r(3428);
             var i = null;
             try {
                 i = new WebAssembly.Instance(new WebAssembly.Module(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 13, 2, 96, 0, 1, 127, 96, 4, 127, 127, 127, 127, 1, 127, 3, 7, 6, 0, 1, 1, 1, 1, 1, 6, 6, 1, 127, 1, 65, 0, 11, 7, 50, 6, 3, 109, 117, 108, 0, 1, 5, 100, 105, 118, 95, 115, 0, 2, 5, 100, 105, 118, 95, 117, 0, 3, 5, 114, 101, 109, 95, 115, 0, 4, 5, 114, 101, 109, 95, 117, 0, 5, 8, 103, 101, 116, 95, 104, 105, 103, 104, 0, 0, 10, 191, 1, 6, 4, 0, 35, 0, 11, 36, 1, 1, 126, 32, 0, 173, 32, 1, 173, 66, 32, 134, 132, 32, 2, 173, 32, 3, 173, 66, 32, 134, 132, 126, 34, 4, 66, 32, 135, 167, 36, 0, 32, 4, 167, 11, 36, 1, 1, 126, 32, 0, 173, 32, 1, 173, 66, 32, 134, 132, 32, 2, 173, 32, 3, 173, 66, 32, 134, 132, 127, 34, 4, 66, 32, 135, 167, 36, 0, 32, 4, 167, 11, 36, 1, 1, 126, 32, 0, 173, 32, 1, 173, 66, 32, 134, 132, 32, 2, 173, 32, 3, 173, 66, 32, 134, 132, 128, 34, 4, 66, 32, 135, 167, 36, 0, 32, 4, 167, 11, 36, 1, 1, 126, 32, 0, 173, 32, 1, 173, 66, 32, 134, 132, 32, 2, 173, 32, 3, 173, 66, 32, 134, 132, 129, 34, 4, 66, 32, 135, 167, 36, 0, 32, 4, 167, 11, 36, 1, 1, 126, 32, 0, 173, 32, 1, 173, 66, 32, 134, 132, 32, 2, 173, 32, 3, 173, 66, 32, 134, 132, 130, 34, 4, 66, 32, 135, 167, 36, 0, 32, 4, 167, 11])), {}).exports
@@ -41731,7 +41676,7 @@
                     else return fromBits(r >>> t - 32, 0, e.unsigned)
                 }
             }
-            const N = function rotateLeft(e) {
+            const C = function rotateLeft(e) {
                 var t;
                 if (isLong(e)) e = e.toInt();
                 if ((e &= 63) === 0) return this;
@@ -41744,8 +41689,8 @@
                 t = 32 - e;
                 return fromBits(this.high << e | this.low >>> t, this.low << e | this.high >>> t, this.unsigned)
             };
-            t.rotateLeft = N;
-            const C = function rotateRight(e) {
+            t.rotateLeft = C;
+            const N = function rotateRight(e) {
                 var t;
                 if (isLong(e)) e = e.toInt();
                 if ((e &= 63) === 0) return this;
@@ -41758,7 +41703,7 @@
                 t = 32 - e;
                 return fromBits(this.low << t | this.high >>> e, this.high << t | this.low >>> e, this.unsigned)
             };
-            t.rotateRight = C;
+            t.rotateRight = N;
 
             function toSigned(e) {
                 if (!e.unsigned) return e;
@@ -41849,12 +41794,15 @@
             t.MK_position = MK_position;
             t.MK_production = MK_production;
             t.build_analyzer = build_analyzer;
+            t.processPolyType = processPolyType;
             var n = r(3833);
-            var i = r(5359);
-            var o = r(6638);
-            var s = r(9054);
-            var a = r(4222);
-            var l = r(543);
+            var i = r(126);
+            var o = r(9303);
+            var s = r(28);
+            var a = r(4522);
+            var l = r(1316);
+            var _ = r(3827);
+            var u = r(543);
 
             function MK_Cell() {
                 return (0, n.Cell$1_$ctor)()
@@ -41947,10 +41895,10 @@
             function MK_LStr(e) {
                 return new n.lexerule(3, e)
             }
-            const _ = new n.lexerule(0);
-            t.MK_LNumber = _;
-            const u = new n.lexerule(1);
-            t.MK_LWildcard = u;
+            const c = new n.lexerule(0);
+            t.MK_LNumber = c;
+            const d = new n.lexerule(1);
+            t.MK_LWildcard = d;
 
             function MK_LSeq(e) {
                 if (!(0, s.equalsWith)(a.equals, e, null) && e.length === 1) {
@@ -42081,8 +42029,17 @@
                 return new n.polyt(1, e)
             }
 
+            function processPolyType(e) {
+                if (e.tag === 0) {
+                    const t = e.fields[0];
+                    return new n.polyt(0, t, (0, n.monot__SubstGen_1D5B3D8E)(e.fields[1], (0, l.ofList)((0, _.toList)((0, _.delay)((() => (0, _.map)((e => [e, new n.monot(4, e)]), t)))))))
+                } else {
+                    return e
+                }
+            }
+
             function build_analyzer(e) {
-                return (0, l.build_analyzer)(e)
+                return (0, u.build_analyzer)(e)
             }
         },
         543: (e, t, r) => {
@@ -42114,20 +42071,20 @@
             t.Sigma__get_CurrentPos = Sigma__get_CurrentPos;
             t.Sigma__get_GlobalVariables = Sigma__get_GlobalVariables;
             t.build_analyzer = build_analyzer;
-            var n = r(6638);
-            var i = r(6356);
+            var n = r(9303);
+            var i = r(2762);
             var o = r(3833);
-            var s = r(5466);
-            var a = r(1337);
-            var l = r(4222);
-            var _ = r(5359);
+            var s = r(1316);
+            var a = r(8610);
+            var l = r(4522);
+            var _ = r(126);
             var u = r(7362);
             var c = r(4205);
             var d = r(1697);
             var p = r(5891);
             var f = r(7936);
             var h = r(6109);
-            var g = r(9054);
+            var g = r(28);
             class Shape extends n.Record {
                 constructor(e, t) {
                     super();
@@ -42666,30 +42623,38 @@
                     }
                 };
                 return (0, f.withErrorHandler)((() => Sigma__GetErrorTrace(n)), (() => {
-                    let t;
-                    const f = (0, h.resolve_macro)((e => {
+                    let t, f;
+                    const S = (0, h.resolve_macro)((e => {
                         Sigma__SetCurrentPos_Z302187B(n, e)
                     }), (e => {
                         Sigma__SetCurrentDefinition_Z759AB257(n, e)
                     }), (e => {
                         Sigma__SetCurrentDefinitionBranch_Z524259A4(n, e)
-                    }), e);
-                    for (let e = 0; e <= f.length - 1; e++) {
-                        const t = f[e];
+                    }), (0, g.append)([new o.definition(0, (t = (0, o.position_get_Fake)(), {
+                        define: (0, _.ofArray)([
+                            [(0, o.position_get_Fake)(), new o.production((0, _.singleton)(new o.symbol(1, "a")), new o.expr(new o.node(7, 1), (0, o.position_get_Fake)(), o.TConst_int))],
+                            [(0, o.position_get_Fake)(), new o.production((0, _.singleton)(new o.symbol(1, "b")), new o.expr(new o.node(7, 1), (0, o.position_get_Fake)(), o.TConst_int))]
+                        ]),
+                        lhs: "tbnf-alternative2",
+                        parameters: (0, _.ofArray)(["a", "b"]),
+                        pos: t
+                    }))], e));
+                    for (let e = 0; e <= S.length - 1; e++) {
+                        const t = S[e];
                         Sigma__SetCurrentDefinition_Z759AB257(n, t);
-                        let o, d, h, g, S, T;
+                        let o, d, f, h, g, T;
                         if (t.tag === 6) {
                             o = 0;
                             d = t.fields[0]
                         } else if (t.tag === 3) {
                             o = 1;
-                            h = t.fields[0]
+                            f = t.fields[0]
                         } else if (t.tag === 4) {
                             o = 2;
-                            g = t.fields[0]
+                            h = t.fields[0]
                         } else if (t.tag === 5) {
                             o = 3;
-                            S = t.fields[0]
+                            g = t.fields[0]
                         } else if (t.tag === 0) {
                             o = 4
                         } else if (t.tag === 1) {
@@ -42717,16 +42682,16 @@
                                 break
                             }
                             case 1: {
-                                Sigma__RegisterExtGVar(n, h.ident, Sigma__KindCheck_Z25E5E15E(n, h.t));
+                                Sigma__RegisterExtGVar(n, f.ident, Sigma__KindCheck_Z25E5E15E(n, f.t));
                                 break
                             }
                             case 2: {
-                                Sigma__RegisterCtorGVar(n, g.ident, Sigma__KindCheck_Z25145215(n, g.t));
+                                Sigma__RegisterCtorGVar(n, h.ident, Sigma__KindCheck_Z25145215(n, h.t));
                                 break
                             }
                             case 3: {
-                                Sigma__RegisterType(n, S.external, S.hasFields, S.ident, S.parameters, (0, _.map)((e => [e[0], e[1]]), S.fields));
-                                const e = (0, l.getEnumerator)(S.fields);
+                                Sigma__RegisterType(n, g.external, g.hasFields, g.ident, g.parameters, (0, _.map)((e => [e[0], e[1]]), g.fields));
+                                const e = (0, l.getEnumerator)(g.fields);
                                 try {
                                     while (e["System.Collections.IEnumerator.MoveNext"]()) {
                                         Sigma__KindCheckMono_Z25145215(n, e["System.Collections.Generic.IEnumerator`1.get_Current"]()[1])
@@ -42787,8 +42752,8 @@
                             }
                         }
                     }
-                    for (let e = 0; e <= f.length - 1; e++) {
-                        const t = f[e];
+                    for (let e = 0; e <= S.length - 1; e++) {
+                        const t = S[e];
                         Sigma__SetCurrentDefinition_Z759AB257(n, t);
                         switch (t.tag) {
                             case 1: {
@@ -42850,7 +42815,7 @@
                             default: {}
                         }
                     }
-                    return [f, (t = (0, g.reverse)((0, _.toArray)(m)), new Analyzer(r, n, i, d, p, t, y))]
+                    return [S, (f = (0, g.reverse)((0, _.toArray)(m)), new Analyzer(r, n, i, d, p, f, y))]
                 }))
             }
         },
@@ -42860,19 +42825,19 @@
             });
             t.CSharpKeywords = void 0;
             t.codegen = codegen;
-            var n = r(6256);
-            var i = r(5359);
-            var o = r(1337);
-            var s = r(9054);
-            var a = r(4222);
-            var l = r(5466);
-            var _ = r(2078);
+            var n = r(8241);
+            var i = r(126);
+            var o = r(8610);
+            var s = r(28);
+            var a = r(4522);
+            var l = r(1316);
+            var _ = r(3827);
             var u = r(543);
             var c = r(1383);
             var d = r(1697);
             var p = r(3833);
             var f = r(4205);
-            var h = r(9937);
+            var h = r(7350);
             var g = r(9386);
             var m = r(7936);
             const y = ["__arglist", "__makeref", "__reftype", "__refvalue", "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "volatile", "void", "while"];
@@ -42881,14 +42846,14 @@
             function codegen(e, t, r, S) {
                 let T;
                 const x = (0, n.defaultArg)(t.rename_var, (e => e));
-                const N = (0, n.defaultArg)(t.rename_ctor, (e => e));
-                const C = (0, n.defaultArg)(t.rename_var, (e => e));
+                const C = (0, n.defaultArg)(t.rename_ctor, (e => e));
+                const N = (0, n.defaultArg)(t.rename_var, (e => e));
                 const A = (0, n.defaultArg)(t.rename_field, (e => e));
                 const E = (0, n.defaultArg)(t.rename_type, (e => e));
                 const typeParameter_mangling = e => "_GEN_" + e;
                 let v = (0, i.empty)();
-                let M = (0, i.empty)();
-                const w = (0, o.ofArray)((0, s.append)(["result"], y), {
+                let w = (0, i.empty)();
+                const M = (0, o.ofArray)((0, s.append)(["result"], y), {
                     Compare: a.comparePrimitives
                 });
                 let b = (0, l.empty)();
@@ -42907,7 +42872,7 @@
                 const O = (0, c.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, c.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, d.isLower)(t) : ((0, d.isLower)(t) ? true : t === "_") ? true : (0, d.isDigit)(t)), ((e, t) => (0, d.isUpper)(t) ? t.toLowerCase() : "_" + (0, c.NameMangling_maskChar)(97, 122, t.charCodeAt(0)) + "_")), new c.NameMangling_nameEnv((0, o.ofArray)(["start"], {
                     Compare: a.comparePrimitives
                 })));
-                const mangle = (e, t) => (0, c.NameMangling_mangle)(w, e, t);
+                const mangle = (e, t) => (0, c.NameMangling_mangle)(M, e, t);
                 const cg_symbol = e => {
                     const t = (0, l.tryFind)(e, b);
                     if (t == null) {
@@ -43177,11 +43142,11 @@
                         return (0, _.append)((0, _.singleton)((0, g.word)(`public partial interface ${t} {  }`)), (0, _.delay)((() => (0, _.append)((0, _.collect)((e => {
                             const r = e[0];
                             const n = (0, i.map)((e => [(0, g.word)(A(e[0])), (0, g.word)(cg_type(e[1]))]), e[1]);
-                            const o = N(r);
+                            const o = C(r);
                             const s = (0, g.parens)((0, g.seplist)((0, g.word)(","), (0, _.toList)((0, _.delay)((() => (0, _.collect)((e => (0, _.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)(e[1], e[0]))), n))))));
                             return (0, _.append)((0, _.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Multiply_Z7CFFAC00)((0, g.word)(`public partial record ${o}`), s), (0, g.word)(`: ${t};`))), (0, _.delay)((() => {
                                 const e = (0, g.word)(t);
-                                D = (0, i.cons)(["", N(r), o, n, e], D);
+                                D = (0, i.cons)(["", C(r), o, n, e], D);
                                 return (0, _.empty)()
                             })))
                         }), (0, l.toArray)(e[1])), (0, _.delay)((() => (0, _.singleton)(g.empty)))))))
@@ -43189,7 +43154,7 @@
                         const t = e[0];
                         const r = e[1];
                         const n = E(t);
-                        const o = C(t);
+                        const o = N(t);
                         let s;
                         if ((0, i.isEmpty)(r.parameters)) {
                             s = ["", (0, g.word)(n)]
@@ -43236,7 +43201,7 @@
                                     return (0, g.vsep)((0, i.empty)())
                                 }
                                 case 5: {
-                                    M = (0, i.cons)(E(t.fields[0].ident), M);
+                                    w = (0, i.cons)(E(t.fields[0].ident), w);
                                     return (0, g.vsep)((0, i.empty)())
                                 }
                                 case 0: {
@@ -43397,15 +43362,15 @@
             t.NameMangling_nameEnv = void 0;
             t.NameMangling_nameEnv$reflection = NameMangling_nameEnv$reflection;
             t.NameMangling_to_valid_identifier = NameMangling_to_valid_identifier;
-            var n = r(6638);
-            var i = r(6356);
-            var o = r(1337);
-            var s = r(4222);
-            var a = r(8443);
+            var n = r(9303);
+            var i = r(2762);
+            var o = r(8610);
+            var s = r(4522);
+            var a = r(6774);
             var l = r(1697);
             var _ = r(9386);
-            var u = r(5359);
-            var c = r(2078);
+            var u = r(126);
+            var c = r(3827);
             class NameMangling_nameEnv extends n.Record {
                 constructor(e) {
                     super();
@@ -43598,33 +43563,33 @@
                 value: true
             });
             t.codegen = codegen;
-            var n = r(6256);
+            var n = r(8241);
             var i = r(5506);
-            var o = r(5359);
-            var s = r(1337);
-            var a = r(4222);
-            var l = r(5466);
-            var _ = r(2078);
+            var o = r(126);
+            var s = r(8610);
+            var a = r(4522);
+            var l = r(1316);
+            var _ = r(3827);
             var u = r(543);
             var c = r(1383);
             var d = r(1697);
             var p = r(3833);
             var f = r(4205);
-            var h = r(9937);
+            var h = r(7350);
             var g = r(9386);
             var m = r(7936);
-            var y = r(9054);
+            var y = r(28);
 
             function codegen(e, t, r, S) {
                 let T;
                 const x = (0, n.defaultArg)(t.rename_var, (e => e));
-                const N = (0, n.defaultArg)(t.rename_ctor, (e => e));
-                const C = (0, n.defaultArg)(t.rename_field, (e => e));
+                const C = (0, n.defaultArg)(t.rename_ctor, (e => e));
+                const N = (0, n.defaultArg)(t.rename_field, (e => e));
                 const A = (0, n.defaultArg)(t.rename_type, (e => e));
                 const E = t.start_rule_qualified_type;
                 const v = t.request_resource(i.ocaml_rts_file);
-                let M = (0, o.empty)();
                 let w = (0, o.empty)();
+                let M = (0, o.empty)();
                 const b = (0, s.ofArray)(["and", "as", "assert", "asr", "begin", "class", "constraint", "do", "done", "downto", "else", "end", "exception", "external", "false", "for", "fun", "function", "functor", "if", "in", "include", "inherit", "initializer", "land", "lazy", "let", "lor", "lsl", "lsr", "lxor", "match", "method", "mod", "module", "mutable", "new", "nonrec", "object", "of", "open", "or", "private", "rec", "sig", "struct", "then", "to", "true", "try", "type", "val", "virtual", "when", "while", "with"], {
                     Compare: a.comparePrimitives
                 });
@@ -43897,11 +43862,11 @@
                                 return g.empty
                             }
                             case 3: {
-                                M = (0, o.cons)(x(t.fields[0].ident), M);
+                                w = (0, o.cons)(x(t.fields[0].ident), w);
                                 return (0, g.vsep)((0, o.empty)())
                             }
                             case 5: {
-                                w = (0, o.cons)(A(t.fields[0].ident), w);
+                                M = (0, o.cons)(A(t.fields[0].ident), M);
                                 return (0, g.vsep)((0, o.empty)())
                             }
                             case 4: {
@@ -43939,8 +43904,8 @@
                                 const r = A(e[0]);
                                 return (0, _.append)((0, _.singleton)((0, g.word)(`and ${r} = `)), (0, _.delay)((() => (0, _.append)((0, _.collect)((e => {
                                     const n = e[0];
-                                    const i = (0, o.map)((e => [C(e[0]), cg_type(e[1])]), e[1]);
-                                    const s = N(n);
+                                    const i = (0, o.map)((e => [N(e[0]), cg_type(e[1])]), e[1]);
+                                    const s = C(n);
                                     const a = (0, g.word)(r);
                                     t = (0, o.cons)([x(n), s, i, a], t);
                                     if ((0, o.isEmpty)(i)) {
@@ -43956,7 +43921,7 @@
                                 const i = A(r);
                                 const s = x(r);
                                 const a = (0, o.isEmpty)(n.parameters) ? (0, g.word)(i) : (0, g.Doc_op_Addition_Z7CFFAC00)((0, g.parens)((0, g.word)((0, h.join)(", ", (0, o.map)((e => "'" + e), n.parameters)))), (0, g.word)(i));
-                                const l = (0, _.toList)((0, _.delay)((() => (0, _.collect)((e => (0, _.singleton)([C(e[0]), cg_type(e[1])])), n.fields))));
+                                const l = (0, _.toList)((0, _.delay)((() => (0, _.collect)((e => (0, _.singleton)([N(e[0]), cg_type(e[1])])), n.fields))));
                                 return (0, o.isEmpty)(l) ? (0, _.append)((0, _.singleton)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("and"), a), (0, g.word)("=")), (0, g.word)("MK_" + i)), (0, g.word)("of unit"))), (0, _.delay)((() => {
                                     t = (0, o.cons)([s, "MK_" + i, l, a], t);
                                     return (0, _.empty)()
@@ -44031,16 +43996,16 @@
                     D = (0, o.ofArrayWithTail)([(0, g.word)(`| _ -> _unknown_token ${b}`), (0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("|"), (0, g.word)("eof ->")), (0, g.word)("EOF"))], D);
                     const j = (0, o.reverse)(B);
                     const U = (0, o.reverse)(D);
-                    const q = [n + ".ml", (0, g.vsep)((0, o.ofArray)([(0, g.word)(v), g.empty, (0, g.word)("type token ="), (0, g.vsep)((0, _.toList)((0, _.delay)((() => (0, _.append)((0, _.map)((e => (0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("|"), (0, g.word)(e)), (0, g.word)("of")), (0, g.word)("tbnf_token"))), j), (0, _.delay)((() => (0, _.singleton)((0, g.word)("| EOF"))))))))), g.empty, (0, g.vsep)(R), g.empty, (0, g.vsep)((0, o.ofArray)([(0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("let rec"), (0, g.word)(T)), (0, g.word)(b)), (0, g.word)("=")), (0, g.align)((0, g.indent)(4, (0, g.vsep)((0, o.cons)((0, g.word)(`match%sedlex ${b} with`), U))))]))]))];
-                    const H = (0, l.tryFind)("start", e.Omega);
-                    if (H != null) {
-                        const e = H;
+                    const Z = [n + ".ml", (0, g.vsep)((0, o.ofArray)([(0, g.word)(v), g.empty, (0, g.word)("type token ="), (0, g.vsep)((0, _.toList)((0, _.delay)((() => (0, _.append)((0, _.map)((e => (0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("|"), (0, g.word)(e)), (0, g.word)("of")), (0, g.word)("tbnf_token"))), j), (0, _.delay)((() => (0, _.singleton)((0, g.word)("| EOF"))))))))), g.empty, (0, g.vsep)(R), g.empty, (0, g.vsep)((0, o.ofArray)([(0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.Doc_op_Addition_Z7CFFAC00)((0, g.word)("let rec"), (0, g.word)(T)), (0, g.word)(b)), (0, g.word)("=")), (0, g.align)((0, g.indent)(4, (0, g.vsep)((0, o.cons)((0, g.word)(`match%sedlex ${b} with`), U))))]))]))];
+                    const q = (0, l.tryFind)("start", e.Omega);
+                    if (q != null) {
+                        const e = q;
                         const r = cg_symbol(new p.symbol(1, "start"));
                         const o = cg_type((0, p.monot__Prune)(e));
                         return [F, [i + ".mly", (0, g.vsep)((0, _.toList)((0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("%{")), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)(`open ${(0,d.capitalized)(m)};;`)), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)(`open ${(0,d.capitalized)(n)};;`)), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)(`open ${(0,d.capitalized)(c)};;`)), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("%}")), (0, _.delay)((() => (0, _.append)((0, _.map)((e => (0, g.word)(`%token<tbnf_token> ${e}`)), j), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("%token EOF")), (0, _.delay)((() => {
                             let e;
                             return (0, _.append)(E != null ? (e = E, (0, _.singleton)((0, g.word)(`%start <${e}> start`))) : (0, _.singleton)((0, g.word)(`%start <${o}> start`)), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)("%%")), (0, _.delay)((() => (0, _.append)((0, _.singleton)(g.empty), (0, _.delay)((() => (0, _.append)((0, _.singleton)((0, g.word)((0, h.toText)((0, h.printf)("start : %s EOF { $1 }"))(r))), (0, _.delay)((() => (0, _.singleton)(t)))))))))))))
-                        })))))))))))))))))))))))))], q]
+                        })))))))))))))))))))))))))], Z]
                     } else {
                         const e = (0, f.UnboundNonterminal)("start");
                         throw e
@@ -44055,20 +44020,20 @@
             t.angled = angled;
             t.codegen = codegen;
             var n = r(9386);
-            var i = r(5359);
-            var o = r(1337);
-            var s = r(4222);
-            var a = r(5466);
-            var l = r(2078);
+            var i = r(126);
+            var o = r(8610);
+            var s = r(4522);
+            var a = r(1316);
+            var l = r(3827);
             var _ = r(543);
             var u = r(1383);
             var c = r(1697);
             var d = r(3833);
-            var p = r(6256);
+            var p = r(8241);
             var f = r(4205);
-            var h = r(9937);
+            var h = r(7350);
             var g = r(7936);
-            var m = r(9054);
+            var m = r(28);
 
             function angled(e) {
                 return (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)("<"), e), (0, n.word)(">"))
@@ -44080,10 +44045,10 @@
                 const type_renamer = e => e;
                 let T = (0, i.empty)();
                 let x = (0, i.empty)();
-                const N = (0, o.empty)({
+                const C = (0, o.empty)({
                     Compare: s.compare
                 });
-                let C = (0, a.empty)();
+                let N = (0, a.empty)();
                 let A = (0, i.empty)();
                 const E = (0, l.toList)((0, l.delay)((() => (0, l.map)((e => [e[0], var_renamer(e[0])]), (0, _.Sigma__get_GlobalVariables)(e.Sigma)))));
                 const v = (0, u.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, u.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => {
@@ -44420,35 +44385,35 @@
                 value: true
             });
             t.codegen = codegen;
-            var n = r(6256);
-            var i = r(5359);
-            var o = r(1337);
-            var s = r(4222);
-            var a = r(5466);
-            var l = r(2078);
+            var n = r(8241);
+            var i = r(126);
+            var o = r(8610);
+            var s = r(4522);
+            var a = r(1316);
+            var l = r(3827);
             var _ = r(543);
             var u = r(1383);
             var c = r(1697);
             var d = r(3833);
             var p = r(9386);
             var f = r(4205);
-            var h = r(9937);
+            var h = r(7350);
             var g = r(417);
             var m = r(7936);
-            var y = r(9054);
+            var y = r(28);
             var S = r(8203);
 
             function codegen(e, t, r, T) {
                 let x;
-                const N = (0, n.defaultArg)(t.rename_var, (e => e));
-                const C = (0, n.defaultArg)(t.rename_ctor, (e => e));
+                const C = (0, n.defaultArg)(t.rename_var, (e => e));
+                const N = (0, n.defaultArg)(t.rename_ctor, (e => e));
                 const A = (0, n.defaultArg)(t.rename_field, (e => e));
                 const E = (0, n.defaultArg)(t.rename_type, (e => e));
                 const v = "_tbnf.FableSedlex";
-                let M = (0, i.empty)();
-                const w = "parser";
+                let w = (0, i.empty)();
+                const M = "parser";
                 const b = "grammar";
-                const F = (0, o.ofArray)([w, b], {
+                const F = (0, o.ofArray)([M, b], {
                     Compare: s.comparePrimitives
                 });
                 const B = "tokenmaps";
@@ -44460,7 +44425,7 @@
                 let O = (0, i.empty)();
                 let R = (0, a.empty)();
                 let D = (0, i.empty)();
-                const k = (0, l.toList)((0, l.delay)((() => (0, l.map)((t => (0, _.Sigma__IsGlobalVariableConstructor_Z721C83C5)(e.Sigma, t[0]) ? [t[0], C(t[0])] : [t[0], N(t[0])]), (0, _.Sigma__get_GlobalVariables)(e.Sigma)))));
+                const k = (0, l.toList)((0, l.delay)((() => (0, l.map)((t => (0, _.Sigma__IsGlobalVariableConstructor_Z721C83C5)(e.Sigma, t[0]) ? [t[0], N(t[0])] : [t[0], C(t[0])]), (0, _.Sigma__get_GlobalVariables)(e.Sigma)))));
                 const $ = (0, u.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, u.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => {
                     const r = (((0, c.isLower)(t) ? true : (0, c.isUnicode)(t)) ? true : (0, c.isUpper)(t)) ? true : t === "_";
                     return e === 0 ? r : r ? true : (0, c.isDigit)(t)
@@ -44473,17 +44438,17 @@
                 const U = (0, u.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, u.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, c.isLower)(t) : ((0, c.isLower)(t) ? true : t === "_") ? true : (0, c.isDigit)(t)), ((e, t) => (0, c.isUpper)(t) ? t.toLowerCase() : "_" + (0, u.NameMangling_maskChar)(97, 122, t.charCodeAt(0)) + "_")), new u.NameMangling_nameEnv((0, o.ofArray)(["start"], {
                     Compare: s.comparePrimitives
                 })));
-                let q;
-                const H = (0, o.union)(L, F);
-                q = e => t => (0, u.NameMangling_mangle)(H, e, t);
+                let Z;
+                const q = (0, o.union)(L, F);
+                Z = e => t => (0, u.NameMangling_mangle)(q, e, t);
                 const cg_symbol = e => {
                     const t = (0, a.tryFind)(e, P);
                     if (t == null) {
                         let t;
                         if (e.tag === 0) {
-                            t = e.fields[1] ? q(j)('"' + e.fields[0] + '"') : e.fields[0] === "EOF" ? "EOF" : q(j)(e.fields[0])
+                            t = e.fields[1] ? Z(j)('"' + e.fields[0] + '"') : e.fields[0] === "EOF" ? "EOF" : Z(j)(e.fields[0])
                         } else if (e.tag === 1) {
-                            t = e.fields[0] === "start" ? "start" : q(U)(e.fields[0])
+                            t = e.fields[0] === "start" ? "start" : Z(U)(e.fields[0])
                         } else {
                             throw new Error("macro not processed")
                         }
@@ -44495,7 +44460,7 @@
                 };
                 const name_of_named_term = e => cg_symbol(new d.symbol(0, e, false));
                 const definePyFunc = (e, t, r) => (0, p.vsep)((0, i.ofArray)([(0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("def"), (0, p.Doc_op_Multiply_Z7CFFAC00)((0, p.Doc_op_Multiply_Z7CFFAC00)(e, (0, p.parens)((0, p.seplist)((0, p.word)(", "), t))), (0, p.word)(":"))), (0, p.Doc_op_RightShift_2AAA0F3C)(r, 4)]));
-                const Z = "__tbnf_COMPONENTS";
+                const H = "__tbnf_COMPONENTS";
                 const cg_expr = (t, r, n) => (0, _.Sigma__WithExpr)(e.Sigma, n, (() => (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => {
                     let e;
                     const o = n.node;
@@ -44516,14 +44481,14 @@
                         return (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.word)((0, c.escapeString)(o.fields[0])))
                     } else if (o.tag === 5) {
                         const e = (0, i.map)((e => e[0]), o.fields[0]);
-                        const n = (0, u.DocBuilder_runCG)(cg_expr(t, (0, i.append)((0, l.toList)((0, l.delay)((() => (0, l.map)((e => [e, q($)(e)]), e)))), r), o.fields[1]));
-                        const s = q($)("lambda");
+                        const n = (0, u.DocBuilder_runCG)(cg_expr(t, (0, i.append)((0, l.toList)((0, l.delay)((() => (0, l.map)((e => [e, Z($)(e)]), e)))), r), o.fields[1]));
+                        const s = Z($)("lambda");
                         return (0, u.DocBuilder_Builder__Combine_Z5C764E00)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Yield_417FD60)(u.DocBuilder_cg, definePyFunc((0, p.word)(s), (0, i.map)(p.word, e), (0, p.vsep)((0, i.ofArray)([(0, p.vsep)(n[1]), (0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("return"), n[0])])))), (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.word)(s)))))
                     } else {
                         return o.tag === 4 ? (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, cg_expr(t, r, o.fields[1]), (e => {
-                            const n = q($)(o.fields[0]);
+                            const n = Z($)(o.fields[0]);
                             return (0, u.DocBuilder_Builder__Combine_Z5C764E00)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Yield_417FD60)(u.DocBuilder_cg, (0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(n), (0, p.word)("=")), e)), (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, (0, i.cons)([o.fields[0], n], r), o.fields[2])))))
-                        })) : o.tag === 2 ? (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__For_2B96F4AF)(u.DocBuilder_cg, o.fields[0], (e => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, r, e))))))), (e => (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.bracket)((0, p.seplist)((0, p.word)(", "), e))))) : o.tag === 7 ? (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.word)((e = o.fields[0] - 1 | 0, (0, h.toText)((0, h.printf)("%s[%d]"))(Z)(e)))) : o.tag === 1 ? (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__For_2B96F4AF)(u.DocBuilder_cg, o.fields[0], (e => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, r, e))))))), (e => {
+                        })) : o.tag === 2 ? (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__For_2B96F4AF)(u.DocBuilder_cg, o.fields[0], (e => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, r, e))))))), (e => (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.bracket)((0, p.seplist)((0, p.word)(", "), e))))) : o.tag === 7 ? (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.word)((e = o.fields[0] - 1 | 0, (0, h.toText)((0, h.printf)("%s[%d]"))(H)(e)))) : o.tag === 1 ? (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__For_2B96F4AF)(u.DocBuilder_cg, o.fields[0], (e => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, r, e))))))), (e => {
                             const t = e;
                             return !(0, i.isEmpty)(t) ? (0, i.isEmpty)((0, i.tail)(t)) ? (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.parens)((0, p.Doc_op_Addition_Z7CFFAC00)((0, i.head)(t), (0, p.word)(",")))) : (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.parens)((0, p.seplist)((0, p.word)(", "), t))) : (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.parens)(p.empty))
                         })) : (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, cg_expr(t, r, o.fields[0]), (e => (0, u.DocBuilder_Builder__Bind_30A200B3)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Run_ZD0BB270)(u.DocBuilder_cg, (0, u.DocBuilder_Builder__Delay_Z3A9C5A06)(u.DocBuilder_cg, (() => (0, u.DocBuilder_Builder__For_2B96F4AF)(u.DocBuilder_cg, o.fields[1], (e => (0, u.DocBuilder_Builder__ReturnFrom_ZD0BB270)(u.DocBuilder_cg, cg_expr(t, r, e))))))), (t => (0, u.DocBuilder_Builder__Return_1505)(u.DocBuilder_cg, (0, p.Doc_op_Multiply_Z7CFFAC00)(e, (0, p.parens)((0, p.seplist)((0, p.word)(", "), t))))))))
@@ -44605,18 +44570,18 @@
                 const G = (0, h.toText)((0, h.printf)("%s_parser"))(r);
                 const V = (0, h.toText)((0, h.printf)("%s_construct"))(r);
                 const W = B;
-                const Y = q($)("Lexer");
-                const X = q($)("Sedlex");
+                const Y = Z($)("Lexer");
+                const X = Z($)("Sedlex");
                 const Q = E("token");
-                const J = q($)("is_eof");
-                const ee = q($)("construct_token");
-                const te = q($)("lexall");
-                const re = q($)("from_ustring");
-                const ne = q($)("Transformer");
-                const ie = q($)("RBNFTransformer");
-                const oe = q($)("Lark");
-                const se = q($)("dataclasses");
-                const ae = q($)("typing");
+                const J = Z($)("is_eof");
+                const ee = Z($)("construct_token");
+                const te = Z($)("lexall");
+                const re = Z($)("from_ustring");
+                const ne = Z($)("Transformer");
+                const ie = Z($)("RBNFTransformer");
+                const oe = Z($)("Lark");
+                const se = Z($)("dataclasses");
+                const ae = Z($)("typing");
                 const _cg_type = e => {
                     let t, r, n, o;
                     if (e.tag === 4) {
@@ -44707,7 +44672,7 @@
                                 return p.empty
                             }
                             case 3: {
-                                M = (0, i.cons)(N(t.fields[0].ident), M);
+                                w = (0, i.cons)(C(t.fields[0].ident), w);
                                 return p.empty
                             }
                             case 4: {
@@ -44716,7 +44681,7 @@
                             case 5: {
                                 const e = t.fields[0];
                                 if (e.external) {
-                                    M = (0, i.cons)(E(e.ident), M)
+                                    w = (0, i.cons)(E(e.ident), w)
                                 }
                                 return p.empty
                             }
@@ -44736,7 +44701,7 @@
                                     s = (0, h.toText)((0, h.printf)("%s_%i"))(n)(a);
                                     return (0, l.append)((0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.seplist)((0, p.word)(" "), (0, i.map)((e => (0, p.word)(cg_symbol(e))), r.symbols)), (0, p.word)("->")), (0, p.word)(s))), (0, l.delay)((() => {
                                         const e = (0, u.DocBuilder_runCG)(cg_expr(s, k, r.action));
-                                        const t = definePyFunc((0, p.word)(s), (0, i.ofArray)([(0, p.word)("self"), (0, p.word)(Z)]), (0, p.vsep)((0, i.ofArray)([(0, p.vsep)(e[1]), (0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("return"), e[0])])));
+                                        const t = definePyFunc((0, p.word)(s), (0, i.ofArray)([(0, p.word)("self"), (0, p.word)(H)]), (0, p.vsep)((0, i.ofArray)([(0, p.vsep)(e[1]), (0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("return"), e[0])])));
                                         O = (0, i.ofArrayWithTail)([t, p.empty], O);
                                         o = o + 1 | 0;
                                         return (0, l.empty)()
@@ -44746,15 +44711,15 @@
                             }
                         }
                     }), T)));
-                    const n = (0, p.parens)((0, p.seplist)((0, p.word)(","), (0, i.map)(p.word, M)));
+                    const n = (0, p.parens)((0, p.seplist)((0, p.word)(","), (0, i.map)(p.word, w)));
                     const f = [V + ".py", (0, p.vsep)((0, l.toList)((0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)("from __future__ import annotations as __01asda1ha")), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from lark import Token as ${Q}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`import dataclasses as ${se}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`import typing as ${ae}`)), (0, l.delay)((() => {
                         const t = (0, _.Sigma__GetADTCases)(e.Sigma);
-                        return (0, l.append)(!(0, i.isEmpty)(M) ? (0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(`from .${K} import`), n)) : (0, l.empty)(), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.collect)((e => {
+                        return (0, l.append)(!(0, i.isEmpty)(w) ? (0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(`from .${K} import`), n)) : (0, l.empty)(), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.collect)((e => {
                             const t = E(e[0]);
                             let r = (0, i.empty)();
                             return (0, l.append)((0, l.collect)((e => {
                                 const t = e[1];
-                                const n = C(e[0]);
+                                const n = N(e[0]);
                                 r = (0, i.cons)((0, p.word)(n), r);
                                 return (0, l.append)((0, l.singleton)((0, p.word)(`@${se}.dataclass`)), (0, l.delay)((() => (0, l.append)((0, i.length)(t) === 0 ? (0, l.append)((0, l.singleton)((0, p.word)(`class ${n}:`)), (0, l.delay)((() => (0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.word)("pass"), 4))))) : (0, l.append)((0, l.singleton)((0, p.word)(`class ${n}:`)), (0, l.delay)((() => (0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)((0, l.toList)((0, l.delay)((() => (0, l.collect)((e => (0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Multiply_Z7CFFAC00)((0, p.word)(A(e[0])), (0, p.word)(":")), (0, p.word)(cg_type(e[1]))))), t))))), 4))))), (0, l.delay)((() => (0, l.singleton)(p.empty)))))))
                             }), (0, a.toArray)(e[1])), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`if ${ae}.TYPE_CHECKING:`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)((0, l.toList)((0, l.delay)((() => {
@@ -44765,7 +44730,7 @@
                             const t = e[0];
                             const r = e[1];
                             const n = E(t);
-                            const o = N(t);
+                            const o = C(t);
                             return (0, l.append)((0, l.singleton)((0, p.word)(`@${se}.dataclass`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`class ${n}:`)), (0, l.delay)((() => (0, l.append)((0, i.isEmpty)(r.fields) ? (0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.word)("pass"), 4)) : (0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)((0, l.toList)((0, l.delay)((() => (0, l.collect)((e => {
                                 const t = A(e[0]);
                                 const r = cg_type(e[1]);
@@ -44812,11 +44777,500 @@
                     F = (0, i.cons)("UNKNOWN", F);
                     const j = (0, i.reverse)(x);
                     const U = (0, i.reverse)(F);
-                    const q = (0, i.toArray)((0, i.reverse)((0, i.cons)([g.peof, new g.keep_token(1, -1)], m)));
+                    const Z = (0, i.toArray)((0, i.reverse)((0, i.cons)([g.peof, new g.keep_token(1, -1)], m)));
                     return [f, [r + ".lark", (0, p.vsep)((0, i.ofArray)([t, (0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("%declare"), (0, p.seplist)((0, p.word)(" "), (0, i.map)(p.word, j)))]))],
-                        [z + ".py", (0, S.codegen_python)(v, (0, g.build)(q, "the last branch must be a catch-all error case!"))],
-                        [G + ".py", (0, p.vsep)((0, l.toList)((0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)("from __future__ import annotations")), (0, l.delay)((() => (0, l.append)(!(0, i.isEmpty)(M) ? (0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(`from .${K} import`), n)) : (0, l.empty)(), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from .${z} import lexall as ${te}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from .${V} import *`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from lark.lexer import Lexer as ${Y}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from lark import Transformer as ${ne}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from lark import Lark as ${oe}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from ${v}.sedlex import from_ustring as ${re}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(W), (0, p.word)("=")), (0, p.bracket)((0, p.seplist)((0, p.word)(", "), (0, i.map)((e => (0, p.word)((0, c.escapeString)(e))), j))))), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(I), (0, p.word)("=")), (0, p.bracket)((0, p.seplist)((0, p.word)(", "), (0, i.map)((e => (0, p.word)((0, c.escapeString)(e))), U))))), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)(definePyFunc((0, p.word)(ee), (0, i.ofArray)([(0, p.word)("token_id"), (0, p.word)("lexeme"), (0, p.word)("line"), (0, p.word)("col"), (0, p.word)("span"), (0, p.word)("offset"), (0, p.word)("file")]), (0, p.vsep)((0, i.ofArray)([(0, p.word)(`if token_id == -1: return ${Q}("EOF", "")`), (0, p.word)(`return ${Q}(${W}[token_id], lexeme, offset, line, col, None, None, span + offset)`)])))), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)(definePyFunc((0, p.word)(J), (0, i.singleton)((0, p.word)("token")), (0, p.word)('return token.type == "EOF"'))), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`class ${X}(${Y}):`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)((0, i.ofArray)([definePyFunc((0, p.word)("__init__"), (0, i.ofArray)([(0, p.word)("self"), (0, p.word)("lex_conf")]), (0, p.word)("pass")), definePyFunc((0, p.word)("lex"), (0, i.ofArray)([(0, p.word)("self"), (0, p.word)("raw_string")]), (0, p.vsep)((0, i.ofArray)([(0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("lexbuf"), (0, p.word)("=")), (0, p.word)(`${re}(raw_string)`)), (0, p.word)(`return ${te}(lexbuf, ${ee}, ${J})`)])))])), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`class ${ie}(${ne}):`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)(O), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.word)("pass"), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`with (__import__('pathlib').Path(__file__).parent /'${r}.lark').open(encoding='utf8') as __0123fx9:`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(b), (0, p.word)("= __0123fx9.read()")), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(w), (0, p.word)("=")), (0, p.Doc_op_Multiply_Z7CFFAC00)((0, p.word)(oe), (0, p.parens)((0, p.seplist)((0, p.word)(", "), (0, i.ofArray)([(0, p.word)(b), (0, p.word)("start='start'"), (0, p.word)("parser='lalr'"), (0, p.word)(`lexer=${X}`), (0, p.word)(`transformer=${ie}()`), (0, p.word)("keep_all_tokens=True")]))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))]
+                        [z + ".py", (0, S.codegen_python)(v, (0, g.build)(Z, "the last branch must be a catch-all error case!"))],
+                        [G + ".py", (0, p.vsep)((0, l.toList)((0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)("from __future__ import annotations")), (0, l.delay)((() => (0, l.append)(!(0, i.isEmpty)(w) ? (0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(`from .${K} import`), n)) : (0, l.empty)(), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from .${z} import lexall as ${te}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from .${V} import *`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from lark.lexer import Lexer as ${Y}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from lark import Transformer as ${ne}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from lark import Lark as ${oe}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`from ${v}.sedlex import from_ustring as ${re}`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(W), (0, p.word)("=")), (0, p.bracket)((0, p.seplist)((0, p.word)(", "), (0, i.map)((e => (0, p.word)((0, c.escapeString)(e))), j))))), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(I), (0, p.word)("=")), (0, p.bracket)((0, p.seplist)((0, p.word)(", "), (0, i.map)((e => (0, p.word)((0, c.escapeString)(e))), U))))), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)(definePyFunc((0, p.word)(ee), (0, i.ofArray)([(0, p.word)("token_id"), (0, p.word)("lexeme"), (0, p.word)("line"), (0, p.word)("col"), (0, p.word)("span"), (0, p.word)("offset"), (0, p.word)("file")]), (0, p.vsep)((0, i.ofArray)([(0, p.word)(`if token_id == -1: return ${Q}("EOF", "")`), (0, p.word)(`return ${Q}(${W}[token_id], lexeme, offset, line, col, None, None, span + offset)`)])))), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)(definePyFunc((0, p.word)(J), (0, i.singleton)((0, p.word)("token")), (0, p.word)('return token.type == "EOF"'))), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`class ${X}(${Y}):`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)((0, i.ofArray)([definePyFunc((0, p.word)("__init__"), (0, i.ofArray)([(0, p.word)("self"), (0, p.word)("lex_conf")]), (0, p.word)("pass")), definePyFunc((0, p.word)("lex"), (0, i.ofArray)([(0, p.word)("self"), (0, p.word)("raw_string")]), (0, p.vsep)((0, i.ofArray)([(0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)("lexbuf"), (0, p.word)("=")), (0, p.word)(`${re}(raw_string)`)), (0, p.word)(`return ${te}(lexbuf, ${ee}, ${J})`)])))])), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`class ${ie}(${ne}):`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.vsep)(O), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.word)("pass"), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.word)(`with (__import__('pathlib').Path(__file__).parent /'${r}.lark').open(encoding='utf8') as __0123fx9:`)), (0, l.delay)((() => (0, l.append)((0, l.singleton)((0, p.Doc_op_RightShift_2AAA0F3C)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(b), (0, p.word)("= __0123fx9.read()")), 4)), (0, l.delay)((() => (0, l.append)((0, l.singleton)(p.empty), (0, l.delay)((() => (0, l.singleton)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.Doc_op_Addition_Z7CFFAC00)((0, p.word)(M), (0, p.word)("=")), (0, p.Doc_op_Multiply_Z7CFFAC00)((0, p.word)(oe), (0, p.parens)((0, p.seplist)((0, p.word)(", "), (0, i.ofArray)([(0, p.word)(b), (0, p.word)("start='start'"), (0, p.word)("parser='lalr'"), (0, p.word)(`lexer=${X}`), (0, p.word)(`transformer=${ie}()`), (0, p.word)("keep_all_tokens=True")]))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))]
                     ]
+                }))
+            }
+        },
+        1500: (e, t, r) => {
+            Object.defineProperty(t, "__esModule", {
+                value: true
+            });
+            t.CSharpKeywords = void 0;
+            t.angled = angled;
+            t.codegen = codegen;
+            var n = r(9386);
+            var i = r(8241);
+            var o = r(126);
+            var s = r(8610);
+            var a = r(28);
+            var l = r(4522);
+            var _ = r(1316);
+            var u = r(3827);
+            var c = r(543);
+            var d = r(1383);
+            var p = r(1697);
+            var f = r(3833);
+            var h = r(4205);
+            var g = r(7350);
+            var m = r(7936);
+            const y = ["__arglist", "__makeref", "__reftype", "__refvalue", "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "volatile", "void", "while", "lexer", "parser"];
+            t.CSharpKeywords = y;
+
+            function angled(e) {
+                return (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)("<"), e), (0, n.word)(">"))
+            }
+
+            function codegen(e, t, r, S) {
+                let T;
+                const x = (0, i.defaultArg)(t.rename_var, (e => e));
+                const C = (0, i.defaultArg)(t.rename_ctor, (e => e));
+                const N = (0, i.defaultArg)(t.rename_var, (e => e));
+                const A = (0, i.defaultArg)(t.rename_field, (e => e));
+                const E = (0, i.defaultArg)(t.rename_type, (e => e));
+                let v = (0, o.empty)();
+                let w = (0, o.empty)();
+                const M = (0, s.ofArray)((0, a.append)(["result"], y), {
+                    Compare: l.comparePrimitives
+                });
+                let b = (0, _.empty)();
+                let F = (0, o.empty)();
+                const B = (0, u.toList)((0, u.delay)((() => (0, u.map)((e => [e[0], x(e[0])]), (0, c.Sigma__get_GlobalVariables)(e.Sigma)))));
+                const I = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => {
+                    const r = (((0, p.isLower)(t) ? true : (0, p.isUpper)(t)) ? true : (0, p.isUnicode)(t)) ? true : t === "_";
+                    return e === 0 ? r : r ? true : (0, p.isDigit)(t)
+                }), ((e, t) => (0, p.isDigit)(t) ? `_X${e}_` : `_${t.charCodeAt(0)}_`)), new d.NameMangling_nameEnv((0, s.ofList)((0, o.map)((e => e[1]), B), {
+                    Compare: l.comparePrimitives
+                })));
+                const L = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, p.isUpper)(t) : ((0, p.isUpper)(t) ? true : t === "_") ? true : (0, p.isDigit)(t)), ((e, t) => (0, p.isLower)(t) ? t.toUpperCase() : e === 0 ? (0, d.NameMangling_maskChar)(65, 90, t.charCodeAt(0)) + "_" : "_" + (0, d.NameMangling_maskChar)(65, 90, t.charCodeAt(0)) + "_")), new d.NameMangling_nameEnv((0, s.ofArray)(["EOF"], {
+                    Compare: l.comparePrimitives
+                })));
+                const P = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, p.isLower)(t) : ((0, p.isLower)(t) ? true : t === "_") ? true : (0, p.isDigit)(t)), ((e, t) => (0, p.isUpper)(t) ? t.toLowerCase() : "_" + (0, d.NameMangling_maskChar)(97, 122, t.charCodeAt(0)) + "_")), new d.NameMangling_nameEnv((0, s.ofArray)(["start"], {
+                    Compare: l.comparePrimitives
+                })));
+                const mangle = (e, t) => (0, d.NameMangling_mangle)(M, e, t);
+                const cg_symbol = e => {
+                    const t = (0, _.tryFind)(e, b);
+                    if (t == null) {
+                        let t;
+                        switch (e.tag) {
+                            case 0: {
+                                const r = e.fields[0];
+                                t = e.fields[1] ? (0, p.escapeStringSingleQuoted)(r) : mangle(L, r);
+                                break
+                            }
+                            case 1: {
+                                t = mangle(P, e.fields[0]);
+                                break
+                            }
+                            default: {
+                                throw new Error("macro not processed")
+                            }
+                        }
+                        b = (0, _.add)(e, t, b);
+                        return t
+                    } else {
+                        return t
+                    }
+                };
+                const name_of_named_term = e => cg_symbol(new f.symbol(0, e, false));
+                const tryLookup = (e, t) => {
+                    e: while (true) {
+                        const r = e,
+                            n = t;
+                        if (!(0, o.isEmpty)(n)) {
+                            if ((0, l.equals)((0, o.head)(n)[0], r)) {
+                                return (0, i.some)((0, o.head)(n)[1])
+                            } else if (!(0, o.isEmpty)(n)) {
+                                e = r;
+                                t = (0, o.tail)(n);
+                                continue e
+                            } else {
+                                throw new Error("Match failure")
+                            }
+                        } else {
+                            return void 0
+                        }
+                        break
+                    }
+                };
+                const _cg_type = e => {
+                    let t, r, n, i, s;
+                    if (e.tag === 4) {
+                        t = 1;
+                        n = e.fields[0]
+                    } else if (e.tag === 0) {
+                        t = 2
+                    } else if (e.tag === 3) {
+                        t = 3;
+                        i = e.fields[0];
+                        s = e.fields[1]
+                    } else if (e.tag === 2) {
+                        if ((0, f.$007CTTuple$007C_$007C)(e.fields[0]) != null) {
+                            if ((0, o.isEmpty)(e.fields[1])) {
+                                t = 4
+                            } else {
+                                t = 5
+                            }
+                        } else {
+                            t = 5
+                        }
+                    } else {
+                        t = 0;
+                        r = e.fields[0]
+                    }
+                    switch (t) {
+                        case 0: {
+                            return E(r)
+                        }
+                        case 1: {
+                            return "_GEN_" + n
+                        }
+                        case 2: {
+                            const e = new h.UnsolvedTypeVariable;
+                            throw e
+                        }
+                        case 3: {
+                            return (0, g.join)(", ", (0, o.map)((e => e[0] + ":" + _cg_type(e[1])), i)) + " => " + _cg_type(s)
+                        }
+                        case 4: {
+                            throw new Error("[]")
+                        }
+                        case 5: {
+                            let t, r;
+                            if (e.tag === 2) {
+                                if ((0, f.$007CTTuple$007C_$007C)(e.fields[0]) != null) {
+                                    t = 0;
+                                    r = e.fields[1]
+                                } else {
+                                    t = 1
+                                }
+                            } else {
+                                t = 1
+                            }
+                            switch (t) {
+                                case 0: {
+                                    return "[" + (0, g.join)(", ", (0, o.map)(_cg_type, r)) + "]"
+                                }
+                                case 1: {
+                                    if (e.tag === 2) {
+                                        const t = (0, g.join)(", ", (0, o.map)(_cg_type, e.fields[1]));
+                                        return _cg_type(e.fields[0]) + "<" + t + ">"
+                                    } else {
+                                        throw new Error("Match failure")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+                const cg_type = e => _cg_type((0, f.monot__Prune)(e));
+                const slotName = (e, t) => `${e}__${t}`;
+                const O = "result";
+                const mk_lexer = e => {
+                    if (e.tag === 9) {
+                        return "(" + mk_lexer(e.fields[0]) + ")"
+                    } else if (e.tag === 5) {
+                        return `~${mk_lexer(e.fields[0])}`
+                    } else if (e.tag === 0) {
+                        return "[0-9]"
+                    } else if (e.tag === 6) {
+                        return `${mk_lexer(e.fields[0])}+`
+                    } else if (e.tag === 7) {
+                        return `${mk_lexer(e.fields[0])}*`
+                    } else if (e.tag === 1) {
+                        return "."
+                    } else if (e.tag === 11) {
+                        const t = (0, p.List_tryLookup)(e.fields[0], F);
+                        if (t == null) {
+                            const t = (0, h.UnboundLexer)(e.fields[0]);
+                            throw t
+                        } else {
+                            return name_of_named_term(e.fields[0])
+                        }
+                    } else if (e.tag === 2) {
+                        return (0, g.join)(" ", (0, o.toArray)((0, o.map)(mk_lexer, e.fields[0])))
+                    } else if (e.tag === 10) {
+                        return `[${(0,p.iToU4)(e.fields[0])}-${(0,p.iToU4)(e.fields[1])}]`
+                    } else if (e.tag === 4) {
+                        if ((0, o.isEmpty)(e.fields[0])) {
+                            throw new Error("impossible: alternatives cannot be empty.")
+                        } else {
+                            return (0, g.join)(" | ", (0, o.toArray)((0, o.map)(mk_lexer, e.fields[0])))
+                        }
+                    } else if (e.tag === 8) {
+                        return `${mk_lexer(e.fields[0])}?`
+                    } else {
+                        return (0, p.escapeStringSingleQuoted)(e.fields[0])
+                    }
+                };
+                const mk_lexer_debug = e => {
+                    const t = mk_lexer_debug;
+                    if (e.tag === 9) {
+                        return t(e.fields[0])
+                    } else if (e.tag === 5) {
+                        return `pnot(${t(e.fields[0])})`
+                    } else if (e.tag === 0) {
+                        return "pnumber"
+                    } else if (e.tag === 6) {
+                        return `pplus(${t(e.fields[0])})`
+                    } else if (e.tag === 7) {
+                        return `pstar(${t(e.fields[0])})`
+                    } else if (e.tag === 1) {
+                        return "pany"
+                    } else if (e.tag === 11) {
+                        return e.fields[0]
+                    } else if (e.tag === 2) {
+                        const t = (0, g.join)(", ", (0, u.ofList)((0, o.map)(mk_lexer_debug, e.fields[0])));
+                        return `pseq([${t}])`
+                    } else if (e.tag === 10) {
+                        return `pinterval(${e.fields[0]}, ${e.fields[1]})`
+                    } else if (e.tag === 4) {
+                        if (!(0, o.isEmpty)(e.fields[0])) {
+                            return (0, o.fold)(((e, t) => `por(${e}, ${t})`), t((0, o.head)(e.fields[0])), (0, o.map)(mk_lexer_debug, (0, o.tail)(e.fields[0])))
+                        } else {
+                            throw new Error("impossible: alternatives cannot be empty.")
+                        }
+                    } else if (e.tag === 8) {
+                        return `popt${t(e.fields[0])}`
+                    } else {
+                        return `pstring(${(0,p.escapeString)(e.fields[0])})`
+                    }
+                };
+                const simplify_lexerule = e => {
+                    switch (e.tag) {
+                        case 1:
+                        case 10:
+                        case 11:
+                        case 3: {
+                            return e
+                        }
+                        case 9: {
+                            return _must_be_atom_rule(e.fields[0])
+                        }
+                        case 5: {
+                            return new f.lexerule(5, _must_be_atom_rule(e.fields[0]))
+                        }
+                        case 8: {
+                            return new f.lexerule(8, _must_be_atom_rule(e.fields[0]))
+                        }
+                        case 6: {
+                            return new f.lexerule(6, _must_be_atom_rule(e.fields[0]))
+                        }
+                        case 7: {
+                            return new f.lexerule(7, _must_be_atom_rule(e.fields[0]))
+                        }
+                        case 4: {
+                            return new f.lexerule(4, (0, o.map)(_must_be_atom_rule, e.fields[0]))
+                        }
+                        case 2: {
+                            return new f.lexerule(2, (0, o.map)(_must_be_atom_rule, e.fields[0]))
+                        }
+                        default: {
+                            return e
+                        }
+                    }
+                };
+                const _must_be_atom_rule = e => {
+                    e: while (true) {
+                        const t = e;
+                        switch (t.tag) {
+                            case 1:
+                            case 10:
+                            case 11:
+                            case 3: {
+                                return t
+                            }
+                            case 5: {
+                                return new f.lexerule(5, _must_be_atom_rule(t.fields[0]))
+                            }
+                            case 8: {
+                                return new f.lexerule(8, _must_be_atom_rule(t.fields[0]))
+                            }
+                            case 6: {
+                                return new f.lexerule(6, _must_be_atom_rule(t.fields[0]))
+                            }
+                            case 7: {
+                                return new f.lexerule(7, _must_be_atom_rule(t.fields[0]))
+                            }
+                            case 4: {
+                                return new f.lexerule(9, new f.lexerule(4, (0, o.map)(_must_be_atom_rule, t.fields[0])))
+                            }
+                            case 2: {
+                                return new f.lexerule(9, new f.lexerule(2, (0, o.map)(_must_be_atom_rule, t.fields[0])))
+                            }
+                            case 9: {
+                                e = t.fields[0];
+                                continue e
+                            }
+                            default: {
+                                return t
+                            }
+                        }
+                        break
+                    }
+                };
+                return (0, m.withErrorHandler)((T = e.Sigma, () => (0, c.Sigma__GetErrorTrace)(T)), (() => {
+                    if (!(0, o.isEmpty)((0, c.Sigma__GetADTCases)(e.Sigma))) {
+                        throw new Error("typescript backend does not support defining ADTs yet.")
+                    }
+                    if (!(0, o.isEmpty)((0, c.Sigma__GetRecordTypes)(e.Sigma))) {
+                        throw new Error("typescript backend does not support defining records yet.")
+                    }
+                    const parensIfLOr = e => {
+                        if (e.tag === 4) {
+                            return (0, n.parens)((0, n.word)(mk_lexer(e)))
+                        } else {
+                            return (0, n.word)(mk_lexer(e))
+                        }
+                    };
+                    const t = (0, _.tryFind)("start", e.Omega);
+                    if (t != null) {
+                        const i = t;
+                        const m = (0, n.vsep)((0, o.ofArray)((0, a.map)((t => {
+                            (0, c.Sigma__SetCurrentDefinition_Z759AB257)(e.Sigma, t);
+                            switch (t.tag) {
+                                case 2: {
+                                    const e = t.fields[0];
+                                    F = (0, o.cons)([e.lhs, e.define], F);
+                                    return n.empty
+                                }
+                                case 6: {
+                                    return (0, n.vsep)((0, o.empty)())
+                                }
+                                case 4: {
+                                    return (0, n.vsep)((0, o.empty)())
+                                }
+                                case 3: {
+                                    v = (0, o.cons)(x(t.fields[0].ident), v);
+                                    return (0, n.vsep)((0, o.empty)())
+                                }
+                                case 5: {
+                                    const e = t.fields[0];
+                                    if (e.external) {
+                                        w = (0, o.cons)(E(e.ident), w)
+                                    }
+                                    return (0, n.vsep)((0, o.empty)())
+                                }
+                                case 0: {
+                                    throw new Error("macro not processed")
+                                }
+                                default: {
+                                    const r = t.fields[0];
+                                    const i = r.lhs;
+                                    const a = cg_symbol(new f.symbol(1, i));
+                                    let m;
+                                    const y = new f.symbol(1, i);
+                                    switch (y.tag) {
+                                        case 0: {
+                                            m = f.TConst_token;
+                                            break
+                                        }
+                                        case 1: {
+                                            m = (0, _.FSharpMap__get_Item)(e.Omega, y.fields[0]);
+                                            break
+                                        }
+                                        default: {
+                                            throw new Error("macro not processed")
+                                        }
+                                    }
+                                    let S = 0;
+                                    const T = (0, n.align)((0, n.vsep)((0, o.mapIndexed)(((e, t) => (0, n.Doc_op_Addition_Z7CFFAC00)(e === 0 ? (0, n.word)(":") : (0, n.word)("|"), t)), (0, u.toList)((0, u.delay)((() => (0, u.collect)((t => {
+                                        let r, i, _, m, y, T;
+                                        let x;
+                                        const C = S | 0;
+                                        x = (0, g.toText)((0, g.printf)("%s_%i"))(a)(C);
+                                        (0, c.Sigma__SetCurrentPos_Z302187B)(e.Sigma, t[0]);
+                                        (0, c.Sigma__SetCurrentDefinitionBranch_Z524259A4)(e.Sigma, S);
+                                        S = S + 1 | 0;
+                                        return (0, u.append)((0, u.singleton)((r = t[1], i = x, _ = (m = r.action, y = (0, u.toArray)((0, u.delay)((() => (0, u.map)((e => e.tag === 0), r.symbols)))), (0, c.Sigma__WithExpr)(e.Sigma, m, (() => {
+                                            let e = (0, s.empty)({
+                                                Compare: l.comparePrimitives
+                                            });
+                                            const cg_expr = (t, r) => (0, d.DocBuilder_Builder__Run_ZD0BB270)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => {
+                                                let a, l, _, c;
+                                                const m = r.node;
+                                                if (m.tag === 6) {
+                                                    const e = tryLookup(m.fields[0], t);
+                                                    if (e != null) {
+                                                        const t = e;
+                                                        return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, o.length)(m.fields[1].contents) === 0 ? (0, n.word)(t) : (a = (l = (0, o.map)((e => (0, n.word)(cg_type(e))), (0, o.map)(f.monot__Prune, m.fields[1].contents)), (0, n.seplist)((0, n.word)(", "), l)), (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)(t), (0, n.word)("<")), a), (0, n.word)(">"))))
+                                                    } else {
+                                                        return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (() => {
+                                                            throw (0, h.UnboundVariable)(m.fields[0])
+                                                        })())
+                                                    }
+                                                } else if (m.tag === 11) {
+                                                    return m.fields[0] ? (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.word)("true")) : (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.word)("false"))
+                                                } else if (m.tag === 3) {
+                                                    return (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, cg_expr(t, m.fields[0]), (e => (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)(e, (0, n.word)(".")), (0, n.word)(m.fields[1])))))
+                                                } else if (m.tag === 8) {
+                                                    return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.word)((0, g.toText)((0, g.printf)("%d"))(m.fields[0])))
+                                                } else if (m.tag === 10) {
+                                                    return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.word)((0, g.toText)((0, g.printf)("%f"))(m.fields[0])))
+                                                } else if (m.tag === 9) {
+                                                    return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.word)((0, p.escapeString)(m.fields[0])))
+                                                } else if (m.tag === 5) {
+                                                    const e = (0, d.DocBuilder_runCG)(cg_expr((0, o.append)((0, u.toList)((0, u.delay)((() => (0, u.collect)((e => {
+                                                        const t = e[0];
+                                                        return (0, u.singleton)([t, mangle(I, t)])
+                                                    }), m.fields[0])))), t), m.fields[1]));
+                                                    return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (_ = (0, n.vsep)((0, o.ofArray)([(0, n.vsep)(e[1]), (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("return"), (0, n.Doc_op_Multiply_Z7CFFAC00)(e[0], (0, n.word)(";")))])), c = (0, o.map)((e => (0, n.word)(cg_type(e[1]) + " " + e[0])), m.fields[0]), (0, n.parens)((0, n.vsep)((0, o.ofArray)([(0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("function"), (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.parens)((0, n.seplist)((0, n.word)(", "), c)), (0, n.word)("{"))), (0, n.Doc_op_RightShift_2AAA0F3C)(_, 4), (0, n.word)("}")])))))
+                                                } else if (m.tag === 4) {
+                                                    return (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, cg_expr(t, m.fields[1]), (e => {
+                                                        const r = mangle(I, m.fields[0]);
+                                                        return (0, d.DocBuilder_Builder__Combine_Z5C764E00)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Yield_417FD60)(d.DocBuilder_cg, (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("let"), (0, n.word)(r)), (0, n.word)(":")), (0, n.word)(cg_type(m.fields[1].t))), (0, n.word)("=")), (0, n.Doc_op_Multiply_Z7CFFAC00)(e, (0, n.word)(";")))), (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => (0, d.DocBuilder_Builder__ReturnFrom_ZD0BB270)(d.DocBuilder_cg, cg_expr((0, o.cons)([m.fields[0], r], t), m.fields[2])))))
+                                                    }))
+                                                } else if (m.tag === 2) {
+                                                    return (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Run_ZD0BB270)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => (0, d.DocBuilder_Builder__For_2B96F4AF)(d.DocBuilder_cg, m.fields[0], (e => (0, d.DocBuilder_Builder__ReturnFrom_ZD0BB270)(d.DocBuilder_cg, cg_expr(t, e))))))), (e => (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)(`<${cg_type(r.t)}>`), (0, n.word)("[")), (0, n.seplist)((0, n.word)(","), e)), (0, n.word)("]")))))
+                                                } else if (m.tag === 7) {
+                                                    const t = slotName(i, m.fields[0]);
+                                                    e = (0, s.add)(m.fields[0], e);
+                                                    const r = (0, n.word)(`_localctx._${t}`);
+                                                    return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, y[m.fields[0] - 1] ? r : (0, n.Doc_op_Multiply_Z7CFFAC00)(r, (0, n.word)(".result")))
+                                                } else {
+                                                    return m.tag === 1 ? (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Run_ZD0BB270)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => (0, d.DocBuilder_Builder__For_2B96F4AF)(d.DocBuilder_cg, m.fields[0], (e => (0, d.DocBuilder_Builder__ReturnFrom_ZD0BB270)(d.DocBuilder_cg, cg_expr(t, e))))))), (e => (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)(`<${cg_type(r.t)}>`), (0, n.bracket)((0, n.seplist)((0, n.word)(", "), e)))))) : (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, cg_expr(t, m.fields[0]), (e => (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Run_ZD0BB270)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => (0, d.DocBuilder_Builder__For_2B96F4AF)(d.DocBuilder_cg, m.fields[1], (e => {
+                                                        const r = e;
+                                                        return (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, cg_expr(t, r), (e => (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.Doc_op_Addition_Z7CFFAC00)(angled((0, n.word)(cg_type(r.t))), e))))
+                                                    }))))), (t => {
+                                                        const i = cg_type(r.t);
+                                                        return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(`<${i}>`), (0, n.Doc_op_Multiply_Z7CFFAC00)(e, (0, n.parens)((0, n.seplist)((0, n.word)(", "), t)))))
+                                                    }))))
+                                                }
+                                            })));
+                                            const t = (0, d.DocBuilder_runCG)(cg_expr(B, m));
+                                            return [e, t]
+                                        }))), (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((T = (0, o.mapIndexed)(((e, t) => {
+                                            const r = e + 1 | 0;
+                                            const o = (0, n.word)(cg_symbol(t));
+                                            if ((0, s.contains)(r, _[0])) {
+                                                return (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)(slotName(i, r)), (0, n.word)("=")), o)
+                                            } else {
+                                                return o
+                                            }
+                                        }), r.symbols), (0, n.seplist)((0, n.word)(" "), T)), (0, n.word)("{")), (0, n.Doc_op_RightShift_2AAA0F3C)((0, n.vsep)((0, o.ofArray)([n.empty, (0, n.Doc_op_RightShift_2AAA0F3C)((0, n.vsep)((0, o.ofArray)([(0, n.vsep)(_[1][1]), (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("$" + O), (0, n.word)("=")), (0, n.Doc_op_Multiply_Z7CFFAC00)(_[1][0], (0, n.word)(";")))])), 4), (0, n.word)("}")])), 12)))), (0, u.delay)((() => {
+                                            S = S + 1 | 0;
+                                            return (0, u.empty)()
+                                        })))
+                                    }), r.define)))))));
+                                    return (0, n.vsep)((0, o.ofArray)([(0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(a), (0, n.word)("returns")), (0, n.bracket)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(cg_type(m)), (0, n.word)(O)))), (0, n.Doc_op_RightShift_2AAA0F3C)(T, 4), (0, n.word)(";")]))
+                                }
+                            }
+                        }), S)));
+                        const y = (0, u.toList)((0, u.delay)((() => (0, u.collect)((t => {
+                            const r = t[0];
+                            const i = simplify_lexerule(t[1]);
+                            const o = name_of_named_term(r);
+                            return (0, s.contains)(r, e.IgnoreSet) ? (0, u.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(o), (0, n.word)(":")), parensIfLOr(i)), (0, n.word)("-> channel(HIDDEN);"))) : (0, s.contains)(r, e.ReferencedNamedTokens) ? (0, u.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(o), (0, n.word)(":")), (0, n.word)(mk_lexer(i))), (0, n.word)(";"))) : (0, u.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("fragment"), (0, n.word)(o)), (0, n.word)(":")), parensIfLOr(i)), (0, n.word)(";")))
+                        }), (0, o.reverse)(F)))));
+                        const T = cg_symbol(new f.symbol(1, "start"));
+                        const C = (0, o.append)(w, v);
+                        return [
+                            [r + ".g4", (0, n.vsep)((0, u.toList)((0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)(`grammar ${r};`)), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("@header {")), (0, u.delay)((() => {
+                                let e, t;
+                                return (0, u.append)(!(0, o.isEmpty)(C) ? (e = (0, g.join)(", ", C), t = (0, p.escapeString)(`./${r}_require`), (0, u.singleton)((0, n.word)(`import { ${e} } from ${t}`))) : (0, u.empty)(), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("}")), (0, u.delay)((() => {
+                                    let e;
+                                    return (0, u.append)((0, u.singleton)((0, n.word)((e = cg_type(i), (0, g.toText)((0, g.printf)("start returns [result: %s]: v=%s EOF { $result = _localctx._v.result; };"))(e)(T)))), (0, u.delay)((() => (0, u.append)((0, u.singleton)(m), (0, u.delay)((() => y))))))
+                                }))))))
+                            }))))))))))]
+                        ]
+                    } else {
+                        const e = (0, h.UnboundNonterminal)("start");
+                        throw e
+                    }
                 }))
             }
         },
@@ -44829,13 +45283,13 @@
             t.renderTypeKind = renderTypeKind;
             t.setExitFunc = setExitFunc;
             t.withErrorHandler = withErrorHandler;
-            var n = r(9937);
-            var i = r(5359);
+            var n = r(7350);
+            var i = r(126);
             var o = r(4205);
             var s = r(380);
             var a = r(3833);
-            var l = r(6638);
-            var _ = r(6256);
+            var l = r(9303);
+            var _ = r(8241);
 
             function renderTypeKind(e) {
                 if (e === 0) {
@@ -44982,8 +45436,8 @@
                         }
                     }
                     const x = T[1];
-                    const N = T[0];
-                    g = x === "" ? `File '${m}', line ${y}, character ${S}\n` + `  at '${N}'\n` + `  ${o}\n` : `File '${m}', line ${y}, character ${S}\n` + `  at rule '${N}':\n  '${x}'\n` + f + `  ${o}\n`;
+                    const C = T[0];
+                    g = x === "" ? `File '${m}', line ${y}, character ${S}\n` + `  at '${C}'\n` + `  ${o}\n` : `File '${m}', line ${y}, character ${S}\n` + `  at rule '${C}':\n  '${x}'\n` + f + `  ${o}\n`;
                     if (r[0]) {
                         (0, n.toConsole)((0, n.printf)("%s"))(g);
                         u.contents(1);
@@ -45042,10 +45496,10 @@
             t.UnboundVariable = UnboundVariable;
             t.UnsolvedTypeVariable = void 0;
             t.UnsolvedTypeVariable$reflection = UnsolvedTypeVariable$reflection;
-            var n = r(6638);
+            var n = r(9303);
             var i = r(3833);
-            var o = r(6356);
-            var s = r(4222);
+            var o = r(2762);
+            var s = r(4522);
             class ErrorTrace extends n.Record {
                 constructor(e, t, r, n) {
                     super();
@@ -45641,6 +46095,7 @@
             t.monot__ApplyToChildren_Z6A62BCBF = monot__ApplyToChildren_Z6A62BCBF;
             t.monot__FindAnyChildren_Z23D07CE9 = monot__FindAnyChildren_Z23D07CE9;
             t.monot__Prune = monot__Prune;
+            t.monot__SubstGen_1D5B3D8E = monot__SubstGen_1D5B3D8E;
             t.monot__TransformChildren_Z2CAB662A = monot__TransformChildren_Z2CAB662A;
             t.node = void 0;
             t.node$reflection = node$reflection;
@@ -45654,12 +46109,13 @@
             t.symbol = void 0;
             t.symbol$reflection = symbol$reflection;
             t.symbol__Inspect = symbol__Inspect;
-            var n = r(6638);
-            var i = r(6356);
-            var o = r(5359);
-            var s = r(9937);
-            var a = r(1697);
-            var l = r(6256);
+            var n = r(9303);
+            var i = r(2762);
+            var o = r(126);
+            var s = r(1316);
+            var a = r(7350);
+            var l = r(1697);
+            var _ = r(8241);
             class Cell$1 {
                 constructor() {
                     this._cell = null
@@ -46065,6 +46521,31 @@
                 }
             }
 
+            function monot__SubstGen_1D5B3D8E(e, t) {
+                const findAndSubst = e => {
+                    let r, n;
+                    if (e.tag === 1) {
+                        if ((0, s.containsKey)(e.fields[0], t)) {
+                            r = 0;
+                            n = e.fields[0]
+                        } else {
+                            r = 1
+                        }
+                    } else {
+                        r = 1
+                    }
+                    switch (r) {
+                        case 0: {
+                            return (0, s.FSharpMap__get_Item)(t, n)
+                        }
+                        case 1: {
+                            return monot__TransformChildren_Z2CAB662A(e, findAndSubst)
+                        }
+                    }
+                };
+                return findAndSubst(e)
+            }
+
             function monot__ApplyToChildren_Z6A62BCBF(e, t) {
                 switch (e.tag) {
                     case 4:
@@ -46122,9 +46603,9 @@
                 if (e.tag === 1) {
                     return e.fields[0]
                 } else if (e.tag === 2) {
-                    return e.fields[0] + "(" + (0, s.join)(", ", (0, o.map)(symbol__Inspect, e.fields[1])) + ")"
+                    return e.fields[0] + "(" + (0, a.join)(", ", (0, o.map)(symbol__Inspect, e.fields[1])) + ")"
                 } else if (e.fields[1]) {
-                    return (0, a.escapeString)(e.fields[0])
+                    return (0, l.escapeString)(e.fields[0])
                 } else {
                     return "<" + e.fields[0] + ">"
                 }
@@ -46159,26 +46640,26 @@
             function definition__Inspect(e) {
                 if (e.tag === 1) {
                     const t = e.fields[0];
-                    return t.lhs + " :\n " + (0, s.join)("\n| ", (0, o.map)((e => (0, s.join)(" ", (0, o.map)(symbol__Inspect, e[1].symbols))), t.define))
+                    return t.lhs + " :\n " + (0, a.join)("\n| ", (0, o.map)((e => (0, a.join)(" ", (0, o.map)(symbol__Inspect, e[1].symbols))), t.define))
                 } else {
                     return "omit"
                 }
             }
-            const _ = new monot(1, "token");
-            t.TConst_token = _;
-            const u = new monot(1, "tuple");
-            t.TConst_tuple = u;
-            const c = new monot(1, "list");
-            t.TConst_list = c;
-            const d = new monot(1, "int");
-            t.TConst_int = d;
-            const p = new monot(1, "float");
-            t.TConst_float = p;
-            const f = new monot(1, "str");
-            t.TConst_str = f;
-            const h = new monot(1, "bool");
-            t.TConst_bool = h;
-            const g = [
+            const u = new monot(1, "token");
+            t.TConst_token = u;
+            const c = new monot(1, "tuple");
+            t.TConst_tuple = c;
+            const d = new monot(1, "list");
+            t.TConst_list = d;
+            const p = new monot(1, "int");
+            t.TConst_int = p;
+            const f = new monot(1, "float");
+            t.TConst_float = f;
+            const h = new monot(1, "str");
+            t.TConst_str = h;
+            const g = new monot(1, "bool");
+            t.TConst_bool = g;
+            const m = [
                 ["token", 0],
                 ["tuple", -1],
                 ["list", 1],
@@ -46187,14 +46668,14 @@
                 ["str", 0],
                 ["bool", 0]
             ];
-            t._predefined_typenames = g;
+            t._predefined_typenames = m;
 
             function TTuple(e) {
-                return new monot(2, u, e)
+                return new monot(2, c, e)
             }
 
             function TList(e) {
-                return new monot(2, c, (0, o.singleton)(e))
+                return new monot(2, d, (0, o.singleton)(e))
             }
 
             function $007CTTuple$007C_$007C(e) {
@@ -46210,7 +46691,7 @@
                 }
                 switch (t) {
                     case 0: {
-                        return (0, l.some)(void 0)
+                        return (0, _.some)(void 0)
                     }
                     case 1: {
                         return void 0
@@ -46224,11 +46705,11 @@
             });
             t.inspectMonoType = inspectMonoType;
             t.showExpr = showExpr;
-            var n = r(6638);
-            var i = r(9937);
-            var o = r(5359);
+            var n = r(9303);
+            var i = r(7350);
+            var o = r(126);
             var s = r(3833);
-            var a = r(4222);
+            var a = r(4522);
             var l = r(1697);
 
             function inspectMonoType(e) {
@@ -46323,12 +46804,12 @@
             t.resolve_macro = resolve_macro;
             t.toPositionIndependent = toPositionIndependent;
             t.toPositionIndependentString = toPositionIndependentString;
-            var n = r(5359);
+            var n = r(126);
             var i = r(3833);
-            var o = r(9937);
+            var o = r(7350);
             var s = r(1697);
-            var a = r(5466);
-            var l = r(2078);
+            var a = r(1316);
+            var l = r(3827);
             var _ = r(4205);
 
             function toPositionIndependent(e) {
@@ -46409,18 +46890,18 @@
                         }
                         case 2: {
                             const x = t.fields[2];
-                            const N = t.fields[0];
+                            const C = t.fields[0];
                             e(x);
-                            const C = (0, l.toList)((0, l.delay)((() => (0, l.map)((e => solve_sym(e)(r)), t.fields[1]))));
-                            let A = new i.symbol(2, N, C, x);
+                            const N = (0, l.toList)((0, l.delay)((() => (0, l.map)((e => solve_sym(e)(r)), t.fields[1]))));
+                            let A = new i.symbol(2, C, N, x);
                             const E = toPositionIndependent(A);
-                            return new i.symbol(1, (s = (0, a.tryFind)(E, g), s == null ? (c = (0, a.tryFind)(N, u), c != null ? (d = c, p = d.parameters, (0, n.length)(p) !== (0, n.length)(C) ? (h = (0, o.join)(", ", p), m = new _.MacroResolveError(`macro ${N} expects ${(0,n.length)(p)} argument(s): (${h}); got ${(0,n.length)(C)}`), (() => {
+                            return new i.symbol(1, (s = (0, a.tryFind)(E, g), s == null ? (c = (0, a.tryFind)(C, u), c != null ? (d = c, p = d.parameters, (0, n.length)(p) !== (0, n.length)(N) ? (h = (0, o.join)(", ", p), m = new _.MacroResolveError(`macro ${C} expects ${(0,n.length)(p)} argument(s): (${h}); got ${(0,n.length)(N)}`), (() => {
                                 throw m
-                            })()) : void 0, y = (0, a.ofList)((0, n.map2)(((e, t) => [e, t]), p, C)), S = toPositionIndependentString(A), g = (0, a.add)(E, S, g), f = (0, n.cons)([{
+                            })()) : void 0, y = (0, a.ofList)((0, n.map2)(((e, t) => [e, t]), p, N)), S = toPositionIndependentString(A), g = (0, a.add)(E, S, g), f = (0, n.cons)([{
                                 define: d.define,
                                 lhs: S,
                                 pos: x
-                            }, y], f), S) : (T = new _.MacroResolveError(`macro definition ${N} not found.`), (() => {
+                            }, y], f), S) : (T = new _.MacroResolveError(`macro definition ${C} not found.`), (() => {
                                 throw T
                             })())) : s))
                         }
@@ -46486,12 +46967,12 @@
             t.Manager__Instantiate_Z25E5E15E = Manager__Instantiate_Z25E5E15E;
             t.Manager__NewTyRef_Z721C83C5 = Manager__NewTyRef_Z721C83C5;
             t.Manager__Unify_Z1D753960 = Manager__Unify_Z1D753960;
-            var n = r(6356);
+            var n = r(2762);
             var i = r(4205);
             var o = r(3833);
-            var s = r(5359);
-            var a = r(4222);
-            var l = r(5466);
+            var s = r(126);
+            var a = r(4522);
+            var l = r(1316);
             class Manager {
                 constructor() {}
             }
@@ -46762,14 +47243,14 @@
             t.isUnicode = isUnicode;
             t.isUpper = isUpper;
             t.upperRange = t.upperChars = t.unicodeRange = t.sampleUnicodes = t.lowerRange = t.lowerChars = void 0;
-            var n = r(2078);
-            var i = r(857);
-            var o = r(8443);
-            var s = r(6638);
-            var a = r(9937);
-            var l = r(5359);
-            var _ = r(4222);
-            var u = r(6256);
+            var n = r(3827);
+            var i = r(5673);
+            var o = r(6774);
+            var s = r(9303);
+            var a = r(7350);
+            var l = r(126);
+            var _ = r(4522);
+            var u = r(8241);
             const c = (0, n.toArray)((0, n.delay)((() => (0, n.map)((e => e), (0, i.rangeChar)("a", "z")))));
             t.lowerChars = c;
             const d = (0, n.toArray)((0, n.delay)((() => (0, n.map)((e => e), (0, i.rangeChar)("A", "Z")))));
@@ -46943,9 +47424,10 @@
         var s = _interopRequireWildcard(__nccwpck_require__(3474));
         var a = _interopRequireWildcard(__nccwpck_require__(2835));
         var l = _interopRequireWildcard(__nccwpck_require__(9956));
-        var _ = _interopRequireWildcard(__nccwpck_require__(6072));
-        var u = __nccwpck_require__(9386);
-        var c = __nccwpck_require__(7936);
+        var _ = _interopRequireWildcard(__nccwpck_require__(1500));
+        var u = _interopRequireWildcard(__nccwpck_require__(6072));
+        var c = __nccwpck_require__(9386);
+        var d = __nccwpck_require__(7936);
 
         function _getRequireWildcardCache(e) {
             if (typeof WeakMap !== "function") return null;
@@ -46987,40 +47469,41 @@
             }
             return n
         }
-        const d = {
+        const p = {
             "python-lark": s.codegen,
             "ocaml-menhir": a.codegen,
             "csharp-antlr": l.codegen,
-            purebnf: _.codegen
+            "typescript-antlr": _.codegen,
+            purebnf: u.codegen
         }; {
-            let e = c.setExitFunc;
+            let e = d.setExitFunc;
             e((e => process.exit(e)))
         }
-        const p = new t.ArgumentParser({
+        const f = new t.ArgumentParser({
             description: "Argparse example"
         });
-        p.add_argument("tbnfSourcePath");
-        p.add_argument("-o", "--outDir", {
+        f.add_argument("tbnfSourcePath");
+        f.add_argument("-o", "--outDir", {
             default: ""
         });
-        p.add_argument("-lang", "--language", {
+        f.add_argument("-lang", "--language", {
             help: "name of your own language",
             default: "mylang"
         });
-        p.add_argument("-be", "--backend", {
-            choices: Object.keys(d),
+        f.add_argument("-be", "--backend", {
+            choices: Object.keys(p),
             default: "python-lark"
         });
-        p.add_argument("-conf", "--configPath", {
+        f.add_argument("-conf", "--configPath", {
             help: "path to a config file",
             default: ""
         });
-        const f = new Map;
+        const h = new Map;
 
         function getDefaultScope() {
             return {
                 request_resource: e => {
-                    let t = f.get(e);
+                    let t = h.get(e);
                     if (t === undefined) {
                         throw new Error("Resource not found: " + e)
                     }
@@ -47035,14 +47518,14 @@
         }
 
         function runcommand() {
-            let t = p.parse_args();
+            let t = f.parse_args();
             let i = t.tbnfSourcePath;
             let s = t.outDir;
             let a = t.language;
             let l = t.backend;
             let _ = t.configPath;
-            let c = r.readFileSync(i, "utf8");
-            var f = (0, e.parse_tbnf)(c, i);
+            let u = r.readFileSync(i, "utf8");
+            var d = (0, e.parse_tbnf)(u, i);
             let h = getDefaultScope();
             if (s == "") {
                 s = n.dirname(i)
@@ -47059,12 +47542,12 @@
                     h[e] = i[e]
                 }
             }
-            var [f, g] = o.build_analyzer(f);
-            let m = d[l];
+            var [d, g] = o.build_analyzer(d);
+            let m = p[l];
             if (m == undefined) {
                 throw new Error("Backend not found: " + l)
             }
-            let y = m(g, h, a, f);
+            let y = m(g, h, a, d);
             for (let [e, t] of y) {
                 let i = n.join(s, e);
                 let o = [];
@@ -47075,12 +47558,12 @@
                     }
                     throw new Error("Expected string, got " + typeof e)
                 };
-                (0, u.genDoc)(t, writeToFile);
+                (0, c.genDoc)(t, writeToFile);
                 r.writeFileSync(i, o.join(""))
             }
         }
-        const h = `\nmodule TBNF_Utf8 = struct\nexception UnicodeEncodeError of int\nlet uft8_encode_unchecked : (int * Buffer.t) -> unit = fun (code, buffer) ->\n    if (code <= 0x7F) then\n        Buffer.add_int8 buffer code\n    else if code > 0x10FFFF then begin\n      Buffer.add_int8 buffer 0xEF;\n      Buffer.add_int8 buffer 0xBF;\n      Buffer.add_int8 buffer 0xBD;\n      Buffer.add_int8 buffer 0;\n      end\n    else\n    let count =\n      if code <= 0x7FF then 1\n      else if code <= 0xFFFF then 2\n      else 3;\n    in\n    let chars = Bytes.make (count + 1) @@ Char.chr 0 in\n    let code = ref code in\n    let _  = for i = 0 to count - 1 do\n        Bytes.set chars (count - i) @@ Char.chr @@  0x80 lor (!code land 0x3F);\n        code := !code lsr 6;\n      done\n    in\n    let first_code = (0x1E lsl (6-count)) lor (!code land (0x3F lsr count)) in\n    let first_code = first_code land 0xFF in\n    let _ = Bytes.set chars 0 @@ Char.chr first_code   in Buffer.add_bytes buffer chars\n\nlet utf8_encode (code, buffer) =\n  if code > 0xd7ff && code < 0xe000 then\n    raise @@ UnicodeEncodeError code\n  else uft8_encode_unchecked (code, buffer)\n\n\nlet to_out (io: out_channel) (unicode: Uchar.t array) =\n    let buffer = Buffer.create 1024 in\n    let n = Array.length unicode in\n    let _ = for i = 0 to n - 1 do\n      utf8_encode (Uchar.to_int (Array.get unicode i), buffer);\n      if i mod 512 = 511 then\n          begin\n            Buffer.output_buffer io buffer;\n            Buffer.clear buffer\n          end;\n    done in\n    Buffer.output_buffer io buffer\n\nlet to_string (unicode: Uchar.t array) =\n  let buffer = Buffer.create 80 in\n  let n = Array.length unicode in\n  let _ = for i = 0 to n - 1 do\n    utf8_encode (Uchar.to_int (Array.get unicode i), buffer);\n  done in\n  Buffer.contents buffer\n\nend\n\nlet _unknown_token lexbuf =\n    let start, _ = Sedlexing.lexing_positions lexbuf in\n    let m = TBNF_Utf8.to_string (Sedlexing.lexeme lexbuf) in\n    raise (Invalid_argument (Printf.sprintf "%s:%d:%d: codepoints %s not recognised" start.pos_fname start.pos_lnum start.pos_cnum m))\n\n\ntype tbnf_token = {\n    lexeme : string;\n    line: int;\n    col: int;\n    offset : int;\n    span: int;\n    file : string;\n}\n\nlet mktoken (buf: Sedlexing.lexbuf): tbnf_token =\n  let open Sedlexing in\n  let start_pos, _ = Sedlexing.lexing_positions buf in\n  { lexeme = TBNF_Utf8.to_string (Sedlexing.lexeme buf);\n    line = start_pos.pos_lnum;\n    col = start_pos.pos_cnum - start_pos.pos_bol;\n    offset = Sedlexing.lexeme_start buf;\n    span = lexeme_end buf - lexeme_start buf;\n    file = start_pos.pos_fname }\n`;
-        f.set(i.ocaml_rts_file, h);
+        const g = `\nmodule TBNF_Utf8 = struct\nexception UnicodeEncodeError of int\nlet uft8_encode_unchecked : (int * Buffer.t) -> unit = fun (code, buffer) ->\n    if (code <= 0x7F) then\n        Buffer.add_int8 buffer code\n    else if code > 0x10FFFF then begin\n      Buffer.add_int8 buffer 0xEF;\n      Buffer.add_int8 buffer 0xBF;\n      Buffer.add_int8 buffer 0xBD;\n      Buffer.add_int8 buffer 0;\n      end\n    else\n    let count =\n      if code <= 0x7FF then 1\n      else if code <= 0xFFFF then 2\n      else 3;\n    in\n    let chars = Bytes.make (count + 1) @@ Char.chr 0 in\n    let code = ref code in\n    let _  = for i = 0 to count - 1 do\n        Bytes.set chars (count - i) @@ Char.chr @@  0x80 lor (!code land 0x3F);\n        code := !code lsr 6;\n      done\n    in\n    let first_code = (0x1E lsl (6-count)) lor (!code land (0x3F lsr count)) in\n    let first_code = first_code land 0xFF in\n    let _ = Bytes.set chars 0 @@ Char.chr first_code   in Buffer.add_bytes buffer chars\n\nlet utf8_encode (code, buffer) =\n  if code > 0xd7ff && code < 0xe000 then\n    raise @@ UnicodeEncodeError code\n  else uft8_encode_unchecked (code, buffer)\n\n\nlet to_out (io: out_channel) (unicode: Uchar.t array) =\n    let buffer = Buffer.create 1024 in\n    let n = Array.length unicode in\n    let _ = for i = 0 to n - 1 do\n      utf8_encode (Uchar.to_int (Array.get unicode i), buffer);\n      if i mod 512 = 511 then\n          begin\n            Buffer.output_buffer io buffer;\n            Buffer.clear buffer\n          end;\n    done in\n    Buffer.output_buffer io buffer\n\nlet to_string (unicode: Uchar.t array) =\n  let buffer = Buffer.create 80 in\n  let n = Array.length unicode in\n  let _ = for i = 0 to n - 1 do\n    utf8_encode (Uchar.to_int (Array.get unicode i), buffer);\n  done in\n  Buffer.contents buffer\n\nend\n\nlet _unknown_token lexbuf =\n    let start, _ = Sedlexing.lexing_positions lexbuf in\n    let m = TBNF_Utf8.to_string (Sedlexing.lexeme lexbuf) in\n    raise (Invalid_argument (Printf.sprintf "%s:%d:%d: codepoints %s not recognised" start.pos_fname start.pos_lnum start.pos_cnum m))\n\n\ntype tbnf_token = {\n    lexeme : string;\n    line: int;\n    col: int;\n    offset : int;\n    span: int;\n    file : string;\n}\n\nlet mktoken (buf: Sedlexing.lexbuf): tbnf_token =\n  let open Sedlexing in\n  let start_pos, _ = Sedlexing.lexing_positions buf in\n  { lexeme = TBNF_Utf8.to_string (Sedlexing.lexeme buf);\n    line = start_pos.pos_lnum;\n    col = start_pos.pos_cnum - start_pos.pos_bol;\n    offset = Sedlexing.lexeme_start buf;\n    span = lexeme_end buf - lexeme_start buf;\n    file = start_pos.pos_fname }\n`;
+        h.set(i.ocaml_rts_file, g);
         runcommand()
     })();
     module.exports = r

@@ -1,9 +1,9 @@
-extern var appendList : <'a> (list<'a>, 'a) -> list<'a>
-extern var listMap : <'a, 'b> (list<'a>, 'a -> 'b) -> list<'b>
+extern var appendList : <a> (list<a>, a) -> list<a>
+extern var listMap : <a, b> (list<a>, a -> b) -> list<b>
 
-extern type maybe<'a>
-    extern var some : <'a> 'a -> maybe<'a>
-    extern var none : <'a> () -> maybe<'a>
+extern type maybe<a>
+    extern var some : <a> a -> maybe<a>
+    extern var none : <a> () -> maybe<a>
 
 type funcname
 case DotName : (funcname, token) -> funcname
@@ -14,8 +14,8 @@ type stmt
 type expr
 type block(suite: list<stmt>, ret: maybe<stmt>)
 
-extern type op<'a>
-    extern var mkOperator: <'a> token -> op<'a>
+extern type op<a>
+    extern var mkOperator: <a> token -> op<a>
     extern var mkOperand : expr -> op<expr>
     extern var mkBinOpSeq : (
           ops: list<op<expr>>,

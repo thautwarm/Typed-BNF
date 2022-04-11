@@ -1,7 +1,7 @@
 // Generated from ./tbnf-js/src/TypedBNF.g4 by ANTLR 4.9.0-SNAPSHOT
 
 
-import { node, lexerule, expr, symbol, production, definition, polyt, monot, position, MK_LRef, MK_LGroup, MK_LOptional, MK_LStar, MK_LPlus, MK_LNot, MK_LOr, MK_LSeq, MK_LStr, MK_LNumber, MK_LWildcard, getrange, getunicoderange, getpos, tofloat, toint, MK_EField, MK_EBool, MK_EFlt, MK_EStr, MK_EInt, MK_ESlot, MK_EVar, MK_EFun, MK_ELet, MK_EList, MK_ETuple, MK_EApp, MK_Expr, MK_Macrocall, MK_Nonterm, MK_Term, snd, fst, list_index, MK_production, MK_Deflexer, MK_Defrule, MK_Defmacro, MK_Defignore, MK_Decltype, MK_Declctor, MK_Declvar, MK_Mono, MK_Poly, MK_TApp, MK_TConst, MK_TVar, MK_TList, MK_TTuple, MK_TFun, process_tparam, mkpos, str, unescape, addList } from "./TypedBNF_require"
+import { node, lexerule, expr, symbol, production, definition, polyt, monot, position, MK_LRef, MK_LGroup, MK_LOptional, MK_LStar, MK_LPlus, MK_LNot, MK_LOr, MK_LSeq, MK_LStr, MK_LNumber, MK_LWildcard, getrange, getunicoderange, getpos, tofloat, toint, MK_EField, MK_EBool, MK_EFlt, MK_EStr, MK_EInt, MK_ESlot, MK_EVar, MK_EFun, MK_ELet, MK_EList, MK_ETuple, MK_EApp, MK_Expr, MK_Macrocall, MK_Nonterm, MK_Term, snd, fst, list_index, MK_production, MK_Deflexer, MK_Defrule, MK_Defmacro, MK_Defignore, MK_Decltype, MK_Declctor, MK_Declvar, processPolyType, MK_Mono, MK_Poly, MK_TApp, MK_TConst, MK_TVar, MK_TList, MK_TTuple, MK_TFun, process_tparam, mkpos, str, unescape, addList } from "./TypedBNF_require"
 
 
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
@@ -19,7 +19,6 @@ import { Slist_o__i__s__i__s_typ_p_Context } from "./TypedBNFParser";
 import { Typ2Context } from "./TypedBNFParser";
 import { Type_productContext } from "./TypedBNFParser";
 import { Top_typContext } from "./TypedBNFParser";
-import { TvarContext } from "./TypedBNFParser";
 import { Tvar_strContext } from "./TypedBNFParser";
 import { Param_typeContext } from "./TypedBNFParser";
 import { Slist_o__i__s__i__s_tvar_str_p_Context } from "./TypedBNFParser";
@@ -207,17 +206,6 @@ export interface TypedBNFListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitTop_typ?: (ctx: Top_typContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `TypedBNFParser.tvar`.
-	 * @param ctx the parse tree
-	 */
-	enterTvar?: (ctx: TvarContext) => void;
-	/**
-	 * Exit a parse tree produced by `TypedBNFParser.tvar`.
-	 * @param ctx the parse tree
-	 */
-	exitTvar?: (ctx: TvarContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `TypedBNFParser.tvar_str`.

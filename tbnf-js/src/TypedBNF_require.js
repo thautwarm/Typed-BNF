@@ -324,6 +324,12 @@ Object.defineProperty(exports, "position", {
     return _Grammar.position;
   }
 });
+Object.defineProperty(exports, "processPolyType", {
+  enumerable: true,
+  get: function () {
+    return _APIs.processPolyType;
+  }
+});
 exports.process_tparam = process_tparam;
 Object.defineProperty(exports, "production", {
   enumerable: true,

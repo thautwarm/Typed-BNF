@@ -29,6 +29,7 @@ exports.monot$reflection = monot$reflection;
 exports.monot__ApplyToChildren_Z6A62BCBF = monot__ApplyToChildren_Z6A62BCBF;
 exports.monot__FindAnyChildren_Z23D07CE9 = monot__FindAnyChildren_Z23D07CE9;
 exports.monot__Prune = monot__Prune;
+exports.monot__SubstGen_1D5B3D8E = monot__SubstGen_1D5B3D8E;
 exports.monot__TransformChildren_Z2CAB662A = monot__TransformChildren_Z2CAB662A;
 exports.node = void 0;
 exports.node$reflection = node$reflection;
@@ -43,17 +44,19 @@ exports.symbol = void 0;
 exports.symbol$reflection = symbol$reflection;
 exports.symbol__Inspect = symbol__Inspect;
 
-var _Types = require("../fable_modules/fable-library.3.7.5/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
 
-var _Reflection = require("../fable_modules/fable-library.3.7.5/Reflection.js");
+var _Reflection = require("../fable_modules/fable-library.3.7.9/Reflection.js");
 
-var _List = require("../fable_modules/fable-library.3.7.5/List.js");
+var _List = require("../fable_modules/fable-library.3.7.9/List.js");
 
-var _String = require("../fable_modules/fable-library.3.7.5/String.js");
+var _Map = require("../fable_modules/fable-library.3.7.9/Map.js");
+
+var _String = require("../fable_modules/fable-library.3.7.9/String.js");
 
 var _Utils = require("./Utils.js");
 
-var _Option = require("../fable_modules/fable-library.3.7.5/Option.js");
+var _Option = require("../fable_modules/fable-library.3.7.9/Option.js");
 
 class Cell$1 {
   constructor() {
@@ -369,6 +372,37 @@ function monot__TransformChildren_Z2CAB662A(this$, ap) {
         return new monot(3, (0, _List.map)(ab => [ab[0], ap(ab[1])], this$.fields[0]), ap(this$.fields[1]));
       }
   }
+}
+
+function monot__SubstGen_1D5B3D8E(this$, ty_arguments) {
+  const findAndSubst = t => {
+    let pattern_matching_result, x_1;
+
+    if (t.tag === 1) {
+      if ((0, _Map.containsKey)(t.fields[0], ty_arguments)) {
+        pattern_matching_result = 0;
+        x_1 = t.fields[0];
+      } else {
+        pattern_matching_result = 1;
+      }
+    } else {
+      pattern_matching_result = 1;
+    }
+
+    switch (pattern_matching_result) {
+      case 0:
+        {
+          return (0, _Map.FSharpMap__get_Item)(ty_arguments, x_1);
+        }
+
+      case 1:
+        {
+          return monot__TransformChildren_Z2CAB662A(t, findAndSubst);
+        }
+    }
+  };
+
+  return findAndSubst(this$);
 }
 
 function monot__ApplyToChildren_Z6A62BCBF(this$, op_Dereference) {

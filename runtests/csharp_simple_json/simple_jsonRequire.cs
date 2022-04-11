@@ -90,7 +90,7 @@ namespace simple_json
             }
             while (true)
             {
-                Console.Write("lua parser> ");
+                Console.Write("json parser> ");
                 Console.WriteLine(JsonValue.Parse(Console.ReadLine()).ToString());
             }
 

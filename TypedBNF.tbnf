@@ -1,5 +1,5 @@
 extern type position
-extern var addList : <'A> (list<'A>, 'A) -> list<'A>
+extern var addList : <A> (list<A>, A) -> list<A>
 extern var unescape : str -> str
 extern var str: token -> str
 extern var mkpos: token -> position
@@ -37,6 +37,7 @@ extern var MK_TConst : str -> monot
 extern var MK_TApp : (monot, list<monot>) -> monot
 extern var MK_Poly : (list<str>, monot) -> polyt
 extern var MK_Mono : monot -> polyt
+extern var processPolyType : polyt -> polyt
 
 typ : arrow_typ { $1 }
 arrow_typ : typ2 "->" arrow_typ
@@ -46,19 +47,16 @@ arrow_typ : typ2 "->" arrow_typ
           | type_product
             { MK_TTuple($1) }
 
-typ2 : <CNAMEPLUS>
-        { MK_TConst(str($1)) }
-     | tvar { $1 }
+typ2 : <CNAMEPLUS> { MK_TConst(str($1)) }
      | typ2 "<" slist(",", typ) ">" { MK_TApp($1, $3) }
 
 type_product : type_product "*" typ2 { addList($1, $3) }
              | typ2                  { [$1] }
 
-top_typ : "<" slist(",", tvar_str) ">" typ { MK_Poly($2, $4) }
+top_typ : "<" slist(",", tvar_str) ">" typ { processPolyType(MK_Poly($2, $4)) }
         | typ                              { MK_Mono($1) }
 
-tvar         : "'" <CNAMEPLUS> { MK_TVar(str($2)) }
-tvar_str     : "'" <CNAMEPLUS> { str($2) }
+tvar_str     : <CNAMEPLUS> { str($1) }
 param_type   : <CNAMEPLUS> ":" typ { (str($1), $3) }
              | typ  { ("_", $1) }
 
@@ -86,9 +84,9 @@ extern var MK_Defmacro : (str, list<str>, list<position * production>, position)
 extern var MK_Defrule : (str, list<position * production>, position) -> definition
 extern var MK_Deflexer : (str, lexerule, position) -> definition
 extern var MK_production : (list<symbol>, expr) -> production
-extern var list_index : <'A>(list<'A>, int) -> 'A
-extern var fst : <'A, 'B>('A * 'B) -> 'A
-extern var snd : <'A, 'B>('A * 'B) -> 'B
+extern var list_index : <A>(list<A>, int) -> A
+extern var fst : <A, B>(A * B) -> A
+extern var snd : <A, B>(A * B) -> B
 
 decl : "extern" "var" identstr ":" top_typ
        { MK_Declvar($3, $5, mkpos($2)) }
@@ -229,8 +227,11 @@ INT = DIGIT+;
 DIGIT = [0-9];
 WS = " " | "\t" | "\r" | "\n";
 FLOAT = INT ("." INT)? (("E" | "e") INT)?;
-ESC = "a" | "b" | "t" | "n" | "r" | "\\" | "\"";
-ESCAPED_STRING = "\"" ("\\" ESC | ! ("\"" | "\\"))* "\"";
+ESC1 = "a" | "b" | "t" | "n" | "r" | "\\" | "\"";
+ESC2 = "a" | "b" | "t" | "n" | "r" | "\\" | "'";
+ESCAPED_STRING = "\"" ("\\" ESC1 | ! ("\"" | "\\"))* "\"" 
+               | "'" ( "\\" ESC2 | ! ("'" | "\\"))* "'"
+               ;
 
 CPP_COMMENT = "/*" .*? "*/";
 C_COMMENT = "//" (!"\n")*;

@@ -1,9 +1,9 @@
-extern var appendList : <'a> (list<'a>, 'a) -> list<'a>
-extern var listMap : <'a, 'b> (list<'a>, 'a -> 'b) -> list<'b>
+extern var appendList : <a> (list<a>, a) -> list<a>
+extern var listMap : <a, b> (list<a>, a -> b) -> list<b>
 
-extern type maybe<'a>
-    extern var some : <'a> 'a -> maybe<'a>
-    extern var none : <'a> () -> maybe<'a>
+extern type maybe<a>
+    extern var some : <a> a -> maybe<a>
+    extern var none : <a> () -> maybe<a>
 
 type stmt
 type expr

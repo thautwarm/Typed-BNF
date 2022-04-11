@@ -9,9 +9,9 @@ exports.renderTypeKind = renderTypeKind;
 exports.setExitFunc = setExitFunc;
 exports.withErrorHandler = withErrorHandler;
 
-var _String = require("../fable_modules/fable-library.3.7.5/String.js");
+var _String = require("../fable_modules/fable-library.3.7.9/String.js");
 
-var _List = require("../fable_modules/fable-library.3.7.5/List.js");
+var _List = require("../fable_modules/fable-library.3.7.9/List.js");
 
 var _Exceptions = require("./Exceptions.js");
 
@@ -19,9 +19,9 @@ var _Inspect = require("./Inspect.js");
 
 var _Grammar = require("./Grammar.js");
 
-var _Types = require("../fable_modules/fable-library.3.7.5/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
 
-var _Option = require("../fable_modules/fable-library.3.7.5/Option.js");
+var _Option = require("../fable_modules/fable-library.3.7.9/Option.js");
 
 function renderTypeKind(i) {
   if (i === 0) {

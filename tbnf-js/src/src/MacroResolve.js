@@ -7,17 +7,17 @@ exports.resolve_macro = resolve_macro;
 exports.toPositionIndependent = toPositionIndependent;
 exports.toPositionIndependentString = toPositionIndependentString;
 
-var _List = require("../fable_modules/fable-library.3.7.5/List.js");
+var _List = require("../fable_modules/fable-library.3.7.9/List.js");
 
 var _Grammar = require("./Grammar.js");
 
-var _String = require("../fable_modules/fable-library.3.7.5/String.js");
+var _String = require("../fable_modules/fable-library.3.7.9/String.js");
 
 var _Utils = require("./Utils.js");
 
-var _Map = require("../fable_modules/fable-library.3.7.5/Map.js");
+var _Map = require("../fable_modules/fable-library.3.7.9/Map.js");
 
-var _Seq = require("../fable_modules/fable-library.3.7.5/Seq.js");
+var _Seq = require("../fable_modules/fable-library.3.7.9/Seq.js");
 
 var _Exceptions = require("./Exceptions.js");
 

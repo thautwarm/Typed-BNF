@@ -9,19 +9,19 @@ exports.codegen = codegen;
 
 var _CodeGen = require("../FableSedlex/CodeGen.js");
 
-var _Option = require("../fable_modules/fable-library.3.7.5/Option.js");
+var _Option = require("../fable_modules/fable-library.3.7.9/Option.js");
 
-var _List = require("../fable_modules/fable-library.3.7.5/List.js");
+var _List = require("../fable_modules/fable-library.3.7.9/List.js");
 
-var _Set = require("../fable_modules/fable-library.3.7.5/Set.js");
+var _Set = require("../fable_modules/fable-library.3.7.9/Set.js");
 
-var _Array = require("../fable_modules/fable-library.3.7.5/Array.js");
+var _Array = require("../fable_modules/fable-library.3.7.9/Array.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.5/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
 
-var _Map = require("../fable_modules/fable-library.3.7.5/Map.js");
+var _Map = require("../fable_modules/fable-library.3.7.9/Map.js");
 
-var _Seq = require("../fable_modules/fable-library.3.7.5/Seq.js");
+var _Seq = require("../fable_modules/fable-library.3.7.9/Seq.js");
 
 var _Analysis = require("./Analysis.js");
 
@@ -33,7 +33,7 @@ var _Grammar = require("./Grammar.js");
 
 var _Exceptions = require("./Exceptions.js");
 
-var _String = require("../fable_modules/fable-library.3.7.5/String.js");
+var _String = require("../fable_modules/fable-library.3.7.9/String.js");
 
 var _ErrorReport = require("./ErrorReport.js");
 

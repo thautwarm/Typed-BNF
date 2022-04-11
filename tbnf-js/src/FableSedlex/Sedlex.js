@@ -95,21 +95,21 @@ exports.regexp_for_string = regexp_for_string;
 exports.start = start;
 exports.with_tokenizer = with_tokenizer;
 
-var _List = require("../fable_modules/fable-library.3.7.5/List.js");
+var _List = require("../fable_modules/fable-library.3.7.9/List.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.5/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
 
-var _Types = require("../fable_modules/fable-library.3.7.5/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
 
-var _Reflection = require("../fable_modules/fable-library.3.7.5/Reflection.js");
+var _Reflection = require("../fable_modules/fable-library.3.7.9/Reflection.js");
 
-var _Array = require("../fable_modules/fable-library.3.7.5/Array.js");
+var _Array = require("../fable_modules/fable-library.3.7.9/Array.js");
 
-var _Map = require("../fable_modules/fable-library.3.7.5/Map.js");
+var _Map = require("../fable_modules/fable-library.3.7.9/Map.js");
 
-var _Option = require("../fable_modules/fable-library.3.7.5/Option.js");
+var _Option = require("../fable_modules/fable-library.3.7.9/Option.js");
 
-var _Set = require("../fable_modules/fable-library.3.7.5/Set.js");
+var _Set = require("../fable_modules/fable-library.3.7.9/Set.js");
 
 function incr(a) {
   a.contents = a.contents + 1 | 0;

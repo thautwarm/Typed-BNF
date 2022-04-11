@@ -8,9 +8,9 @@ exports.z = exports.x = void 0;
 
 var _Grammar = require("./Grammar.js");
 
-var _List = require("../fable_modules/fable-library.3.7.5/List.js");
+var _List = require("../fable_modules/fable-library.3.7.9/List.js");
 
-var _String = require("../fable_modules/fable-library.3.7.5/String.js");
+var _String = require("../fable_modules/fable-library.3.7.9/String.js");
 
 var _Analysis = require("./Analysis.js");
 
