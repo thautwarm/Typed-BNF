@@ -51,7 +51,7 @@ A semantic action in Typed BNF is written in a dedicated DSL called "Simpler", w
 
 1. No let-polymorphisms. User code shall not include definitions for polymorphic values.
 2. Multi-ary functions. No curried functions.
-3. Universal quantifiers are ordered. The type `<'A, 'B> ('A, 'B) -> 'A` is different from `<'B, 'A>('A, 'B) -> 'A`.
+3. Universal quantifiers are ordered. The type `<A, B> (A, B) -> A` is different from `<B, A>(A, B) -> A`.
 
 #### Semantic values (slots)
 
@@ -138,7 +138,7 @@ expr : <INT> { IntExpr(parseInt($1)) } // constructors can be called directly
 #### Record definitions
 
 ```ocaml
-type Pair<'A, 'B>(fst: 'A, snd: 'B)
+type Pair<A, B>(fst: A, snd: B)
 
 pair(a, b) : a b { Pair($1, $2) } // the typename of a record type can be called directly.
 ```

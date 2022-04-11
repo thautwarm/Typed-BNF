@@ -61,7 +61,7 @@ extern var parseInt : str -> int
 extern var parseFlt : str -> float
 extern var getStr : token -> str
 extern var unesc : str -> str
-extern var appendList : <'a> (list<'a>, 'a) -> list<'a>
+extern var appendList : <a> (list<a>, a) -> list<a>
 
 type Json
 type JsonPair(name: str, value: Json)

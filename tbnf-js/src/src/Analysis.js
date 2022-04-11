@@ -350,7 +350,7 @@ function Sigma__defineShape(this$, external, hasFields, typename, parameters, fi
     if (external) {
       this$.externalTypes = (0, _Set.add)(typename, this$.externalTypes);
     } else if (hasFields) {
-      Sigma__registerExistingVariable(this$, typename, (0, _List.isEmpty)(parameters) ? new _Grammar.polyt(1, new _Grammar.monot(3, fields, new _Grammar.monot(1, typename))) : new _Grammar.polyt(0, parameters, new _Grammar.monot(3, fields, new _Grammar.monot(2, new _Grammar.monot(1, typename), (0, _List.map)(arg0 => new _Grammar.monot(4, arg0), parameters)))));
+      Sigma__registerExistingVariable(this$, typename, (0, _List.isEmpty)(parameters) ? new _Grammar.polyt(1, new _Grammar.monot(3, fields, new _Grammar.monot(1, typename))) : (0, _Grammar.processPolyType$0027)(new _Grammar.polyt(0, parameters, new _Grammar.monot(3, fields, new _Grammar.monot(2, new _Grammar.monot(1, typename), (0, _List.map)(arg0 => new _Grammar.monot(4, arg0), parameters))))));
       this$.records = (0, _List.cons)(typename, this$.records);
     }
 
@@ -369,7 +369,7 @@ function Sigma__lookupField(this$, t, fieldname, tyref) {
     if (matchValue_1 != null) {
       const ft = matchValue_1;
       const inst_target = (0, _Grammar.TTuple)((0, _List.ofArray)([t, tyref]));
-      (0, _Unification.Manager__Unify_Z1D753960)(this$.UM, inst_target, (0, _Unification.Manager__Instantiate_Z25E5E15E)(this$.UM, new _Grammar.polyt(0, shape.parameters, (0, _Grammar.TTuple)((0, _List.ofArray)([new _Grammar.monot(2, new _Grammar.monot(1, typename), (0, _List.map)(arg0 => new _Grammar.monot(4, arg0), shape.parameters)), ft]))))[1]);
+      (0, _Unification.Manager__Unify_Z1D753960)(this$.UM, inst_target, (0, _Unification.Manager__Instantiate_Z25E5E15E)(this$.UM, (0, _Grammar.processPolyType$0027)(new _Grammar.polyt(0, shape.parameters, (0, _Grammar.TTuple)((0, _List.ofArray)([new _Grammar.monot(2, new _Grammar.monot(1, typename), (0, _List.map)(arg0 => new _Grammar.monot(4, arg0), shape.parameters)), ft])))))[1]);
       Sigma__checkKind__Z25145215(this$, inst_target);
       return (0, _Grammar.monot__Prune)(tyref);
     } else {

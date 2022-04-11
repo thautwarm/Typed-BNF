@@ -21856,7 +21856,7 @@
                                     this.match(TypedBNFParser.T__5);
                                     this.state = 214;
                                     e._top_typ_0__4 = this.typ();
-                                    e.result = (0, n.processPolyType)((0, n.MK_Poly)(e._top_typ_0__2.result, e._top_typ_0__4.result))
+                                    e.result = (0, n.MK_Poly)(e._top_typ_0__2.result, e._top_typ_0__4.result)
                                 }
                                 break;
                             case TypedBNFParser.T__2:
@@ -41794,15 +41794,12 @@
             t.MK_position = MK_position;
             t.MK_production = MK_production;
             t.build_analyzer = build_analyzer;
-            t.processPolyType = processPolyType;
             var n = r(3833);
             var i = r(126);
             var o = r(9303);
             var s = r(28);
             var a = r(4522);
-            var l = r(1316);
-            var _ = r(3827);
-            var u = r(543);
+            var l = r(543);
 
             function MK_Cell() {
                 return (0, n.Cell$1_$ctor)()
@@ -41895,10 +41892,10 @@
             function MK_LStr(e) {
                 return new n.lexerule(3, e)
             }
-            const c = new n.lexerule(0);
-            t.MK_LNumber = c;
-            const d = new n.lexerule(1);
-            t.MK_LWildcard = d;
+            const _ = new n.lexerule(0);
+            t.MK_LNumber = _;
+            const u = new n.lexerule(1);
+            t.MK_LWildcard = u;
 
             function MK_LSeq(e) {
                 if (!(0, s.equalsWith)(a.equals, e, null) && e.length === 1) {
@@ -42022,24 +42019,15 @@
             }
 
             function MK_Poly(e, t) {
-                return new n.polyt(0, (0, i.ofArray)(e), t)
+                return (0, n.processPolyType$0027)(new n.polyt(0, (0, i.ofArray)(e), t))
             }
 
             function MK_Mono(e) {
                 return new n.polyt(1, e)
             }
 
-            function processPolyType(e) {
-                if (e.tag === 0) {
-                    const t = e.fields[0];
-                    return new n.polyt(0, t, (0, n.monot__SubstGen_1D5B3D8E)(e.fields[1], (0, l.ofList)((0, _.toList)((0, _.delay)((() => (0, _.map)((e => [e, new n.monot(4, e)]), t)))))))
-                } else {
-                    return e
-                }
-            }
-
             function build_analyzer(e) {
-                return (0, u.build_analyzer)(e)
+                return (0, l.build_analyzer)(e)
             }
         },
         543: (e, t, r) => {
@@ -42360,7 +42348,7 @@
                     if (t) {
                         e.externalTypes = (0, a.add)(n, e.externalTypes)
                     } else if (r) {
-                        Sigma__registerExistingVariable(e, n, (0, _.isEmpty)(i) ? new o.polyt(1, new o.monot(3, l, new o.monot(1, n))) : new o.polyt(0, i, new o.monot(3, l, new o.monot(2, new o.monot(1, n), (0, _.map)((e => new o.monot(4, e)), i)))));
+                        Sigma__registerExistingVariable(e, n, (0, _.isEmpty)(i) ? new o.polyt(1, new o.monot(3, l, new o.monot(1, n))) : (0, o.processPolyType$0027)(new o.polyt(0, i, new o.monot(3, l, new o.monot(2, new o.monot(1, n), (0, _.map)((e => new o.monot(4, e)), i))))));
                         e.records = (0, _.cons)(n, e.records)
                     }
                     e.shapes = (0, s.add)(n, new Shape(i, l), e.shapes)
@@ -42376,7 +42364,7 @@
                     if (l != null) {
                         const r = l;
                         const a = (0, o.TTuple)((0, _.ofArray)([t, n]));
-                        (0, u.Manager__Unify_Z1D753960)(e.UM, a, (0, u.Manager__Instantiate_Z25E5E15E)(e.UM, new o.polyt(0, s.parameters, (0, o.TTuple)((0, _.ofArray)([new o.monot(2, new o.monot(1, i), (0, _.map)((e => new o.monot(4, e)), s.parameters)), r]))))[1]);
+                        (0, u.Manager__Unify_Z1D753960)(e.UM, a, (0, u.Manager__Instantiate_Z25E5E15E)(e.UM, (0, o.processPolyType$0027)(new o.polyt(0, s.parameters, (0, o.TTuple)((0, _.ofArray)([new o.monot(2, new o.monot(1, i), (0, _.map)((e => new o.monot(4, e)), s.parameters)), r])))))[1]);
                         Sigma__checkKind__Z25145215(e, a);
                         return (0, o.monot__Prune)(n)
                     } else {
@@ -46104,6 +46092,7 @@
             t.position = void 0;
             t.position$reflection = position$reflection;
             t.position_get_Fake = position_get_Fake;
+            t.processPolyType$0027 = processPolyType$0027;
             t.production = void 0;
             t.production$reflection = production$reflection;
             t.symbol = void 0;
@@ -46116,6 +46105,7 @@
             var a = r(7350);
             var l = r(1697);
             var _ = r(8241);
+            var u = r(3827);
             class Cell$1 {
                 constructor() {
                     this._cell = null
@@ -46645,21 +46635,21 @@
                     return "omit"
                 }
             }
-            const u = new monot(1, "token");
-            t.TConst_token = u;
-            const c = new monot(1, "tuple");
-            t.TConst_tuple = c;
-            const d = new monot(1, "list");
-            t.TConst_list = d;
-            const p = new monot(1, "int");
-            t.TConst_int = p;
-            const f = new monot(1, "float");
-            t.TConst_float = f;
-            const h = new monot(1, "str");
-            t.TConst_str = h;
-            const g = new monot(1, "bool");
-            t.TConst_bool = g;
-            const m = [
+            const c = new monot(1, "token");
+            t.TConst_token = c;
+            const d = new monot(1, "tuple");
+            t.TConst_tuple = d;
+            const p = new monot(1, "list");
+            t.TConst_list = p;
+            const f = new monot(1, "int");
+            t.TConst_int = f;
+            const h = new monot(1, "float");
+            t.TConst_float = h;
+            const g = new monot(1, "str");
+            t.TConst_str = g;
+            const m = new monot(1, "bool");
+            t.TConst_bool = m;
+            const y = [
                 ["token", 0],
                 ["tuple", -1],
                 ["list", 1],
@@ -46668,14 +46658,14 @@
                 ["str", 0],
                 ["bool", 0]
             ];
-            t._predefined_typenames = m;
+            t._predefined_typenames = y;
 
             function TTuple(e) {
-                return new monot(2, c, e)
+                return new monot(2, d, e)
             }
 
             function TList(e) {
-                return new monot(2, d, (0, o.singleton)(e))
+                return new monot(2, p, (0, o.singleton)(e))
             }
 
             function $007CTTuple$007C_$007C(e) {
@@ -46696,6 +46686,15 @@
                     case 1: {
                         return void 0
                     }
+                }
+            }
+
+            function processPolyType$0027(e) {
+                if (e.tag === 0) {
+                    const t = e.fields[0];
+                    return new polyt(0, t, monot__SubstGen_1D5B3D8E(e.fields[1], (0, s.ofList)((0, u.toList)((0, u.delay)((() => (0, u.map)((e => [e, new monot(4, e)]), t)))))))
+                } else {
+                    return e
                 }
             }
         },

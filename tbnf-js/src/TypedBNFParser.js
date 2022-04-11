@@ -771,7 +771,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__5);
             this.state = 214;
             _localctx._top_typ_0__4 = this.typ();
-            _localctx.result = (0, _TypedBNF_require.processPolyType)((0, _TypedBNF_require.MK_Poly)(_localctx._top_typ_0__2.result, _localctx._top_typ_0__4.result));
+            _localctx.result = (0, _TypedBNF_require.MK_Poly)(_localctx._top_typ_0__2.result, _localctx._top_typ_0__4.result);
           }
           break;
 

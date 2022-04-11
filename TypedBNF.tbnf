@@ -37,7 +37,6 @@ extern var MK_TConst : str -> monot
 extern var MK_TApp : (monot, list<monot>) -> monot
 extern var MK_Poly : (list<str>, monot) -> polyt
 extern var MK_Mono : monot -> polyt
-extern var processPolyType : polyt -> polyt
 
 typ : arrow_typ { $1 }
 arrow_typ : typ2 "->" arrow_typ
@@ -53,7 +52,7 @@ typ2 : <CNAMEPLUS> { MK_TConst(str($1)) }
 type_product : type_product "*" typ2 { addList($1, $3) }
              | typ2                  { [$1] }
 
-top_typ : "<" slist(",", tvar_str) ">" typ { processPolyType(MK_Poly($2, $4)) }
+top_typ : "<" slist(",", tvar_str) ">" typ { MK_Poly($2, $4) }
         | typ                              { MK_Mono($1) }
 
 tvar_str     : <CNAMEPLUS> { str($1) }

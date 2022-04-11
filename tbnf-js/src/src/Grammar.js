@@ -38,6 +38,7 @@ exports.polyt$reflection = polyt$reflection;
 exports.position = void 0;
 exports.position$reflection = position$reflection;
 exports.position_get_Fake = position_get_Fake;
+exports.processPolyType$0027 = processPolyType$0027;
 exports.production = void 0;
 exports.production$reflection = production$reflection;
 exports.symbol = void 0;
@@ -57,6 +58,8 @@ var _String = require("../fable_modules/fable-library.3.7.9/String.js");
 var _Utils = require("./Utils.js");
 
 var _Option = require("../fable_modules/fable-library.3.7.9/Option.js");
+
+var _Seq = require("../fable_modules/fable-library.3.7.9/Seq.js");
 
 class Cell$1 {
   constructor() {
@@ -579,5 +582,14 @@ function $007CTTuple$007C_$007C(x) {
       {
         return void 0;
       }
+  }
+}
+
+function processPolyType$0027(t) {
+  if (t.tag === 0) {
+    const bounds = t.fields[0];
+    return new polyt(0, bounds, monot__SubstGen_1D5B3D8E(t.fields[1], (0, _Map.ofList)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.map)(k => [k, new monot(4, k)], bounds))))));
+  } else {
+    return t;
   }
 }

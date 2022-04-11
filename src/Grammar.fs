@@ -229,3 +229,9 @@ let (|TTuple|_|) x =
     | TConst "tuple" -> Some ()
     | _ -> None
 
+let processPolyType' t =
+    match t with
+    | Mono _ -> t
+    | Poly(bounds, monot) ->
+        let ty_arguments = Map.ofList [for k in bounds -> k, TVar k]
+        Poly(bounds, monot.SubstGen ty_arguments)

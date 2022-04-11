@@ -120,6 +120,7 @@ type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
                         Mono(TFun(fields, TConst typename))
                     else
                         Poly(parameters, TFun(fields, TApp(TConst typename, List.map TVar parameters)))
+                        |> processPolyType'
                 registerExistingVariable typename t
                 records <- typename :: records
 
@@ -148,6 +149,7 @@ type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
 
                 let gen_spec =
                     Poly(shape.parameters, TTuple([ gen_sig; ft ]))
+                    |> processPolyType'
 
                 UM.Instantiate(gen_spec)
                 |> snd
