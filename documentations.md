@@ -15,7 +15,7 @@ b : e <F> { $1 }
   |   { 0 }
 ```
 
-A nonterminal definition can take one or productions. A production **must** take a semantic action at the end. A production can take zero or more terminals. Even an empty production **must** take a semantic action.
+A nonterminal definition can take one or more productions. A production **must** take a semantic action at the end. A production can take zero or more terminals. Even an empty production **must** take a semantic action.
 
 
 ### Named terminals and literal terminals
