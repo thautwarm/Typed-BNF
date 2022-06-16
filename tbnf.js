@@ -19351,13 +19351,13 @@
                 value: true
             });
             t.codegen_python = codegen_python;
-            var n = r(1316);
-            var i = r(7350);
-            var o = r(126);
+            var n = r(4244);
+            var i = r(7238);
+            var o = r(5639);
             var s = r(9386);
-            var a = r(4522);
-            var l = r(3827);
-            var _ = r(28);
+            var a = r(3151);
+            var l = r(2974);
+            var _ = r(8573);
 
             function codegen_python(e, t) {
                 let r = (0, n.empty)();
@@ -19520,14 +19520,14 @@
             t.showDoc = showDoc;
             t.vsep = vsep;
             t.word = word;
-            var n = r(9303);
-            var i = r(2762);
-            var o = r(28);
-            var s = r(3827);
-            var a = r(126);
-            var l = r(7350);
-            var _ = r(4522);
-            var u = r(6774);
+            var n = r(6304);
+            var i = r(630);
+            var o = r(8573);
+            var s = r(2974);
+            var a = r(5639);
+            var l = r(7238);
+            var _ = r(3151);
+            var u = r(6606);
             class Doc extends n.Union {
                 constructor(e, ...t) {
                     super();
@@ -19903,14 +19903,14 @@
             t.regexp_for_string = regexp_for_string;
             t.start = start;
             t.with_tokenizer = with_tokenizer;
-            var n = r(126);
-            var i = r(4522);
-            var o = r(9303);
-            var s = r(2762);
-            var a = r(28);
-            var l = r(1316);
-            var _ = r(8241);
-            var u = r(8610);
+            var n = r(5639);
+            var i = r(3151);
+            var o = r(6304);
+            var s = r(630);
+            var a = r(8573);
+            var l = r(4244);
+            var _ = r(4382);
+            var u = r(8598);
 
             function incr(e) {
                 e.contents = e.contents + 1 | 0
@@ -21047,7 +21047,7 @@
                 value: true
             });
             t.parse_tbnf = parse_tbnf;
-            var n = _interopRequireWildcard(r(2004));
+            var n = _interopRequireWildcard(r(6869));
             var i = _interopRequireWildcard(r(9271));
             var o = _interopRequireWildcard(r(668));
             var s = _interopRequireWildcard(r(1127));
@@ -21115,6 +21115,492 @@
                 } finally {
                     n.setfilename(r)
                 }
+            }
+        },
+        7012: (e, t, r) => {
+            Object.defineProperty(t, "__esModule", {
+                value: true
+            });
+            var n = r(6869);
+            Object.keys(n).forEach((function(e) {
+                if (e === "default" || e === "__esModule") return;
+                if (e in t && t[e] === n[e]) return;
+                Object.defineProperty(t, e, {
+                    enumerable: true,
+                    get: function() {
+                        return n[e]
+                    }
+                })
+            }))
+        },
+        6869: (e, t, r) => {
+            Object.defineProperty(t, "__esModule", {
+                value: true
+            });
+            Object.defineProperty(t, "MK_Declctor", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Declctor
+                }
+            });
+            Object.defineProperty(t, "MK_Decltype", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Decltype
+                }
+            });
+            Object.defineProperty(t, "MK_Declvar", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Declvar
+                }
+            });
+            Object.defineProperty(t, "MK_Defignore", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Defignore
+                }
+            });
+            Object.defineProperty(t, "MK_Deflexer", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Deflexer
+                }
+            });
+            Object.defineProperty(t, "MK_Defmacro", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Defmacro
+                }
+            });
+            Object.defineProperty(t, "MK_Defrule", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Defrule
+                }
+            });
+            Object.defineProperty(t, "MK_EApp", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_EApp
+                }
+            });
+            Object.defineProperty(t, "MK_EBool", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_EBool
+                }
+            });
+            Object.defineProperty(t, "MK_EField", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_EField
+                }
+            });
+            Object.defineProperty(t, "MK_EFlt", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_EFlt
+                }
+            });
+            Object.defineProperty(t, "MK_EFun", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_EFun
+                }
+            });
+            Object.defineProperty(t, "MK_EInt", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_EInt
+                }
+            });
+            Object.defineProperty(t, "MK_ELet", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_ELet
+                }
+            });
+            Object.defineProperty(t, "MK_EList", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_EList
+                }
+            });
+            Object.defineProperty(t, "MK_ESlot", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_ESlot
+                }
+            });
+            Object.defineProperty(t, "MK_EStr", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_EStr
+                }
+            });
+            Object.defineProperty(t, "MK_ETuple", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_ETuple
+                }
+            });
+            Object.defineProperty(t, "MK_EVar", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_EVar
+                }
+            });
+            t.MK_Expr = void 0;
+            Object.defineProperty(t, "MK_LGroup", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LGroup
+                }
+            });
+            Object.defineProperty(t, "MK_LNot", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LNot
+                }
+            });
+            Object.defineProperty(t, "MK_LNumber", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LNumber
+                }
+            });
+            Object.defineProperty(t, "MK_LOptional", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LOptional
+                }
+            });
+            Object.defineProperty(t, "MK_LOr", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LOr
+                }
+            });
+            Object.defineProperty(t, "MK_LPlus", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LPlus
+                }
+            });
+            Object.defineProperty(t, "MK_LRange", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LRange
+                }
+            });
+            Object.defineProperty(t, "MK_LRef", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LRef
+                }
+            });
+            Object.defineProperty(t, "MK_LSeq", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LSeq
+                }
+            });
+            Object.defineProperty(t, "MK_LStar", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LStar
+                }
+            });
+            Object.defineProperty(t, "MK_LStr", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LStr
+                }
+            });
+            Object.defineProperty(t, "MK_LWildcard", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_LWildcard
+                }
+            });
+            Object.defineProperty(t, "MK_Macrocall", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Macrocall
+                }
+            });
+            Object.defineProperty(t, "MK_Mono", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Mono
+                }
+            });
+            Object.defineProperty(t, "MK_Nonterm", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Nonterm
+                }
+            });
+            Object.defineProperty(t, "MK_Poly", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Poly
+                }
+            });
+            Object.defineProperty(t, "MK_TApp", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_TApp
+                }
+            });
+            Object.defineProperty(t, "MK_TConst", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_TConst
+                }
+            });
+            Object.defineProperty(t, "MK_TFun", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_TFun
+                }
+            });
+            Object.defineProperty(t, "MK_TList", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_TList
+                }
+            });
+            Object.defineProperty(t, "MK_TTuple", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_TTuple
+                }
+            });
+            Object.defineProperty(t, "MK_TVar", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_TVar
+                }
+            });
+            Object.defineProperty(t, "MK_Term", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_Term
+                }
+            });
+            Object.defineProperty(t, "MK_expr", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_expr
+                }
+            });
+            Object.defineProperty(t, "MK_production", {
+                enumerable: true,
+                get: function() {
+                    return n.MK_production
+                }
+            });
+            Object.defineProperty(t, "Token", {
+                enumerable: true,
+                get: function() {
+                    return o.Token
+                }
+            });
+            t.addList = addList;
+            Object.defineProperty(t, "definition", {
+                enumerable: true,
+                get: function() {
+                    return i.definition
+                }
+            });
+            Object.defineProperty(t, "expr", {
+                enumerable: true,
+                get: function() {
+                    return i.expr
+                }
+            });
+            t.fst = fst;
+            t.getfilename = getfilename;
+            t.getpos = getpos;
+            t.getrange = getrange;
+            t.getunicoderange = getunicoderange;
+            Object.defineProperty(t, "lexerule", {
+                enumerable: true,
+                get: function() {
+                    return i.lexerule
+                }
+            });
+            t.list_index = list_index;
+            t.mkpos = mkpos;
+            Object.defineProperty(t, "monot", {
+                enumerable: true,
+                get: function() {
+                    return i.monot
+                }
+            });
+            Object.defineProperty(t, "node", {
+                enumerable: true,
+                get: function() {
+                    return i.node
+                }
+            });
+            Object.defineProperty(t, "polyt", {
+                enumerable: true,
+                get: function() {
+                    return i.polyt
+                }
+            });
+            Object.defineProperty(t, "position", {
+                enumerable: true,
+                get: function() {
+                    return i.position
+                }
+            });
+            Object.defineProperty(t, "processPolyType", {
+                enumerable: true,
+                get: function() {
+                    return n.processPolyType
+                }
+            });
+            t.process_tparam = process_tparam;
+            Object.defineProperty(t, "production", {
+                enumerable: true,
+                get: function() {
+                    return i.production
+                }
+            });
+            t.setfilename = setfilename;
+            t.snd = snd;
+            t.str = str;
+            Object.defineProperty(t, "symbol", {
+                enumerable: true,
+                get: function() {
+                    return i.symbol
+                }
+            });
+            t.tofloat = tofloat;
+            t.toint = toint;
+            t.unescape = unescape;
+            var n = r(3776);
+            var i = r(3833);
+            var o = r(1127);
+
+            function fst(e) {
+                return e[0]
+            }
+
+            function snd(e) {
+                return e[1]
+            }
+
+            function list_index(e, t) {
+                return e[t]
+            }
+            let s = n.MK_expr;
+            t.MK_Expr = s;
+
+            function addList(e, t) {
+                e.push(t);
+                return e
+            }
+
+            function unescape(e) {
+                let t = "";
+                let r = 1;
+                let n = e.length - 1;
+                while (r < n) {
+                    if (e[r] == "\\") {
+                        r++;
+                        switch (e[r]) {
+                            case "b":
+                                t += "\b";
+                                break;
+                            case "t":
+                                t += "\t";
+                                break;
+                            case "n":
+                                t += "\n";
+                                break;
+                            case "f":
+                                t += "\f";
+                                break;
+                            case "r":
+                                t += "\r";
+                                break;
+                            case "\\":
+                                t += "\\";
+                                break;
+                            case '"':
+                                t += '"';
+                                break;
+                            case "'":
+                                t += "'";
+                                break;
+                            default:
+                                t += e[r];
+                                break
+                        }
+                    } else {
+                        t += e[r]
+                    }
+                    r++
+                }
+                return t
+            }
+            let a = "<no file>";
+
+            function setfilename(e) {
+                a = e
+            }
+
+            function getfilename() {
+                return a
+            }
+
+            function mkpos(e) {
+                return new i.position(e.line, e.charPositionInLine, getfilename())
+            }
+
+            function getpos(e) {
+                return e.pos
+            }
+
+            function process_tparam(e) {
+                let t = [];
+                for (let r = 0; r < e.length; r++) {
+                    if (e[r][0] == "_") {
+                        t.push(["value" + r, e[r][1]])
+                    } else {
+                        t.push(e[r])
+                    }
+                }
+                return t
+            }
+
+            function str(e) {
+                return e.text
+            }
+
+            function toint(e) {
+                if (e.text == undefined) throw new Error("toint: undefined token");
+                return parseInt(e.text)
+            }
+
+            function tofloat(e) {
+                if (e.text == undefined) throw new Error("tofloat: undefined token");
+                return parseFloat(e.text)
+            }
+
+            function getunicoderange(e) {
+                let [t, r] = e.substring(1, e.length - 1).split("-");
+                return (0, n.MK_LRange)(parseInt(t.substring(2), 16), parseInt(r.substring(2), 16))
+            }
+
+            function getrange(e) {
+                let [t, r] = e.substring(1, e.length - 1).split("-");
+                return (0, n.MK_LRange)(t.codePointAt(0), r.codePointAt(0))
             }
         },
         9271: (e, t, r) => {
@@ -21253,7 +21739,7 @@
                 value: true
             });
             t.TypedBNFParser = t.Type_productContext = t.Type_paramsContext = t.TypContext = t.Typ2Context = t.Tvar_strContext = t.ToplevelContext = t.Top_typContext = t.Start__y_Context = t.StartContext = t.Slist_o__i__u__i__s_lexer_and_p_Context = t.Slist_o__i__s__i__s_typ_p_Context = t.Slist_o__i__s__i__s_tvar_str_p_Context = t.Slist_o__i__s__i__s_psym_p_Context = t.Slist_o__i__s__i__s_param_type_p_Context = t.Slist_o__i__s__i__s_identstr_p_Context = t.Slist_o__i__s__i__s_field_ann_p_Context = t.Slist_o__i__s__i__s_expr_p_Context = t.Slist_o__i__s__i__s_ann_p_Context = t.PsymContext = t.ProductionsContext = t.ProductionContext = t.Param_typeContext = t.List_o_toplevel_p_Context = t.List_o_psym_p_Context = t.List_o_lexer_atomexpr_p_Context = t.LexerdefContext = t.Lexer_atomexprContext = t.Lexer_atomContext = t.Lexer_andContext = t.Lexer__y_Context = t.IdentstrContext = t.Func_parametersContext = t.Field_annsContext = t.Field_annContext = t.ExprContext = t.Eslist_o__i__s__i__s_param_type_p_Context = t.Eslist_o__i__s__i__s_field_ann_p_Context = t.Eslist_o__i__s__i__s_expr_p_Context = t.Eslist_o__i__s__i__s_ann_p_Context = t.Empty_o_slist_o__i__s__i__s_param_type_p__p_Context = t.Empty_o_slist_o__i__s__i__s_field_ann_p__p_Context = t.Empty_o_slist_o__i__s__i__s_expr_p__p_Context = t.Empty_o_slist_o__i__s__i__s_ann_p__p_Context = t.Empty_o_list_o_psym_p__p_Context = t.Elist_o_psym_p_Context = t.DefContext = t.DeclContext = t.CallContext = t.AtomexpContext = t.Arrow_typContext = t.AnnContext = void 0;
-            var n = r(2004);
+            var n = r(7012);
             var i = r(7747);
             var o = r(6027);
             var s = r(5575);
@@ -25309,477 +25795,7 @@
             }
             t.LexerdefContext = LexerdefContext
         },
-        2004: (e, t, r) => {
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            Object.defineProperty(t, "MK_Declctor", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Declctor
-                }
-            });
-            Object.defineProperty(t, "MK_Decltype", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Decltype
-                }
-            });
-            Object.defineProperty(t, "MK_Declvar", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Declvar
-                }
-            });
-            Object.defineProperty(t, "MK_Defignore", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Defignore
-                }
-            });
-            Object.defineProperty(t, "MK_Deflexer", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Deflexer
-                }
-            });
-            Object.defineProperty(t, "MK_Defmacro", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Defmacro
-                }
-            });
-            Object.defineProperty(t, "MK_Defrule", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Defrule
-                }
-            });
-            Object.defineProperty(t, "MK_EApp", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_EApp
-                }
-            });
-            Object.defineProperty(t, "MK_EBool", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_EBool
-                }
-            });
-            Object.defineProperty(t, "MK_EField", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_EField
-                }
-            });
-            Object.defineProperty(t, "MK_EFlt", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_EFlt
-                }
-            });
-            Object.defineProperty(t, "MK_EFun", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_EFun
-                }
-            });
-            Object.defineProperty(t, "MK_EInt", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_EInt
-                }
-            });
-            Object.defineProperty(t, "MK_ELet", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_ELet
-                }
-            });
-            Object.defineProperty(t, "MK_EList", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_EList
-                }
-            });
-            Object.defineProperty(t, "MK_ESlot", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_ESlot
-                }
-            });
-            Object.defineProperty(t, "MK_EStr", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_EStr
-                }
-            });
-            Object.defineProperty(t, "MK_ETuple", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_ETuple
-                }
-            });
-            Object.defineProperty(t, "MK_EVar", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_EVar
-                }
-            });
-            t.MK_Expr = void 0;
-            Object.defineProperty(t, "MK_LGroup", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LGroup
-                }
-            });
-            Object.defineProperty(t, "MK_LNot", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LNot
-                }
-            });
-            Object.defineProperty(t, "MK_LNumber", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LNumber
-                }
-            });
-            Object.defineProperty(t, "MK_LOptional", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LOptional
-                }
-            });
-            Object.defineProperty(t, "MK_LOr", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LOr
-                }
-            });
-            Object.defineProperty(t, "MK_LPlus", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LPlus
-                }
-            });
-            Object.defineProperty(t, "MK_LRange", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LRange
-                }
-            });
-            Object.defineProperty(t, "MK_LRef", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LRef
-                }
-            });
-            Object.defineProperty(t, "MK_LSeq", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LSeq
-                }
-            });
-            Object.defineProperty(t, "MK_LStar", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LStar
-                }
-            });
-            Object.defineProperty(t, "MK_LStr", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LStr
-                }
-            });
-            Object.defineProperty(t, "MK_LWildcard", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_LWildcard
-                }
-            });
-            Object.defineProperty(t, "MK_Macrocall", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Macrocall
-                }
-            });
-            Object.defineProperty(t, "MK_Mono", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Mono
-                }
-            });
-            Object.defineProperty(t, "MK_Nonterm", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Nonterm
-                }
-            });
-            Object.defineProperty(t, "MK_Poly", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Poly
-                }
-            });
-            Object.defineProperty(t, "MK_TApp", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_TApp
-                }
-            });
-            Object.defineProperty(t, "MK_TConst", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_TConst
-                }
-            });
-            Object.defineProperty(t, "MK_TFun", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_TFun
-                }
-            });
-            Object.defineProperty(t, "MK_TList", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_TList
-                }
-            });
-            Object.defineProperty(t, "MK_TTuple", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_TTuple
-                }
-            });
-            Object.defineProperty(t, "MK_TVar", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_TVar
-                }
-            });
-            Object.defineProperty(t, "MK_Term", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_Term
-                }
-            });
-            Object.defineProperty(t, "MK_expr", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_expr
-                }
-            });
-            Object.defineProperty(t, "MK_production", {
-                enumerable: true,
-                get: function() {
-                    return n.MK_production
-                }
-            });
-            Object.defineProperty(t, "Token", {
-                enumerable: true,
-                get: function() {
-                    return o.Token
-                }
-            });
-            t.addList = addList;
-            Object.defineProperty(t, "definition", {
-                enumerable: true,
-                get: function() {
-                    return i.definition
-                }
-            });
-            Object.defineProperty(t, "expr", {
-                enumerable: true,
-                get: function() {
-                    return i.expr
-                }
-            });
-            t.fst = fst;
-            t.getfilename = getfilename;
-            t.getpos = getpos;
-            t.getrange = getrange;
-            t.getunicoderange = getunicoderange;
-            Object.defineProperty(t, "lexerule", {
-                enumerable: true,
-                get: function() {
-                    return i.lexerule
-                }
-            });
-            t.list_index = list_index;
-            t.mkpos = mkpos;
-            Object.defineProperty(t, "monot", {
-                enumerable: true,
-                get: function() {
-                    return i.monot
-                }
-            });
-            Object.defineProperty(t, "node", {
-                enumerable: true,
-                get: function() {
-                    return i.node
-                }
-            });
-            Object.defineProperty(t, "polyt", {
-                enumerable: true,
-                get: function() {
-                    return i.polyt
-                }
-            });
-            Object.defineProperty(t, "position", {
-                enumerable: true,
-                get: function() {
-                    return i.position
-                }
-            });
-            Object.defineProperty(t, "processPolyType", {
-                enumerable: true,
-                get: function() {
-                    return n.processPolyType
-                }
-            });
-            t.process_tparam = process_tparam;
-            Object.defineProperty(t, "production", {
-                enumerable: true,
-                get: function() {
-                    return i.production
-                }
-            });
-            t.setfilename = setfilename;
-            t.snd = snd;
-            t.str = str;
-            Object.defineProperty(t, "symbol", {
-                enumerable: true,
-                get: function() {
-                    return i.symbol
-                }
-            });
-            t.tofloat = tofloat;
-            t.toint = toint;
-            t.unescape = unescape;
-            var n = r(3776);
-            var i = r(3833);
-            var o = r(1127);
-
-            function fst(e) {
-                return e[0]
-            }
-
-            function snd(e) {
-                return e[1]
-            }
-
-            function list_index(e, t) {
-                return e[t]
-            }
-            let s = n.MK_expr;
-            t.MK_Expr = s;
-
-            function addList(e, t) {
-                e.push(t);
-                return e
-            }
-
-            function unescape(e) {
-                let t = "";
-                let r = 1;
-                let n = e.length - 1;
-                while (r < n) {
-                    if (e[r] == "\\") {
-                        r++;
-                        switch (e[r]) {
-                            case "b":
-                                t += "\b";
-                                break;
-                            case "t":
-                                t += "\t";
-                                break;
-                            case "n":
-                                t += "\n";
-                                break;
-                            case "f":
-                                t += "\f";
-                                break;
-                            case "r":
-                                t += "\r";
-                                break;
-                            case "\\":
-                                t += "\\";
-                                break;
-                            case '"':
-                                t += '"';
-                                break;
-                            case "'":
-                                t += "'";
-                                break;
-                            default:
-                                t += e[r];
-                                break
-                        }
-                    } else {
-                        t += e[r]
-                    }
-                    r++
-                }
-                return t
-            }
-            let a = "<no file>";
-
-            function setfilename(e) {
-                a = e
-            }
-
-            function getfilename() {
-                return a
-            }
-
-            function mkpos(e) {
-                return new i.position(e.line, e.charPositionInLine, getfilename())
-            }
-
-            function getpos(e) {
-                return e.pos
-            }
-
-            function process_tparam(e) {
-                let t = [];
-                for (let r = 0; r < e.length; r++) {
-                    if (e[r][0] == "_") {
-                        t.push(["value" + r, e[r][1]])
-                    } else {
-                        t.push(e[r])
-                    }
-                }
-                return t
-            }
-
-            function str(e) {
-                return e.text
-            }
-
-            function toint(e) {
-                if (e.text == undefined) throw new Error("toint: undefined token");
-                return parseInt(e.text)
-            }
-
-            function tofloat(e) {
-                if (e.text == undefined) throw new Error("tofloat: undefined token");
-                return parseFloat(e.text)
-            }
-
-            function getunicoderange(e) {
-                let [t, r] = e.substring(1, e.length - 1).split("-");
-                return (0, n.MK_LRange)(parseInt(t.substring(2), 16), parseInt(r.substring(2), 16))
-            }
-
-            function getrange(e) {
-                let [t, r] = e.substring(1, e.length - 1).split("-");
-                return (0, n.MK_LRange)(t.codePointAt(0), r.codePointAt(0))
-            }
-        },
-        28: (e, t, r) => {
+        8573: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -25901,9 +25917,9 @@
             t.windowed = windowed;
             t.zip = zip;
             t.zip3 = zip3;
-            var n = r(8241);
-            var i = r(4522);
-            var o = r(7389);
+            var n = r(4382);
+            var i = r(3151);
+            var o = r(1071);
 
             function Helpers_allocateArrayFromCons(e, t) {
                 if (typeof e === "function") {
@@ -26622,7 +26638,8 @@
 
             function sortBy(e, t, r) {
                 const n = t.slice();
-                return n.sort(((t, n) => r.Compare(e(t), e(n)))), n
+                n.sort(((t, n) => r.Compare(e(t), e(n))));
+                return n
             }
 
             function sortDescending(e, t) {
@@ -26633,7 +26650,8 @@
 
             function sortByDescending(e, t, r) {
                 const n = t.slice();
-                return n.sort(((t, n) => r.Compare(e(t), e(n)) * -1)), n
+                n.sort(((t, n) => r.Compare(e(t), e(n)) * -1));
+                return n
             }
 
             function sortWith(e, t) {
@@ -27167,7 +27185,7 @@
                 return i
             }
         },
-        9305: (e, t, r) => {
+        4035: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -27224,12 +27242,12 @@
             t.toUInt64 = toUInt64;
             t.tryParse = tryParse;
             t.zero = t.two = void 0;
-            var n = r(8662);
-            var i = r(9708);
-            var o = r(4522);
-            var s = r(9303);
-            var a = r(126);
-            var l = r(28);
+            var n = r(6034);
+            var i = r(8750);
+            var o = r(3151);
+            var s = r(6304);
+            var a = r(5639);
+            var l = r(8573);
 
             function isBigInt(e) {
                 return e instanceof n.BigInteger
@@ -27559,7 +27577,7 @@
                 }
             }
         },
-        8890: (e, t, r) => {
+        445: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -27680,13 +27698,13 @@
             t.BigNatModule_twopowersI64 = t.BigNatModule_twopowers = t.BigNatModule_two = void 0;
             t.BigNatModule_wordBits = BigNatModule_wordBits;
             t.BigNatModule_zero = void 0;
-            var n = r(9303);
-            var i = r(2762);
-            var o = r(9708);
-            var s = r(28);
-            var a = r(126);
-            var l = r(4522);
-            var _ = r(7350);
+            var n = r(6304);
+            var i = r(630);
+            var o = r(8750);
+            var s = r(8573);
+            var a = r(5639);
+            var l = r(3151);
+            var _ = r(7238);
             class BigNat extends n.Record {
                 constructor(e, t) {
                     super();
@@ -29079,7 +29097,7 @@
                 return productR(z, e)
             }
         },
-        8662: (e, t, r) => {
+        6034: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -29146,13 +29164,13 @@
             t.BigInteger_op_UnaryPlus_Z665282C2 = BigInteger_op_UnaryPlus_Z665282C2;
             t.BigInteger_posn_Z67CCE57D = BigInteger_posn_Z67CCE57D;
             t.BigInteger_subnn_6A57060 = BigInteger_subnn_6A57060;
-            var n = r(8890);
-            var i = r(9303);
-            var o = r(2762);
-            var s = r(28);
-            var a = r(9708);
-            var l = r(2009);
-            var _ = _interopRequireDefault(r(2565));
+            var n = r(445);
+            var i = r(6304);
+            var o = r(630);
+            var s = r(8573);
+            var a = r(8750);
+            var l = r(1878);
+            var _ = _interopRequireDefault(r(8616));
 
             function _interopRequireDefault(e) {
                 return e && e.__esModule ? e : {
@@ -30125,7 +30143,7 @@
                 return BigInteger_$ctor_Z524259A4(e)
             }
         },
-        6285: (e, t, r) => {
+        1529: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -30180,8 +30198,8 @@
             t.tryParse = tryParse;
             t.utcNow = utcNow;
             t.year = year;
-            var n = r(9708);
-            var i = r(4522);
+            var n = r(8750);
+            var i = r(3151);
 
             function dateOffsetToString(e) {
                 const t = e < 0;
@@ -30617,7 +30635,7 @@
             var a = DateTime;
             t["default"] = a
         },
-        2565: (e, t, r) => {
+        8616: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -30649,8 +30667,8 @@
             t.toString = toString;
             t.truncate = truncate;
             t.tryParse = tryParse;
-            var n = _interopRequireDefault(r(9666));
-            var i = r(9303);
+            var n = _interopRequireDefault(r(8191));
+            var i = r(6304);
 
             function _interopRequireDefault(e) {
                 return e && e.__esModule ? e : {
@@ -30859,7 +30877,7 @@
                 return [i, o, s, u]
             }
         },
-        5076: (e, t, r) => {
+        9260: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -30868,7 +30886,7 @@
             t.HashIdentity_FromFunctions = HashIdentity_FromFunctions;
             t.HashIdentity_Reference = HashIdentity_Reference;
             t.HashIdentity_Structural = HashIdentity_Structural;
-            var n = r(4522);
+            var n = r(3151);
 
             function HashIdentity_FromFunctions(e, t) {
                 return {
@@ -30901,7 +30919,7 @@
                 return ComparisonIdentity_FromFunction(n.compare)
             }
         },
-        2915: (e, t, r) => {
+        5797: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -30918,9 +30936,9 @@
             t.Operators_Using = Operators_Using;
             t.PrintfModule_PrintFormatToStringBuilder = PrintfModule_PrintFormatToStringBuilder;
             t.PrintfModule_PrintFormatToStringBuilderThen = PrintfModule_PrintFormatToStringBuilderThen;
-            var n = r(4522);
-            var i = r(5076);
-            var o = r(6774);
+            var n = r(3151);
+            var i = r(9260);
+            var o = r(6606);
             const s = {
                 ["System.Collections.IEqualityComparer.Equals541DA560"](e, t) {
                     return (0, n.equals)(e, t)
@@ -30997,7 +31015,7 @@
                 return PrintfModule_PrintFormatToStringBuilderThen((() => {}), e, t)
             }
         },
-        7389: (e, t) => {
+        1071: (e, t) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -31019,7 +31037,7 @@
             const _ = "The input sequence has an insufficient number of elements.";
             t.SR_notEnoughElements = _
         },
-        2009: (e, t) => {
+        1878: (e, t) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -31159,7 +31177,7 @@
                 }
             }
         },
-        126: (e, t, r) => {
+        5639: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -31278,13 +31296,13 @@
             t.windowed = windowed;
             t.zip = zip;
             t.zip3 = zip3;
-            var n = r(7350);
-            var i = r(4522);
-            var o = r(9303);
-            var s = r(2762);
-            var a = r(7389);
-            var l = r(8241);
-            var _ = r(28);
+            var n = r(7238);
+            var i = r(3151);
+            var o = r(6304);
+            var s = r(630);
+            var a = r(1071);
+            var l = r(4382);
+            var _ = r(8573);
             class FSharpList extends o.Record {
                 constructor(e, t) {
                     super();
@@ -31810,20 +31828,23 @@
             }
 
             function scan(e, t, r) {
-                let n, i, o;
-                const s = FSharpList_get_Empty();
-                let a = (n = new FSharpList(t, void 0), s.tail = n, n);
+                let n, i;
+                const o = FSharpList_get_Empty();
+                let s;
+                const a = new FSharpList(t, void 0);
+                o.tail = a;
+                s = a;
                 let l = t;
                 let _ = r;
                 while (!FSharpList__get_IsEmpty(_)) {
                     l = e(l, FSharpList__get_Head(_));
-                    a = (i = a, o = new FSharpList(l, void 0), i.tail = o, o);
+                    s = (n = s, i = new FSharpList(l, void 0), n.tail = i, i);
                     _ = FSharpList__get_Tail(_)
                 }
-                const u = a;
+                const u = s;
                 const c = FSharpList_get_Empty();
                 u.tail = c;
-                return FSharpList__get_Tail(s)
+                return FSharpList__get_Tail(o)
             }
 
             function scanBack(e, t, r) {
@@ -31856,8 +31877,9 @@
             function mapIndexed(e, t) {
                 const r = FSharpList_get_Empty();
                 const n = foldIndexed(((t, r, n) => {
-                    let i;
-                    return i = new FSharpList(e(t, n), void 0), r.tail = i, i
+                    const i = new FSharpList(e(t, n), void 0);
+                    r.tail = i;
+                    return i
                 }), r, t);
                 const i = FSharpList_get_Empty();
                 n.tail = i;
@@ -31867,8 +31889,9 @@
             function map(e, t) {
                 const r = FSharpList_get_Empty();
                 const n = fold(((t, r) => {
-                    let n;
-                    return n = new FSharpList(e(r), void 0), t.tail = n, n
+                    const n = new FSharpList(e(r), void 0);
+                    t.tail = n;
+                    return n
                 }), r, t);
                 const i = FSharpList_get_Empty();
                 n.tail = i;
@@ -31882,8 +31905,9 @@
             function map2(e, t, r) {
                 const n = FSharpList_get_Empty();
                 const i = fold2(((t, r, n) => {
-                    let i;
-                    return i = new FSharpList(e(r, n), void 0), t.tail = i, i
+                    const i = new FSharpList(e(r, n), void 0);
+                    t.tail = i;
+                    return i
                 }), n, t, r);
                 const o = FSharpList_get_Empty();
                 i.tail = o;
@@ -32601,7 +32625,7 @@
                 return i
             }
         },
-        9708: (e, t, r) => {
+        8750: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -32616,8 +32640,8 @@
             t.toString = t.toNumber = t.toInt = t.toBytes = void 0;
             t.tryParse = tryParse;
             t.unixEpochMillisecondsToTicks = unixEpochMillisecondsToTicks;
-            var n = r(2009);
-            var i = _interopRequireWildcard(r(3140));
+            var n = r(1878);
+            var i = _interopRequireWildcard(r(2627));
 
             function _getRequireWildcardCache(e) {
                 if (typeof WeakMap !== "function") return null;
@@ -32833,7 +32857,7 @@
                 }
             }
         },
-        1316: (e, t, r) => {
+        4244: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -32960,15 +32984,15 @@
             t.tryFindKey = tryFindKey;
             t.tryPick = tryPick;
             t.values = values;
-            var n = r(2762);
-            var i = r(8241);
-            var o = r(126);
-            var s = r(28);
-            var a = r(4522);
-            var l = r(9303);
-            var _ = r(3827);
-            var u = r(7350);
-            var c = r(2915);
+            var n = r(630);
+            var i = r(4382);
+            var o = r(5639);
+            var s = r(8573);
+            var a = r(3151);
+            var l = r(6304);
+            var _ = r(2974);
+            var u = r(7238);
+            var c = r(5797);
             class MapTreeLeaf$2 {
                 constructor(e, t) {
                     this.k = e;
@@ -34280,7 +34304,7 @@
                 return FSharpMap__get_Count(e)
             }
         },
-        6576: (e, t, r) => {
+        3664: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34290,8 +34314,8 @@
             t.getItemFromDict = getItemFromDict;
             t.keyValueList = keyValueList;
             t.tryGetValue = tryGetValue;
-            var n = r(4522);
-            var i = r(9303);
+            var n = r(3151);
+            var i = r(6304);
             const o = {
                 None: 0,
                 LowerFirst: 1,
@@ -34406,7 +34430,7 @@
                 }
             }
         },
-        4512: (e, t, r) => {
+        232: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34419,12 +34443,12 @@
             t.HashSet__Remove_2B595 = HashSet__Remove_2B595;
             t.HashSet__get_Comparer = HashSet__get_Comparer;
             t.HashSet__get_Count = HashSet__get_Count;
-            var n = r(4522);
-            var i = r(3827);
-            var o = r(9303);
-            var s = r(2762);
-            var a = r(6576);
-            var l = r(8241);
+            var n = r(3151);
+            var i = r(2974);
+            var o = r(6304);
+            var s = r(630);
+            var a = r(3664);
+            var l = r(4382);
             class HashSet {
                 constructor(e, t) {
                     const r = new o.FSharpRef(null);
@@ -34661,7 +34685,7 @@
                 }
             }
         },
-        3428: (e, t) => {
+        450: (e, t) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34728,7 +34752,7 @@
                 }
             }
         },
-        8241: (e, t, r) => {
+        4382: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34747,7 +34771,7 @@
             t.toNullable = toNullable;
             t.tryOp = tryOp;
             t.value = value;
-            var n = r(4522);
+            var n = r(3151);
             class Some {
                 constructor(e) {
                     this.value = e
@@ -34842,7 +34866,7 @@
                 }
             }
         },
-        5673: (e, t, r) => {
+        1783: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34854,11 +34878,11 @@
             t.rangeDouble = rangeDouble;
             t.rangeInt64 = rangeInt64;
             t.rangeUInt64 = rangeUInt64;
-            var n = r(4522);
-            var i = r(3827);
-            var o = r(9305);
-            var s = r(2565);
-            var a = r(9708);
+            var n = r(3151);
+            var i = r(2974);
+            var o = r(4035);
+            var s = r(8616);
+            var a = r(8750);
 
             function makeRangeStepFunction(e, t, r, i) {
                 const o = (0, n.compare)(e, r) | 0;
@@ -34908,7 +34932,7 @@
                 }), e.charCodeAt(0))))
             }
         },
-        2762: (e, t, r) => {
+        630: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -34978,10 +35002,10 @@
             t.uint8_type = t.uint32_type = t.uint16_type = void 0;
             t.union_type = union_type;
             t.unit_type = void 0;
-            var n = r(9303);
-            var i = r(4522);
-            var o = _interopRequireDefault(r(2565));
-            var s = r(9708);
+            var n = r(6304);
+            var i = r(3151);
+            var o = _interopRequireDefault(r(8616));
+            var s = r(8750);
 
             function _interopRequireDefault(e) {
                 return e && e.__esModule ? e : {
@@ -35444,7 +35468,7 @@
                 return e.fields
             }
         },
-        4853: (e, t) => {
+        2482: (e, t) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -35462,7 +35486,7 @@
                 if ((t & ~(1 ^ 2 ^ 16 ^ 256)) !== 0) {
                     throw new Error("RegexOptions only supports: IgnoreCase, Multiline, Singleline and ECMAScript")
                 }
-                let r = "g";
+                let r = "gu";
                 r += t & 1 ? "i" : "";
                 r += t & 2 ? "m" : "";
                 r += t & 16 ? "s" : "";
@@ -35571,7 +35595,7 @@
                 return t.split(e, r)
             }
         },
-        3827: (e, t, r) => {
+        2974: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -35704,14 +35728,14 @@
             t.windowed = windowed;
             t.zip = zip;
             t.zip3 = zip3;
-            var n = r(4522);
-            var i = r(9303);
-            var o = r(2762);
-            var s = r(8241);
-            var a = r(2915);
-            var l = r(28);
-            var _ = r(126);
-            var u = r(7389);
+            var n = r(3151);
+            var i = r(6304);
+            var o = r(630);
+            var s = r(4382);
+            var a = r(5797);
+            var l = r(8573);
+            var _ = r(5639);
+            var u = r(1071);
             const c = "Enumeration already finished.";
             t.SR_enumerationAlreadyFinished = c;
             const d = "Enumeration has not started. Call MoveNext.";
@@ -37096,7 +37120,7 @@
                 }))
             }
         },
-        8610: (e, t, r) => {
+        8598: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -37239,15 +37263,15 @@
             t.union = union;
             t.unionMany = unionMany;
             t.unionWith = unionWith;
-            var n = r(2762);
-            var i = r(8241);
-            var o = r(9303);
-            var s = r(126);
-            var a = r(28);
-            var l = r(4522);
-            var _ = r(7350);
-            var u = r(3827);
-            var c = r(4512);
+            var n = r(630);
+            var i = r(4382);
+            var o = r(6304);
+            var s = r(5639);
+            var a = r(8573);
+            var l = r(3151);
+            var _ = r(7238);
+            var u = r(2974);
+            var c = r(232);
             class SetTreeLeaf$1 {
                 constructor(e) {
                     this.k = e
@@ -38990,7 +39014,7 @@
                 }
             }
         },
-        7350: (e, t, r) => {
+        7238: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -39032,10 +39056,10 @@
             t.trim = trim;
             t.trimEnd = trimEnd;
             t.trimStart = trimStart;
-            var n = r(6285);
-            var i = r(3428);
-            var o = r(4853);
-            var s = r(9303);
+            var n = r(1529);
+            var i = r(450);
+            var o = r(2482);
+            var s = r(6304);
             const a = /(^|[^%])%([0+\- ]*)(\*|\d+)?(?:\.(\d+))?(\w)/g;
             const l = /(?:(^|[^%])%([0+\- ]*)(\d+)?(?:\.(\d+))?(\w))?%P\(\)/g;
             const _ = /\{(\d+)(,-?\d+)?(?:\:([a-zA-Z])(\d{0,2})|\:(.+?))?\}/g;
@@ -39580,7 +39604,7 @@
                 return e.fmts ? e.strs.reduce(((t, r, n) => t + `{${String(n-1)+e.fmts[n-1]}}` + r)) : e.strs.reduce(((e, t, r) => e + `{${r-1}}` + t))
             }
         },
-        6774: (e, t, r) => {
+        6606: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -39604,10 +39628,10 @@
             t.StringBuilder__Clear = StringBuilder__Clear;
             t.StringBuilder__ToString_Z37302880 = StringBuilder__ToString_Z37302880;
             t.StringBuilder__get_Length = StringBuilder__get_Length;
-            var n = r(7350);
-            var i = r(2762);
-            var o = r(4522);
-            var s = r(9303);
+            var n = r(7238);
+            var i = r(630);
+            var o = r(3151);
+            var s = r(6304);
             class StringBuilder {
                 constructor(e, t) {
                     this.buf = [];
@@ -39715,16 +39739,17 @@
                 return e
             }
         },
-        9303: (e, t, r) => {
+        6304: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
             t.Union = t.Record = t.MatchFailureException = t.FSharpRef = t.FSharpException = t.Exception = t.Attribute = void 0;
+            t.ensureErrorOrException = ensureErrorOrException;
             t.isException = isException;
             t.seqToString = seqToString;
             t.toString = toString;
             t.unionToString = unionToString;
-            var n = r(4522);
+            var n = r(3151);
 
             function seqToString(e) {
                 let t = 0;
@@ -39744,14 +39769,15 @@
             }
 
             function toString(e, t = 0) {
+                var r, n;
                 if (e != null && typeof e === "object") {
                     if (typeof e.toString === "function") {
                         return e.toString()
                     } else if (Symbol.iterator in e) {
                         return seqToString(e)
                     } else {
-                        const r = Object.getPrototypeOf(e).constructor;
-                        return r === Object && t < 10 ? "{ " + Object.entries(e).map((([e, r]) => e + " = " + toString(r, t + 1))).join("\n  ") + " }" : r.name
+                        const i = (r = Object.getPrototypeOf(e)) === null || r === void 0 ? void 0 : r.constructor;
+                        return i === Object && t < 10 ? "{ " + Object.entries(e).map((([e, r]) => e + " = " + toString(r, t + 1))).join("\n  ") + " }" : (n = i === null || i === void 0 ? void 0 : i.name) !== null && n !== void 0 ? n : ""
                     }
                 }
                 return String(e)
@@ -39910,6 +39936,10 @@
             function isException(e) {
                 return e instanceof Exception || e instanceof Error
             }
+
+            function ensureErrorOrException(e) {
+                return isException(e) ? e : new Error(String(e))
+            }
             class FSharpException extends Exception {
                 toJSON() {
                     return recordToJSON(this)
@@ -39941,7 +39971,7 @@
             class Attribute {}
             t.Attribute = Attribute
         },
-        4522: (e, t) => {
+        3151: (e, t) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -40034,7 +40064,8 @@
             }
 
             function sameConstructor(e, t) {
-                return Object.getPrototypeOf(e).constructor === Object.getPrototypeOf(t).constructor
+                var r, n;
+                return ((r = Object.getPrototypeOf(e)) === null || r === void 0 ? void 0 : r.constructor) === ((n = Object.getPrototypeOf(t)) === null || n === void 0 ? void 0 : n.constructor)
             }
             class Enumerator {
                 constructor(e) {
@@ -40243,6 +40274,7 @@
             }
 
             function structuralHash(e) {
+                var t;
                 if (e == null) {
                     return 0
                 }
@@ -40260,7 +40292,7 @@
                             return arrayHash(e)
                         } else if (e instanceof Date) {
                             return dateHash(e)
-                        } else if (Object.getPrototypeOf(e).constructor === Object) {
+                        } else if (((t = Object.getPrototypeOf(e)) === null || t === void 0 ? void 0 : t.constructor) === Object) {
                             const t = Object.values(e).map((e => structuralHash(e)));
                             return combineHashCodes(t)
                         } else {
@@ -40317,6 +40349,7 @@
             }
 
             function equals(e, t) {
+                var r;
                 if (e === t) {
                     return true
                 } else if (e == null) {
@@ -40332,7 +40365,7 @@
                 } else if (e instanceof Date) {
                     return t instanceof Date && compareDates(e, t) === 0
                 } else {
-                    return Object.getPrototypeOf(e).constructor === Object && equalObjects(e, t)
+                    return ((r = Object.getPrototypeOf(e)) === null || r === void 0 ? void 0 : r.constructor) === Object && equalObjects(e, t)
                 }
             }
 
@@ -40399,6 +40432,7 @@
             }
 
             function compare(e, t) {
+                var r;
                 if (e === t) {
                     return 0
                 } else if (e == null) {
@@ -40414,7 +40448,7 @@
                 } else if (e instanceof Date) {
                     return t instanceof Date ? compareDates(e, t) : -1
                 } else {
-                    return Object.getPrototypeOf(e).constructor === Object ? compareObjects(e, t) : -1
+                    return ((r = Object.getPrototypeOf(e)) === null || r === void 0 ? void 0 : r.constructor) === Object ? compareObjects(e, t) : -1
                 }
             }
 
@@ -40573,13 +40607,13 @@
                 return r => mapArg(e, r, t, 0)
             }
         },
-        9666: (e, t, r) => {
+        8191: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
             t["default"] = t.Big = void 0;
-            var n = r(4522);
-            var i = r(3428);
+            var n = r(3151);
+            var i = r(450);
             var o = {
                 GetHashCode() {
                     return (0, n.combineHashCodes)([this.s, this.e].concat(this.c))
@@ -41152,7 +41186,7 @@
             var x = T;
             t["default"] = x
         },
-        3140: (e, t, r) => {
+        2627: (e, t, r) => {
             Object.defineProperty(t, "__esModule", {
                 value: true
             });
@@ -41206,7 +41240,7 @@
             t.toString = toString;
             t.toUnsigned = toUnsigned;
             t.xor = xor;
-            var n = r(3428);
+            var n = r(450);
             var i = null;
             try {
                 i = new WebAssembly.Instance(new WebAssembly.Module(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 13, 2, 96, 0, 1, 127, 96, 4, 127, 127, 127, 127, 1, 127, 3, 7, 6, 0, 1, 1, 1, 1, 1, 6, 6, 1, 127, 1, 65, 0, 11, 7, 50, 6, 3, 109, 117, 108, 0, 1, 5, 100, 105, 118, 95, 115, 0, 2, 5, 100, 105, 118, 95, 117, 0, 3, 5, 114, 101, 109, 95, 115, 0, 4, 5, 114, 101, 109, 95, 117, 0, 5, 8, 103, 101, 116, 95, 104, 105, 103, 104, 0, 0, 10, 191, 1, 6, 4, 0, 35, 0, 11, 36, 1, 1, 126, 32, 0, 173, 32, 1, 173, 66, 32, 134, 132, 32, 2, 173, 32, 3, 173, 66, 32, 134, 132, 126, 34, 4, 66, 32, 135, 167, 36, 0, 32, 4, 167, 11, 36, 1, 1, 126, 32, 0, 173, 32, 1, 173, 66, 32, 134, 132, 32, 2, 173, 32, 3, 173, 66, 32, 134, 132, 127, 34, 4, 66, 32, 135, 167, 36, 0, 32, 4, 167, 11, 36, 1, 1, 126, 32, 0, 173, 32, 1, 173, 66, 32, 134, 132, 32, 2, 173, 32, 3, 173, 66, 32, 134, 132, 128, 34, 4, 66, 32, 135, 167, 36, 0, 32, 4, 167, 11, 36, 1, 1, 126, 32, 0, 173, 32, 1, 173, 66, 32, 134, 132, 32, 2, 173, 32, 3, 173, 66, 32, 134, 132, 129, 34, 4, 66, 32, 135, 167, 36, 0, 32, 4, 167, 11, 36, 1, 1, 126, 32, 0, 173, 32, 1, 173, 66, 32, 134, 132, 32, 2, 173, 32, 3, 173, 66, 32, 134, 132, 130, 34, 4, 66, 32, 135, 167, 36, 0, 32, 4, 167, 11])), {}).exports
@@ -41795,10 +41829,10 @@
             t.MK_production = MK_production;
             t.build_analyzer = build_analyzer;
             var n = r(3833);
-            var i = r(126);
-            var o = r(9303);
-            var s = r(28);
-            var a = r(4522);
+            var i = r(5639);
+            var o = r(6304);
+            var s = r(8573);
+            var a = r(3151);
             var l = r(543);
 
             function MK_Cell() {
@@ -42059,19 +42093,19 @@
             t.Sigma__get_CurrentPos = Sigma__get_CurrentPos;
             t.Sigma__get_GlobalVariables = Sigma__get_GlobalVariables;
             t.build_analyzer = build_analyzer;
-            var n = r(9303);
-            var i = r(2762);
+            var n = r(6304);
+            var i = r(630);
             var o = r(3833);
-            var s = r(1316);
-            var a = r(8610);
-            var l = r(4522);
-            var _ = r(126);
+            var s = r(4244);
+            var a = r(8598);
+            var l = r(3151);
+            var _ = r(5639);
             var u = r(7362);
             var c = r(4205);
             var d = r(1697);
             var p = r(5891);
             var f = r(7936);
-            var h = r(28);
+            var h = r(8573);
             var g = r(6109);
             class Shape extends n.Record {
                 constructor(e, t) {
@@ -42831,19 +42865,19 @@
             });
             t.CSharpKeywords = void 0;
             t.codegen = codegen;
-            var n = r(8241);
-            var i = r(126);
-            var o = r(8610);
-            var s = r(28);
-            var a = r(4522);
-            var l = r(1316);
-            var _ = r(3827);
+            var n = r(4382);
+            var i = r(5639);
+            var o = r(8598);
+            var s = r(8573);
+            var a = r(3151);
+            var l = r(4244);
+            var _ = r(2974);
             var u = r(543);
             var c = r(1383);
             var d = r(1697);
             var p = r(3833);
             var f = r(4205);
-            var h = r(7350);
+            var h = r(7238);
             var g = r(9386);
             var m = r(7936);
             const y = ["__arglist", "__makeref", "__reftype", "__refvalue", "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "volatile", "void", "while"];
@@ -43370,15 +43404,15 @@
             t.NameMangling_nameEnv = void 0;
             t.NameMangling_nameEnv$reflection = NameMangling_nameEnv$reflection;
             t.NameMangling_to_valid_identifier = NameMangling_to_valid_identifier;
-            var n = r(9303);
-            var i = r(2762);
-            var o = r(8610);
-            var s = r(4522);
-            var a = r(6774);
+            var n = r(6304);
+            var i = r(630);
+            var o = r(8598);
+            var s = r(3151);
+            var a = r(6606);
             var l = r(1697);
             var _ = r(9386);
-            var u = r(126);
-            var c = r(3827);
+            var u = r(5639);
+            var c = r(2974);
             class NameMangling_nameEnv extends n.Record {
                 constructor(e) {
                     super();
@@ -43571,22 +43605,22 @@
                 value: true
             });
             t.codegen = codegen;
-            var n = r(8241);
+            var n = r(4382);
             var i = r(5506);
-            var o = r(126);
-            var s = r(8610);
-            var a = r(4522);
-            var l = r(1316);
-            var _ = r(3827);
+            var o = r(5639);
+            var s = r(8598);
+            var a = r(3151);
+            var l = r(4244);
+            var _ = r(2974);
             var u = r(543);
             var c = r(1383);
             var d = r(1697);
             var p = r(3833);
             var f = r(4205);
-            var h = r(7350);
+            var h = r(7238);
             var g = r(9386);
             var m = r(7936);
-            var y = r(28);
+            var y = r(8573);
 
             function codegen(e, t, r, S) {
                 let T;
@@ -44028,20 +44062,20 @@
             t.angled = angled;
             t.codegen = codegen;
             var n = r(9386);
-            var i = r(126);
-            var o = r(8610);
-            var s = r(4522);
-            var a = r(1316);
-            var l = r(3827);
+            var i = r(5639);
+            var o = r(8598);
+            var s = r(3151);
+            var a = r(4244);
+            var l = r(2974);
             var _ = r(543);
             var u = r(1383);
             var c = r(1697);
             var d = r(3833);
-            var p = r(8241);
+            var p = r(4382);
             var f = r(4205);
-            var h = r(7350);
+            var h = r(7238);
             var g = r(7936);
-            var m = r(28);
+            var m = r(8573);
 
             function angled(e) {
                 return (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)("<"), e), (0, n.word)(">"))
@@ -44393,22 +44427,22 @@
                 value: true
             });
             t.codegen = codegen;
-            var n = r(8241);
-            var i = r(126);
-            var o = r(8610);
-            var s = r(4522);
-            var a = r(1316);
-            var l = r(3827);
+            var n = r(4382);
+            var i = r(5639);
+            var o = r(8598);
+            var s = r(3151);
+            var a = r(4244);
+            var l = r(2974);
             var _ = r(543);
             var u = r(1383);
             var c = r(1697);
             var d = r(3833);
             var p = r(9386);
             var f = r(4205);
-            var h = r(7350);
+            var h = r(7238);
             var g = r(417);
             var m = r(7936);
-            var y = r(28);
+            var y = r(8573);
             var S = r(8203);
 
             function codegen(e, t, r, T) {
@@ -44801,19 +44835,19 @@
             t.angled = angled;
             t.codegen = codegen;
             var n = r(9386);
-            var i = r(8241);
-            var o = r(126);
-            var s = r(8610);
-            var a = r(28);
-            var l = r(4522);
-            var _ = r(1316);
-            var u = r(3827);
+            var i = r(4382);
+            var o = r(5639);
+            var s = r(8598);
+            var a = r(8573);
+            var l = r(3151);
+            var _ = r(4244);
+            var u = r(2974);
             var c = r(543);
             var d = r(1383);
             var p = r(1697);
             var f = r(3833);
             var h = r(4205);
-            var g = r(7350);
+            var g = r(7238);
             var m = r(7936);
             const y = ["__arglist", "__makeref", "__reftype", "__refvalue", "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "volatile", "void", "while", "lexer", "parser"];
             t.CSharpKeywords = y;
@@ -44824,51 +44858,51 @@
 
             function codegen(e, t, r, S) {
                 let T;
-                const x = (0, i.defaultArg)(t.rename_var, (e => e));
-                const C = (0, i.defaultArg)(t.rename_ctor, (e => e));
-                const N = (0, i.defaultArg)(t.rename_var, (e => e));
-                const A = (0, i.defaultArg)(t.rename_field, (e => e));
-                const E = (0, i.defaultArg)(t.rename_type, (e => e));
+                const x = (0, i.defaultArg)(t.rename_ctor, (e => e));
+                const C = (0, i.defaultArg)(t.rename_var, (e => e));
+                const N = (0, i.defaultArg)(t.rename_field, (e => e));
+                const A = (0, i.defaultArg)(t.rename_type, (e => e));
+                const typeParameter_mangling = e => "_GEN_" + e;
+                let E = (0, o.empty)();
                 let v = (0, o.empty)();
-                let w = (0, o.empty)();
-                const M = (0, s.ofArray)((0, a.append)(["result"], y), {
+                const w = (0, s.ofArray)((0, a.append)(["result"], y), {
                     Compare: l.comparePrimitives
                 });
-                let b = (0, _.empty)();
-                let F = (0, o.empty)();
-                const B = (0, u.toList)((0, u.delay)((() => (0, u.map)((e => [e[0], x(e[0])]), (0, c.Sigma__get_GlobalVariables)(e.Sigma)))));
-                const I = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => {
+                let M = (0, _.empty)();
+                let b = (0, o.empty)();
+                const F = (0, u.toList)((0, u.delay)((() => (0, u.map)((e => [e[0], C(e[0])]), (0, c.Sigma__get_GlobalVariables)(e.Sigma)))));
+                const B = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => {
                     const r = (((0, p.isLower)(t) ? true : (0, p.isUpper)(t)) ? true : (0, p.isUnicode)(t)) ? true : t === "_";
                     return e === 0 ? r : r ? true : (0, p.isDigit)(t)
-                }), ((e, t) => (0, p.isDigit)(t) ? `_X${e}_` : `_${t.charCodeAt(0)}_`)), new d.NameMangling_nameEnv((0, s.ofList)((0, o.map)((e => e[1]), B), {
+                }), ((e, t) => (0, p.isDigit)(t) ? `_X${e}_` : `_${t.charCodeAt(0)}_`)), new d.NameMangling_nameEnv((0, s.ofList)((0, o.map)((e => e[1]), F), {
                     Compare: l.comparePrimitives
                 })));
-                const L = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, p.isUpper)(t) : ((0, p.isUpper)(t) ? true : t === "_") ? true : (0, p.isDigit)(t)), ((e, t) => (0, p.isLower)(t) ? t.toUpperCase() : e === 0 ? (0, d.NameMangling_maskChar)(65, 90, t.charCodeAt(0)) + "_" : "_" + (0, d.NameMangling_maskChar)(65, 90, t.charCodeAt(0)) + "_")), new d.NameMangling_nameEnv((0, s.ofArray)(["EOF"], {
+                const I = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, p.isUpper)(t) : ((0, p.isUpper)(t) ? true : t === "_") ? true : (0, p.isDigit)(t)), ((e, t) => (0, p.isLower)(t) ? t.toUpperCase() : e === 0 ? (0, d.NameMangling_maskChar)(65, 90, t.charCodeAt(0)) + "_" : "_" + (0, d.NameMangling_maskChar)(65, 90, t.charCodeAt(0)) + "_")), new d.NameMangling_nameEnv((0, s.ofArray)(["EOF"], {
                     Compare: l.comparePrimitives
                 })));
-                const P = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, p.isLower)(t) : ((0, p.isLower)(t) ? true : t === "_") ? true : (0, p.isDigit)(t)), ((e, t) => (0, p.isUpper)(t) ? t.toLowerCase() : "_" + (0, d.NameMangling_maskChar)(97, 122, t.charCodeAt(0)) + "_")), new d.NameMangling_nameEnv((0, s.ofArray)(["start"], {
+                const L = (0, d.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, d.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)(((e, t) => e === 0 ? (0, p.isLower)(t) : ((0, p.isLower)(t) ? true : t === "_") ? true : (0, p.isDigit)(t)), ((e, t) => (0, p.isUpper)(t) ? t.toLowerCase() : "_" + (0, d.NameMangling_maskChar)(97, 122, t.charCodeAt(0)) + "_")), new d.NameMangling_nameEnv((0, s.ofArray)(["start"], {
                     Compare: l.comparePrimitives
                 })));
-                const mangle = (e, t) => (0, d.NameMangling_mangle)(M, e, t);
+                const mangle = (e, t) => (0, d.NameMangling_mangle)(w, e, t);
                 const cg_symbol = e => {
-                    const t = (0, _.tryFind)(e, b);
+                    const t = (0, _.tryFind)(e, M);
                     if (t == null) {
                         let t;
                         switch (e.tag) {
                             case 0: {
                                 const r = e.fields[0];
-                                t = e.fields[1] ? (0, p.escapeStringSingleQuoted)(r) : mangle(L, r);
+                                t = e.fields[1] ? (0, p.escapeStringSingleQuoted)(r) : mangle(I, r);
                                 break
                             }
                             case 1: {
-                                t = mangle(P, e.fields[0]);
+                                t = mangle(L, e.fields[0]);
                                 break
                             }
                             default: {
                                 throw new Error("macro not processed")
                             }
                         }
-                        b = (0, _.add)(e, t, b);
+                        M = (0, _.add)(e, t, M);
                         return t
                     } else {
                         return t
@@ -44922,17 +44956,18 @@
                     }
                     switch (t) {
                         case 0: {
-                            return E(r)
+                            return A(r)
                         }
                         case 1: {
-                            return "_GEN_" + n
+                            return typeParameter_mangling(n)
                         }
                         case 2: {
                             const e = new h.UnsolvedTypeVariable;
                             throw e
                         }
                         case 3: {
-                            return (0, g.join)(", ", (0, o.map)((e => e[0] + ":" + _cg_type(e[1])), i)) + " => " + _cg_type(s)
+                            const e = (0, g.join)(", ", (0, o.map)((e => e[0] + ":" + _cg_type(e[1])), i));
+                            return `(${e}) => ${_cg_type(s)}`
                         }
                         case 4: {
                             throw new Error("[]")
@@ -44967,7 +45002,7 @@
                 };
                 const cg_type = e => _cg_type((0, f.monot__Prune)(e));
                 const slotName = (e, t) => `${e}__${t}`;
-                const O = "result";
+                const P = "result";
                 const mk_lexer = e => {
                     if (e.tag === 9) {
                         return "(" + mk_lexer(e.fields[0]) + ")"
@@ -44982,7 +45017,7 @@
                     } else if (e.tag === 1) {
                         return "."
                     } else if (e.tag === 11) {
-                        const t = (0, p.List_tryLookup)(e.fields[0], F);
+                        const t = (0, p.List_tryLookup)(e.fields[0], b);
                         if (t == null) {
                             const t = (0, h.UnboundLexer)(e.fields[0]);
                             throw t
@@ -45112,12 +45147,17 @@
                     }
                 };
                 return (0, m.withErrorHandler)((T = e.Sigma, () => (0, c.Sigma__GetErrorTrace)(T)), (() => {
-                    if (!(0, o.isEmpty)((0, c.Sigma__GetADTCases)(e.Sigma))) {
-                        throw new Error("typescript backend does not support defining ADTs yet.")
-                    }
-                    if (!(0, o.isEmpty)((0, c.Sigma__GetRecordTypes)(e.Sigma))) {
-                        throw new Error("typescript backend does not support defining records yet.")
-                    }
+                    const define_record = e => {
+                        const t = e[0];
+                        const r = e[2];
+                        return (0, u.toList)((0, u.delay)((() => {
+                            const i = (0, n.parens)((0, n.seplist)((0, n.word)(","), (0, u.toList)((0, u.delay)((() => (0, u.collect)((e => (0, u.singleton)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)(e[0], (0, n.word)(": ")), e[1]))), r))))));
+                            return (0, u.append)((0, u.singleton)((0, n.word)(`export class ${t}`)), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("{")), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.Doc_op_RightShift_2AAA0F3C)((0, n.vsep)((0, u.toList)((0, u.delay)((() => (0, u.append)((0, u.collect)((e => (0, u.singleton)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)(e[0], (0, n.word)(": ")), e[1]))), r), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)("public constructor"), i)), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("{")), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.Doc_op_RightShift_2AAA0F3C)((0, n.vsep)((0, u.toList)((0, u.delay)((() => (0, u.collect)((e => {
+                                const t = e[0];
+                                return (0, u.singleton)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)("this."), t), (0, n.word)(" = ")), t))
+                            }), r))))), 4)), (0, u.delay)((() => (0, u.singleton)((0, n.word)("}")))))))))))))))))), 4)), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("}")), (0, u.delay)((() => (0, u.append)((0, u.singleton)(n.empty), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)(`export function ${e[1]}`), i)), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("{")), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.Doc_op_RightShift_2AAA0F3C)((0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.word)(`return new ${t}`), (0, n.parens)((0, n.seplist)((0, n.word)(","), (0, u.toList)((0, u.delay)((() => (0, u.collect)((e => (0, u.singleton)(e[0])), r))))))), 4)), (0, u.delay)((() => (0, u.singleton)((0, n.word)("}"))))))))))))))))))))))))))
+                        })))
+                    };
                     const parensIfLOr = e => {
                         if (e.tag === 4) {
                             return (0, n.parens)((0, n.word)(mk_lexer(e)))
@@ -45133,7 +45173,7 @@
                             switch (t.tag) {
                                 case 2: {
                                     const e = t.fields[0];
-                                    F = (0, o.cons)([e.lhs, e.define], F);
+                                    b = (0, o.cons)([e.lhs, e.define], b);
                                     return n.empty
                                 }
                                 case 6: {
@@ -45143,13 +45183,13 @@
                                     return (0, n.vsep)((0, o.empty)())
                                 }
                                 case 3: {
-                                    v = (0, o.cons)(x(t.fields[0].ident), v);
+                                    E = (0, o.cons)(C(t.fields[0].ident), E);
                                     return (0, n.vsep)((0, o.empty)())
                                 }
                                 case 5: {
                                     const e = t.fields[0];
                                     if (e.external) {
-                                        w = (0, o.cons)(E(e.ident), w)
+                                        v = (0, o.cons)(A(e.ident), v)
                                     }
                                     return (0, n.vsep)((0, o.empty)())
                                 }
@@ -45214,12 +45254,12 @@
                                                 } else if (m.tag === 5) {
                                                     const e = (0, d.DocBuilder_runCG)(cg_expr((0, o.append)((0, u.toList)((0, u.delay)((() => (0, u.collect)((e => {
                                                         const t = e[0];
-                                                        return (0, u.singleton)([t, mangle(I, t)])
+                                                        return (0, u.singleton)([t, mangle(B, t)])
                                                     }), m.fields[0])))), t), m.fields[1]));
                                                     return (0, d.DocBuilder_Builder__Return_1505)(d.DocBuilder_cg, (_ = (0, n.vsep)((0, o.ofArray)([(0, n.vsep)(e[1]), (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("return"), (0, n.Doc_op_Multiply_Z7CFFAC00)(e[0], (0, n.word)(";")))])), c = (0, o.map)((e => (0, n.word)(cg_type(e[1]) + " " + e[0])), m.fields[0]), (0, n.parens)((0, n.vsep)((0, o.ofArray)([(0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("function"), (0, n.Doc_op_Multiply_Z7CFFAC00)((0, n.parens)((0, n.seplist)((0, n.word)(", "), c)), (0, n.word)("{"))), (0, n.Doc_op_RightShift_2AAA0F3C)(_, 4), (0, n.word)("}")])))))
                                                 } else if (m.tag === 4) {
                                                     return (0, d.DocBuilder_Builder__Bind_30A200B3)(d.DocBuilder_cg, cg_expr(t, m.fields[1]), (e => {
-                                                        const r = mangle(I, m.fields[0]);
+                                                        const r = mangle(B, m.fields[0]);
                                                         return (0, d.DocBuilder_Builder__Combine_Z5C764E00)(d.DocBuilder_cg, (0, d.DocBuilder_Builder__Yield_417FD60)(d.DocBuilder_cg, (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("let"), (0, n.word)(r)), (0, n.word)(":")), (0, n.word)(cg_type(m.fields[1].t))), (0, n.word)("=")), (0, n.Doc_op_Multiply_Z7CFFAC00)(e, (0, n.word)(";")))), (0, d.DocBuilder_Builder__Delay_Z3A9C5A06)(d.DocBuilder_cg, (() => (0, d.DocBuilder_Builder__ReturnFrom_ZD0BB270)(d.DocBuilder_cg, cg_expr((0, o.cons)([m.fields[0], r], t), m.fields[2])))))
                                                     }))
                                                 } else if (m.tag === 2) {
@@ -45239,7 +45279,7 @@
                                                     }))))
                                                 }
                                             })));
-                                            const t = (0, d.DocBuilder_runCG)(cg_expr(B, m));
+                                            const t = (0, d.DocBuilder_runCG)(cg_expr(F, m));
                                             return [e, t]
                                         }))), (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((T = (0, o.mapIndexed)(((e, t) => {
                                             const r = e + 1 | 0;
@@ -45249,12 +45289,12 @@
                                             } else {
                                                 return o
                                             }
-                                        }), r.symbols), (0, n.seplist)((0, n.word)(" "), T)), (0, n.word)("{")), (0, n.Doc_op_RightShift_2AAA0F3C)((0, n.vsep)((0, o.ofArray)([n.empty, (0, n.Doc_op_RightShift_2AAA0F3C)((0, n.vsep)((0, o.ofArray)([(0, n.vsep)(_[1][1]), (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("$" + O), (0, n.word)("=")), (0, n.Doc_op_Multiply_Z7CFFAC00)(_[1][0], (0, n.word)(";")))])), 4), (0, n.word)("}")])), 12)))), (0, u.delay)((() => {
+                                        }), r.symbols), (0, n.seplist)((0, n.word)(" "), T)), (0, n.word)("{")), (0, n.Doc_op_RightShift_2AAA0F3C)((0, n.vsep)((0, o.ofArray)([n.empty, (0, n.Doc_op_RightShift_2AAA0F3C)((0, n.vsep)((0, o.ofArray)([(0, n.vsep)(_[1][1]), (0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("$" + P), (0, n.word)("=")), (0, n.Doc_op_Multiply_Z7CFFAC00)(_[1][0], (0, n.word)(";")))])), 4), (0, n.word)("}")])), 12)))), (0, u.delay)((() => {
                                             S = S + 1 | 0;
                                             return (0, u.empty)()
                                         })))
                                     }), r.define)))))));
-                                    return (0, n.vsep)((0, o.ofArray)([(0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(a), (0, n.word)("returns")), (0, n.bracket)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(cg_type(m)), (0, n.word)(O)))), (0, n.Doc_op_RightShift_2AAA0F3C)(T, 4), (0, n.word)(";")]))
+                                    return (0, n.vsep)((0, o.ofArray)([(0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(a), (0, n.word)("returns")), (0, n.bracket)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(cg_type(m)), (0, n.word)(P)))), (0, n.Doc_op_RightShift_2AAA0F3C)(T, 4), (0, n.word)(";")]))
                                 }
                             }
                         }), S)));
@@ -45263,17 +45303,54 @@
                             const i = simplify_lexerule(t[1]);
                             const o = name_of_named_term(r);
                             return (0, s.contains)(r, e.IgnoreSet) ? (0, u.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(o), (0, n.word)(":")), parensIfLOr(i)), (0, n.word)("-> channel(HIDDEN);"))) : (0, s.contains)(r, e.ReferencedNamedTokens) ? (0, u.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)(o), (0, n.word)(":")), (0, n.word)(mk_lexer(i))), (0, n.word)(";"))) : (0, u.singleton)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.Doc_op_Addition_Z7CFFAC00)((0, n.word)("fragment"), (0, n.word)(o)), (0, n.word)(":")), parensIfLOr(i)), (0, n.word)(";")))
-                        }), (0, o.reverse)(F)))));
+                        }), (0, o.reverse)(b)))));
                         const T = cg_symbol(new f.symbol(1, "start"));
-                        const C = (0, o.append)(w, v);
+                        const w = (0, o.append)(v, E);
+                        const M = [];
+                        const I = [`${r}-constructor.ts`, (0, n.vsep)((0, u.toList)((0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("import * as antlr from 'antlr4ts';")), (0, u.delay)((() => {
+                            const t = (0, g.join)(", ", w);
+                            return (0, u.append)((0, u.singleton)((0, n.word)(`import { ${t} } from './${r}-require';`)), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)(`export * from './${r}-require'`)), (0, u.delay)((() => {
+                                const t = (0, c.Sigma__GetADTCases)(e.Sigma);
+                                return (0, u.append)((0, u.singleton)(n.empty), (0, u.delay)((() => (0, u.append)((0, u.collect)((e => {
+                                    const t = [];
+                                    return (0, u.append)((0, u.collect)((e => {
+                                        let r;
+                                        const i = e[0];
+                                        const s = (0, o.map)((e => [(0, n.word)(N(e[0])), (0, n.word)(cg_type(e[1]))]), e[1]);
+                                        const a = A(i);
+                                        const l = x(i);
+                                        void t.push(a);
+                                        void M.push(l);
+                                        return r = [a, l, s], define_record([r[0], r[1], r[2]])
+                                    }), (0, _.toArray)(e[1])), (0, u.delay)((() => {
+                                        const r = A(e[0]);
+                                        const i = (0, g.join)(" | ", t);
+                                        return (0, u.append)((0, u.singleton)((0, n.word)(`export type ${r} = ${i}`)), (0, u.delay)((() => {
+                                            void M.push(r);
+                                            return (0, u.empty)()
+                                        })))
+                                    })))
+                                }), t), (0, u.delay)((() => (0, u.collect)((e => {
+                                    let t;
+                                    const r = e[0];
+                                    const i = e[1];
+                                    const s = A(r);
+                                    const a = x(r);
+                                    void M.push(s);
+                                    void M.push(a);
+                                    const l = (0, o.isEmpty)(i.parameters) ? "" : "<" + (0, g.join)(", ", (0, o.map)(typeParameter_mangling, i.parameters)) + ">";
+                                    return t = [s + l, a + l, (0, u.toList)((0, u.delay)((() => (0, u.collect)((e => (0, u.singleton)([(0, n.word)(N(e[0])), (0, n.word)(cg_type(e[1]))])), i.fields))))], define_record([t[0], t[1], t[2]])
+                                }), (0, c.Sigma__GetRecordTypes)(e.Sigma))))))))
+                            }))))))
+                        })))))))];
                         return [
                             [r + ".g4", (0, n.vsep)((0, u.toList)((0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)(`grammar ${r};`)), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("@header {")), (0, u.delay)((() => {
                                 let e, t;
-                                return (0, u.append)(!(0, o.isEmpty)(C) ? (e = (0, g.join)(", ", C), t = (0, p.escapeString)(`./${r}_require`), (0, u.singleton)((0, n.word)(`import { ${e} } from ${t}`))) : (0, u.empty)(), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("}")), (0, u.delay)((() => {
+                                return (0, u.append)(!(0, o.isEmpty)(w) ? (e = (0, g.join)(", ", (0, o.append)((0, o.ofSeq)(M), w)), t = (0, p.escapeString)(`./${r}-constructor`), (0, u.append)((0, u.singleton)((0, n.word)(`import { ${e} } from ${t}`)), (0, u.delay)((() => (0, u.singleton)((0, n.word)("import * as antlr from 'antlr4ts'")))))) : (0, u.empty)(), (0, u.delay)((() => (0, u.append)((0, u.singleton)((0, n.word)("}")), (0, u.delay)((() => {
                                     let e;
                                     return (0, u.append)((0, u.singleton)((0, n.word)((e = cg_type(i), (0, g.toText)((0, g.printf)("start returns [result: %s]: v=%s EOF { $result = _localctx._v.result; };"))(e)(T)))), (0, u.delay)((() => (0, u.append)((0, u.singleton)(m), (0, u.delay)((() => y))))))
                                 }))))))
-                            }))))))))))]
+                            }))))))))))], I
                         ]
                     } else {
                         const e = (0, h.UnboundNonterminal)("start");
@@ -45291,13 +45368,13 @@
             t.renderTypeKind = renderTypeKind;
             t.setExitFunc = setExitFunc;
             t.withErrorHandler = withErrorHandler;
-            var n = r(7350);
-            var i = r(126);
+            var n = r(7238);
+            var i = r(5639);
             var o = r(4205);
             var s = r(380);
             var a = r(3833);
-            var l = r(9303);
-            var _ = r(8241);
+            var l = r(6304);
+            var _ = r(4382);
 
             function renderTypeKind(e) {
                 if (e === 0) {
@@ -45504,10 +45581,10 @@
             t.UnboundVariable = UnboundVariable;
             t.UnsolvedTypeVariable = void 0;
             t.UnsolvedTypeVariable$reflection = UnsolvedTypeVariable$reflection;
-            var n = r(9303);
+            var n = r(6304);
             var i = r(3833);
-            var o = r(2762);
-            var s = r(4522);
+            var o = r(630);
+            var s = r(3151);
             class ErrorTrace extends n.Record {
                 constructor(e, t, r, n) {
                     super();
@@ -46118,14 +46195,14 @@
             t.symbol = void 0;
             t.symbol$reflection = symbol$reflection;
             t.symbol__Inspect = symbol__Inspect;
-            var n = r(9303);
-            var i = r(2762);
-            var o = r(126);
-            var s = r(1316);
-            var a = r(7350);
+            var n = r(6304);
+            var i = r(630);
+            var o = r(5639);
+            var s = r(4244);
+            var a = r(7238);
             var l = r(1697);
-            var _ = r(8241);
-            var u = r(3827);
+            var _ = r(4382);
+            var u = r(2974);
             class Cell$1 {
                 constructor() {
                     this._cell = null
@@ -46719,11 +46796,11 @@
             });
             t.inspectMonoType = inspectMonoType;
             t.showExpr = showExpr;
-            var n = r(9303);
-            var i = r(7350);
-            var o = r(126);
+            var n = r(6304);
+            var i = r(7238);
+            var o = r(5639);
             var s = r(3833);
-            var a = r(4522);
+            var a = r(3151);
             var l = r(1697);
 
             function inspectMonoType(e) {
@@ -46818,12 +46895,12 @@
             t.resolve_macro = resolve_macro;
             t.toPositionIndependent = toPositionIndependent;
             t.toPositionIndependentString = toPositionIndependentString;
-            var n = r(126);
+            var n = r(5639);
             var i = r(3833);
-            var o = r(7350);
+            var o = r(7238);
             var s = r(1697);
-            var a = r(1316);
-            var l = r(3827);
+            var a = r(4244);
+            var l = r(2974);
             var _ = r(4205);
 
             function toPositionIndependent(e) {
@@ -46981,12 +47058,12 @@
             t.Manager__Instantiate_Z25E5E15E = Manager__Instantiate_Z25E5E15E;
             t.Manager__NewTyRef_Z721C83C5 = Manager__NewTyRef_Z721C83C5;
             t.Manager__Unify_Z1D753960 = Manager__Unify_Z1D753960;
-            var n = r(2762);
+            var n = r(630);
             var i = r(4205);
             var o = r(3833);
-            var s = r(126);
-            var a = r(4522);
-            var l = r(1316);
+            var s = r(5639);
+            var a = r(3151);
+            var l = r(4244);
             class Manager {
                 constructor() {}
             }
@@ -47257,14 +47334,14 @@
             t.isUnicode = isUnicode;
             t.isUpper = isUpper;
             t.upperRange = t.upperChars = t.unicodeRange = t.sampleUnicodes = t.lowerRange = t.lowerChars = void 0;
-            var n = r(3827);
-            var i = r(5673);
-            var o = r(6774);
-            var s = r(9303);
-            var a = r(7350);
-            var l = r(126);
-            var _ = r(4522);
-            var u = r(8241);
+            var n = r(2974);
+            var i = r(1783);
+            var o = r(6606);
+            var s = r(6304);
+            var a = r(7238);
+            var l = r(5639);
+            var _ = r(3151);
+            var u = r(4382);
             const c = (0, n.toArray)((0, n.delay)((() => (0, n.map)((e => e), (0, i.rangeChar)("a", "z")))));
             t.lowerChars = c;
             const d = (0, n.toArray)((0, n.delay)((() => (0, n.map)((e => e), (0, i.rangeChar)("A", "Z")))));

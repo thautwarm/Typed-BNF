@@ -48,13 +48,13 @@ exports.UnboundVariable = UnboundVariable;
 exports.UnsolvedTypeVariable = void 0;
 exports.UnsolvedTypeVariable$reflection = UnsolvedTypeVariable$reflection;
 
-var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.14/Types.js");
 
 var _Grammar = require("./Grammar.js");
 
-var _Reflection = require("../fable_modules/fable-library.3.7.9/Reflection.js");
+var _Reflection = require("../fable_modules/fable-library.3.7.14/Reflection.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.14/Util.js");
 
 class ErrorTrace extends _Types.Record {
   constructor(whichDef, branch, exprStack, currentPos) {

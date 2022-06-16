@@ -31,6 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fable.Core.Experimental" Version="4.0.0-alpha-021" />
-    <PackageReference Include="Fable.Python" Version="0.16.0" />
+    <!-- <PackageReference Include="Fable.Python" Version="0.16.0" /> -->
   </ItemGroup>
 </Project>

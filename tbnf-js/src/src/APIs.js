@@ -53,13 +53,13 @@ exports.build_analyzer = build_analyzer;
 
 var _Grammar = require("./Grammar.js");
 
-var _List = require("../fable_modules/fable-library.3.7.9/List.js");
+var _List = require("../fable_modules/fable-library.3.7.14/List.js");
 
-var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.14/Types.js");
 
-var _Array = require("../fable_modules/fable-library.3.7.9/Array.js");
+var _Array = require("../fable_modules/fable-library.3.7.14/Array.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.14/Util.js");
 
 var _Analysis = require("./Analysis.js");
 

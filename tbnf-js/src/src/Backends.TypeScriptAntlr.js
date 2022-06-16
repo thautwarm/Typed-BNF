@@ -9,19 +9,19 @@ exports.codegen = codegen;
 
 var _CodeGen = require("../FableSedlex/CodeGen.js");
 
-var _Option = require("../fable_modules/fable-library.3.7.9/Option.js");
+var _Option = require("../fable_modules/fable-library.3.7.14/Option.js");
 
-var _List = require("../fable_modules/fable-library.3.7.9/List.js");
+var _List = require("../fable_modules/fable-library.3.7.14/List.js");
 
-var _Set = require("../fable_modules/fable-library.3.7.9/Set.js");
+var _Set = require("../fable_modules/fable-library.3.7.14/Set.js");
 
-var _Array = require("../fable_modules/fable-library.3.7.9/Array.js");
+var _Array = require("../fable_modules/fable-library.3.7.14/Array.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.14/Util.js");
 
-var _Map = require("../fable_modules/fable-library.3.7.9/Map.js");
+var _Map = require("../fable_modules/fable-library.3.7.14/Map.js");
 
-var _Seq = require("../fable_modules/fable-library.3.7.9/Seq.js");
+var _Seq = require("../fable_modules/fable-library.3.7.14/Seq.js");
 
 var _Analysis = require("./Analysis.js");
 
@@ -33,7 +33,7 @@ var _Grammar = require("./Grammar.js");
 
 var _Exceptions = require("./Exceptions.js");
 
-var _String = require("../fable_modules/fable-library.3.7.9/String.js");
+var _String = require("../fable_modules/fable-library.3.7.14/String.js");
 
 var _ErrorReport = require("./ErrorReport.js");
 
@@ -46,11 +46,13 @@ function angled(x) {
 
 function codegen(analyzer, cg_options, langName, stmts) {
   let objectArg_1;
-  const var_renamer = (0, _Option.defaultArg)(cg_options.rename_var, x => x);
-  const rename_ctor = (0, _Option.defaultArg)(cg_options.rename_ctor, x_1 => x_1);
-  const rename_var = (0, _Option.defaultArg)(cg_options.rename_var, x_2 => x_2);
-  const rename_field = (0, _Option.defaultArg)(cg_options.rename_field, x_3 => x_3);
-  const type_renamer = (0, _Option.defaultArg)(cg_options.rename_type, x_4 => x_4);
+  const rename_ctor = (0, _Option.defaultArg)(cg_options.rename_ctor, x => x);
+  const rename_var = (0, _Option.defaultArg)(cg_options.rename_var, x_1 => x_1);
+  const rename_field = (0, _Option.defaultArg)(cg_options.rename_field, x_2 => x_2);
+  const rename_type = (0, _Option.defaultArg)(cg_options.rename_type, x_3 => x_3);
+
+  const typeParameter_mangling = x_4 => "_GEN_" + x_4;
+
   let importVarNames = (0, _List.empty)();
   let importTypeNames = (0, _List.empty)();
   const abandoned_names = (0, _Set.ofArray)((0, _Array.append)(["result"], CSharpKeywords), {
@@ -58,7 +60,7 @@ function codegen(analyzer, cg_options, langName, stmts) {
   });
   let symmap = (0, _Map.empty)();
   let lexerMaps = (0, _List.empty)();
-  const global_scope = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.map)(k => [k[0], var_renamer(k[0])], (0, _Analysis.Sigma__get_GlobalVariables)(analyzer.Sigma))));
+  const global_scope = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.map)(k => [k[0], rename_var(k[0])], (0, _Analysis.Sigma__get_GlobalVariables)(analyzer.Sigma))));
   const csharpIdentDescr = (0, _BackendsCommon.NameMangling_IdentifierDescriptor__WithNameEnv_Z7613F24B)((0, _BackendsCommon.NameMangling_IdentifierDescriptor_Create_Z48C5CCEF)((i, c) => {
     const test = (((0, _Utils.isLower)(c) ? true : (0, _Utils.isUpper)(c)) ? true : (0, _Utils.isUnicode)(c)) ? true : c === "_";
     return i === 0 ? test : test ? true : (0, _Utils.isDigit)(c);
@@ -74,23 +76,23 @@ function codegen(analyzer, cg_options, langName, stmts) {
 
   const mangle = (idr, n) => (0, _BackendsCommon.NameMangling_mangle)(abandoned_names, idr, n);
 
-  const cg_symbol = x_10 => {
-    const matchValue = (0, _Map.tryFind)(x_10, symmap);
+  const cg_symbol = x_9 => {
+    const matchValue = (0, _Map.tryFind)(x_9, symmap);
 
     if (matchValue == null) {
       let valid_py_ident;
 
-      switch (x_10.tag) {
+      switch (x_9.tag) {
         case 0:
           {
-            const define = x_10.fields[0];
-            valid_py_ident = x_10.fields[1] ? (0, _Utils.escapeStringSingleQuoted)(define) : mangle(antlrLexerIdentDescr, define);
+            const define = x_9.fields[0];
+            valid_py_ident = x_9.fields[1] ? (0, _Utils.escapeStringSingleQuoted)(define) : mangle(antlrLexerIdentDescr, define);
             break;
           }
 
         case 1:
           {
-            valid_py_ident = mangle(antlrGrammarIdentDescr, x_10.fields[0]);
+            valid_py_ident = mangle(antlrGrammarIdentDescr, x_9.fields[0]);
             break;
           }
 
@@ -100,7 +102,7 @@ function codegen(analyzer, cg_options, langName, stmts) {
           }
       }
 
-      symmap = (0, _Map.add)(x_10, valid_py_ident, symmap);
+      symmap = (0, _Map.add)(x_9, valid_py_ident, symmap);
       return valid_py_ident;
     } else {
       return matchValue;
@@ -109,17 +111,17 @@ function codegen(analyzer, cg_options, langName, stmts) {
 
   const name_of_named_term = n_2 => cg_symbol(new _Grammar.symbol(0, n_2, false));
 
-  const tryLookup = (key_mut, x_11_mut) => {
+  const tryLookup = (key_mut, x_10_mut) => {
     tryLookup: while (true) {
       const key = key_mut,
-            x_11 = x_11_mut;
+            x_10 = x_10_mut;
 
-      if (!(0, _List.isEmpty)(x_11)) {
-        if ((0, _Util.equals)((0, _List.head)(x_11)[0], key)) {
-          return (0, _Option.some)((0, _List.head)(x_11)[1]);
-        } else if (!(0, _List.isEmpty)(x_11)) {
+      if (!(0, _List.isEmpty)(x_10)) {
+        if ((0, _Util.equals)((0, _List.head)(x_10)[0], key)) {
+          return (0, _Option.some)((0, _List.head)(x_10)[1]);
+        } else if (!(0, _List.isEmpty)(x_10)) {
           key_mut = key;
-          x_11_mut = (0, _List.tail)(x_11);
+          x_10_mut = (0, _List.tail)(x_10);
           continue tryLookup;
         } else {
           throw new Error("Match failure");
@@ -162,12 +164,12 @@ function codegen(analyzer, cg_options, langName, stmts) {
     switch (pattern_matching_result) {
       case 0:
         {
-          return type_renamer(n_3);
+          return rename_type(n_3);
         }
 
       case 1:
         {
-          return "_GEN_" + a;
+          return typeParameter_mangling(a);
         }
 
       case 2:
@@ -178,7 +180,8 @@ function codegen(analyzer, cg_options, langName, stmts) {
 
       case 3:
         {
-          return (0, _String.join)(", ", (0, _List.map)(tupledArg => tupledArg[0] + ":" + _cg_type(tupledArg[1]), args)) + " =\u003e " + _cg_type(r);
+          const it = (0, _String.join)(", ", (0, _List.map)(tupledArg => tupledArg[0] + ":" + _cg_type(tupledArg[1]), args));
+          return `(${it}) => ${_cg_type(r)}`;
         }
 
       case 4:
@@ -301,110 +304,110 @@ function codegen(analyzer, cg_options, langName, stmts) {
     }
   };
 
-  const simplify_lexerule = x_19 => {
-    switch (x_19.tag) {
+  const simplify_lexerule = x_18 => {
+    switch (x_18.tag) {
       case 1:
       case 10:
       case 11:
       case 3:
         {
-          return x_19;
+          return x_18;
         }
 
       case 9:
         {
-          return _must_be_atom_rule(x_19.fields[0]);
+          return _must_be_atom_rule(x_18.fields[0]);
         }
 
       case 5:
         {
-          return new _Grammar.lexerule(5, _must_be_atom_rule(x_19.fields[0]));
+          return new _Grammar.lexerule(5, _must_be_atom_rule(x_18.fields[0]));
         }
 
       case 8:
         {
-          return new _Grammar.lexerule(8, _must_be_atom_rule(x_19.fields[0]));
+          return new _Grammar.lexerule(8, _must_be_atom_rule(x_18.fields[0]));
         }
 
       case 6:
         {
-          return new _Grammar.lexerule(6, _must_be_atom_rule(x_19.fields[0]));
+          return new _Grammar.lexerule(6, _must_be_atom_rule(x_18.fields[0]));
         }
 
       case 7:
         {
-          return new _Grammar.lexerule(7, _must_be_atom_rule(x_19.fields[0]));
+          return new _Grammar.lexerule(7, _must_be_atom_rule(x_18.fields[0]));
         }
 
       case 4:
         {
-          return new _Grammar.lexerule(4, (0, _List.map)(_must_be_atom_rule, x_19.fields[0]));
+          return new _Grammar.lexerule(4, (0, _List.map)(_must_be_atom_rule, x_18.fields[0]));
         }
 
       case 2:
         {
-          return new _Grammar.lexerule(2, (0, _List.map)(_must_be_atom_rule, x_19.fields[0]));
+          return new _Grammar.lexerule(2, (0, _List.map)(_must_be_atom_rule, x_18.fields[0]));
         }
 
       default:
         {
-          return x_19;
+          return x_18;
         }
     }
   };
 
-  const _must_be_atom_rule = x_24_mut => {
+  const _must_be_atom_rule = x_23_mut => {
     _must_be_atom_rule: while (true) {
-      const x_24 = x_24_mut;
+      const x_23 = x_23_mut;
 
-      switch (x_24.tag) {
+      switch (x_23.tag) {
         case 1:
         case 10:
         case 11:
         case 3:
           {
-            return x_24;
+            return x_23;
           }
 
         case 5:
           {
-            return new _Grammar.lexerule(5, _must_be_atom_rule(x_24.fields[0]));
+            return new _Grammar.lexerule(5, _must_be_atom_rule(x_23.fields[0]));
           }
 
         case 8:
           {
-            return new _Grammar.lexerule(8, _must_be_atom_rule(x_24.fields[0]));
+            return new _Grammar.lexerule(8, _must_be_atom_rule(x_23.fields[0]));
           }
 
         case 6:
           {
-            return new _Grammar.lexerule(6, _must_be_atom_rule(x_24.fields[0]));
+            return new _Grammar.lexerule(6, _must_be_atom_rule(x_23.fields[0]));
           }
 
         case 7:
           {
-            return new _Grammar.lexerule(7, _must_be_atom_rule(x_24.fields[0]));
+            return new _Grammar.lexerule(7, _must_be_atom_rule(x_23.fields[0]));
           }
 
         case 4:
           {
-            return new _Grammar.lexerule(9, new _Grammar.lexerule(4, (0, _List.map)(_must_be_atom_rule, x_24.fields[0])));
+            return new _Grammar.lexerule(9, new _Grammar.lexerule(4, (0, _List.map)(_must_be_atom_rule, x_23.fields[0])));
           }
 
         case 2:
           {
-            return new _Grammar.lexerule(9, new _Grammar.lexerule(2, (0, _List.map)(_must_be_atom_rule, x_24.fields[0])));
+            return new _Grammar.lexerule(9, new _Grammar.lexerule(2, (0, _List.map)(_must_be_atom_rule, x_23.fields[0])));
           }
 
         case 9:
           {
-            x_24_mut = x_24.fields[0];
+            x_23_mut = x_23.fields[0];
             continue _must_be_atom_rule;
           }
 
         default:
           {
-            return x_24;
+            return x_23;
           }
       }
 
@@ -413,26 +416,30 @@ function codegen(analyzer, cg_options, langName, stmts) {
   };
 
   return (0, _ErrorReport.withErrorHandler)((objectArg_1 = analyzer.Sigma, () => (0, _Analysis.Sigma__GetErrorTrace)(objectArg_1)), () => {
-    if (!(0, _List.isEmpty)((0, _Analysis.Sigma__GetADTCases)(analyzer.Sigma))) {
-      throw new Error("typescript backend does not support defining ADTs yet.");
-    }
+    const define_record = tupledArg_2 => {
+      const case_name = tupledArg_2[0];
+      const fields = tupledArg_2[2];
+      return (0, _Seq.toList)((0, _Seq.delay)(() => {
+        const func_params = (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(","), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_6 => (0, _Seq.singleton)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(matchValue_6[0], (0, _CodeGen.word)(": ")), matchValue_6[1])), fields)))));
+        return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`export class ${case_name}`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("{")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.collect)(matchValue_7 => (0, _Seq.singleton)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)(matchValue_7[0], (0, _CodeGen.word)(": ")), matchValue_7[1])), fields), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)("public constructor"), func_params)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("{")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_8 => {
+          const fname_2 = matchValue_8[0];
+          return (0, _Seq.singleton)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)("this."), fname_2), (0, _CodeGen.word)(" = ")), fname_2));
+        }, fields)))), 4)), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.word)("}"))))))))))))), 4)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("}")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(`export function ${tupledArg_2[1]}`), func_params)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("{")), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.Doc_op_RightShift_2AAA0F3C)((0, _CodeGen.Doc_op_Multiply_Z7CFFAC00)((0, _CodeGen.word)(`return new ${case_name}`), (0, _CodeGen.parens)((0, _CodeGen.seplist)((0, _CodeGen.word)(","), (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_9 => (0, _Seq.singleton)(matchValue_9[0]), fields)))))), 4)), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.word)("}"))))))))))))))))));
+      }));
+    };
 
-    if (!(0, _List.isEmpty)((0, _Analysis.Sigma__GetRecordTypes)(analyzer.Sigma))) {
-      throw new Error("typescript backend does not support defining records yet.");
-    }
-
-    const parensIfLOr = x_30 => {
-      if (x_30.tag === 4) {
-        return (0, _CodeGen.parens)((0, _CodeGen.word)(mk_lexer(x_30)));
+    const parensIfLOr = x_29 => {
+      if (x_29.tag === 4) {
+        return (0, _CodeGen.parens)((0, _CodeGen.word)(mk_lexer(x_29)));
       } else {
-        return (0, _CodeGen.word)(mk_lexer(x_30));
+        return (0, _CodeGen.word)(mk_lexer(x_29));
       }
     };
 
-    const matchValue_6 = (0, _Map.tryFind)("start", analyzer.Omega);
+    const matchValue_10 = (0, _Map.tryFind)("start", analyzer.Omega);
 
-    if (matchValue_6 != null) {
-      const start_t = matchValue_6;
+    if (matchValue_10 != null) {
+      const start_t = matchValue_10;
       const file_grammar = (0, _CodeGen.vsep)((0, _List.ofArray)((0, _Array.map)(stmt => {
         (0, _Analysis.Sigma__SetCurrentDefinition_Z759AB257)(analyzer.Sigma, stmt);
 
@@ -456,7 +463,7 @@ function codegen(analyzer, cg_options, langName, stmts) {
 
           case 3:
             {
-              importVarNames = (0, _List.cons)(var_renamer(stmt.fields[0].ident), importVarNames);
+              importVarNames = (0, _List.cons)(rename_var(stmt.fields[0].ident), importVarNames);
               return (0, _CodeGen.vsep)((0, _List.empty)());
             }
 
@@ -465,7 +472,7 @@ function codegen(analyzer, cg_options, langName, stmts) {
               const decl_5 = stmt.fields[0];
 
               if (decl_5.external) {
-                importTypeNames = (0, _List.cons)(type_renamer(decl_5.ident), importTypeNames);
+                importTypeNames = (0, _List.cons)(rename_type(decl_5.ident), importTypeNames);
               }
 
               return (0, _CodeGen.vsep)((0, _List.empty)());
@@ -592,21 +599,58 @@ function codegen(analyzer, cg_options, langName, stmts) {
             }
         }
       }, stmts)));
-      const lexerDefs = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_7 => {
-        const k_1 = matchValue_7[0];
-        const v_4 = simplify_lexerule(matchValue_7[1]);
+      const lexerDefs = (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_11 => {
+        const k_1 = matchValue_11[0];
+        const v_4 = simplify_lexerule(matchValue_11[1]);
         const n_6 = name_of_named_term(k_1);
         return (0, _Set.contains)(k_1, analyzer.IgnoreSet) ? (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(n_6), (0, _CodeGen.word)(":")), parensIfLOr(v_4)), (0, _CodeGen.word)("-\u003e channel(HIDDEN);"))) : (0, _Set.contains)(k_1, analyzer.ReferencedNamedTokens) ? (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)(n_6), (0, _CodeGen.word)(":")), (0, _CodeGen.word)(mk_lexer(v_4))), (0, _CodeGen.word)(";"))) : (0, _Seq.singleton)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.Doc_op_Addition_Z7CFFAC00)((0, _CodeGen.word)("fragment"), (0, _CodeGen.word)(n_6)), (0, _CodeGen.word)(":")), parensIfLOr(v_4)), (0, _CodeGen.word)(";")));
       }, (0, _List.reverse)(lexerMaps))));
       const start_mangled = cg_symbol(new _Grammar.symbol(1, "start"));
       const import_names = (0, _List.append)(importTypeNames, importVarNames);
+      const inner_names = [];
+      const file_constructors = [`${langName}-constructor.ts`, (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("import * as antlr from \u0027antlr4ts\u0027;")), (0, _Seq.delay)(() => {
+        const import_names_1 = (0, _String.join)(", ", import_names);
+        return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`import { ${import_names_1} } from './${langName}-require';`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`export * from './${langName}-require'`)), (0, _Seq.delay)(() => {
+          const adtCases = (0, _Analysis.Sigma__GetADTCases)(analyzer.Sigma);
+          return (0, _Seq.append)((0, _Seq.singleton)(_CodeGen.empty), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.collect)(matchValue_12 => {
+            const union_names = [];
+            return (0, _Seq.append)((0, _Seq.collect)(matchValue_13 => {
+              let tupledArg_4;
+              const ctor_name_1 = matchValue_13[0];
+              const fields_2 = (0, _List.map)(tupledArg_3 => [(0, _CodeGen.word)(rename_field(tupledArg_3[0])), (0, _CodeGen.word)(cg_type(tupledArg_3[1]))], matchValue_13[1]);
+              const case_name_1 = rename_type(ctor_name_1);
+              const ctor_name$0027 = rename_ctor(ctor_name_1);
+              void union_names.push(case_name_1);
+              void inner_names.push(ctor_name$0027);
+              return tupledArg_4 = [case_name_1, ctor_name$0027, fields_2], define_record([tupledArg_4[0], tupledArg_4[1], tupledArg_4[2]]);
+            }, (0, _Map.toArray)(matchValue_12[1])), (0, _Seq.delay)(() => {
+              const typename$0027 = rename_type(matchValue_12[0]);
+              const union_names_1 = (0, _String.join)(" | ", union_names);
+              return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`export type ${typename$0027} = ${union_names_1}`)), (0, _Seq.delay)(() => {
+                void inner_names.push(typename$0027);
+                return (0, _Seq.empty)();
+              }));
+            }));
+          }, adtCases), (0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_14 => {
+            let tupledArg_5;
+            const typename_1 = matchValue_14[0];
+            const shape = matchValue_14[1];
+            const typename$0027_1 = rename_type(typename_1);
+            const varname = rename_ctor(typename_1);
+            void inner_names.push(typename$0027_1);
+            void inner_names.push(varname);
+            const tparams_1 = (0, _List.isEmpty)(shape.parameters) ? "" : "\u003c" + (0, _String.join)(", ", (0, _List.map)(typeParameter_mangling, shape.parameters)) + "\u003e";
+            return tupledArg_5 = [typename$0027_1 + tparams_1, varname + tparams_1, (0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.collect)(matchValue_15 => (0, _Seq.singleton)([(0, _CodeGen.word)(rename_field(matchValue_15[0])), (0, _CodeGen.word)(cg_type(matchValue_15[1]))]), shape.fields)))], define_record([tupledArg_5[0], tupledArg_5[1], tupledArg_5[2]]);
+          }, (0, _Analysis.Sigma__GetRecordTypes)(analyzer.Sigma))))));
+        }))));
+      })))))];
       return [[langName + ".g4", (0, _CodeGen.vsep)((0, _Seq.toList)((0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`grammar ${langName};`)), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("@header {")), (0, _Seq.delay)(() => {
-        let import_names_1, require_name;
-        return (0, _Seq.append)(!(0, _List.isEmpty)(import_names) ? (import_names_1 = (0, _String.join)(", ", import_names), (require_name = (0, _Utils.escapeString)(`./${langName}_require`), (0, _Seq.singleton)((0, _CodeGen.word)(`import { ${import_names_1} } from ${require_name}`)))) : (0, _Seq.empty)(), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("}")), (0, _Seq.delay)(() => {
+        let all_import_names, require_name;
+        return (0, _Seq.append)(!(0, _List.isEmpty)(import_names) ? (all_import_names = (0, _String.join)(", ", (0, _List.append)((0, _List.ofSeq)(inner_names), import_names)), (require_name = (0, _Utils.escapeString)(`./${langName}-constructor`), (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)(`import { ${all_import_names} } from ${require_name}`)), (0, _Seq.delay)(() => (0, _Seq.singleton)((0, _CodeGen.word)("import * as antlr from \u0027antlr4ts\u0027")))))) : (0, _Seq.empty)(), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)("}")), (0, _Seq.delay)(() => {
           let arg10_4;
           return (0, _Seq.append)((0, _Seq.singleton)((0, _CodeGen.word)((arg10_4 = cg_type(start_t), (0, _String.toText)((0, _String.printf)("start returns [result: %s]: v=%s EOF { $result = _localctx._v.result; };"))(arg10_4)(start_mangled)))), (0, _Seq.delay)(() => (0, _Seq.append)((0, _Seq.singleton)(file_grammar), (0, _Seq.delay)(() => lexerDefs))));
         }))));
-      })))))))]];
+      })))))))], file_constructors];
     } else {
       const exn_2 = (0, _Exceptions.UnboundNonterminal)("start");
       throw exn_2;

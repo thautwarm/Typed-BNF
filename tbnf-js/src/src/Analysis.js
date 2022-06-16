@@ -29,19 +29,19 @@ exports.Sigma__get_CurrentPos = Sigma__get_CurrentPos;
 exports.Sigma__get_GlobalVariables = Sigma__get_GlobalVariables;
 exports.build_analyzer = build_analyzer;
 
-var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.14/Types.js");
 
-var _Reflection = require("../fable_modules/fable-library.3.7.9/Reflection.js");
+var _Reflection = require("../fable_modules/fable-library.3.7.14/Reflection.js");
 
 var _Grammar = require("./Grammar.js");
 
-var _Map = require("../fable_modules/fable-library.3.7.9/Map.js");
+var _Map = require("../fable_modules/fable-library.3.7.14/Map.js");
 
-var _Set = require("../fable_modules/fable-library.3.7.9/Set.js");
+var _Set = require("../fable_modules/fable-library.3.7.14/Set.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.14/Util.js");
 
-var _List = require("../fable_modules/fable-library.3.7.9/List.js");
+var _List = require("../fable_modules/fable-library.3.7.14/List.js");
 
 var _Unification = require("./Unification.js");
 
@@ -53,7 +53,7 @@ var _Op = require("./Op.js");
 
 var _ErrorReport = require("./ErrorReport.js");
 
-var _Array = require("../fable_modules/fable-library.3.7.9/Array.js");
+var _Array = require("../fable_modules/fable-library.3.7.14/Array.js");
 
 var _MacroResolve = require("./MacroResolve.js");
 

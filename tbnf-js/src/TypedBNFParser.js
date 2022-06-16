@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.TypedBNFParser = exports.Type_productContext = exports.Type_paramsContext = exports.TypContext = exports.Typ2Context = exports.Tvar_strContext = exports.ToplevelContext = exports.Top_typContext = exports.Start__y_Context = exports.StartContext = exports.Slist_o__i__u__i__s_lexer_and_p_Context = exports.Slist_o__i__s__i__s_typ_p_Context = exports.Slist_o__i__s__i__s_tvar_str_p_Context = exports.Slist_o__i__s__i__s_psym_p_Context = exports.Slist_o__i__s__i__s_param_type_p_Context = exports.Slist_o__i__s__i__s_identstr_p_Context = exports.Slist_o__i__s__i__s_field_ann_p_Context = exports.Slist_o__i__s__i__s_expr_p_Context = exports.Slist_o__i__s__i__s_ann_p_Context = exports.PsymContext = exports.ProductionsContext = exports.ProductionContext = exports.Param_typeContext = exports.List_o_toplevel_p_Context = exports.List_o_psym_p_Context = exports.List_o_lexer_atomexpr_p_Context = exports.LexerdefContext = exports.Lexer_atomexprContext = exports.Lexer_atomContext = exports.Lexer_andContext = exports.Lexer__y_Context = exports.IdentstrContext = exports.Func_parametersContext = exports.Field_annsContext = exports.Field_annContext = exports.ExprContext = exports.Eslist_o__i__s__i__s_param_type_p_Context = exports.Eslist_o__i__s__i__s_field_ann_p_Context = exports.Eslist_o__i__s__i__s_expr_p_Context = exports.Eslist_o__i__s__i__s_ann_p_Context = exports.Empty_o_slist_o__i__s__i__s_param_type_p__p_Context = exports.Empty_o_slist_o__i__s__i__s_field_ann_p__p_Context = exports.Empty_o_slist_o__i__s__i__s_expr_p__p_Context = exports.Empty_o_slist_o__i__s__i__s_ann_p__p_Context = exports.Empty_o_list_o_psym_p__p_Context = exports.Elist_o_psym_p_Context = exports.DefContext = exports.DeclContext = exports.CallContext = exports.AtomexpContext = exports.Arrow_typContext = exports.AnnContext = void 0;
 
-var _TypedBNF_require = require("./TypedBNF_require");
+var _TypedBNFConstructor = require("./TypedBNF-constructor.js");
 
 var _ATN = require("antlr4ts/atn/ATN");
 
@@ -148,7 +148,7 @@ class TypedBNFParser extends _Parser.Parser {
 
                 this.state = 111;
                 _localctx._list_o_toplevel_p__2__2 = this.toplevel();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._list_o_toplevel_p__2__1.result, _localctx._list_o_toplevel_p__2__2.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._list_o_toplevel_p__2__1.result, _localctx._list_o_toplevel_p__2__2.result);
               }
             }
           }
@@ -218,7 +218,7 @@ class TypedBNFParser extends _Parser.Parser {
       {
         this.state = 122;
         _localctx._identstr_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-        _localctx.result = (0, _TypedBNF_require.str)(_localctx._identstr_0__1);
+        _localctx.result = (0, _TypedBNFConstructor.str)(_localctx._identstr_0__1);
       }
     } catch (re) {
       if (re instanceof _RecognitionException.RecognitionException) {
@@ -321,7 +321,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__0);
                 this.state = 134;
                 _localctx._slist_o__i__s__i__s_param_type_p__2__3 = this.param_type();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._slist_o__i__s__i__s_param_type_p__2__1.result, _localctx._slist_o__i__s__i__s_param_type_p__2__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._slist_o__i__s__i__s_param_type_p__2__1.result, _localctx._slist_o__i__s__i__s_param_type_p__2__3.result);
               }
             }
           }
@@ -450,7 +450,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__1);
             this.state = 153;
             _localctx._arrow_typ_0__3 = this.arrow_typ();
-            _localctx.result = (0, _TypedBNF_require.MK_TFun)([["value", _localctx._arrow_typ_0__1.result]], _localctx._arrow_typ_0__3.result);
+            _localctx.result = (0, _TypedBNFConstructor.MK_TFun)([["value", _localctx._arrow_typ_0__1.result]], _localctx._arrow_typ_0__3.result);
           }
           break;
 
@@ -467,7 +467,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__1);
             this.state = 160;
             _localctx._arrow_typ_2__5 = this.arrow_typ();
-            _localctx.result = (0, _TypedBNF_require.MK_TFun)((0, _TypedBNF_require.process_tparam)(_localctx._arrow_typ_2__2.result), _localctx._arrow_typ_2__5.result);
+            _localctx.result = (0, _TypedBNFConstructor.MK_TFun)((0, _TypedBNFConstructor.process_tparam)(_localctx._arrow_typ_2__2.result), _localctx._arrow_typ_2__5.result);
           }
           break;
 
@@ -476,7 +476,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 163;
             _localctx._arrow_typ_4__1 = this.type_product(0);
-            _localctx.result = (0, _TypedBNF_require.MK_TTuple)(_localctx._arrow_typ_4__1.result);
+            _localctx.result = (0, _TypedBNFConstructor.MK_TTuple)(_localctx._arrow_typ_4__1.result);
           }
           break;
       }
@@ -551,7 +551,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__0);
                 this.state = 174;
                 _localctx._slist_o__i__s__i__s_typ_p__2__3 = this.typ();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._slist_o__i__s__i__s_typ_p__2__1.result, _localctx._slist_o__i__s__i__s_typ_p__2__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._slist_o__i__s__i__s_typ_p__2__1.result, _localctx._slist_o__i__s__i__s_typ_p__2__3.result);
               }
             }
           }
@@ -603,7 +603,7 @@ class TypedBNFParser extends _Parser.Parser {
         {
           this.state = 183;
           _localctx._typ2_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-          _localctx.result = (0, _TypedBNF_require.MK_TConst)((0, _TypedBNF_require.str)(_localctx._typ2_0__1));
+          _localctx.result = (0, _TypedBNFConstructor.MK_TConst)((0, _TypedBNFConstructor.str)(_localctx._typ2_0__1));
         }
         this._ctx._stop = this._input.tryLT(-1);
         this.state = 194;
@@ -636,7 +636,7 @@ class TypedBNFParser extends _Parser.Parser {
                 _localctx._typ2_2__3 = this.slist_o__i__s__i__s_typ_p_(0);
                 this.state = 189;
                 this.match(TypedBNFParser.T__5);
-                _localctx.result = (0, _TypedBNF_require.MK_TApp)(_localctx._typ2_2__1.result, _localctx._typ2_2__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.MK_TApp)(_localctx._typ2_2__1.result, _localctx._typ2_2__3.result);
               }
             }
           }
@@ -719,7 +719,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__6);
                 this.state = 203;
                 _localctx._type_product_0__3 = this.typ2(0);
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._type_product_0__1.result, _localctx._type_product_0__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._type_product_0__1.result, _localctx._type_product_0__3.result);
               }
             }
           }
@@ -771,7 +771,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__5);
             this.state = 214;
             _localctx._top_typ_0__4 = this.typ();
-            _localctx.result = (0, _TypedBNF_require.MK_Poly)(_localctx._top_typ_0__2.result, _localctx._top_typ_0__4.result);
+            _localctx.result = (0, _TypedBNFConstructor.MK_Poly)(_localctx._top_typ_0__2.result, _localctx._top_typ_0__4.result);
           }
           break;
 
@@ -781,7 +781,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 217;
             _localctx._top_typ_2__1 = this.typ();
-            _localctx.result = (0, _TypedBNF_require.MK_Mono)(_localctx._top_typ_2__1.result);
+            _localctx.result = (0, _TypedBNFConstructor.MK_Mono)(_localctx._top_typ_2__1.result);
           }
           break;
 
@@ -816,7 +816,7 @@ class TypedBNFParser extends _Parser.Parser {
       {
         this.state = 222;
         _localctx._tvar_str_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-        _localctx.result = (0, _TypedBNF_require.str)(_localctx._tvar_str_0__1);
+        _localctx.result = (0, _TypedBNFConstructor.str)(_localctx._tvar_str_0__1);
       }
     } catch (re) {
       if (re instanceof _RecognitionException.RecognitionException) {
@@ -856,7 +856,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__7);
             this.state = 227;
             _localctx._param_type_0__3 = this.typ();
-            _localctx.result = [(0, _TypedBNF_require.str)(_localctx._param_type_0__1), _localctx._param_type_0__3.result];
+            _localctx.result = [(0, _TypedBNFConstructor.str)(_localctx._param_type_0__1), _localctx._param_type_0__3.result];
           }
           break;
 
@@ -940,7 +940,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__0);
                 this.state = 241;
                 _localctx._slist_o__i__s__i__s_tvar_str_p__2__3 = this.tvar_str();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._slist_o__i__s__i__s_tvar_str_p__2__1.result, _localctx._slist_o__i__s__i__s_tvar_str_p__2__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._slist_o__i__s__i__s_tvar_str_p__2__1.result, _localctx._slist_o__i__s__i__s_tvar_str_p__2__3.result);
               }
             }
           }
@@ -1033,7 +1033,7 @@ class TypedBNFParser extends _Parser.Parser {
         this.match(TypedBNFParser.T__7);
         this.state = 259;
         _localctx._field_ann_0__3 = this.typ();
-        _localctx.result = [(0, _TypedBNF_require.str)(_localctx._field_ann_0__1), _localctx._field_ann_0__3.result, (0, _TypedBNF_require.mkpos)(_localctx._field_ann_0__1)];
+        _localctx.result = [(0, _TypedBNFConstructor.str)(_localctx._field_ann_0__1), _localctx._field_ann_0__3.result, (0, _TypedBNFConstructor.mkpos)(_localctx._field_ann_0__1)];
       }
     } catch (re) {
       if (re instanceof _RecognitionException.RecognitionException) {
@@ -1106,7 +1106,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__0);
                 this.state = 268;
                 _localctx._slist_o__i__s__i__s_field_ann_p__2__3 = this.field_ann();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._slist_o__i__s__i__s_field_ann_p__2__1.result, _localctx._slist_o__i__s__i__s_field_ann_p__2__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._slist_o__i__s__i__s_field_ann_p__2__1.result, _localctx._slist_o__i__s__i__s_field_ann_p__2__3.result);
               }
             }
           }
@@ -1287,7 +1287,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__7);
             this.state = 297;
             _localctx._decl_0__5 = this.top_typ();
-            _localctx.result = (0, _TypedBNF_require.MK_Declvar)(_localctx._decl_0__3.result, _localctx._decl_0__5.result, (0, _TypedBNF_require.mkpos)(_localctx._decl_0__2));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Declvar)(_localctx._decl_0__3.result, _localctx._decl_0__5.result, (0, _TypedBNFConstructor.mkpos)(_localctx._decl_0__2));
           }
           break;
 
@@ -1302,7 +1302,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__7);
             this.state = 303;
             _localctx._decl_2__4 = this.typ();
-            _localctx.result = (0, _TypedBNF_require.MK_Declctor)(_localctx._decl_2__2.result, _localctx._decl_2__4.result, (0, _TypedBNF_require.mkpos)(_localctx._decl_2__1));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Declctor)(_localctx._decl_2__2.result, _localctx._decl_2__4.result, (0, _TypedBNFConstructor.mkpos)(_localctx._decl_2__1));
           }
           break;
 
@@ -1319,7 +1319,7 @@ class TypedBNFParser extends _Parser.Parser {
             _localctx._decl_4__4 = this.type_params();
             this.state = 310;
             _localctx._decl_4__5 = this.field_anns();
-            _localctx.result = (0, _TypedBNF_require.MK_Decltype)(true, (0, _TypedBNF_require.fst)(_localctx._decl_4__5.result), _localctx._decl_4__3.result, _localctx._decl_4__4.result, (0, _TypedBNF_require.snd)(_localctx._decl_4__5.result), (0, _TypedBNF_require.mkpos)(_localctx._decl_4__1));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Decltype)(true, (0, _TypedBNFConstructor.fst)(_localctx._decl_4__5.result), _localctx._decl_4__3.result, _localctx._decl_4__4.result, (0, _TypedBNFConstructor.snd)(_localctx._decl_4__5.result), (0, _TypedBNFConstructor.mkpos)(_localctx._decl_4__1));
           }
           break;
 
@@ -1334,7 +1334,7 @@ class TypedBNFParser extends _Parser.Parser {
             _localctx._decl_6__3 = this.type_params();
             this.state = 316;
             _localctx._decl_6__4 = this.field_anns();
-            _localctx.result = (0, _TypedBNF_require.MK_Decltype)(false, (0, _TypedBNF_require.fst)(_localctx._decl_6__4.result), _localctx._decl_6__2.result, _localctx._decl_6__3.result, (0, _TypedBNF_require.snd)(_localctx._decl_6__4.result), (0, _TypedBNF_require.mkpos)(_localctx._decl_6__1));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Decltype)(false, (0, _TypedBNFConstructor.fst)(_localctx._decl_6__4.result), _localctx._decl_6__2.result, _localctx._decl_6__3.result, (0, _TypedBNFConstructor.snd)(_localctx._decl_6__4.result), (0, _TypedBNFConstructor.mkpos)(_localctx._decl_6__1));
           }
           break;
       }
@@ -1401,7 +1401,7 @@ class TypedBNFParser extends _Parser.Parser {
             _localctx._toplevel_6__1 = this.match(TypedBNFParser.T__12);
             this.state = 331;
             _localctx._toplevel_6__2 = this.slist_o__i__s__i__s_identstr_p_(0);
-            _localctx.result = (0, _TypedBNF_require.MK_Defignore)(_localctx._toplevel_6__2.result, (0, _TypedBNF_require.mkpos)(_localctx._toplevel_6__1));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Defignore)(_localctx._toplevel_6__2.result, (0, _TypedBNFConstructor.mkpos)(_localctx._toplevel_6__1));
           }
           break;
       }
@@ -1476,7 +1476,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__0);
                 this.state = 342;
                 _localctx._slist_o__i__s__i__s_identstr_p__2__3 = this.identstr();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._slist_o__i__s__i__s_identstr_p__2__1.result, _localctx._slist_o__i__s__i__s_identstr_p__2__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._slist_o__i__s__i__s_identstr_p__2__1.result, _localctx._slist_o__i__s__i__s_identstr_p__2__3.result);
               }
             }
           }
@@ -1530,7 +1530,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__3);
             this.state = 354;
             _localctx._def_0__5 = this.productions(0);
-            _localctx.result = (0, _TypedBNF_require.MK_Defmacro)((0, _TypedBNF_require.str)(_localctx._def_0__1), _localctx._def_0__3.result, _localctx._def_0__5.result, (0, _TypedBNF_require.mkpos)(_localctx._def_0__1));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Defmacro)((0, _TypedBNFConstructor.str)(_localctx._def_0__1), _localctx._def_0__3.result, _localctx._def_0__5.result, (0, _TypedBNFConstructor.mkpos)(_localctx._def_0__1));
           }
           break;
 
@@ -1541,7 +1541,7 @@ class TypedBNFParser extends _Parser.Parser {
             _localctx._def_2__1 = this.match(TypedBNFParser.CNAMEPLUS);
             this.state = 358;
             _localctx._def_2__2 = this.productions(0);
-            _localctx.result = (0, _TypedBNF_require.MK_Defrule)((0, _TypedBNF_require.str)(_localctx._def_2__1), _localctx._def_2__2.result, (0, _TypedBNF_require.mkpos)(_localctx._def_2__1));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Defrule)((0, _TypedBNFConstructor.str)(_localctx._def_2__1), _localctx._def_2__2.result, (0, _TypedBNFConstructor.mkpos)(_localctx._def_2__1));
           }
           break;
       }
@@ -1587,7 +1587,7 @@ class TypedBNFParser extends _Parser.Parser {
           _localctx._productions_0__1 = this.match(TypedBNFParser.T__7);
           this.state = 365;
           _localctx._productions_0__2 = this.production();
-          _localctx.result = [[(0, _TypedBNF_require.mkpos)(_localctx._productions_0__1), _localctx._productions_0__2.result]];
+          _localctx.result = [[(0, _TypedBNFConstructor.mkpos)(_localctx._productions_0__1), _localctx._productions_0__2.result]];
         }
         this._ctx._stop = this._input.tryLT(-1);
         this.state = 375;
@@ -1618,7 +1618,7 @@ class TypedBNFParser extends _Parser.Parser {
                 _localctx._productions_2__2 = this.match(TypedBNFParser.T__13);
                 this.state = 370;
                 _localctx._productions_2__3 = this.production();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._productions_2__1.result, [(0, _TypedBNF_require.mkpos)(_localctx._productions_2__2), _localctx._productions_2__3.result]);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._productions_2__1.result, [(0, _TypedBNFConstructor.mkpos)(_localctx._productions_2__2), _localctx._productions_2__3.result]);
               }
             }
           }
@@ -1699,7 +1699,7 @@ class TypedBNFParser extends _Parser.Parser {
 
                 this.state = 383;
                 _localctx._list_o_psym_p__2__2 = this.psym();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._list_o_psym_p__2__1.result, _localctx._list_o_psym_p__2__2.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._list_o_psym_p__2__1.result, _localctx._list_o_psym_p__2__2.result);
               }
             }
           }
@@ -1825,7 +1825,7 @@ class TypedBNFParser extends _Parser.Parser {
         _localctx._production_0__3 = this.expr();
         this.state = 403;
         this.match(TypedBNFParser.T__15);
-        _localctx.result = (0, _TypedBNF_require.MK_production)(_localctx._production_0__1.result, _localctx._production_0__3.result);
+        _localctx.result = (0, _TypedBNFConstructor.MK_production)(_localctx._production_0__1.result, _localctx._production_0__3.result);
       }
     } catch (re) {
       if (re instanceof _RecognitionException.RecognitionException) {
@@ -1898,7 +1898,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__0);
                 this.state = 412;
                 _localctx._slist_o__i__s__i__s_psym_p__2__3 = this.psym();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._slist_o__i__s__i__s_psym_p__2__1.result, _localctx._slist_o__i__s__i__s_psym_p__2__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._slist_o__i__s__i__s_psym_p__2__1.result, _localctx._slist_o__i__s__i__s_psym_p__2__3.result);
               }
             }
           }
@@ -1948,7 +1948,7 @@ class TypedBNFParser extends _Parser.Parser {
             _localctx._psym_0__2 = this.identstr();
             this.state = 422;
             this.match(TypedBNFParser.T__5);
-            _localctx.result = (0, _TypedBNF_require.MK_Term)(_localctx._psym_0__2.result, false);
+            _localctx.result = (0, _TypedBNFConstructor.MK_Term)(_localctx._psym_0__2.result, false);
           }
           break;
 
@@ -1957,7 +1957,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 425;
             _localctx._psym_2__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-            _localctx.result = (0, _TypedBNF_require.MK_Term)((0, _TypedBNF_require.unescape)((0, _TypedBNF_require.str)(_localctx._psym_2__1)), true);
+            _localctx.result = (0, _TypedBNFConstructor.MK_Term)((0, _TypedBNFConstructor.unescape)((0, _TypedBNFConstructor.str)(_localctx._psym_2__1)), true);
           }
           break;
 
@@ -1966,7 +1966,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 427;
             _localctx._psym_4__1 = this.identstr();
-            _localctx.result = (0, _TypedBNF_require.MK_Nonterm)(_localctx._psym_4__1.result);
+            _localctx.result = (0, _TypedBNFConstructor.MK_Nonterm)(_localctx._psym_4__1.result);
           }
           break;
 
@@ -1981,7 +1981,7 @@ class TypedBNFParser extends _Parser.Parser {
             _localctx._psym_6__3 = this.slist_o__i__s__i__s_psym_p_(0);
             this.state = 433;
             this.match(TypedBNFParser.T__3);
-            _localctx.result = (0, _TypedBNF_require.MK_Macrocall)((0, _TypedBNF_require.str)(_localctx._psym_6__1), _localctx._psym_6__3.result, (0, _TypedBNF_require.mkpos)(_localctx._psym_6__1));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Macrocall)((0, _TypedBNFConstructor.str)(_localctx._psym_6__1), _localctx._psym_6__3.result, (0, _TypedBNFConstructor.mkpos)(_localctx._psym_6__1));
           }
           break;
       }
@@ -2090,7 +2090,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__0);
                 this.state = 449;
                 _localctx._slist_o__i__s__i__s_ann_p__2__3 = this.ann();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._slist_o__i__s__i__s_ann_p__2__1.result, _localctx._slist_o__i__s__i__s_ann_p__2__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._slist_o__i__s__i__s_ann_p__2__1.result, _localctx._slist_o__i__s__i__s_ann_p__2__3.result);
               }
             }
           }
@@ -2258,7 +2258,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__18);
             this.state = 476;
             _localctx._expr_0__6 = this.expr();
-            _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_ELet)(_localctx._expr_0__2.result, _localctx._expr_0__4.result, _localctx._expr_0__6.result), (0, _TypedBNF_require.mkpos)(_localctx._expr_0__1));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_ELet)(_localctx._expr_0__2.result, _localctx._expr_0__4.result, _localctx._expr_0__6.result), (0, _TypedBNFConstructor.mkpos)(_localctx._expr_0__1));
           }
           break;
 
@@ -2273,7 +2273,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__1);
             this.state = 482;
             _localctx._expr_2__4 = this.expr();
-            _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_EFun)(_localctx._expr_2__2.result, _localctx._expr_2__4.result), (0, _TypedBNF_require.mkpos)(_localctx._expr_2__1));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_EFun)(_localctx._expr_2__2.result, _localctx._expr_2__4.result), (0, _TypedBNFConstructor.mkpos)(_localctx._expr_2__1));
           }
           break;
 
@@ -2295,7 +2295,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__20);
             this.state = 490;
             _localctx._expr_6__3 = this.expr();
-            _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_ELet)("_", _localctx._expr_6__1.result, _localctx._expr_6__3.result), (0, _TypedBNF_require.getpos)(_localctx._expr_6__1.result));
+            _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_ELet)("_", _localctx._expr_6__1.result, _localctx._expr_6__3.result), (0, _TypedBNFConstructor.getpos)(_localctx._expr_6__1.result));
           }
           break;
       }
@@ -2372,7 +2372,7 @@ class TypedBNFParser extends _Parser.Parser {
                 _localctx._call_0__3 = this.eslist_o__i__s__i__s_expr_p_();
                 this.state = 502;
                 this.match(TypedBNFParser.T__3);
-                _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_EApp)(_localctx._call_0__1.result, _localctx._call_0__3.result), (0, _TypedBNF_require.getpos)(_localctx._call_0__1.result));
+                _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_EApp)(_localctx._call_0__1.result, _localctx._call_0__3.result), (0, _TypedBNFConstructor.getpos)(_localctx._call_0__1.result));
               }
             }
           }
@@ -2544,7 +2544,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__0);
                 this.state = 525;
                 _localctx._slist_o__i__s__i__s_expr_p__2__3 = this.expr();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._slist_o__i__s__i__s_expr_p__2__1.result, _localctx._slist_o__i__s__i__s_expr_p__2__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._slist_o__i__s__i__s_expr_p__2__1.result, _localctx._slist_o__i__s__i__s_expr_p__2__3.result);
               }
             }
           }
@@ -2602,7 +2602,7 @@ class TypedBNFParser extends _Parser.Parser {
             {
               this.state = 534;
               _localctx._atomexp_0__1 = this.match(TypedBNFParser.INT);
-              _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_EInt)((0, _TypedBNF_require.toint)(_localctx._atomexp_0__1)), (0, _TypedBNF_require.mkpos)(_localctx._atomexp_0__1));
+              _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_EInt)((0, _TypedBNFConstructor.toint)(_localctx._atomexp_0__1)), (0, _TypedBNFConstructor.mkpos)(_localctx._atomexp_0__1));
             }
             break;
 
@@ -2610,7 +2610,7 @@ class TypedBNFParser extends _Parser.Parser {
             {
               this.state = 536;
               _localctx._atomexp_2__1 = this.match(TypedBNFParser.FLOAT);
-              _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_EFlt)((0, _TypedBNF_require.tofloat)(_localctx._atomexp_2__1)), (0, _TypedBNF_require.mkpos)(_localctx._atomexp_2__1));
+              _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_EFlt)((0, _TypedBNFConstructor.tofloat)(_localctx._atomexp_2__1)), (0, _TypedBNFConstructor.mkpos)(_localctx._atomexp_2__1));
             }
             break;
 
@@ -2618,7 +2618,7 @@ class TypedBNFParser extends _Parser.Parser {
             {
               this.state = 538;
               _localctx._atomexp_4__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-              _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_EStr)((0, _TypedBNF_require.unescape)((0, _TypedBNF_require.str)(_localctx._atomexp_4__1))), (0, _TypedBNF_require.mkpos)(_localctx._atomexp_4__1));
+              _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_EStr)((0, _TypedBNFConstructor.unescape)((0, _TypedBNFConstructor.str)(_localctx._atomexp_4__1))), (0, _TypedBNFConstructor.mkpos)(_localctx._atomexp_4__1));
             }
             break;
 
@@ -2628,7 +2628,7 @@ class TypedBNFParser extends _Parser.Parser {
               _localctx._atomexp_6__1 = this.match(TypedBNFParser.T__21);
               this.state = 541;
               _localctx._atomexp_6__2 = this.match(TypedBNFParser.INT);
-              _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_ESlot)((0, _TypedBNF_require.toint)(_localctx._atomexp_6__2)), (0, _TypedBNF_require.mkpos)(_localctx._atomexp_6__1));
+              _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_ESlot)((0, _TypedBNFConstructor.toint)(_localctx._atomexp_6__2)), (0, _TypedBNFConstructor.mkpos)(_localctx._atomexp_6__1));
             }
             break;
 
@@ -2640,7 +2640,7 @@ class TypedBNFParser extends _Parser.Parser {
               _localctx._atomexp_8__2 = this.eslist_o__i__s__i__s_expr_p_();
               this.state = 545;
               this.match(TypedBNFParser.T__23);
-              _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_EList)(_localctx._atomexp_8__2.result), (0, _TypedBNF_require.mkpos)(_localctx._atomexp_8__1));
+              _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_EList)(_localctx._atomexp_8__2.result), (0, _TypedBNFConstructor.mkpos)(_localctx._atomexp_8__1));
             }
             break;
 
@@ -2650,7 +2650,7 @@ class TypedBNFParser extends _Parser.Parser {
               _localctx._atomexp_10__1 = this.match(TypedBNFParser.T__2);
               this.state = 549;
               this.match(TypedBNFParser.T__3);
-              _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_ETuple)([]), (0, _TypedBNF_require.mkpos)(_localctx._atomexp_10__1));
+              _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_ETuple)([]), (0, _TypedBNFConstructor.mkpos)(_localctx._atomexp_10__1));
             }
             break;
 
@@ -2662,7 +2662,7 @@ class TypedBNFParser extends _Parser.Parser {
               _localctx._atomexp_12__2 = this.slist_o__i__s__i__s_expr_p_(0);
               this.state = 553;
               this.match(TypedBNFParser.T__3);
-              _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_ETuple)(_localctx._atomexp_12__2.result), (0, _TypedBNF_require.mkpos)(_localctx._atomexp_12__1));
+              _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_ETuple)(_localctx._atomexp_12__2.result), (0, _TypedBNFConstructor.mkpos)(_localctx._atomexp_12__1));
             }
             break;
 
@@ -2670,7 +2670,7 @@ class TypedBNFParser extends _Parser.Parser {
             {
               this.state = 556;
               _localctx._atomexp_14__1 = this.match(TypedBNFParser.CNAMEPLUS);
-              _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_EVar)((0, _TypedBNF_require.str)(_localctx._atomexp_14__1)), (0, _TypedBNF_require.mkpos)(_localctx._atomexp_14__1));
+              _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_EVar)((0, _TypedBNFConstructor.str)(_localctx._atomexp_14__1)), (0, _TypedBNFConstructor.mkpos)(_localctx._atomexp_14__1));
             }
             break;
 
@@ -2678,7 +2678,7 @@ class TypedBNFParser extends _Parser.Parser {
             {
               this.state = 558;
               _localctx._atomexp_18__1 = this.match(TypedBNFParser.T__25);
-              _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_EBool)(true), (0, _TypedBNF_require.mkpos)(_localctx._atomexp_18__1));
+              _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_EBool)(true), (0, _TypedBNFConstructor.mkpos)(_localctx._atomexp_18__1));
             }
             break;
 
@@ -2686,7 +2686,7 @@ class TypedBNFParser extends _Parser.Parser {
             {
               this.state = 560;
               _localctx._atomexp_20__1 = this.match(TypedBNFParser.T__26);
-              _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_EBool)(false), (0, _TypedBNF_require.mkpos)(_localctx._atomexp_20__1));
+              _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_EBool)(false), (0, _TypedBNFConstructor.mkpos)(_localctx._atomexp_20__1));
             }
             break;
         }
@@ -2720,7 +2720,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__24);
                 this.state = 566;
                 _localctx._atomexp_16__3 = this.match(TypedBNFParser.CNAMEPLUS);
-                _localctx.result = (0, _TypedBNF_require.MK_Expr)((0, _TypedBNF_require.MK_EField)(_localctx._atomexp_16__1.result, (0, _TypedBNF_require.str)(_localctx._atomexp_16__3)), (0, _TypedBNF_require.getpos)(_localctx._atomexp_16__1.result));
+                _localctx.result = (0, _TypedBNFConstructor.MK_Expr)((0, _TypedBNFConstructor.MK_EField)(_localctx._atomexp_16__1.result, (0, _TypedBNFConstructor.str)(_localctx._atomexp_16__3)), (0, _TypedBNFConstructor.getpos)(_localctx._atomexp_16__1.result));
               }
             }
           }
@@ -2803,7 +2803,7 @@ class TypedBNFParser extends _Parser.Parser {
                 this.match(TypedBNFParser.T__13);
                 this.state = 579;
                 _localctx._slist_o__i__u__i__s_lexer_and_p__2__3 = this.lexer_and();
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._slist_o__i__u__i__s_lexer_and_p__2__1.result, _localctx._slist_o__i__u__i__s_lexer_and_p__2__3.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._slist_o__i__u__i__s_lexer_and_p__2__1.result, _localctx._slist_o__i__u__i__s_lexer_and_p__2__3.result);
               }
             }
           }
@@ -2843,7 +2843,7 @@ class TypedBNFParser extends _Parser.Parser {
       {
         this.state = 587;
         _localctx._lexer__y__0__1 = this.slist_o__i__u__i__s_lexer_and_p_(0);
-        _localctx.result = (0, _TypedBNF_require.MK_LOr)(_localctx._lexer__y__0__1.result);
+        _localctx.result = (0, _TypedBNFConstructor.MK_LOr)(_localctx._lexer__y__0__1.result);
       }
     } catch (re) {
       if (re instanceof _RecognitionException.RecognitionException) {
@@ -2914,7 +2914,7 @@ class TypedBNFParser extends _Parser.Parser {
 
                 this.state = 595;
                 _localctx._list_o_lexer_atomexpr_p__2__2 = this.lexer_atomexpr(0);
-                _localctx.result = (0, _TypedBNF_require.addList)(_localctx._list_o_lexer_atomexpr_p__2__1.result, _localctx._list_o_lexer_atomexpr_p__2__2.result);
+                _localctx.result = (0, _TypedBNFConstructor.addList)(_localctx._list_o_lexer_atomexpr_p__2__1.result, _localctx._list_o_lexer_atomexpr_p__2__2.result);
               }
             }
           }
@@ -2954,7 +2954,7 @@ class TypedBNFParser extends _Parser.Parser {
       {
         this.state = 603;
         _localctx._lexer_and_0__1 = this.list_o_lexer_atomexpr_p_(0);
-        _localctx.result = (0, _TypedBNF_require.MK_LSeq)(_localctx._lexer_and_0__1.result);
+        _localctx.result = (0, _TypedBNFConstructor.MK_LSeq)(_localctx._lexer_and_0__1.result);
       }
     } catch (re) {
       if (re instanceof _RecognitionException.RecognitionException) {
@@ -3031,7 +3031,7 @@ class TypedBNFParser extends _Parser.Parser {
 
                     this.state = 611;
                     this.match(TypedBNFParser.T__27);
-                    _localctx.result = (0, _TypedBNF_require.MK_LPlus)(_localctx._lexer_atomexpr_0__1.result);
+                    _localctx.result = (0, _TypedBNFConstructor.MK_LPlus)(_localctx._lexer_atomexpr_0__1.result);
                   }
                   break;
 
@@ -3048,7 +3048,7 @@ class TypedBNFParser extends _Parser.Parser {
 
                     this.state = 614;
                     this.match(TypedBNFParser.T__6);
-                    _localctx.result = (0, _TypedBNF_require.MK_LStar)(_localctx._lexer_atomexpr_2__1.result);
+                    _localctx.result = (0, _TypedBNFConstructor.MK_LStar)(_localctx._lexer_atomexpr_2__1.result);
                   }
                   break;
 
@@ -3065,7 +3065,7 @@ class TypedBNFParser extends _Parser.Parser {
 
                     this.state = 617;
                     this.match(TypedBNFParser.T__28);
-                    _localctx.result = (0, _TypedBNF_require.MK_LOptional)(_localctx._lexer_atomexpr_4__1.result);
+                    _localctx.result = (0, _TypedBNFConstructor.MK_LOptional)(_localctx._lexer_atomexpr_4__1.result);
                   }
                   break;
               }
@@ -3113,7 +3113,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 624;
             _localctx._lexer_atom_0__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-            _localctx.result = (0, _TypedBNF_require.MK_LStr)((0, _TypedBNF_require.unescape)((0, _TypedBNF_require.str)(_localctx._lexer_atom_0__1)));
+            _localctx.result = (0, _TypedBNFConstructor.MK_LStr)((0, _TypedBNFConstructor.unescape)((0, _TypedBNFConstructor.str)(_localctx._lexer_atom_0__1)));
           }
           break;
 
@@ -3124,7 +3124,7 @@ class TypedBNFParser extends _Parser.Parser {
             this.match(TypedBNFParser.T__29);
             this.state = 627;
             _localctx._lexer_atom_2__2 = this.lexer_atom();
-            _localctx.result = (0, _TypedBNF_require.MK_LNot)(_localctx._lexer_atom_2__2.result);
+            _localctx.result = (0, _TypedBNFConstructor.MK_LNot)(_localctx._lexer_atom_2__2.result);
           }
           break;
 
@@ -3137,7 +3137,7 @@ class TypedBNFParser extends _Parser.Parser {
             _localctx._lexer_atom_4__2 = this.lexer__y_();
             this.state = 632;
             this.match(TypedBNFParser.T__3);
-            _localctx.result = (0, _TypedBNF_require.MK_LGroup)(_localctx._lexer_atom_4__2.result);
+            _localctx.result = (0, _TypedBNFConstructor.MK_LGroup)(_localctx._lexer_atom_4__2.result);
           }
           break;
 
@@ -3146,7 +3146,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 635;
             this.match(TypedBNFParser.T__30);
-            _localctx.result = _TypedBNF_require.MK_LNumber;
+            _localctx.result = _TypedBNFConstructor.MK_LNumber;
           }
           break;
 
@@ -3155,7 +3155,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 637;
             _localctx._lexer_atom_8__1 = this.match(TypedBNFParser.RANGE);
-            _localctx.result = (0, _TypedBNF_require.getrange)((0, _TypedBNF_require.str)(_localctx._lexer_atom_8__1));
+            _localctx.result = (0, _TypedBNFConstructor.getrange)((0, _TypedBNFConstructor.str)(_localctx._lexer_atom_8__1));
           }
           break;
 
@@ -3164,7 +3164,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 639;
             _localctx._lexer_atom_10__1 = this.match(TypedBNFParser.UNICODE_RANGE);
-            _localctx.result = (0, _TypedBNF_require.getunicoderange)((0, _TypedBNF_require.str)(_localctx._lexer_atom_10__1));
+            _localctx.result = (0, _TypedBNFConstructor.getunicoderange)((0, _TypedBNFConstructor.str)(_localctx._lexer_atom_10__1));
           }
           break;
 
@@ -3173,7 +3173,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 641;
             this.match(TypedBNFParser.T__31);
-            _localctx.result = _TypedBNF_require.MK_LWildcard;
+            _localctx.result = _TypedBNFConstructor.MK_LWildcard;
           }
           break;
 
@@ -3182,7 +3182,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 643;
             this.match(TypedBNFParser.T__24);
-            _localctx.result = _TypedBNF_require.MK_LWildcard;
+            _localctx.result = _TypedBNFConstructor.MK_LWildcard;
           }
           break;
 
@@ -3191,7 +3191,7 @@ class TypedBNFParser extends _Parser.Parser {
           {
             this.state = 645;
             _localctx._lexer_atom_16__1 = this.match(TypedBNFParser.CNAMEPLUS);
-            _localctx.result = (0, _TypedBNF_require.MK_LRef)((0, _TypedBNF_require.str)(_localctx._lexer_atom_16__1));
+            _localctx.result = (0, _TypedBNFConstructor.MK_LRef)((0, _TypedBNFConstructor.str)(_localctx._lexer_atom_16__1));
           }
           break;
 
@@ -3232,7 +3232,7 @@ class TypedBNFParser extends _Parser.Parser {
         _localctx._lexerdef_0__3 = this.lexer__y_();
         this.state = 652;
         this.match(TypedBNFParser.T__20);
-        _localctx.result = (0, _TypedBNF_require.MK_Deflexer)((0, _TypedBNF_require.str)(_localctx._lexerdef_0__1), _localctx._lexerdef_0__3.result, (0, _TypedBNF_require.mkpos)(_localctx._lexerdef_0__1));
+        _localctx.result = (0, _TypedBNFConstructor.MK_Deflexer)((0, _TypedBNFConstructor.str)(_localctx._lexerdef_0__1), _localctx._lexerdef_0__3.result, (0, _TypedBNFConstructor.mkpos)(_localctx._lexerdef_0__1));
       }
     } catch (re) {
       if (re instanceof _RecognitionException.RecognitionException) {

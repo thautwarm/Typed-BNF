@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.parse_tbnf = parse_tbnf;
 
-var api = _interopRequireWildcard(require("./TypedBNF_require"));
+var api = _interopRequireWildcard(require("./TypedBNF-require"));
 
 var lexer = _interopRequireWildcard(require("./TypedBNFLexer"));
 

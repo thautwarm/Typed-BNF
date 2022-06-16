@@ -31,23 +31,23 @@ exports.NameMangling_nameEnv = void 0;
 exports.NameMangling_nameEnv$reflection = NameMangling_nameEnv$reflection;
 exports.NameMangling_to_valid_identifier = NameMangling_to_valid_identifier;
 
-var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.14/Types.js");
 
-var _Reflection = require("../fable_modules/fable-library.3.7.9/Reflection.js");
+var _Reflection = require("../fable_modules/fable-library.3.7.14/Reflection.js");
 
-var _Set = require("../fable_modules/fable-library.3.7.9/Set.js");
+var _Set = require("../fable_modules/fable-library.3.7.14/Set.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.14/Util.js");
 
-var _SystemText = require("../fable_modules/fable-library.3.7.9/System.Text.js");
+var _SystemText = require("../fable_modules/fable-library.3.7.14/System.Text.js");
 
 var _Utils = require("./Utils.js");
 
 var _CodeGen = require("../FableSedlex/CodeGen.js");
 
-var _List = require("../fable_modules/fable-library.3.7.9/List.js");
+var _List = require("../fable_modules/fable-library.3.7.14/List.js");
 
-var _Seq = require("../fable_modules/fable-library.3.7.9/Seq.js");
+var _Seq = require("../fable_modules/fable-library.3.7.14/Seq.js");
 
 class NameMangling_nameEnv extends _Types.Record {
   constructor(usedNames) {

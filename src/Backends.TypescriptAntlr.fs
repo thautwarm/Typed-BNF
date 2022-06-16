@@ -105,11 +105,10 @@ let codegen
     (langName: string)
     (stmts: definition array)
     =
-    let var_renamer = Option.defaultValue id cg_options.rename_var
     let rename_ctor = Option.defaultValue id cg_options.rename_ctor
     let rename_var = Option.defaultValue id cg_options.rename_var
     let rename_field = Option.defaultValue id cg_options.rename_field
-    let type_renamer = Option.defaultValue id cg_options.rename_type
+    let rename_type = Option.defaultValue id cg_options.rename_type
 
     let typeParameter_mangling x = "_GEN_" + x
 
@@ -125,7 +124,7 @@ let codegen
     let mutable lexerMaps: list<string * lexerule> = []
 
     let global_scope =
-        [ for k in analyzer.Sigma.GlobalVariables -> k.Key, var_renamer k.Key ]
+        [ for k in analyzer.Sigma.GlobalVariables -> k.Key, rename_var k.Key ]
 
     (* valid ocaml identifier segment *)
     let csharpIdentDescr =
@@ -236,14 +235,14 @@ let codegen
 
     let rec _cg_type (t: monot) =
         match t with
-        | monot.TConst n -> type_renamer n
+        | monot.TConst n -> rename_type n
         | monot.TVar a -> typeParameter_mangling a
         | monot.TRef _ -> raise <| UnsolvedTypeVariable
         | monot.TFun (args, r) ->
             args
             |> List.map (fun (s, b) -> s + ":" + _cg_type b)
             |> String.concat ", "
-            |> fun it -> it + " => " + _cg_type r
+            |> fun it -> $"({it}) => { _cg_type r}" 
 
         | monot.TApp (TTuple, []) -> invalidOp "[]"
         | monot.TApp (TTuple, args) ->
@@ -484,11 +483,11 @@ let codegen
         | definition.Declctor decl ->
             vsep []
         | definition.Declvar decl ->
-            importVarNames <- var_renamer decl.ident :: importVarNames
+            importVarNames <- rename_var decl.ident :: importVarNames
             vsep []
         | definition.Decltype decl ->
             if decl.external then
-                importTypeNames <- type_renamer decl.ident :: importTypeNames
+                importTypeNames <- rename_type decl.ident :: importTypeNames
             vsep []
         | definition.Defmacro _ -> invalidOp "macro not processed"
 
@@ -518,10 +517,31 @@ let codegen
 
     tbnf.ErrorReport.withErrorHandler analyzer.Sigma.GetErrorTrace <| fun () ->
 
-    if not (List.isEmpty <| analyzer.Sigma.GetADTCases()) then
-        invalidOp "typescript backend does not support defining ADTs yet."
-    if not (List.isEmpty <| analyzer.Sigma.GetRecordTypes()) then
-        invalidOp "typescript backend does not support defining records yet."
+    let define_record(case_name: string, ctor_name: string, fields: (Doc * Doc) seq) = [
+            let func_params = parens(seplist (word ",") [for (fname, t) in fields -> fname * word ": " * t])
+            yield word $"export class {case_name}"
+            yield word "{"
+            yield vsep [
+                for (fname, t) in fields do
+                    yield (fname * word ": " * t)
+                yield word "public constructor" * func_params
+                yield word "{"
+                yield vsep [
+                    for (fname, t) in fields do
+                        yield (word "this." * fname * word " = " * fname)
+                ] >>> 4
+                yield word "}"
+            ] >>> 4
+            yield word "}"
+            yield empty
+            
+            // generate a function named ${ctor_name} to invoke the constructor
+            yield word $"export function {ctor_name}" * func_params
+            yield word "{"
+            yield (word $"return new {case_name}" * parens(seplist (word ",") [for (fname, t) in fields -> fname])) >>> 4
+            yield word "}"
+        ]
+
 
     // antlr grammar generator
     let isLOr = function LOr _ -> true | _ -> false
@@ -550,6 +570,48 @@ let codegen
         ]
         let start_mangled = name_of_nonterm "start"
         let import_names = importTypeNames @ importVarNames
+        let inner_names = ResizeArray<string>()
+
+        let file_constructors = $"{langName}-constructor.ts", vsep [
+            yield word "import * as antlr from 'antlr4ts';"
+            let import_names = String.concat ", " import_names
+            yield word $"import {{ {import_names} }} from './{langName}-require';"
+            yield word $"export * from './{langName}-require'"
+
+            let adtCases = analyzer.Sigma.GetADTCases()
+            yield empty
+            for (typename, cases) in adtCases do
+                let union_names = ResizeArray<string>()
+
+                for (ctor_name, fields) in Map.toArray cases do
+                    let fields = List.map (fun (fname, t) -> word (rename_field fname), word (cg_type t)) fields
+                    let case_name = rename_type ctor_name
+                    let ctor_name' = rename_ctor ctor_name
+                    union_names.Add case_name
+                    inner_names.Add ctor_name'
+                    yield! define_record(case_name, ctor_name', fields)
+                
+                let typename' = rename_type typename
+                let union_names = String.concat " | " union_names
+                yield word $"export type {typename'} = {union_names}"
+                inner_names.Add typename'
+            
+            for (typename, shape) in  analyzer.Sigma.GetRecordTypes() do
+                let typename' = rename_type typename
+                let varname = rename_ctor typename
+                inner_names.Add typename'
+                inner_names.Add varname
+                let tparams =
+                    if List.isEmpty shape.parameters then
+                        ""
+                    else
+                        shape.parameters
+                        |> List.map typeParameter_mangling
+                        |> String.concat ", "
+                        |> fun tparams -> "<" + tparams + ">"
+                let fields = [for (fname, t) in shape.fields -> word (rename_field fname), word (cg_type t)]
+                yield! define_record(typename' + tparams, varname + tparams, fields)
+        ]
 
         let file_antlr =
                 langName + ".g4",
@@ -557,13 +619,14 @@ let codegen
                     yield word $"grammar {langName};"
                     yield word "@header {"
                     if not (List.isEmpty import_names) then
-                        let import_names = String.concat ", " import_names
-                        let require_name = escapeString $"./{langName}_require"
-                        yield word $"import {{ {import_names} }} from {require_name}"
+                        let all_import_names = (List.ofSeq inner_names @ import_names) |> String.concat ", "
+                        let require_name = escapeString $"./{langName}-constructor"
+                        yield word $"import {{ {all_import_names} }} from {require_name}"
+                        yield word $"import * as antlr from 'antlr4ts'"
                     yield word "}"
                     yield word (sprintf "start returns [result: %s]: v=%s EOF { $result = _localctx._v.result; };" (cg_type
                     start_t) start_mangled)
                     yield file_grammar
                     yield! lexerDefs
                 ]
-        [| file_antlr |]
+        [| file_antlr; file_constructors |]

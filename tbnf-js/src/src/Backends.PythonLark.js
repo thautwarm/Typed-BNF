@@ -5,17 +5,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.codegen = codegen;
 
-var _Option = require("../fable_modules/fable-library.3.7.9/Option.js");
+var _Option = require("../fable_modules/fable-library.3.7.14/Option.js");
 
-var _List = require("../fable_modules/fable-library.3.7.9/List.js");
+var _List = require("../fable_modules/fable-library.3.7.14/List.js");
 
-var _Set = require("../fable_modules/fable-library.3.7.9/Set.js");
+var _Set = require("../fable_modules/fable-library.3.7.14/Set.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.14/Util.js");
 
-var _Map = require("../fable_modules/fable-library.3.7.9/Map.js");
+var _Map = require("../fable_modules/fable-library.3.7.14/Map.js");
 
-var _Seq = require("../fable_modules/fable-library.3.7.9/Seq.js");
+var _Seq = require("../fable_modules/fable-library.3.7.14/Seq.js");
 
 var _Analysis = require("./Analysis.js");
 
@@ -29,13 +29,13 @@ var _CodeGen = require("../FableSedlex/CodeGen.js");
 
 var _Exceptions = require("./Exceptions.js");
 
-var _String = require("../fable_modules/fable-library.3.7.9/String.js");
+var _String = require("../fable_modules/fable-library.3.7.14/String.js");
 
 var _Sedlex = require("../FableSedlex/Sedlex.js");
 
 var _ErrorReport = require("./ErrorReport.js");
 
-var _Array = require("../fable_modules/fable-library.3.7.9/Array.js");
+var _Array = require("../fable_modules/fable-library.3.7.14/Array.js");
 
 var _CodeGenPython = require("../FableSedlex/CodeGen.Python.js");
 

@@ -33,21 +33,21 @@ exports.showDoc = showDoc;
 exports.vsep = vsep;
 exports.word = word;
 
-var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.14/Types.js");
 
-var _Reflection = require("../fable_modules/fable-library.3.7.9/Reflection.js");
+var _Reflection = require("../fable_modules/fable-library.3.7.14/Reflection.js");
 
-var _Array = require("../fable_modules/fable-library.3.7.9/Array.js");
+var _Array = require("../fable_modules/fable-library.3.7.14/Array.js");
 
-var _Seq = require("../fable_modules/fable-library.3.7.9/Seq.js");
+var _Seq = require("../fable_modules/fable-library.3.7.14/Seq.js");
 
-var _List = require("../fable_modules/fable-library.3.7.9/List.js");
+var _List = require("../fable_modules/fable-library.3.7.14/List.js");
 
-var _String = require("../fable_modules/fable-library.3.7.9/String.js");
+var _String = require("../fable_modules/fable-library.3.7.14/String.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.14/Util.js");
 
-var _SystemText = require("../fable_modules/fable-library.3.7.9/System.Text.js");
+var _SystemText = require("../fable_modules/fable-library.3.7.14/System.Text.js");
 
 class Doc extends _Types.Union {
   constructor(tag, ...fields) {

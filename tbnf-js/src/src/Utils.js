@@ -19,21 +19,21 @@ exports.isUnicode = isUnicode;
 exports.isUpper = isUpper;
 exports.upperRange = exports.upperChars = exports.unicodeRange = exports.sampleUnicodes = exports.lowerRange = exports.lowerChars = void 0;
 
-var _Seq = require("../fable_modules/fable-library.3.7.9/Seq.js");
+var _Seq = require("../fable_modules/fable-library.3.7.14/Seq.js");
 
-var _Range = require("../fable_modules/fable-library.3.7.9/Range.js");
+var _Range = require("../fable_modules/fable-library.3.7.14/Range.js");
 
-var _SystemText = require("../fable_modules/fable-library.3.7.9/System.Text.js");
+var _SystemText = require("../fable_modules/fable-library.3.7.14/System.Text.js");
 
-var _Types = require("../fable_modules/fable-library.3.7.9/Types.js");
+var _Types = require("../fable_modules/fable-library.3.7.14/Types.js");
 
-var _String = require("../fable_modules/fable-library.3.7.9/String.js");
+var _String = require("../fable_modules/fable-library.3.7.14/String.js");
 
-var _List = require("../fable_modules/fable-library.3.7.9/List.js");
+var _List = require("../fable_modules/fable-library.3.7.14/List.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.14/Util.js");
 
-var _Option = require("../fable_modules/fable-library.3.7.9/Option.js");
+var _Option = require("../fable_modules/fable-library.3.7.14/Option.js");
 
 const lowerChars = (0, _Seq.toArray)((0, _Seq.delay)(() => (0, _Seq.map)(a => a, (0, _Range.rangeChar)("a", "z"))));
 exports.lowerChars = lowerChars;

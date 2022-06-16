@@ -1,4 +1,4 @@
-import * as api from "./TypedBNF_require"
+import * as api from "./TypedBNF-require"
 import * as lexer from "./TypedBNFLexer"
 import * as parser from "./TypedBNFParser"
 import * as antlr from "antlr4ts"

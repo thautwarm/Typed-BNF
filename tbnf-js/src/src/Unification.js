@@ -11,17 +11,17 @@ exports.Manager__Instantiate_Z25E5E15E = Manager__Instantiate_Z25E5E15E;
 exports.Manager__NewTyRef_Z721C83C5 = Manager__NewTyRef_Z721C83C5;
 exports.Manager__Unify_Z1D753960 = Manager__Unify_Z1D753960;
 
-var _Reflection = require("../fable_modules/fable-library.3.7.9/Reflection.js");
+var _Reflection = require("../fable_modules/fable-library.3.7.14/Reflection.js");
 
 var _Exceptions = require("./Exceptions.js");
 
 var _Grammar = require("./Grammar.js");
 
-var _List = require("../fable_modules/fable-library.3.7.9/List.js");
+var _List = require("../fable_modules/fable-library.3.7.14/List.js");
 
-var _Util = require("../fable_modules/fable-library.3.7.9/Util.js");
+var _Util = require("../fable_modules/fable-library.3.7.14/Util.js");
 
-var _Map = require("../fable_modules/fable-library.3.7.9/Map.js");
+var _Map = require("../fable_modules/fable-library.3.7.14/Map.js");
 
 class Manager {
   constructor() {}
