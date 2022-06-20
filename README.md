@@ -15,7 +15,7 @@ So far, we support 3 different architectures, which unveil the capability of Typ
 | antlr  | antlr4+csharp  | antlr  | ALL(*)   | type -> interface<br /> constructor -> class  |
 | menhir  | menhir+OCaml  | sedlex(UTF-8)   |  LR(1) | as-is  |
 | lark  | lark+Python   | [Fable.Sedlex](https://github.com/thautwarm/Fable.Sedlex)  | LALR(2)  | type -> union type<br /> constructor -> dataclass  |
-| antlr     | antlr4+typescript | antlr | ALL(*) | WIP |
+| antlr     | antlr4+typescript | antlr | ALL(*) | type -> union type <br /> constructor -> class |
 | \*pure bnf     | pure bnf | antlr notation | CFG |  |
 
 (**PL** = programming language; **PGEN** = parser generator; **pure bnf** means it is the pure BNF for readable syntax specification )
