@@ -1,26 +1,21 @@
 using Antlr4.Runtime;
 using System.Collections.Generic;
 using System;
-
 namespace lua{
 public partial interface funcname {  }
 public partial record DotName(funcname value0,IToken value1) : funcname;
 public partial record MethodName(funcname value0,IToken value1) : funcname;
 public partial record VarName(IToken value) : funcname;
-
 public partial interface arguments {  }
 public partial record PositionalArgs(IToken value0,MyList<expr> value1) : arguments;
 public partial record StringArg(IToken value) : arguments;
 public partial record TableArgs(table value) : arguments;
-
 public partial interface table {  }
 public partial record TableConstructor(IToken value0,MyList<table_field> value1) : table;
-
 public partial interface table_field {  }
 public partial record ElementField(expr value0) : table_field;
 public partial record IndexField(IToken pos,expr value,expr item) : table_field;
 public partial record NameField(IToken key,expr value) : table_field;
-
 public partial interface stmt {  }
 public partial record Assignment(bool value0,MyList<expr> value1,maybe<MyList<expr>> value2) : stmt;
 public partial record BreakStmt(IToken value) : stmt;
@@ -35,7 +30,6 @@ public partial record LabelStmt(IToken value) : stmt;
 public partial record RepeatStmt(IToken value0,block value1,expr value2) : stmt;
 public partial record ReturnStmt(IToken value0,MyList<expr> value1) : stmt;
 public partial record WhileStmt(IToken value0,expr value1,block value2) : stmt;
-
 public partial interface expr {  }
 public partial record Attr(expr value0,IToken value1) : expr;
 public partial record Bin(IToken op,expr l,expr r) : expr;
@@ -57,7 +51,6 @@ public partial record String(IToken value0) : expr;
 public partial record TableExpr(table value0) : expr;
 public partial record UnsolvedBin(MyList<Op<expr>> value) : expr;
 public partial record Var(IToken value) : expr;
-
 public partial record block(MyList<stmt> suite,maybe<stmt> ret);
 public partial record range(expr low,expr high,maybe<expr> step);
 public partial record if_elseif(IToken pos,expr cond,block elif_body);

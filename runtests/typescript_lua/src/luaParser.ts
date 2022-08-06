@@ -233,8 +233,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 92;
 			_localctx._start__y__0__1 = this.block();
-			 
-			                _localctx.result =  _localctx._start__y__0__1.result;
+			 _localctx.result =  _localctx._start__y__0__1.result;
 			            
 			}
 		}
@@ -274,8 +273,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 96;
 			_localctx._nempty_list_o_stat_p__0__1 = this.stat();
-			 
-			                _localctx.result =  <Array<stmt_t>>[ _localctx._nempty_list_o_stat_p__0__1.result ];
+			 _localctx.result =  <Array<stmt_t>>[ _localctx._nempty_list_o_stat_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -299,8 +297,7 @@ export class luaParser extends Parser {
 					}
 					this.state = 100;
 					_localctx._nempty_list_o_stat_p__2__2 = this.stat();
-					 
-					                          _localctx.result =  <Array<stmt_t>> appendList<stmt_t>(<Array<stmt_t>> _localctx._nempty_list_o_stat_p__2__1.result, <stmt_t> _localctx._nempty_list_o_stat_p__2__2.result);
+					 _localctx.result =  <Array<stmt_t>> appendList<stmt_t>(<Array<stmt_t>> _localctx._nempty_list_o_stat_p__2__1.result, <stmt_t> _localctx._nempty_list_o_stat_p__2__2.result);
 					                      
 					}
 					}
@@ -336,8 +333,7 @@ export class luaParser extends Parser {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				 
-				                _localctx.result =  <Array<stmt_t>>[  ];
+				 _localctx.result =  <Array<stmt_t>>[  ];
 				            
 				}
 				break;
@@ -347,8 +343,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 109;
 				_localctx._allow_empty_o_nempty_list_o_stat_p__p__2__1 = this.nempty_list_o_stat_p_(0);
-				 
-				                _localctx.result =  _localctx._allow_empty_o_nempty_list_o_stat_p__p__2__1.result;
+				 _localctx.result =  _localctx._allow_empty_o_nempty_list_o_stat_p__p__2__1.result;
 				            
 				}
 				break;
@@ -377,8 +372,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 114;
 			_localctx._list_o_stat_p__0__1 = this.allow_empty_o_nempty_list_o_stat_p__p_();
-			 
-			                _localctx.result =  _localctx._list_o_stat_p__0__1.result;
+			 _localctx.result =  _localctx._list_o_stat_p__0__1.result;
 			            
 			}
 		}
@@ -409,8 +403,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 117;
 				_localctx._opt_o_retstat_p__0__1 = this.retstat();
-				 
-				                _localctx.result =  <maybe_t<stmt_t>> some<stmt_t>(<stmt_t> _localctx._opt_o_retstat_p__0__1.result);
+				 _localctx.result =  <maybe_t<stmt_t>> some<stmt_t>(<stmt_t> _localctx._opt_o_retstat_p__0__1.result);
 				            
 				}
 				break;
@@ -418,8 +411,7 @@ export class luaParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <maybe_t<stmt_t>> none<stmt_t>();
+				 _localctx.result =  <maybe_t<stmt_t>> none<stmt_t>();
 				            
 				}
 				break;
@@ -450,8 +442,7 @@ export class luaParser extends Parser {
 			_localctx._block_0__1 = this.list_o_stat_p_();
 			this.state = 124;
 			_localctx._block_0__2 = this.opt_o_retstat_p_();
-			 
-			                _localctx.result =  <block_t> block(<Array<stmt_t>> _localctx._block_0__1.result, <maybe_t<stmt_t>> _localctx._block_0__2.result);
+			 _localctx.result =  <block_t> block(<Array<stmt_t>> _localctx._block_0__1.result, <maybe_t<stmt_t>> _localctx._block_0__2.result);
 			            
 			}
 		}
@@ -482,8 +473,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 127;
 				_localctx._opt_o__i__h__i__p__0__1 = this.match(luaParser.T__0);
-				 
-				                _localctx.result =  <maybe_t<antlr.Token>> some<antlr.Token>(<antlr.Token> _localctx._opt_o__i__h__i__p__0__1);
+				 _localctx.result =  <maybe_t<antlr.Token>> some<antlr.Token>(<antlr.Token> _localctx._opt_o__i__h__i__p__0__1);
 				            
 				}
 				break;
@@ -491,8 +481,7 @@ export class luaParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <maybe_t<antlr.Token>> none<antlr.Token>();
+				 _localctx.result =  <maybe_t<antlr.Token>> none<antlr.Token>();
 				            
 				}
 				break;
@@ -525,8 +514,7 @@ export class luaParser extends Parser {
 			_localctx._retstat_0__2 = this.seplist_o__i__s__i__s_exp_p_();
 			this.state = 134;
 			this.opt_o__i__h__i__p_();
-			 
-			                _localctx.result =  <stmt_t> ReturnStmt(<antlr.Token> _localctx._retstat_0__1, <Array<expr_t>> _localctx._retstat_0__2.result);
+			 _localctx.result =  <stmt_t> ReturnStmt(<antlr.Token> _localctx._retstat_0__1, <Array<expr_t>> _localctx._retstat_0__2.result);
 			            
 			}
 		}
@@ -566,8 +554,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 138;
 			_localctx._nempty_list_o_elseif_p__0__1 = this.elseif();
-			 
-			                _localctx.result =  <Array<if_elseif_t>>[ _localctx._nempty_list_o_elseif_p__0__1.result ];
+			 _localctx.result =  <Array<if_elseif_t>>[ _localctx._nempty_list_o_elseif_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -591,8 +578,7 @@ export class luaParser extends Parser {
 					}
 					this.state = 142;
 					_localctx._nempty_list_o_elseif_p__2__2 = this.elseif();
-					 
-					                          _localctx.result =  <Array<if_elseif_t>> appendList<if_elseif_t>(<Array<if_elseif_t>> _localctx._nempty_list_o_elseif_p__2__1.result, <if_elseif_t> _localctx._nempty_list_o_elseif_p__2__2.result);
+					 _localctx.result =  <Array<if_elseif_t>> appendList<if_elseif_t>(<Array<if_elseif_t>> _localctx._nempty_list_o_elseif_p__2__1.result, <if_elseif_t> _localctx._nempty_list_o_elseif_p__2__2.result);
 					                      
 					}
 					}
@@ -629,8 +615,7 @@ export class luaParser extends Parser {
 			case luaParser.T__21:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				 
-				                _localctx.result =  <Array<if_elseif_t>>[  ];
+				 _localctx.result =  <Array<if_elseif_t>>[  ];
 				            
 				}
 				break;
@@ -639,8 +624,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 151;
 				_localctx._allow_empty_o_nempty_list_o_elseif_p__p__2__1 = this.nempty_list_o_elseif_p_(0);
-				 
-				                _localctx.result =  _localctx._allow_empty_o_nempty_list_o_elseif_p__p__2__1.result;
+				 _localctx.result =  _localctx._allow_empty_o_nempty_list_o_elseif_p__p__2__1.result;
 				            
 				}
 				break;
@@ -671,8 +655,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 156;
 			_localctx._list_o_elseif_p__0__1 = this.allow_empty_o_nempty_list_o_elseif_p__p_();
-			 
-			                _localctx.result =  _localctx._list_o_elseif_p__0__1.result;
+			 _localctx.result =  _localctx._list_o_elseif_p__0__1.result;
 			            
 			}
 		}
@@ -703,16 +686,14 @@ export class luaParser extends Parser {
 				{
 				this.state = 159;
 				_localctx._opt_o_else_p__0__1 = this.else__x_();
-				 
-				                _localctx.result =  <maybe_t<if_else_t>> some<if_else_t>(<if_else_t> _localctx._opt_o_else_p__0__1.result);
+				 _localctx.result =  <maybe_t<if_else_t>> some<if_else_t>(<if_else_t> _localctx._opt_o_else_p__0__1.result);
 				            
 				}
 				break;
 			case luaParser.T__7:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <maybe_t<if_else_t>> none<if_else_t>();
+				 _localctx.result =  <maybe_t<if_else_t>> none<if_else_t>();
 				            
 				}
 				break;
@@ -747,8 +728,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 165;
 				_localctx._stat_0__1 = this.match(luaParser.T__0);
-				 
-				                _localctx.result =  <stmt_t> EmptyStmt(<antlr.Token> _localctx._stat_0__1);
+				 _localctx.result =  <stmt_t> EmptyStmt(<antlr.Token> _localctx._stat_0__1);
 				            
 				}
 				break;
@@ -762,8 +742,7 @@ export class luaParser extends Parser {
 				this.match(luaParser.T__2);
 				this.state = 169;
 				_localctx._stat_2__3 = this.nempty_seplist_o__i__s__i__s_exp_p_(0);
-				 
-				                _localctx.result =  <stmt_t> Assignment(<boolean> false, <Array<expr_t>> _localctx._stat_2__1.result, <maybe_t<Array<expr_t>>> <maybe_t<Array<expr_t>>> some<Array<expr_t>>(<Array<expr_t>> _localctx._stat_2__3.result));
+				 _localctx.result =  <stmt_t> Assignment(<boolean> false, <Array<expr_t>> _localctx._stat_2__1.result, <maybe_t<Array<expr_t>>> <maybe_t<Array<expr_t>>> some<Array<expr_t>>(<Array<expr_t>> _localctx._stat_2__3.result));
 				            
 				}
 				break;
@@ -773,8 +752,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 172;
 				_localctx._stat_4__1 = this.exp();
-				 
-				                _localctx.result =  <stmt_t> ExprStmt(<expr_t> _localctx._stat_4__1.result);
+				 _localctx.result =  <stmt_t> ExprStmt(<expr_t> _localctx._stat_4__1.result);
 				            
 				}
 				break;
@@ -788,8 +766,7 @@ export class luaParser extends Parser {
 				_localctx._stat_6__2 = this.match(luaParser.NAME);
 				this.state = 177;
 				this.match(luaParser.T__3);
-				 
-				                _localctx.result =  <stmt_t> LabelStmt(<antlr.Token> _localctx._stat_6__2);
+				 _localctx.result =  <stmt_t> LabelStmt(<antlr.Token> _localctx._stat_6__2);
 				            
 				}
 				break;
@@ -799,8 +776,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 179;
 				_localctx._stat_8__1 = this.match(luaParser.T__4);
-				 
-				                _localctx.result =  <stmt_t> BreakStmt(<antlr.Token> _localctx._stat_8__1);
+				 _localctx.result =  <stmt_t> BreakStmt(<antlr.Token> _localctx._stat_8__1);
 				            
 				}
 				break;
@@ -812,8 +788,7 @@ export class luaParser extends Parser {
 				_localctx._stat_10__1 = this.match(luaParser.T__5);
 				this.state = 182;
 				_localctx._stat_10__2 = this.match(luaParser.NAME);
-				 
-				                _localctx.result =  <stmt_t> GotoStmt(<antlr.Token> _localctx._stat_10__1, <antlr.Token> _localctx._stat_10__2);
+				 _localctx.result =  <stmt_t> GotoStmt(<antlr.Token> _localctx._stat_10__1, <antlr.Token> _localctx._stat_10__2);
 				            
 				}
 				break;
@@ -827,8 +802,7 @@ export class luaParser extends Parser {
 				_localctx._stat_12__2 = this.block();
 				this.state = 186;
 				this.match(luaParser.T__7);
-				 
-				                _localctx.result =  <stmt_t> DoStmt(<antlr.Token> _localctx._stat_12__1, <block_t> _localctx._stat_12__2.result);
+				 _localctx.result =  <stmt_t> DoStmt(<antlr.Token> _localctx._stat_12__1, <block_t> _localctx._stat_12__2.result);
 				            
 				}
 				break;
@@ -846,8 +820,7 @@ export class luaParser extends Parser {
 				_localctx._stat_14__4 = this.block();
 				this.state = 193;
 				this.match(luaParser.T__7);
-				 
-				                _localctx.result =  <stmt_t> WhileStmt(<antlr.Token> _localctx._stat_14__1, <expr_t> _localctx._stat_14__2.result, <block_t> _localctx._stat_14__4.result);
+				 _localctx.result =  <stmt_t> WhileStmt(<antlr.Token> _localctx._stat_14__1, <expr_t> _localctx._stat_14__2.result, <block_t> _localctx._stat_14__4.result);
 				            
 				}
 				break;
@@ -863,8 +836,7 @@ export class luaParser extends Parser {
 				this.match(luaParser.T__10);
 				this.state = 199;
 				_localctx._stat_16__4 = this.exp();
-				 
-				                _localctx.result =  <stmt_t> RepeatStmt(<antlr.Token> _localctx._stat_16__1, <block_t> _localctx._stat_16__2.result, <expr_t> _localctx._stat_16__4.result);
+				 _localctx.result =  <stmt_t> RepeatStmt(<antlr.Token> _localctx._stat_16__1, <block_t> _localctx._stat_16__2.result, <expr_t> _localctx._stat_16__4.result);
 				            
 				}
 				break;
@@ -886,8 +858,7 @@ export class luaParser extends Parser {
 				_localctx._stat_18__6 = this.opt_o_else_p_();
 				this.state = 208;
 				this.match(luaParser.T__7);
-				 
-				                _localctx.result =  <stmt_t> IfStmt(<antlr.Token> _localctx._stat_18__1, <expr_t> _localctx._stat_18__2.result, <block_t> _localctx._stat_18__4.result, <Array<if_elseif_t>> _localctx._stat_18__5.result, <maybe_t<if_else_t>> _localctx._stat_18__6.result);
+				 _localctx.result =  <stmt_t> IfStmt(<antlr.Token> _localctx._stat_18__1, <expr_t> _localctx._stat_18__2.result, <block_t> _localctx._stat_18__4.result, <Array<if_elseif_t>> _localctx._stat_18__5.result, <maybe_t<if_else_t>> _localctx._stat_18__6.result);
 				            
 				}
 				break;
@@ -909,8 +880,7 @@ export class luaParser extends Parser {
 				_localctx._stat_20__6 = this.block();
 				this.state = 217;
 				this.match(luaParser.T__7);
-				 
-				                _localctx.result =  <stmt_t> ForRangeStmt(<antlr.Token> _localctx._stat_20__1, <antlr.Token> _localctx._stat_20__2, <range_t> _localctx._stat_20__4.result, <block_t> _localctx._stat_20__6.result);
+				 _localctx.result =  <stmt_t> ForRangeStmt(<antlr.Token> _localctx._stat_20__1, <antlr.Token> _localctx._stat_20__2, <range_t> _localctx._stat_20__4.result, <block_t> _localctx._stat_20__6.result);
 				            
 				}
 				break;
@@ -932,8 +902,7 @@ export class luaParser extends Parser {
 				_localctx._stat_22__6 = this.block();
 				this.state = 226;
 				this.match(luaParser.T__7);
-				 
-				                _localctx.result =  <stmt_t> ForInStmt(<antlr.Token> _localctx._stat_22__1, <Array<antlr.Token>> _localctx._stat_22__2.result, <Array<expr_t>> _localctx._stat_22__4.result, <block_t> _localctx._stat_22__6.result);
+				 _localctx.result =  <stmt_t> ForInStmt(<antlr.Token> _localctx._stat_22__1, <Array<antlr.Token>> _localctx._stat_22__2.result, <Array<expr_t>> _localctx._stat_22__4.result, <block_t> _localctx._stat_22__6.result);
 				            
 				}
 				break;
@@ -957,8 +926,7 @@ export class luaParser extends Parser {
 				_localctx._stat_24__7 = this.block();
 				this.state = 236;
 				this.match(luaParser.T__7);
-				 
-				                _localctx.result =  <stmt_t> ExprStmt(<expr_t> <expr_t> FuncDef(<antlr.Token> _localctx._stat_24__1, <boolean> true, <maybe_t<funcname_t>> <maybe_t<funcname_t>> some<funcname_t>(<funcname_t> _localctx._stat_24__3.result), <maybe_t<params_t>> _localctx._stat_24__5.result, <block_t> _localctx._stat_24__7.result));
+				 _localctx.result =  <stmt_t> ExprStmt(<expr_t> <expr_t> FuncDef(<antlr.Token> _localctx._stat_24__1, <boolean> true, <maybe_t<funcname_t>> <maybe_t<funcname_t>> some<funcname_t>(<funcname_t> _localctx._stat_24__3.result), <maybe_t<params_t>> _localctx._stat_24__5.result, <block_t> _localctx._stat_24__7.result));
 				            
 				}
 				break;
@@ -972,8 +940,7 @@ export class luaParser extends Parser {
 				_localctx._stat_26__2 = this.nempty_seplist_o__i__s__i__s__i_name_k__p_(0);
 				this.state = 241;
 				_localctx._stat_26__3 = this.opt_assign_rhs();
-				 
-				                _localctx.result =  <stmt_t> Assignment(<boolean> true, <Array<expr_t>> <Array<expr_t>> listMap<antlr.Token, expr_t>(<Array<antlr.Token>> _localctx._stat_26__2.result, <(value:antlr.Token) => expr_t> Var), <maybe_t<Array<expr_t>>> _localctx._stat_26__3.result);
+				 _localctx.result =  <stmt_t> Assignment(<boolean> true, <Array<expr_t>> <Array<expr_t>> listMap<antlr.Token, expr_t>(<Array<antlr.Token>> _localctx._stat_26__2.result, <(value:antlr.Token) => expr_t> Var), <maybe_t<Array<expr_t>>> _localctx._stat_26__3.result);
 				            
 				}
 				break;
@@ -1008,8 +975,7 @@ export class luaParser extends Parser {
 				this.match(luaParser.T__2);
 				this.state = 247;
 				_localctx._opt_assign_rhs_0__2 = this.nempty_seplist_o__i__s__i__s_exp_p_(0);
-				 
-				                _localctx.result =  <maybe_t<Array<expr_t>>> some<Array<expr_t>>(<Array<expr_t>> _localctx._opt_assign_rhs_0__2.result);
+				 _localctx.result =  <maybe_t<Array<expr_t>>> some<Array<expr_t>>(<Array<expr_t>> _localctx._opt_assign_rhs_0__2.result);
 				            
 				}
 				break;
@@ -1017,8 +983,7 @@ export class luaParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <maybe_t<Array<expr_t>>> none<Array<expr_t>>();
+				 _localctx.result =  <maybe_t<Array<expr_t>>> none<Array<expr_t>>();
 				            
 				}
 				break;
@@ -1053,8 +1018,7 @@ export class luaParser extends Parser {
 			_localctx._range_0__3 = this.exp();
 			this.state = 256;
 			_localctx._range_0__4 = this.range_tail();
-			 
-			                _localctx.result =  <range_t> range(<expr_t> _localctx._range_0__1.result, <expr_t> _localctx._range_0__3.result, <maybe_t<expr_t>> _localctx._range_0__4.result);
+			 _localctx.result =  <range_t> range(<expr_t> _localctx._range_0__1.result, <expr_t> _localctx._range_0__3.result, <maybe_t<expr_t>> _localctx._range_0__4.result);
 			            
 			}
 		}
@@ -1087,16 +1051,14 @@ export class luaParser extends Parser {
 				this.match(luaParser.T__19);
 				this.state = 260;
 				_localctx._range_tail_0__2 = this.exp();
-				 
-				                _localctx.result =  <maybe_t<expr_t>> some<expr_t>(<expr_t> _localctx._range_tail_0__2.result);
+				 _localctx.result =  <maybe_t<expr_t>> some<expr_t>(<expr_t> _localctx._range_tail_0__2.result);
 				            
 				}
 				break;
 			case luaParser.T__6:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <maybe_t<expr_t>> none<expr_t>();
+				 _localctx.result =  <maybe_t<expr_t>> none<expr_t>();
 				            
 				}
 				break;
@@ -1133,8 +1095,7 @@ export class luaParser extends Parser {
 			this.match(luaParser.T__12);
 			this.state = 269;
 			_localctx._elseif_0__4 = this.block();
-			 
-			                _localctx.result =  <if_elseif_t> if_elseif(<antlr.Token> _localctx._elseif_0__1, <expr_t> _localctx._elseif_0__2.result, <block_t> _localctx._elseif_0__4.result);
+			 _localctx.result =  <if_elseif_t> if_elseif(<antlr.Token> _localctx._elseif_0__1, <expr_t> _localctx._elseif_0__2.result, <block_t> _localctx._elseif_0__4.result);
 			            
 			}
 		}
@@ -1163,8 +1124,7 @@ export class luaParser extends Parser {
 			_localctx._else__x__0__1 = this.match(luaParser.T__21);
 			this.state = 273;
 			_localctx._else__x__0__2 = this.block();
-			 
-			                _localctx.result =  <if_else_t> if_else(<antlr.Token> _localctx._else__x__0__1, <block_t> _localctx._else__x__0__2.result);
+			 _localctx.result =  <if_else_t> if_else(<antlr.Token> _localctx._else__x__0__1, <block_t> _localctx._else__x__0__2.result);
 			            
 			}
 		}
@@ -1191,8 +1151,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 276;
 			_localctx._exp_0__1 = this.binexp();
-			 
-			                let _ : number = 0;
+			 let _ : number = 0;
 			                _localctx.result =  _localctx._exp_0__1.result;
 			            
 			}
@@ -1220,8 +1179,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 279;
 			_localctx._binexp_0__1 = this.binseq(0);
-			 
-			                _localctx.result =  <expr_t> mkBinOpSeq(<Array<op_t<expr_t>>> _localctx._binexp_0__1.result, <(op:antlr.Token, l:expr_t, r:expr_t) => expr_t> Bin, <(value:Array<op_t<expr_t>>) => expr_t> UnsolvedBin);
+			 _localctx.result =  <expr_t> mkBinOpSeq(<Array<op_t<expr_t>>> _localctx._binexp_0__1.result, <(op:antlr.Token, l:expr_t, r:expr_t) => expr_t> Bin, <(value:Array<op_t<expr_t>>) => expr_t> UnsolvedBin);
 			            
 			}
 		}
@@ -1261,8 +1219,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 283;
 			_localctx._binseq_2__1 = this.binoperand();
-			 
-			                _localctx.result =  <Array<op_t<expr_t>>>[ _localctx._binseq_2__1.result ];
+			 _localctx.result =  <Array<op_t<expr_t>>>[ _localctx._binseq_2__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1288,8 +1245,7 @@ export class luaParser extends Parser {
 					_localctx._binseq_0__2 = this.binop();
 					this.state = 288;
 					_localctx._binseq_0__3 = this.binoperand();
-					 
-					                          _localctx.result =  <Array<op_t<expr_t>>> appendList<op_t<expr_t>>(<Array<op_t<expr_t>>> <Array<op_t<expr_t>>> appendList<op_t<expr_t>>(<Array<op_t<expr_t>>> _localctx._binseq_0__1.result, <op_t<expr_t>> _localctx._binseq_0__2.result), <op_t<expr_t>> _localctx._binseq_0__3.result);
+					 _localctx.result =  <Array<op_t<expr_t>>> appendList<op_t<expr_t>>(<Array<op_t<expr_t>>> <Array<op_t<expr_t>>> appendList<op_t<expr_t>>(<Array<op_t<expr_t>>> _localctx._binseq_0__1.result, <op_t<expr_t>> _localctx._binseq_0__2.result), <op_t<expr_t>> _localctx._binseq_0__3.result);
 					                      
 					}
 					}
@@ -1323,8 +1279,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 296;
 			_localctx._binoperand_0__1 = this.unaryexp();
-			 
-			                _localctx.result =  <op_t<expr_t>> mkOperand(<expr_t> _localctx._binoperand_0__1.result);
+			 _localctx.result =  <op_t<expr_t>> mkOperand(<expr_t> _localctx._binoperand_0__1.result);
 			            
 			}
 		}
@@ -1357,8 +1312,7 @@ export class luaParser extends Parser {
 				_localctx._unaryexp_0__1 = this.match(luaParser.T__22);
 				this.state = 300;
 				_localctx._unaryexp_0__2 = this.exponent();
-				 
-				                _localctx.result =  <expr_t> Len(<antlr.Token> _localctx._unaryexp_0__1, <expr_t> _localctx._unaryexp_0__2.result);
+				 _localctx.result =  <expr_t> Len(<antlr.Token> _localctx._unaryexp_0__1, <expr_t> _localctx._unaryexp_0__2.result);
 				            
 				}
 				break;
@@ -1369,8 +1323,7 @@ export class luaParser extends Parser {
 				_localctx._unaryexp_2__1 = this.match(luaParser.T__23);
 				this.state = 304;
 				_localctx._unaryexp_2__2 = this.exponent();
-				 
-				                _localctx.result =  <expr_t> Neg(<antlr.Token> _localctx._unaryexp_2__1, <expr_t> _localctx._unaryexp_2__2.result);
+				 _localctx.result =  <expr_t> Neg(<antlr.Token> _localctx._unaryexp_2__1, <expr_t> _localctx._unaryexp_2__2.result);
 				            
 				}
 				break;
@@ -1381,8 +1334,7 @@ export class luaParser extends Parser {
 				_localctx._unaryexp_4__1 = this.match(luaParser.T__24);
 				this.state = 308;
 				_localctx._unaryexp_4__2 = this.exponent();
-				 
-				                _localctx.result =  <expr_t> Inv(<antlr.Token> _localctx._unaryexp_4__1, <expr_t> _localctx._unaryexp_4__2.result);
+				 _localctx.result =  <expr_t> Inv(<antlr.Token> _localctx._unaryexp_4__1, <expr_t> _localctx._unaryexp_4__2.result);
 				            
 				}
 				break;
@@ -1393,8 +1345,7 @@ export class luaParser extends Parser {
 				_localctx._unaryexp_6__1 = this.match(luaParser.T__25);
 				this.state = 312;
 				_localctx._unaryexp_6__2 = this.exponent();
-				 
-				                _localctx.result =  <expr_t> Not(<antlr.Token> _localctx._unaryexp_6__1, <expr_t> _localctx._unaryexp_6__2.result);
+				 _localctx.result =  <expr_t> Not(<antlr.Token> _localctx._unaryexp_6__1, <expr_t> _localctx._unaryexp_6__2.result);
 				            
 				}
 				break;
@@ -1413,8 +1364,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 315;
 				_localctx._unaryexp_8__1 = this.exponent();
-				 
-				                _localctx.result =  _localctx._unaryexp_8__1.result;
+				 _localctx.result =  _localctx._unaryexp_8__1.result;
 				            
 				}
 				break;
@@ -1453,8 +1403,7 @@ export class luaParser extends Parser {
 				this.match(luaParser.T__26);
 				this.state = 322;
 				_localctx._exponent_0__3 = this.exponent();
-				 
-				                _localctx.result =  <expr_t> Exponent(<expr_t> _localctx._exponent_0__1.result, <expr_t> _localctx._exponent_0__3.result);
+				 _localctx.result =  <expr_t> Exponent(<expr_t> _localctx._exponent_0__1.result, <expr_t> _localctx._exponent_0__3.result);
 				            
 				}
 				break;
@@ -1464,8 +1413,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 325;
 				_localctx._exponent_2__1 = this.prefixexp(0);
-				 
-				                _localctx.result =  _localctx._exponent_2__1.result;
+				 _localctx.result =  _localctx._exponent_2__1.result;
 				            
 				}
 				break;
@@ -1511,8 +1459,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 331;
 				_localctx._prefixexp_0__1 = this.match(luaParser.NAME);
-				 
-				                _localctx.result =  <expr_t> Var(<antlr.Token> _localctx._prefixexp_0__1);
+				 _localctx.result =  <expr_t> Var(<antlr.Token> _localctx._prefixexp_0__1);
 				            
 				}
 				break;
@@ -1524,8 +1471,7 @@ export class luaParser extends Parser {
 				_localctx._prefixexp_2__2 = this.exp();
 				this.state = 335;
 				this.match(luaParser.T__18);
-				 
-				                _localctx.result =  <expr_t> NestedExp(<antlr.Token> _localctx._prefixexp_2__1, <expr_t> _localctx._prefixexp_2__2.result);
+				 _localctx.result =  <expr_t> NestedExp(<antlr.Token> _localctx._prefixexp_2__1, <expr_t> _localctx._prefixexp_2__2.result);
 				            
 				}
 				break;
@@ -1541,8 +1487,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 338;
 				_localctx._prefixexp_12__1 = this.atom();
-				 
-				                _localctx.result =  _localctx._prefixexp_12__1.result;
+				 _localctx.result =  _localctx._prefixexp_12__1.result;
 				            
 				}
 				break;
@@ -1574,8 +1519,7 @@ export class luaParser extends Parser {
 						}
 						this.state = 344;
 						_localctx._prefixexp_4__2 = this.args();
-						 
-						                          _localctx.result =  <expr_t> CallFunc(<expr_t> _localctx._prefixexp_4__1.result, <arguments_t> _localctx._prefixexp_4__2.result);
+						 _localctx.result =  <expr_t> CallFunc(<expr_t> _localctx._prefixexp_4__1.result, <arguments_t> _localctx._prefixexp_4__2.result);
 						                      
 						}
 						break;
@@ -1595,8 +1539,7 @@ export class luaParser extends Parser {
 						_localctx._prefixexp_6__3 = this.match(luaParser.NAME);
 						this.state = 350;
 						_localctx._prefixexp_6__4 = this.args();
-						 
-						                          _localctx.result =  <expr_t> CallMethod(<expr_t> _localctx._prefixexp_6__1.result, <antlr.Token> _localctx._prefixexp_6__3, <arguments_t> _localctx._prefixexp_6__4.result);
+						 _localctx.result =  <expr_t> CallMethod(<expr_t> _localctx._prefixexp_6__1.result, <antlr.Token> _localctx._prefixexp_6__3, <arguments_t> _localctx._prefixexp_6__4.result);
 						                      
 						}
 						break;
@@ -1616,8 +1559,7 @@ export class luaParser extends Parser {
 						_localctx._prefixexp_8__3 = this.exp();
 						this.state = 356;
 						this.match(luaParser.T__29);
-						 
-						                          _localctx.result =  <expr_t> Index(<expr_t> _localctx._prefixexp_8__1.result, <expr_t> _localctx._prefixexp_8__3.result);
+						 _localctx.result =  <expr_t> Index(<expr_t> _localctx._prefixexp_8__1.result, <expr_t> _localctx._prefixexp_8__3.result);
 						                      
 						}
 						break;
@@ -1635,8 +1577,7 @@ export class luaParser extends Parser {
 						this.match(luaParser.T__30);
 						this.state = 361;
 						_localctx._prefixexp_10__3 = this.match(luaParser.NAME);
-						 
-						                          _localctx.result =  <expr_t> Attr(<expr_t> _localctx._prefixexp_10__1.result, <antlr.Token> _localctx._prefixexp_10__3);
+						 _localctx.result =  <expr_t> Attr(<expr_t> _localctx._prefixexp_10__1.result, <antlr.Token> _localctx._prefixexp_10__3);
 						                      
 						}
 						break;
@@ -1676,8 +1617,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 368;
 				_localctx._atom_0__1 = this.match(luaParser.T__31);
-				 
-				                _localctx.result =  <expr_t> Nil(<antlr.Token> _localctx._atom_0__1);
+				 _localctx.result =  <expr_t> Nil(<antlr.Token> _localctx._atom_0__1);
 				            
 				}
 				break;
@@ -1686,8 +1626,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 370;
 				_localctx._atom_2__1 = this.match(luaParser.T__32);
-				 
-				                _localctx.result =  <expr_t> Bool(<antlr.Token> _localctx._atom_2__1, <boolean> false);
+				 _localctx.result =  <expr_t> Bool(<antlr.Token> _localctx._atom_2__1, <boolean> false);
 				            
 				}
 				break;
@@ -1696,8 +1635,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 372;
 				_localctx._atom_4__1 = this.match(luaParser.T__33);
-				 
-				                _localctx.result =  <expr_t> Bool(<antlr.Token> _localctx._atom_4__1, <boolean> true);
+				 _localctx.result =  <expr_t> Bool(<antlr.Token> _localctx._atom_4__1, <boolean> true);
 				            
 				}
 				break;
@@ -1706,8 +1644,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 374;
 				_localctx._atom_6__1 = this.match(luaParser.NUMERAL);
-				 
-				                _localctx.result =  <expr_t> Num(<antlr.Token> _localctx._atom_6__1);
+				 _localctx.result =  <expr_t> Num(<antlr.Token> _localctx._atom_6__1);
 				            
 				}
 				break;
@@ -1716,8 +1653,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 376;
 				_localctx._atom_8__1 = this.match(luaParser.STR_LIT);
-				 
-				                _localctx.result =  <expr_t> String(<antlr.Token> _localctx._atom_8__1);
+				 _localctx.result =  <expr_t> String(<antlr.Token> _localctx._atom_8__1);
 				            
 				}
 				break;
@@ -1726,8 +1662,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 378;
 				_localctx._atom_10__1 = this.match(luaParser.NESTED_STR);
-				 
-				                _localctx.result =  <expr_t> String(<antlr.Token> _localctx._atom_10__1);
+				 _localctx.result =  <expr_t> String(<antlr.Token> _localctx._atom_10__1);
 				            
 				}
 				break;
@@ -1736,8 +1671,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 380;
 				_localctx._atom_12__1 = this.match(luaParser.T__34);
-				 
-				                _localctx.result =  <expr_t> Ellipse(<antlr.Token> _localctx._atom_12__1);
+				 _localctx.result =  <expr_t> Ellipse(<antlr.Token> _localctx._atom_12__1);
 				            
 				}
 				break;
@@ -1746,8 +1680,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 382;
 				_localctx._atom_14__1 = this.functiondef();
-				 
-				                _localctx.result =  _localctx._atom_14__1.result;
+				 _localctx.result =  _localctx._atom_14__1.result;
 				            
 				}
 				break;
@@ -1756,8 +1689,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 385;
 				_localctx._atom_16__1 = this.tableconstructor();
-				 
-				                _localctx.result =  <expr_t> TableExpr(<table_t> _localctx._atom_16__1.result);
+				 _localctx.result =  <expr_t> TableExpr(<table_t> _localctx._atom_16__1.result);
 				            
 				}
 				break;
@@ -1801,8 +1733,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 391;
 			_localctx._nempty_seplist_o__i__s__i__s_exp_p__0__1 = this.exp();
-			 
-			                _localctx.result =  <Array<expr_t>>[ _localctx._nempty_seplist_o__i__s__i__s_exp_p__0__1.result ];
+			 _localctx.result =  <Array<expr_t>>[ _localctx._nempty_seplist_o__i__s__i__s_exp_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1828,8 +1759,7 @@ export class luaParser extends Parser {
 					this.match(luaParser.T__19);
 					this.state = 396;
 					_localctx._nempty_seplist_o__i__s__i__s_exp_p__2__3 = this.exp();
-					 
-					                          _localctx.result =  <Array<expr_t>> appendList<expr_t>(<Array<expr_t>> _localctx._nempty_seplist_o__i__s__i__s_exp_p__2__1.result, <expr_t> _localctx._nempty_seplist_o__i__s__i__s_exp_p__2__3.result);
+					 _localctx.result =  <Array<expr_t>> appendList<expr_t>(<Array<expr_t>> _localctx._nempty_seplist_o__i__s__i__s_exp_p__2__1.result, <expr_t> _localctx._nempty_seplist_o__i__s__i__s_exp_p__2__3.result);
 					                      
 					}
 					}
@@ -1865,8 +1795,7 @@ export class luaParser extends Parser {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				 
-				                _localctx.result =  <Array<expr_t>>[  ];
+				 _localctx.result =  <Array<expr_t>>[  ];
 				            
 				}
 				break;
@@ -1876,8 +1805,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 405;
 				_localctx._allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p__2__1 = this.nempty_seplist_o__i__s__i__s_exp_p_(0);
-				 
-				                _localctx.result =  _localctx._allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p__2__1.result;
+				 _localctx.result =  _localctx._allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p__2__1.result;
 				            
 				}
 				break;
@@ -1906,8 +1834,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 410;
 			_localctx._seplist_o__i__s__i__s_exp_p__0__1 = this.allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_();
-			 
-			                _localctx.result =  _localctx._seplist_o__i__s__i__s_exp_p__0__1.result;
+			 _localctx.result =  _localctx._seplist_o__i__s__i__s_exp_p__0__1.result;
 			            
 			}
 		}
@@ -1942,8 +1869,7 @@ export class luaParser extends Parser {
 				_localctx._args_0__2 = this.seplist_o__i__s__i__s_exp_p_();
 				this.state = 415;
 				this.match(luaParser.T__18);
-				 
-				                _localctx.result =  <arguments_t> PositionalArgs(<antlr.Token> _localctx._args_0__1, <Array<expr_t>> _localctx._args_0__2.result);
+				 _localctx.result =  <arguments_t> PositionalArgs(<antlr.Token> _localctx._args_0__1, <Array<expr_t>> _localctx._args_0__2.result);
 				            
 				}
 				break;
@@ -1952,8 +1878,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 418;
 				_localctx._args_2__1 = this.tableconstructor();
-				 
-				                _localctx.result =  <arguments_t> TableArgs(<table_t> _localctx._args_2__1.result);
+				 _localctx.result =  <arguments_t> TableArgs(<table_t> _localctx._args_2__1.result);
 				            
 				}
 				break;
@@ -1962,8 +1887,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 421;
 				_localctx._args_4__1 = this.match(luaParser.STR_LIT);
-				 
-				                _localctx.result =  <arguments_t> StringArg(<antlr.Token> _localctx._args_4__1);
+				 _localctx.result =  <arguments_t> StringArg(<antlr.Token> _localctx._args_4__1);
 				            
 				}
 				break;
@@ -1998,16 +1922,14 @@ export class luaParser extends Parser {
 				{
 				this.state = 425;
 				_localctx._opt_o_funcname_p__0__1 = this.funcname(0);
-				 
-				                _localctx.result =  <maybe_t<funcname_t>> some<funcname_t>(<funcname_t> _localctx._opt_o_funcname_p__0__1.result);
+				 _localctx.result =  <maybe_t<funcname_t>> some<funcname_t>(<funcname_t> _localctx._opt_o_funcname_p__0__1.result);
 				            
 				}
 				break;
 			case luaParser.T__17:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <maybe_t<funcname_t>> none<funcname_t>();
+				 _localctx.result =  <maybe_t<funcname_t>> none<funcname_t>();
 				            
 				}
 				break;
@@ -2043,16 +1965,14 @@ export class luaParser extends Parser {
 				{
 				this.state = 431;
 				_localctx._opt_o_parlist_p__0__1 = this.parlist();
-				 
-				                _localctx.result =  <maybe_t<params_t>> some<params_t>(<params_t> _localctx._opt_o_parlist_p__0__1.result);
+				 _localctx.result =  <maybe_t<params_t>> some<params_t>(<params_t> _localctx._opt_o_parlist_p__0__1.result);
 				            
 				}
 				break;
 			case luaParser.T__18:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <maybe_t<params_t>> none<params_t>();
+				 _localctx.result =  <maybe_t<params_t>> none<params_t>();
 				            
 				}
 				break;
@@ -2095,8 +2015,7 @@ export class luaParser extends Parser {
 			_localctx._functiondef_0__6 = this.block();
 			this.state = 443;
 			this.match(luaParser.T__7);
-			 
-			                _localctx.result =  <expr_t> FuncDef(<antlr.Token> _localctx._functiondef_0__1, <boolean> false, <maybe_t<funcname_t>> _localctx._functiondef_0__2.result, <maybe_t<params_t>> _localctx._functiondef_0__4.result, <block_t> _localctx._functiondef_0__6.result);
+			 _localctx.result =  <expr_t> FuncDef(<antlr.Token> _localctx._functiondef_0__1, <boolean> false, <maybe_t<funcname_t>> _localctx._functiondef_0__2.result, <maybe_t<params_t>> _localctx._functiondef_0__4.result, <block_t> _localctx._functiondef_0__6.result);
 			            
 			}
 		}
@@ -2129,16 +2048,14 @@ export class luaParser extends Parser {
 				this.match(luaParser.T__19);
 				this.state = 447;
 				_localctx._varargs_0__2 = this.match(luaParser.T__34);
-				 
-				                _localctx.result =  <maybe_t<antlr.Token>> some<antlr.Token>(<antlr.Token> _localctx._varargs_0__2);
+				 _localctx.result =  <maybe_t<antlr.Token>> some<antlr.Token>(<antlr.Token> _localctx._varargs_0__2);
 				            
 				}
 				break;
 			case luaParser.T__18:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <maybe_t<antlr.Token>> none<antlr.Token>();
+				 _localctx.result =  <maybe_t<antlr.Token>> none<antlr.Token>();
 				            
 				}
 				break;
@@ -2182,8 +2099,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 453;
 			_localctx._nempty_seplist_o__i__s__i__s__i_name_k__p__0__1 = this.match(luaParser.NAME);
-			 
-			                _localctx.result =  <Array<antlr.Token>>[ _localctx._nempty_seplist_o__i__s__i__s__i_name_k__p__0__1 ];
+			 _localctx.result =  <Array<antlr.Token>>[ _localctx._nempty_seplist_o__i__s__i__s__i_name_k__p__0__1 ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2209,8 +2125,7 @@ export class luaParser extends Parser {
 					this.match(luaParser.T__19);
 					this.state = 458;
 					_localctx._nempty_seplist_o__i__s__i__s__i_name_k__p__2__3 = this.match(luaParser.NAME);
-					 
-					                          _localctx.result =  <Array<antlr.Token>> appendList<antlr.Token>(<Array<antlr.Token>> _localctx._nempty_seplist_o__i__s__i__s__i_name_k__p__2__1.result, <antlr.Token> _localctx._nempty_seplist_o__i__s__i__s__i_name_k__p__2__3);
+					 _localctx.result =  <Array<antlr.Token>> appendList<antlr.Token>(<Array<antlr.Token>> _localctx._nempty_seplist_o__i__s__i__s__i_name_k__p__2__1.result, <antlr.Token> _localctx._nempty_seplist_o__i__s__i__s__i_name_k__p__2__3);
 					                      
 					}
 					}
@@ -2248,8 +2163,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 465;
 				_localctx._parlist_0__1 = this.match(luaParser.T__34);
-				 
-				                _localctx.result =  <params_t> params(<Array<antlr.Token>> <Array<antlr.Token>>[  ], <maybe_t<antlr.Token>> <maybe_t<antlr.Token>> some<antlr.Token>(<antlr.Token> _localctx._parlist_0__1));
+				 _localctx.result =  <params_t> params(<Array<antlr.Token>> <Array<antlr.Token>>[  ], <maybe_t<antlr.Token>> <maybe_t<antlr.Token>> some<antlr.Token>(<antlr.Token> _localctx._parlist_0__1));
 				            
 				}
 				break;
@@ -2260,8 +2174,7 @@ export class luaParser extends Parser {
 				_localctx._parlist_2__1 = this.nempty_seplist_o__i__s__i__s__i_name_k__p_(0);
 				this.state = 468;
 				_localctx._parlist_2__2 = this.varargs();
-				 
-				                _localctx.result =  <params_t> params(<Array<antlr.Token>> _localctx._parlist_2__1.result, <maybe_t<antlr.Token>> _localctx._parlist_2__2.result);
+				 _localctx.result =  <params_t> params(<Array<antlr.Token>> _localctx._parlist_2__1.result, <maybe_t<antlr.Token>> _localctx._parlist_2__2.result);
 				            
 				}
 				break;
@@ -2305,8 +2218,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 474;
 			_localctx._nempty_seplist_o_fieldsep_s_field_p__0__1 = this.field();
-			 
-			                _localctx.result =  <Array<table_field_t>>[ _localctx._nempty_seplist_o_fieldsep_s_field_p__0__1.result ];
+			 _localctx.result =  <Array<table_field_t>>[ _localctx._nempty_seplist_o_fieldsep_s_field_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2332,8 +2244,7 @@ export class luaParser extends Parser {
 					this.fieldsep();
 					this.state = 479;
 					_localctx._nempty_seplist_o_fieldsep_s_field_p__2__3 = this.field();
-					 
-					                          _localctx.result =  <Array<table_field_t>> appendList<table_field_t>(<Array<table_field_t>> _localctx._nempty_seplist_o_fieldsep_s_field_p__2__1.result, <table_field_t> _localctx._nempty_seplist_o_fieldsep_s_field_p__2__3.result);
+					 _localctx.result =  <Array<table_field_t>> appendList<table_field_t>(<Array<table_field_t>> _localctx._nempty_seplist_o_fieldsep_s_field_p__2__1.result, <table_field_t> _localctx._nempty_seplist_o_fieldsep_s_field_p__2__3.result);
 					                      
 					}
 					}
@@ -2372,16 +2283,14 @@ export class luaParser extends Parser {
 				{
 				this.state = 487;
 				_localctx._opt_o_fieldsep_p__0__1 = this.fieldsep();
-				 
-				                _localctx.result =  <maybe_t<number>> some<number>(<number> _localctx._opt_o_fieldsep_p__0__1.result);
+				 _localctx.result =  <maybe_t<number>> some<number>(<number> _localctx._opt_o_fieldsep_p__0__1.result);
 				            
 				}
 				break;
 			case luaParser.T__36:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <maybe_t<number>> none<number>();
+				 _localctx.result =  <maybe_t<number>> none<number>();
 				            
 				}
 				break;
@@ -2422,8 +2331,7 @@ export class luaParser extends Parser {
 				this.opt_o_fieldsep_p_();
 				this.state = 496;
 				this.match(luaParser.T__36);
-				 
-				                _localctx.result =  <table_t> TableConstructor(<antlr.Token> _localctx._tableconstructor_0__1, <Array<table_field_t>> _localctx._tableconstructor_0__2.result);
+				 _localctx.result =  <table_t> TableConstructor(<antlr.Token> _localctx._tableconstructor_0__1, <Array<table_field_t>> _localctx._tableconstructor_0__2.result);
 				            
 				}
 				break;
@@ -2435,8 +2343,7 @@ export class luaParser extends Parser {
 				_localctx._tableconstructor_2__1 = this.match(luaParser.T__35);
 				this.state = 500;
 				this.match(luaParser.T__36);
-				 
-				                _localctx.result =  <table_t> TableConstructor(<antlr.Token> _localctx._tableconstructor_2__1, <Array<table_field_t>> <Array<table_field_t>>[  ]);
+				 _localctx.result =  <table_t> TableConstructor(<antlr.Token> _localctx._tableconstructor_2__1, <Array<table_field_t>> <Array<table_field_t>>[  ]);
 				            
 				}
 				break;
@@ -2478,8 +2385,7 @@ export class luaParser extends Parser {
 			{
 			this.state = 505;
 			_localctx._funcname_4__1 = this.match(luaParser.NAME);
-			 
-			                _localctx.result =  <funcname_t> VarName(<antlr.Token> _localctx._funcname_4__1);
+			 _localctx.result =  <funcname_t> VarName(<antlr.Token> _localctx._funcname_4__1);
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2509,8 +2415,7 @@ export class luaParser extends Parser {
 						this.match(luaParser.T__30);
 						this.state = 510;
 						_localctx._funcname_0__3 = this.match(luaParser.NAME);
-						 
-						                          _localctx.result =  <funcname_t> DotName(<funcname_t> _localctx._funcname_0__1.result, <antlr.Token> _localctx._funcname_0__3);
+						 _localctx.result =  <funcname_t> DotName(<funcname_t> _localctx._funcname_0__1.result, <antlr.Token> _localctx._funcname_0__3);
 						                      
 						}
 						break;
@@ -2528,8 +2433,7 @@ export class luaParser extends Parser {
 						this.match(luaParser.T__27);
 						this.state = 514;
 						_localctx._funcname_2__3 = this.match(luaParser.NAME);
-						 
-						                          _localctx.result =  <funcname_t> MethodName(<funcname_t> _localctx._funcname_2__1.result, <antlr.Token> _localctx._funcname_2__3);
+						 _localctx.result =  <funcname_t> MethodName(<funcname_t> _localctx._funcname_2__1.result, <antlr.Token> _localctx._funcname_2__3);
 						                      
 						}
 						break;
@@ -2577,8 +2481,7 @@ export class luaParser extends Parser {
 				this.match(luaParser.T__2);
 				this.state = 525;
 				_localctx._field_0__5 = this.exp();
-				 
-				                _localctx.result =  <table_field_t> IndexField(<antlr.Token> _localctx._field_0__1, <expr_t> _localctx._field_0__2.result, <expr_t> _localctx._field_0__5.result);
+				 _localctx.result =  <table_field_t> IndexField(<antlr.Token> _localctx._field_0__1, <expr_t> _localctx._field_0__2.result, <expr_t> _localctx._field_0__5.result);
 				            
 				}
 				break;
@@ -2592,8 +2495,7 @@ export class luaParser extends Parser {
 				this.match(luaParser.T__2);
 				this.state = 530;
 				_localctx._field_2__3 = this.exp();
-				 
-				                _localctx.result =  <table_field_t> NameField(<antlr.Token> _localctx._field_2__1, <expr_t> _localctx._field_2__3.result);
+				 _localctx.result =  <table_field_t> NameField(<antlr.Token> _localctx._field_2__1, <expr_t> _localctx._field_2__3.result);
 				            
 				}
 				break;
@@ -2603,8 +2505,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 533;
 				_localctx._field_4__1 = this.exp();
-				 
-				                _localctx.result =  <table_field_t> ElementField(<expr_t> _localctx._field_4__1.result);
+				 _localctx.result =  <table_field_t> ElementField(<expr_t> _localctx._field_4__1.result);
 				            
 				}
 				break;
@@ -2637,8 +2538,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 538;
 				this.match(luaParser.T__19);
-				 
-				                _localctx.result =  0;
+				 _localctx.result =  0;
 				            
 				}
 				break;
@@ -2647,8 +2547,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 540;
 				this.match(luaParser.T__0);
-				 
-				                _localctx.result =  0;
+				 _localctx.result =  0;
 				            
 				}
 				break;
@@ -2683,8 +2582,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 544;
 				_localctx._binop_0__1 = this.match(luaParser.T__37);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_0__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_0__1);
 				            
 				}
 				break;
@@ -2693,8 +2591,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 546;
 				_localctx._binop_2__1 = this.match(luaParser.T__38);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_2__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_2__1);
 				            
 				}
 				break;
@@ -2703,8 +2600,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 548;
 				_localctx._binop_4__1 = this.match(luaParser.T__39);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_4__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_4__1);
 				            
 				}
 				break;
@@ -2713,8 +2609,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 550;
 				_localctx._binop_6__1 = this.match(luaParser.T__40);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_6__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_6__1);
 				            
 				}
 				break;
@@ -2723,8 +2618,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 552;
 				_localctx._binop_8__1 = this.match(luaParser.T__41);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_8__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_8__1);
 				            
 				}
 				break;
@@ -2733,8 +2627,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 554;
 				_localctx._binop_10__1 = this.match(luaParser.T__42);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_10__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_10__1);
 				            
 				}
 				break;
@@ -2743,8 +2636,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 556;
 				_localctx._binop_12__1 = this.match(luaParser.T__43);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_12__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_12__1);
 				            
 				}
 				break;
@@ -2753,8 +2645,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 558;
 				_localctx._binop_14__1 = this.match(luaParser.T__44);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_14__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_14__1);
 				            
 				}
 				break;
@@ -2763,8 +2654,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 560;
 				_localctx._binop_16__1 = this.match(luaParser.T__45);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_16__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_16__1);
 				            
 				}
 				break;
@@ -2773,8 +2663,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 562;
 				_localctx._binop_18__1 = this.match(luaParser.T__24);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_18__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_18__1);
 				            
 				}
 				break;
@@ -2783,8 +2672,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 564;
 				_localctx._binop_20__1 = this.match(luaParser.T__46);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_20__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_20__1);
 				            
 				}
 				break;
@@ -2793,8 +2681,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 566;
 				_localctx._binop_22__1 = this.match(luaParser.T__47);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_22__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_22__1);
 				            
 				}
 				break;
@@ -2803,8 +2690,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 568;
 				_localctx._binop_24__1 = this.match(luaParser.T__48);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_24__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_24__1);
 				            
 				}
 				break;
@@ -2813,8 +2699,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 570;
 				_localctx._binop_26__1 = this.match(luaParser.T__49);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_26__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_26__1);
 				            
 				}
 				break;
@@ -2823,8 +2708,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 572;
 				_localctx._binop_28__1 = this.match(luaParser.T__50);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_28__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_28__1);
 				            
 				}
 				break;
@@ -2833,8 +2717,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 574;
 				_localctx._binop_30__1 = this.match(luaParser.T__23);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_30__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_30__1);
 				            
 				}
 				break;
@@ -2843,8 +2726,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 576;
 				_localctx._binop_32__1 = this.match(luaParser.T__51);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_32__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_32__1);
 				            
 				}
 				break;
@@ -2853,8 +2735,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 578;
 				_localctx._binop_34__1 = this.match(luaParser.T__52);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_34__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_34__1);
 				            
 				}
 				break;
@@ -2863,8 +2744,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 580;
 				_localctx._binop_36__1 = this.match(luaParser.T__53);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_36__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_36__1);
 				            
 				}
 				break;
@@ -2873,8 +2753,7 @@ export class luaParser extends Parser {
 				{
 				this.state = 582;
 				_localctx._binop_38__1 = this.match(luaParser.T__54);
-				 
-				                _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_38__1);
+				 _localctx.result =  <op_t<expr_t>> mkOperator<expr_t>(<antlr.Token> _localctx._binop_38__1);
 				            
 				}
 				break;

@@ -2,7 +2,7 @@
 
 Type inference your BNF grammar that uses semantic actions, eliminating static errors and porting them into different parser generator architectures.
 
-The major part of this library is written in F\#. However, it is compiled into a single-file JavaScript `tbnf.js` using Fable.
+The major part of this library is written in F\#. However, it is compiled into a single-file JavaScript [`tbnf.js`] using Fable.
 
 P.S: Typed BNF used to be implemented with Fable.Python and runs under CPython/PyPy(>=3.8), and I'd like to try Fable.Python again when it gets more stable.
 
