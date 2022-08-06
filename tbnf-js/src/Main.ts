@@ -9,6 +9,7 @@ import * as codegen_py from "./src/Backends.PythonLark"
 import * as codegen_ocaml from "./src/Backends.OCamlMenhir"
 import * as codegen_csharp from "./src/Backends.CSharpAntlr"
 import * as codegen_ts from "./src/Backends.TypeScriptAntlr"
+import * as codegen_julia from "./src/Backends.JuliaFFF"
 import * as codegen_bnf from "./src/Backends.PureBNF"
 import { genDoc } from "./FableSedlex/PrettyDoc"
 import { setExitFunc } from "./src/ErrorReport"
@@ -18,6 +19,7 @@ const backends = {
   "ocaml-menhir": codegen_ocaml.codegen,
   "csharp-antlr": codegen_csharp.codegen,
   "typescript-antlr": codegen_ts.codegen,
+  "julia-fff": codegen_julia.codegen,
   "purebnf": codegen_bnf.codegen,
 };
 
