@@ -96,6 +96,36 @@ module NameMangling =
         nameEnv.usedNames <- Set.add s nameEnv.usedNames
         s
 
+let rec mapMOptions (f: 'a -> 'b option) (ops: list<'a>) =
+    match ops with
+    | [] -> Some []
+    | x :: xs ->
+        match f x with
+        | Some y ->
+            match mapMOptions f xs with
+            | Some ys -> Some (y::ys)
+            | None -> None
+        | None -> None
+
+
+module OptionBuilder =
+    type Builder() =
+        member __.Bind<'b, 'c>(m: option<'b>, k : 'b -> option<'c>): option<'c> =
+            match m with
+            | None -> None
+            | Some a -> k a
+        member __.Return<'a>(v: 'a) = Some v
+
+        member __.Run<'a>(m: option<'a>) = m
+
+        member __.Combine<'a, 'b>(m1: option<'a>, m2: option<'b>) =
+            match m1 with
+            | None -> None
+            | Some _ -> m2
+
+        member __.Delay<'a>(x: unit -> option<'a>) = x()
+
+
 module DocBuilder =
     type block<'b> = {
        suite : Doc list // reverse over!!!
