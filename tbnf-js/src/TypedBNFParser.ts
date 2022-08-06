@@ -230,8 +230,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 107;
 			_localctx._list_o_toplevel_p__0__1 = this.toplevel();
-			 
-			                _localctx.result =  <Array<definition>>[ _localctx._list_o_toplevel_p__0__1.result ];
+			 _localctx.result =  <Array<definition>>[ _localctx._list_o_toplevel_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -255,8 +254,7 @@ export class TypedBNFParser extends Parser {
 					}
 					this.state = 111;
 					_localctx._list_o_toplevel_p__2__2 = this.toplevel();
-					 
-					                          _localctx.result =  <Array<definition>> addList<definition>(<Array<definition>> _localctx._list_o_toplevel_p__2__1.result, <definition> _localctx._list_o_toplevel_p__2__2.result);
+					 _localctx.result =  <Array<definition>> addList<definition>(<Array<definition>> _localctx._list_o_toplevel_p__2__1.result, <definition> _localctx._list_o_toplevel_p__2__2.result);
 					                      
 					}
 					}
@@ -290,8 +288,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 119;
 			_localctx._start__y__0__1 = this.list_o_toplevel_p_(0);
-			 
-			                _localctx.result =  _localctx._start__y__0__1.result;
+			 _localctx.result =  _localctx._start__y__0__1.result;
 			            
 			}
 		}
@@ -318,8 +315,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 122;
 			_localctx._identstr_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-			 
-			                _localctx.result =  <string> str(<Token> _localctx._identstr_0__1);
+			 _localctx.result =  <string> str(<Token> _localctx._identstr_0__1);
 			            
 			}
 		}
@@ -346,8 +342,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 125;
 			_localctx._typ_0__1 = this.arrow_typ();
-			 
-			                _localctx.result =  _localctx._typ_0__1.result;
+			 _localctx.result =  _localctx._typ_0__1.result;
 			            
 			}
 		}
@@ -387,8 +382,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 129;
 			_localctx._slist_o__i__s__i__s_param_type_p__0__1 = this.param_type();
-			 
-			                _localctx.result =  <Array<[string, monot]>>[ _localctx._slist_o__i__s__i__s_param_type_p__0__1.result ];
+			 _localctx.result =  <Array<[string, monot]>>[ _localctx._slist_o__i__s__i__s_param_type_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -414,8 +408,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__0);
 					this.state = 134;
 					_localctx._slist_o__i__s__i__s_param_type_p__2__3 = this.param_type();
-					 
-					                          _localctx.result =  <Array<[string, monot]>> addList<[string, monot]>(<Array<[string, monot]>> _localctx._slist_o__i__s__i__s_param_type_p__2__1.result, <[string, monot]> _localctx._slist_o__i__s__i__s_param_type_p__2__3.result);
+					 _localctx.result =  <Array<[string, monot]>> addList<[string, monot]>(<Array<[string, monot]>> _localctx._slist_o__i__s__i__s_param_type_p__2__1.result, <[string, monot]> _localctx._slist_o__i__s__i__s_param_type_p__2__3.result);
 					                      
 					}
 					}
@@ -451,8 +444,7 @@ export class TypedBNFParser extends Parser {
 			case TypedBNFParser.T__3:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				 
-				                _localctx.result =  <Array<[string, monot]>>[  ];
+				 _localctx.result =  <Array<[string, monot]>>[  ];
 				            
 				}
 				break;
@@ -462,8 +454,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 143;
 				_localctx._empty_o_slist_o__i__s__i__s_param_type_p__p__2__1 = this.slist_o__i__s__i__s_param_type_p_(0);
-				 
-				                _localctx.result =  _localctx._empty_o_slist_o__i__s__i__s_param_type_p__p__2__1.result;
+				 _localctx.result =  _localctx._empty_o_slist_o__i__s__i__s_param_type_p__p__2__1.result;
 				            
 				}
 				break;
@@ -494,8 +485,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 148;
 			_localctx._eslist_o__i__s__i__s_param_type_p__0__1 = this.empty_o_slist_o__i__s__i__s_param_type_p__p_();
-			 
-			                _localctx.result =  _localctx._eslist_o__i__s__i__s_param_type_p__0__1.result;
+			 _localctx.result =  _localctx._eslist_o__i__s__i__s_param_type_p__0__1.result;
 			            
 			}
 		}
@@ -530,8 +520,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__1);
 				this.state = 153;
 				_localctx._arrow_typ_0__3 = this.arrow_typ();
-				 
-				                _localctx.result =  <monot> MK_TFun(<Array<[string, monot]>> <Array<[string, monot]>>[ <[string, monot]>["value", _localctx._arrow_typ_0__1.result] ], <monot> _localctx._arrow_typ_0__3.result);
+				 _localctx.result =  <monot> MK_TFun(<Array<[string, monot]>> <Array<[string, monot]>>[ <[string, monot]>["value", _localctx._arrow_typ_0__1.result] ], <monot> _localctx._arrow_typ_0__3.result);
 				            
 				}
 				break;
@@ -549,8 +538,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__1);
 				this.state = 160;
 				_localctx._arrow_typ_2__5 = this.arrow_typ();
-				 
-				                _localctx.result =  <monot> MK_TFun(<Array<[string, monot]>> <Array<[string, monot]>> process_tparam(<Array<[string, monot]>> _localctx._arrow_typ_2__2.result), <monot> _localctx._arrow_typ_2__5.result);
+				 _localctx.result =  <monot> MK_TFun(<Array<[string, monot]>> <Array<[string, monot]>> process_tparam(<Array<[string, monot]>> _localctx._arrow_typ_2__2.result), <monot> _localctx._arrow_typ_2__5.result);
 				            
 				}
 				break;
@@ -560,8 +548,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 163;
 				_localctx._arrow_typ_4__1 = this.type_product(0);
-				 
-				                _localctx.result =  <monot> MK_TTuple(<Array<monot>> _localctx._arrow_typ_4__1.result);
+				 _localctx.result =  <monot> MK_TTuple(<Array<monot>> _localctx._arrow_typ_4__1.result);
 				            
 				}
 				break;
@@ -603,8 +590,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 169;
 			_localctx._slist_o__i__s__i__s_typ_p__0__1 = this.typ();
-			 
-			                _localctx.result =  <Array<monot>>[ _localctx._slist_o__i__s__i__s_typ_p__0__1.result ];
+			 _localctx.result =  <Array<monot>>[ _localctx._slist_o__i__s__i__s_typ_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -630,8 +616,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__0);
 					this.state = 174;
 					_localctx._slist_o__i__s__i__s_typ_p__2__3 = this.typ();
-					 
-					                          _localctx.result =  <Array<monot>> addList<monot>(<Array<monot>> _localctx._slist_o__i__s__i__s_typ_p__2__1.result, <monot> _localctx._slist_o__i__s__i__s_typ_p__2__3.result);
+					 _localctx.result =  <Array<monot>> addList<monot>(<Array<monot>> _localctx._slist_o__i__s__i__s_typ_p__2__1.result, <monot> _localctx._slist_o__i__s__i__s_typ_p__2__3.result);
 					                      
 					}
 					}
@@ -678,8 +663,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 183;
 			_localctx._typ2_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-			 
-			                _localctx.result =  <monot> MK_TConst(<string> <string> str(<Token> _localctx._typ2_0__1));
+			 _localctx.result =  <monot> MK_TConst(<string> <string> str(<Token> _localctx._typ2_0__1));
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -707,8 +691,7 @@ export class TypedBNFParser extends Parser {
 					_localctx._typ2_2__3 = this.slist_o__i__s__i__s_typ_p_(0);
 					this.state = 189;
 					this.match(TypedBNFParser.T__5);
-					 
-					                          _localctx.result =  <monot> MK_TApp(<monot> _localctx._typ2_2__1.result, <Array<monot>> _localctx._typ2_2__3.result);
+					 _localctx.result =  <monot> MK_TApp(<monot> _localctx._typ2_2__1.result, <Array<monot>> _localctx._typ2_2__3.result);
 					                      
 					}
 					}
@@ -755,8 +738,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 198;
 			_localctx._type_product_2__1 = this.typ2(0);
-			 
-			                _localctx.result =  <Array<monot>>[ _localctx._type_product_2__1.result ];
+			 _localctx.result =  <Array<monot>>[ _localctx._type_product_2__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -782,8 +764,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__6);
 					this.state = 203;
 					_localctx._type_product_0__3 = this.typ2(0);
-					 
-					                          _localctx.result =  <Array<monot>> addList<monot>(<Array<monot>> _localctx._type_product_0__1.result, <monot> _localctx._type_product_0__3.result);
+					 _localctx.result =  <Array<monot>> addList<monot>(<Array<monot>> _localctx._type_product_0__1.result, <monot> _localctx._type_product_0__3.result);
 					                      
 					}
 					}
@@ -827,8 +808,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__5);
 				this.state = 214;
 				_localctx._top_typ_0__4 = this.typ();
-				 
-				                _localctx.result =  <polyt> MK_Poly(<Array<string>> _localctx._top_typ_0__2.result, <monot> _localctx._top_typ_0__4.result);
+				 _localctx.result =  <polyt> MK_Poly(<Array<string>> _localctx._top_typ_0__2.result, <monot> _localctx._top_typ_0__4.result);
 				            
 				}
 				break;
@@ -838,8 +818,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 217;
 				_localctx._top_typ_2__1 = this.typ();
-				 
-				                _localctx.result =  <polyt> MK_Mono(<monot> _localctx._top_typ_2__1.result);
+				 _localctx.result =  <polyt> MK_Mono(<monot> _localctx._top_typ_2__1.result);
 				            
 				}
 				break;
@@ -870,8 +849,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 222;
 			_localctx._tvar_str_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-			 
-			                _localctx.result =  <string> str(<Token> _localctx._tvar_str_0__1);
+			 _localctx.result =  <string> str(<Token> _localctx._tvar_str_0__1);
 			            
 			}
 		}
@@ -906,8 +884,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__7);
 				this.state = 227;
 				_localctx._param_type_0__3 = this.typ();
-				 
-				                _localctx.result =  <[string, monot]>[<string> str(<Token> _localctx._param_type_0__1), _localctx._param_type_0__3.result];
+				 _localctx.result =  <[string, monot]>[<string> str(<Token> _localctx._param_type_0__1), _localctx._param_type_0__3.result];
 				            
 				}
 				break;
@@ -917,8 +894,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 230;
 				_localctx._param_type_2__1 = this.typ();
-				 
-				                _localctx.result =  <[string, monot]>["_", _localctx._param_type_2__1.result];
+				 _localctx.result =  <[string, monot]>["_", _localctx._param_type_2__1.result];
 				            
 				}
 				break;
@@ -960,8 +936,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 236;
 			_localctx._slist_o__i__s__i__s_tvar_str_p__0__1 = this.tvar_str();
-			 
-			                _localctx.result =  <Array<string>>[ _localctx._slist_o__i__s__i__s_tvar_str_p__0__1.result ];
+			 _localctx.result =  <Array<string>>[ _localctx._slist_o__i__s__i__s_tvar_str_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -987,8 +962,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__0);
 					this.state = 241;
 					_localctx._slist_o__i__s__i__s_tvar_str_p__2__3 = this.tvar_str();
-					 
-					                          _localctx.result =  <Array<string>> addList<string>(<Array<string>> _localctx._slist_o__i__s__i__s_tvar_str_p__2__1.result, <string> _localctx._slist_o__i__s__i__s_tvar_str_p__2__3.result);
+					 _localctx.result =  <Array<string>> addList<string>(<Array<string>> _localctx._slist_o__i__s__i__s_tvar_str_p__2__1.result, <string> _localctx._slist_o__i__s__i__s_tvar_str_p__2__3.result);
 					                      
 					}
 					}
@@ -1030,8 +1004,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._type_params_0__2 = this.slist_o__i__s__i__s_tvar_str_p_(0);
 				this.state = 251;
 				this.match(TypedBNFParser.T__5);
-				 
-				                _localctx.result =  _localctx._type_params_0__2.result;
+				 _localctx.result =  _localctx._type_params_0__2.result;
 				            
 				}
 				break;
@@ -1039,8 +1012,7 @@ export class TypedBNFParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <Array<string>>[  ];
+				 _localctx.result =  <Array<string>>[  ];
 				            
 				}
 				break;
@@ -1073,8 +1045,7 @@ export class TypedBNFParser extends Parser {
 			this.match(TypedBNFParser.T__7);
 			this.state = 259;
 			_localctx._field_ann_0__3 = this.typ();
-			 
-			                _localctx.result =  <[string, monot, position]>[<string> str(<Token> _localctx._field_ann_0__1), _localctx._field_ann_0__3.result, <position> mkpos(<Token> _localctx._field_ann_0__1)];
+			 _localctx.result =  <[string, monot, position]>[<string> str(<Token> _localctx._field_ann_0__1), _localctx._field_ann_0__3.result, <position> mkpos(<Token> _localctx._field_ann_0__1)];
 			            
 			}
 		}
@@ -1114,8 +1085,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 263;
 			_localctx._slist_o__i__s__i__s_field_ann_p__0__1 = this.field_ann();
-			 
-			                _localctx.result =  <Array<[string, monot, position]>>[ _localctx._slist_o__i__s__i__s_field_ann_p__0__1.result ];
+			 _localctx.result =  <Array<[string, monot, position]>>[ _localctx._slist_o__i__s__i__s_field_ann_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1141,8 +1111,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__0);
 					this.state = 268;
 					_localctx._slist_o__i__s__i__s_field_ann_p__2__3 = this.field_ann();
-					 
-					                          _localctx.result =  <Array<[string, monot, position]>> addList<[string, monot, position]>(<Array<[string, monot, position]>> _localctx._slist_o__i__s__i__s_field_ann_p__2__1.result, <[string, monot, position]> _localctx._slist_o__i__s__i__s_field_ann_p__2__3.result);
+					 _localctx.result =  <Array<[string, monot, position]>> addList<[string, monot, position]>(<Array<[string, monot, position]>> _localctx._slist_o__i__s__i__s_field_ann_p__2__1.result, <[string, monot, position]> _localctx._slist_o__i__s__i__s_field_ann_p__2__3.result);
 					                      
 					}
 					}
@@ -1178,8 +1147,7 @@ export class TypedBNFParser extends Parser {
 			case TypedBNFParser.T__3:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				 
-				                _localctx.result =  <Array<[string, monot, position]>>[  ];
+				 _localctx.result =  <Array<[string, monot, position]>>[  ];
 				            
 				}
 				break;
@@ -1188,8 +1156,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 277;
 				_localctx._empty_o_slist_o__i__s__i__s_field_ann_p__p__2__1 = this.slist_o__i__s__i__s_field_ann_p_(0);
-				 
-				                _localctx.result =  _localctx._empty_o_slist_o__i__s__i__s_field_ann_p__p__2__1.result;
+				 _localctx.result =  _localctx._empty_o_slist_o__i__s__i__s_field_ann_p__p__2__1.result;
 				            
 				}
 				break;
@@ -1220,8 +1187,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 282;
 			_localctx._eslist_o__i__s__i__s_field_ann_p__0__1 = this.empty_o_slist_o__i__s__i__s_field_ann_p__p_();
-			 
-			                _localctx.result =  _localctx._eslist_o__i__s__i__s_field_ann_p__0__1.result;
+			 _localctx.result =  _localctx._eslist_o__i__s__i__s_field_ann_p__0__1.result;
 			            
 			}
 		}
@@ -1256,8 +1222,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._field_anns_0__2 = this.eslist_o__i__s__i__s_field_ann_p_();
 				this.state = 287;
 				this.match(TypedBNFParser.T__3);
-				 
-				                _localctx.result =  <[boolean, Array<[string, monot, position]>]>[true, _localctx._field_anns_0__2.result];
+				 _localctx.result =  <[boolean, Array<[string, monot, position]>]>[true, _localctx._field_anns_0__2.result];
 				            
 				}
 				break;
@@ -1265,8 +1230,7 @@ export class TypedBNFParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				 
-				                _localctx.result =  <[boolean, Array<[string, monot, position]>]>[false, <Array<[string, monot, position]>>[  ]];
+				 _localctx.result =  <[boolean, Array<[string, monot, position]>]>[false, <Array<[string, monot, position]>>[  ]];
 				            
 				}
 				break;
@@ -1307,8 +1271,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__7);
 				this.state = 297;
 				_localctx._decl_0__5 = this.top_typ();
-				 
-				                _localctx.result =  <definition> MK_Declvar(<string> _localctx._decl_0__3.result, <polyt> _localctx._decl_0__5.result, <position> <position> mkpos(<Token> _localctx._decl_0__2));
+				 _localctx.result =  <definition> MK_Declvar(<string> _localctx._decl_0__3.result, <polyt> _localctx._decl_0__5.result, <position> <position> mkpos(<Token> _localctx._decl_0__2));
 				            
 				}
 				break;
@@ -1324,8 +1287,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__7);
 				this.state = 303;
 				_localctx._decl_2__4 = this.typ();
-				 
-				                _localctx.result =  <definition> MK_Declctor(<string> _localctx._decl_2__2.result, <monot> _localctx._decl_2__4.result, <position> <position> mkpos(<Token> _localctx._decl_2__1));
+				 _localctx.result =  <definition> MK_Declctor(<string> _localctx._decl_2__2.result, <monot> _localctx._decl_2__4.result, <position> <position> mkpos(<Token> _localctx._decl_2__1));
 				            
 				}
 				break;
@@ -1343,8 +1305,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._decl_4__4 = this.type_params();
 				this.state = 310;
 				_localctx._decl_4__5 = this.field_anns();
-				 
-				                _localctx.result =  <definition> MK_Decltype(<boolean> true, <boolean> <boolean> fst<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_4__5.result), <string> _localctx._decl_4__3.result, <Array<string>> _localctx._decl_4__4.result, <Array<[string, monot, position]>> <Array<[string, monot, position]>> snd<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_4__5.result), <position> <position> mkpos(<Token> _localctx._decl_4__1));
+				 _localctx.result =  <definition> MK_Decltype(<boolean> true, <boolean> <boolean> fst<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_4__5.result), <string> _localctx._decl_4__3.result, <Array<string>> _localctx._decl_4__4.result, <Array<[string, monot, position]>> <Array<[string, monot, position]>> snd<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_4__5.result), <position> <position> mkpos(<Token> _localctx._decl_4__1));
 				            
 				}
 				break;
@@ -1360,8 +1321,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._decl_6__3 = this.type_params();
 				this.state = 316;
 				_localctx._decl_6__4 = this.field_anns();
-				 
-				                _localctx.result =  <definition> MK_Decltype(<boolean> false, <boolean> <boolean> fst<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_6__4.result), <string> _localctx._decl_6__2.result, <Array<string>> _localctx._decl_6__3.result, <Array<[string, monot, position]>> <Array<[string, monot, position]>> snd<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_6__4.result), <position> <position> mkpos(<Token> _localctx._decl_6__1));
+				 _localctx.result =  <definition> MK_Decltype(<boolean> false, <boolean> <boolean> fst<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_6__4.result), <string> _localctx._decl_6__2.result, <Array<string>> _localctx._decl_6__3.result, <Array<[string, monot, position]>> <Array<[string, monot, position]>> snd<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_6__4.result), <position> <position> mkpos(<Token> _localctx._decl_6__1));
 				            
 				}
 				break;
@@ -1394,8 +1354,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 321;
 				_localctx._toplevel_0__1 = this.def();
-				 
-				                _localctx.result =  _localctx._toplevel_0__1.result;
+				 _localctx.result =  _localctx._toplevel_0__1.result;
 				            
 				}
 				break;
@@ -1405,8 +1364,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 324;
 				_localctx._toplevel_2__1 = this.decl();
-				 
-				                _localctx.result =  _localctx._toplevel_2__1.result;
+				 _localctx.result =  _localctx._toplevel_2__1.result;
 				            
 				}
 				break;
@@ -1416,8 +1374,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 327;
 				_localctx._toplevel_4__1 = this.lexerdef();
-				 
-				                _localctx.result =  _localctx._toplevel_4__1.result;
+				 _localctx.result =  _localctx._toplevel_4__1.result;
 				            
 				}
 				break;
@@ -1429,8 +1386,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._toplevel_6__1 = this.match(TypedBNFParser.T__12);
 				this.state = 331;
 				_localctx._toplevel_6__2 = this.slist_o__i__s__i__s_identstr_p_(0);
-				 
-				                _localctx.result =  <definition> MK_Defignore(<Array<string>> _localctx._toplevel_6__2.result, <position> <position> mkpos(<Token> _localctx._toplevel_6__1));
+				 _localctx.result =  <definition> MK_Defignore(<Array<string>> _localctx._toplevel_6__2.result, <position> <position> mkpos(<Token> _localctx._toplevel_6__1));
 				            
 				}
 				break;
@@ -1472,8 +1428,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 337;
 			_localctx._slist_o__i__s__i__s_identstr_p__0__1 = this.identstr();
-			 
-			                _localctx.result =  <Array<string>>[ _localctx._slist_o__i__s__i__s_identstr_p__0__1.result ];
+			 _localctx.result =  <Array<string>>[ _localctx._slist_o__i__s__i__s_identstr_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1499,8 +1454,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__0);
 					this.state = 342;
 					_localctx._slist_o__i__s__i__s_identstr_p__2__3 = this.identstr();
-					 
-					                          _localctx.result =  <Array<string>> addList<string>(<Array<string>> _localctx._slist_o__i__s__i__s_identstr_p__2__1.result, <string> _localctx._slist_o__i__s__i__s_identstr_p__2__3.result);
+					 _localctx.result =  <Array<string>> addList<string>(<Array<string>> _localctx._slist_o__i__s__i__s_identstr_p__2__1.result, <string> _localctx._slist_o__i__s__i__s_identstr_p__2__3.result);
 					                      
 					}
 					}
@@ -1546,8 +1500,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__3);
 				this.state = 354;
 				_localctx._def_0__5 = this.productions(0);
-				 
-				                _localctx.result =  <definition> MK_Defmacro(<string> <string> str(<Token> _localctx._def_0__1), <Array<string>> _localctx._def_0__3.result, <Array<[position, production]>> _localctx._def_0__5.result, <position> <position> mkpos(<Token> _localctx._def_0__1));
+				 _localctx.result =  <definition> MK_Defmacro(<string> <string> str(<Token> _localctx._def_0__1), <Array<string>> _localctx._def_0__3.result, <Array<[position, production]>> _localctx._def_0__5.result, <position> <position> mkpos(<Token> _localctx._def_0__1));
 				            
 				}
 				break;
@@ -1559,8 +1512,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._def_2__1 = this.match(TypedBNFParser.CNAMEPLUS);
 				this.state = 358;
 				_localctx._def_2__2 = this.productions(0);
-				 
-				                _localctx.result =  <definition> MK_Defrule(<string> <string> str(<Token> _localctx._def_2__1), <Array<[position, production]>> _localctx._def_2__2.result, <position> <position> mkpos(<Token> _localctx._def_2__1));
+				 _localctx.result =  <definition> MK_Defrule(<string> <string> str(<Token> _localctx._def_2__1), <Array<[position, production]>> _localctx._def_2__2.result, <position> <position> mkpos(<Token> _localctx._def_2__1));
 				            
 				}
 				break;
@@ -1604,8 +1556,7 @@ export class TypedBNFParser extends Parser {
 			_localctx._productions_0__1 = this.match(TypedBNFParser.T__7);
 			this.state = 365;
 			_localctx._productions_0__2 = this.production();
-			 
-			                _localctx.result =  <Array<[position, production]>>[ <[position, production]>[<position> mkpos(<Token> _localctx._productions_0__1), _localctx._productions_0__2.result] ];
+			 _localctx.result =  <Array<[position, production]>>[ <[position, production]>[<position> mkpos(<Token> _localctx._productions_0__1), _localctx._productions_0__2.result] ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1631,8 +1582,7 @@ export class TypedBNFParser extends Parser {
 					_localctx._productions_2__2 = this.match(TypedBNFParser.T__13);
 					this.state = 370;
 					_localctx._productions_2__3 = this.production();
-					 
-					                          _localctx.result =  <Array<[position, production]>> addList<[position, production]>(<Array<[position, production]>> _localctx._productions_2__1.result, <[position, production]> <[position, production]>[<position> mkpos(<Token> _localctx._productions_2__2), _localctx._productions_2__3.result]);
+					 _localctx.result =  <Array<[position, production]>> addList<[position, production]>(<Array<[position, production]>> _localctx._productions_2__1.result, <[position, production]> <[position, production]>[<position> mkpos(<Token> _localctx._productions_2__2), _localctx._productions_2__3.result]);
 					                      
 					}
 					}
@@ -1679,8 +1629,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 379;
 			_localctx._list_o_psym_p__0__1 = this.psym();
-			 
-			                _localctx.result =  <Array<symbol>>[ _localctx._list_o_psym_p__0__1.result ];
+			 _localctx.result =  <Array<symbol>>[ _localctx._list_o_psym_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1704,8 +1653,7 @@ export class TypedBNFParser extends Parser {
 					}
 					this.state = 383;
 					_localctx._list_o_psym_p__2__2 = this.psym();
-					 
-					                          _localctx.result =  <Array<symbol>> addList<symbol>(<Array<symbol>> _localctx._list_o_psym_p__2__1.result, <symbol> _localctx._list_o_psym_p__2__2.result);
+					 _localctx.result =  <Array<symbol>> addList<symbol>(<Array<symbol>> _localctx._list_o_psym_p__2__1.result, <symbol> _localctx._list_o_psym_p__2__2.result);
 					                      
 					}
 					}
@@ -1741,8 +1689,7 @@ export class TypedBNFParser extends Parser {
 			case TypedBNFParser.T__14:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				 
-				                _localctx.result =  <Array<symbol>>[  ];
+				 _localctx.result =  <Array<symbol>>[  ];
 				            
 				}
 				break;
@@ -1753,8 +1700,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 392;
 				_localctx._empty_o_list_o_psym_p__p__2__1 = this.list_o_psym_p_(0);
-				 
-				                _localctx.result =  _localctx._empty_o_list_o_psym_p__p__2__1.result;
+				 _localctx.result =  _localctx._empty_o_list_o_psym_p__p__2__1.result;
 				            
 				}
 				break;
@@ -1785,8 +1731,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 397;
 			_localctx._elist_o_psym_p__0__1 = this.empty_o_list_o_psym_p__p_();
-			 
-			                _localctx.result =  _localctx._elist_o_psym_p__0__1.result;
+			 _localctx.result =  _localctx._elist_o_psym_p__0__1.result;
 			            
 			}
 		}
@@ -1819,8 +1764,7 @@ export class TypedBNFParser extends Parser {
 			_localctx._production_0__3 = this.expr();
 			this.state = 403;
 			this.match(TypedBNFParser.T__15);
-			 
-			                _localctx.result =  <production> MK_production(<Array<symbol>> _localctx._production_0__1.result, <expr> _localctx._production_0__3.result);
+			 _localctx.result =  <production> MK_production(<Array<symbol>> _localctx._production_0__1.result, <expr> _localctx._production_0__3.result);
 			            
 			}
 		}
@@ -1860,8 +1804,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 407;
 			_localctx._slist_o__i__s__i__s_psym_p__0__1 = this.psym();
-			 
-			                _localctx.result =  <Array<symbol>>[ _localctx._slist_o__i__s__i__s_psym_p__0__1.result ];
+			 _localctx.result =  <Array<symbol>>[ _localctx._slist_o__i__s__i__s_psym_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -1887,8 +1830,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__0);
 					this.state = 412;
 					_localctx._slist_o__i__s__i__s_psym_p__2__3 = this.psym();
-					 
-					                          _localctx.result =  <Array<symbol>> addList<symbol>(<Array<symbol>> _localctx._slist_o__i__s__i__s_psym_p__2__1.result, <symbol> _localctx._slist_o__i__s__i__s_psym_p__2__3.result);
+					 _localctx.result =  <Array<symbol>> addList<symbol>(<Array<symbol>> _localctx._slist_o__i__s__i__s_psym_p__2__1.result, <symbol> _localctx._slist_o__i__s__i__s_psym_p__2__3.result);
 					                      
 					}
 					}
@@ -1930,8 +1872,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._psym_0__2 = this.identstr();
 				this.state = 422;
 				this.match(TypedBNFParser.T__5);
-				 
-				                _localctx.result =  <symbol> MK_Term(<string> _localctx._psym_0__2.result, <boolean> false);
+				 _localctx.result =  <symbol> MK_Term(<string> _localctx._psym_0__2.result, <boolean> false);
 				            
 				}
 				break;
@@ -1941,8 +1882,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 425;
 				_localctx._psym_2__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-				 
-				                _localctx.result =  <symbol> MK_Term(<string> <string> unescape(<string> <string> str(<Token> _localctx._psym_2__1)), <boolean> true);
+				 _localctx.result =  <symbol> MK_Term(<string> <string> unescape(<string> <string> str(<Token> _localctx._psym_2__1)), <boolean> true);
 				            
 				}
 				break;
@@ -1952,8 +1892,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 427;
 				_localctx._psym_4__1 = this.identstr();
-				 
-				                _localctx.result =  <symbol> MK_Nonterm(<string> _localctx._psym_4__1.result);
+				 _localctx.result =  <symbol> MK_Nonterm(<string> _localctx._psym_4__1.result);
 				            
 				}
 				break;
@@ -1969,8 +1908,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._psym_6__3 = this.slist_o__i__s__i__s_psym_p_(0);
 				this.state = 433;
 				this.match(TypedBNFParser.T__3);
-				 
-				                _localctx.result =  <symbol> MK_Macrocall(<string> <string> str(<Token> _localctx._psym_6__1), <Array<symbol>> _localctx._psym_6__3.result, <position> <position> mkpos(<Token> _localctx._psym_6__1));
+				 _localctx.result =  <symbol> MK_Macrocall(<string> <string> str(<Token> _localctx._psym_6__1), <Array<symbol>> _localctx._psym_6__3.result, <position> <position> mkpos(<Token> _localctx._psym_6__1));
 				            
 				}
 				break;
@@ -2003,8 +1941,7 @@ export class TypedBNFParser extends Parser {
 			this.match(TypedBNFParser.T__7);
 			this.state = 440;
 			_localctx._ann_0__3 = this.typ();
-			 
-			                _localctx.result =  <[string, monot]>[_localctx._ann_0__1.result, _localctx._ann_0__3.result];
+			 _localctx.result =  <[string, monot]>[_localctx._ann_0__1.result, _localctx._ann_0__3.result];
 			            
 			}
 		}
@@ -2044,8 +1981,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 444;
 			_localctx._slist_o__i__s__i__s_ann_p__0__1 = this.ann();
-			 
-			                _localctx.result =  <Array<[string, monot]>>[ _localctx._slist_o__i__s__i__s_ann_p__0__1.result ];
+			 _localctx.result =  <Array<[string, monot]>>[ _localctx._slist_o__i__s__i__s_ann_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2071,8 +2007,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__0);
 					this.state = 449;
 					_localctx._slist_o__i__s__i__s_ann_p__2__3 = this.ann();
-					 
-					                          _localctx.result =  <Array<[string, monot]>> addList<[string, monot]>(<Array<[string, monot]>> _localctx._slist_o__i__s__i__s_ann_p__2__1.result, <[string, monot]> _localctx._slist_o__i__s__i__s_ann_p__2__3.result);
+					 _localctx.result =  <Array<[string, monot]>> addList<[string, monot]>(<Array<[string, monot]>> _localctx._slist_o__i__s__i__s_ann_p__2__1.result, <[string, monot]> _localctx._slist_o__i__s__i__s_ann_p__2__3.result);
 					                      
 					}
 					}
@@ -2108,8 +2043,7 @@ export class TypedBNFParser extends Parser {
 			case TypedBNFParser.T__3:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				 
-				                _localctx.result =  <Array<[string, monot]>>[  ];
+				 _localctx.result =  <Array<[string, monot]>>[  ];
 				            
 				}
 				break;
@@ -2118,8 +2052,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 458;
 				_localctx._empty_o_slist_o__i__s__i__s_ann_p__p__2__1 = this.slist_o__i__s__i__s_ann_p_(0);
-				 
-				                _localctx.result =  _localctx._empty_o_slist_o__i__s__i__s_ann_p__p__2__1.result;
+				 _localctx.result =  _localctx._empty_o_slist_o__i__s__i__s_ann_p__p__2__1.result;
 				            
 				}
 				break;
@@ -2150,8 +2083,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 463;
 			_localctx._eslist_o__i__s__i__s_ann_p__0__1 = this.empty_o_slist_o__i__s__i__s_ann_p__p_();
-			 
-			                _localctx.result =  _localctx._eslist_o__i__s__i__s_ann_p__0__1.result;
+			 _localctx.result =  _localctx._eslist_o__i__s__i__s_ann_p__0__1.result;
 			            
 			}
 		}
@@ -2182,8 +2114,7 @@ export class TypedBNFParser extends Parser {
 			_localctx._func_parameters_0__2 = this.eslist_o__i__s__i__s_ann_p_();
 			this.state = 468;
 			this.match(TypedBNFParser.T__3);
-			 
-			                _localctx.result =  _localctx._func_parameters_0__2.result;
+			 _localctx.result =  _localctx._func_parameters_0__2.result;
 			            
 			}
 		}
@@ -2224,8 +2155,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__18);
 				this.state = 476;
 				_localctx._expr_0__6 = this.expr();
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ELet(<string> _localctx._expr_0__2.result, <expr> _localctx._expr_0__4.result, <expr> _localctx._expr_0__6.result), <position> <position> mkpos(<Token> _localctx._expr_0__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_ELet(<string> _localctx._expr_0__2.result, <expr> _localctx._expr_0__4.result, <expr> _localctx._expr_0__6.result), <position> <position> mkpos(<Token> _localctx._expr_0__1));
 				            
 				}
 				break;
@@ -2241,8 +2171,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__1);
 				this.state = 482;
 				_localctx._expr_2__4 = this.expr();
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EFun(<Array<[string, monot]>> _localctx._expr_2__2.result, <expr> _localctx._expr_2__4.result), <position> <position> mkpos(<Token> _localctx._expr_2__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_EFun(<Array<[string, monot]>> _localctx._expr_2__2.result, <expr> _localctx._expr_2__4.result), <position> <position> mkpos(<Token> _localctx._expr_2__1));
 				            
 				}
 				break;
@@ -2252,8 +2181,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 485;
 				_localctx._expr_4__1 = this.call(0);
-				 
-				                _localctx.result =  _localctx._expr_4__1.result;
+				 _localctx.result =  _localctx._expr_4__1.result;
 				            
 				}
 				break;
@@ -2267,8 +2195,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__20);
 				this.state = 490;
 				_localctx._expr_6__3 = this.expr();
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ELet(<string> "_", <expr> _localctx._expr_6__1.result, <expr> _localctx._expr_6__3.result), <position> <position> getpos(<expr> _localctx._expr_6__1.result));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_ELet(<string> "_", <expr> _localctx._expr_6__1.result, <expr> _localctx._expr_6__3.result), <position> <position> getpos(<expr> _localctx._expr_6__1.result));
 				            
 				}
 				break;
@@ -2310,8 +2237,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 496;
 			_localctx._call_2__1 = this.atomexp(0);
-			 
-			                _localctx.result =  _localctx._call_2__1.result;
+			 _localctx.result =  _localctx._call_2__1.result;
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2339,8 +2265,7 @@ export class TypedBNFParser extends Parser {
 					_localctx._call_0__3 = this.eslist_o__i__s__i__s_expr_p_();
 					this.state = 502;
 					this.match(TypedBNFParser.T__3);
-					 
-					                          _localctx.result =  <expr> MK_Expr(<node> <node> MK_EApp(<expr> _localctx._call_0__1.result, <Array<expr>> _localctx._call_0__3.result), <position> <position> getpos(<expr> _localctx._call_0__1.result));
+					 _localctx.result =  <expr> MK_Expr(<node> <node> MK_EApp(<expr> _localctx._call_0__1.result, <Array<expr>> _localctx._call_0__3.result), <position> <position> getpos(<expr> _localctx._call_0__1.result));
 					                      
 					}
 					}
@@ -2377,8 +2302,7 @@ export class TypedBNFParser extends Parser {
 			case TypedBNFParser.T__23:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				 
-				                _localctx.result =  <Array<expr>>[  ];
+				 _localctx.result =  <Array<expr>>[  ];
 				            
 				}
 				break;
@@ -2397,8 +2321,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 511;
 				_localctx._empty_o_slist_o__i__s__i__s_expr_p__p__2__1 = this.slist_o__i__s__i__s_expr_p_(0);
-				 
-				                _localctx.result =  _localctx._empty_o_slist_o__i__s__i__s_expr_p__p__2__1.result;
+				 _localctx.result =  _localctx._empty_o_slist_o__i__s__i__s_expr_p__p__2__1.result;
 				            
 				}
 				break;
@@ -2429,8 +2352,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 516;
 			_localctx._eslist_o__i__s__i__s_expr_p__0__1 = this.empty_o_slist_o__i__s__i__s_expr_p__p_();
-			 
-			                _localctx.result =  _localctx._eslist_o__i__s__i__s_expr_p__0__1.result;
+			 _localctx.result =  _localctx._eslist_o__i__s__i__s_expr_p__0__1.result;
 			            
 			}
 		}
@@ -2470,8 +2392,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 520;
 			_localctx._slist_o__i__s__i__s_expr_p__0__1 = this.expr();
-			 
-			                _localctx.result =  <Array<expr>>[ _localctx._slist_o__i__s__i__s_expr_p__0__1.result ];
+			 _localctx.result =  <Array<expr>>[ _localctx._slist_o__i__s__i__s_expr_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2497,8 +2418,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__0);
 					this.state = 525;
 					_localctx._slist_o__i__s__i__s_expr_p__2__3 = this.expr();
-					 
-					                          _localctx.result =  <Array<expr>> addList<expr>(<Array<expr>> _localctx._slist_o__i__s__i__s_expr_p__2__1.result, <expr> _localctx._slist_o__i__s__i__s_expr_p__2__3.result);
+					 _localctx.result =  <Array<expr>> addList<expr>(<Array<expr>> _localctx._slist_o__i__s__i__s_expr_p__2__1.result, <expr> _localctx._slist_o__i__s__i__s_expr_p__2__3.result);
 					                      
 					}
 					}
@@ -2549,8 +2469,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 534;
 				_localctx._atomexp_0__1 = this.match(TypedBNFParser.INT);
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EInt(<number> <number> toint(<Token> _localctx._atomexp_0__1)), <position> <position> mkpos(<Token> _localctx._atomexp_0__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_EInt(<number> <number> toint(<Token> _localctx._atomexp_0__1)), <position> <position> mkpos(<Token> _localctx._atomexp_0__1));
 				            
 				}
 				break;
@@ -2559,8 +2478,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 536;
 				_localctx._atomexp_2__1 = this.match(TypedBNFParser.FLOAT);
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EFlt(<number> <number> tofloat(<Token> _localctx._atomexp_2__1)), <position> <position> mkpos(<Token> _localctx._atomexp_2__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_EFlt(<number> <number> tofloat(<Token> _localctx._atomexp_2__1)), <position> <position> mkpos(<Token> _localctx._atomexp_2__1));
 				            
 				}
 				break;
@@ -2569,8 +2487,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 538;
 				_localctx._atomexp_4__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EStr(<string> <string> unescape(<string> <string> str(<Token> _localctx._atomexp_4__1))), <position> <position> mkpos(<Token> _localctx._atomexp_4__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_EStr(<string> <string> unescape(<string> <string> str(<Token> _localctx._atomexp_4__1))), <position> <position> mkpos(<Token> _localctx._atomexp_4__1));
 				            
 				}
 				break;
@@ -2581,8 +2498,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._atomexp_6__1 = this.match(TypedBNFParser.T__21);
 				this.state = 541;
 				_localctx._atomexp_6__2 = this.match(TypedBNFParser.INT);
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ESlot(<number> <number> toint(<Token> _localctx._atomexp_6__2)), <position> <position> mkpos(<Token> _localctx._atomexp_6__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_ESlot(<number> <number> toint(<Token> _localctx._atomexp_6__2)), <position> <position> mkpos(<Token> _localctx._atomexp_6__1));
 				            
 				}
 				break;
@@ -2595,8 +2511,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._atomexp_8__2 = this.eslist_o__i__s__i__s_expr_p_();
 				this.state = 545;
 				this.match(TypedBNFParser.T__23);
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EList(<Array<expr>> _localctx._atomexp_8__2.result), <position> <position> mkpos(<Token> _localctx._atomexp_8__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_EList(<Array<expr>> _localctx._atomexp_8__2.result), <position> <position> mkpos(<Token> _localctx._atomexp_8__1));
 				            
 				}
 				break;
@@ -2607,8 +2522,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._atomexp_10__1 = this.match(TypedBNFParser.T__2);
 				this.state = 549;
 				this.match(TypedBNFParser.T__3);
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ETuple(<Array<expr>> <Array<expr>>[  ]), <position> <position> mkpos(<Token> _localctx._atomexp_10__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_ETuple(<Array<expr>> <Array<expr>>[  ]), <position> <position> mkpos(<Token> _localctx._atomexp_10__1));
 				            
 				}
 				break;
@@ -2621,8 +2535,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._atomexp_12__2 = this.slist_o__i__s__i__s_expr_p_(0);
 				this.state = 553;
 				this.match(TypedBNFParser.T__3);
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_ETuple(<Array<expr>> _localctx._atomexp_12__2.result), <position> <position> mkpos(<Token> _localctx._atomexp_12__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_ETuple(<Array<expr>> _localctx._atomexp_12__2.result), <position> <position> mkpos(<Token> _localctx._atomexp_12__1));
 				            
 				}
 				break;
@@ -2631,8 +2544,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 556;
 				_localctx._atomexp_14__1 = this.match(TypedBNFParser.CNAMEPLUS);
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EVar(<string> <string> str(<Token> _localctx._atomexp_14__1)), <position> <position> mkpos(<Token> _localctx._atomexp_14__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_EVar(<string> <string> str(<Token> _localctx._atomexp_14__1)), <position> <position> mkpos(<Token> _localctx._atomexp_14__1));
 				            
 				}
 				break;
@@ -2641,8 +2553,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 558;
 				_localctx._atomexp_18__1 = this.match(TypedBNFParser.T__25);
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EBool(<boolean> true), <position> <position> mkpos(<Token> _localctx._atomexp_18__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_EBool(<boolean> true), <position> <position> mkpos(<Token> _localctx._atomexp_18__1));
 				            
 				}
 				break;
@@ -2651,8 +2562,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 560;
 				_localctx._atomexp_20__1 = this.match(TypedBNFParser.T__26);
-				 
-				                _localctx.result =  <expr> MK_Expr(<node> <node> MK_EBool(<boolean> false), <position> <position> mkpos(<Token> _localctx._atomexp_20__1));
+				 _localctx.result =  <expr> MK_Expr(<node> <node> MK_EBool(<boolean> false), <position> <position> mkpos(<Token> _localctx._atomexp_20__1));
 				            
 				}
 				break;
@@ -2680,8 +2590,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__24);
 					this.state = 566;
 					_localctx._atomexp_16__3 = this.match(TypedBNFParser.CNAMEPLUS);
-					 
-					                          _localctx.result =  <expr> MK_Expr(<node> <node> MK_EField(<expr> _localctx._atomexp_16__1.result, <string> <string> str(<Token> _localctx._atomexp_16__3)), <position> <position> getpos(<expr> _localctx._atomexp_16__1.result));
+					 _localctx.result =  <expr> MK_Expr(<node> <node> MK_EField(<expr> _localctx._atomexp_16__1.result, <string> <string> str(<Token> _localctx._atomexp_16__3)), <position> <position> getpos(<expr> _localctx._atomexp_16__1.result));
 					                      
 					}
 					}
@@ -2728,8 +2637,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 574;
 			_localctx._slist_o__i__u__i__s_lexer_and_p__0__1 = this.lexer_and();
-			 
-			                _localctx.result =  <Array<lexerule>>[ _localctx._slist_o__i__u__i__s_lexer_and_p__0__1.result ];
+			 _localctx.result =  <Array<lexerule>>[ _localctx._slist_o__i__u__i__s_lexer_and_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2755,8 +2663,7 @@ export class TypedBNFParser extends Parser {
 					this.match(TypedBNFParser.T__13);
 					this.state = 579;
 					_localctx._slist_o__i__u__i__s_lexer_and_p__2__3 = this.lexer_and();
-					 
-					                          _localctx.result =  <Array<lexerule>> addList<lexerule>(<Array<lexerule>> _localctx._slist_o__i__u__i__s_lexer_and_p__2__1.result, <lexerule> _localctx._slist_o__i__u__i__s_lexer_and_p__2__3.result);
+					 _localctx.result =  <Array<lexerule>> addList<lexerule>(<Array<lexerule>> _localctx._slist_o__i__u__i__s_lexer_and_p__2__1.result, <lexerule> _localctx._slist_o__i__u__i__s_lexer_and_p__2__3.result);
 					                      
 					}
 					}
@@ -2790,8 +2697,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 587;
 			_localctx._lexer__y__0__1 = this.slist_o__i__u__i__s_lexer_and_p_(0);
-			 
-			                _localctx.result =  <lexerule> MK_LOr(<Array<lexerule>> _localctx._lexer__y__0__1.result);
+			 _localctx.result =  <lexerule> MK_LOr(<Array<lexerule>> _localctx._lexer__y__0__1.result);
 			            
 			}
 		}
@@ -2831,8 +2737,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 591;
 			_localctx._list_o_lexer_atomexpr_p__0__1 = this.lexer_atomexpr(0);
-			 
-			                _localctx.result =  <Array<lexerule>>[ _localctx._list_o_lexer_atomexpr_p__0__1.result ];
+			 _localctx.result =  <Array<lexerule>>[ _localctx._list_o_lexer_atomexpr_p__0__1.result ];
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2856,8 +2761,7 @@ export class TypedBNFParser extends Parser {
 					}
 					this.state = 595;
 					_localctx._list_o_lexer_atomexpr_p__2__2 = this.lexer_atomexpr(0);
-					 
-					                          _localctx.result =  <Array<lexerule>> addList<lexerule>(<Array<lexerule>> _localctx._list_o_lexer_atomexpr_p__2__1.result, <lexerule> _localctx._list_o_lexer_atomexpr_p__2__2.result);
+					 _localctx.result =  <Array<lexerule>> addList<lexerule>(<Array<lexerule>> _localctx._list_o_lexer_atomexpr_p__2__1.result, <lexerule> _localctx._list_o_lexer_atomexpr_p__2__2.result);
 					                      
 					}
 					}
@@ -2891,8 +2795,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 603;
 			_localctx._lexer_and_0__1 = this.list_o_lexer_atomexpr_p_(0);
-			 
-			                _localctx.result =  <lexerule> MK_LSeq(<Array<lexerule>> _localctx._lexer_and_0__1.result);
+			 _localctx.result =  <lexerule> MK_LSeq(<Array<lexerule>> _localctx._lexer_and_0__1.result);
 			            
 			}
 		}
@@ -2932,8 +2835,7 @@ export class TypedBNFParser extends Parser {
 			{
 			this.state = 607;
 			_localctx._lexer_atomexpr_6__1 = this.lexer_atom();
-			 
-			                _localctx.result =  _localctx._lexer_atomexpr_6__1.result;
+			 _localctx.result =  _localctx._lexer_atomexpr_6__1.result;
 			            
 			}
 			this._ctx._stop = this._input.tryLT(-1);
@@ -2961,8 +2863,7 @@ export class TypedBNFParser extends Parser {
 						}
 						this.state = 611;
 						this.match(TypedBNFParser.T__27);
-						 
-						                          _localctx.result =  <lexerule> MK_LPlus(<lexerule> _localctx._lexer_atomexpr_0__1.result);
+						 _localctx.result =  <lexerule> MK_LPlus(<lexerule> _localctx._lexer_atomexpr_0__1.result);
 						                      
 						}
 						break;
@@ -2978,8 +2879,7 @@ export class TypedBNFParser extends Parser {
 						}
 						this.state = 614;
 						this.match(TypedBNFParser.T__6);
-						 
-						                          _localctx.result =  <lexerule> MK_LStar(<lexerule> _localctx._lexer_atomexpr_2__1.result);
+						 _localctx.result =  <lexerule> MK_LStar(<lexerule> _localctx._lexer_atomexpr_2__1.result);
 						                      
 						}
 						break;
@@ -2995,8 +2895,7 @@ export class TypedBNFParser extends Parser {
 						}
 						this.state = 617;
 						this.match(TypedBNFParser.T__28);
-						 
-						                          _localctx.result =  <lexerule> MK_LOptional(<lexerule> _localctx._lexer_atomexpr_4__1.result);
+						 _localctx.result =  <lexerule> MK_LOptional(<lexerule> _localctx._lexer_atomexpr_4__1.result);
 						                      
 						}
 						break;
@@ -3036,8 +2935,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 624;
 				_localctx._lexer_atom_0__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-				 
-				                _localctx.result =  <lexerule> MK_LStr(<string> <string> unescape(<string> <string> str(<Token> _localctx._lexer_atom_0__1)));
+				 _localctx.result =  <lexerule> MK_LStr(<string> <string> unescape(<string> <string> str(<Token> _localctx._lexer_atom_0__1)));
 				            
 				}
 				break;
@@ -3048,8 +2946,7 @@ export class TypedBNFParser extends Parser {
 				this.match(TypedBNFParser.T__29);
 				this.state = 627;
 				_localctx._lexer_atom_2__2 = this.lexer_atom();
-				 
-				                _localctx.result =  <lexerule> MK_LNot(<lexerule> _localctx._lexer_atom_2__2.result);
+				 _localctx.result =  <lexerule> MK_LNot(<lexerule> _localctx._lexer_atom_2__2.result);
 				            
 				}
 				break;
@@ -3062,8 +2959,7 @@ export class TypedBNFParser extends Parser {
 				_localctx._lexer_atom_4__2 = this.lexer__y_();
 				this.state = 632;
 				this.match(TypedBNFParser.T__3);
-				 
-				                _localctx.result =  <lexerule> MK_LGroup(<lexerule> _localctx._lexer_atom_4__2.result);
+				 _localctx.result =  <lexerule> MK_LGroup(<lexerule> _localctx._lexer_atom_4__2.result);
 				            
 				}
 				break;
@@ -3072,8 +2968,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 635;
 				this.match(TypedBNFParser.T__30);
-				 
-				                _localctx.result =  MK_LNumber;
+				 _localctx.result =  MK_LNumber;
 				            
 				}
 				break;
@@ -3082,8 +2977,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 637;
 				_localctx._lexer_atom_8__1 = this.match(TypedBNFParser.RANGE);
-				 
-				                _localctx.result =  <lexerule> getrange(<string> <string> str(<Token> _localctx._lexer_atom_8__1));
+				 _localctx.result =  <lexerule> getrange(<string> <string> str(<Token> _localctx._lexer_atom_8__1));
 				            
 				}
 				break;
@@ -3092,8 +2986,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 639;
 				_localctx._lexer_atom_10__1 = this.match(TypedBNFParser.UNICODE_RANGE);
-				 
-				                _localctx.result =  <lexerule> getunicoderange(<string> <string> str(<Token> _localctx._lexer_atom_10__1));
+				 _localctx.result =  <lexerule> getunicoderange(<string> <string> str(<Token> _localctx._lexer_atom_10__1));
 				            
 				}
 				break;
@@ -3102,8 +2995,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 641;
 				this.match(TypedBNFParser.T__31);
-				 
-				                _localctx.result =  MK_LWildcard;
+				 _localctx.result =  MK_LWildcard;
 				            
 				}
 				break;
@@ -3112,8 +3004,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 643;
 				this.match(TypedBNFParser.T__24);
-				 
-				                _localctx.result =  MK_LWildcard;
+				 _localctx.result =  MK_LWildcard;
 				            
 				}
 				break;
@@ -3122,8 +3013,7 @@ export class TypedBNFParser extends Parser {
 				{
 				this.state = 645;
 				_localctx._lexer_atom_16__1 = this.match(TypedBNFParser.CNAMEPLUS);
-				 
-				                _localctx.result =  <lexerule> MK_LRef(<string> <string> str(<Token> _localctx._lexer_atom_16__1));
+				 _localctx.result =  <lexerule> MK_LRef(<string> <string> str(<Token> _localctx._lexer_atom_16__1));
 				            
 				}
 				break;
@@ -3160,8 +3050,7 @@ export class TypedBNFParser extends Parser {
 			_localctx._lexerdef_0__3 = this.lexer__y_();
 			this.state = 652;
 			this.match(TypedBNFParser.T__20);
-			 
-			                _localctx.result =  <definition> MK_Deflexer(<string> <string> str(<Token> _localctx._lexerdef_0__1), <lexerule> _localctx._lexerdef_0__3.result, <position> <position> mkpos(<Token> _localctx._lexerdef_0__1));
+			 _localctx.result =  <definition> MK_Deflexer(<string> <string> str(<Token> _localctx._lexerdef_0__1), <lexerule> _localctx._lexerdef_0__3.result, <position> <position> mkpos(<Token> _localctx._lexerdef_0__1));
 			            
 			}
 		}
