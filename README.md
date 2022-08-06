@@ -2,7 +2,7 @@
 
 Type inference your BNF grammar that uses semantic actions, eliminating static errors and porting them into different parser generator architectures.
 
-The major part of this library is written in F\#. However, it is compiled into a single-file JavaScript [`tbnf.js`] using Fable.
+The major part of this library is written in F\#. However, it is compiled into a single-file JavaScript [`tbnf.js`](https://github.com/thautwarm/Typed-BNF/releases) using Fable.
 
 P.S: Typed BNF used to be implemented with Fable.Python and runs under CPython/PyPy(>=3.8), and I'd like to try Fable.Python again when it gets more stable.
 
@@ -22,15 +22,15 @@ So far, we support 3 different architectures, which unveil the capability of Typ
 
 This project is not production-ready, though already handy for practical use. 
 
-For usage, see `test-python.ps1`, `test-ocaml.ps1` and `test-csharp.ps1`.
+For usage, see `test-scripts/test-python*.sh`, `test-scripts/test-ocaml*.sh`, `test-scripts/test-typescript*.sh` and `test-scripts/test-csharp*.sh`.
 
 ## Usage
 
-Download the single JavaScript file `tbnf.js` from the root directory.
+Download the single JavaScript file `tbnf.js` from [the release page](https://github.com/thautwarm/Typed-BNF/releases).
 
 ```bash
 usage: tbnf.js [-h] [-o OUTDIR] [-lang LANGUAGE]
-               [-be {python-lark,ocaml-menhir,csharp-antlr,purebnf}]
+               [-be {python-lark,ocaml-menhir,csharp-antlr,typescript-antlr,purebnf}]
                [-conf CONFIGPATH]
                tbnfSourcePath
 
@@ -165,8 +165,6 @@ start_rule_qualified_type = "Simple_json_construct.json"
 ```
 
 
-
-
 ## How to write new backends
 
 Check out `Backends.*.fs`
@@ -178,7 +176,9 @@ Check out `Backends.*.fs`
 This requires the original host implemented in Python. You might need to call `pip install -e .`.
 
 ```
-git submodule add https://github.com/thautwarm/Fable.Sedlex FableSedlex
+git clone https://github.com/thautwarm/Fable.Sedlex FableSedlex
+npm install -g typescript antlr4ts-cli
+cd tbnf-js && npm install && cd ..
 bash ./build-js-package.sh
 ```
 
@@ -187,7 +187,7 @@ bash ./build-js-package.sh
 ./build-metaparser.ps1
 ```
 
-### Build Python `_tbnf` package
+### Build Python `_tbnf` package (Out-of-date)
 
 ```
 git submodule add https://github.com/thautwarm/Fable.Sedlex FableSedlex
