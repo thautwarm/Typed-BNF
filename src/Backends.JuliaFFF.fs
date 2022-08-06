@@ -36,7 +36,7 @@ let name_of_nonterm n = n
 let name_of_named_term n = _name_of_literal_term (n, false)
 let name_of_literal_term s = _name_of_literal_term (s, true)
 let name_of_term (n, b) = _name_of_literal_term (n, b)
-
+let newline = seg "\n"
 
 let rec dumpFFFC (c: FFFSpec) =
     match c with
@@ -499,7 +499,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                    for (typename, _) in analyzer.Sigma.GetRecordTypes() do
                        definePossibleBackref (rename_type typename)
 
-                   yield empty
+                   yield newline
                    // an array of (typename, underlying typename, type parameters)
                    let forwardWrapped = ResizeArray<Doc list>()
 
@@ -552,14 +552,14 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
                                yield word "end"
 
-                           yield empty
+                           yield newline
                            possibleBackrefNames.Value <- Map.remove ctorName possibleBackrefNames.Value
 
                        let caseunion = apply_typestr "Union" ctorNames
                        yield word $"export {typename'}"
                        yield word $"const {typename'} = {caseunion}"
                        possibleBackrefNames.Value <- Map.remove typename' possibleBackrefNames.Value
-                       yield empty
+                       yield newline
 
                    // generate records
                    for (typename, shape) in analyzer.Sigma.GetRecordTypes() do
@@ -627,13 +627,13 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                            if typename <> varname then
                                yield word $"const {varname} = {typename}"
 
-                       yield empty
+                       yield newline
 
                    for each in forwardWrapped do
-                       yield empty
+                       yield newline
                        yield! each
 
-                   yield empty
+                   yield newline
                    yield! semantic_actions ]
 
         // lexer generator
@@ -687,8 +687,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                    yield word "export is_eof_token"
                    yield word "export LexerBuffer"
                    yield word "export Token"
-                   yield empty
-
+                   yield newline
 
                    // include datatype constructors
                    yield word $"include({escapeString filename_constructors})"
