@@ -1,5 +1,5 @@
 module tbnf.Backends.Common
-open Fable.CodeGen
+open Fable.Sedlex.PrettyDoc
 open tbnf.Analysis
 open tbnf.Grammar
 open tbnf.Utils

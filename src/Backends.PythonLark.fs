@@ -1,5 +1,6 @@
 module tbnf.Backends.PythonLark
-open Fable.CodeGen
+
+open Fable.Sedlex.PrettyDoc
 open Fable.Sedlex.Compiler
 open Fable.Sedlex.CodeGen.Python
 open tbnf.Grammar

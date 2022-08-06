@@ -1,6 +1,6 @@
 module tbnf.Backends.PureBNF
 
-open Fable.CodeGen
+open Fable.Sedlex.PrettyDoc
 open tbnf.Grammar
 open tbnf.Analysis
 open tbnf.Utils

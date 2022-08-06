@@ -6,9 +6,10 @@
     <!-- <DefineConstants>DEBUG</DefineConstants> -->
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="FableSedlex/CodeGen.fs" />
+    <Compile Include="FableSedlex/PrettyDoc.fs" />
     <Compile Include="FableSedlex/Sedlex.fs" />
     <Compile Include="FableSedlex/CodeGen.Python.fs" />
+    <Compile Include="FableSedlex/CodeGen.Julia.fs" />
     <!-- <Compile Include="lark_fs/Lark.fs" /> -->
     <Compile Include="src/ResourceKeys.fs" />
     <Compile Include="src/Utils.fs" />

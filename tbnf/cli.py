@@ -56,13 +56,13 @@ def tbnf(
         defs = parser.parse(file.read())
 
     if not config_path:
-        config_path = out_dir / "rename.tbnf.py"
+        config_path_o = out_dir / "rename.tbnf.py"
     else:
-        config_path = Path(config_path)
+        config_path_o = Path(config_path)
 
     config_scope = {}
-    if config_path.exists() and config_path.is_file():
-        with config_path.open("r", encoding='utf8') as file:
+    if config_path_o.exists() and config_path_o.is_file():
+        with config_path_o.open("r", encoding='utf8') as file:
             exec(file.read(), config_scope)
 
     options = Options(config_scope, load_resource)
@@ -78,7 +78,9 @@ def tbnf(
         )
         for filename, doc in fs_out:
             with (out_dir / filename).open(encoding='utf8', mode='w') as file:
-                gen_doc(doc, file.write)
+                def write_file(s):
+                    file.write(s)
+                gen_doc(doc, write_file)
     else:
         sys.exit(
             f"unknown backend {backend}! available backenks:\n    {', '.join(list(backends))}.")
