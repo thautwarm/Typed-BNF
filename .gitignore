@@ -1,3 +1,4 @@
+tbnf.js
 /tbnf-js/**/*.js
 !/tbnf-js/src/tbnf.config.js
 /cross-editor-highlighter/

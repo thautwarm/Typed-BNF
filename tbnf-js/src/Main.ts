@@ -10,7 +10,7 @@ import * as codegen_ocaml from "./src/Backends.OCamlMenhir"
 import * as codegen_csharp from "./src/Backends.CSharpAntlr"
 import * as codegen_ts from "./src/Backends.TypeScriptAntlr"
 import * as codegen_bnf from "./src/Backends.PureBNF"
-import { genDoc } from "./FableSedlex/CodeGen"
+import { genDoc } from "./FableSedlex/PrettyDoc"
 import { setExitFunc } from "./src/ErrorReport"
 
 const backends = {
