@@ -90,7 +90,6 @@ end
 
 
 export NameValuePair
-export NameValuePair
 struct NameValuePair{_T_A, _T_B} <: FrontendForFreeParsing.AbstractUnionCase
     name::_T_A
     value::_T_B

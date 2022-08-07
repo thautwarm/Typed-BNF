@@ -95,6 +95,8 @@ let errorToReadableString (exc: exn) =
             | CauseInvalidConstructorType(t) ->
                 let t = t.Prune() |> inspectMonoType
                 $"invalid constructor type '{t}', expect a function type!"
+        | MultipleEpsilonRules(name) -> 
+            $"multiple epsilon rules found for '{name}'"
         | e ->
             covered <- false
             $"uncognised error ({e.ToString()})"

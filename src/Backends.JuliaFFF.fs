@@ -1,5 +1,6 @@
 module tbnf.Backends.JuliaFFF
 
+open tbnf.Backends.JuliaFFF.FrontendForFree
 open Fable.Sedlex.PrettyDoc
 open Fable.Sedlex.Compiler
 open Fable.Sedlex.CodeGen.Julia
@@ -12,21 +13,6 @@ open tbnf.Backends.Common
 open tbnf.Backends.Common.DocBuilder
 open tbnf.Backends.Common.NameMangling
 
-
-// https://github.com/thautwarm/frontend-for-free/blob/91862a8a2e99edf1b62f469feb8e6e4030b7cdcf/src/RBNF/Constructs.hs#L48
-type FFFSpec =
-    | FFFCTerm of string
-    | FFFCNonTerm of string
-    | FFFCSeq of list<FFFSpec>
-    | FFFCAlt of list<FFFSpec>
-    | FFFCOpt of FFFSpec
-    | FFFCBind of string * FFFSpec
-
-
-type FFFMLang =
-    | FFFMTerm of string
-    | FFFMApp of FFFMLang * list<FFFMLang>
-    | FFFMSlot of int
 
 let _name_of_literal_term (str_literal: string, is_lit: bool) =
     let c = if is_lit then "L" else "N"
@@ -41,23 +27,12 @@ let rec dumpFFFC (c: FFFSpec) =
     match c with
     | FFFCTerm (s) -> parens (word "CTerm" + word (escapeString s))
     | FFFCNonTerm s -> parens (word "CNonTerm" + word (escapeString s))
-    | FFFCOpt c -> parens (word "COpt" + parens (dumpFFFC c))
-    | FFFCBind (s, c) ->
-        parens (
-            word "CBind"
-            + word (escapeString s)
-            + parens (dumpFFFC c)
-        )
-    | FFFCSeq l ->
-        parens (
-            word "CSeq"
-            + bracket (seplist (word ", ") (List.map dumpFFFC l))
-        )
-    | FFFCAlt l ->
-        parens (
-            word "CAlt"
-            + bracket (seplist (word ", ") (List.map dumpFFFC l))
-        )
+
+let dumpCSeq (FFFCSeq l) =
+    parens (
+        word "CSeq"
+        + bracket (seplist (word ", ") (List.map dumpFFFC l))
+    )
 
 let rec dumpFFFMLang (c: FFFMLang) =
     match c with
@@ -70,18 +45,12 @@ let rec dumpFFFMLang (c: FFFMLang) =
         )
     | FFFMSlot i -> parens (word "MSlot" + pretty i)
 
-type FFFProd = string * FFFSpec * option<FFFMLang>
-
 let dumpFFFProd =
-    fun (s, c, m) ->
-        let maybe f =
-            function
-            | None -> word "Nothing"
-            | Some arg -> word "Just" + f arg
-
+    function
+    | FFFProd (s, c, m, _) ->
         [ word (escapeString s)
-          dumpFFFC c
-          maybe (fun ml -> parens (dumpFFFMLang ml)) m ]
+          dumpCSeq c
+          word "Just" + dumpFFFMLang m ]
         |> seplist (word ",")
         |> parens
 
@@ -104,26 +73,14 @@ let apply_str (t: string) (args: string list) =
     $"{t}({args})"
 
 let terminals (prods: FFFProd list) : string list =
-    let productions = prods |> List.map (fun (s, c, m) -> c)
+    let productions = prods |> List.map (function FFFProd(s, c, m, _) -> c)
 
-    let uniqueList xs =
-        List.fold
-            (fun acc x ->
-                if List.contains x acc then
-                    acc
-                else
-                    List.append acc [ x ])
-            []
-            xs
+    let rec terminalsOf (FFFCSeq xs) =
+        [ for c in xs do
+              match c with
+              | FFFCTerm (s) -> yield s
+              | FFFCNonTerm _ -> () ]
 
-    let rec terminalsOf c =
-        match c with
-        | FFFCTerm (s) -> [ s ]
-        | FFFCSeq xs -> List.collect terminalsOf xs
-        | FFFCAlt xs -> List.collect terminalsOf xs
-        | FFFCOpt c -> terminalsOf c
-        | FFFCBind (s, c) -> terminalsOf c
-        | FFFCNonTerm _ -> []
 
     uniqueList <| List.collect terminalsOf productions
 
@@ -266,10 +223,13 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
     let defineJlFuncNoExpr fname args (ret_opt) body =
         let ret_ann =
             ret_opt
-            |> Option.map (fun ret -> word "::" * ret) 
+            |> Option.map (fun ret -> word "::" * ret)
             |> Option.defaultValue (empty)
+
         vsep [ word "function"
-               + fname * parens (seplist (word ", ") args) * ret_ann
+               + fname
+                 * parens (seplist (word ", ") args)
+                 * ret_ann
                body >>> 4
                word "end" ]
 
@@ -350,8 +310,10 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
     let rec cg_prod (prod: production) = List.map cg_symbol prod.symbols
 
-    let rec cg_ruledef (lhs: string) (define: list<position * production>) =
+    let rec cg_ruledef (decl: {| lhs: string; define: list<position * production>; pos: position |}) =
         // let spec = cg_symbol (Nonterm lhs)
+        let lhs = decl.lhs
+        let define = decl.define
         let mutable idx = 0
 
         [ for (pos, production) in define do
@@ -367,10 +329,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                             yield FFFMSlot i ]
                   )
 
-              let spec =
-                  match specs with
-                  | [ x ] -> x
-                  | _ -> FFFCSeq specs
+              let spec = FFFCSeq specs
 
               let returned = cg_expr actionName global_scope production.action
 
@@ -379,11 +338,11 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                   (word actionName)
                   [ for i = 1 to List.length specs do
                         yield word <| sprintf "%s_%d" TREE_NAME i ]
-                  (Some (word (cg_type production.action.t)))
+                  (Some(word (cg_type production.action.t)))
                   returned
 
               idx <- idx + 1
-              yield (name_of_nonterm lhs, spec, Some mlang) ]
+              yield FFFProd(name_of_nonterm lhs, spec, mlang, definition.Defrule decl) ]
 
     let rec mk_lexer (def: lexerule) : Automata.regexp =
         let (!) = mk_lexer
@@ -434,7 +393,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
         analyzer.Sigma.SetCurrentDefinition stmt
 
         match stmt with
-        | definition.Defrule decl -> grammar <- grammar @ cg_ruledef decl.lhs decl.define
+        | definition.Defrule decl -> grammar <- grammar @ cg_ruledef decl
         | definition.Deflexer decl ->
 #if DEBUG
             printfn "%s = %s" decl.lhs (mk_lexer_debug decl.define)
@@ -530,6 +489,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                    for (typename, cases) in adtCases do
                        let typename' = rename_type typename
                        let mutable ctorNames: string list = []
+
                        for (ctorName, fields) in Map.toArray cases do
                            let varName = rename_var (ctorName)
                            let ctorName = rename_ctor ctorName
@@ -551,7 +511,9 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                match tryDirectFieldDefs with
                                | None ->
                                    let backdef =
-                                       [ yield word $"struct {rename_forwardref ctorName} <: FrontendForFreeParsing.AbstractForwardRef"
+                                       [ yield
+                                             word
+                                                 $"struct {rename_forwardref ctorName} <: FrontendForFreeParsing.AbstractForwardRef"
                                          for (field, t) in fields do
                                              let field = rename_field field
                                              yield word $"{field}::{cg_type t}" >>> 4
@@ -575,7 +537,8 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                    yield
                                        defineJlFuncNoExpr
                                            (word ctorName)
-                                           (args) None
+                                           (args)
+                                           None
                                            (word "new"
                                             * parens (
                                                 word (rename_forwardref ctorName)
@@ -589,7 +552,8 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                    yield
                                        defineJlFuncNoExpr
                                            (word ctorName)
-                                           (args) None
+                                           (args)
+                                           None
                                            (word "new" * parens ((seplist (word ",") args)))
                                        >>> 4
 
@@ -643,11 +607,15 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                let backdef =
                                    [ let underlying_typehead =
                                          if List.isEmpty shape.parameters then
-                                            rename_forwardref typename
+                                             rename_forwardref typename
                                          else
-                                             apply_typestr (rename_forwardref typename) (List.map rename_typevar shape.parameters)
+                                             apply_typestr
+                                                 (rename_forwardref typename)
+                                                 (List.map rename_typevar shape.parameters)
 
-                                     yield word $"struct {underlying_typehead} <: FrontendForFreeParsing.AbstractForwardRef"
+                                     yield
+                                         word
+                                             $"struct {underlying_typehead} <: FrontendForFreeParsing.AbstractForwardRef"
 
                                      for (field, t) in shape.fields do
                                          let field = rename_field field
@@ -675,7 +643,8 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                yield
                                    defineJlFuncNoExpr
                                        (word typename)
-                                       args None
+                                       args
+                                       None
                                        (word "new"
                                         * parens (
                                             word (rename_forwardref typename)
@@ -698,6 +667,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
         let mutable lexerInfo = []
 
+        grammar <- elimEpsilon (analyzer.Sigma) grammar
         let tokenOrder = Array.ofList (terminals grammar)
 
         for k in Array.sort (Array.ofSeq analyzer.LiteralTokens) do
@@ -767,9 +737,9 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                    yield word $"@inline perform_lex!(f, x::LexerBuffer) = LexerInternal.lex(f, x)"
                    yield word $"@inline _construct_token(args...) = Token(args...)"
                    yield
-                       vsep [ word $"function parse(::Val{{:{langName}}}, x::String; outbuf::Union{{Nothing, Ref{{LexerBuffer}}}} = nothing)"
+                       vsep [ word
+                                  $"function parse(::Val{{:{langName}}}, x::String; outtoken::Union{{Nothing, Ref{{Vector{{Token}}}}}} = nothing)"
                               vsep [ word "buf = Sedlex.from_ustring(x)"
-                                     word "outbuf !== nothing && (outbuf[] = buf)"
                                      word "tokens = Token[]"
                                      word "while true"
                                      vsep [ word "local token = perform_lex!(_construct_token, buf)"
@@ -778,6 +748,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                             word "push!(tokens, token)" ]
                                      >>> 4
                                      word "end"
+                                     word "outtoken !== nothing && (outtoken[] = tokens)"
                                      word "return rbnf_named_parse_START(nothing, Tokens(tokens, 0))" ]
                               >>> 4
                               word "end" ] ]

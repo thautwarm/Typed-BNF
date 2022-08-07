@@ -26,6 +26,7 @@
     <Compile Include="src/Backends.OCamlMenhir.fs" />
     <Compile Include="src/Backends.CSharpAntlr.fs" />
     <Compile Include="src/Backends.TypeScriptAntlr.fs" />
+    <Compile Include="src/Backends.JuliaFFF.FrontendForFree.fs" />
     <Compile Include="src/Backends.JuliaFFF.fs" />
     <Compile Include="src/Backends.PureBNF.fs" />
     <Compile Include="src/APIs.fs" />

@@ -23,9 +23,8 @@ const Token = Sedlex.LightToken
 
 @inline perform_lex!(f, x::LexerBuffer) = LexerInternal.lex(f, x)
 @inline _construct_token(args...) = Token(args...)
-function parse(::Val{:lua}, x::String; outbuf::Union{Nothing, Ref{LexerBuffer}} = nothing)
+function parse(::Val{:lua}, x::String; outtoken::Union{Nothing, Ref{Vector{Token}}} = nothing)
     buf = Sedlex.from_ustring(x)
-    outbuf !== nothing && (outbuf[] = buf)
     tokens = Token[]
     while true
         local token = perform_lex!(_construct_token, buf)
@@ -33,5 +32,6 @@ function parse(::Val{:lua}, x::String; outbuf::Union{Nothing, Ref{LexerBuffer}} 
         is_eof_token(token) && break
         push!(tokens, token)
     end
+    outtoken !== nothing && (outtoken[] = tokens)
     return rbnf_named_parse_START(nothing, Tokens(tokens, 0))
 end
