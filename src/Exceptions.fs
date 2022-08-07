@@ -58,3 +58,5 @@ type InvalidConstructorDefininationCause =
     | CauseInvalidConstructorType of monot
 
 exception  InvalidConstructorDefinination of ctorName: string * cause: InvalidConstructorDefininationCause
+
+exception MultipleEpsilonRules of nonTermName: string

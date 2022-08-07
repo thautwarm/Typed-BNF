@@ -1,5 +1,5 @@
 using Sedlex
-const _sedlex_rnd_69 = [ Int32(2), Int32(1), Int32(6), Int32(7), Int32(11), Int32(5), Int32(10), Int32(8), Int32(9), Int32(4), Int32(3), nothing, Int32(0), Int32(12), Int32(-1) ]  # token_ids
+const _sedlex_rnd_69 = [ Int32(11), Int32(10), Int32(4), Int32(5), Int32(9), Int32(2), Int32(8), Int32(6), Int32(7), Int32(1), Int32(0), nothing, Int32(3), Int32(12), Int32(-1) ]  # token_ids
 function _sedlex_st_30(lexerbuf::lexbuf)
     result = Int32(-1)
     state_id = _sedlex_decide_9(sedlex_next_int(lexerbuf))

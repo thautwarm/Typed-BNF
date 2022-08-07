@@ -489,8 +489,8 @@ struct Case_String <: FrontendForFreeParsing.AbstractUnionCase
         new(value0)
     end
 end
-export String
-@inline String(args...) = expr(Case_String(args...))
+export stringAST
+@inline stringAST(args...) = expr(Case_String(args...))
 
 
 export Case_TableExpr
@@ -1012,10 +1012,10 @@ function atom_6(__tbnf_SLOTS_1)::expr
     Ellipse(__tbnf_SLOTS_1)
 end
 function atom_5(__tbnf_SLOTS_1)::expr
-    String(__tbnf_SLOTS_1)
+    stringAST(__tbnf_SLOTS_1)
 end
 function atom_4(__tbnf_SLOTS_1)::expr
-    String(__tbnf_SLOTS_1)
+    stringAST(__tbnf_SLOTS_1)
 end
 function atom_3(__tbnf_SLOTS_1)::expr
     Num(__tbnf_SLOTS_1)

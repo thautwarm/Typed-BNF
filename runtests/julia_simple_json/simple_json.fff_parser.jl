@@ -1,7 +1,7 @@
 @noinline function rbnf_named_lr_step_seplist_40__34__44__34__44_json_41_(rbnf_tmp_0,
                                                                           builtin_state,
                                                                           builtin_tokens)
-  rbnf_tmp_1 = builtin_match_tk( builtin_tokens, 2 )
+  rbnf_tmp_1 = builtin_match_tk( builtin_tokens, 11 )
   if builtin_is_null( rbnf_tmp_1 )
       builtin_mk_either_right(
           builtin_to_any(
@@ -63,7 +63,7 @@ end
 @noinline function rbnf_named_lr_step_seplist_40__34__44__34__44_jsonpair_41_(rbnf_tmp_0,
                                                                               builtin_state,
                                                                               builtin_tokens)
-  rbnf_tmp_1 = builtin_match_tk( builtin_tokens, 2 )
+  rbnf_tmp_1 = builtin_match_tk( builtin_tokens, 11 )
   if builtin_is_null( rbnf_tmp_1 )
       builtin_mk_either_right(
           builtin_to_any(
@@ -136,31 +136,31 @@ end
   rbnf_named__off_0 = builtin_tokens.offset
   if builtin_peekable( builtin_tokens, 0 )
       let __switch_target__ = builtin_peek( builtin_tokens, 0 ).idint
-      if __switch_target__ == 0
+      if __switch_target__ == 3
         let
         rbnf_tmp_0 = builtin_mv_forward( builtin_tokens )
         rbnf_tmp_1_ = json_3( rbnf_tmp_0 )
         builtin_mk_either_left( rbnf_tmp_1_ )
         end
-      elseif __switch_target__ == 3
+      elseif __switch_target__ == 0
         let
         rbnf_tmp_0 = builtin_mv_forward( builtin_tokens )
         rbnf_tmp_1_ = json_0( rbnf_tmp_0 )
         builtin_mk_either_left( rbnf_tmp_1_ )
         end
-      elseif __switch_target__ == 4
+      elseif __switch_target__ == 1
         let
         rbnf_tmp_0 = builtin_mv_forward( builtin_tokens )
         rbnf_tmp_1_ = json_1( rbnf_tmp_0 )
         builtin_mk_either_left( rbnf_tmp_1_ )
         end
-      elseif __switch_target__ == 8
+      elseif __switch_target__ == 6
         let
         rbnf_tmp_0 = builtin_mv_forward( builtin_tokens )
         rbnf_named__off_1 = builtin_tokens.offset
         if builtin_peekable( builtin_tokens, 0 )
             let __switch_target__ = builtin_peek( builtin_tokens, 0 ).idint
-            if __switch_target__ == 0
+            if __switch_target__ == 3
               let
               rbnf_named__check_1 = rbnf_named_parse_seplist_40__34__44__34__44_jsonpair_41_(
                                         builtin_state,
@@ -170,7 +170,7 @@ end
                   rbnf_named__check_1
               else
                   rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
-                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 9 )
+                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 7 )
                   if builtin_is_null( rbnf_tmp_2 )
                       builtin_mk_either_right(
                           builtin_to_any(
@@ -186,7 +186,7 @@ end
                   end
               end
               end
-            elseif __switch_target__ == 9
+            elseif __switch_target__ == 7
               let
               rbnf_tmp_1 = builtin_mv_forward( builtin_tokens )
               rbnf_tmp_1_ = json_5( rbnf_tmp_0, rbnf_tmp_1 )
@@ -216,31 +216,31 @@ end
             )
         end
         end
-      elseif __switch_target__ == 10
+      elseif __switch_target__ == 8
         let
         rbnf_tmp_0 = builtin_mv_forward( builtin_tokens )
         rbnf_tmp_1_ = json_6( rbnf_tmp_0 )
         builtin_mk_either_left( rbnf_tmp_1_ )
         end
-      elseif __switch_target__ == 5
+      elseif __switch_target__ == 2
         let
         rbnf_tmp_0 = builtin_mv_forward( builtin_tokens )
         rbnf_tmp_1_ = json_2( rbnf_tmp_0 )
         builtin_mk_either_left( rbnf_tmp_1_ )
         end
-      elseif __switch_target__ == 11
+      elseif __switch_target__ == 9
         let
         rbnf_tmp_0 = builtin_mv_forward( builtin_tokens )
         rbnf_tmp_1_ = json_7( rbnf_tmp_0 )
         builtin_mk_either_left( rbnf_tmp_1_ )
         end
-      elseif __switch_target__ == 6
+      elseif __switch_target__ == 4
         let
         rbnf_tmp_0 = builtin_mv_forward( builtin_tokens )
         rbnf_named__off_1 = builtin_tokens.offset
         if builtin_peekable( builtin_tokens, 0 )
             let __switch_target__ = builtin_peek( builtin_tokens, 0 ).idint
-            if __switch_target__ == 0
+            if __switch_target__ == 3
               let
               rbnf_named__check_1 = rbnf_named_parse_seplist_40__34__44__34__44_json_41_(
                                         builtin_state,
@@ -250,7 +250,7 @@ end
                   rbnf_named__check_1
               else
                   rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
-                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 7 )
+                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 5 )
                   if builtin_is_null( rbnf_tmp_2 )
                       builtin_mk_either_right(
                           builtin_to_any(
@@ -266,7 +266,7 @@ end
                   end
               end
               end
-            elseif __switch_target__ == 3
+            elseif __switch_target__ == 0
               let
               rbnf_named__check_1 = rbnf_named_parse_seplist_40__34__44__34__44_json_41_(
                                         builtin_state,
@@ -276,7 +276,7 @@ end
                   rbnf_named__check_1
               else
                   rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
-                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 7 )
+                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 5 )
                   if builtin_is_null( rbnf_tmp_2 )
                       builtin_mk_either_right(
                           builtin_to_any(
@@ -292,7 +292,7 @@ end
                   end
               end
               end
-            elseif __switch_target__ == 4
+            elseif __switch_target__ == 1
               let
               rbnf_named__check_1 = rbnf_named_parse_seplist_40__34__44__34__44_json_41_(
                                         builtin_state,
@@ -302,7 +302,33 @@ end
                   rbnf_named__check_1
               else
                   rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
-                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 7 )
+                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 5 )
+                  if builtin_is_null( rbnf_tmp_2 )
+                      builtin_mk_either_right(
+                          builtin_to_any(
+                              builtin_cons(
+                                  (builtin_tokens.offset, "L ] not match"),
+                                  builtin_nil
+                              )
+                          )
+                      )
+                  else
+                      rbnf_tmp_1_ = json_8( rbnf_tmp_0, rbnf_tmp_1, rbnf_tmp_2 )
+                      builtin_mk_either_left( rbnf_tmp_1_ )
+                  end
+              end
+              end
+            elseif __switch_target__ == 6
+              let
+              rbnf_named__check_1 = rbnf_named_parse_seplist_40__34__44__34__44_json_41_(
+                                        builtin_state,
+                                        builtin_tokens
+                                    )
+              if builtin_chk_is_err( rbnf_named__check_1 )
+                  rbnf_named__check_1
+              else
+                  rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
+                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 5 )
                   if builtin_is_null( rbnf_tmp_2 )
                       builtin_mk_either_right(
                           builtin_to_any(
@@ -328,7 +354,7 @@ end
                   rbnf_named__check_1
               else
                   rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
-                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 7 )
+                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 5 )
                   if builtin_is_null( rbnf_tmp_2 )
                       builtin_mk_either_right(
                           builtin_to_any(
@@ -344,7 +370,7 @@ end
                   end
               end
               end
-            elseif __switch_target__ == 10
+            elseif __switch_target__ == 2
               let
               rbnf_named__check_1 = rbnf_named_parse_seplist_40__34__44__34__44_json_41_(
                                         builtin_state,
@@ -354,7 +380,33 @@ end
                   rbnf_named__check_1
               else
                   rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
-                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 7 )
+                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 5 )
+                  if builtin_is_null( rbnf_tmp_2 )
+                      builtin_mk_either_right(
+                          builtin_to_any(
+                              builtin_cons(
+                                  (builtin_tokens.offset, "L ] not match"),
+                                  builtin_nil
+                              )
+                          )
+                      )
+                  else
+                      rbnf_tmp_1_ = json_8( rbnf_tmp_0, rbnf_tmp_1, rbnf_tmp_2 )
+                      builtin_mk_either_left( rbnf_tmp_1_ )
+                  end
+              end
+              end
+            elseif __switch_target__ == 9
+              let
+              rbnf_named__check_1 = rbnf_named_parse_seplist_40__34__44__34__44_json_41_(
+                                        builtin_state,
+                                        builtin_tokens
+                                    )
+              if builtin_chk_is_err( rbnf_named__check_1 )
+                  rbnf_named__check_1
+              else
+                  rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
+                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 5 )
                   if builtin_is_null( rbnf_tmp_2 )
                       builtin_mk_either_right(
                           builtin_to_any(
@@ -372,63 +424,11 @@ end
               end
             elseif __switch_target__ == 5
               let
-              rbnf_named__check_1 = rbnf_named_parse_seplist_40__34__44__34__44_json_41_(
-                                        builtin_state,
-                                        builtin_tokens
-                                    )
-              if builtin_chk_is_err( rbnf_named__check_1 )
-                  rbnf_named__check_1
-              else
-                  rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
-                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 7 )
-                  if builtin_is_null( rbnf_tmp_2 )
-                      builtin_mk_either_right(
-                          builtin_to_any(
-                              builtin_cons(
-                                  (builtin_tokens.offset, "L ] not match"),
-                                  builtin_nil
-                              )
-                          )
-                      )
-                  else
-                      rbnf_tmp_1_ = json_8( rbnf_tmp_0, rbnf_tmp_1, rbnf_tmp_2 )
-                      builtin_mk_either_left( rbnf_tmp_1_ )
-                  end
-              end
-              end
-            elseif __switch_target__ == 11
-              let
-              rbnf_named__check_1 = rbnf_named_parse_seplist_40__34__44__34__44_json_41_(
-                                        builtin_state,
-                                        builtin_tokens
-                                    )
-              if builtin_chk_is_err( rbnf_named__check_1 )
-                  rbnf_named__check_1
-              else
-                  rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
-                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 7 )
-                  if builtin_is_null( rbnf_tmp_2 )
-                      builtin_mk_either_right(
-                          builtin_to_any(
-                              builtin_cons(
-                                  (builtin_tokens.offset, "L ] not match"),
-                                  builtin_nil
-                              )
-                          )
-                      )
-                  else
-                      rbnf_tmp_1_ = json_8( rbnf_tmp_0, rbnf_tmp_1, rbnf_tmp_2 )
-                      builtin_mk_either_left( rbnf_tmp_1_ )
-                  end
-              end
-              end
-            elseif __switch_target__ == 7
-              let
               rbnf_tmp_1 = builtin_mv_forward( builtin_tokens )
               rbnf_tmp_1_ = json_4( rbnf_tmp_0, rbnf_tmp_1 )
               builtin_mk_either_left( rbnf_tmp_1_ )
               end
-            elseif __switch_target__ == 6
+            elseif __switch_target__ == 4
               let
               rbnf_named__check_1 = rbnf_named_parse_seplist_40__34__44__34__44_json_41_(
                                         builtin_state,
@@ -438,7 +438,7 @@ end
                   rbnf_named__check_1
               else
                   rbnf_tmp_1 = builtin_to_result( rbnf_named__check_1 )
-                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 7 )
+                  rbnf_tmp_2 = builtin_match_tk( builtin_tokens, 5 )
                   if builtin_is_null( rbnf_tmp_2 )
                       builtin_mk_either_right(
                           builtin_to_any(
@@ -500,7 +500,7 @@ end
   end
 end
 @noinline function rbnf_named_parse_jsonpair(builtin_state, builtin_tokens)
-  rbnf_tmp_0 = builtin_match_tk( builtin_tokens, 0 )
+  rbnf_tmp_0 = builtin_match_tk( builtin_tokens, 3 )
   if builtin_is_null( rbnf_tmp_0 )
       builtin_mk_either_right(
           builtin_to_any(
@@ -511,7 +511,7 @@ end
           )
       )
   else
-      rbnf_tmp_1 = builtin_match_tk( builtin_tokens, 1 )
+      rbnf_tmp_1 = builtin_match_tk( builtin_tokens, 10 )
       if builtin_is_null( rbnf_tmp_1 )
           builtin_mk_either_right(
               builtin_to_any(

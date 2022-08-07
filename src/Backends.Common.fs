@@ -107,6 +107,45 @@ let rec mapMOptions (f: 'a -> 'b option) (ops: list<'a>) =
             | None -> None
         | None -> None
 
+let uniqueList xs =
+    xs 
+    |> List.fold
+        (fun acc x ->
+            if List.contains x acc then
+                acc
+            else
+                x :: acc)
+        []
+    |> List.rev
+
+
+module ListBuilder =
+    type M<'a> = list<'a>
+    let rec sequenceA xs =
+        match xs with
+        | [] -> []
+        | x::xs ->  [for head in x do
+                        for tail in xs do yield head::tail]
+
+    type ListBuilder() =
+        member __.Bind<'b, 'c>(m: M<'b>, k : 'b -> M<'c>): M<'c> =
+            List.collect k m
+        member __.Return<'a>(a: 'a): M<'a> = [a]
+
+        member __.Run<'a>(m: M<'a>) = m
+
+        member __.Combine<'a, 'b>(m1: M<'a>, m2: M<'b>) =
+            __.Bind(m1, fun _ -> m2)
+
+        member __.Delay<'a>(x: unit -> M<'a>) = x()
+
+        member __.Zero() = [()]
+
+        member __.For<'t, 'u>(m: seq<'t>, f: 't -> M<'u>) =
+            let xs = Seq.map f m |> List.ofSeq
+            sequenceA xs
+        member __.ReturnFrom (m: M<'a>) = m
+    let listM = ListBuilder()
 
 module OptionBuilder =
     type Builder() =

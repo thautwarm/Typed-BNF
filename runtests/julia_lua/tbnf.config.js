@@ -16,4 +16,11 @@ function rename_type(x)
         return x;
 }
 
-module.exports = { rename_type };
+function rename_var(x)
+{
+    if (x == "String")
+        return "stringAST";
+    return x;
+}
+
+module.exports = { rename_type, rename_var };
