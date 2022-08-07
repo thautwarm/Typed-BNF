@@ -1,2 +1,6 @@
 node tbnf.js  ./runtests/simple_json.tbnf -o ./runtests/julia_simple_json -lang "simple_json" -be julia-fff
-python run_generated_parser.py
+cd runtests/julia_simple_json/
+[ -f simple_json.fff_parser.jl ] && rm simple_json.fff_parser.jl
+julia entry.jl
+cd ../../
+

@@ -32,7 +32,6 @@ let _name_of_literal_term (str_literal: string, is_lit: bool) =
     let c = if is_lit then "L" else "N"
     sprintf "%s %s" c str_literal
 
-let name_of_nonterm n = n
 let name_of_named_term n = _name_of_literal_term (n, false)
 let name_of_literal_term s = _name_of_literal_term (s, true)
 let name_of_term (n, b) = _name_of_literal_term (n, b)
@@ -89,8 +88,8 @@ let dumpFFFProd =
 let dumpFFFGrammar (prods: FFFProd list) =
     prods
     |> List.map dumpFFFProd
-    |> vsep
-    |> indent 4
+    |> seplist (seg "\n, ")
+    >>> 2
     |> bracket
 
 let apply_typestr (t: string) (args: string list) =
@@ -131,7 +130,7 @@ let terminals (prods: FFFProd list) : string list =
 let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string) (stmts: definition array) =
 
     let rename_var = Option.defaultValue id cg_options.rename_var
-    let rename_ctor = Option.defaultValue id cg_options.rename_ctor
+    let rename_ctor = Option.defaultValue (fun s -> "Case_" + s) cg_options.rename_ctor
     let rename_field = Option.defaultValue id cg_options.rename_field
     let rename_type = Option.defaultValue id cg_options.rename_type
     let rename_typevar x = $"_T_{x}"
@@ -145,17 +144,18 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                        export_Grammar |]
 
     let name_requirement = "requirement"
-    let name_fr_func = "forward_resolve"
-    let name_fr_type = "ForwardResolvedField"
-    let name_call_fff = "load_fff"
+    let name_call_fff = "@load_fff!"
 
     let abandoned_names =
         Set.ofArray [| name_requirement
-                       name_fr_func
-                       name_fr_type
+                       name_call_fff
+                       "FrontendForFreeParsing"
                        "perform_lex!"
                        "lexall"
                        "Union"
+                       "Sedlex"
+                       "Tokens"
+                       // keywords
                        "begin"
                        "while"
                        "if"
@@ -193,11 +193,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
 
     let global_scope =
-        [ for k in analyzer.Sigma.GlobalVariables ->
-              if analyzer.Sigma.IsGlobalVariableConstructor k.Key then
-                  k.Key, rename_ctor k.Key
-              else
-                  k.Key, rename_var k.Key ]
+        [ for k in analyzer.Sigma.GlobalVariables -> k.Key, rename_var k.Key ]
 
     (* valid python identifier segment *)
     let juliaIdentifierDescr =
@@ -219,6 +215,22 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
             .WithNameEnv { usedNames = Set.ofList (List.map snd global_scope) }
 
     let mangle = mangle (Set.union abandoned_names export_names)
+    let mutable _sanitized: Map<string, string> = Map.empty
+
+    let sanitize n =
+        match Map.tryFind n _sanitized with
+        | Some n' -> n'
+        | None ->
+            let n' = mangle juliaIdentifierDescr n
+            _sanitized <- Map.add n n' _sanitized
+            n'
+
+
+    let name_of_nonterm n =
+        if n = "start" then
+            "START" // fff specific
+        else
+            sanitize n
 
     let push_semantic_actions a =
         semantic_actions <- a :: empty :: semantic_actions
@@ -232,15 +244,16 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
     let _name_of_named_term (name: string) = name
 
-    let _name_of_nonterm (name: string) = name
 
     let cg_symbol (x: symbol) : FFFSpec =
         match x with
         | Term (define, is_literal) -> FFFCTerm <| name_of_term (define, is_literal)
-        | Nonterm (name) -> FFFCNonTerm <| _name_of_nonterm name
+        | Nonterm (name) -> FFFCNonTerm <| name_of_nonterm name
         | _ -> invalidOp "macro not processed"
 
-    let mkActionName ntname idx = sprintf "%s_%i" ntname idx
+    let mkActionName ntname idx =
+        mangle juliaIdentifierDescr
+        <| sprintf "%s_%i" ntname idx
 
     let defineJlFunc fname args body =
         vsep [ word "begin"
@@ -250,13 +263,32 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                word "end"
                word "end" ]
 
-    let defineJlFuncNoExpr fname args body =
+    let defineJlFuncNoExpr fname args (ret_opt) body =
+        let ret_ann =
+            ret_opt
+            |> Option.map (fun ret -> word "::" * ret) 
+            |> Option.defaultValue (empty)
         vsep [ word "function"
-               + fname * parens (seplist (word ", ") args)
+               + fname * parens (seplist (word ", ") args) * ret_ann
                body >>> 4
                word "end" ]
 
     let TREE_NAME = "__tbnf_SLOTS"
+
+    let rec _cg_type (t: monot) =
+        match t with
+        | monot.TConst n -> rename_type n
+        | monot.TVar n -> rename_typevar n
+        | monot.TRef _ -> raise <| UnsolvedTypeVariable
+        | monot.TFun (args, r) -> "Function"
+        | monot.TApp (TTuple, []) -> invalidOp "0-element tuple type detected"
+        | monot.TApp (f, args) ->
+            args
+            |> List.map _cg_type
+            |> String.concat ", "
+            |> fun it -> _cg_type f + "{" + it + "}"
+
+    let cg_type (t: monot) = _cg_type (t.Prune())
 
     let rec cg_expr (actionName: string) (scope: list<string * string>) (expr: expr) : Doc =
         let inline (!) x = cg_expr actionName scope x
@@ -300,9 +332,14 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                        cg_expr actionName scope' body >>> 4
                        word "end" ]
             | node.EList elts ->
+                let eltype =
+                    match expr.t.Prune() with
+                    | monot.TApp (_, [ eltype ]) -> cg_type eltype
+                    | _ -> ""
+
                 let elts' = [ for elt in elts -> !elt ]
-                bracket (seplist (word ", ") elts')
-            | node.ESlot i -> word (sprintf "%s[%d]" TREE_NAME (i - 1))
+                word eltype * bracket (seplist (word ", ") elts')
+            | node.ESlot i -> word (sprintf "%s_%d" TREE_NAME i)
             | node.ETuple elts ->
                 let elts' = [ for elt in elts -> !elt ]
 
@@ -338,14 +375,15 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
               let returned = cg_expr actionName global_scope production.action
 
               push_semantic_actions
-              <| defineJlFunc
+              <| defineJlFuncNoExpr
                   (word actionName)
                   [ for i = 1 to List.length specs do
                         yield word <| sprintf "%s_%d" TREE_NAME i ]
+                  (Some (word (cg_type production.action.t)))
                   returned
 
               idx <- idx + 1
-              yield (lhs, spec, Some mlang) ]
+              yield (name_of_nonterm lhs, spec, Some mlang) ]
 
     let rec mk_lexer (def: lexerule) : Automata.regexp =
         let (!) = mk_lexer
@@ -423,19 +461,6 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
     let filename_fff = sprintf "%s.fff" langName
     let filename_constructors = sprintf "%s.constructors.jl" langName
 
-    let rec _cg_type (t: monot) =
-        match t with
-        | monot.TConst n -> rename_type n
-        | monot.TVar n -> rename_typevar n
-        | monot.TRef _ -> raise <| UnsolvedTypeVariable
-        | monot.TFun (args, r) -> "Function"
-        | monot.TApp (TTuple, []) -> invalidOp "0-element tuple type detected"
-        | monot.TApp (f, args) ->
-            args
-            |> List.map _cg_type
-            |> String.concat ", "
-            |> fun it -> _cg_type f + "{" + it + "}"
-
     let rec _cg_type_backref (possibleBackrefNames: Map<string, string>) (t: monot) : string option =
         match t with
         | monot.TConst n ->
@@ -457,8 +482,6 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                 | None -> None
                 | Some targs -> Some(apply_typestr tf targs)
 
-
-    let cg_type (t: monot) = _cg_type (t.Prune())
     let possibleBackrefNames: Map<string, string> ref = ref Map.empty
 
     let cg_type_backref (t: monot) =
@@ -477,8 +500,9 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
             vsep [
                    // generate ADTs
                    if not (List.isEmpty namesToRequire) then
-                       yield word ($"using FrontendForFreeParsing: {name_requirement}, {name_fr_type}")
-                       yield word ($"import FrontendForFreeParsing: {name_fr_func}")
+                       yield word ($"using FrontendForFreeParsing: {name_requirement}")
+                       yield word ($"using FrontendForFreeParsing.Runtime")
+                       yield word ($"import FrontendForFreeParsing")
 
                        for name in namesToRequire do
                            yield word $"export {name}"
@@ -506,16 +530,16 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                    for (typename, cases) in adtCases do
                        let typename' = rename_type typename
                        let mutable ctorNames: string list = []
-
                        for (ctorName, fields) in Map.toArray cases do
+                           let varName = rename_var (ctorName)
                            let ctorName = rename_ctor ctorName
                            ctorNames <- ctorName :: ctorNames
                            yield word $"export {ctorName}"
 
                            if List.length fields = 0 then
-                               yield word $"struct {ctorName} end"
+                               yield word $"struct {ctorName} <: FrontendForFreeParsing.AbstractUnionCase end"
                            else
-                               yield word $"struct {ctorName}"
+                               yield word $"struct {ctorName} <: FrontendForFreeParsing.AbstractUnionCase "
 
                                let tryDirectFieldDefs =
                                    fields
@@ -527,16 +551,22 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                match tryDirectFieldDefs with
                                | None ->
                                    let backdef =
-                                       [ yield word $"struct {rename_forwardref ctorName}"
+                                       [ yield word $"struct {rename_forwardref ctorName} <: FrontendForFreeParsing.AbstractForwardRef"
                                          for (field, t) in fields do
                                              let field = rename_field field
-                                             yield word $"{field}::{t}" >>> 4
+                                             yield word $"{field}::{cg_type t}" >>> 4
                                          yield word "end"
                                          yield
                                              word (
-                                                 $"Base.getproperty(this::{ctorName}, name::Symbol) = "
+                                                 $"@inline Base.getproperty(this::{ctorName}, name::Symbol) = "
                                                  + $"getfield(getfield(this, :_unbox) :: {rename_forwardref ctorName}, name)"
+                                             )
+                                         yield
+                                             word (
+                                                 $"@inline Base.propertynames(::Union{{{ctorName},Type{{{ctorName}}}}}) = "
+                                                 + $"fieldnames({rename_forwardref ctorName})"
                                              ) ]
+
 
                                    forwardWrapped.Add(backdef)
                                    yield word "_unbox::Any"
@@ -545,19 +575,36 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                    yield
                                        defineJlFuncNoExpr
                                            (word ctorName)
-                                           args
-                                           (word (rename_forwardref ctorName)
-                                            * parens (seplist (word ",") args))
-                               | Some fieldefs -> yield vsep fieldefs >>> 4
+                                           (args) None
+                                           (word "new"
+                                            * parens (
+                                                word (rename_forwardref ctorName)
+                                                * parens (seplist (word ",") args)
+                                            ))
+                                       >>> 4
+                               | Some fieldefs ->
+                                   let args = List.map (fst >> rename_var >> word) fields
+                                   yield vsep fieldefs >>> 4
+
+                                   yield
+                                       defineJlFuncNoExpr
+                                           (word ctorName)
+                                           (args) None
+                                           (word "new" * parens ((seplist (word ",") args)))
+                                       >>> 4
 
                                yield word "end"
+                               yield word $"export {varName}"
+                               yield word $"@inline {varName}(args...) = {typename'}({ctorName}(args...))"
 
                            yield newline
                            possibleBackrefNames.Value <- Map.remove ctorName possibleBackrefNames.Value
 
                        let caseunion = apply_typestr "Union" ctorNames
                        yield word $"export {typename'}"
-                       yield word $"const {typename'} = {caseunion}"
+                       yield word $"struct {typename'}"
+                       yield word $"case :: {caseunion}" >>> 4
+                       yield word "end"
                        possibleBackrefNames.Value <- Map.remove typename' possibleBackrefNames.Value
                        yield newline
 
@@ -572,13 +619,17 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                            else
                                apply_typestr typename (List.map rename_typevar shape.parameters)
 
+                       yield word $"export {varname}"
+
+                       if typename <> varname then
+                           yield word $"const {varname} = {typename}"
+                           yield word $"export {typename}"
                        // TODO: generic type variables
-                       yield word $"export {typename}"
 
                        if List.isEmpty shape.fields then
-                           yield word $"struct {typehead} end"
+                           yield word $"struct {typehead} <: FrontendForFreeParsing.AbstractUnionCase end"
                        else
-                           yield word $"struct {typehead}"
+                           yield word $"struct {typehead} <: FrontendForFreeParsing.AbstractUnionCase"
 
                            let tryDirectFieldDefs =
                                shape.fields
@@ -592,11 +643,11 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                let backdef =
                                    [ let underlying_typehead =
                                          if List.isEmpty shape.parameters then
-                                             typename
+                                            rename_forwardref typename
                                          else
-                                             apply_typestr typename (List.map rename_typevar shape.parameters)
+                                             apply_typestr (rename_forwardref typename) (List.map rename_typevar shape.parameters)
 
-                                     yield word $"struct {underlying_typehead}"
+                                     yield word $"struct {underlying_typehead} <: FrontendForFreeParsing.AbstractForwardRef"
 
                                      for (field, t) in shape.fields do
                                          let field = rename_field field
@@ -606,9 +657,16 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
                                      yield
                                          word (
-                                             $"Base.getproperty(this::{typename}, name::Symbol) = "
+                                             $"@inline Base.getproperty(this::{typename}, name::Symbol) = "
                                              + $"getfield(getfield(this, :_unbox) :: {rename_forwardref typename}, name)"
+                                         )
+
+                                     yield
+                                         word (
+                                             $"@inline Base.propertynames(::Union{{{typename},Type{{{typename}}}}}) = "
+                                             + $"fieldnames({rename_forwardref typename})"
                                          ) ]
+
 
                                forwardWrapped.Add(backdef)
                                yield word "_unbox::Any"
@@ -617,15 +675,15 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                yield
                                    defineJlFuncNoExpr
                                        (word typename)
-                                       args
-                                       (word (rename_forwardref typename)
-                                        * parens (seplist (word ",") args))
+                                       args None
+                                       (word "new"
+                                        * parens (
+                                            word (rename_forwardref typename)
+                                            * parens (seplist (word ",") args)
+                                        ))
                            | Some fieldefs -> yield vsep fieldefs >>> 4
 
                            yield word "end"
-
-                           if typename <> varname then
-                               yield word $"const {varname} = {typename}"
 
                        yield newline
 
@@ -683,7 +741,8 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
         let file_parser =
             filename_parser,
-            vsep [ yield word $"using FrontendForFreeParsing: {name_call_fff}, {name_requirement}"
+            vsep [ yield word $"using FrontendForFreeParsing: {name_call_fff}"
+                   yield word "import Sedlex"
                    yield word "export is_eof_token"
                    yield word "export LexerBuffer"
                    yield word "export Token"
@@ -691,28 +750,36 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
                    // include datatype constructors
                    yield word $"include({escapeString filename_constructors})"
+                   yield newline
                    // include lexers
                    yield word $"module LexerInternal"
-                   yield word $"include({escapeString filename_lexer})"
-                   yield word $"end"
-                   yield word $"{name_call_fff}((@__MODULE__), :{langName})" // call fff to load parser code and do codegen
-
-                   yield word $"is_eof_token(token::Sedlex.Token) = token.token_id == -1"
-                   yield word $"const LexerBuffer = Sedlex.lexbuf"
-                   yield word $"const Token = Sedlex.Token"
-                   yield word $"@inline perform_lex!(f, x::LexerBuffer) = LexerInternal.lex(f, x, is_eof_token)"
-                   yield word $"@inline _construct_token(args) = Token(args...)"
                    yield
-                       vsep [ word "function lexall(x::String)"
+                       word $"include({escapeString filename_lexer})"
+                       >>> 4
+                   yield word $"end"
+                   yield newline
+                   yield word $"{name_call_fff}({langName})" // call fff to load parser code and do codegen
+                   yield newline
+                   yield word $"is_eof_token(token) = token.idint == -1"
+                   yield word $"const LexerBuffer = Sedlex.lexbuf"
+                   yield word $"const Token = Sedlex.LightToken"
+                   yield newline
+                   yield word $"@inline perform_lex!(f, x::LexerBuffer) = LexerInternal.lex(f, x)"
+                   yield word $"@inline _construct_token(args...) = Token(args...)"
+                   yield
+                       vsep [ word $"function parse(::Val{{:{langName}}}, x::String; outbuf::Union{{Nothing, Ref{{LexerBuffer}}}} = nothing)"
                               vsep [ word "buf = Sedlex.from_ustring(x)"
+                                     word "outbuf !== nothing && (outbuf[] = buf)"
                                      word "tokens = Token[]"
                                      word "while true"
                                      vsep [ word "local token = perform_lex!(_construct_token, buf)"
                                             word "token === nothing && continue"
                                             word "is_eof_token(token) && break"
                                             word "push!(tokens, token)" ]
+                                     >>> 4
                                      word "end"
-                                     word "return rbnf_named_parse_start(nothing, tokens)" ]
+                                     word "return rbnf_named_parse_START(nothing, Tokens(tokens, 0))" ]
+                              >>> 4
                               word "end" ] ]
 
         [| file_constructors

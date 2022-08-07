@@ -579,13 +579,14 @@ function _sedlex_rnd_1(lexerbuf::lexbuf)
     return result
 end
 struct Token
-    token_id::Int32
+    idint::Int32
     lexeme::String
     line::Int32
     col::Int32
     span::Int32
     offset::Int32
     file::String
+    Token(token_id, src, line, col, span, offset, file) = new(token_id, sedlex_lexeme(src), line, col, span, offset, file)
 end
 function lex(construct_token,  lexerbuf::lexbuf)
     sedlex_start(lexerbuf)
@@ -593,10 +594,10 @@ function lex(construct_token,  lexerbuf::lexbuf)
     case_id < 0 && error("the last branch must be a catch-all error case!")
     token_id = _sedlex_rnd_69[case_id + 1]
     token_id == nothing && return nothing
-    return construct_token(token_id, sedlex_lexeme(lexerbuf), lexerbuf.start_line, lexerbuf.pos - lexerbuf.curr_bol, lexerbuf.pos - lexerbuf.start_pos, lexerbuf.start_pos, lexerbuf.filename)
+    return construct_token(token_id, lexerbuf, lexerbuf.start_line, lexerbuf.pos - lexerbuf.curr_bol, lexerbuf.pos - lexerbuf.start_pos, lexerbuf.start_pos, lexerbuf.filename)
 end
 function lexall(construct_token, buf::lexbuf, is_eof #= Token -> Bool =#)
-    Channel{Token}() do coro
+    Channel() do coro
         while true
             token = lex(construct_token, buf)
             token === nothing && continue
