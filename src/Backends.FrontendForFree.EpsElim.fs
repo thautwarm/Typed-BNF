@@ -1,27 +1,6 @@
-module tbnf.Backends.JuliaFFF.FrontendForFree
+module tbnf.Backends.FrontendForFree.EpsElim
 
 open tbnf.Exceptions
-open tbnf.Grammar
-open tbnf.Backends.Common.ListBuilder
-
-// https://github.com/thautwarm/frontend-for-free/blob/91862a8a2e99edf1b62f469feb8e6e4030b7cdcf/src/RBNF/Constructs.hs#L48
-type FFFSpec =
-    | FFFCTerm of string
-    | FFFCNonTerm of string
-
-type FFFCSeq = FFFCSeq of list<FFFSpec>
-
-let rec isNotDirectRecursive (n: string) (spec: FFFSpec) =
-    match spec with
-    | FFFCTerm _ -> true
-    | FFFCNonTerm n' -> n <> n'
-
-type FFFMLang =
-    | FFFMTerm of string
-    | FFFMApp of FFFMLang * list<FFFMLang>
-    | FFFMSlot of int
-
-type FFFProd = FFFProd of string * FFFCSeq * FFFMLang * definition
 
 // passing Sigma is for generating user-friendly error report
 type EpsilonElimination(grammar: FFFProd list, Sigma: tbnf.Analysis.Sigma) =
@@ -50,7 +29,7 @@ type EpsilonElimination(grammar: FFFProd list, Sigma: tbnf.Analysis.Sigma) =
     let is_not_direct_recursive (nonterm_name: string) : bool =
         defs.[nonterm_name]
         |> List.forall (function
-            | FFFProd (_, FFFCSeq specs, _, _) -> 
+            | FFFProd (_, FFFCSeq specs, _, _) ->
                 List.forall (fun spec -> isNotDirectRecursive nonterm_name spec) specs)
 
     let get_shallow_optional (nonterm_name: string) =
@@ -98,7 +77,7 @@ type EpsilonElimination(grammar: FFFProd list, Sigma: tbnf.Analysis.Sigma) =
                     else
                         [i, specs, elimined::subst])
             | _ -> List.map (fun (i, specs, subst) -> (i + 1, spec::specs, FFFMSlot (i + 1) :: subst)) substs
-        
+
         let rec computeSubsChances (substs: (int * FFFSpec list * FFFMLang list) list) (specs: FFFSpec list) =
             match specs with
             | [] -> substs
@@ -106,7 +85,7 @@ type EpsilonElimination(grammar: FFFProd list, Sigma: tbnf.Analysis.Sigma) =
                 computeSubsChances (computeSubsChance substs hd) tl
 
         let substs = computeSubsChances [(0, [], [])] specs
-        [ for (n_hold, new_specs, subst) in substs -> 
+        [ for (n_hold, new_specs, subst) in substs ->
             if n_hold = List.length specs then
                 FFFProd(n, FFFCSeq specs, lang, src_def)
             else
@@ -115,8 +94,8 @@ type EpsilonElimination(grammar: FFFProd list, Sigma: tbnf.Analysis.Sigma) =
     let substituteEpsilonOccurrrences (replaces: System.Collections.Generic.Dictionary<string, int * FFFMLang>) =
         let iter_defs = Array.ofSeq defs
 
-        for KeyValue (lhs, prods) in iter_defs do
-            defs.[lhs] <- 
+        for KeyValue (lhs: string, prods) in iter_defs do
+            defs.[lhs] <-
                 tbnf.Backends.Common.uniqueList <|
                     List.collect (fun prod -> substituteEpsilonOccurrrencesForProd (replaces, prod)) prods
 
@@ -129,12 +108,11 @@ type EpsilonElimination(grammar: FFFProd list, Sigma: tbnf.Analysis.Sigma) =
             let replaces = System.Collections.Generic.Dictionary<string, (int * FFFMLang)>()
 
             for KeyValue (n, _) in defs do
-                if is_not_direct_recursive n then
-                    match get_shallow_optional n with
-                    | None -> ()
-                    | Some lang ->
-                        replaces.[n] <- lang
-                        changed <- true
+                match get_shallow_optional n with
+                | None -> ()
+                | Some lang ->
+                    replaces.[n] <- lang
+                    changed <- true
 
             for KeyValue (nonterm_name, (epsId, _)) in replaces do
                 removeEpsilonBranch (nonterm_name, epsId)

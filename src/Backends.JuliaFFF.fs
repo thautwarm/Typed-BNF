@@ -1,6 +1,6 @@
 module tbnf.Backends.JuliaFFF
 
-open tbnf.Backends.JuliaFFF.FrontendForFree
+open tbnf.Backends.FrontendForFree
 open Fable.Sedlex.PrettyDoc
 open Fable.Sedlex.Compiler
 open Fable.Sedlex.CodeGen.Julia
@@ -667,7 +667,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
 
         let mutable lexerInfo = []
 
-        grammar <- elimEpsilon (analyzer.Sigma) grammar
+        grammar <- EpsElim.elimEpsilon (analyzer.Sigma) grammar
         let tokenOrder = Array.ofList (terminals grammar)
 
         for k in Array.sort (Array.ofSeq analyzer.LiteralTokens) do
