@@ -39,9 +39,9 @@ extern var MK_Poly : (list<str>, monot) -> polyt
 extern var MK_Mono : monot -> polyt
 
 typ : arrow_typ { $1 }
-arrow_typ : typ2 "->" arrow_typ
+arrow_typ : typ2 '->' arrow_typ
             { MK_TFun([("value", $1)], $3) }
-          | "(" eslist(",", param_type) ")" "->" arrow_typ
+          | '(' eslist(',', param_type) ')' '->' arrow_typ
             { MK_TFun(process_tparam($2), $5) }
           | type_product
             { MK_TTuple($1) }
@@ -49,24 +49,24 @@ arrow_typ : typ2 "->" arrow_typ
 typ2 : <CNAMEPLUS> { MK_TConst(str($1)) }
      | typ2 "<" slist(",", typ) ">" { MK_TApp($1, $3) }
 
-type_product : type_product "*" typ2 { addList($1, $3) }
+type_product : type_product '*' typ2 { addList($1, $3) }
              | typ2                  { [$1] }
 
-top_typ : "<" slist(",", tvar_str) ">" typ { MK_Poly($2, $4) }
+top_typ : '<' slist(',', tvar_str) '>' typ { MK_Poly($2, $4) }
         | typ                              { MK_Mono($1) }
 
 tvar_str     : <CNAMEPLUS> { str($1) }
-param_type   : <CNAMEPLUS> ":" typ { (str($1), $3) }
+param_type   : <CNAMEPLUS> ':' typ { (str($1), $3) }
              | typ  { ("_", $1) }
 
 // Toplevels
 
-type_params : "<" slist(",", tvar_str) ">" { $2 }
+type_params : '<' slist(',', tvar_str) '>' { $2 }
             |  { [] }
 
-field_ann : <CNAMEPLUS> ":" typ { (str($1), $3, mkpos($1)) }
+field_ann : <CNAMEPLUS> ':' typ { (str($1), $3, mkpos($1)) }
 
-field_anns :  "(" eslist(",", field_ann) ")"
+field_anns :  '(' eslist(',', field_ann) ')'
              { (true, $2) } // record only
            | { (false, []) }  // adt only
 
