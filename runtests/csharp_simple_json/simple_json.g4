@@ -62,9 +62,7 @@ json returns [JsonValue result]
             }
 | 'null' { $result = (JsonValue) JNull();
             }
-| '\'' { $result = (JsonValue) JNull();
-            }
-| json_4__1=STR { $result = (JsonValue) JStr((string) (string) unesc((string) (string) getStr((IToken) _localctx.json_4__1)));
+| json_3__1=STR { $result = (JsonValue) JStr((string) (string) unesc((string) (string) getStr((IToken) _localctx.json_3__1)));
             }
 | '[' ']' { $result = (JsonValue) JList((MyList<JsonValue>) new MyList<JsonValue> {  });
             }
@@ -74,9 +72,9 @@ json returns [JsonValue result]
             }
 | 'false' { $result = (JsonValue) JBool((bool) false);
             }
-| '[' json_9__2=seplist_o__i__s__i__s_json_p_ ']' { $result = (JsonValue) JList((MyList<JsonValue>) _localctx.json_9__2.result);
+| '[' json_8__2=seplist_o__i__s__i__s_json_p_ ']' { $result = (JsonValue) JList((MyList<JsonValue>) _localctx.json_8__2.result);
             }
-| '{' json_10__2=seplist_o__i__s__i__s_jsonpair_p_ '}' { $result = (JsonValue) JDict((MyList<NameValuePair<string, JsonValue>>) _localctx.json_10__2.result);
+| '{' json_9__2=seplist_o__i__s__i__s_jsonpair_p_ '}' { $result = (JsonValue) JDict((MyList<NameValuePair<string, JsonValue>>) _localctx.json_9__2.result);
             }
 ;
 fragment DIGIT : [\u0030-\u0039] ;
