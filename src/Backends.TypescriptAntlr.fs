@@ -242,7 +242,7 @@ let codegen
             args
             |> List.map (fun (s, b) -> s + ":" + _cg_type b)
             |> String.concat ", "
-            |> fun it -> $"({it}) => { _cg_type r}" 
+            |> fun it -> $"({it}) => { _cg_type r}"
 
         | monot.TApp (TTuple, []) -> invalidOp "[]"
         | monot.TApp (TTuple, args) ->
@@ -534,7 +534,7 @@ let codegen
             ] >>> 4
             yield word "}"
             yield empty
-            
+
             // generate a function named ${ctor_name} to invoke the constructor
             yield word $"export function {ctor_name}" * func_params
             yield word "{"
@@ -590,12 +590,12 @@ let codegen
                     union_names.Add case_name
                     inner_names.Add ctor_name'
                     yield! define_record(case_name, ctor_name', fields)
-                
+
                 let typename' = rename_type typename
                 let union_names = String.concat " | " union_names
                 yield word $"export type {typename'} = {union_names}"
                 inner_names.Add typename'
-            
+
             for (typename, shape) in  analyzer.Sigma.GetRecordTypes() do
                 let typename' = rename_type typename
                 let varname = rename_ctor typename
