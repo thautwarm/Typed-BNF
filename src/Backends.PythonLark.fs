@@ -2,10 +2,8 @@ module tbnf.Backends.PythonLark
 
 open Fable.Sedlex.PrettyDoc
 open Fable.Sedlex.Compiler
-open Fable.Sedlex.CodeGen.Python
 open tbnf.Grammar
 open tbnf.Analysis
-open tbnf.Utils
 open tbnf.Utils
 open tbnf.Exceptions
 open tbnf.Backends.Common

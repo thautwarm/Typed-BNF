@@ -10,92 +10,47 @@ open tbnf.Backends.Common.DocBuilder
 open tbnf.Backends.Common.NameMangling
 
 
-// TOOD: change to typescript keywords
-let CSharpKeywords =
-    [| "__arglist"
-       "__makeref"
-       "__reftype"
-       "__refvalue"
-       "abstract"
-       "as"
-       "base"
-       "bool"
-       "break"
-       "byte"
-       "case"
-       "catch"
-       "char"
-       "checked"
-       "class"
-       "const"
-       "continue"
-       "decimal"
-       "default"
-       "delegate"
-       "do"
-       "double"
-       "else"
-       "enum"
-       "event"
-       "explicit"
-       "extern"
-       "false"
-       "finally"
-       "fixed"
-       "float"
-       "for"
-       "foreach"
-       "goto"
-       "if"
-       "implicit"
-       "in"
-       "int"
-       "interface"
-       "internal"
-       "is"
-       "lock"
-       "long"
-       "namespace"
-       "new"
-       "null"
-       "object"
-       "operator"
-       "out"
-       "override"
-       "params"
-       "private"
-       "protected"
-       "public"
-       "readonly"
-       "ref"
-       "return"
-       "sbyte"
-       "sealed"
-       "short"
-       "sizeof"
-       "stackalloc"
-       "static"
-       "string"
-       "struct"
-       "switch"
-       "this"
-       "throw"
-       "true"
-       "try"
-       "typeof"
-       "uint"
-       "ulong"
-       "unchecked"
-       "unsafe"
-       "ushort"
-       "using"
-       "virtual"
-       "volatile"
-       "void"
-       "while"
-       "lexer"
-       "parser"
-       |]
+// https://github.com/Microsoft/TypeScript/issues/2536
+let TypeScriptKeywords =
+    [|  "break";
+        "case";
+        "catch";
+        "class";
+        "const";
+        "continue";
+        "debugger";
+        "default";
+        "delete";
+        "do";
+        "else";
+        "enum";
+        "export";
+        "extends";
+        "false";
+        "finally";
+        "for";
+        "function";
+        "if";
+        "import";
+        "in";
+        "instanceof";
+        "new";
+        "null";
+        "return";
+        "super";
+        "switch";
+        "this";
+        "throw";
+        "true";
+        "try";
+        "typeof";
+        "var";
+        "void";
+        "while";
+        "with";
+        "lexer";
+        "parser";
+    |]
 
 let angled x = word "<" * x * word ">"
 
@@ -117,11 +72,20 @@ let codegen
 
     let abandoned_names =
         Set.ofArray
-        <| Array.append [| "result" |] CSharpKeywords
+        <| Array.append [| "result" |] TypeScriptKeywords
 
     let mutable symmap: Map<symbol, string> = Map.empty
 
     let mutable lexerMaps: list<string * lexerule> = []
+
+
+    let mutable usedFunctionTypes = Set.empty<int>
+
+    let FuncTypeName = "_FunctionT"
+    let genFuncTypeDef (narg: int) =
+        let parameters1 = [for i = 1 to narg do $"A{i}"] |> String.concat ", "
+        let parameters2 = [for i = 1 to narg - 1 do $"arg{i}: A{i}"] |> String.concat ", "
+        $"type {FuncTypeName}{narg}<{parameters1}> = ({parameters2}) => A{narg}"
 
     let global_scope =
         [ for k in analyzer.Sigma.GlobalVariables -> k.Key, rename_var k.Key ]
@@ -233,30 +197,45 @@ let codegen
         | (key', value) :: tl when key' = key -> Some value
         | _ :: tl -> tryLookup key tl
 
-    let rec _cg_type (t: monot) =
+    let rec _cg_type (is_in_g4: bool) (t: monot) =
         match t with
         | monot.TConst n -> rename_type n
         | monot.TVar a -> typeParameter_mangling a
         | monot.TRef _ -> raise <| UnsolvedTypeVariable
         | monot.TFun (args, r) ->
-            args
-            |> List.map (fun (s, b) -> s + ":" + _cg_type b)
-            |> String.concat ", "
-            |> fun it -> $"({it}) => { _cg_type r}"
+            let args = List.map (fun (s, t) -> s, _cg_type is_in_g4 t) args
+            let r = _cg_type is_in_g4 r
+            if not is_in_g4 then
+                args
+                |> List.map (fun (s, b) -> s + ":" + b)
+                |> String.concat ", "
+                |> fun it -> $"({it}) => {r}"
+            else
+                let args = List.map snd args @ [ r ]
+                let argcount = List.length args
+                if Set.contains (argcount) usedFunctionTypes then
+                    ()
+                else
+                    usedFunctionTypes <- Set.add argcount usedFunctionTypes
+                args
+                |> String.concat ", "
+                |> fun it -> $"{FuncTypeName}{argcount}<{it}>"
+
 
         | monot.TApp (TTuple, []) -> invalidOp "[]"
         | monot.TApp (TTuple, args) ->
             args
-            |> List.map _cg_type
+            |> List.map (_cg_type is_in_g4)
             |> String.concat ", "
             |> fun it -> "[" + it + "]"
         | monot.TApp (f, args) ->
             args
-            |> List.map _cg_type
+            |> List.map (_cg_type is_in_g4)
             |> String.concat ", "
-            |> fun it -> _cg_type f + "<" + it + ">"
+            |> fun it -> _cg_type is_in_g4 f + "<" + it + ">"
 
-    let cg_type (t: monot) = _cg_type (t.Prune())
+    let cg_type (t: monot) = _cg_type false (t.Prune())
+    let cg_type_in_g4 (t: monot) = _cg_type true (t.Prune())
 
     let slotName (actionName: string) (i: int) = $"{actionName}__{i}"
     let resultName = "result"
@@ -408,7 +387,7 @@ let codegen
         |> align
         |> fun body -> vsep [
             word ntname + word "returns" +
-                bracket(word (cg_type t) + word resultName)
+                bracket(word (cg_type_in_g4 t) + word resultName)
             body >>> 4
             word ";"
         ]
@@ -623,9 +602,10 @@ let codegen
                         let require_name = escapeString $"./{langName}-constructor"
                         yield word $"import {{ {all_import_names} }} from {require_name}"
                         yield word $"import * as antlr from 'antlr4ts'"
+                    for each in usedFunctionTypes do
+                        yield word (genFuncTypeDef each)
                     yield word "}"
-                    yield word (sprintf "start returns [result: %s]: v=%s EOF { $result = _localctx._v.result; };" (cg_type
-                    start_t) start_mangled)
+                    yield word (sprintf "start returns [result: %s]: v=%s EOF { $result = _localctx._v.result; };" (cg_type start_t) start_mangled)
                     yield file_grammar
                     yield! lexerDefs
                 ]

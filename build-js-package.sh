@@ -1,5 +1,5 @@
 find ./tbnf-js/src/ -maxdepth 2 -name "*.js" ! -name "tbnf.config.js" -exec rm {} \;
-node tbnf.js TypedBNF.tbnf -o ./tbnf-js/src -lang TypedBNF -be typescript-antlr
+tbnf-win TypedBNF.tbnf -o ./tbnf-js/src -lang TypedBNF -be typescript-antlr
 # tbnf TypedBNF.tbnf ./tbnf-js/src "TypedBNF" --backend typescript-antlr
 antlr4ts ./tbnf-js/src/TypedBNF.g4 -o ./tbnf-js/src
 fable --typedArrays false --outDir ./tbnf-js/src --noCache

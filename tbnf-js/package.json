@@ -1,6 +1,6 @@
 {
   "name": "tbnf",
-  "version": "0.1.0",
+    "version": "0.2.1",
   "type": "commonjs",
   "description": "Backend-Agnostic Type-safe Parser Generators With AST Output",
   "dependencies": {

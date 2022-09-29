@@ -23,9 +23,9 @@
     <Compile Include="src/Analysis.fs" />
     <Compile Include="src/Backends.Common.fs" />
     <Compile Include="src/Backends.PythonLark.fs" />
+    <Compile Include="src/Backends.TypescriptAntlr.fs" />
     <Compile Include="src/Backends.OCamlMenhir.fs" />
     <Compile Include="src/Backends.CSharpAntlr.fs" />
-    <Compile Include="src/Backends.TypeScriptAntlr.fs" />
     <Compile Include="src/Backends.JuliaFFF.FrontendForFree.fs" />
     <Compile Include="src/Backends.JuliaFFF.fs" />
     <Compile Include="src/Backends.PureBNF.fs" />
