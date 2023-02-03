@@ -1,6 +1,6 @@
 mkdir -p ./runtests/ocaml_lua
 
-node tbnf.js ./runtests/lua.tbnf -o ./runtests/ocaml_lua -lang "lua" --backend=ocaml-menhir
+tbnf ./runtests/lua.tbnf -o ./runtests/ocaml_lua -lang "lua" --backend=ocaml-menhir
 
 # python .\runcli.py  .\runtests\lua.tbnf .\runtests\ocaml_lua "lua" --backend=ocaml-menhir
 

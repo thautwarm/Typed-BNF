@@ -17,9 +17,7 @@
     "js-beautify": "^1.14.3"
   },
   "scripts": {
-    "makecommonjs": "babel src --out-dir src --copy-files",
-    "assembly": "ncc -m build src/Main.js -o dist && mv dist/index.js ../tbnf.js",
-    "js-beautify": "js-beautify ../tbnf.js -r --preserve-newlines"
+    "make-commonjs": "babel src --out-dir src --copy-files"
   },
   "keywords": [
     "parser",

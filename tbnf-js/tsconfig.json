@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"module": "es2020",
+		"module": "CommonJS",
         // "strictPropertyInitialization": false,
 		"moduleResolution": "node",
 		"target": "es2020",

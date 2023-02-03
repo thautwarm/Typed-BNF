@@ -14,10 +14,6 @@ const RecognitionException_1 = require("antlr4ts/RecognitionException");
 const VocabularyImpl_1 = require("antlr4ts/VocabularyImpl");
 const Utils = require("antlr4ts/misc/Utils");
 class luaParser extends Parser_1.Parser {
-    constructor(input) {
-        super(input);
-        this._interp = new ParserATNSimulator_1.ParserATNSimulator(luaParser._ATN, this);
-    }
     // @Override
     // @NotNull
     get vocabulary() {
@@ -32,6 +28,10 @@ class luaParser extends Parser_1.Parser {
     get serializedATN() { return luaParser._serializedATN; }
     createFailedPredicateException(predicate, message) {
         return new FailedPredicateException_1.FailedPredicateException(this, predicate, message);
+    }
+    constructor(input) {
+        super(input);
+        this._interp = new ParserATNSimulator_1.ParserATNSimulator(luaParser._ATN, this);
     }
     // @RuleVersion(0)
     start() {
@@ -2995,12 +2995,12 @@ luaParser._serializedATN = Utils.join([
     luaParser._serializedATNSegment1,
 ], "");
 class StartContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     EOF() { return this.getToken(luaParser.EOF, 0); }
     start__y_() {
         return this.getRuleContext(0, Start__y_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_start; }
@@ -3019,11 +3019,11 @@ class StartContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.StartContext = StartContext;
 class Start__y_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     block() {
         return this.getRuleContext(0, BlockContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_start__y_; }
@@ -3042,14 +3042,14 @@ class Start__y_Context extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.Start__y_Context = Start__y_Context;
 class Nempty_list_o_stat_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     stat() {
         return this.getRuleContext(0, StatContext);
     }
     nempty_list_o_stat_p_() {
         return this.tryGetRuleContext(0, Nempty_list_o_stat_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_nempty_list_o_stat_p_; }
@@ -3068,11 +3068,11 @@ class Nempty_list_o_stat_p_Context extends ParserRuleContext_1.ParserRuleContext
 }
 exports.Nempty_list_o_stat_p_Context = Nempty_list_o_stat_p_Context;
 class Allow_empty_o_nempty_list_o_stat_p__p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     nempty_list_o_stat_p_() {
         return this.tryGetRuleContext(0, Nempty_list_o_stat_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_allow_empty_o_nempty_list_o_stat_p__p_; }
@@ -3091,11 +3091,11 @@ class Allow_empty_o_nempty_list_o_stat_p__p_Context extends ParserRuleContext_1.
 }
 exports.Allow_empty_o_nempty_list_o_stat_p__p_Context = Allow_empty_o_nempty_list_o_stat_p__p_Context;
 class List_o_stat_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     allow_empty_o_nempty_list_o_stat_p__p_() {
         return this.getRuleContext(0, Allow_empty_o_nempty_list_o_stat_p__p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_list_o_stat_p_; }
@@ -3114,11 +3114,11 @@ class List_o_stat_p_Context extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.List_o_stat_p_Context = List_o_stat_p_Context;
 class Opt_o_retstat_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     retstat() {
         return this.tryGetRuleContext(0, RetstatContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_opt_o_retstat_p_; }
@@ -3137,14 +3137,14 @@ class Opt_o_retstat_p_Context extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.Opt_o_retstat_p_Context = Opt_o_retstat_p_Context;
 class BlockContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     list_o_stat_p_() {
         return this.getRuleContext(0, List_o_stat_p_Context);
     }
     opt_o_retstat_p_() {
         return this.getRuleContext(0, Opt_o_retstat_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_block; }
@@ -3183,14 +3183,14 @@ class Opt_o__i__h__i__p_Context extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.Opt_o__i__h__i__p_Context = Opt_o__i__h__i__p_Context;
 class RetstatContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     opt_o__i__h__i__p_() {
         return this.getRuleContext(0, Opt_o__i__h__i__p_Context);
     }
     seplist_o__i__s__i__s_exp_p_() {
         return this.getRuleContext(0, Seplist_o__i__s__i__s_exp_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_retstat; }
@@ -3209,14 +3209,14 @@ class RetstatContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.RetstatContext = RetstatContext;
 class Nempty_list_o_elseif_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     elseif() {
         return this.getRuleContext(0, ElseifContext);
     }
     nempty_list_o_elseif_p_() {
         return this.tryGetRuleContext(0, Nempty_list_o_elseif_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_nempty_list_o_elseif_p_; }
@@ -3235,11 +3235,11 @@ class Nempty_list_o_elseif_p_Context extends ParserRuleContext_1.ParserRuleConte
 }
 exports.Nempty_list_o_elseif_p_Context = Nempty_list_o_elseif_p_Context;
 class Allow_empty_o_nempty_list_o_elseif_p__p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     nempty_list_o_elseif_p_() {
         return this.tryGetRuleContext(0, Nempty_list_o_elseif_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_allow_empty_o_nempty_list_o_elseif_p__p_; }
@@ -3258,11 +3258,11 @@ class Allow_empty_o_nempty_list_o_elseif_p__p_Context extends ParserRuleContext_
 }
 exports.Allow_empty_o_nempty_list_o_elseif_p__p_Context = Allow_empty_o_nempty_list_o_elseif_p__p_Context;
 class List_o_elseif_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     allow_empty_o_nempty_list_o_elseif_p__p_() {
         return this.getRuleContext(0, Allow_empty_o_nempty_list_o_elseif_p__p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_list_o_elseif_p_; }
@@ -3281,11 +3281,11 @@ class List_o_elseif_p_Context extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.List_o_elseif_p_Context = List_o_elseif_p_Context;
 class Opt_o_else_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     else__x_() {
         return this.tryGetRuleContext(0, Else__x_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_opt_o_else_p_; }
@@ -3304,9 +3304,6 @@ class Opt_o_else_p_Context extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.Opt_o_else_p_Context = Opt_o_else_p_Context;
 class StatContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     nempty_seplist_o__i__s__i__s_exp_p_(i) {
         if (i === undefined) {
             return this.getRuleContexts(Nempty_seplist_o__i__s__i__s_exp_p_Context);
@@ -3343,6 +3340,9 @@ class StatContext extends ParserRuleContext_1.ParserRuleContext {
     opt_assign_rhs() {
         return this.tryGetRuleContext(0, Opt_assign_rhsContext);
     }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
+    }
     // @Override
     get ruleIndex() { return luaParser.RULE_stat; }
     // @Override
@@ -3360,11 +3360,11 @@ class StatContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.StatContext = StatContext;
 class Opt_assign_rhsContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     nempty_seplist_o__i__s__i__s_exp_p_() {
         return this.tryGetRuleContext(0, Nempty_seplist_o__i__s__i__s_exp_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_opt_assign_rhs; }
@@ -3383,9 +3383,6 @@ class Opt_assign_rhsContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.Opt_assign_rhsContext = Opt_assign_rhsContext;
 class RangeContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     exp(i) {
         if (i === undefined) {
             return this.getRuleContexts(ExpContext);
@@ -3396,6 +3393,9 @@ class RangeContext extends ParserRuleContext_1.ParserRuleContext {
     }
     range_tail() {
         return this.getRuleContext(0, Range_tailContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_range; }
@@ -3414,11 +3414,11 @@ class RangeContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.RangeContext = RangeContext;
 class Range_tailContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     exp() {
         return this.tryGetRuleContext(0, ExpContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_range_tail; }
@@ -3437,14 +3437,14 @@ class Range_tailContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.Range_tailContext = Range_tailContext;
 class ElseifContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     exp() {
         return this.getRuleContext(0, ExpContext);
     }
     block() {
         return this.getRuleContext(0, BlockContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_elseif; }
@@ -3463,11 +3463,11 @@ class ElseifContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ElseifContext = ElseifContext;
 class Else__x_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     block() {
         return this.getRuleContext(0, BlockContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_else__x_; }
@@ -3486,11 +3486,11 @@ class Else__x_Context extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.Else__x_Context = Else__x_Context;
 class ExpContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     binexp() {
         return this.getRuleContext(0, BinexpContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_exp; }
@@ -3509,11 +3509,11 @@ class ExpContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ExpContext = ExpContext;
 class BinexpContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     binseq() {
         return this.getRuleContext(0, BinseqContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_binexp; }
@@ -3532,9 +3532,6 @@ class BinexpContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.BinexpContext = BinexpContext;
 class BinseqContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     binseq() {
         return this.tryGetRuleContext(0, BinseqContext);
     }
@@ -3543,6 +3540,9 @@ class BinseqContext extends ParserRuleContext_1.ParserRuleContext {
     }
     binoperand() {
         return this.getRuleContext(0, BinoperandContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_binseq; }
@@ -3561,11 +3561,11 @@ class BinseqContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.BinseqContext = BinseqContext;
 class BinoperandContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     unaryexp() {
         return this.getRuleContext(0, UnaryexpContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_binoperand; }
@@ -3584,11 +3584,11 @@ class BinoperandContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.BinoperandContext = BinoperandContext;
 class UnaryexpContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     exponent() {
         return this.getRuleContext(0, ExponentContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_unaryexp; }
@@ -3607,14 +3607,14 @@ class UnaryexpContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.UnaryexpContext = UnaryexpContext;
 class ExponentContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     prefixexp() {
         return this.getRuleContext(0, PrefixexpContext);
     }
     exponent() {
         return this.tryGetRuleContext(0, ExponentContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_exponent; }
@@ -3633,9 +3633,6 @@ class ExponentContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ExponentContext = ExponentContext;
 class PrefixexpContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     NAME() { return this.tryGetToken(luaParser.NAME, 0); }
     exp() {
         return this.tryGetRuleContext(0, ExpContext);
@@ -3648,6 +3645,9 @@ class PrefixexpContext extends ParserRuleContext_1.ParserRuleContext {
     }
     atom() {
         return this.tryGetRuleContext(0, AtomContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_prefixexp; }
@@ -3666,9 +3666,6 @@ class PrefixexpContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.PrefixexpContext = PrefixexpContext;
 class AtomContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     NUMERAL() { return this.tryGetToken(luaParser.NUMERAL, 0); }
     STR_LIT() { return this.tryGetToken(luaParser.STR_LIT, 0); }
     NESTED_STR() { return this.tryGetToken(luaParser.NESTED_STR, 0); }
@@ -3677,6 +3674,9 @@ class AtomContext extends ParserRuleContext_1.ParserRuleContext {
     }
     tableconstructor() {
         return this.tryGetRuleContext(0, TableconstructorContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_atom; }
@@ -3695,14 +3695,14 @@ class AtomContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.AtomContext = AtomContext;
 class Nempty_seplist_o__i__s__i__s_exp_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     exp() {
         return this.getRuleContext(0, ExpContext);
     }
     nempty_seplist_o__i__s__i__s_exp_p_() {
         return this.tryGetRuleContext(0, Nempty_seplist_o__i__s__i__s_exp_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_nempty_seplist_o__i__s__i__s_exp_p_; }
@@ -3721,11 +3721,11 @@ class Nempty_seplist_o__i__s__i__s_exp_p_Context extends ParserRuleContext_1.Par
 }
 exports.Nempty_seplist_o__i__s__i__s_exp_p_Context = Nempty_seplist_o__i__s__i__s_exp_p_Context;
 class Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     nempty_seplist_o__i__s__i__s_exp_p_() {
         return this.tryGetRuleContext(0, Nempty_seplist_o__i__s__i__s_exp_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_; }
@@ -3744,11 +3744,11 @@ class Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context extends Parser
 }
 exports.Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context = Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context;
 class Seplist_o__i__s__i__s_exp_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_() {
         return this.getRuleContext(0, Allow_empty_o_nempty_seplist_o__i__s__i__s_exp_p__p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_seplist_o__i__s__i__s_exp_p_; }
@@ -3767,9 +3767,6 @@ class Seplist_o__i__s__i__s_exp_p_Context extends ParserRuleContext_1.ParserRule
 }
 exports.Seplist_o__i__s__i__s_exp_p_Context = Seplist_o__i__s__i__s_exp_p_Context;
 class ArgsContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     seplist_o__i__s__i__s_exp_p_() {
         return this.tryGetRuleContext(0, Seplist_o__i__s__i__s_exp_p_Context);
     }
@@ -3777,6 +3774,9 @@ class ArgsContext extends ParserRuleContext_1.ParserRuleContext {
         return this.tryGetRuleContext(0, TableconstructorContext);
     }
     STR_LIT() { return this.tryGetToken(luaParser.STR_LIT, 0); }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
+    }
     // @Override
     get ruleIndex() { return luaParser.RULE_args; }
     // @Override
@@ -3794,11 +3794,11 @@ class ArgsContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ArgsContext = ArgsContext;
 class Opt_o_funcname_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     funcname() {
         return this.tryGetRuleContext(0, FuncnameContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_opt_o_funcname_p_; }
@@ -3817,11 +3817,11 @@ class Opt_o_funcname_p_Context extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.Opt_o_funcname_p_Context = Opt_o_funcname_p_Context;
 class Opt_o_parlist_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     parlist() {
         return this.tryGetRuleContext(0, ParlistContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_opt_o_parlist_p_; }
@@ -3840,9 +3840,6 @@ class Opt_o_parlist_p_Context extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.Opt_o_parlist_p_Context = Opt_o_parlist_p_Context;
 class FunctiondefContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     opt_o_funcname_p_() {
         return this.getRuleContext(0, Opt_o_funcname_p_Context);
     }
@@ -3851,6 +3848,9 @@ class FunctiondefContext extends ParserRuleContext_1.ParserRuleContext {
     }
     block() {
         return this.getRuleContext(0, BlockContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_functiondef; }
@@ -3889,12 +3889,12 @@ class VarargsContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.VarargsContext = VarargsContext;
 class Nempty_seplist_o__i__s__i__s__i_name_k__p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     NAME() { return this.getToken(luaParser.NAME, 0); }
     nempty_seplist_o__i__s__i__s__i_name_k__p_() {
         return this.tryGetRuleContext(0, Nempty_seplist_o__i__s__i__s__i_name_k__p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_nempty_seplist_o__i__s__i__s__i_name_k__p_; }
@@ -3913,14 +3913,14 @@ class Nempty_seplist_o__i__s__i__s__i_name_k__p_Context extends ParserRuleContex
 }
 exports.Nempty_seplist_o__i__s__i__s__i_name_k__p_Context = Nempty_seplist_o__i__s__i__s__i_name_k__p_Context;
 class ParlistContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     nempty_seplist_o__i__s__i__s__i_name_k__p_() {
         return this.tryGetRuleContext(0, Nempty_seplist_o__i__s__i__s__i_name_k__p_Context);
     }
     varargs() {
         return this.tryGetRuleContext(0, VarargsContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_parlist; }
@@ -3939,9 +3939,6 @@ class ParlistContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ParlistContext = ParlistContext;
 class Nempty_seplist_o_fieldsep_s_field_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     field() {
         return this.getRuleContext(0, FieldContext);
     }
@@ -3950,6 +3947,9 @@ class Nempty_seplist_o_fieldsep_s_field_p_Context extends ParserRuleContext_1.Pa
     }
     nempty_seplist_o_fieldsep_s_field_p_() {
         return this.tryGetRuleContext(0, Nempty_seplist_o_fieldsep_s_field_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_nempty_seplist_o_fieldsep_s_field_p_; }
@@ -3968,11 +3968,11 @@ class Nempty_seplist_o_fieldsep_s_field_p_Context extends ParserRuleContext_1.Pa
 }
 exports.Nempty_seplist_o_fieldsep_s_field_p_Context = Nempty_seplist_o_fieldsep_s_field_p_Context;
 class Opt_o_fieldsep_p_Context extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     fieldsep() {
         return this.tryGetRuleContext(0, FieldsepContext);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_opt_o_fieldsep_p_; }
@@ -3991,14 +3991,14 @@ class Opt_o_fieldsep_p_Context extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.Opt_o_fieldsep_p_Context = Opt_o_fieldsep_p_Context;
 class TableconstructorContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     opt_o_fieldsep_p_() {
         return this.tryGetRuleContext(0, Opt_o_fieldsep_p_Context);
     }
     nempty_seplist_o_fieldsep_s_field_p_() {
         return this.tryGetRuleContext(0, Nempty_seplist_o_fieldsep_s_field_p_Context);
+    }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
     }
     // @Override
     get ruleIndex() { return luaParser.RULE_tableconstructor; }
@@ -4017,13 +4017,13 @@ class TableconstructorContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.TableconstructorContext = TableconstructorContext;
 class FuncnameContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     funcname() {
         return this.tryGetRuleContext(0, FuncnameContext);
     }
     NAME() { return this.getToken(luaParser.NAME, 0); }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
+    }
     // @Override
     get ruleIndex() { return luaParser.RULE_funcname; }
     // @Override
@@ -4041,9 +4041,6 @@ class FuncnameContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.FuncnameContext = FuncnameContext;
 class FieldContext extends ParserRuleContext_1.ParserRuleContext {
-    constructor(parent, invokingState) {
-        super(parent, invokingState);
-    }
     exp(i) {
         if (i === undefined) {
             return this.getRuleContexts(ExpContext);
@@ -4053,6 +4050,9 @@ class FieldContext extends ParserRuleContext_1.ParserRuleContext {
         }
     }
     NAME() { return this.tryGetToken(luaParser.NAME, 0); }
+    constructor(parent, invokingState) {
+        super(parent, invokingState);
+    }
     // @Override
     get ruleIndex() { return luaParser.RULE_field; }
     // @Override

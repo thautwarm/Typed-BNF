@@ -1,5 +1,9 @@
 tbnf.js
+tbnf-linux
+tbnf-macos
+tbnf-win.exe
 /tbnf-js/**/*.js
+/tbnf-js/**/*.js.map
 !/tbnf-js/src/tbnf.config.js
 /cross-editor-highlighter/
 .antlr/
