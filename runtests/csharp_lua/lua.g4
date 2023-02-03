@@ -1,6 +1,6 @@
 grammar lua;
 options { language = CSharp; }
-@members {
+@parser::members {
 public static parameters paramsv (MyList<IToken> names,maybe<IToken> vararg)
 {
     return (parameters) new parameters(names,vararg);

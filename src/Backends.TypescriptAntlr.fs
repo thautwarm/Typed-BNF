@@ -596,7 +596,7 @@ let codegen
                 langName + ".g4",
                 vsep [
                     yield word $"grammar {langName};"
-                    yield word "@header {"
+                    yield word "@parser::header {"
                     if not (List.isEmpty import_names) then
                         let all_import_names = (List.ofSeq inner_names @ import_names) |> String.concat ", "
                         let require_name = escapeString $"./{langName}-constructor"

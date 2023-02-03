@@ -50,40 +50,6 @@ public partial class simple_jsonLexer : Lexer {
 	};
 
 
-	public static NameValuePair<_GEN_A, _GEN_B> NameValuePair <_GEN_A, _GEN_B>(_GEN_A name,_GEN_B value)
-	{
-	    return (NameValuePair<_GEN_A, _GEN_B>) new NameValuePair<_GEN_A, _GEN_B>(name,value);
-	}
-	public static JsonValue JStr (string value)
-	{
-	    return (JsonValue) new JStr(value);
-	}
-	public static JsonValue JNull ()
-	{
-	    return (JsonValue) new JNull();
-	}
-	public static JsonValue JList (MyList<JsonValue> elements)
-	{
-	    return (JsonValue) new JList(elements);
-	}
-	public static JsonValue JInt (int value)
-	{
-	    return (JsonValue) new JInt(value);
-	}
-	public static JsonValue JFlt (float value)
-	{
-	    return (JsonValue) new JFlt(value);
-	}
-	public static JsonValue JDict (MyList<NameValuePair<string, JsonValue>> value)
-	{
-	    return (JsonValue) new JDict(value);
-	}
-	public static JsonValue JBool (bool value)
-	{
-	    return (JsonValue) new JBool(value);
-	}
-
-
 	public simple_jsonLexer(ICharStream input)
 	: this(input, Console.Out, Console.Error) { }
 

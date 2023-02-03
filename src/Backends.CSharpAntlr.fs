@@ -513,7 +513,7 @@ let codegen
 
     let mutable docCtorWrapFuncs = []
 
-    let file_constructors = $"{langName}.Constructor." + ".cs", vsep [
+    let file_constructors = $"{langName}.Constructor" + ".cs", vsep [
 
             yield word $"using Antlr4.Runtime;"
             yield word "using System.Collections.Generic;"
@@ -596,7 +596,7 @@ let codegen
                 vsep [
                     yield word $"grammar {langName};"
                     yield word "options { language = CSharp; }"
-                    yield word "@members {"
+                    yield word "@parser::members {"
 
                     for (tparams, function_name, ctor_name, fields, ret_t) in docCtorWrapFuncs do
                         let func_params = parens(seplist (word ",") (List.map (fun (fname, t) -> t + fname) fields))

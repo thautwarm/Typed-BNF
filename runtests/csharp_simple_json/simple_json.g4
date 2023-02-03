@@ -1,6 +1,6 @@
 grammar simple_json;
 options { language = CSharp; }
-@members {
+@parser::members {
 public static NameValuePair<_GEN_A, _GEN_B> NameValuePair <_GEN_A, _GEN_B>(_GEN_A name,_GEN_B value)
 {
     return (NameValuePair<_GEN_A, _GEN_B>) new NameValuePair<_GEN_A, _GEN_B>(name,value);
