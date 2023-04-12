@@ -5,6 +5,6 @@ antlr4ts ./tbnf-js/src/TypedBNF.g4 -o ./tbnf-js/src
 fable --typedArrays false --outDir ./tbnf-js/src --noCache
 find tbnf-js/src/ -name "package.json" -exec rm {} \;
 cd tbnf-js && npm run make-commonjs && tsc
- pkg src/Main.js -t node14-linux,node14-macos,node14-win -o ../tbnf
+pkg src/Main.js -t node14-linux,node14-macos,node14-win -o ../tbnf
 cd ..
 find ./tbnf-js/src/ -maxdepth 2 -name "*.js" ! -name "tbnf.config.js" -exec rm {} \;

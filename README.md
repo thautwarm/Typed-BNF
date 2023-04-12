@@ -190,6 +190,6 @@ bash ./build-js-package.sh
 ### Build Python `_tbnf` package (Out-of-date)
 
 ```
-git submodule add https://github.com/thautwarm/Fable.Sedlex FableSedlex
+git clone https://github.com/thautwarm/Fable.Sedlex FableSedlex
 ./build-package.ps1
 ```

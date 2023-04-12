@@ -12,9 +12,7 @@
     "@babel/core": "^7.17.5",
     "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "@types/argparse": "^2.0.10",
-    "@vercel/ncc": "^0.33.3",
-    "argparse": "^2.0.1",
-    "js-beautify": "^1.14.3"
+    "argparse": "^2.0.1"
   },
   "scripts": {
     "make-commonjs": "babel src --out-dir src --copy-files"

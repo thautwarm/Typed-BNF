@@ -2,6 +2,7 @@ tbnf.js
 tbnf-linux
 tbnf-macos
 tbnf-win.exe
+*.js.map
 /tbnf-js/**/*.js
 /tbnf-js/**/*.js.map
 !/tbnf-js/src/tbnf.config.js
