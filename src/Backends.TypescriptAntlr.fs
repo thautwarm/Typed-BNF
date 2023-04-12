@@ -500,6 +500,7 @@ let codegen
             let func_params = parens(seplist (word ",") [for (fname, t) in fields -> fname * word ": " * t])
             yield word $"export class {case_name}"
             yield word "{"
+            yield word $"public readonly ['$tag'] = '{case_name}';";
             yield vsep [
                 for (fname, t) in fields do
                     yield (fname * word ": " * t)
