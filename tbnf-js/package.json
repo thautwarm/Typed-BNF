@@ -4,12 +4,12 @@
   "type": "commonjs",
   "description": "Backend-Agnostic Type-safe Parser Generators With AST Output",
   "dependencies": {
-    "@types/node": "^17.0.21",
-    "antlr4ng": "^3.0.15"
+    "antlr4ng": "^3.0.15",
+    "argparse": "^2.0.1"
   },
   "devDependencies": {
     "@types/argparse": "^2.0.10",
-    "argparse": "^2.0.1"
+    "@types/node": "^17.0.21"
   },
   "keywords": [
     "parser",

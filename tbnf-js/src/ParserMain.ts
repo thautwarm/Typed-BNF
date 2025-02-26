@@ -1,15 +1,24 @@
-import * as api from "./TypedBNF-require"
-import * as lexer from "./TypedBNFLexer"
-import * as parser from "./TypedBNFParser"
-import * as antlr from "antlr4ng"
+import * as api from "./TypedBNF-require";
+import * as lexer from "./TypedBNFLexer";
+import * as parser from "./TypedBNFParser";
+import * as antlr from "antlr4ng";
 import { CommonTokenStream } from "antlr4ng";
 
 class ExcErrorListener extends antlr.BaseErrorListener {
-    syntaxError(recognizer: antlr.Recognizer<any>, offendingSymbol: any, line: number, charPositionInLine: number, msg: string, e: antlr.RecognitionException | undefined) {
-        throw new SyntaxError("Syntax error at line " + line + ":" + charPositionInLine + ": " + msg);
+    syntaxError(
+        recognizer: antlr.Recognizer<any>,
+        offendingSymbol: any,
+        line: number,
+        charPositionInLine: number,
+        msg: string,
+        e: antlr.RecognitionException | undefined,
+    ) {
+        throw new SyntaxError(
+            "Syntax error at line " + line + ":" + charPositionInLine + ": " +
+                msg,
+        );
     }
 }
-
 
 export function parse_tbnf(text: string, filename: string) {
     var fname = api.getfilename();
@@ -26,8 +35,7 @@ export function parse_tbnf(text: string, filename: string) {
         m_Parser.addErrorListener(new ExcErrorListener());
         var start = m_Parser.start();
         return start.result;
-    }
-    finally {
+    } finally {
         api.setfilename(fname);
     }
 }

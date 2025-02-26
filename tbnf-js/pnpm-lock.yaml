@@ -8,19 +8,19 @@ importers:
 
   .:
     dependencies:
-      '@types/node':
-        specifier: ^17.0.21
-        version: 17.0.45
       antlr4ng:
         specifier: ^3.0.15
         version: 3.0.15
+      argparse:
+        specifier: ^2.0.1
+        version: 2.0.1
     devDependencies:
       '@types/argparse':
         specifier: ^2.0.10
         version: 2.0.17
-      argparse:
-        specifier: ^2.0.1
-        version: 2.0.1
+      '@types/node':
+        specifier: ^17.0.21
+        version: 17.0.45
 
 packages:
 
