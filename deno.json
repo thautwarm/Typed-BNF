@@ -1,8 +1,9 @@
 {
     "imports": {
         "nomake": "https://raw.githubusercontent.com/thautwarm/nomake/v0.1.12/mod.ts",
-        "fs": "https://deno.land/std@0.224.0/fs/mod.ts",
-        "path": "https://deno.land/std@0.224.0/path/mod.ts",
+        "fs": "node:fs",
+        "path": "node:path",
+        "url": "node:url",
         "antlr4ng": "npm:antlr4ng",
         "argparse": "npm:argparse"
     }
