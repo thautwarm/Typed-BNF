@@ -2289,7 +2289,7 @@ export class TypedBNFParser extends antlr.Parser {
                      localContext!.result = <Array<expr>> addList<expr>(<Array<expr>> _localctx._slist_o__i__s__i__s_expr_p__2__1.result, <expr> _localctx._slist_o__i__s__i__s_expr_p__2__3.result);
                                           
                     }
-                    }
+                }
                 }
                 this.state = 532;
                 this.errorHandler.sync(this);
