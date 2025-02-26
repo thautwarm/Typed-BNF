@@ -9,6 +9,7 @@ type int = number;
 
 
 import { node, lexerule, expr, symbol, production, definition, polyt, monot, position, MK_LRef, MK_LGroup, MK_LOptional, MK_LStar, MK_LPlus, MK_LNot, MK_LOr, MK_LSeq, MK_LStr, MK_LNumber, MK_LWildcard, getrange, getunicoderange, getpos, tofloat, toint, MK_EField, MK_EBool, MK_EFlt, MK_EStr, MK_EInt, MK_ESlot, MK_EVar, MK_EFun, MK_ELet, MK_EList, MK_ETuple, MK_EApp, MK_Expr, MK_Macrocall, MK_Nonterm, MK_Term, snd, fst, list_index, MK_production, MK_Deflexer, MK_Defrule, MK_Defmacro, MK_Defignore, MK_Decltype, MK_Declctor, MK_Declvar, MK_Mono, MK_Poly, MK_TApp, MK_TConst, MK_TVar, MK_TList, MK_TTuple, MK_TFun, process_tparam, mkpos, str, unescape, addList } from "./TypedBNF-constructor"
+import * as antlr from 'antlr4ng'
 
 
 export class TypedBNFParser extends antlr.Parser {
@@ -161,7 +162,7 @@ export class TypedBNFParser extends antlr.Parser {
             localContext._v = this.start__y_();
             this.state = 103;
             this.match(TypedBNFParser.EOF);
-             localContext!.result = _localctx._v.result; 
+             localContext!.result = localContext._v.result; 
             }
         }
         catch (re) {
@@ -198,7 +199,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 107;
             localContext._list_o_toplevel_p__0__1 = this.toplevel();
-             localContext!.result = <Array<definition>>[ _localctx._list_o_toplevel_p__0__1.result ];
+             localContext!.result = <Array<definition>>[ localContext._list_o_toplevel_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -222,7 +223,7 @@ export class TypedBNFParser extends antlr.Parser {
                     }
                     this.state = 111;
                     localContext._list_o_toplevel_p__2__2 = this.toplevel();
-                     localContext!.result = <Array<definition>> addList<definition>(<Array<definition>> _localctx._list_o_toplevel_p__2__1.result, <definition> _localctx._list_o_toplevel_p__2__2.result);
+                     localContext!.result = <Array<definition>> addList<definition>(<Array<definition>> localContext._list_o_toplevel_p__2__1.result, <definition> localContext._list_o_toplevel_p__2__2.result);
                                           
                     }
                     }
@@ -254,7 +255,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 119;
             localContext._start__y__0__1 = this.list_o_toplevel_p_(0);
-             localContext!.result = _localctx._start__y__0__1.result;
+             localContext!.result = localContext._start__y__0__1.result;
                         
             }
         }
@@ -279,7 +280,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 122;
             localContext._identstr_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-             localContext!.result = <string> str(<Token> _localctx._identstr_0__1);
+             localContext!.result = <string> str(<Token> localContext._identstr_0__1);
                         
             }
         }
@@ -304,7 +305,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 125;
             localContext._typ_0__1 = this.arrow_typ();
-             localContext!.result = _localctx._typ_0__1.result;
+             localContext!.result = localContext._typ_0__1.result;
                         
             }
         }
@@ -342,7 +343,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 129;
             localContext._slist_o__i__s__i__s_param_type_p__0__1 = this.param_type();
-             localContext!.result = <Array<[string, monot]>>[ _localctx._slist_o__i__s__i__s_param_type_p__0__1.result ];
+             localContext!.result = <Array<[string, monot]>>[ localContext._slist_o__i__s__i__s_param_type_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -368,7 +369,7 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__0);
                     this.state = 134;
                     localContext._slist_o__i__s__i__s_param_type_p__2__3 = this.param_type();
-                     localContext!.result = <Array<[string, monot]>> addList<[string, monot]>(<Array<[string, monot]>> _localctx._slist_o__i__s__i__s_param_type_p__2__1.result, <[string, monot]> _localctx._slist_o__i__s__i__s_param_type_p__2__3.result);
+                     localContext!.result = <Array<[string, monot]>> addList<[string, monot]>(<Array<[string, monot]>> localContext._slist_o__i__s__i__s_param_type_p__2__1.result, <[string, monot]> localContext._slist_o__i__s__i__s_param_type_p__2__3.result);
                                           
                     }
                     }
@@ -412,7 +413,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 143;
                 localContext._empty_o_slist_o__i__s__i__s_param_type_p__p__2__1 = this.slist_o__i__s__i__s_param_type_p_(0);
-                 localContext!.result = _localctx._empty_o_slist_o__i__s__i__s_param_type_p__p__2__1.result;
+                 localContext!.result = localContext._empty_o_slist_o__i__s__i__s_param_type_p__p__2__1.result;
                             
                 }
                 break;
@@ -441,7 +442,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 148;
             localContext._eslist_o__i__s__i__s_param_type_p__0__1 = this.empty_o_slist_o__i__s__i__s_param_type_p__p_();
-             localContext!.result = _localctx._eslist_o__i__s__i__s_param_type_p__0__1.result;
+             localContext!.result = localContext._eslist_o__i__s__i__s_param_type_p__0__1.result;
                         
             }
         }
@@ -474,7 +475,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__1);
                 this.state = 153;
                 localContext._arrow_typ_0__3 = this.arrow_typ();
-                 localContext!.result = <monot> MK_TFun(<Array<[string, monot]>> <Array<[string, monot]>>[ <[string, monot]>["value", _localctx._arrow_typ_0__1.result] ], <monot> _localctx._arrow_typ_0__3.result);
+                 localContext!.result = <monot> MK_TFun(<Array<[string, monot]>> <Array<[string, monot]>>[ <[string, monot]>["value", localContext._arrow_typ_0__1.result] ], <monot> localContext._arrow_typ_0__3.result);
                             
                 }
                 break;
@@ -491,7 +492,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__1);
                 this.state = 160;
                 localContext._arrow_typ_2__5 = this.arrow_typ();
-                 localContext!.result = <monot> MK_TFun(<Array<[string, monot]>> <Array<[string, monot]>> process_tparam(<Array<[string, monot]>> _localctx._arrow_typ_2__2.result), <monot> _localctx._arrow_typ_2__5.result);
+                 localContext!.result = <monot> MK_TFun(<Array<[string, monot]>> <Array<[string, monot]>> process_tparam(<Array<[string, monot]>> localContext._arrow_typ_2__2.result), <monot> localContext._arrow_typ_2__5.result);
                             
                 }
                 break;
@@ -500,7 +501,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 163;
                 localContext._arrow_typ_4__1 = this.type_product(0);
-                 localContext!.result = <monot> MK_TTuple(<Array<monot>> _localctx._arrow_typ_4__1.result);
+                 localContext!.result = <monot> MK_TTuple(<Array<monot>> localContext._arrow_typ_4__1.result);
                             
                 }
                 break;
@@ -540,7 +541,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 169;
             localContext._slist_o__i__s__i__s_typ_p__0__1 = this.typ();
-             localContext!.result = <Array<monot>>[ _localctx._slist_o__i__s__i__s_typ_p__0__1.result ];
+             localContext!.result = <Array<monot>>[ localContext._slist_o__i__s__i__s_typ_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -566,7 +567,7 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__0);
                     this.state = 174;
                     localContext._slist_o__i__s__i__s_typ_p__2__3 = this.typ();
-                     localContext!.result = <Array<monot>> addList<monot>(<Array<monot>> _localctx._slist_o__i__s__i__s_typ_p__2__1.result, <monot> _localctx._slist_o__i__s__i__s_typ_p__2__3.result);
+                     localContext!.result = <Array<monot>> addList<monot>(<Array<monot>> localContext._slist_o__i__s__i__s_typ_p__2__1.result, <monot> localContext._slist_o__i__s__i__s_typ_p__2__3.result);
                                           
                     }
                     }
@@ -611,7 +612,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 183;
             localContext._typ2_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-             localContext!.result = <monot> MK_TConst(<string> <string> str(<Token> _localctx._typ2_0__1));
+             localContext!.result = <monot> MK_TConst(<string> <string> str(<Token> localContext._typ2_0__1));
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -639,7 +640,7 @@ export class TypedBNFParser extends antlr.Parser {
                     localContext._typ2_2__3 = this.slist_o__i__s__i__s_typ_p_(0);
                     this.state = 189;
                     this.match(TypedBNFParser.T__5);
-                     localContext!.result = <monot> MK_TApp(<monot> _localctx._typ2_2__1.result, <Array<monot>> _localctx._typ2_2__3.result);
+                     localContext!.result = <monot> MK_TApp(<monot> localContext._typ2_2__1.result, <Array<monot>> localContext._typ2_2__3.result);
                                           
                     }
                     }
@@ -684,7 +685,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 198;
             localContext._type_product_2__1 = this.typ2(0);
-             localContext!.result = <Array<monot>>[ _localctx._type_product_2__1.result ];
+             localContext!.result = <Array<monot>>[ localContext._type_product_2__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -710,7 +711,7 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__6);
                     this.state = 203;
                     localContext._type_product_0__3 = this.typ2(0);
-                     localContext!.result = <Array<monot>> addList<monot>(<Array<monot>> _localctx._type_product_0__1.result, <monot> _localctx._type_product_0__3.result);
+                     localContext!.result = <Array<monot>> addList<monot>(<Array<monot>> localContext._type_product_0__1.result, <monot> localContext._type_product_0__3.result);
                                           
                     }
                     }
@@ -752,7 +753,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__5);
                 this.state = 214;
                 localContext._top_typ_0__4 = this.typ();
-                 localContext!.result = <polyt> MK_Poly(<Array<string>> _localctx._top_typ_0__2.result, <monot> _localctx._top_typ_0__4.result);
+                 localContext!.result = <polyt> MK_Poly(<Array<string>> localContext._top_typ_0__2.result, <monot> localContext._top_typ_0__4.result);
                             
                 }
                 break;
@@ -762,7 +763,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 217;
                 localContext._top_typ_2__1 = this.typ();
-                 localContext!.result = <polyt> MK_Mono(<monot> _localctx._top_typ_2__1.result);
+                 localContext!.result = <polyt> MK_Mono(<monot> localContext._top_typ_2__1.result);
                             
                 }
                 break;
@@ -791,7 +792,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 222;
             localContext._tvar_str_0__1 = this.match(TypedBNFParser.CNAMEPLUS);
-             localContext!.result = <string> str(<Token> _localctx._tvar_str_0__1);
+             localContext!.result = <string> str(<Token> localContext._tvar_str_0__1);
                         
             }
         }
@@ -824,7 +825,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__7);
                 this.state = 227;
                 localContext._param_type_0__3 = this.typ();
-                 localContext!.result = <[string, monot]>[<string> str(<Token> _localctx._param_type_0__1), _localctx._param_type_0__3.result];
+                 localContext!.result = <[string, monot]>[<string> str(<Token> localContext._param_type_0__1), localContext._param_type_0__3.result];
                             
                 }
                 break;
@@ -833,7 +834,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 230;
                 localContext._param_type_2__1 = this.typ();
-                 localContext!.result = <[string, monot]>["_", _localctx._param_type_2__1.result];
+                 localContext!.result = <[string, monot]>["_", localContext._param_type_2__1.result];
                             
                 }
                 break;
@@ -873,7 +874,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 236;
             localContext._slist_o__i__s__i__s_tvar_str_p__0__1 = this.tvar_str();
-             localContext!.result = <Array<string>>[ _localctx._slist_o__i__s__i__s_tvar_str_p__0__1.result ];
+             localContext!.result = <Array<string>>[ localContext._slist_o__i__s__i__s_tvar_str_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -899,7 +900,7 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__0);
                     this.state = 241;
                     localContext._slist_o__i__s__i__s_tvar_str_p__2__3 = this.tvar_str();
-                     localContext!.result = <Array<string>> addList<string>(<Array<string>> _localctx._slist_o__i__s__i__s_tvar_str_p__2__1.result, <string> _localctx._slist_o__i__s__i__s_tvar_str_p__2__3.result);
+                     localContext!.result = <Array<string>> addList<string>(<Array<string>> localContext._slist_o__i__s__i__s_tvar_str_p__2__1.result, <string> localContext._slist_o__i__s__i__s_tvar_str_p__2__3.result);
                                           
                     }
                     }
@@ -939,7 +940,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._type_params_0__2 = this.slist_o__i__s__i__s_tvar_str_p_(0);
                 this.state = 251;
                 this.match(TypedBNFParser.T__5);
-                 localContext!.result = _localctx._type_params_0__2.result;
+                 localContext!.result = localContext._type_params_0__2.result;
                             
                 }
                 break;
@@ -977,7 +978,7 @@ export class TypedBNFParser extends antlr.Parser {
             this.match(TypedBNFParser.T__7);
             this.state = 259;
             localContext._field_ann_0__3 = this.typ();
-             localContext!.result = <[string, monot, position]>[<string> str(<Token> _localctx._field_ann_0__1), _localctx._field_ann_0__3.result, <position> mkpos(<Token> _localctx._field_ann_0__1)];
+             localContext!.result = <[string, monot, position]>[<string> str(<Token> localContext._field_ann_0__1), localContext._field_ann_0__3.result, <position> mkpos(<Token> localContext._field_ann_0__1)];
                         
             }
         }
@@ -1015,7 +1016,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 263;
             localContext._slist_o__i__s__i__s_field_ann_p__0__1 = this.field_ann();
-             localContext!.result = <Array<[string, monot, position]>>[ _localctx._slist_o__i__s__i__s_field_ann_p__0__1.result ];
+             localContext!.result = <Array<[string, monot, position]>>[ localContext._slist_o__i__s__i__s_field_ann_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -1041,7 +1042,7 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__0);
                     this.state = 268;
                     localContext._slist_o__i__s__i__s_field_ann_p__2__3 = this.field_ann();
-                     localContext!.result = <Array<[string, monot, position]>> addList<[string, monot, position]>(<Array<[string, monot, position]>> _localctx._slist_o__i__s__i__s_field_ann_p__2__1.result, <[string, monot, position]> _localctx._slist_o__i__s__i__s_field_ann_p__2__3.result);
+                     localContext!.result = <Array<[string, monot, position]>> addList<[string, monot, position]>(<Array<[string, monot, position]>> localContext._slist_o__i__s__i__s_field_ann_p__2__1.result, <[string, monot, position]> localContext._slist_o__i__s__i__s_field_ann_p__2__3.result);
                                           
                     }
                     }
@@ -1084,7 +1085,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 277;
                 localContext._empty_o_slist_o__i__s__i__s_field_ann_p__p__2__1 = this.slist_o__i__s__i__s_field_ann_p_(0);
-                 localContext!.result = _localctx._empty_o_slist_o__i__s__i__s_field_ann_p__p__2__1.result;
+                 localContext!.result = localContext._empty_o_slist_o__i__s__i__s_field_ann_p__p__2__1.result;
                             
                 }
                 break;
@@ -1113,7 +1114,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 282;
             localContext._eslist_o__i__s__i__s_field_ann_p__0__1 = this.empty_o_slist_o__i__s__i__s_field_ann_p__p_();
-             localContext!.result = _localctx._eslist_o__i__s__i__s_field_ann_p__0__1.result;
+             localContext!.result = localContext._eslist_o__i__s__i__s_field_ann_p__0__1.result;
                         
             }
         }
@@ -1146,7 +1147,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._field_anns_0__2 = this.eslist_o__i__s__i__s_field_ann_p_();
                 this.state = 287;
                 this.match(TypedBNFParser.T__3);
-                 localContext!.result = <[boolean, Array<[string, monot, position]>]>[true, _localctx._field_anns_0__2.result];
+                 localContext!.result = <[boolean, Array<[string, monot, position]>]>[true, localContext._field_anns_0__2.result];
                             
                 }
                 break;
@@ -1192,7 +1193,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__7);
                 this.state = 297;
                 localContext._decl_0__5 = this.top_typ();
-                 localContext!.result = <definition> MK_Declvar(<string> _localctx._decl_0__3.result, <polyt> _localctx._decl_0__5.result, <position> <position> mkpos(<Token> _localctx._decl_0__2));
+                 localContext!.result = <definition> MK_Declvar(<string> localContext._decl_0__3.result, <polyt> localContext._decl_0__5.result, <position> <position> mkpos(<Token> localContext._decl_0__2));
                             
                 }
                 break;
@@ -1207,7 +1208,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__7);
                 this.state = 303;
                 localContext._decl_2__4 = this.typ();
-                 localContext!.result = <definition> MK_Declctor(<string> _localctx._decl_2__2.result, <monot> _localctx._decl_2__4.result, <position> <position> mkpos(<Token> _localctx._decl_2__1));
+                 localContext!.result = <definition> MK_Declctor(<string> localContext._decl_2__2.result, <monot> localContext._decl_2__4.result, <position> <position> mkpos(<Token> localContext._decl_2__1));
                             
                 }
                 break;
@@ -1224,7 +1225,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._decl_4__4 = this.type_params();
                 this.state = 310;
                 localContext._decl_4__5 = this.field_anns();
-                 localContext!.result = <definition> MK_Decltype(<boolean> true, <boolean> <boolean> fst<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_4__5.result), <string> _localctx._decl_4__3.result, <Array<string>> _localctx._decl_4__4.result, <Array<[string, monot, position]>> <Array<[string, monot, position]>> snd<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_4__5.result), <position> <position> mkpos(<Token> _localctx._decl_4__1));
+                 localContext!.result = <definition> MK_Decltype(<boolean> true, <boolean> <boolean> fst<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> localContext._decl_4__5.result), <string> localContext._decl_4__3.result, <Array<string>> localContext._decl_4__4.result, <Array<[string, monot, position]>> <Array<[string, monot, position]>> snd<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> localContext._decl_4__5.result), <position> <position> mkpos(<Token> localContext._decl_4__1));
                             
                 }
                 break;
@@ -1239,7 +1240,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._decl_6__3 = this.type_params();
                 this.state = 316;
                 localContext._decl_6__4 = this.field_anns();
-                 localContext!.result = <definition> MK_Decltype(<boolean> false, <boolean> <boolean> fst<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_6__4.result), <string> _localctx._decl_6__2.result, <Array<string>> _localctx._decl_6__3.result, <Array<[string, monot, position]>> <Array<[string, monot, position]>> snd<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> _localctx._decl_6__4.result), <position> <position> mkpos(<Token> _localctx._decl_6__1));
+                 localContext!.result = <definition> MK_Decltype(<boolean> false, <boolean> <boolean> fst<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> localContext._decl_6__4.result), <string> localContext._decl_6__2.result, <Array<string>> localContext._decl_6__3.result, <Array<[string, monot, position]>> <Array<[string, monot, position]>> snd<boolean, Array<[string, monot, position]>>(<[boolean, Array<[string, monot, position]>]> localContext._decl_6__4.result), <position> <position> mkpos(<Token> localContext._decl_6__1));
                             
                 }
                 break;
@@ -1270,7 +1271,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 321;
                 localContext._toplevel_0__1 = this.def();
-                 localContext!.result = _localctx._toplevel_0__1.result;
+                 localContext!.result = localContext._toplevel_0__1.result;
                             
                 }
                 break;
@@ -1279,7 +1280,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 324;
                 localContext._toplevel_2__1 = this.decl();
-                 localContext!.result = _localctx._toplevel_2__1.result;
+                 localContext!.result = localContext._toplevel_2__1.result;
                             
                 }
                 break;
@@ -1288,7 +1289,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 327;
                 localContext._toplevel_4__1 = this.lexerdef();
-                 localContext!.result = _localctx._toplevel_4__1.result;
+                 localContext!.result = localContext._toplevel_4__1.result;
                             
                 }
                 break;
@@ -1299,7 +1300,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._toplevel_6__1 = this.match(TypedBNFParser.T__12);
                 this.state = 331;
                 localContext._toplevel_6__2 = this.slist_o__i__s__i__s_identstr_p_(0);
-                 localContext!.result = <definition> MK_Defignore(<Array<string>> _localctx._toplevel_6__2.result, <position> <position> mkpos(<Token> _localctx._toplevel_6__1));
+                 localContext!.result = <definition> MK_Defignore(<Array<string>> localContext._toplevel_6__2.result, <position> <position> mkpos(<Token> localContext._toplevel_6__1));
                             
                 }
                 break;
@@ -1339,7 +1340,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 337;
             localContext._slist_o__i__s__i__s_identstr_p__0__1 = this.identstr();
-             localContext!.result = <Array<string>>[ _localctx._slist_o__i__s__i__s_identstr_p__0__1.result ];
+             localContext!.result = <Array<string>>[ localContext._slist_o__i__s__i__s_identstr_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -1365,7 +1366,7 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__0);
                     this.state = 342;
                     localContext._slist_o__i__s__i__s_identstr_p__2__3 = this.identstr();
-                     localContext!.result = <Array<string>> addList<string>(<Array<string>> _localctx._slist_o__i__s__i__s_identstr_p__2__1.result, <string> _localctx._slist_o__i__s__i__s_identstr_p__2__3.result);
+                     localContext!.result = <Array<string>> addList<string>(<Array<string>> localContext._slist_o__i__s__i__s_identstr_p__2__1.result, <string> localContext._slist_o__i__s__i__s_identstr_p__2__3.result);
                                           
                     }
                     }
@@ -1409,7 +1410,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__3);
                 this.state = 354;
                 localContext._def_0__5 = this.productions(0);
-                 localContext!.result = <definition> MK_Defmacro(<string> <string> str(<Token> _localctx._def_0__1), <Array<string>> _localctx._def_0__3.result, <Array<[position, production]>> _localctx._def_0__5.result, <position> <position> mkpos(<Token> _localctx._def_0__1));
+                 localContext!.result = <definition> MK_Defmacro(<string> <string> str(<Token> localContext._def_0__1), <Array<string>> localContext._def_0__3.result, <Array<[position, production]>> localContext._def_0__5.result, <position> <position> mkpos(<Token> localContext._def_0__1));
                             
                 }
                 break;
@@ -1420,7 +1421,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._def_2__1 = this.match(TypedBNFParser.CNAMEPLUS);
                 this.state = 358;
                 localContext._def_2__2 = this.productions(0);
-                 localContext!.result = <definition> MK_Defrule(<string> <string> str(<Token> _localctx._def_2__1), <Array<[position, production]>> _localctx._def_2__2.result, <position> <position> mkpos(<Token> _localctx._def_2__1));
+                 localContext!.result = <definition> MK_Defrule(<string> <string> str(<Token> localContext._def_2__1), <Array<[position, production]>> localContext._def_2__2.result, <position> <position> mkpos(<Token> localContext._def_2__1));
                             
                 }
                 break;
@@ -1462,7 +1463,7 @@ export class TypedBNFParser extends antlr.Parser {
             localContext._productions_0__1 = this.match(TypedBNFParser.T__7);
             this.state = 365;
             localContext._productions_0__2 = this.production();
-             localContext!.result = <Array<[position, production]>>[ <[position, production]>[<position> mkpos(<Token> _localctx._productions_0__1), _localctx._productions_0__2.result] ];
+             localContext!.result = <Array<[position, production]>>[ <[position, production]>[<position> mkpos(<Token> localContext._productions_0__1), localContext._productions_0__2.result] ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -1488,7 +1489,7 @@ export class TypedBNFParser extends antlr.Parser {
                     localContext._productions_2__2 = this.match(TypedBNFParser.T__13);
                     this.state = 370;
                     localContext._productions_2__3 = this.production();
-                     localContext!.result = <Array<[position, production]>> addList<[position, production]>(<Array<[position, production]>> _localctx._productions_2__1.result, <[position, production]> <[position, production]>[<position> mkpos(<Token> _localctx._productions_2__2), _localctx._productions_2__3.result]);
+                     localContext!.result = <Array<[position, production]>> addList<[position, production]>(<Array<[position, production]>> localContext._productions_2__1.result, <[position, production]> <[position, production]>[<position> mkpos(<Token> localContext._productions_2__2), localContext._productions_2__3.result]);
                                           
                     }
                     }
@@ -1533,7 +1534,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 379;
             localContext._list_o_psym_p__0__1 = this.psym();
-             localContext!.result = <Array<symbol>>[ _localctx._list_o_psym_p__0__1.result ];
+             localContext!.result = <Array<symbol>>[ localContext._list_o_psym_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -1557,7 +1558,7 @@ export class TypedBNFParser extends antlr.Parser {
                     }
                     this.state = 383;
                     localContext._list_o_psym_p__2__2 = this.psym();
-                     localContext!.result = <Array<symbol>> addList<symbol>(<Array<symbol>> _localctx._list_o_psym_p__2__1.result, <symbol> _localctx._list_o_psym_p__2__2.result);
+                     localContext!.result = <Array<symbol>> addList<symbol>(<Array<symbol>> localContext._list_o_psym_p__2__1.result, <symbol> localContext._list_o_psym_p__2__2.result);
                                           
                     }
                     }
@@ -1602,7 +1603,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 392;
                 localContext._empty_o_list_o_psym_p__p__2__1 = this.list_o_psym_p_(0);
-                 localContext!.result = _localctx._empty_o_list_o_psym_p__p__2__1.result;
+                 localContext!.result = localContext._empty_o_list_o_psym_p__p__2__1.result;
                             
                 }
                 break;
@@ -1631,7 +1632,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 397;
             localContext._elist_o_psym_p__0__1 = this.empty_o_list_o_psym_p__p_();
-             localContext!.result = _localctx._elist_o_psym_p__0__1.result;
+             localContext!.result = localContext._elist_o_psym_p__0__1.result;
                         
             }
         }
@@ -1662,7 +1663,7 @@ export class TypedBNFParser extends antlr.Parser {
             localContext._production_0__3 = this.expr();
             this.state = 403;
             this.match(TypedBNFParser.T__15);
-             localContext!.result = <production> MK_production(<Array<symbol>> _localctx._production_0__1.result, <expr> _localctx._production_0__3.result);
+             localContext!.result = <production> MK_production(<Array<symbol>> localContext._production_0__1.result, <expr> localContext._production_0__3.result);
                         
             }
         }
@@ -1700,7 +1701,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 407;
             localContext._slist_o__i__s__i__s_psym_p__0__1 = this.psym();
-             localContext!.result = <Array<symbol>>[ _localctx._slist_o__i__s__i__s_psym_p__0__1.result ];
+             localContext!.result = <Array<symbol>>[ localContext._slist_o__i__s__i__s_psym_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -1726,7 +1727,7 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__0);
                     this.state = 412;
                     localContext._slist_o__i__s__i__s_psym_p__2__3 = this.psym();
-                     localContext!.result = <Array<symbol>> addList<symbol>(<Array<symbol>> _localctx._slist_o__i__s__i__s_psym_p__2__1.result, <symbol> _localctx._slist_o__i__s__i__s_psym_p__2__3.result);
+                     localContext!.result = <Array<symbol>> addList<symbol>(<Array<symbol>> localContext._slist_o__i__s__i__s_psym_p__2__1.result, <symbol> localContext._slist_o__i__s__i__s_psym_p__2__3.result);
                                           
                     }
                     }
@@ -1766,7 +1767,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._psym_0__2 = this.identstr();
                 this.state = 422;
                 this.match(TypedBNFParser.T__5);
-                 localContext!.result = <symbol> MK_Term(<string> _localctx._psym_0__2.result, <boolean> false);
+                 localContext!.result = <symbol> MK_Term(<string> localContext._psym_0__2.result, <boolean> false);
                             
                 }
                 break;
@@ -1775,7 +1776,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 425;
                 localContext._psym_2__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-                 localContext!.result = <symbol> MK_Term(<string> <string> unescape(<string> <string> str(<Token> _localctx._psym_2__1)), <boolean> true);
+                 localContext!.result = <symbol> MK_Term(<string> <string> unescape(<string> <string> str(<Token> localContext._psym_2__1)), <boolean> true);
                             
                 }
                 break;
@@ -1784,7 +1785,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 427;
                 localContext._psym_4__1 = this.identstr();
-                 localContext!.result = <symbol> MK_Nonterm(<string> _localctx._psym_4__1.result);
+                 localContext!.result = <symbol> MK_Nonterm(<string> localContext._psym_4__1.result);
                             
                 }
                 break;
@@ -1799,7 +1800,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._psym_6__3 = this.slist_o__i__s__i__s_psym_p_(0);
                 this.state = 433;
                 this.match(TypedBNFParser.T__3);
-                 localContext!.result = <symbol> MK_Macrocall(<string> <string> str(<Token> _localctx._psym_6__1), <Array<symbol>> _localctx._psym_6__3.result, <position> <position> mkpos(<Token> _localctx._psym_6__1));
+                 localContext!.result = <symbol> MK_Macrocall(<string> <string> str(<Token> localContext._psym_6__1), <Array<symbol>> localContext._psym_6__3.result, <position> <position> mkpos(<Token> localContext._psym_6__1));
                             
                 }
                 break;
@@ -1830,7 +1831,7 @@ export class TypedBNFParser extends antlr.Parser {
             this.match(TypedBNFParser.T__7);
             this.state = 440;
             localContext._ann_0__3 = this.typ();
-             localContext!.result = <[string, monot]>[_localctx._ann_0__1.result, _localctx._ann_0__3.result];
+             localContext!.result = <[string, monot]>[localContext._ann_0__1.result, localContext._ann_0__3.result];
                         
             }
         }
@@ -1868,7 +1869,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 444;
             localContext._slist_o__i__s__i__s_ann_p__0__1 = this.ann();
-             localContext!.result = <Array<[string, monot]>>[ _localctx._slist_o__i__s__i__s_ann_p__0__1.result ];
+             localContext!.result = <Array<[string, monot]>>[ localContext._slist_o__i__s__i__s_ann_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -1894,7 +1895,7 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__0);
                     this.state = 449;
                     localContext._slist_o__i__s__i__s_ann_p__2__3 = this.ann();
-                     localContext!.result = <Array<[string, monot]>> addList<[string, monot]>(<Array<[string, monot]>> _localctx._slist_o__i__s__i__s_ann_p__2__1.result, <[string, monot]> _localctx._slist_o__i__s__i__s_ann_p__2__3.result);
+                     localContext!.result = <Array<[string, monot]>> addList<[string, monot]>(<Array<[string, monot]>> localContext._slist_o__i__s__i__s_ann_p__2__1.result, <[string, monot]> localContext._slist_o__i__s__i__s_ann_p__2__3.result);
                                           
                     }
                     }
@@ -1937,7 +1938,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 458;
                 localContext._empty_o_slist_o__i__s__i__s_ann_p__p__2__1 = this.slist_o__i__s__i__s_ann_p_(0);
-                 localContext!.result = _localctx._empty_o_slist_o__i__s__i__s_ann_p__p__2__1.result;
+                 localContext!.result = localContext._empty_o_slist_o__i__s__i__s_ann_p__p__2__1.result;
                             
                 }
                 break;
@@ -1966,7 +1967,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 463;
             localContext._eslist_o__i__s__i__s_ann_p__0__1 = this.empty_o_slist_o__i__s__i__s_ann_p__p_();
-             localContext!.result = _localctx._eslist_o__i__s__i__s_ann_p__0__1.result;
+             localContext!.result = localContext._eslist_o__i__s__i__s_ann_p__0__1.result;
                         
             }
         }
@@ -1995,7 +1996,7 @@ export class TypedBNFParser extends antlr.Parser {
             localContext._func_parameters_0__2 = this.eslist_o__i__s__i__s_ann_p_();
             this.state = 468;
             this.match(TypedBNFParser.T__3);
-             localContext!.result = _localctx._func_parameters_0__2.result;
+             localContext!.result = localContext._func_parameters_0__2.result;
                         
             }
         }
@@ -2034,7 +2035,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__18);
                 this.state = 476;
                 localContext._expr_0__6 = this.expr();
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_ELet(<string> _localctx._expr_0__2.result, <expr> _localctx._expr_0__4.result, <expr> _localctx._expr_0__6.result), <position> <position> mkpos(<Token> _localctx._expr_0__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_ELet(<string> localContext._expr_0__2.result, <expr> localContext._expr_0__4.result, <expr> localContext._expr_0__6.result), <position> <position> mkpos(<Token> localContext._expr_0__1));
                             
                 }
                 break;
@@ -2049,7 +2050,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__1);
                 this.state = 482;
                 localContext._expr_2__4 = this.expr();
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EFun(<Array<[string, monot]>> _localctx._expr_2__2.result, <expr> _localctx._expr_2__4.result), <position> <position> mkpos(<Token> _localctx._expr_2__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EFun(<Array<[string, monot]>> localContext._expr_2__2.result, <expr> localContext._expr_2__4.result), <position> <position> mkpos(<Token> localContext._expr_2__1));
                             
                 }
                 break;
@@ -2058,7 +2059,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 485;
                 localContext._expr_4__1 = this.call(0);
-                 localContext!.result = _localctx._expr_4__1.result;
+                 localContext!.result = localContext._expr_4__1.result;
                             
                 }
                 break;
@@ -2071,7 +2072,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__20);
                 this.state = 490;
                 localContext._expr_6__3 = this.expr();
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_ELet(<string> "_", <expr> _localctx._expr_6__1.result, <expr> _localctx._expr_6__3.result), <position> <position> getpos(<expr> _localctx._expr_6__1.result));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_ELet(<string> "_", <expr> localContext._expr_6__1.result, <expr> localContext._expr_6__3.result), <position> <position> getpos(<expr> localContext._expr_6__1.result));
                             
                 }
                 break;
@@ -2111,7 +2112,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 496;
             localContext._call_2__1 = this.atomexp(0);
-             localContext!.result = _localctx._call_2__1.result;
+             localContext!.result = localContext._call_2__1.result;
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -2139,7 +2140,7 @@ export class TypedBNFParser extends antlr.Parser {
                     localContext._call_0__3 = this.eslist_o__i__s__i__s_expr_p_();
                     this.state = 502;
                     this.match(TypedBNFParser.T__3);
-                     localContext!.result = <expr> MK_Expr(<node> <node> MK_EApp(<expr> _localctx._call_0__1.result, <Array<expr>> _localctx._call_0__3.result), <position> <position> getpos(<expr> _localctx._call_0__1.result));
+                     localContext!.result = <expr> MK_Expr(<node> <node> MK_EApp(<expr> localContext._call_0__1.result, <Array<expr>> localContext._call_0__3.result), <position> <position> getpos(<expr> localContext._call_0__1.result));
                                           
                     }
                     }
@@ -2193,7 +2194,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 511;
                 localContext._empty_o_slist_o__i__s__i__s_expr_p__p__2__1 = this.slist_o__i__s__i__s_expr_p_(0);
-                 localContext!.result = _localctx._empty_o_slist_o__i__s__i__s_expr_p__p__2__1.result;
+                 localContext!.result = localContext._empty_o_slist_o__i__s__i__s_expr_p__p__2__1.result;
                             
                 }
                 break;
@@ -2222,7 +2223,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 516;
             localContext._eslist_o__i__s__i__s_expr_p__0__1 = this.empty_o_slist_o__i__s__i__s_expr_p__p_();
-             localContext!.result = _localctx._eslist_o__i__s__i__s_expr_p__0__1.result;
+             localContext!.result = localContext._eslist_o__i__s__i__s_expr_p__0__1.result;
                         
             }
         }
@@ -2260,7 +2261,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 520;
             localContext._slist_o__i__s__i__s_expr_p__0__1 = this.expr();
-             localContext!.result = <Array<expr>>[ _localctx._slist_o__i__s__i__s_expr_p__0__1.result ];
+             localContext!.result = <Array<expr>>[ localContext._slist_o__i__s__i__s_expr_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -2286,10 +2287,10 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__0);
                     this.state = 525;
                     localContext._slist_o__i__s__i__s_expr_p__2__3 = this.expr();
-                     localContext!.result = <Array<expr>> addList<expr>(<Array<expr>> _localctx._slist_o__i__s__i__s_expr_p__2__1.result, <expr> _localctx._slist_o__i__s__i__s_expr_p__2__3.result);
+                     localContext!.result = <Array<expr>> addList<expr>(<Array<expr>> localContext._slist_o__i__s__i__s_expr_p__2__1.result, <expr> localContext._slist_o__i__s__i__s_expr_p__2__3.result);
                                           
                     }
-                }
+                    }
                 }
                 this.state = 532;
                 this.errorHandler.sync(this);
@@ -2335,7 +2336,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 534;
                 localContext._atomexp_0__1 = this.match(TypedBNFParser.INT);
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EInt(<number> <number> toint(<Token> _localctx._atomexp_0__1)), <position> <position> mkpos(<Token> _localctx._atomexp_0__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EInt(<number> <number> toint(<Token> localContext._atomexp_0__1)), <position> <position> mkpos(<Token> localContext._atomexp_0__1));
                             
                 }
                 break;
@@ -2343,7 +2344,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 536;
                 localContext._atomexp_2__1 = this.match(TypedBNFParser.FLOAT);
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EFlt(<number> <number> tofloat(<Token> _localctx._atomexp_2__1)), <position> <position> mkpos(<Token> _localctx._atomexp_2__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EFlt(<number> <number> tofloat(<Token> localContext._atomexp_2__1)), <position> <position> mkpos(<Token> localContext._atomexp_2__1));
                             
                 }
                 break;
@@ -2351,7 +2352,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 538;
                 localContext._atomexp_4__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EStr(<string> <string> unescape(<string> <string> str(<Token> _localctx._atomexp_4__1))), <position> <position> mkpos(<Token> _localctx._atomexp_4__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EStr(<string> <string> unescape(<string> <string> str(<Token> localContext._atomexp_4__1))), <position> <position> mkpos(<Token> localContext._atomexp_4__1));
                             
                 }
                 break;
@@ -2361,7 +2362,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._atomexp_6__1 = this.match(TypedBNFParser.T__21);
                 this.state = 541;
                 localContext._atomexp_6__2 = this.match(TypedBNFParser.INT);
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_ESlot(<number> <number> toint(<Token> _localctx._atomexp_6__2)), <position> <position> mkpos(<Token> _localctx._atomexp_6__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_ESlot(<number> <number> toint(<Token> localContext._atomexp_6__2)), <position> <position> mkpos(<Token> localContext._atomexp_6__1));
                             
                 }
                 break;
@@ -2373,7 +2374,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._atomexp_8__2 = this.eslist_o__i__s__i__s_expr_p_();
                 this.state = 545;
                 this.match(TypedBNFParser.T__23);
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EList(<Array<expr>> _localctx._atomexp_8__2.result), <position> <position> mkpos(<Token> _localctx._atomexp_8__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EList(<Array<expr>> localContext._atomexp_8__2.result), <position> <position> mkpos(<Token> localContext._atomexp_8__1));
                             
                 }
                 break;
@@ -2383,7 +2384,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._atomexp_10__1 = this.match(TypedBNFParser.T__2);
                 this.state = 549;
                 this.match(TypedBNFParser.T__3);
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_ETuple(<Array<expr>> <Array<expr>>[  ]), <position> <position> mkpos(<Token> _localctx._atomexp_10__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_ETuple(<Array<expr>> <Array<expr>>[  ]), <position> <position> mkpos(<Token> localContext._atomexp_10__1));
                             
                 }
                 break;
@@ -2395,7 +2396,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._atomexp_12__2 = this.slist_o__i__s__i__s_expr_p_(0);
                 this.state = 553;
                 this.match(TypedBNFParser.T__3);
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_ETuple(<Array<expr>> _localctx._atomexp_12__2.result), <position> <position> mkpos(<Token> _localctx._atomexp_12__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_ETuple(<Array<expr>> localContext._atomexp_12__2.result), <position> <position> mkpos(<Token> localContext._atomexp_12__1));
                             
                 }
                 break;
@@ -2403,7 +2404,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 556;
                 localContext._atomexp_14__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EVar(<string> <string> str(<Token> _localctx._atomexp_14__1)), <position> <position> mkpos(<Token> _localctx._atomexp_14__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EVar(<string> <string> str(<Token> localContext._atomexp_14__1)), <position> <position> mkpos(<Token> localContext._atomexp_14__1));
                             
                 }
                 break;
@@ -2411,7 +2412,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 558;
                 localContext._atomexp_18__1 = this.match(TypedBNFParser.T__25);
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EBool(<boolean> true), <position> <position> mkpos(<Token> _localctx._atomexp_18__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EBool(<boolean> true), <position> <position> mkpos(<Token> localContext._atomexp_18__1));
                             
                 }
                 break;
@@ -2419,7 +2420,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 560;
                 localContext._atomexp_20__1 = this.match(TypedBNFParser.T__26);
-                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EBool(<boolean> false), <position> <position> mkpos(<Token> _localctx._atomexp_20__1));
+                 localContext!.result = <expr> MK_Expr(<node> <node> MK_EBool(<boolean> false), <position> <position> mkpos(<Token> localContext._atomexp_20__1));
                             
                 }
                 break;
@@ -2447,7 +2448,7 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__24);
                     this.state = 566;
                     localContext._atomexp_16__3 = this.match(TypedBNFParser.CNAMEPLUS);
-                     localContext!.result = <expr> MK_Expr(<node> <node> MK_EField(<expr> _localctx._atomexp_16__1.result, <string> <string> str(<Token> _localctx._atomexp_16__3)), <position> <position> getpos(<expr> _localctx._atomexp_16__1.result));
+                     localContext!.result = <expr> MK_Expr(<node> <node> MK_EField(<expr> localContext._atomexp_16__1.result, <string> <string> str(<Token> localContext._atomexp_16__3)), <position> <position> getpos(<expr> localContext._atomexp_16__1.result));
                                           
                     }
                     }
@@ -2492,7 +2493,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 574;
             localContext._slist_o__i__u__i__s_lexer_and_p__0__1 = this.lexer_and();
-             localContext!.result = <Array<lexerule>>[ _localctx._slist_o__i__u__i__s_lexer_and_p__0__1.result ];
+             localContext!.result = <Array<lexerule>>[ localContext._slist_o__i__u__i__s_lexer_and_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -2518,7 +2519,7 @@ export class TypedBNFParser extends antlr.Parser {
                     this.match(TypedBNFParser.T__13);
                     this.state = 579;
                     localContext._slist_o__i__u__i__s_lexer_and_p__2__3 = this.lexer_and();
-                     localContext!.result = <Array<lexerule>> addList<lexerule>(<Array<lexerule>> _localctx._slist_o__i__u__i__s_lexer_and_p__2__1.result, <lexerule> _localctx._slist_o__i__u__i__s_lexer_and_p__2__3.result);
+                     localContext!.result = <Array<lexerule>> addList<lexerule>(<Array<lexerule>> localContext._slist_o__i__u__i__s_lexer_and_p__2__1.result, <lexerule> localContext._slist_o__i__u__i__s_lexer_and_p__2__3.result);
                                           
                     }
                     }
@@ -2550,7 +2551,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 587;
             localContext._lexer__y__0__1 = this.slist_o__i__u__i__s_lexer_and_p_(0);
-             localContext!.result = <lexerule> MK_LOr(<Array<lexerule>> _localctx._lexer__y__0__1.result);
+             localContext!.result = <lexerule> MK_LOr(<Array<lexerule>> localContext._lexer__y__0__1.result);
                         
             }
         }
@@ -2588,7 +2589,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 591;
             localContext._list_o_lexer_atomexpr_p__0__1 = this.lexer_atomexpr(0);
-             localContext!.result = <Array<lexerule>>[ _localctx._list_o_lexer_atomexpr_p__0__1.result ];
+             localContext!.result = <Array<lexerule>>[ localContext._list_o_lexer_atomexpr_p__0__1.result ];
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -2612,7 +2613,7 @@ export class TypedBNFParser extends antlr.Parser {
                     }
                     this.state = 595;
                     localContext._list_o_lexer_atomexpr_p__2__2 = this.lexer_atomexpr(0);
-                     localContext!.result = <Array<lexerule>> addList<lexerule>(<Array<lexerule>> _localctx._list_o_lexer_atomexpr_p__2__1.result, <lexerule> _localctx._list_o_lexer_atomexpr_p__2__2.result);
+                     localContext!.result = <Array<lexerule>> addList<lexerule>(<Array<lexerule>> localContext._list_o_lexer_atomexpr_p__2__1.result, <lexerule> localContext._list_o_lexer_atomexpr_p__2__2.result);
                                           
                     }
                     }
@@ -2644,7 +2645,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 603;
             localContext._lexer_and_0__1 = this.list_o_lexer_atomexpr_p_(0);
-             localContext!.result = <lexerule> MK_LSeq(<Array<lexerule>> _localctx._lexer_and_0__1.result);
+             localContext!.result = <lexerule> MK_LSeq(<Array<lexerule>> localContext._lexer_and_0__1.result);
                         
             }
         }
@@ -2682,7 +2683,7 @@ export class TypedBNFParser extends antlr.Parser {
             {
             this.state = 607;
             localContext._lexer_atomexpr_6__1 = this.lexer_atom();
-             localContext!.result = _localctx._lexer_atomexpr_6__1.result;
+             localContext!.result = localContext._lexer_atomexpr_6__1.result;
                         
             }
             this.context!.stop = this.tokenStream.LT(-1);
@@ -2710,7 +2711,7 @@ export class TypedBNFParser extends antlr.Parser {
                         }
                         this.state = 611;
                         this.match(TypedBNFParser.T__27);
-                         localContext!.result = <lexerule> MK_LPlus(<lexerule> _localctx._lexer_atomexpr_0__1.result);
+                         localContext!.result = <lexerule> MK_LPlus(<lexerule> localContext._lexer_atomexpr_0__1.result);
                                               
                         }
                         break;
@@ -2725,7 +2726,7 @@ export class TypedBNFParser extends antlr.Parser {
                         }
                         this.state = 614;
                         this.match(TypedBNFParser.T__6);
-                         localContext!.result = <lexerule> MK_LStar(<lexerule> _localctx._lexer_atomexpr_2__1.result);
+                         localContext!.result = <lexerule> MK_LStar(<lexerule> localContext._lexer_atomexpr_2__1.result);
                                               
                         }
                         break;
@@ -2740,7 +2741,7 @@ export class TypedBNFParser extends antlr.Parser {
                         }
                         this.state = 617;
                         this.match(TypedBNFParser.T__28);
-                         localContext!.result = <lexerule> MK_LOptional(<lexerule> _localctx._lexer_atomexpr_4__1.result);
+                         localContext!.result = <lexerule> MK_LOptional(<lexerule> localContext._lexer_atomexpr_4__1.result);
                                               
                         }
                         break;
@@ -2778,7 +2779,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 624;
                 localContext._lexer_atom_0__1 = this.match(TypedBNFParser.ESCAPED_STRING);
-                 localContext!.result = <lexerule> MK_LStr(<string> <string> unescape(<string> <string> str(<Token> _localctx._lexer_atom_0__1)));
+                 localContext!.result = <lexerule> MK_LStr(<string> <string> unescape(<string> <string> str(<Token> localContext._lexer_atom_0__1)));
                             
                 }
                 break;
@@ -2789,7 +2790,7 @@ export class TypedBNFParser extends antlr.Parser {
                 this.match(TypedBNFParser.T__29);
                 this.state = 627;
                 localContext._lexer_atom_2__2 = this.lexer_atom();
-                 localContext!.result = <lexerule> MK_LNot(<lexerule> _localctx._lexer_atom_2__2.result);
+                 localContext!.result = <lexerule> MK_LNot(<lexerule> localContext._lexer_atom_2__2.result);
                             
                 }
                 break;
@@ -2802,7 +2803,7 @@ export class TypedBNFParser extends antlr.Parser {
                 localContext._lexer_atom_4__2 = this.lexer__y_();
                 this.state = 632;
                 this.match(TypedBNFParser.T__3);
-                 localContext!.result = <lexerule> MK_LGroup(<lexerule> _localctx._lexer_atom_4__2.result);
+                 localContext!.result = <lexerule> MK_LGroup(<lexerule> localContext._lexer_atom_4__2.result);
                             
                 }
                 break;
@@ -2820,7 +2821,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 637;
                 localContext._lexer_atom_8__1 = this.match(TypedBNFParser.RANGE);
-                 localContext!.result = <lexerule> getrange(<string> <string> str(<Token> _localctx._lexer_atom_8__1));
+                 localContext!.result = <lexerule> getrange(<string> <string> str(<Token> localContext._lexer_atom_8__1));
                             
                 }
                 break;
@@ -2829,7 +2830,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 639;
                 localContext._lexer_atom_10__1 = this.match(TypedBNFParser.UNICODE_RANGE);
-                 localContext!.result = <lexerule> getunicoderange(<string> <string> str(<Token> _localctx._lexer_atom_10__1));
+                 localContext!.result = <lexerule> getunicoderange(<string> <string> str(<Token> localContext._lexer_atom_10__1));
                             
                 }
                 break;
@@ -2856,7 +2857,7 @@ export class TypedBNFParser extends antlr.Parser {
                 {
                 this.state = 645;
                 localContext._lexer_atom_16__1 = this.match(TypedBNFParser.CNAMEPLUS);
-                 localContext!.result = <lexerule> MK_LRef(<string> <string> str(<Token> _localctx._lexer_atom_16__1));
+                 localContext!.result = <lexerule> MK_LRef(<string> <string> str(<Token> localContext._lexer_atom_16__1));
                             
                 }
                 break;
@@ -2891,7 +2892,7 @@ export class TypedBNFParser extends antlr.Parser {
             localContext._lexerdef_0__3 = this.lexer__y_();
             this.state = 652;
             this.match(TypedBNFParser.T__20);
-             localContext!.result = <definition> MK_Deflexer(<string> <string> str(<Token> _localctx._lexerdef_0__1), <lexerule> _localctx._lexerdef_0__3.result, <position> <position> mkpos(<Token> _localctx._lexerdef_0__1));
+             localContext!.result = <definition> MK_Deflexer(<string> <string> str(<Token> localContext._lexerdef_0__1), <lexerule> localContext._lexerdef_0__3.result, <position> <position> mkpos(<Token> localContext._lexerdef_0__1));
                         
             }
         }

@@ -558,7 +558,7 @@ let codegen
         let inner_names = ResizeArray<string>()
 
         let file_constructors = $"{langName}-constructor.ts", vsep [
-            yield word "import * as antlr from 'antlr4ts';"
+            yield word "import * as antlr from 'antlr4ng';"
             let import_names = String.concat ", " import_names
             yield word $"import {{ {import_names} }} from './{langName}-require';"
             yield word $"export * from './{langName}-require'"
@@ -607,7 +607,7 @@ let codegen
                         let all_import_names = (List.ofSeq inner_names @ import_names) |> String.concat ", "
                         let require_name = escapeString $"./{langName}-constructor"
                         yield word $"import {{ {all_import_names} }} from {require_name}"
-                        yield word $"import * as antlr from 'antlr4ts'"
+                        yield word $"import * as antlr from 'antlr4ng'"
                     for each in usedFunctionTypes do
                         yield word (genFuncTypeDef each)
                     yield word "}"
