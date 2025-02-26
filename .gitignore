@@ -1,7 +1,7 @@
 .nomake_files/
 tmp/
 bun.lockb
-deno_pack/bundle.js
+deno_pack/tbnf.js
 
 tbnf.js
 tbnf-linux
