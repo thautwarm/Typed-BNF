@@ -5,4 +5,4 @@ antlr-ng -Dlanguage=TypeScript ./tbnf-js/src/TypedBNF.g4 -o ./tbnf-js/src
 fable --typedArrays false --outDir ./tbnf-js/src --noCache
 find tbnf-js/src/ -name "package.json" -exec rm {} \;
 cd tbnf-js 
-bun build --compile src/Main.ts
+bun build --compile src/Main.ts --outfile ../tbnf
