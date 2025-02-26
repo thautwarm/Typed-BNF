@@ -11,7 +11,7 @@ import * as codegen_csharp from "./src/Backends.CSharpAntlr"
 import * as codegen_ts from "./src/Backends.TypeScriptAntlr"
 import * as codegen_julia from "./src/Backends.JuliaFFF"
 import * as codegen_bnf from "./src/Backends.PureBNF"
-import { genDoc } from "./FableSedlex/PrettyDoc"
+import { genDoc } from "./src/FableSedlex/PrettyDoc"
 import { setExitFunc } from "./src/ErrorReport"
 
 const backends = {

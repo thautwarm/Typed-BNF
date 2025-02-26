@@ -50,6 +50,11 @@ let TypeScriptKeywords =
         "with";
         "lexer";
         "parser";
+        "abstract";
+        "arguments";
+        "await";
+        "boolean";
+        "break";
     |]
 
 let angled x = word "<" * x * word ">"
