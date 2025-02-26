@@ -105,6 +105,18 @@ NM.target(
         },
       );
 
+      
+      await NM.Shell.run(
+        NM.Shell.split(
+          `bun install`,
+        ),
+        {
+          printCmd: true,
+          stdout: "print",
+          cwd: "./tbnf-js",
+        },
+      );
+
       await NM.Shell.run(
         NM.Shell.split(
           `bun build --outfile deno_pack/bundle.js ./src/entrypoint.ts`,
