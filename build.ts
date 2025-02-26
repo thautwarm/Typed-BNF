@@ -18,30 +18,29 @@ NM.option(
 );
 
 const sedlex = NM.target(
-    {
-        name: 'src/FableSedlex',
-        virtual: false,
-        deps: {
-            repo: NM.repoTarget(
-                {
-                  repo: "thautwarm/Fable.Sedlex",
-                })
+  {
+    name: "src/FableSedlex",
+    virtual: false,
+    deps: {
+      repo: NM.repoTarget(
+        {
+          repo: "thautwarm/Fable.Sedlex",
         },
-        rebuild: 'never',
-        async build({ deps, target }) {
-            console.log("FableSedlex Repo Path:", deps.repo);
-            await new NM.Path(deps.repo).copyTo(target, {
-                contentsOnly: true,
-            });
-        }
-
-    }
-)
-
+      ),
+    },
+    rebuild: "never",
+    async build({ deps, target }) {
+      console.log("FableSedlex Repo Path:", deps.repo);
+      await new NM.Path(deps.repo).copyTo(target, {
+        contentsOnly: true,
+      });
+    },
+  },
+);
 
 NM.target(
   {
-    name: "tbnf-js/deno_pack/bundle.js",
+    name: "dist/bundle.js",
     virtual: false,
     deps: {
       sedlex: sedlex,
@@ -105,7 +104,6 @@ NM.target(
         },
       );
 
-      
       await NM.Shell.run(
         NM.Shell.split(
           `bun install`,
@@ -119,7 +117,7 @@ NM.target(
 
       await NM.Shell.run(
         NM.Shell.split(
-          `bun build --target=node --outfile ../deno_pack/bundle.js ./src/entrypoint.ts`,
+          `bun build --target=node --outfile ../dist/bundle.js ./src/entrypoint.ts`,
         ),
         {
           printCmd: true,
@@ -132,20 +130,64 @@ NM.target(
 );
 
 NM.target(
+  {
+    name: "dist/tbnf.js",
+    virtual: false,
+    deps: {
+      bundle: "./deno_pack/bundle.js",
+    },
+    async build({ deps, target }) {
+      await new NM.Path(deps.bundle).copyTo(target);
+    },
+  },
+);
+
+const binaries: string[] = [];
+for (
+  const triple of [
+    "x86_64-unknown-linux-gnu",
+    "aarch64-unknown-linux-gnu",
+    "x86_64-pc-windows-msvc",
+    "x86_64-apple-darwin",
+    "aarch64-apple-darwin",
+  ]
+) {
+  const suffix = triple.includes("windows") ? ".exe" : "";
+  const targetFileName = `tbnf-${triple}${suffix}`;
+  binaries.push(`dist/${targetFileName}`);
+  NM.target(
     {
-        name: 'dist/tbnf.js',
-        virtual: false,
-        deps: {
-            bundle: './deno_pack/bundle.js'
-        },
-        async build({ deps, target }) {
-            await new NM.Path(deps.bundle).copyTo(target);
+      name: `dist/${targetFileName}`,
+      virtual: false,
+      deps: {
+        bundle: "./dist/bundle.js",
+      },
+      async build({ deps, target }) {
+        const deno = await NM.Shell.which("deno");
+        if (!deno) {
+          NM.fail("deno not found in PATH, install it from https://deno.land");
         }
-    }
-)
 
-// for (const triple of [
-//     ''
-// ])
+        await NM.Shell.run(
+          NM.Shell.split(
+            `deno compile --allow-env --allow-sys --allow-read --allow-run --allow-write --allow-import --target ${triple} --output ${target} ${deps.bundle}`,
+          ),
+          {
+            printCmd: true,
+            stdout: "print",
+          },
+        );
+      },
+    },
+  );
+}
 
-NM.makefile()
+NM.target({
+  name: "build",
+  virtual: true,
+  deps: {
+    binaries: binaries,
+  },
+});
+
+NM.makefile();
