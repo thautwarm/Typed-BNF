@@ -40,7 +40,7 @@ const sedlex = NM.target(
 
 NM.target(
   {
-    name: "dist/bundle.js",
+    name: "./dist/tbnf.js",
     virtual: false,
     deps: {
       sedlex: sedlex,
@@ -117,7 +117,7 @@ NM.target(
 
       await NM.Shell.run(
         NM.Shell.split(
-          `bun build --target=node --outfile ../dist/bundle.js ./src/entrypoint.ts`,
+          `bun build --target=node --outfile ../dist/tbnf.js ./src/entrypoint.ts`,
         ),
         {
           printCmd: true,
@@ -125,19 +125,6 @@ NM.target(
           cwd: "./tbnf-js",
         },
       );
-    },
-  },
-);
-
-NM.target(
-  {
-    name: "dist/tbnf.js",
-    virtual: false,
-    deps: {
-      bundle: "./deno_pack/bundle.js",
-    },
-    async build({ deps, target }) {
-      await new NM.Path(deps.bundle).copyTo(target);
     },
   },
 );
@@ -160,7 +147,7 @@ for (
       name: `dist/${targetFileName}`,
       virtual: false,
       deps: {
-        bundle: "./dist/bundle.js",
+        bundle: "./dist/tbnf.js",
       },
       async build({ deps, target }) {
         const deno = await NM.Shell.which("deno");
