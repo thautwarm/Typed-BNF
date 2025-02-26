@@ -17,17 +17,34 @@ NM.option(
   },
 );
 
+const sedlex = NM.target(
+    {
+        name: 'src/FableSedlex',
+        virtual: false,
+        deps: {
+            repo: NM.repoTarget(
+                {
+                  repo: "thautwarm/Fable.Sedlex",
+                })
+        },
+        rebuild: 'never',
+        async build({ deps, target }) {
+            console.log("FableSedlex Repo Path:", deps.repo);
+            await new NM.Path(deps.repo).copyTo(target, {
+                contentsOnly: true,
+            });
+        }
+
+    }
+)
+
+
 NM.target(
   {
     name: "tbnf-js/deno_pack/bundle.js",
     virtual: false,
     deps: {
-      sedlex: NM.repoTarget(
-        {
-          repo: "thautwarm/Fable.Sedlex",
-          storageDir: "./src/FableSedlex",
-        },
-      ),
+      sedlex: sedlex,
       fsSources: NM.Path.glob(
         "src/**/*.{fs,fsproj}",
         {
@@ -95,8 +112,11 @@ NM.target(
         {
           printCmd: true,
           stdout: "print",
+          cwd: "./tbnf-js",
         },
       );
     },
   },
 );
+
+NM.makefile()

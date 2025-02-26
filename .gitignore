@@ -1,3 +1,6 @@
+.nomake_files/
+tmp/
+
 tbnf.js
 tbnf-linux
 tbnf-macos
