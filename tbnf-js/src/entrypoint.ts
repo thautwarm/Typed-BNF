@@ -12,6 +12,10 @@ import * as codegen_julia from "./src/Backends.JuliaFFF";
 import * as codegen_bnf from "./src/Backends.PureBNF";
 import { genDoc } from "./src/FableSedlex/PrettyDoc";
 import { setExitFunc } from "./src/ErrorReport";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const backends = {
   "python-lark": codegen_py.codegen,

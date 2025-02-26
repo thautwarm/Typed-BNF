@@ -1,4 +1,5 @@
 import * as NM from "nomake";
+import version from "./version.ts";
 
 const GlobalOptions: {
   bootstrap: boolean;
@@ -54,7 +55,7 @@ NM.target(
       ),
       tsSources: NM.Path.glob("tbnf-js/src/*.ts"),
     },
-    async build({ deps }) {
+    async build({ deps, target }) {
       console.log("FSharp Sources:");
       console.log(deps.fsSources);
 
@@ -130,6 +131,7 @@ NM.target(
 );
 
 const binaries: string[] = [];
+let targetInCurrentOS = "";
 for (
   const triple of [
     "x86_64-unknown-linux-gnu",
@@ -140,8 +142,11 @@ for (
   ]
 ) {
   const suffix = triple.includes("windows") ? ".exe" : "";
-  const targetFileName = `tbnf-${triple}${suffix}`;
+  const targetFileName = `tbnf-${version}-${triple}${suffix}`;
   binaries.push(`dist/${targetFileName}`);
+  if (Deno.build.target == triple) {
+    targetInCurrentOS = `dist/${targetFileName}`;
+  }
   NM.target(
     {
       name: `dist/${targetFileName}`,
@@ -172,9 +177,59 @@ for (
 NM.target({
   name: "build",
   virtual: true,
+  rebuild: "always",
   deps: {
     binaries: binaries,
   },
 });
+
+NM.target({
+  name: "clean",
+  virtual: true,
+  rebuild: "always",
+  async build() {
+    for await (
+      const each of NM.Path.glob("tbnf-js/src/**/*.js", {
+        exclude: ["**/tbnf.config.js"],
+      })
+    ) {
+      console.log("Removing ", each);
+      await Deno.remove(each);
+    }
+
+    console.log("Removing tbnf-js/src/fable_modules");
+    await await Deno.remove(
+      new NM.Path("tbnf-js/src/fable_modules").abs().asOsPath(),
+      {
+        recursive: true,
+      },
+    );
+  },
+});
+
+if (targetInCurrentOS) {
+  NM.target(
+    {
+      name: "bootstrap-once",
+      virtual: true,
+      rebuild: "always",
+      deps: {
+        executable: targetInCurrentOS,
+      },
+      async build({ deps }) {
+        
+        await NM.Shell.run(
+          NM.Shell.split(
+            `${deps.executable} TypedBNF.tbnf -o ./tbnf-js/src -lang TypedBNF -be typescript-antlr`
+          ),
+          {
+            printCmd: true,
+            stdout: "print",
+          },
+        );
+      },
+    },
+  );
+}
 
 NM.makefile();
