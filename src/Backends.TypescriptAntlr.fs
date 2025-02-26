@@ -330,7 +330,7 @@ let codegen
                 | node.ESlot i ->
                     let n = slotName actionName i
                     usedSlots <- Set.add i usedSlots
-                    let v = word $"_localctx._{n}"
+                    let v = word $"localContext._{n}"
                     return
                         if isTerminal.[i - 1] then v
                         else v * word ".result"
@@ -611,7 +611,7 @@ let codegen
                     for each in usedFunctionTypes do
                         yield word (genFuncTypeDef each)
                     yield word "}"
-                    yield word (sprintf "start returns [result: %s]: v=%s EOF { $result = _localctx._v.result; };" (cg_type start_t) start_mangled)
+                    yield word (sprintf "start returns [result: %s]: v=%s EOF { $result = localContext._v.result; };" (cg_type start_t) start_mangled)
                     yield file_grammar
                     yield! lexerDefs
                 ]
