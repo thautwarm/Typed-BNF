@@ -1,10 +1,10 @@
-import { processPolyType, MK_LRef, MK_LGroup, MK_LOptional, MK_LStar, MK_LPlus, MK_LNot, MK_LOr, MK_LSeq, MK_LStr, MK_LNumber, MK_LWildcard, MK_EField, MK_EBool, MK_EFlt, MK_EStr, MK_EInt, MK_ESlot, MK_EVar, MK_EFun, MK_ELet, MK_EList, MK_ETuple, MK_EApp, MK_expr, MK_Macrocall, MK_Nonterm, MK_Term, MK_production, MK_Deflexer, MK_Defrule, MK_Defmacro, MK_Defignore, MK_Decltype, MK_Declctor, MK_Declvar, MK_Mono, MK_Poly, MK_TApp, MK_TConst, MK_TVar, MK_TList, MK_TTuple, MK_TFun, MK_LRange } from "./src/APIs"
-import { node, lexerule, expr, symbol, production, definition, polyt, monot, position, } from "./src/Grammar"
+import { MK_LRef, MK_LGroup, MK_LOptional, MK_LStar, MK_LPlus, MK_LNot, MK_LOr, MK_LSeq, MK_LStr, MK_LNumber, MK_LWildcard, MK_EField, MK_EBool, MK_EFlt, MK_EStr, MK_EInt, MK_ESlot, MK_EVar, MK_EFun, MK_ELet, MK_EList, MK_ETuple, MK_EApp, MK_expr, MK_Macrocall, MK_Nonterm, MK_Term, MK_production, MK_Deflexer, MK_Defrule, MK_Defmacro, MK_Defignore, MK_Decltype, MK_Declctor, MK_Declvar, MK_Mono, MK_Poly, MK_TApp, MK_TConst, MK_TVar, MK_TList, MK_TTuple, MK_TFun, MK_LRange } from "./src/APIs.js"
+import { processPolyType, node, lexerule, expr, symbol, production, definition, polyt, monot, position, } from "./src/Grammar.js"
 // export all imported from '.APIs.fs' and '.Grammar.fs'
 
 export { processPolyType, MK_LRef, MK_LGroup, MK_LOptional, MK_LStar, MK_LPlus, MK_LNot, MK_LOr, MK_LSeq, MK_LStr, MK_LNumber, MK_LWildcard, MK_EField, MK_EBool, MK_EFlt, MK_EStr, MK_EInt, MK_ESlot, MK_EVar, MK_EFun, MK_ELet, MK_EList, MK_ETuple, MK_EApp, MK_expr, MK_Macrocall, MK_Nonterm, MK_Term, MK_production, MK_Deflexer, MK_Defrule, MK_Defmacro, MK_Defignore, MK_Decltype, MK_Declctor, MK_Declvar, MK_Mono, MK_Poly, MK_TApp, MK_TConst, MK_TVar, MK_TList, MK_TTuple, MK_TFun, MK_LRange, node, lexerule, expr, symbol, production, definition, polyt, monot, position}
 
-import { Token } from "antlr4ts";
+import { Token } from "antlr4ng";
 export { Token }
 
 
@@ -97,7 +97,7 @@ export function getfilename()
 
 export function mkpos(t: Token)
 {
-    return new position(t.line, t.charPositionInLine, getfilename());
+    return new position(t.line, t.column, getfilename());
 }
 
 export function getpos(e: expr): position

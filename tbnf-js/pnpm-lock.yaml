@@ -1,0 +1,47 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@types/node':
+        specifier: ^17.0.21
+        version: 17.0.45
+      antlr4ng:
+        specifier: ^3.0.15
+        version: 3.0.15
+    devDependencies:
+      '@types/argparse':
+        specifier: ^2.0.10
+        version: 2.0.17
+      argparse:
+        specifier: ^2.0.1
+        version: 2.0.1
+
+packages:
+
+  '@types/argparse@2.0.17':
+    resolution: {integrity: sha512-fueJssTf+4dW4HODshEGkIZbkLKHzgu1FvCI4cTc/MKum/534Euo3SrN+ilq8xgyHnOjtmg33/hee8iXLRg1XA==}
+
+  '@types/node@17.0.45':
+    resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+
+  antlr4ng@3.0.15:
+    resolution: {integrity: sha512-VELFqTfcpGI2bj6ScMWuxM3FI6HOsojrgmnw3cCbUtsQ1DNOq32wJsjOt7vLvfIniyyuE1DIYegGcuFmn+jgyw==}
+
+  argparse@2.0.1:
+    resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
+
+snapshots:
+
+  '@types/argparse@2.0.17': {}
+
+  '@types/node@17.0.45': {}
+
+  antlr4ng@3.0.15: {}
+
+  argparse@2.0.1: {}

@@ -1,21 +1,15 @@
 {
   "name": "tbnf",
-    "version": "0.2.1",
+  "version": "0.2.1",
   "type": "commonjs",
   "description": "Backend-Agnostic Type-safe Parser Generators With AST Output",
   "dependencies": {
     "@types/node": "^17.0.21",
-    "antlr4ts": "^0.5.0-alpha.4"
+    "antlr4ng": "^3.0.15"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.5",
-    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "@types/argparse": "^2.0.10",
     "argparse": "^2.0.1"
-  },
-  "scripts": {
-    "make-commonjs": "babel src --out-dir src --copy-files"
   },
   "keywords": [
     "parser",

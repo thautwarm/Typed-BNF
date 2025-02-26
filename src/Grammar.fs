@@ -229,6 +229,6 @@ let (|TTuple|_|) x =
     | TConst "tuple" -> Some ()
     | _ -> None
 
-let processPolyType' (bounds: string seq) (monot: monot) =
+let processPolyType (bounds: string seq) (monot: monot) =
     let ty_arguments = Map.ofList [for k in bounds -> k, TVar k]
     monot.SubstGen ty_arguments

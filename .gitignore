@@ -15,6 +15,7 @@ tbnf-win.exe
 __pycache__
 /runtests/ocaml_simple_json/_build/
 /FableSedlex/
+/src/FableSedlex/
 bin/
 obj/
 .ionide/

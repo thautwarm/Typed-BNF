@@ -121,7 +121,7 @@ type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
                         Mono(TFun(fields, TConst typename))
                     else
                         let tapp = TFun(fields, TApp(TConst typename, List.map TVar parameters))
-                                   |> processPolyType' parameters
+                                   |> processPolyType parameters
                         let fields =
                             match tapp with
                             | TFun(fields, _) ->
@@ -300,7 +300,7 @@ let build_analyzer(stmts: definition array) =
             Sigma.RegisterType decl.external decl.hasFields decl.ident decl.parameters fields
             let mutable newFields = []
             for fieldname, t, pos in decl.fields do
-                let t = processPolyType' decl.parameters t
+                let t = processPolyType decl.parameters t
                 ignore(Sigma.KindCheckMono t)
                 newFields <- (fieldname, t, pos) :: newFields
             if not <| List.isEmpty newFields then
