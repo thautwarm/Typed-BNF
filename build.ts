@@ -119,7 +119,7 @@ NM.target(
 
       await NM.Shell.run(
         NM.Shell.split(
-          `bun build --outfile deno_pack/bundle.js ./src/entrypoint.ts`,
+          `bun build --target=node --outfile ../deno_pack/bundle.js ./src/entrypoint.ts`,
         ),
         {
           printCmd: true,
@@ -130,5 +130,22 @@ NM.target(
     },
   },
 );
+
+NM.target(
+    {
+        name: 'dist/tbnf.js',
+        virtual: false,
+        deps: {
+            bundle: './deno_pack/bundle.js'
+        },
+        async build({ deps, target }) {
+            await new NM.Path(deps.bundle).copyTo(target);
+        }
+    }
+)
+
+// for (const triple of [
+//     ''
+// ])
 
 NM.makefile()
