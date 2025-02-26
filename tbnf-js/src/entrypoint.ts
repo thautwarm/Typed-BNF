@@ -14,9 +14,6 @@ import { genDoc } from "./src/FableSedlex/PrettyDoc";
 import { setExitFunc } from "./src/ErrorReport";
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const backends = {
   "python-lark": codegen_py.codegen,
   "ocaml-menhir": codegen_ocaml.codegen,
@@ -96,10 +93,7 @@ function runcommand() {
     configPath = path.join(outDir, "tbnf.config.js");
   }
   if (fs.existsSync(configPath)) {
-    let rel = path.relative(fs.realpathSync(__dirname), process.cwd());
-    let modulepath = path.join(rel, configPath);
-    modulepath = "./" + toUnixPath(modulepath);
-    let mod: object = evalScript(modulepath);
+    let mod: object = evalScript(configPath);
     // iterate over all keys in the config file
     for (let key in mod) {
       defaultScope[key] = mod[key];
