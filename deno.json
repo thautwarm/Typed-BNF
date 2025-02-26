@@ -1,0 +1,5 @@
+{
+    "imports": {
+        "nomake": "https://github.com/thautwarm/nomake/raw/v0.1.12/mod.ts"
+    }
+}
