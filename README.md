@@ -31,7 +31,9 @@ Download the single executable file `tbnf-VERSION-TARGET` (e.g., `tbnf-0.4.0-win
 
 ```bash
 Usage: tbnf [options] <source-grammar-file>
+Version: 0.4.2
 Options:
+  --version                 Show version and exit
   -h, --help                Show this help message and exit
   -o, --outDir DIR          Specify output directory (default: same as source file)
   -be, --backend TYPE       Backend to use
