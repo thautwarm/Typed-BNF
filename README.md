@@ -175,17 +175,6 @@ All distributions are built into the `dist` folder.
 70M     tbnf-0.4.0-win-x64.exe
 ```
 
-### Build Standalone JS Package
-
-This requires the original host implemented in Python. You might need to call `pip install -e .`.
-
-```
-git clone https://github.com/thautwarm/Fable.Sedlex FableSedlex
-npm install -g typescript antlr4ts-cli
-cd tbnf-js && npm install && cd ..
-bash ./build-js-package.sh
-```
-
 ### Bootstrap
 
 The grammar for Typed BNF is also implemented using Typed BNF.
