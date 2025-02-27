@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- executable -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <NoWarn>CS3021</NoWarn>
+    <PublishSingleFile>true</PublishSingleFile>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include=".\CLI\Grammar\*.cs;.\CLI\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include=".\TBNF.Core.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
+    <PackageReference Include="FSharp.Core" Version="9.0.201" />
+    <PackageReference Include="Jint" Version="4.2.0" />
+  </ItemGroup>
+
+</Project>

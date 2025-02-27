@@ -1,25 +1,12 @@
 {
   "version": "4",
   "specifiers": {
-    "npm:@types/node@*": "22.9.3",
     "npm:shlex@*": "2.1.2"
   },
   "npm": {
-    "@types/node@22.9.3": {
-      "integrity": "sha512-F3u1fs/fce3FFk+DAxbxc78DF8x0cY09RRL8GnXLmkJ1jvx3TtPdWoTT5/NiYfI5ASqXBmfqJi9dZ3gxMx4lzw==",
-      "dependencies": [
-        "undici-types"
-      ]
-    },
     "shlex@2.1.2": {
       "integrity": "sha512-Nz6gtibMVgYeMEhUjp2KuwAgqaJA1K155dU/HuDaEJUGgnmYfVtVZah+uerVWdH8UGnyahhDCgABbYTbs254+w=="
-    },
-    "undici-types@6.19.8": {
-      "integrity": "sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw=="
     }
-  },
-  "redirects": {
-    "https://github.com/thautwarm/nomake/raw/v0.1.12/mod.ts": "https://raw.githubusercontent.com/thautwarm/nomake/v0.1.12/mod.ts"
   },
   "remote": {
     "https://deno.land/std@0.119.0/encoding/hex.ts": "5bc7df19af498c315cdaba69e2fce1b2aef5fc57344e8c21c08991aa8505a260",
@@ -121,11 +108,5 @@
     "https://raw.githubusercontent.com/thautwarm/nomake/v0.1.12/source/toolchains/cc.ts": "57528cd2b0f6730e979aeefd6e11216b85ee7e01b017ca2934e2d9edfd679ab4",
     "https://raw.githubusercontent.com/thautwarm/nomake/v0.1.12/source/utils.ts": "fb78143f1c476e6783648f42a1f51eddf2386eaf67f68ed51125e5769cb3b364",
     "https://raw.githubusercontent.com/thautwarm/nomake/v0.1.12/source/web.ts": "aeb190bba62b7c55909fb2b2ffccff5e23dca7ed9199fccb83c5880362041a87"
-  },
-  "workspace": {
-    "dependencies": [
-      "npm:antlr4ng@*",
-      "npm:argparse@*"
-    ]
   }
 }

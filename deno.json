@@ -1,10 +1,5 @@
 {
     "imports": {
-        "nomake": "https://raw.githubusercontent.com/thautwarm/nomake/v0.1.12/mod.ts",
-        "fs": "node:fs",
-        "path": "node:path",
-        "url": "node:url",
-        "antlr4ng": "npm:antlr4ng",
-        "argparse": "npm:argparse"
+        "nomake": "https://raw.githubusercontent.com/thautwarm/nomake/v0.1.12/mod.ts"
     }
 }

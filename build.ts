@@ -1,5 +1,6 @@
 import * as NM from "nomake";
-import version from "./version.ts";
+
+const version = "0.4.0";
 
 const GlobalOptions: {
   bootstrap: boolean;
@@ -18,77 +19,33 @@ NM.option(
   },
 );
 
-const sedlex = NM.target(
-  {
-    name: "src/FableSedlex",
-    virtual: false,
-    deps: {
-      repo: NM.repoTarget(
-        {
-          repo: "thautwarm/Fable.Sedlex",
-        },
-      ),
-    },
-    rebuild: "never",
-    async build({ deps, target }) {
-      console.log("FableSedlex Repo Path:", deps.repo);
-      await new NM.Path(deps.repo).copyTo(target, {
-        contentsOnly: true,
-      });
-    },
-  },
-);
+const exeCurRt = NM.Platform.currentOS == 'windows' ? './dist/TBNF.CLI.exe' : './dist/TBNF.CLI';
 
 NM.target(
   {
-    name: "./dist/tbnf.js",
+    name: exeCurRt,
     virtual: false,
     deps: {
-      sedlex: sedlex,
-      fsSources: NM.Path.glob(
-        "src/**/*.{fs,fsproj}",
-        {
-          exclude: [
-            "**/FableSedlex/**",
-          ],
-        },
-      ),
-      tsSources: NM.Path.glob("tbnf-js/src/*.ts"),
+      fsSources: NM.Path.glob("Core/**/*.{fs,fsproj}"),
+      csSources: NM.Path.glob("CLI/**/*.{cs,csproj}"),
     },
-    async build({ deps, target }) {
+    async build({ deps }) {
       console.log("FSharp Sources:");
       console.log(deps.fsSources);
+      console.log("CSharp Sources:");
+      console.log(deps.csSources);
 
-      console.log("TS Sources:");
-      console.log(deps.tsSources);
-
-      const antlr = await NM.Shell.which("antlr-ng");
-      if (!antlr) {
-        NM.fail(
-          "antlr-ng not found in PATH, install it from https://github.com/mike-lischke/antlr-ng",
-        );
+      const antlr4 = await NM.Shell.which("antlr4");
+      if (!antlr4) {
+        NM.fail("antlr4 not found in PATH, install it from https://www.antlr.org/");
       }
-
-      const fable = await NM.Shell.which("fable");
-      if (!fable) {
-        NM.fail(
-          "fable not found in PATH, install it from https://github.com/thautwarm/Fable",
-        );
-      }
-
-      const bun = await NM.Shell.which("bun");
-      if (!bun) {
-        NM.fail("bun not found in PATH, install it from https://bun.sh");
+      const dotnet = await NM.Shell.which("dotnet");
+      if (!dotnet) {
+        NM.fail("dotnet not found in PATH, install it from https://dotnet.microsoft.com/");
       }
 
       await NM.Shell.run(
-        [
-          antlr,
-          "-Dlanguage=TypeScript",
-          "./tbnf-js/src/TypedBNF.g4",
-          "-o",
-          "./tbnf-js/src",
-        ],
+        NM.Shell.split(`antlr4 ./CLI/Grammar/TypedBNF.g4 -package TypedBNF -o ./CLI/Grammar/`),
         {
           printCmd: true,
           stdout: "print",
@@ -97,78 +54,85 @@ NM.target(
 
       await NM.Shell.run(
         NM.Shell.split(
-          `fable --typedArrays false --outDir ./tbnf-js/src --noCache`,
+          `dotnet publish TBNF.CLI.csproj -f net8.0 --use-current-runtime --self-contained true -o dist/`,
         ),
         {
           printCmd: true,
           stdout: "print",
-        },
-      );
-
-      await NM.Shell.run(
-        NM.Shell.split(
-          `bun install`,
-        ),
-        {
-          printCmd: true,
-          stdout: "print",
-          cwd: "./tbnf-js",
-        },
-      );
-
-      await NM.Shell.run(
-        NM.Shell.split(
-          `bun build --target=node --outfile ../dist/tbnf.js ./src/entrypoint.ts`,
-        ),
-        {
-          printCmd: true,
-          stdout: "print",
-          cwd: "./tbnf-js",
         },
       );
     },
   },
 );
 
+class Lock {
+
+  private _locked: boolean;
+
+  constructor() {
+    this._locked = false;
+  }
+
+  async lock() {
+    while (this._locked) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    this._locked = true;
+  }
+
+  unlock() {
+    this._locked = false;
+  }
+
+  dispose() {
+    this.unlock();
+  }
+}
+
+const _lock = new Lock();
+const lock = async () => {
+  await _lock.lock();
+  return {
+    [Symbol.dispose]() {
+      _lock.unlock()
+    }
+  }
+}
+
 const binaries: string[] = [];
-let targetInCurrentOS = "";
 for (
-  const triple of [
-    "x86_64-unknown-linux-gnu",
-    "aarch64-unknown-linux-gnu",
-    "x86_64-pc-windows-msvc",
-    "x86_64-apple-darwin",
-    "aarch64-apple-darwin",
+  const rid of [
+    "win-x64",
+    "linux-x64",
+    "osx-x64",
+    "linux-arm64",
+    "osx-arm64",
   ]
 ) {
-  const suffix = triple.includes("windows") ? ".exe" : "";
-  const targetFileName = `tbnf-${version}-${triple}${suffix}`;
+  const suffix = rid.includes("win") ? ".exe" : "";
+  const targetFileName = `tbnf-${version}-${rid}${suffix}`;
   binaries.push(`dist/${targetFileName}`);
-  if (Deno.build.target == triple) {
-    targetInCurrentOS = `dist/${targetFileName}`;
-  }
   NM.target(
     {
       name: `dist/${targetFileName}`,
       virtual: false,
       deps: {
-        bundle: "./dist/tbnf.js",
+        bundle: exeCurRt,
       },
-      async build({ deps, target }) {
-        const deno = await NM.Shell.which("deno");
-        if (!deno) {
-          NM.fail("deno not found in PATH, install it from https://deno.land");
-        }
-
+      async build({ target }) {
+        using _ = await lock();
         await NM.Shell.run(
           NM.Shell.split(
-            `deno compile --allow-env --allow-sys --allow-read --allow-run --allow-write --allow-import --target ${triple} --output ${target} ${deps.bundle}`,
+            `dotnet publish TBNF.CLI.csproj -f net8.0 -r ${rid} --self-contained true -o dist/${rid}`,
           ),
           {
             printCmd: true,
             stdout: "print",
           },
         );
+        await new NM.Path(`dist/${rid}/TBNF.CLI${suffix}`).copyTo(
+          target
+        )
       },
     },
   );
@@ -183,53 +147,54 @@ NM.target({
   },
 });
 
-NM.target({
-  name: "clean",
-  virtual: true,
-  rebuild: "always",
-  async build() {
-    for await (
-      const each of NM.Path.glob("tbnf-js/src/**/*.js", {
-        exclude: ["**/tbnf.config.js"],
-      })
-    ) {
-      console.log("Removing ", each);
-      await Deno.remove(each);
-    }
-
-    console.log("Removing tbnf-js/src/fable_modules");
-    await await Deno.remove(
-      new NM.Path("tbnf-js/src/fable_modules").abs().asOsPath(),
-      {
-        recursive: true,
-      },
-    );
-  },
-});
-
-if (targetInCurrentOS) {
-  NM.target(
-    {
-      name: "bootstrap-once",
-      virtual: true,
-      rebuild: "always",
-      deps: {
-        executable: targetInCurrentOS,
-      },
-      async build({ deps }) {
-        
-        await NM.Shell.run(
-          NM.Shell.split(
-            `${deps.executable} TypedBNF.tbnf -o ./tbnf-js/src -lang TypedBNF -be typescript-antlr`
-          ),
-          {
-            printCmd: true,
-            stdout: "print",
-          },
-        );
-      },
+NM.target(
+  {
+    name: "bootstrap-once",
+    virtual: true,
+    rebuild: "always",
+    deps: {
+      executable: './dist/TBNF.CLI.exe',
     },
-  );
-}
+    async build({ deps }) {
+      await NM.Shell.run(
+        NM.Shell.split(
+          `./dist/TBNF.CLI.exe TypedBNF.tbnf -o ./CLI/Grammar/ -lang TypedBNF -be csharp-antlr`
+        ),
+        {
+          printCmd: true,
+          stdout: "print",
+        },
+      );
+    },
+  },
+);
+
+const suffix = NM.Platform.currentOS == 'windows' ? '.exe' : '';
+const exeAOT = `dist/TBNF.CLI.AOT${suffix}`;
+NM.target(
+  {
+    name: exeAOT,
+    virtual: false,
+    deps: {
+      executable: './dist/TBNF.CLI.exe',
+    },
+    async build() {
+      await NM.Shell.run(
+        NM.Shell.split(`dotnet publish TBNF.CLI.csproj -f net8.0 -o dist`),
+      )
+    }
+  }
+)
+
+NM.target(
+  {
+    name: 'aot',
+    virtual: true,
+    rebuild: 'always',
+    deps: {
+      executable: exeAOT,
+    }
+  }
+)
 
 NM.makefile();
