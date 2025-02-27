@@ -501,13 +501,18 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
     tbnf.ErrorReport.withErrorHandler analyzer.Sigma.GetErrorTrace
     <| fun () ->
 
-        let define_record (case_name: string, ctor_name: string, fields: (Doc * Doc) seq) =
+        let define_record
+            (original_case_name: Option<string>, case_name: string, ctor_name: string, fields: (Doc * Doc) seq)
+            =
             [ let func_params =
                   parens (seplist (word ",") [ for (fname, t) in fields -> fname * word ": " * t ])
 
               yield word $"export interface {case_name}"
               yield word "{"
-              yield word $"    $type: '{case_name}';"
+
+              match original_case_name with
+              | Some original_case_name -> yield word $"    $type: '{original_case_name}';"
+              | None -> ()
 
               yield
                   vsep
@@ -522,12 +527,21 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
               yield word $"export function {ctor_name}" * func_params
               yield word "{"
 
-              yield
-                  word "return { $type: "
-                  * word $"'{case_name}',"
-                  * seplist (word ",") [ for (fname, t) in fields -> fname ]
-                  * word "}"
-                  >>> 4
+              match original_case_name with
+              | Some original_case_name ->
+                  yield
+                      word "return { $type: "
+                      * word $"'{original_case_name}',"
+                      * seplist (word ",") [ for (fname, t) in fields -> fname ]
+                      * word "}"
+                      >>> 4
+
+              | None ->
+                  yield
+                      word "return {"
+                      * seplist (word ",") [ for (fname, t) in fields -> fname ]
+                      * word "}"
+                      >>> 4
 
               yield word "}" ]
 
@@ -589,7 +603,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                                   let ctor_name' = rename_ctor ctor_name
                                   union_names.Add case_name
                                   inner_names.Add ctor_name'
-                                  yield! define_record (case_name, ctor_name', fields)
+                                  yield! define_record (Some ctor_name, case_name, ctor_name', fields)
 
                               let typename' = rename_type typename
 
@@ -621,7 +635,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                               let fields =
                                   [ for (fname, t) in shape.fields -> word (rename_field fname), word (cg_type t) ]
 
-                              yield! define_record (typename' + tparams, varname + tparams, fields) ]
+                              yield! define_record (None, typename' + tparams, varname + tparams, fields) ]
 
                 let file_antlr =
                     langName + ".g4",

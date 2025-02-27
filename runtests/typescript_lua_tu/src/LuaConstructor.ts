@@ -3,32 +3,32 @@ import { op_t, maybe_t, mkBinOpSeq, mkOperand, mkOperator, none, some, listMap, 
 export * from './LuaRequire'
 export interface DotName_t
 {
-    $type: 'DotName_t';
+    $type: 'DotName';
     value0: funcname_t
     value1: antlr.Token
 }
 export function DotName(value0: funcname_t,value1: antlr.Token)
 {
-    return { $type: 'DotName_t',value0,value1}
+    return { $type: 'DotName',value0,value1}
 }
 export interface MethodName_t
 {
-    $type: 'MethodName_t';
+    $type: 'MethodName';
     value0: funcname_t
     value1: antlr.Token
 }
 export function MethodName(value0: funcname_t,value1: antlr.Token)
 {
-    return { $type: 'MethodName_t',value0,value1}
+    return { $type: 'MethodName',value0,value1}
 }
 export interface VarName_t
 {
-    $type: 'VarName_t';
+    $type: 'VarName';
     value: antlr.Token
 }
 export function VarName(value: antlr.Token)
 {
-    return { $type: 'VarName_t',value}
+    return { $type: 'VarName',value}
 }
 export type funcname_t =
     | DotName_t
@@ -36,31 +36,31 @@ export type funcname_t =
     | VarName_t
 export interface PositionalArgs_t
 {
-    $type: 'PositionalArgs_t';
+    $type: 'PositionalArgs';
     value0: antlr.Token
     value1: Array<expr_t>
 }
 export function PositionalArgs(value0: antlr.Token,value1: Array<expr_t>)
 {
-    return { $type: 'PositionalArgs_t',value0,value1}
+    return { $type: 'PositionalArgs',value0,value1}
 }
 export interface StringArg_t
 {
-    $type: 'StringArg_t';
+    $type: 'StringArg';
     value: antlr.Token
 }
 export function StringArg(value: antlr.Token)
 {
-    return { $type: 'StringArg_t',value}
+    return { $type: 'StringArg',value}
 }
 export interface TableArgs_t
 {
-    $type: 'TableArgs_t';
+    $type: 'TableArgs';
     value: table_t
 }
 export function TableArgs(value: table_t)
 {
-    return { $type: 'TableArgs_t',value}
+    return { $type: 'TableArgs',value}
 }
 export type arguments_t =
     | PositionalArgs_t
@@ -68,45 +68,45 @@ export type arguments_t =
     | TableArgs_t
 export interface TableConstructor_t
 {
-    $type: 'TableConstructor_t';
+    $type: 'TableConstructor';
     value0: antlr.Token
     value1: Array<table_field_t>
 }
 export function TableConstructor(value0: antlr.Token,value1: Array<table_field_t>)
 {
-    return { $type: 'TableConstructor_t',value0,value1}
+    return { $type: 'TableConstructor',value0,value1}
 }
 export type table_t =
     | TableConstructor_t
 export interface ElementField_t
 {
-    $type: 'ElementField_t';
+    $type: 'ElementField';
     value0: expr_t
 }
 export function ElementField(value0: expr_t)
 {
-    return { $type: 'ElementField_t',value0}
+    return { $type: 'ElementField',value0}
 }
 export interface IndexField_t
 {
-    $type: 'IndexField_t';
+    $type: 'IndexField';
     pos: antlr.Token
     value: expr_t
     item: expr_t
 }
 export function IndexField(pos: antlr.Token,value: expr_t,item: expr_t)
 {
-    return { $type: 'IndexField_t',pos,value,item}
+    return { $type: 'IndexField',pos,value,item}
 }
 export interface NameField_t
 {
-    $type: 'NameField_t';
+    $type: 'NameField';
     key: antlr.Token
     value: expr_t
 }
 export function NameField(key: antlr.Token,value: expr_t)
 {
-    return { $type: 'NameField_t',key,value}
+    return { $type: 'NameField',key,value}
 }
 export type table_field_t =
     | ElementField_t
@@ -114,55 +114,55 @@ export type table_field_t =
     | NameField_t
 export interface Assignment_t
 {
-    $type: 'Assignment_t';
+    $type: 'Assignment';
     value0: boolean
     value1: Array<expr_t>
     value2: maybe_t<Array<expr_t>>
 }
 export function Assignment(value0: boolean,value1: Array<expr_t>,value2: maybe_t<Array<expr_t>>)
 {
-    return { $type: 'Assignment_t',value0,value1,value2}
+    return { $type: 'Assignment',value0,value1,value2}
 }
 export interface BreakStmt_t
 {
-    $type: 'BreakStmt_t';
+    $type: 'BreakStmt';
     value: antlr.Token
 }
 export function BreakStmt(value: antlr.Token)
 {
-    return { $type: 'BreakStmt_t',value}
+    return { $type: 'BreakStmt',value}
 }
 export interface DoStmt_t
 {
-    $type: 'DoStmt_t';
+    $type: 'DoStmt';
     value0: antlr.Token
     value1: block_t
 }
 export function DoStmt(value0: antlr.Token,value1: block_t)
 {
-    return { $type: 'DoStmt_t',value0,value1}
+    return { $type: 'DoStmt',value0,value1}
 }
 export interface EmptyStmt_t
 {
-    $type: 'EmptyStmt_t';
+    $type: 'EmptyStmt';
     value0: antlr.Token
 }
 export function EmptyStmt(value0: antlr.Token)
 {
-    return { $type: 'EmptyStmt_t',value0}
+    return { $type: 'EmptyStmt',value0}
 }
 export interface ExprStmt_t
 {
-    $type: 'ExprStmt_t';
+    $type: 'ExprStmt';
     value: expr_t
 }
 export function ExprStmt(value: expr_t)
 {
-    return { $type: 'ExprStmt_t',value}
+    return { $type: 'ExprStmt',value}
 }
 export interface ForInStmt_t
 {
-    $type: 'ForInStmt_t';
+    $type: 'ForInStmt';
     value0: antlr.Token
     value1: Array<antlr.Token>
     value2: Array<expr_t>
@@ -170,11 +170,11 @@ export interface ForInStmt_t
 }
 export function ForInStmt(value0: antlr.Token,value1: Array<antlr.Token>,value2: Array<expr_t>,value3: block_t)
 {
-    return { $type: 'ForInStmt_t',value0,value1,value2,value3}
+    return { $type: 'ForInStmt',value0,value1,value2,value3}
 }
 export interface ForRangeStmt_t
 {
-    $type: 'ForRangeStmt_t';
+    $type: 'ForRangeStmt';
     value0: antlr.Token
     value1: antlr.Token
     value2: range_t
@@ -182,21 +182,21 @@ export interface ForRangeStmt_t
 }
 export function ForRangeStmt(value0: antlr.Token,value1: antlr.Token,value2: range_t,value3: block_t)
 {
-    return { $type: 'ForRangeStmt_t',value0,value1,value2,value3}
+    return { $type: 'ForRangeStmt',value0,value1,value2,value3}
 }
 export interface GotoStmt_t
 {
-    $type: 'GotoStmt_t';
+    $type: 'GotoStmt';
     value0: antlr.Token
     value1: antlr.Token
 }
 export function GotoStmt(value0: antlr.Token,value1: antlr.Token)
 {
-    return { $type: 'GotoStmt_t',value0,value1}
+    return { $type: 'GotoStmt',value0,value1}
 }
 export interface IfStmt_t
 {
-    $type: 'IfStmt_t';
+    $type: 'IfStmt';
     value0: antlr.Token
     value1: expr_t
     value2: block_t
@@ -205,48 +205,48 @@ export interface IfStmt_t
 }
 export function IfStmt(value0: antlr.Token,value1: expr_t,value2: block_t,value3: Array<if_elseif_t>,value4: maybe_t<if_else_t>)
 {
-    return { $type: 'IfStmt_t',value0,value1,value2,value3,value4}
+    return { $type: 'IfStmt',value0,value1,value2,value3,value4}
 }
 export interface LabelStmt_t
 {
-    $type: 'LabelStmt_t';
+    $type: 'LabelStmt';
     value: antlr.Token
 }
 export function LabelStmt(value: antlr.Token)
 {
-    return { $type: 'LabelStmt_t',value}
+    return { $type: 'LabelStmt',value}
 }
 export interface RepeatStmt_t
 {
-    $type: 'RepeatStmt_t';
+    $type: 'RepeatStmt';
     value0: antlr.Token
     value1: block_t
     value2: expr_t
 }
 export function RepeatStmt(value0: antlr.Token,value1: block_t,value2: expr_t)
 {
-    return { $type: 'RepeatStmt_t',value0,value1,value2}
+    return { $type: 'RepeatStmt',value0,value1,value2}
 }
 export interface ReturnStmt_t
 {
-    $type: 'ReturnStmt_t';
+    $type: 'ReturnStmt';
     value0: antlr.Token
     value1: Array<expr_t>
 }
 export function ReturnStmt(value0: antlr.Token,value1: Array<expr_t>)
 {
-    return { $type: 'ReturnStmt_t',value0,value1}
+    return { $type: 'ReturnStmt',value0,value1}
 }
 export interface WhileStmt_t
 {
-    $type: 'WhileStmt_t';
+    $type: 'WhileStmt';
     value0: antlr.Token
     value1: expr_t
     value2: block_t
 }
 export function WhileStmt(value0: antlr.Token,value1: expr_t,value2: block_t)
 {
-    return { $type: 'WhileStmt_t',value0,value1,value2}
+    return { $type: 'WhileStmt',value0,value1,value2}
 }
 export type stmt_t =
     | Assignment_t
@@ -264,78 +264,78 @@ export type stmt_t =
     | WhileStmt_t
 export interface Attr_t
 {
-    $type: 'Attr_t';
+    $type: 'Attr';
     value0: expr_t
     value1: antlr.Token
 }
 export function Attr(value0: expr_t,value1: antlr.Token)
 {
-    return { $type: 'Attr_t',value0,value1}
+    return { $type: 'Attr',value0,value1}
 }
 export interface Bin_t
 {
-    $type: 'Bin_t';
+    $type: 'Bin';
     op: antlr.Token
     l: expr_t
     r: expr_t
 }
 export function Bin(op: antlr.Token,l: expr_t,r: expr_t)
 {
-    return { $type: 'Bin_t',op,l,r}
+    return { $type: 'Bin',op,l,r}
 }
 export interface Bool_t
 {
-    $type: 'Bool_t';
+    $type: 'Bool';
     value0: antlr.Token
     value1: boolean
 }
 export function Bool(value0: antlr.Token,value1: boolean)
 {
-    return { $type: 'Bool_t',value0,value1}
+    return { $type: 'Bool',value0,value1}
 }
 export interface CallFunc_t
 {
-    $type: 'CallFunc_t';
+    $type: 'CallFunc';
     value0: expr_t
     value1: arguments_t
 }
 export function CallFunc(value0: expr_t,value1: arguments_t)
 {
-    return { $type: 'CallFunc_t',value0,value1}
+    return { $type: 'CallFunc',value0,value1}
 }
 export interface CallMethod_t
 {
-    $type: 'CallMethod_t';
+    $type: 'CallMethod';
     value0: expr_t
     value1: antlr.Token
     value2: arguments_t
 }
 export function CallMethod(value0: expr_t,value1: antlr.Token,value2: arguments_t)
 {
-    return { $type: 'CallMethod_t',value0,value1,value2}
+    return { $type: 'CallMethod',value0,value1,value2}
 }
 export interface Ellipse_t
 {
-    $type: 'Ellipse_t';
+    $type: 'Ellipse';
     value0: antlr.Token
 }
 export function Ellipse(value0: antlr.Token)
 {
-    return { $type: 'Ellipse_t',value0}
+    return { $type: 'Ellipse',value0}
 }
 export interface Exponent_t
 {
-    $type: 'Exponent_t';
+    $type: 'Exponent';
     value0: expr_t
     value1: expr_t
 }
 export function Exponent(value0: expr_t,value1: expr_t)
 {
-    return { $type: 'Exponent_t',value0,value1}
+    return { $type: 'Exponent',value0,value1}
 }
 export interface FuncDef_t
 {
-    $type: 'FuncDef_t';
+    $type: 'FuncDef';
     pos: antlr.Token
     is_local: boolean
     fname: maybe_t<funcname_t>
@@ -344,121 +344,121 @@ export interface FuncDef_t
 }
 export function FuncDef(pos: antlr.Token,is_local: boolean,fname: maybe_t<funcname_t>,params: maybe_t<params_t>,body: block_t)
 {
-    return { $type: 'FuncDef_t',pos,is_local,fname,params,body}
+    return { $type: 'FuncDef',pos,is_local,fname,params,body}
 }
 export interface Index_t
 {
-    $type: 'Index_t';
+    $type: 'Index';
     value0: expr_t
     value1: expr_t
 }
 export function Index(value0: expr_t,value1: expr_t)
 {
-    return { $type: 'Index_t',value0,value1}
+    return { $type: 'Index',value0,value1}
 }
 export interface Inv_t
 {
-    $type: 'Inv_t';
+    $type: 'Inv';
     value0: antlr.Token
     value1: expr_t
 }
 export function Inv(value0: antlr.Token,value1: expr_t)
 {
-    return { $type: 'Inv_t',value0,value1}
+    return { $type: 'Inv',value0,value1}
 }
 export interface Len_t
 {
-    $type: 'Len_t';
+    $type: 'Len';
     value0: antlr.Token
     value1: expr_t
 }
 export function Len(value0: antlr.Token,value1: expr_t)
 {
-    return { $type: 'Len_t',value0,value1}
+    return { $type: 'Len',value0,value1}
 }
 export interface Neg_t
 {
-    $type: 'Neg_t';
+    $type: 'Neg';
     value0: antlr.Token
     value1: expr_t
 }
 export function Neg(value0: antlr.Token,value1: expr_t)
 {
-    return { $type: 'Neg_t',value0,value1}
+    return { $type: 'Neg',value0,value1}
 }
 export interface NestedExp_t
 {
-    $type: 'NestedExp_t';
+    $type: 'NestedExp';
     value0: antlr.Token
     value1: expr_t
 }
 export function NestedExp(value0: antlr.Token,value1: expr_t)
 {
-    return { $type: 'NestedExp_t',value0,value1}
+    return { $type: 'NestedExp',value0,value1}
 }
 export interface Nil_t
 {
-    $type: 'Nil_t';
+    $type: 'Nil';
     value: antlr.Token
 }
 export function Nil(value: antlr.Token)
 {
-    return { $type: 'Nil_t',value}
+    return { $type: 'Nil',value}
 }
 export interface Not_t
 {
-    $type: 'Not_t';
+    $type: 'Not';
     value0: antlr.Token
     value1: expr_t
 }
 export function Not(value0: antlr.Token,value1: expr_t)
 {
-    return { $type: 'Not_t',value0,value1}
+    return { $type: 'Not',value0,value1}
 }
 export interface Num_t
 {
-    $type: 'Num_t';
+    $type: 'Num';
     value0: antlr.Token
 }
 export function Num(value0: antlr.Token)
 {
-    return { $type: 'Num_t',value0}
+    return { $type: 'Num',value0}
 }
 export interface String_t
 {
-    $type: 'String_t';
+    $type: 'String';
     value0: antlr.Token
 }
 export function String(value0: antlr.Token)
 {
-    return { $type: 'String_t',value0}
+    return { $type: 'String',value0}
 }
 export interface TableExpr_t
 {
-    $type: 'TableExpr_t';
+    $type: 'TableExpr';
     value0: table_t
 }
 export function TableExpr(value0: table_t)
 {
-    return { $type: 'TableExpr_t',value0}
+    return { $type: 'TableExpr',value0}
 }
 export interface UnsolvedBin_t
 {
-    $type: 'UnsolvedBin_t';
+    $type: 'UnsolvedBin';
     value: Array<op_t<expr_t>>
 }
 export function UnsolvedBin(value: Array<op_t<expr_t>>)
 {
-    return { $type: 'UnsolvedBin_t',value}
+    return { $type: 'UnsolvedBin',value}
 }
 export interface Var_t
 {
-    $type: 'Var_t';
+    $type: 'Var';
     value: antlr.Token
 }
 export function Var(value: antlr.Token)
 {
-    return { $type: 'Var_t',value}
+    return { $type: 'Var',value}
 }
 export type expr_t =
     | Attr_t
@@ -483,53 +483,48 @@ export type expr_t =
     | Var_t
 export interface block_t
 {
-    $type: 'block_t';
     suite: Array<stmt_t>
     ret: maybe_t<stmt_t>
 }
 export function block(suite: Array<stmt_t>,ret: maybe_t<stmt_t>)
 {
-    return { $type: 'block_t',suite,ret}
+    return {suite,ret}
 }
 export interface range_t
 {
-    $type: 'range_t';
     low: expr_t
     high: expr_t
     step: maybe_t<expr_t>
 }
 export function range(low: expr_t,high: expr_t,step: maybe_t<expr_t>)
 {
-    return { $type: 'range_t',low,high,step}
+    return {low,high,step}
 }
 export interface if_elseif_t
 {
-    $type: 'if_elseif_t';
     pos: antlr.Token
     cond: expr_t
     elif_body: block_t
 }
 export function if_elseif(pos: antlr.Token,cond: expr_t,elif_body: block_t)
 {
-    return { $type: 'if_elseif_t',pos,cond,elif_body}
+    return {pos,cond,elif_body}
 }
 export interface if_else_t
 {
-    $type: 'if_else_t';
     pos: antlr.Token
     else_body: block_t
 }
 export function if_else(pos: antlr.Token,else_body: block_t)
 {
-    return { $type: 'if_else_t',pos,else_body}
+    return {pos,else_body}
 }
 export interface params_t
 {
-    $type: 'params_t';
     names: Array<antlr.Token>
     vararg: maybe_t<antlr.Token>
 }
 export function params(names: Array<antlr.Token>,vararg: maybe_t<antlr.Token>)
 {
-    return { $type: 'params_t',names,vararg}
+    return {names,vararg}
 }
