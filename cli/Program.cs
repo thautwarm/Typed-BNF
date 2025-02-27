@@ -34,7 +34,7 @@ record CodeGenOptions : Common.CodeGenOptions
         return "";
     }
 }
-class Program
+public class Program
 {
     enum Backend
     {
@@ -67,7 +67,7 @@ class Program
         /// </summary>
         public ADTEncoding? ADTEncoding;
     }
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
         CmdParser<Options> parser = new();
 
