@@ -29,7 +29,7 @@ let _escapeString (s: string) =
     ignore(sb.Append("\""))
     sb.ToString()
 
-let iToU4 i = "\\u" + (sprintf "%4X" i).Replace(" ", "0")
+let iToU4 (i: int) = "\\u" + (i.ToString("X4")).Replace(" ", "0")
 
 let _escapeStringSingleQuoted (s: string) =
     let sb = StringBuilder("'")

@@ -187,7 +187,7 @@ let codegen
     let name_of_nonterm n = cg_symbol (Nonterm n)
     let name_of_named_term n = cg_symbol (Term(n, false))
 
-    let mkActionName ntname idx = sprintf "%s_%i" ntname idx
+    let mkActionName ntname idx = $"{ntname}_{idx}"
 
     let defineTSFunc anns body =
         parens (
@@ -291,8 +291,8 @@ let codegen
                 | node.EField (e, s) ->
                     let! e' = !e
                     return e' * word "." * word s
-                | node.EInt i -> return word (sprintf "%d" i)
-                | node.EFlt f -> return word (sprintf "%f" f)
+                | node.EInt i -> return word (i.ToString())
+                | node.EFlt f -> return word (f.ToString("G", System.Globalization.CultureInfo.InvariantCulture))
                 (* XXX: multiline string support? *)
                 | node.EStr s -> return word (escapeString s)
                 | node.EFun (args, body) ->
@@ -612,7 +612,7 @@ let codegen
                     for each in usedFunctionTypes do
                         yield word (genFuncTypeDef each)
                     yield word "}"
-                    yield word (sprintf "start returns [result: %s]: v=%s EOF { $result = localContext._v.result; };" (cg_type start_t) start_mangled)
+                    yield word $"start returns [result: {cg_type start_t}]: v={start_mangled} EOF {{ $result = localContext._v.result; }};"
                     yield file_grammar
                     yield! lexerDefs
                 ]

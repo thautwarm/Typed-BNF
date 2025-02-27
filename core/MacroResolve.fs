@@ -15,7 +15,7 @@ let rec toPositionIndependentString (term: symbol) =
     | Term(define, false) -> "<" + define + ">"
     | Nonterm n -> n
     | Macrocall(n, syms, _) ->
-        sprintf "%s(%s)" n <| String.concat "," (List.map toPositionIndependentString syms)
+        (fun a b -> $"{a}({b})") n (String.concat "," (List.map toPositionIndependentString syms))
 
 let resolve_macro
     (setPos : position -> unit)

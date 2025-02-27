@@ -3,7 +3,7 @@ global using static tbnf.APIs;
 using System;
 using Antlr4.Runtime;
 using System.Collections.Generic;
-using Acornima;
+// using Acornima;
 using tbnf;
 using System.Linq;
 

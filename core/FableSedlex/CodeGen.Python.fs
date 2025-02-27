@@ -12,17 +12,17 @@ let codegen_python (import_head: string) (cu: compiled_unit) =
     let mutable tbl_cnt = 0
     let new_tbl_name() =
         tbl_cnt <- tbl_cnt + 1
-        sprintf "_sedlex_DT_table_%d" tbl_cnt
+        $"_sedlex_DT_table_{tbl_cnt}"
 
     let mutable dt_cnt = 0
     let new_dt_name() =
         dt_cnt <- dt_cnt + 1
-        sprintf "_sedlex_decide_%d" dt_cnt
+        $"_sedlex_decide_{dt_cnt}"
 
     let mutable rnd_cnt = 0
     let new_rnd_name() =
         rnd_cnt <- rnd_cnt + 1
-        sprintf "_sedlex_rnd_%d" rnd_cnt
+        $"_sedlex_rnd_{rnd_cnt}"
 
     let mutable tables : Map<int array, string> = Map.empty
 
@@ -39,7 +39,7 @@ let codegen_python (import_head: string) (cu: compiled_unit) =
         later_toplevels <- doc :: empty :: later_toplevels
 
     let st_func_name i =
-        sprintf "_sedlex_st_%d" i
+        $"_sedlex_st_{i}"
 
     let remember_table (table: int array) =
         match Map.tryFind table tables with
@@ -93,7 +93,7 @@ let codegen_python (import_head: string) (cu: compiled_unit) =
         | Lang_int i -> word "result" + word "=" + pretty i
         | Lang_mark(i, lang) ->
             vsep [
-                word <| sprintf "mark(lexerbuf, %d)" i;
+                word <| $"mark(lexerbuf, {i})";
                 _cg_state_func lang;
             ]
         | Lang_match_i(dt, cases, default_case) ->
@@ -120,9 +120,9 @@ let codegen_python (import_head: string) (cu: compiled_unit) =
             let test =  word decision_func * parens (word "public_next_int(lexerbuf)")
             vsep [
                 word "state_id" + word "="  + test;
-                word "if" + word (sprintf "state_id >= 0") * word ":";
+                word "if" + word "state_id >= 0" * word ":";
                 vsep [
-                    word "result" + word "=" + word (sprintf "%s[state_id]" func_table) * parens(word "lexerbuf")
+                    word "result" + word "=" + word $"{func_table}[state_id]" * parens(word "lexerbuf")
                 ] >>> 4;
                 word "else:";
                     default_body >>> 4;

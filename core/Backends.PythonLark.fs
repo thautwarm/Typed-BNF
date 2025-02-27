@@ -165,7 +165,7 @@ let codegen (analyzer: Analyzer)
     let name_of_named_term n = cg_symbol (Term(n, false))
     let name_of_literal_term s = cg_symbol (Term(s, true))
 
-    let mkActionName ntname idx = sprintf "%s_%i" ntname idx
+    let mkActionName ntname idx = $"{ntname}_{idx}"
 
     let definePyFunc fname args body =
         vsep [
@@ -192,8 +192,8 @@ let codegen (analyzer: Analyzer)
             | node.EField(e, s) ->
                 let! e' = !e
                 return e' * word "." * word (rename_field s)
-            | node.EInt i -> return word (sprintf "%d" i)
-            | node.EFlt f -> return word (sprintf "%f" f)
+            | node.EInt i -> return word (i.ToString())
+            | node.EFlt f -> return word (f.ToString("G", System.Globalization.CultureInfo.InvariantCulture))
             (* XXX: multiline string support? *)
             | node.EStr s -> return word (escapeString s)
             | node.EFun(args, body) ->
@@ -217,7 +217,7 @@ let codegen (analyzer: Analyzer)
                 let! elts' = cg { for elt in elts do return! !elt }
                 return bracket(seplist (word ", ") elts')
             | node.ESlot i ->
-                return word (sprintf "%s[%d]" TREE_NAME (i - 1))
+                return word ($"{TREE_NAME}[{i - 1}]")
             | node.ETuple elts ->
                 let! elts' = cg { for elt in elts do return! !elt }
                 match elts' with
@@ -329,10 +329,10 @@ let codegen (analyzer: Analyzer)
             empty
         | definition.Defmacro _ -> invalidOp "macro not processed"
 
-    let filename_lexer = sprintf "%s_lexer" langName
-    let filename_require = sprintf "%s_require" langName
-    let filename_python = sprintf "%s_parser" langName
-    let filename_constructors = sprintf "%s_construct" langName
+    let filename_lexer = $"{langName}_lexer"
+    let filename_require = $"{langName}_require"
+    let filename_python = $"{langName}_parser"
+    let filename_constructors = $"{langName}_construct"
 
     let var_tokenmaps = export_tokenmaps
     let var_tokenreprs = export_tokenreprs
