@@ -132,6 +132,7 @@ jobs:
           name: TBNF v${{ env.VERSION }}
           draft: false
           prerelease: false
+          generate_release_notes: true
           files: |
             artifacts/tbnf-${{ env.VERSION }}-linux-x64/tbnf-${{ env.VERSION }}-linux-x64
             artifacts/tbnf-${{ env.VERSION }}-linux-arm64/tbnf-${{ env.VERSION }}-linux-arm64
