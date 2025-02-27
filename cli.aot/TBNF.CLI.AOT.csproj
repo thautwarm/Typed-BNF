@@ -13,13 +13,10 @@
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
-  <!-- Specify source files from CLI directory -->
-  <ItemGroup>
-    <Compile Include="..\CLI\Grammar\*.cs;..\CLI\*.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\core\TBNF.Core.fsproj" />
+    <ProjectReference Include="..\cli\TBNF.CLI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

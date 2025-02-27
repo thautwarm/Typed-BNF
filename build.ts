@@ -177,9 +177,7 @@ NM.target(
   {
     name: exeAOT,
     virtual: false,
-    deps: {
-      executable: exeCurRt,
-    },
+    deps: [],
     async build() {
       await NM.Shell.run(
         NM.Shell.split(`dotnet publish ./cli.aot/TBNF.CLI.AOT.csproj -f net8.0 -o dist`),
