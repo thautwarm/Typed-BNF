@@ -1,0 +1,179 @@
+extern var OPERATOR: int
+extern var RULE_IDENT: int
+extern var LEX_IDENT: int
+extern var EXPR_IDENT: int
+extern var TYPE_IDENT: int
+extern var TYPE_VAR: int
+extern var MACRO_IDENT: int
+extern var FIELD: int
+extern var KEYWORD: int
+extern var PRODUCTION: int
+extern var BRANCH: int
+extern var STR: int
+extern var INT: int
+extern var FLOAT: int
+extern var mark: (token, int) -> int
+extern var markDef: (token, int) -> int
+
+/* separated list */
+slist(sep, elt) : elt { 0 }
+                | slist(sep, elt) sep elt { 0 }
+
+list(elt) : elt { 0 }
+               | list(elt) elt { 0 }
+
+start : list(toplevel) { $1 }
+
+empty(a) :   { 0 }
+         | a { 0 }
+
+eslist(sep, a) : empty(slist(sep, a)) { $1 }
+
+elist(a) : empty(list(a)) { $1 }
+
+/* Common */
+
+typ : arrow_typ { $1 }
+arrow_typ : typ2 '->' arrow_typ
+            { mark($2, OPERATOR) }
+          | '(' eslist(',', param_type) ')' '->' arrow_typ
+            { mark($4, OPERATOR) }
+          | type_product
+            { 0 }
+
+typ2 : <CNAMEPLUS> { mark($1, TYPE_IDENT) }
+     | typ2 "<" slist(",", typ) ">" { 0 }
+
+type_product : type_product '*' typ2 { mark($2, OPERATOR) }
+             | typ2                  { 0 }
+
+top_typ : '<' slist(',', tvar_str) '>' typ { 0 }
+        | typ                              { 0 }
+
+tvar_str     : <CNAMEPLUS> { mark($1, TYPE_VAR) }
+param_type   : <CNAMEPLUS> ':' typ { 0 }
+             | typ  { 0 }
+
+// Toplevels
+
+type_params : '<' slist(',', tvar_str) '>' { 0 }
+            |  { 0 }
+
+field_ann : <CNAMEPLUS> ':' typ { mark($1, FIELD) }
+
+field_anns :  '(' eslist(',', field_ann) ')'
+             { 0 } // record only
+           | { 0 }  // adt only
+
+
+decl : "extern" "var" <CNAMEPLUS> ":" top_typ
+       { mark($1, KEYWORD); mark($2, EXPR_IDENT); mark($2, KEYWORD) }
+     | "case" <CNAMEPLUS> ":" typ
+       { mark($1, KEYWORD); mark($2, EXPR_IDENT) }
+     | "extern" "type" <CNAMEPLUS> type_params field_anns
+       { mark($1, KEYWORD); mark($2, KEYWORD); mark($3, TYPE_IDENT) }
+     | "type" <CNAMEPLUS> type_params field_anns
+       { mark($1, KEYWORD); mark($2, TYPE_IDENT) }
+
+toplevel : def             { 0 }
+         | decl            { 0 }
+         | lexerdef        { 0 }
+         | "ignore" slist(",", ignore_item)  { mark($1, KEYWORD) }
+
+ignore_item: <CNAMEPLUS> { mark($1, RULE_IDENT) }
+
+macro_var: <CNAMEPLUS> { mark($1, RULE_IDENT) }
+
+def : <CNAMEPLUS> "(" slist(",", macro_var) ")" productions
+        { mark($1, RULE_IDENT); markDef($1, MACRO_IDENT) }
+    | <CNAMEPLUS> productions
+        { mark($1, RULE_IDENT); markDef($1, RULE_IDENT) }
+
+productions : ":" production { mark($1, PRODUCTION) }
+            | productions "|" production { mark($2, BRANCH) }
+
+production : elist(psym) "{" expr "}" { 0 }
+
+psym : "<" <CNAMEPLUS> ">"   { mark($2, LEX_IDENT) }
+     | <ESCAPED_STRING>   { mark($1, STR) }
+     | <CNAMEPLUS>           { mark($1, RULE_IDENT) }
+     | <CNAMEPLUS> "(" slist(",", psym) ")" { mark($1, MACRO_IDENT) }
+
+/* Simpler language */
+
+ann: <CNAMEPLUS> ":" typ      { mark($1, EXPR_IDENT) }
+
+func_parameters : "(" eslist(",", ann) ")" { 0 }
+
+expr : "let" <CNAMEPLUS> "=" expr "in" expr
+            { mark($1, KEYWORD); mark($2, EXPR_IDENT); mark($3, KEYWORD); mark($5, KEYWORD) }
+     | "fun" func_parameters "->" expr
+            { mark($1, KEYWORD); mark($3, KEYWORD) }
+     | call { 0 }
+     | call ";" expr { 0 }
+
+call : call "(" eslist(",", expr) ")" { 0 }
+     | atomexp { 0 }
+
+atomexp : <INT> { mark($1, INT) }
+        | <FLOAT> { mark($1, FLOAT) }
+        | <ESCAPED_STRING> { mark($1, STR) }
+        | "$" <INT> { mark($1, KEYWORD); mark($2, INT) }
+        | "[" eslist(",", expr) "]" { 0 }
+        | "(" ")" { 0 }
+        | "(" slist(",", expr) ")" { 0 }
+        | <CNAMEPLUS> { mark($1, EXPR_IDENT) }
+        | atomexp "." <CNAMEPLUS> { mark($3, FIELD) }
+        | "true" { mark($1, KEYWORD) }
+        | "false" { mark($1, KEYWORD) }
+
+// Lexical definitions
+
+lexer :  slist("|", lexer_and) { 0 }
+
+lexer_and : list(lexer_atomexpr) { 0 }
+
+lexer_atomexpr :
+         lexer_atomexpr "+"            { 0 }
+      |  lexer_atomexpr "*"            { 0 }
+      |  lexer_atomexpr "?"            { 0 }
+      |  lexer_atom { 0 }
+
+lexer_atom :  <ESCAPED_STRING> { mark($1, STR) }
+      | "!" lexer_atom  { 0 }
+      |  "(" lexer ")"  { 0 }
+      |  "\\d"          { mark($1, INT) }
+      | <RANGE> { mark($1, INT) }
+      | <UNICODE_RANGE> { mark($1, INT) }
+      | "_" { mark($1, KEYWORD) }
+      | "." { mark($1, KEYWORD) }
+      | <CNAMEPLUS> { mark($1, LEX_IDENT) }
+
+lexerdef : <CNAMEPLUS> "=" lexer ";"
+         { mark($1, LEX_IDENT); mark($2, KEYWORD); markDef($1, LEX_IDENT) }
+
+UCODE = DIGIT | [a-f] | [A-F];
+UNICODE = "\\" "u" UCODE UCODE UCODE UCODE;
+UNICODE_RANGE = "[" UNICODE "-" UNICODE "]";
+RANGE = "[" . "-" . "]";
+LCASE_LETTER = [a-z];
+UCASE_LETTER = [A-Z];
+
+LETTER = UCASE_LETTER | LCASE_LETTER;
+WORD = LETTER+;
+CNAMEPLUS = ("_"|LETTER) ("_"|"-"|LETTER|DIGIT)*;
+
+INT = DIGIT+;
+DIGIT = [0-9];
+WS = " " | "\t" | "\r" | "\n";
+FLOAT = INT ("." INT)? (("E" | "e") INT)?;
+ESC1 = "a" | "b" | "t" | "n" | "r" | "\\" | "\"";
+ESC2 = "a" | "b" | "t" | "n" | "r" | "\\" | "'";
+ESCAPED_STRING = "\"" ("\\" ESC1 | ! ("\"" | "\\"))* "\"" 
+               | "'" ( "\\" ESC2 | ! ("'" | "\\"))* "'"
+               ;
+
+CPP_COMMENT = "/*" .*? "*/";
+C_COMMENT = "//" (!"\n")*;
+
+ignore CPP_COMMENT, C_COMMENT, WS

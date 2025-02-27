@@ -1,0 +1,242 @@
+extern type position
+type node
+type monot
+type polyt
+type definition
+type production
+type symbol
+type expr
+type lexerule
+
+extern var addList : <A> (list<A>, A) -> list<A>
+extern var unescape : str -> str
+extern var str: token -> str
+extern var mkpos: token -> position
+extern var list_index : <A>(list<A>, int) -> A
+extern var fst : <A, B>(A * B) -> A
+extern var snd : <A, B>(A * B) -> B
+extern var process_tparam : list<str * monot> -> list<str * monot>
+extern var toInt : token -> int
+extern var toFloat : token -> float
+extern var getPos : expr -> position
+
+/* separated list */
+slist(sep, elt) : elt { [$1] }
+                | slist(sep, elt) sep elt { addList($1, $3) }
+
+list(elt) : elt { [$1] }
+               | list(elt) elt { addList($1, $2) }
+
+start : list(toplevel) { $1 }
+
+empty(a) :   { [] }
+         | a { $1 }
+
+eslist(sep, a) : empty(slist(sep, a)) { $1 }
+
+elist(a) : empty(list(a)) { $1 }
+
+/* Common */
+
+identstr : <CNAMEPLUS> { str($1) }
+
+/* Types */
+
+
+case MKTFun: (list<str * monot>, monot) -> monot
+case MKTTuple: list<monot> -> monot
+case MKTList : monot -> monot
+case MKTVar : str -> monot
+case MKTConst : str -> monot
+case MKTApp : (monot, list<monot>) -> monot
+case MKPoly : (list<str>, monot) -> polyt
+case MKMono : monot -> polyt
+
+typ : arrow_typ { $1 }
+arrow_typ : typ2 '->' arrow_typ
+            { MKTFun([("value", $1)], $3) }
+          | '(' eslist(',', param_type) ')' '->' arrow_typ
+            { MKTFun(process_tparam($2), $5) }
+          | type_product
+            { MKTTuple($1) }
+
+typ2 : <CNAMEPLUS> { MKTConst(str($1)) }
+     | typ2 "<" slist(",", typ) ">" { MKTApp($1, $3) }
+
+type_product : type_product '*' typ2 { addList($1, $3) }
+             | typ2                  { [$1] }
+
+top_typ : '<' slist(',', tvar_str) '>' typ { MKPoly($2, $4) }
+        | typ                              { MKMono($1) }
+
+tvar_str     : <CNAMEPLUS> { str($1) }
+param_type   : <CNAMEPLUS> ':' typ { (str($1), $3) }
+             | typ  { ("_", $1) }
+
+// Toplevels
+
+type_params : '<' slist(',', tvar_str) '>' { $2 }
+            |  { [] }
+
+field_ann : <CNAMEPLUS> ':' typ { (str($1), $3, mkpos($1)) }
+
+field_anns :  '(' eslist(',', field_ann) ')'
+             { (true, $2) } // record only
+           | { (false, []) }  // adt only
+
+
+
+case MKDeclvar : (str, polyt, position) -> definition
+case MKDeclctor : (str, monot, position) -> definition
+case MKDecltype : (bool, bool, str, list<str>, list<str * monot * position>, position) -> definition
+case MKDefignore : (list<str>, position) -> definition
+case MKDefmacro : (str, list<str>, list<position * production>, position) -> definition
+case MKDefrule : (str, list<position * production>, position) -> definition
+case MKDeflexer : (str, lexerule, position) -> definition
+case MKproduction : (list<symbol>, expr) -> production
+
+decl : "extern" "var" identstr ":" top_typ
+       { MKDeclvar($3, $5, mkpos($2)) }
+     | "case" identstr ":" typ
+       { MKDeclctor($2, $4, mkpos($1)) }
+     | "extern" "type" identstr type_params field_anns
+       { MKDecltype(true, fst($5), $3, $4, snd($5), mkpos($1)) }
+     | "type" identstr type_params field_anns
+       { MKDecltype(false, fst($4), $2, $3, snd($4), mkpos($1)) }
+
+toplevel : def             { $1 }
+         | decl            { $1 }
+         | lexerdef        { $1 }
+         | "ignore" slist(",", identstr)  { MKDefignore($2, mkpos($1)) }
+
+def : <CNAMEPLUS> "(" slist(",", identstr) ")" productions
+        { MKDefmacro(str($1), $3, $5, mkpos($1)) }
+    | <CNAMEPLUS> productions
+        { MKDefrule(str($1), $2, mkpos($1)) }
+
+productions : ":" production { [(mkpos($1), $2)] }
+            | productions "|" production { addList($1, (mkpos($2), $3)) }
+
+production : elist(psym) "{" expr "}" { MKproduction($1, $3) }
+
+case MKTerm : (str, bool) -> symbol
+case MKNonterm : str -> symbol
+case MKMacrocall : (str, list<symbol>, position) -> symbol
+case MKExpr : (node, position) -> expr
+case MKEApp: (expr, list<expr>) -> node
+case MKETuple: list<expr> -> node
+case MKEList: list<expr> -> node
+case MKELet: (str, expr, expr) -> node
+case MKEFun: (list<str * monot>, expr) -> node
+case MKEVar : str -> node
+case MKESlot : int -> node
+case MKEInt : int -> node
+case MKEStr : str -> node
+case MKEFlt : float -> node
+case MKEBool : bool -> node
+case MKEField : (expr, str) -> node
+
+psym : "<" identstr ">"   { MKTerm($2, false) }
+     | <ESCAPED_STRING>   { MKTerm(unescape(str($1)), true) }
+     | identstr           { MKNonterm($1) }
+     | <CNAMEPLUS> "(" slist(",", psym) ")" { MKMacrocall(str($1), $3, mkpos($1)) }
+
+
+/* Simpler language */
+
+ann: identstr ":" typ      { ($1, $3) }
+
+func_parameters : "(" eslist(",", ann) ")" { $2 }
+
+expr : "let" identstr "=" expr "in" expr
+            { MKExpr(MKELet($2, $4, $6), mkpos($1)) }
+     | "fun" func_parameters "->" expr
+            { MKExpr(MKEFun($2, $4), mkpos($1)) }
+     | call
+        { $1 }
+     | call ";" expr
+        { MKExpr(MKELet("_", $1, $3), getPos($1)) }
+
+call : call "(" eslist(",", expr) ")"
+        { MKExpr(MKEApp($1, $3), getPos($1)) }
+     | atomexp
+        { $1 }
+
+snd(a, b) : a b { $2 }
+
+atomexp : <INT> { MKExpr(MKEInt(toInt($1)), mkpos($1)) }
+        | <FLOAT> { MKExpr(MKEFlt(toFloat($1)), mkpos($1)) }
+        | <ESCAPED_STRING> { MKExpr(MKEStr(unescape(str($1))), mkpos($1)) }
+        | "$" <INT> { MKExpr(MKESlot(toInt($2)), mkpos($1)) }
+        | "[" eslist(",", expr) "]" { MKExpr(MKEList($2), mkpos($1)) }
+        | "(" ")" { MKExpr(MKETuple([]), mkpos($1)) }
+        | "(" slist(",", expr) ")" { MKExpr(MKETuple($2), mkpos($1)) }
+        | <CNAMEPLUS> { MKExpr(MKEVar(str($1)), mkpos($1)) }
+        | atomexp "." <CNAMEPLUS> { MKExpr(MKEField($1, str($3)), getPos($1)) }
+        | "true" { MKExpr(MKEBool(true), mkpos($1)) }
+        | "false" { MKExpr(MKEBool(false), mkpos($1)) }
+
+// Lexical definitions
+
+case UnicodeRange : str -> lexerule
+case getrange : str -> lexerule
+case MKLWildcard: () -> lexerule
+case MKLNumber: () -> lexerule
+case MKLStr: str -> lexerule
+case MKLSeq : list<lexerule> -> lexerule
+case MKLOr : list<lexerule> -> lexerule
+case MKLNot: lexerule -> lexerule
+case MKLPlus: lexerule -> lexerule
+case MKLStar: lexerule -> lexerule
+case MKLOptional: lexerule -> lexerule
+case MKLGroup: lexerule -> lexerule
+case MKLRef: str -> lexerule
+
+lexer :  slist("|", lexer_and) { MKLOr($1) }
+
+lexer_and : list(lexer_atomexpr) { MKLSeq($1) }
+
+lexer_atomexpr :
+         lexer_atomexpr "+"            { MKLPlus($1) }
+      |  lexer_atomexpr "*"            { MKLStar($1) }
+      |  lexer_atomexpr "?"            { MKLOptional($1) }
+      |  lexer_atom { $1 }
+
+lexer_atom :  <ESCAPED_STRING> { MKLStr(unescape(str($1))) }
+      | "!" lexer_atom  { MKLNot($2) }
+      |  "(" lexer ")"  { MKLGroup($2) }
+      |  "\\d"          { MKLNumber() }
+      | <RANGE> { getrange(str($1)) }
+      | <UNICODE_RANGE> { UnicodeRange(str($1)) }
+      | "_" { MKLWildcard() }
+      | "." { MKLWildcard() }
+      | <CNAMEPLUS> {  MKLRef(str($1)) }
+
+lexerdef : <CNAMEPLUS> "=" lexer ";"
+         { MKDeflexer(str($1), $3, mkpos($1)) }
+
+UCODE = DIGIT | [a-f] | [A-F];
+UNICODE = "\\" "u" UCODE UCODE UCODE UCODE;
+UNICODE_RANGE = "[" UNICODE "-" UNICODE "]";
+RANGE = "[" . "-" . "]";
+LCASE_LETTER = [a-z];
+UCASE_LETTER = [A-Z];
+
+LETTER = UCASE_LETTER | LCASE_LETTER;
+WORD = LETTER+;
+CNAMEPLUS = ("_"|LETTER) ("_"|"-"|LETTER|DIGIT)*;
+
+INT = DIGIT+;
+DIGIT = [0-9];
+WS = " " | "\t" | "\r" | "\n";
+FLOAT = INT ("." INT)? (("E" | "e") INT)?;
+ESC1 = "a" | "b" | "t" | "n" | "r" | "\\" | "\"";
+ESC2 = "a" | "b" | "t" | "n" | "r" | "\\" | "'";
+ESCAPED_STRING = "\"" ("\\" ESC1 | ! ("\"" | "\\"))* "\"" 
+               | "'" ( "\\" ESC2 | ! ("'" | "\\"))* "'"
+               ;
+
+CPP_COMMENT = "/*" .*? "*/";
+C_COMMENT = "//" (!"\n")*;
+
+ignore CPP_COMMENT, C_COMMENT, WS

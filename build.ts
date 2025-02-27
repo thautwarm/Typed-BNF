@@ -1,4 +1,4 @@
-import * as NM from "nomake";
+import * as NM from "https://raw.githubusercontent.com/thautwarm/nomake/v0.1.12/mod.ts";
 
 const version = "0.4.2";
 
@@ -21,7 +21,7 @@ NM.option(
 
 const exeCurRt = NM.Platform.currentOS == 'windows' ? './dist/TBNF.CLI.exe' : './dist/TBNF.CLI';
 
-const generatedVersion =NM.target(
+const generatedVersion = NM.target(
   {
     name: 'cli/GeneratedVersion.cs',
     virtual: false,
@@ -217,6 +217,34 @@ NM.target(
     rebuild: 'always',
     deps: {
       executable: exeAOT,
+    }
+  }
+)
+
+NM.target(
+  {
+    name: 'editor',
+    virtual: true,
+    deps: {
+      executable: exeAOT
+    },
+    rebuild: 'always',
+    async build() {
+      const command = `./dist/TBNF.CLI.AOT.exe ./editor/TypedBNF.sh.tbnf -lang TBNF -be typescript-antlr -o editor/typedbnf/src/grammar-sh/`;
+      await NM.Shell.run(
+        NM.Shell.split(command),
+        {
+          printCmd: true,
+          stdout: "print",
+        }
+      )
+      await NM.Shell.run(
+        NM.Shell.split(`antlr-ng -Dlanguage=TypeScript ./editor/typedbnf/src/grammar-sh/TBNF.g4 -o ./editor/typedbnf/src/grammar-sh`),
+        {
+          printCmd: true,
+          stdout: "print",
+        }
+      )
     }
   }
 )
