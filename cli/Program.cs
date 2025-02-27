@@ -75,7 +75,9 @@ public class Program
         {
             // TODO
             Console.WriteLine("Usage: tbnf [options] <source-grammar-file>");
+            Console.WriteLine($"Version: {GeneratedVersion.Version}");
             Console.WriteLine("Options:");
+            Console.WriteLine("  --version                 Show version and exit");
             Console.WriteLine("  -h, --help                Show this help message and exit");
             Console.WriteLine("  -o, --outDir DIR          Specify output directory (default: same as source file)");
             Console.WriteLine("  -be, --backend TYPE       Backend to use");
@@ -96,6 +98,14 @@ public class Program
             Console.WriteLine("  tbnf -lang mylanguage mygrammar.tbnf -be csharp-antlr -conf tbnf.config.js");
             System.Environment.Exit(0);
         });
+
+        void showVersion(Options o)
+        {
+            Console.WriteLine(GeneratedVersion.Version);
+            System.Environment.Exit(0);
+        }
+
+        parser.Flag("version", showVersion);
 
         parser.Positional("source", (Options o, string source) =>
         {

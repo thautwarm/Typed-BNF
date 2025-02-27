@@ -1,6 +1,6 @@
 import * as NM from "nomake";
 
-const version = "0.4.0";
+const version = "0.4.2";
 
 const GlobalOptions: {
   bootstrap: boolean;
@@ -21,13 +21,30 @@ NM.option(
 
 const exeCurRt = NM.Platform.currentOS == 'windows' ? './dist/TBNF.CLI.exe' : './dist/TBNF.CLI';
 
+const generatedVersion =NM.target(
+  {
+    name: 'cli/GeneratedVersion.cs',
+    virtual: false,
+    async build() {
+      await new NM.Path('./cli/GeneratedVersion.cs').writeText(`
+namespace TypedBNF;
+public static class GeneratedVersion
+{
+  public const string Version = "${version}";
+}
+      `);
+    },
+  }
+)
+
 NM.target(
   {
     name: exeCurRt,
     virtual: false,
     deps: {
-      fsSources: NM.Path.glob("core/**/*.{fs,fsproj}", { exclude: ['**/bin/**', '**/obj/**']}),
-      csSources: NM.Path.glob("cli/**/*.{cs,csproj}", { exclude: ['**/bin/**', '**/obj/**']}),
+      generatedVersion,
+      fsSources: NM.Path.glob("core/**/*.{fs,fsproj}", { exclude: ['**/bin/**', '**/obj/**'] }),
+      csSources: NM.Path.glob("cli/**/*.{cs,csproj}", { exclude: ['**/bin/**', '**/obj/**'] }),
     },
     async build({ deps }) {
       console.log("FSharp Sources:");
@@ -177,7 +194,10 @@ NM.target(
   {
     name: exeAOT,
     virtual: false,
-    deps: [],
+    deps: {
+      generatedVersion,
+      cliSources: NM.Path.glob("cli/**/*.{cs,csproj}", { exclude: ['**/bin/**', '**/obj/**'] }),
+    },
     async build() {
       await NM.Shell.run(
         NM.Shell.split(`dotnet publish ./cli.aot/TBNF.CLI.AOT.csproj -f net8.0 -o dist`),
