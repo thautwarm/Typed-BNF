@@ -1,32 +1,38 @@
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Net;
 using Microsoft.FSharp.Core;
-using Microsoft.FSharp.Reflection;
 using SystemX.Cmd;
 using tbnf;
 using tbnf.Backends;
 
 namespace TypedBNF;
 
-record struct CodeGenOptions(
-    Func<string, string>? RenameVar,
-    Func<string, string>? RenameType,
-    Func<string, string>? RenameCtor,
-    Func<string, string>? RenameField,
-    string? StartRuleQualifiedType,
-    Func<string, string> RequestResource
-) : Common.CodeGenOptions
+record CodeGenOptions : Common.CodeGenOptions
 {
-    public readonly FSharpOption<FSharpFunc<string, string>> rename_var => RenameVar is null ? FSharpOption<FSharpFunc<string, string>>.None : FSharpOption<FSharpFunc<string, string>>.Some(
+    public Func<string, string>? RenameVar = null;
+    public Func<string, string>? RenameType = null;
+    public Func<string, string>? RenameCtor = null;
+    public Func<string, string>? RenameField = null;
+    public string? StartRuleQualifiedType = null;
+    public FSharpOption<FSharpFunc<string, string>> rename_var => RenameVar is null ? FSharpOption<FSharpFunc<string, string>>.None : FSharpOption<FSharpFunc<string, string>>.Some(
         FSharpFunc<string, string>.FromConverter(RenameVar.Invoke));
-    public readonly FSharpOption<FSharpFunc<string, string>> rename_type => RenameType is null ? FSharpOption<FSharpFunc<string, string>>.None : FSharpOption<FSharpFunc<string, string>>.Some(
+    public FSharpOption<FSharpFunc<string, string>> rename_type => RenameType is null ? FSharpOption<FSharpFunc<string, string>>.None : FSharpOption<FSharpFunc<string, string>>.Some(
         FSharpFunc<string, string>.FromConverter(RenameType.Invoke));
-    public readonly FSharpOption<FSharpFunc<string, string>> rename_ctor => RenameCtor is null ? FSharpOption<FSharpFunc<string, string>>.None : FSharpOption<FSharpFunc<string, string>>.Some(
+    public FSharpOption<FSharpFunc<string, string>> rename_ctor => RenameCtor is null ? FSharpOption<FSharpFunc<string, string>>.None : FSharpOption<FSharpFunc<string, string>>.Some(
         FSharpFunc<string, string>.FromConverter(RenameCtor.Invoke));
-    public readonly FSharpOption<FSharpFunc<string, string>> rename_field => RenameField is null ? FSharpOption<FSharpFunc<string, string>>.None : FSharpOption<FSharpFunc<string, string>>.Some(
+    public FSharpOption<FSharpFunc<string, string>> rename_field => RenameField is null ? FSharpOption<FSharpFunc<string, string>>.None : FSharpOption<FSharpFunc<string, string>>.Some(
         FSharpFunc<string, string>.FromConverter(RenameField.Invoke));
-    public readonly FSharpOption<string> start_rule_qualified_type => StartRuleQualifiedType is null ? FSharpOption<string>.None : FSharpOption<string>.Some(StartRuleQualifiedType);
-    public string request_resource(string value) => RequestResource.Invoke(value);
+    public FSharpOption<string> start_rule_qualified_type => StartRuleQualifiedType is null ? FSharpOption<string>.None : FSharpOption<string>.Some(StartRuleQualifiedType);
+    string Common.CodeGenOptions.request_resource(string key)
+    {
+        if (key == ResourceKeys.ocaml_rts_file)
+        {
+            return Resources.OCamlRTSFileContent;
+        }
+        return "";
+    }
 }
 class Program
 {
@@ -34,7 +40,17 @@ class Program
     {
         csharpANTLR,
         typescriptANTLR,
+        pythonLARK,
+        ocamlMenhir,
+        pureBNF,
     }
+
+    enum ADTEncoding
+    {
+        taggedUnion,
+        caseClass,
+    }
+
     class Options
     {
         public string? OutDir;
@@ -46,65 +62,90 @@ class Program
         /// </summary>
         public string? Language;
         public string? ConfigPath;
+        /// <summary>
+        /// the encoding of ADTs
+        /// </summary>
+        public ADTEncoding? ADTEncoding;
     }
     static void Main(string[] args)
     {
         CmdParser<Options> parser = new();
 
-        var jsEngine = new Jint.Engine();
-        jsEngine.Execute("module = { exports: {} }");
-
         parser.Flag("help", (Options o) =>
         {
             // TODO
             Console.WriteLine("Usage: tbnf [options]");
+            Console.WriteLine("Options:");
+            Console.WriteLine("  -h, --help            show this help message and exit");
+            Console.WriteLine("  -o, --outDir          output directory");
+            Console.WriteLine("  -be, --backend        backend to use");
+            Console.WriteLine("  -ae, --adt-encoding   ADT encoding");
+            Console.WriteLine("  -lang, --language     language to generate");
+            Console.WriteLine("  -conf, --config       path to the 'tbnf.config.js' file");
+            Console.WriteLine("Examples:");
+            Console.WriteLine("  tbnf -lang mylanguage mygrammar.tbnf -be typescript-antlr -ae tagged-union");
+            Console.WriteLine("  tbnf -lang mylanguage mygrammar.tbnf -be csharp-antlr -conf tbnf.config.js");
             System.Environment.Exit(0);
         });
 
-        parser.Positional("source", static (o, source) =>
+        parser.Positional("source", (Options o, string source) =>
         {
             o.SourceGrammar = source;
         });
 
-        parser.Named("outDir", static (o, outDir) =>
+        static void setOutDir(Options o, string outDir)
         {
             o.OutDir = outDir;
-        });
+        }
 
-        parser.ShortcutOption("o", static (o, outDir) =>
-        {
-            o.OutDir = outDir;
-        });
+        parser.Named("outDir", setOutDir);
+        parser.ShortcutOption("o", setOutDir);
 
-        parser.ShortcutOption("be", (o, backend) =>
+        static void setBackend(Options o, string backend)
         {
-            switch (backend)
+            o.Backend = backend.ToLowerInvariant() switch
             {
-                case "csharp-antlr":
-                    o.Backend = Backend.csharpANTLR;
-                    break;
-                case "typescript-antlr":
-                    o.Backend = Backend.typescriptANTLR;
-                    break;
-                default:
-                    throw new Exception($"Invalid backend: {backend}");
-            }
-        });
+                "csharp-antlr" => (Backend?)Backend.csharpANTLR,
+                "typescript-antlr" => (Backend?)Backend.typescriptANTLR,
+                "python-lark" => (Backend?)Backend.pythonLARK,
+                "ocaml-menhir" => (Backend?)Backend.ocamlMenhir,
+                "pure-bnf" => (Backend?)Backend.pureBNF,
+                _ => throw new Exception($"Invalid backend: {backend}"),
+            };
 
-        parser.Named("language", static (o, language) =>
+        }
+
+        static void setADTEncoding(Options o, string adtEncoding)
+        {
+            o.ADTEncoding = adtEncoding.ToLowerInvariant() switch
+            {
+                "tagged-union" => ADTEncoding.taggedUnion,
+                "case-class" => ADTEncoding.caseClass,
+                _ => throw new Exception($"Invalid ADT encoding: {adtEncoding}"),
+            };
+        }
+
+        parser.Named("adt-encoding", setADTEncoding);
+        parser.ShortcutOption("ae", setADTEncoding);
+
+        parser.ShortcutOption("be", setBackend);
+        parser.Named("backend", setBackend);
+
+        static void setLanguage(Options o, string language)
         {
             o.Language = language;
-        });
+        }
 
-        parser.ShortcutOption("lang", static (o, language) =>
-        {
-            o.Language = language;
-        });
+        parser.Named("language", setLanguage);
+        parser.ShortcutOption("lang", setLanguage);
 
-        parser.ShortcutOption("conf", static (o, config) =>
+        static void setConfigPath(Options o, string config)
         {
             o.ConfigPath = config;
-        });
+        }
+
+        parser.ShortcutOption("conf", setConfigPath);
+        parser.Named("config", setConfigPath);
 
         var options = parser.Parse(args);
 
@@ -112,6 +153,7 @@ class Program
         {
             Console.WriteLine("Error: source grammar is required");
             System.Environment.Exit(1);
+            throw new UnreachableException();
         }
 
         var source = File.ReadAllText(options.SourceGrammar, System.Text.Encoding.UTF8);
@@ -133,53 +175,99 @@ class Program
             options.Language = "mylang";
         }
 
-        // tbnf.config.js
+        // loading tbnf.config.js
         var defaultScope = new CodeGenOptions();
         var configPath = options.ConfigPath ?? Path.Combine(options.OutDir!, "tbnf.config.js");
-        if (File.Exists(configPath))
 
+        var jsEngine = new Jint.Engine();
+        jsEngine.Execute("module = { exports: {} }");
+        if (File.Exists(configPath))
         {
             jsEngine.Execute(File.ReadAllText(configPath, System.Text.Encoding.UTF8));
             if (jsEngine.Global.HasProperty("rename_var"))
             {
-                defaultScope.RenameVar = (string name) => jsEngine.Invoke("rename_var", name).ToString();
+                defaultScope.RenameVar = name => jsEngine.Invoke("rename_var", name).ToString();
             }
             if (jsEngine.Global.HasProperty("rename_type"))
             {
-                defaultScope.RenameType = (string name) => jsEngine.Invoke("rename_type", name).ToString();
+                defaultScope.RenameType = name => jsEngine.Invoke("rename_type", name).ToString();
             }
             if (jsEngine.Global.HasProperty("rename_ctor"))
             {
-                defaultScope.RenameCtor = (string name) => jsEngine.Invoke("rename_ctor", name).ToString();
+                defaultScope.RenameCtor = name => jsEngine.Invoke("rename_ctor", name).ToString();
             }
             if (jsEngine.Global.HasProperty("rename_field"))
             {
-                defaultScope.RenameField = (string name) => jsEngine.Invoke("rename_field", name).ToString();
+                defaultScope.RenameField = name => jsEngine.Invoke("rename_field", name).ToString();
             }
             if (jsEngine.Global.HasProperty("start_rule_qualified_type"))
             {
-                defaultScope.StartRuleQualifiedType = jsEngine.Invoke("start_rule_qualified_type").ToString();
-            }
-            if (jsEngine.Global.HasProperty("request_resource"))
-            {
-                defaultScope.RequestResource = (string name) => jsEngine.Invoke("request_resource", name).ToString();
+                defaultScope.StartRuleQualifiedType = jsEngine.GetValue("start_rule_qualified_type").ToString();
             }
         }
 
-        Tuple<string, Fable.Sedlex.PrettyDoc.Doc>[] fsOut = options.Backend switch
-        {
-            Backend.csharpANTLR => tbnf.Backends.CSharpAntlr.codegen(analyzer, defaultScope, options.Language, defs),
-            Backend.typescriptANTLR => tbnf.Backends.TypescriptAntlr.codegen(analyzer, defaultScope, options.Language, defs),
-            _ => throw new Exception($"Invalid backend: {options.Backend}"),
-        };
+        // select the backend
+        Tuple<string, Fable.Sedlex.PrettyDoc.Doc>[] fsOut;
 
+        switch (options.Backend)
+        {
+            case null:
+            {
+                Console.WriteLine("Error: backend is required");
+                System.Environment.Exit(1);
+                throw new UnreachableException();
+            }
+            case Backend.csharpANTLR:
+            {
+                if (options.ADTEncoding == ADTEncoding.taggedUnion)
+                {
+                    Console.WriteLine("Warning: tagged union ADT encoding is not supported for C# backend, using case class instead");
+                }
+                fsOut = tbnf.Backends.CSharpAntlr.codegen(analyzer, defaultScope, options.Language, defs);
+                break;
+            }
+            case Backend.typescriptANTLR:
+            {
+                if (options.ADTEncoding == ADTEncoding.taggedUnion || options.ADTEncoding is null)
+                {
+                    // default to tagged union for TypeScript backend
+                    fsOut = tbnf.Backends.TypescriptAntlrTaggedUnion.codegen(analyzer, defaultScope, options.Language, defs);
+                }
+                else
+                {
+                    fsOut = tbnf.Backends.TypescriptAntlrCaseClass.codegen(analyzer, defaultScope, options.Language, defs);
+                }
+                break;
+            }
+            case Backend.pythonLARK:
+            {
+                fsOut = tbnf.Backends.PythonLark.codegen(analyzer, defaultScope, options.Language, defs);
+                break;
+            }
+            case Backend.ocamlMenhir:
+            {
+                fsOut = tbnf.Backends.OCamlMenhir.codegen(analyzer, defaultScope, options.Language, defs);
+                break;
+            }
+            case Backend.pureBNF:
+            {
+                fsOut = tbnf.Backends.PureBNF.codegen(analyzer, defaultScope, options.Language, defs);
+                break;
+            }
+            default:
+            {
+                throw new Exception($"Invalid backend: {options.Backend}");
+            }
+        }
+
+        // write the generated code to the output directory
         foreach (var (name, doc) in fsOut)
         {
             var outPath = Path.Combine(options.OutDir!, name);
             var sb = new System.Text.StringBuilder();
-            Fable.Sedlex.PrettyDoc.genDoc(doc, FSharpFunc<string, Unit>.FromConverter((string s) =>
+            Fable.Sedlex.PrettyDoc.genDoc(doc, FSharpFunc<string, Unit>.FromConverter(str =>
             {
-                sb.Append(s);
+                sb.Append(str);
                 return APIs.theUnit;
             }));
             File.WriteAllText(outPath, sb.ToString());

@@ -7,15 +7,10 @@
     <PublishSingleFile>true</PublishSingleFile>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <Nullable>enable</Nullable>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include=".\CLI\Grammar\*.cs;.\CLI\*.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include=".\TBNF.Core.fsproj" />
+    <ProjectReference Include="..\core\TBNF.Core.fsproj" />
   </ItemGroup>
 
   <ItemGroup>
