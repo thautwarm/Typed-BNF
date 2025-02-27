@@ -85,14 +85,14 @@ jobs:
         shell: bash
 
       - name: Upload versioned artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: tbnf-${{ env.VERSION }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
           path: dist/tbnf-${{ env.VERSION }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
           if-no-files-found: error
 
       - name: Upload generic artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact_name }}
           path: dist/${{ matrix.artifact_name }}
@@ -120,7 +120,7 @@ jobs:
         shell: bash
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: artifacts
 
