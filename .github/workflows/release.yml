@@ -1,0 +1,152 @@
+name: Build and Release TBNF
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (without v prefix)'
+        required: true
+        default: '0.4.0'
+
+jobs:
+  build:
+    name: Build TBNF for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            rid: linux-x64
+            artifact_name: tbnf-linux-x64
+          - os: ubuntu-latest
+            rid: linux-arm64
+            artifact_name: tbnf-linux-arm64
+          - os: macos-12
+            rid: osx-x64
+            artifact_name: tbnf-osx-x64
+          - os: macos-12
+            rid: osx-arm64
+            artifact_name: tbnf-osx-arm64
+          - os: windows-latest
+            rid: win-x64
+            artifact_name: tbnf-win-x64.exe
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install ANTLR4 Tools
+        run: pip install antlr4-tools
+
+      - name: Get version
+        id: get_version
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+          else
+            VERSION=${{ github.event.inputs.version }}
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Build AOT binary for ${{ matrix.rid }}
+        run: deno run -A build.ts aot
+        shell: bash
+        env:
+          RID: ${{ matrix.rid }}
+
+      - name: Rename and version binary
+        run: |
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            cp dist/TBNF.CLI.AOT.exe dist/tbnf-${{ env.VERSION }}-${{ matrix.rid }}.exe
+            cp dist/TBNF.CLI.AOT.exe dist/${{ matrix.artifact_name }}
+          else
+            cp dist/TBNF.CLI.AOT dist/tbnf-${{ env.VERSION }}-${{ matrix.rid }}
+            cp dist/TBNF.CLI.AOT dist/${{ matrix.artifact_name }}
+          fi
+        shell: bash
+
+      - name: Upload versioned artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: tbnf-${{ env.VERSION }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
+          path: dist/tbnf-${{ env.VERSION }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
+          if-no-files-found: error
+
+      - name: Upload generic artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: dist/${{ matrix.artifact_name }}
+          if-no-files-found: error
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # This is needed for creating releases
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get version
+        id: get_version
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+          else
+            VERSION=${{ github.event.inputs.version }}
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: TBNF v${{ env.VERSION }}
+          draft: false
+          prerelease: false
+          files: |
+            artifacts/tbnf-${{ env.VERSION }}-linux-x64/tbnf-${{ env.VERSION }}-linux-x64
+            artifacts/tbnf-${{ env.VERSION }}-linux-arm64/tbnf-${{ env.VERSION }}-linux-arm64
+            artifacts/tbnf-${{ env.VERSION }}-osx-x64/tbnf-${{ env.VERSION }}-osx-x64
+            artifacts/tbnf-${{ env.VERSION }}-osx-arm64/tbnf-${{ env.VERSION }}-osx-arm64
+            artifacts/tbnf-${{ env.VERSION }}-win-x64.exe/tbnf-${{ env.VERSION }}-win-x64.exe
+          body: |
+            # TBNF v${{ env.VERSION }}
+            
+            Backend-agnostic BNF grammar with type inference and semantic actions.
+            
+            ## Binaries
+            
+            - [Linux x64](https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/tbnf-${{ env.VERSION }}-linux-x64)
+            - [Linux ARM64](https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/tbnf-${{ env.VERSION }}-linux-arm64)
+            - [macOS x64](https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/tbnf-${{ env.VERSION }}-osx-x64)
+            - [macOS ARM64](https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/tbnf-${{ env.VERSION }}-osx-arm64)
+            - [Windows x64](https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/tbnf-${{ env.VERSION }}-win-x64.exe) 
