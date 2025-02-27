@@ -1,7 +1,0 @@
-type Expr
-case IntExpr: int -> Expr
-extern var parseInt : token -> int
-
-start : <DIGITS> { IntExpr($1) }
-
-DIGITS = \d+;

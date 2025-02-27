@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- executable with AOT compilation -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <NoWarn>CS3021</NoWarn>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <!-- AOT-specific settings -->
+    <PublishAot>true</PublishAot>
+    <StripSymbols>true</StripSymbols>
+    <OptimizationPreference>Size</OptimizationPreference>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <!-- Specify source files from CLI directory -->
+  <ItemGroup>
+    <Compile Include=".\CLI\Grammar\*.cs;.\CLI\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include=".\TBNF.Core.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
+    <PackageReference Include="FSharp.Core" Version="9.0.201" />
+    <PackageReference Include="Jint" Version="4.2.0" />
+  </ItemGroup>
+
+</Project>

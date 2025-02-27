@@ -1,1 +1,0 @@
-python -m lark_action TypedBNF.lark --package tbnf --module grammar_parser
