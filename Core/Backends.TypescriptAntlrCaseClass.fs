@@ -1,4 +1,4 @@
-module tbnf.Backends.TypescriptAntlr
+module tbnf.Backends.TypescriptAntlrCaseClass
 
 open Fable.Sedlex.PrettyDoc
 open tbnf.Grammar
@@ -557,11 +557,11 @@ let codegen
         let import_names = importTypeNames @ importVarNames
         let inner_names = ResizeArray<string>()
 
-        let file_constructors = $"{langName}-constructor.ts", vsep [
+        let file_constructors = $"{langName}Constructor.ts", vsep [
             yield word "import * as antlr from 'antlr4ng';"
             let import_names = String.concat ", " import_names
-            yield word $"import {{ {import_names} }} from './{langName}-require';"
-            yield word $"export * from './{langName}-require'"
+            yield word $"import {{ {import_names} }} from './{langName}Require';"
+            yield word $"export * from './{langName}Require'"
 
             let adtCases = analyzer.Sigma.GetADTCases()
             yield empty
@@ -605,9 +605,10 @@ let codegen
                     yield word "@parser::header {"
                     if not (List.isEmpty import_names) then
                         let all_import_names = (List.ofSeq inner_names @ import_names) |> String.concat ", "
-                        let require_name = escapeString $"./{langName}-constructor"
+                        let require_name = escapeString $"./{langName}Constructor"
                         yield word $"import {{ {all_import_names} }} from {require_name}"
-                        yield word $"import * as antlr from 'antlr4ng'"
+                        // generated parser by antlr4ng already imports antlr4ng:
+                        // // yield word $"import * as antlr from 'antlr4ng'"
                     for each in usedFunctionTypes do
                         yield word (genFuncTypeDef each)
                     yield word "}"

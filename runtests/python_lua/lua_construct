@@ -1,0 +1,78 @@
+import __future__ import annotations as __01asda1ha
+from lark import Token as token
+import dataclasses as dataclasses
+import typing as typing
+from .lua_require import (mkTableConstructor,mkAttr,mkIndex,mkCallMethod,mkCallFunc,mkTableExpr,mkNestedExp,mkNot,mkInv,mkNeg,mkLen,mkExponent,mkEllipse,mkString,mkNum,mkBool,mkNil,mkVar,mkFuncDef,mkForInStmt,mkForRangeStmt,mkIfStmt,mkRepeatStmt,mkWhileStmt,mkDoStmt,mkGotoStmt,mkBreakStmt,mkLabelStmt,mkExprStmt,mkAssignment,mkEmptyStmt,mkReturnStmt,mkBlock,mkElementField,mkNameField,mkIndexField,mkStringArg,mkTableArgs,mkPositionalArgs,mkParams,mkElseBlock,mkElifBlock,mkRange,mkBinOpSeq,mkOperand,mkOperator,none,some,listMap,appendList)
+
+@dataclasses.dataclass
+class arguments:
+    pass
+
+arguments = arguments
+
+@dataclasses.dataclass
+class block:
+    pass
+
+block = block
+
+@dataclasses.dataclass
+class expr:
+    pass
+
+expr = expr
+
+@dataclasses.dataclass
+class if_else:
+    pass
+
+if_else = if_else
+
+@dataclasses.dataclass
+class if_elseif:
+    pass
+
+if_elseif = if_elseif
+
+@dataclasses.dataclass
+class maybe:
+    pass
+
+maybe = maybe
+
+@dataclasses.dataclass
+class op:
+    pass
+
+op = op
+
+@dataclasses.dataclass
+class params:
+    pass
+
+params = params
+
+@dataclasses.dataclass
+class range:
+    pass
+
+range = range
+
+@dataclasses.dataclass
+class stmt:
+    pass
+
+stmt = stmt
+
+@dataclasses.dataclass
+class table:
+    pass
+
+table = table
+
+@dataclasses.dataclass
+class table_field:
+    pass
+
+table_field = table_field
+

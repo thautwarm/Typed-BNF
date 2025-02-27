@@ -26,8 +26,8 @@ NM.target(
     name: exeCurRt,
     virtual: false,
     deps: {
-      fsSources: NM.Path.glob("Core/**/*.{fs,fsproj}"),
-      csSources: NM.Path.glob("CLI/**/*.{cs,csproj}"),
+      fsSources: NM.Path.glob("core/**/*.{fs,fsproj}", { exclude: ['**/bin/**', '**/obj/**']}),
+      csSources: NM.Path.glob("cli/**/*.{cs,csproj}", { exclude: ['**/bin/**', '**/obj/**']}),
     },
     async build({ deps }) {
       console.log("FSharp Sources:");
@@ -45,7 +45,7 @@ NM.target(
       }
 
       await NM.Shell.run(
-        NM.Shell.split(`antlr4 ./CLI/Grammar/TypedBNF.g4 -package TypedBNF -o ./CLI/Grammar/`),
+        NM.Shell.split(`antlr4 ./cli/Grammar/TypedBNF.g4 -package TypedBNF -o ./cli/Grammar/`),
         {
           printCmd: true,
           stdout: "print",
@@ -54,7 +54,7 @@ NM.target(
 
       await NM.Shell.run(
         NM.Shell.split(
-          `dotnet publish TBNF.CLI.csproj -f net8.0 --use-current-runtime --self-contained true -o dist/`,
+          `dotnet publish ./cli/TBNF.CLI.csproj -f net8.0 --use-current-runtime --self-contained true -o dist/`,
         ),
         {
           printCmd: true,
@@ -65,6 +65,8 @@ NM.target(
   },
 );
 
+// .NET build tools do not allow multiple instances of the same application to run at the same time,
+// i.e., .NET build tools seem not "process-safe".
 class Lock {
 
   private _locked: boolean;
@@ -123,7 +125,7 @@ for (
         using _ = await lock();
         await NM.Shell.run(
           NM.Shell.split(
-            `dotnet publish TBNF.CLI.csproj -f net8.0 -r ${rid} --self-contained true -o dist/${rid}`,
+            `dotnet publish ./cli/TBNF.CLI.csproj -f net8.0 -r ${rid} --self-contained true -o dist/${rid}`,
           ),
           {
             printCmd: true,
@@ -155,10 +157,10 @@ NM.target(
     deps: {
       executable: './dist/TBNF.CLI.exe',
     },
-    async build({ deps }) {
+    async build() {
       await NM.Shell.run(
         NM.Shell.split(
-          `./dist/TBNF.CLI.exe TypedBNF.tbnf -o ./CLI/Grammar/ -lang TypedBNF -be csharp-antlr`
+          `./dist/TBNF.CLI.exe TypedBNF.tbnf -o ./cli/Grammar/ -lang TypedBNF -be csharp-antlr`
         ),
         {
           printCmd: true,
@@ -180,7 +182,7 @@ NM.target(
     },
     async build() {
       await NM.Shell.run(
-        NM.Shell.split(`dotnet publish TBNF.CLI.csproj -f net8.0 -o dist`),
+        NM.Shell.split(`dotnet publish ./cli.aot/TBNF.CLI.AOT.csproj -f net8.0 -o dist`),
       )
     }
   }

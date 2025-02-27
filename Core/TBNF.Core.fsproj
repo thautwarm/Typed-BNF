@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+    <NoWarn>3370</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="FableSedlex/PrettyDoc.fs" />
+    <Compile Include="FableSedlex/Sedlex.fs" />
+    <Compile Include="FableSedlex/CodeGen.Python.fs" />
+    <Compile Include="ResourceKeys.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="Grammar.fs" />
+    <Compile Include="Inspect.fs" />
+    <Compile Include="Exceptions.fs" />
+    <Compile Include="MacroResolve.fs" />
+    <Compile Include="Op.fs" />
+    <Compile Include="Unification.fs" />
+    <Compile Include="ErrorReport.fs" />
+    <Compile Include="Analysis.fs" />
+    <Compile Include="Backends.Common.fs" />
+    <Compile Include="Backends.PythonLark.fs" />
+    <Compile Include="Backends.TypescriptAntlrCaseClass.fs" />
+    <Compile Include="Backends.TypeScriptAntlrTaggedUnion.fs" />
+    <Compile Include="Backends.OCamlMenhir.fs" />
+    <Compile Include="Backends.CSharpAntlr.fs" />
+    <Compile Include="Backends.PureBNF.fs" />
+    <Compile Include="APIs.fs" />
+    <Compile Include="Main.fs" />
+  </ItemGroup>
+</Project>

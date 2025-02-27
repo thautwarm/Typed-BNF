@@ -4,7 +4,13 @@ dist/
 bin/
 obj/
 testDir/
-.interp
-.tokens
 deno.lock
 .vscode/
+
+# JavaScript
+*.js.map
+node_modules/
+
+# ANTLR
+*.interp
+*.tokens

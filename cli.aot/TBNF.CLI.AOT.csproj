@@ -11,16 +11,15 @@
     <StripSymbols>true</StripSymbols>
     <OptimizationPreference>Size</OptimizationPreference>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
 
   <!-- Specify source files from CLI directory -->
   <ItemGroup>
-    <Compile Include=".\CLI\Grammar\*.cs;.\CLI\*.cs" />
+    <Compile Include="..\CLI\Grammar\*.cs;..\CLI\*.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include=".\TBNF.Core.fsproj" />
+    <ProjectReference Include="..\core\TBNF.Core.fsproj" />
   </ItemGroup>
 
   <ItemGroup>
