@@ -74,14 +74,23 @@ class Program
         parser.Flag("help", (Options o) =>
         {
             // TODO
-            Console.WriteLine("Usage: tbnf [options]");
+            Console.WriteLine("Usage: tbnf [options] <source-grammar-file>");
             Console.WriteLine("Options:");
-            Console.WriteLine("  -h, --help            show this help message and exit");
-            Console.WriteLine("  -o, --outDir          output directory");
-            Console.WriteLine("  -be, --backend        backend to use");
-            Console.WriteLine("  -ae, --adt-encoding   ADT encoding");
-            Console.WriteLine("  -lang, --language     language to generate");
-            Console.WriteLine("  -conf, --config       path to the 'tbnf.config.js' file");
+            Console.WriteLine("  -h, --help                Show this help message and exit");
+            Console.WriteLine("  -o, --outDir DIR          Specify output directory (default: same as source file)");
+            Console.WriteLine("  -be, --backend TYPE       Backend to use");
+            Console.WriteLine("     Possible TYPE values:");
+            Console.WriteLine("       csharp-antlr         C# backend using ANTLR");
+            Console.WriteLine("       typescript-antlr     TypeScript backend using ANTLR");
+            Console.WriteLine("       pure-bnf             PureBNF backend");
+            Console.WriteLine();
+            Console.WriteLine("  -ae, --adt-encoding TYPE  ADT encoding");
+            Console.WriteLine("     Possible TYPE values:");
+            Console.WriteLine("       tagged-union         ADT encoding via tagged unions (default for TypeScript)");
+            Console.WriteLine("       case-class           ADT encoding via case classes (default for C#)");
+            Console.WriteLine("  -lang, --language NAME    Language name to generate (default: \"mylang\")");
+            Console.WriteLine("  -conf, --config PATH      Path to the 'tbnf.config.js' file (default: <outDir>/tbnf.config.js)");
+            Console.WriteLine();
             Console.WriteLine("Examples:");
             Console.WriteLine("  tbnf -lang mylanguage mygrammar.tbnf -be typescript-antlr -ae tagged-union");
             Console.WriteLine("  tbnf -lang mylanguage mygrammar.tbnf -be csharp-antlr -conf tbnf.config.js");

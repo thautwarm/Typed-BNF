@@ -30,17 +30,26 @@ Support for Python Lark & OCaml Menhir is deprecated since v0.4, see [v0.3](http
 Download the single executable file `tbnf-VERSION-TARGET` (e.g., `tbnf-0.4.0-win-x64.exe`, `tbnf-0.4.0-osx-arm64`) from [the release page](https://github.com/thautwarm/Typed-BNF/releases).
 
 ```bash
-Usage: tbnf [options]
+Usage: tbnf [options] <source-grammar-file>
 Options:
-  -h, --help            show this help message and exit
-  -o, --outDir          output directory
-  -be, --backend        backend to use
-  -ae, --adt-encoding   ADT encoding
-  -lang, --language     language to generate
-  -conf, --config       path to the 'tbnf.config.js' file
+  -h, --help                Show this help message and exit
+  -o, --outDir DIR          Specify output directory (default: same as source file)
+  -be, --backend TYPE       Backend to use
+     Possible TYPE values:
+       csharp-antlr         C# backend using ANTLR
+       typescript-antlr     TypeScript backend using ANTLR
+       pure-bnf             PureBNF backend
+
+  -ae, --adt-encoding TYPE  ADT encoding
+     Possible TYPE values:
+       tagged-union         ADT encoding via tagged unions (default for TypeScript)
+       case-class           ADT encoding via case classes (default for C#)
+  -lang, --language NAME    Language name to generate (default: "mylang")
+  -conf, --config PATH      Path to the 'tbnf.config.js' file (default: <outDir>/tbnf.config.js)
+
 Examples:
-  tbnf -lang mylang mygrammar.tbnf -be typescript-antlr -ae tagged-union
-  tbnf --language mylang mygrammar.tbnf --backend csharp-antlr -conf tbnf.config.js
+  tbnf -lang mylanguage mygrammar.tbnf -be typescript-antlr -ae tagged-union
+  tbnf -lang mylanguage mygrammar.tbnf -be csharp-antlr -conf tbnf.config.js
 ```
 
 You might check out [Typed BNF Documentations](https://github.com/thautwarm/Typed-BNF/blob/main/documentations.md).
