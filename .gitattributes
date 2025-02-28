@@ -2,17 +2,18 @@
 
 # Exclude generated code from language statistics
 *.py linguist-detectable=false
-*.ts linguist-detectable=false
 *.js linguist-detectable=false
 *.cs linguist-detectable=false
+*.ml linguist-detectable=false
 *.g4 linguist-generated=false
 cli.aot/* linguist-generated=true
-editor/typedbnf/src/** linguist-generated=true
-editor/typedbnf/dist/** linguist-generated=true
+editor/typedbnf/src/grammar/TBNF* linguist-generated=true
+editor/typedbnf/src/grammar-sh/TBNF* linguist-generated=true
 runtests/**/*.ts linguist-generated=true
 runtests/**/*.js linguist-generated=true
 runtests/**/*.cs linguist-generated=true
 runtests/**/*.py linguist-generated=true
+runtests/**/*.ml linguist-generated=true
 
 # Documentation
 *.md linguist-documentation=true
