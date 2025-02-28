@@ -5,6 +5,8 @@
 *.js linguist-detectable=false
 *.cs linguist-detectable=false
 *.ml linguist-detectable=false
+*.mli linguist-detectable=false
+*.mly linguist-detectable=false
 *.g4 linguist-generated=false
 cli.aot/* linguist-generated=true
 editor/typedbnf/src/grammar/TBNF* linguist-generated=true
@@ -14,7 +16,8 @@ runtests/**/*.js linguist-generated=true
 runtests/**/*.cs linguist-generated=true
 runtests/**/*.py linguist-generated=true
 runtests/**/*.ml linguist-generated=true
-
+runtests/**/*.mli linguist-generated=true
+runtests/**/*.mly linguist-generated=true
 # Documentation
 *.md linguist-documentation=true
 documentation.md linguist-documentation=true
