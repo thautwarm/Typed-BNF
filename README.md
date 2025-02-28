@@ -8,6 +8,10 @@ For IDE support, we provide a [VSCode extension](https://marketplace.visualstudi
 - Semantic-based syntax highlighting
 - Go to definition/go to references/find all references
 
+## Documentation
+
+- [Typed BNF Documentations](https://thautwarm.github.io/Site-33/3-software/tbnf/)
+
 ## Overview
 
 So far, we support 3 different architectures, which unveil the capability of Typed BNF's backend agnostic code generation.
