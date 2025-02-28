@@ -7,6 +7,7 @@
 *.ml linguist-detectable=false
 *.mli linguist-detectable=false
 *.mly linguist-detectable=false
+runtests/**/*.jl linguist-detectable=false
 *.g4 linguist-generated=false
 cli.aot/* linguist-generated=true
 editor/typedbnf/src/grammar/TBNF* linguist-generated=true
