@@ -3,9 +3,11 @@
   "displayName": "TypedBNF",
   "description": "Language support for TypedBNF",
   "version": "0.0.1",
+  "publisher": "thautwarm",
   "engines": {
     "vscode": "^1.71.0"
   },
+  "icon": "TBNF.ico",
   "categories": [
     "Programming Languages"
   ],
@@ -22,8 +24,13 @@
     "languages": [
       {
         "id": "typedbnf",
-        "aliases": ["TypedBNF", "typedbnf"],
-        "extensions": [".tbnf"],
+        "aliases": [
+          "TypedBNF",
+          "typedbnf"
+        ],
+        "extensions": [
+          ".tbnf"
+        ],
         "configuration": "./language-configuration.json"
       }
     ]
@@ -51,6 +58,7 @@
     "@typescript-eslint/parser": "^8.22.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.2.2",
     "esbuild": "^0.24.2",
     "eslint": "^9.19.0",
     "npm-run-all": "^4.1.5",
