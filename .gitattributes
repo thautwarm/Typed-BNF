@@ -1,2 +1,19 @@
-*.py linguist-detectable=false
 * text=auto eol=lf
+
+# Exclude generated code from language statistics
+*.py linguist-detectable=false
+*.ts linguist-detectable=false
+*.js linguist-detectable=false
+*.cs linguist-detectable=false
+*.g4 linguist-generated=false
+cli.aot/* linguist-generated=true
+editor/typedbnf/src/** linguist-generated=true
+editor/typedbnf/dist/** linguist-generated=true
+runtests/**/*.ts linguist-generated=true
+runtests/**/*.js linguist-generated=true
+runtests/**/*.cs linguist-generated=true
+runtests/**/*.py linguist-generated=true
+
+# Documentation
+*.md linguist-documentation=true
+documentation.md linguist-documentation=true
