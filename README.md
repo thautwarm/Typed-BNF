@@ -2,6 +2,12 @@
 
 **Backend-agnostic** BNF grammar with **type inference** and **semantic actions**.
 
+
+For IDE support, we provide a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=thautwarm.typedbnf) with the following features:
+
+- Semantic-based syntax highlighting
+- Go to definition/go to references/find all references
+
 ## Overview
 
 So far, we support 3 different architectures, which unveil the capability of Typed BNF's backend agnostic code generation.
