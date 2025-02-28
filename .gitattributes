@@ -16,6 +16,7 @@ runtests/**/*.js linguist-generated=true
 runtests/**/*.cs linguist-generated=true
 runtests/**/*.py linguist-generated=true
 runtests/**/*.ml linguist-generated=true
+runtests/**/*.jl linguist-generated=true
 runtests/**/*.mli linguist-generated=true
 runtests/**/*.mly linguist-generated=true
 # Documentation
