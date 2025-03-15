@@ -11,12 +11,7 @@ open tbnf.Backends.Common.NameMangling
 
 let angled x = word "<" * x * word ">"
 
-let codegen
-    (analyzer: Analyzer)
-    (_: CodeGenOptions)
-    (langName: string)
-    (stmts: definition array)
-    =
+let codegen (analyzer: Analyzer) (_: CodeGenOptions) (langName: string) (stmts: definition array) =
     let var_renamer = id
     let rename_ctor = id
     let rename_var = id
@@ -42,20 +37,13 @@ let codegen
         IdentifierDescriptor
             .Create(
                 (fun i c ->
-                    let test =
-                        isLower c || isUpper c || isUnicode c || c = '_'
+                    let test = isLower c || isUpper c || isUnicode c || c = '_'
 
-                    if i = 0 then
-                        test
-                    else
-                        test || isDigit c),
-                (fun i c ->
-                    if isDigit c then
-                        $"_X{i}_"
-                    else
-                        $"_{int c}_")
+                    if i = 0 then test else test || isDigit c),
+                (fun i c -> if isDigit c then $"_X{i}_" else $"_{int c}_")
             )
-            .WithNameEnv { usedNames = Set.ofList (List.map snd global_scope) }
+            .WithNameEnv
+            { usedNames = Set.ofList (List.map snd global_scope) }
 
     let mangle = mangle abandoned_names
 
@@ -72,8 +60,10 @@ let codegen
     let cg_symbol (x: symbol) =
         match x with
         | Term(x, isLit) ->
-            if isLit then escapeStringSingleQuoted x
-            else _name_of_named_term x
+            if isLit then
+                escapeStringSingleQuoted x
+            else
+                _name_of_named_term x
         | Nonterm x -> _name_of_nonterm x
         | Macrocall _ -> invalidOp "macro not processed"
 
@@ -92,19 +82,15 @@ let codegen
         | monot.TConst n -> type_renamer n
         | monot.TVar a -> typeParameter_mangling a
         | monot.TRef _ -> raise <| UnsolvedTypeVariable
-        | monot.TFun (args, r) ->
+        | monot.TFun(args, r) ->
             args
             |> List.map (fun (s, b) -> s + ":" + _cg_type b)
             |> String.concat ", "
             |> fun it -> it + " => " + _cg_type r
 
-        | monot.TApp (TTuple, []) -> invalidOp "[]"
-        | monot.TApp (TTuple, args) ->
-            args
-            |> List.map _cg_type
-            |> String.concat ", "
-            |> fun it -> "[" + it + "]"
-        | monot.TApp (f, args) ->
+        | monot.TApp(TTuple, []) -> invalidOp "[]"
+        | monot.TApp(TTuple, args) -> args |> List.map _cg_type |> String.concat ", " |> (fun it -> "[" + it + "]")
+        | monot.TApp(f, args) ->
             args
             |> List.map _cg_type
             |> String.concat ", "
@@ -116,9 +102,7 @@ let codegen
     let resultName = "result"
 
     let rec cg_prod (prod: production) =
-        prod.symbols
-        |> List.map (word << cg_symbol)
-        |> seplist (word " ")
+        prod.symbols |> List.map (word << cg_symbol) |> seplist (word " ")
 
     let rec cg_ruledef (lhs: string) (define: list<position * production>) =
         let ntname = cg_symbol (Nonterm lhs)
@@ -150,17 +134,10 @@ let codegen
             match List.tryLookup s lexerMaps with
             | Some _ -> name_of_named_term s
             | None -> raise <| UnboundLexer(s)
-        | lexerule.LSeq xs ->
-            List.map mk_lexer xs
-            |> Array.ofList
-            |> String.concat " "
-        | lexerule.LRange (l, r) ->
-            $"[{iToU4(l)}-{iToU4(r)}]"
+        | lexerule.LSeq xs -> List.map mk_lexer xs |> Array.ofList |> String.concat " "
+        | lexerule.LRange(l, r) -> $"[{iToU4 (l)}-{iToU4 (r)}]"
         | lexerule.LOr [] -> invalidOp "impossible: alternatives cannot be empty."
-        | lexerule.LOr xs ->
-            List.map mk_lexer xs
-            |> Array.ofList
-            |> String.concat " | "
+        | lexerule.LOr xs -> List.map mk_lexer xs |> Array.ofList |> String.concat " | "
         | lexerule.LOptional e -> $"{!e}?"
 
     let rec mk_lexer_debug (def: lexerule) : string =
@@ -180,94 +157,101 @@ let codegen
             |> Seq.ofList
             |> String.concat ", "
             |> fun seq -> $"pseq([{seq}])"
-        | lexerule.LRange (l, r) -> $"pinterval({l}, {r})"
+        | lexerule.LRange(l, r) -> $"pinterval({l}, {r})"
         | lexerule.LOr [] -> invalidOp "impossible: alternatives cannot be empty."
-        | lexerule.LOr (hd :: tl) -> List.fold (fun a b -> $"por({a}, {b})") (!hd) (List.map mk_lexer_debug tl)
+        | lexerule.LOr(hd :: tl) -> List.fold (fun a b -> $"por({a}, {b})") (!hd) (List.map mk_lexer_debug tl)
         | lexerule.LOptional e -> $"popt{(!e)}"
 
 
     let rec cg_stmt (stmt: definition) =
         analyzer.Sigma.SetCurrentDefinition stmt
+
         match stmt with
-        | definition.Defrule decl ->
-            [cg_ruledef decl.lhs decl.define]
+        | definition.Defrule decl -> [ cg_ruledef decl.lhs decl.define ]
         | definition.Deflexer decl ->
 #if DEBUG
             printfn "%s = %s" decl.lhs (mk_lexer_debug decl.define)
 #endif
-            lexerMaps <-
-                (decl.lhs, decl.define)
-                :: lexerMaps
+            lexerMaps <- (decl.lhs, decl.define) :: lexerMaps
 
             []
-        | definition.Defignore decl ->
-            []
-        | definition.Declctor decl ->
-            []
+        | definition.Defignore decl -> []
+        | definition.Declctor decl -> []
         | definition.Declvar decl ->
             importVarNames <- var_renamer decl.ident :: importVarNames
             []
         | definition.Decltype decl ->
             if decl.external then
                 importTypeNames <- type_renamer decl.ident :: importTypeNames
+
             []
         | definition.Defmacro _ -> invalidOp "macro not processed"
 
 
     let rec simplify_lexerule x =
         match x with
-        | lexerule.LNumber | lexerule.LWildcard | lexerule.LRange _ | lexerule.LRef _ | lexerule.LStr _ -> x
+        | lexerule.LNumber
+        | lexerule.LWildcard
+        | lexerule.LRange _
+        | lexerule.LRef _
+        | lexerule.LStr _ -> x
         | lexerule.LGroup e -> _must_be_atom_rule e
         | lexerule.LNot(x) -> LNot(_must_be_atom_rule x)
-        | lexerule.LOptional x -> LOptional (_must_be_atom_rule x)
-        | lexerule.LPlus x -> LPlus (_must_be_atom_rule x)
-        | lexerule.LStar x -> LStar (_must_be_atom_rule x)
-        | lexerule.LOr args -> LOr (List.map _must_be_atom_rule args)
-        | lexerule.LSeq args -> LSeq (List.map _must_be_atom_rule args)
+        | lexerule.LOptional x -> LOptional(_must_be_atom_rule x)
+        | lexerule.LPlus x -> LPlus(_must_be_atom_rule x)
+        | lexerule.LStar x -> LStar(_must_be_atom_rule x)
+        | lexerule.LOr args -> LOr(List.map _must_be_atom_rule args)
+        | lexerule.LSeq args -> LSeq(List.map _must_be_atom_rule args)
 
     and _must_be_atom_rule x =
         match x with
-        | lexerule.LNumber | lexerule.LWildcard | lexerule.LRange _ | lexerule.LRef _ | lexerule.LStr _ -> x
-        | lexerule.LNot x -> LNot (_must_be_atom_rule x)
-        | lexerule.LOptional x -> LOptional (_must_be_atom_rule x)
-        | lexerule.LPlus x -> LPlus (_must_be_atom_rule x)
-        | lexerule.LStar x -> LStar (_must_be_atom_rule x)
-        | lexerule.LOr args -> LGroup (LOr (List.map _must_be_atom_rule args))
-        | lexerule.LSeq args -> LGroup (LSeq (List.map _must_be_atom_rule args))
+        | lexerule.LNumber
+        | lexerule.LWildcard
+        | lexerule.LRange _
+        | lexerule.LRef _
+        | lexerule.LStr _ -> x
+        | lexerule.LNot x -> LNot(_must_be_atom_rule x)
+        | lexerule.LOptional x -> LOptional(_must_be_atom_rule x)
+        | lexerule.LPlus x -> LPlus(_must_be_atom_rule x)
+        | lexerule.LStar x -> LStar(_must_be_atom_rule x)
+        | lexerule.LOr args -> LGroup(LOr(List.map _must_be_atom_rule args))
+        | lexerule.LSeq args -> LGroup(LSeq(List.map _must_be_atom_rule args))
         | LGroup x -> _must_be_atom_rule x
 
 
-    tbnf.ErrorReport.withErrorHandler analyzer.Sigma.GetErrorTrace <| fun () ->
-    // antlr grammar generator
-    let isLOr = function LOr _ -> true | _ -> false
-    let parensIfLOr x =
-        if isLOr x then
-            parens(word (mk_lexer x))
-        else word(mk_lexer x)
+    tbnf.ErrorReport.withErrorHandler analyzer.Sigma.GetErrorTrace
+    <| fun () ->
+        // antlr grammar generator
+        let isLOr =
+            function
+            | LOr _ -> true
+            | _ -> false
 
-    match Map.tryFind "start" analyzer.Omega with
-    | None -> raise <| UnboundNonterminal "start"
-    | Some start_t ->
-    Array.map cg_stmt stmts
-    |> List.ofArray
-    |> List.collect id
-    |> vsep
-    |> fun file_grammar ->
-        let lexerDefs = [
-            for (k, v) in  List.rev lexerMaps do
-                let v = simplify_lexerule v
-                let n = name_of_named_term k
-                if Set.contains k analyzer.IgnoreSet then
-                    yield word n + word ":" + parensIfLOr v + word "-> channel(HIDDEN);"
-                elif Set.contains k analyzer.ReferencedNamedTokens then
-                    yield word n + word ":" + word (mk_lexer v) + word ";"
-                else
-                    yield word "fragment" + word n + word ":" + parensIfLOr v + word ";"
-        ]
-        let file_bnf =
-                langName + ".bnf",
-                vsep [
-                    yield file_grammar
-                    yield! lexerDefs
-                ]
-        [| file_bnf |]
+        let parensIfLOr x =
+            if isLOr x then
+                parens (word (mk_lexer x))
+            else
+                word (mk_lexer x)
+
+        match Map.tryFind "start" analyzer.Omega with
+        | None -> raise <| UnboundNonterminal "start"
+        | Some start_t ->
+            Array.map cg_stmt stmts
+            |> List.ofArray
+            |> List.collect id
+            |> vsep
+            |> fun file_grammar ->
+                let lexerDefs =
+                    [ for (k, v) in List.rev lexerMaps do
+                          let v = simplify_lexerule v
+                          let n = name_of_named_term k
+
+                          if Set.contains k analyzer.IgnoreSet then
+                              yield word n + word ":" + parensIfLOr v + word "-> channel(HIDDEN);"
+                          elif Set.contains k analyzer.ReferencedNamedTokens then
+                              yield word n + word ":" + word (mk_lexer v) + word ";"
+                          else
+                              yield word "fragment" + word n + word ":" + parensIfLOr v + word ";" ]
+
+                let file_bnf = langName + ".bnf", vsep [ yield file_grammar; yield! lexerDefs ]
+                [| file_bnf |]

@@ -1,6 +1,8 @@
 module tbnf.Unification
+
 open Grammar
 open Exceptions
+
 type Manager() =
     let newTyRef (name: string) =
         let cell = Cell()
@@ -10,7 +12,7 @@ type Manager() =
     let rec occur_in (r: Cell<monot>) (other: monot) =
         match other with
         | TRef a when obj.ReferenceEquals(a, r) -> true
-        | a ->  a.FindAnyChildren (occur_in r)
+        | a -> a.FindAnyChildren(occur_in r)
 
 
     // equality by length of list
@@ -19,13 +21,12 @@ type Manager() =
     let rec unify (l: monot) (r: monot) =
         let l = l.Prune()
         let r = r.Prune()
+
         match l, r with
         | TRef cell, _ ->
             if l = r then ()
-            elif occur_in cell r then
-                raise <| IllFormedType(l, r)
-            else
-                cell.Set r
+            elif occur_in cell r then raise <| IllFormedType(l, r)
+            else cell.Set r
         | _, TRef _ -> unify r l
         | TConst a, TConst b when a = b -> ()
         | TVar a, TVar b when a = b -> ()
@@ -43,35 +44,39 @@ type Manager() =
     // the instantiated monotype.
     // if the input is of (Mono monot), return ([], monot)
 
-    let instantiate (t: polyt): monot list * monot =
+    let instantiate (t: polyt) : monot list * monot =
         match t with
-        | Mono t | Poly([], t) -> [], t
+        | Mono t
+        | Poly([], t) -> [], t
         | Poly(vars, t) -> (* todo: check duplication *)
             vars
-            |> List.map (fun var -> var, newTyRef(var))
+            |> List.map (fun var -> var, newTyRef (var))
             |> fun specializationArgs ->
-            Map.ofList specializationArgs
-            |> fun replaceMap ->
-            let rec instantiate t =
-                match t with
-                | TVar a ->
-                    match Map.tryFind a replaceMap with
-                    | None -> raise <| UnboundTypeVariable a
-                    | Some t -> t
-                | a -> a.TransformChildren instantiate
-            let _, specializationArgs = List.unzip specializationArgs
-            specializationArgs, instantiate t
+                Map.ofList specializationArgs
+                |> fun replaceMap ->
+                    let rec instantiate t =
+                        match t with
+                        | TVar a ->
+                            match Map.tryFind a replaceMap with
+                            | None -> raise <| UnboundTypeVariable a
+                            | Some t -> t
+                        | a -> a.TransformChildren instantiate
+
+                    let _, specializationArgs = List.unzip specializationArgs
+                    specializationArgs, instantiate t
 
 
     member __.Instantiate(t: polyt) = instantiate t
-    member __.Unify (got_type: monot, expected_type:monot) =
+
+    member __.Unify(got_type: monot, expected_type: monot) =
         try
             unify got_type expected_type
         with TypeMismatch(_, _) ->
             raise (TypeMismatch(got_type, expected_type))
 
-    member __.NewTyRef (s: string) = newTyRef s
-    member __.CellRepr (cell: Cell<monot>) =
+    member __.NewTyRef(s: string) = newTyRef s
+
+    member __.CellRepr(cell: Cell<monot>) =
         // let a = ref ""
         // if tyEnv.TryGetValue(cell, a) then a.Value
         invalidOp <| "access repr of unknown typeref."

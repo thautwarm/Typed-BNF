@@ -288,7 +288,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                         let! e' = !e
                         return e' * word "." * word s
                     | node.EInt i -> return word (i.ToString())
-                    | node.EFlt f -> return word (f.ToString("G",System.Globalization.CultureInfo.InvariantCulture))
+                    | node.EFlt f -> return word (f.ToString("G", System.Globalization.CultureInfo.InvariantCulture))
                     (* XXX: multiline string support? *)
                     | node.EStr s -> return word (escapeString s)
                     | node.EFun(args, body) ->
@@ -652,7 +652,8 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                               yield word (genFuncTypeDef each)
                           yield word "}"
                           yield
-                              word $"start returns [result: {cg_type start_t}]: v={start_mangled} EOF {{ $result = localContext._v.result; }};"
+                              word
+                                  $"start returns [result: {cg_type start_t}]: v={start_mangled} EOF {{ $result = localContext._v.result; }};"
                           yield file_grammar
                           yield! lexerDefs ]
 

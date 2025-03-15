@@ -88,13 +88,13 @@ let MK_LWildcard = LWildcard
 [<CompiledName("MK_" + nameof (LSeq))>]
 let MK_LSeq xs =
     match xs with
-    | [|x|] -> x
+    | [| x |] -> x
     | _ -> LSeq(Array.toList xs)
 
 [<CompiledName("MK_" + nameof (LOr))>]
-let MK_LOr xs = 
+let MK_LOr xs =
     match xs with
-    | [|x|] -> x
+    | [| x |] -> x
     | _ -> LOr(Array.toList xs)
 
 [<CompiledName("MK_" + nameof (LNot))>]
@@ -170,17 +170,18 @@ let MK_production symbols action =
       action = action }
 
 [<CompiledName("MK_" + nameof (Term))>]
-let MK_Term define is_literal =
-    Term(define, is_literal)
+let MK_Term define is_literal = Term(define, is_literal)
 
 [<CompiledName("MK_" + nameof (Nonterm))>]
 let MK_Nonterm define = Nonterm define
 
 [<CompiledName("MK_" + nameof (Macrocall))>]
-let MK_Macrocall n syms position = Macrocall(n, Array.toList syms, position)
+let MK_Macrocall n syms position =
+    Macrocall(n, Array.toList syms, position)
 
 [<CompiledName("MK_" + nameof (Poly))>]
-let MK_Poly bounds monot = Poly(Array.toList bounds, processPolyType bounds monot)
+let MK_Poly bounds monot =
+    Poly(Array.toList bounds, processPolyType bounds monot)
 
 [<CompiledName("MK_" + nameof (Mono))>]
 let MK_Mono (monot) = Mono monot
@@ -190,6 +191,6 @@ let createPosition (line, col, filename) =
       col = col
       filename = filename }
 
-let theUnit = ();
+let theUnit = ()
 
 let build_analyzer stmts = Analysis.build_analyzer stmts
