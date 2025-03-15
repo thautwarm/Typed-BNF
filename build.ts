@@ -1,6 +1,6 @@
 import * as NM from "https://raw.githubusercontent.com/thautwarm/nomake/v0.1.12/mod.ts";
 
-const version = "0.4.2";
+const version = "0.4.3";
 
 const GlobalOptions: {
   bootstrap: boolean;

@@ -29,7 +29,7 @@ let rec compileToPrims: Doc -> DocPrimitive array array =
     fun doc ->
         match doc with
         | Empty -> [||]
-        | Concat (l, r) ->
+        | Concat(l, r) ->
             let l = compileToPrims l
             let r = compileToPrims r
 
@@ -38,10 +38,11 @@ let rec compileToPrims: Doc -> DocPrimitive array array =
             elif Array.isEmpty r then
                 l
             else
-                Array.concat [| Array.drop 1 l
-                                [| Array.append (Array.last l) (Array.head r) |]
-                                Array.skip 1 r |]
-        | Align (seg) ->
+                Array.concat
+                    [| Array.drop 1 l
+                       [| Array.append (Array.last l) (Array.head r) |]
+                       Array.skip 1 r |]
+        | Align seg ->
             let it = compileToPrims seg
 
             if Array.isEmpty it then
@@ -50,7 +51,7 @@ let rec compileToPrims: Doc -> DocPrimitive array array =
                 it.[0] <- Array.append [| DP_PushCurrentIndent |] it.[0]
                 it.[it.Length - 1] <- Array.append it.[it.Length - 1] [| DP_PopIndent |]
                 it
-        | Indent (i, doc) ->
+        | Indent(i, doc) ->
             let prefix = [| DP_PushIndent i |]
             let it = compileToPrims doc
 
@@ -60,7 +61,7 @@ let rec compileToPrims: Doc -> DocPrimitive array array =
                 it.[0] <- Array.append prefix it.[0]
                 it.[it.Length - 1] <- Array.append it.[it.Length - 1] [| DP_PopIndent |]
                 it
-        | VSep (segs) -> Array.concat <| Seq.map compileToPrims segs
+        | VSep segs -> Array.concat <| Seq.map compileToPrims segs
         | Segment s -> [| [| DP_Word s |] |]
 
 type Stack<'a>(?init: 'a seq) =
@@ -76,16 +77,12 @@ type Stack<'a>(?init: 'a seq) =
         | hd :: tl ->
             _content <- tl
             hd
-        | _ ->
-            raise
-            <| System.IndexOutOfRangeException("negative stacksize")
+        | _ -> raise <| System.IndexOutOfRangeException("negative stacksize")
 
     member __.Last =
         match _content with
         | hd :: _ -> hd
-        | _ ->
-            raise
-            <| System.IndexOutOfRangeException("negative stacksize")
+        | _ -> raise <| System.IndexOutOfRangeException("negative stacksize")
 
 
 
@@ -110,13 +107,13 @@ let render (setences: DocPrimitive array array) (write: string -> unit) =
                 match word with
                 | DP_Word s ->
                     line_init ()
-                    write (s)
+                    write s
                     col <- col + s.Length
                 | DP_PushCurrentIndent -> levels.Push(col)
                 | DP_PopIndent -> ignore (levels.Pop())
-                | DP_PushIndent i -> levels.Push(levels.Last + i)
+                | DP_PushIndent i -> levels.Push(max 0 (levels.Last + i))
 
-            write ("\n")
+            write "\n"
 
 
 let pretty s = Segment(s.ToString())
