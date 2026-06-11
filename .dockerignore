@@ -16,6 +16,8 @@ GeneratedVersion.cs
 # JS/TS dependencies and output
 node_modules
 **/node_modules
+target
+**/target
 *.js.map
 *.vsix
 

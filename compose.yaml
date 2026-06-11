@@ -13,6 +13,8 @@ services:
       - tbnf-nuget:/home/dev/.nuget/packages
       - tbnf-deno:/home/dev/.cache/deno
       - tbnf-pnpm-store:/home/dev/.local/share/pnpm/store
+      - tbnf-cargo-registry:/home/dev/.cargo/registry
+      - tbnf-cargo-git:/home/dev/.cargo/git
     environment:
       DOTNET_CLI_TELEMETRY_OPTOUT: "1"
       DOTNET_NOLOGO: "1"
@@ -24,3 +26,5 @@ volumes:
   tbnf-nuget:
   tbnf-deno:
   tbnf-pnpm-store:
+  tbnf-cargo-registry:
+  tbnf-cargo-git:

@@ -10,6 +10,8 @@ deno.lock
 # JavaScript
 *.js.map
 node_modules/
+target/
+**/target/
 
 # ANTLR
 *.interp

@@ -14,13 +14,14 @@ For IDE support, we provide a [VSCode extension](https://marketplace.visualstudi
 
 ## Overview
 
-So far, we support 3 different architectures, which unveil the capability of Typed BNF's backend agnostic code generation.
+So far, we support several different architectures, which unveil the capability of Typed BNF's backend agnostic code generation.
 
 | architecture   | backend(PGEN + PL)   | lexer Impl  | parser capability  | [ADT](https://en.wikipedia.org/wiki/Algebraic_data_type) encoding  |
 |---|---|---|---|---|
 | antlr  | antlr4+csharp  | antlr  | ALL(*)   | case classes |
 | antlr     | antlr4+typescript (default) | antlr | ALL(*) | tagged unions |
 | antlr     | antlr4+typescript (`-be case-class`) | antlr | ALL(*) | case classs |
+| lrpar     | grmtools/lrlex/lrpar+rust | lrlex | LR | Rust enums/structs |
 | \*pure bnf     | pure bnf | antlr notation | CFG |  |
 
 (**PL** = programming language; **PGEN** = parser generator; **pure bnf** means it is the pure BNF for readable syntax specification )
@@ -30,8 +31,13 @@ You might check the following test scripts for detailed usage guide.
 - `test-scripts/test_typescript_lua.sh`: Lua parser in TypeScript. (Algebraic) Data types are encoded using case classes.
 - `test-scripts/test-csharp-lua.sh`: Lua parser in CSharp.
 - `test-scripts/test-csharp-json.sh`: JSON parser in CSharp.
+- `test-scripts/run-tests.sh grammar-matrix`: same arithmetic grammar generated and asserted in C#, TypeScript, and Rust.
+- `test-scripts/run-tests.sh rust-json`: JSON parser in Rust via grmtools/lrlex/lrpar.
+- `test-scripts/run-tests.sh rust-lua`: Lua LR-compatible parser variant in Rust via grmtools/lrlex/lrpar.
+- `test-scripts/run-tests.sh rust-grammars`: extra Rust lrpar grammar regressions.
 
-Note that a Lua (or JSON) parser generated for different programming languages comes from the same grammar.
+Note that JSON parsers generated for different programming languages come from the same grammar. The Rust
+Lua test uses `runtests/lua_lr.tbnf`, an LR-compatible variant of the ANTLR-oriented `runtests/lua.tbnf`.
 
 Support for Python Lark & OCaml Menhir is deprecated since v0.4, see [v0.3](https://github.com/thautwarm/Typed-BNF/tree/v0.3) for more.
 
@@ -50,6 +56,7 @@ Options:
      Possible TYPE values:
        csharp-antlr         C# backend using ANTLR
        typescript-antlr     TypeScript backend using ANTLR
+       rust-lrpar           Rust backend using grmtools/lrlex/lrpar
        pure-bnf             PureBNF backend
 
   -ae, --adt-encoding TYPE  ADT encoding
@@ -68,7 +75,7 @@ You might check out [Typed BNF Documentations](https://github.com/thautwarm/Type
 
 For TypeScript backends, you will also [antlr-ng](https://github.com/mike-lischke/antlr-ng) compiler and [antlr4ng](https://github.com/mike-lischke/antlr4ng) runtime.
 
-For non-TypeScript backends, you will also need `antlr4` command line tool, install it from `https://github.com/antlr/antlr4-tools`.
+For ANTLR backends, you will also need `antlr4` command line tool, install it from `https://github.com/antlr/antlr4-tools`. The Rust lrpar backend generates a Cargo project and requires a Rust toolchain.
 
 ## A basic example: `JSON`
 
@@ -183,6 +190,10 @@ test-scripts/docker-test.sh test smoke
 test-scripts/docker-test.sh test all
 test-scripts/docker-test.sh test typecheck
 test-scripts/docker-test.sh test csharp-json
+test-scripts/docker-test.sh test grammar-matrix
+test-scripts/docker-test.sh test rust-json
+test-scripts/docker-test.sh test rust-lua
+test-scripts/docker-test.sh test rust-grammars
 
 # Execute arbitrary commands in the running container
 test-scripts/docker-test.sh exec 'deno run -A build.ts aot'

@@ -86,7 +86,7 @@ case "${cmd}" in
     exec_in "$*"
     ;;
   build)
-    ensure_up
+    start_container
     exec_in 'deno run -A build.ts aot'
     ;;
   test)
@@ -94,11 +94,11 @@ case "${cmd}" in
     if [ "$#" -eq 0 ]; then
       set -- all
     fi
-    ensure_up
+    start_container
     exec_argv test-scripts/run-tests.sh "$@"
     ;;
   list)
-    ensure_up
+    start_container
     exec_argv test-scripts/run-tests.sh list
     ;;
   down)

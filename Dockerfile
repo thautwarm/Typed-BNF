@@ -19,7 +19,9 @@ ENV USERNAME=${USERNAME} \
     DOTNET_NOLOGO=1 \
     DOTNET_CLI_HOME=/home/${USERNAME} \
     PNPM_HOME=/home/${USERNAME}/.local/share/pnpm \
-    PATH=/home/${USERNAME}/.local/share/pnpm:/workspace/dist:/usr/local/bin:${PATH}
+    CARGO_HOME=/home/${USERNAME}/.cargo \
+    RUSTUP_HOME=/home/${USERNAME}/.rustup \
+    PATH=/home/${USERNAME}/.cargo/bin:/home/${USERNAME}/.local/share/pnpm:/workspace/dist:/usr/local/bin:${PATH}
 
 # NativeAOT requires a native toolchain.  Java is required by ANTLR.
 # OCaml tooling is included for the legacy ocaml-menhir backend tests.
@@ -91,8 +93,13 @@ RUN printf '%s\n' \
 # bind-mounted checkout owner, so generated files are not root-owned.
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
-    && mkdir -p /workspace /home/${USERNAME}/.local/share/pnpm \
+    && mkdir -p /workspace /home/${USERNAME}/.local/share/pnpm /home/${USERNAME}/.cargo /home/${USERNAME}/.rustup \
     && chown -R ${USERNAME}:${USERNAME} /workspace /home/${USERNAME}
+
+# Rust toolchain for the rust-lrpar backend and generated Cargo projects.
+RUN gosu ${USERNAME} bash -lc \
+        'curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable' \
+    && gosu ${USERNAME} bash -lc 'rustc --version && cargo --version'
 
 # Make nomake builds work out of the box on a bind-mounted checkout, then drop
 # privileges to the host uid/gid that owns /workspace.

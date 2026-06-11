@@ -42,6 +42,7 @@ public class Program
         typescriptANTLR,
         pythonLARK,
         ocamlMenhir,
+        rustLrpar,
         pureBNF,
     }
 
@@ -84,6 +85,7 @@ public class Program
             Console.WriteLine("     Possible TYPE values:");
             Console.WriteLine("       csharp-antlr         C# backend using ANTLR");
             Console.WriteLine("       typescript-antlr     TypeScript backend using ANTLR");
+            Console.WriteLine("       rust-lrpar           Rust backend using grmtools/lrlex/lrpar");
             Console.WriteLine("       pure-bnf             PureBNF backend");
             Console.WriteLine();
             Console.WriteLine("  -ae, --adt-encoding TYPE  ADT encoding");
@@ -128,6 +130,7 @@ public class Program
                 "typescript-antlr" => (Backend?)Backend.typescriptANTLR,
                 "python-lark" => (Backend?)Backend.pythonLARK,
                 "ocaml-menhir" => (Backend?)Backend.ocamlMenhir,
+                "rust-lrpar" => (Backend?)Backend.rustLrpar,
                 "pure-bnf" => (Backend?)Backend.pureBNF,
                 _ => throw new Exception($"Invalid backend: {backend}"),
             };
@@ -268,6 +271,11 @@ public class Program
                 fsOut = tbnf.Backends.OCamlMenhir.codegen(analyzer, defaultScope, options.Language, defs);
                 break;
             }
+            case Backend.rustLrpar:
+            {
+                fsOut = tbnf.Backends.RustLrpar.codegen(analyzer, defaultScope, options.Language, defs);
+                break;
+            }
             case Backend.pureBNF:
             {
                 fsOut = tbnf.Backends.PureBNF.codegen(analyzer, defaultScope, options.Language, defs);
@@ -283,6 +291,11 @@ public class Program
         foreach (var (name, doc) in fsOut)
         {
             var outPath = Path.Combine(options.OutDir!, name);
+            var outDir = Path.GetDirectoryName(outPath);
+            if (!string.IsNullOrEmpty(outDir))
+            {
+                Directory.CreateDirectory(outDir);
+            }
             var sb = new System.Text.StringBuilder();
             Fable.Sedlex.PrettyDoc.genDoc(doc, FSharpFunc<string, Unit>.FromConverter(str =>
             {

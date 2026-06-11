@@ -23,6 +23,7 @@
     <Compile Include="Backends.TypeScriptAntlrTaggedUnion.fs" />
     <Compile Include="Backends.OCamlMenhir.fs" />
     <Compile Include="Backends.CSharpAntlr.fs" />
+    <Compile Include="Backends.RustLrpar.fs" />
     <Compile Include="Backends.PureBNF.fs" />
     <Compile Include="APIs.fs" />
     <Compile Include="Main.fs" />

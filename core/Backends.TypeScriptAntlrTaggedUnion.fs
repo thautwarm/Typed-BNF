@@ -585,9 +585,10 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                     $"{langName}Constructor.ts",
                     vsep
                         [ yield word "import * as antlr from 'antlr4ng';"
-                          let import_names = String.concat ", " import_names
-                          yield word $"import {{ {import_names} }} from './{langName}Require';"
-                          yield word $"export * from './{langName}Require'"
+                          if not (List.isEmpty import_names) then
+                              let import_names = String.concat ", " import_names
+                              yield word $"import {{ {import_names} }} from './{langName}Require';"
+                              yield word $"export * from './{langName}Require'"
 
                           let adtCases = analyzer.Sigma.GetADTCases()
                           yield empty
@@ -642,7 +643,7 @@ let codegen (analyzer: Analyzer) (cg_options: CodeGenOptions) (langName: string)
                     vsep
                         [ yield word $"grammar {langName};"
                           yield word "@parser::header {"
-                          if not (List.isEmpty import_names) then
+                          if inner_names.Count > 0 || not (List.isEmpty import_names) then
                               let all_import_names = (List.ofSeq inner_names @ import_names) |> String.concat ", "
                               let require_name = escapeString $"./{langName}Constructor"
                               yield word $"import {{ {all_import_names} }} from {require_name}"
