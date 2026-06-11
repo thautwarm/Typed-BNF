@@ -328,6 +328,172 @@ TS
   grep -q 'Add' "${work}/typescript/parsed.txt"
   grep -q 'Mul' "${work}/typescript/parsed.txt"
   grep -q 'Num' "${work}/typescript/parsed.txt"
+
+  log "Cross-backend record/list grammar assertions"
+  work="${TEST_TMP}/grammar-matrix-records"
+  rm -rf "${work}"
+  mkdir -p "${work}"
+  cat > "${work}/records.tbnf" <<'TBNF'
+type Pair(left: int, right: int)
+type Outcome
+case Packed : (Pair, int, bool, list<int>) -> Outcome
+
+start : "pack" { let p = Pair(7, 9) in let left = p.left in let right = p.right in Packed(p, left, true, [1, right]) }
+TBNF
+  printf 'pack' > "${work}/sample.txt"
+
+  ./dist/TBNF.CLI.AOT "${work}/records.tbnf" -o "${work}/rust" -lang "Records" -be rust-lrpar
+  (
+    cd "${work}/rust"
+    cargo run --quiet < "${work}/sample.txt" > parsed.txt
+  )
+  grep -q 'Packed' "${work}/rust/parsed.txt"
+  grep -q 'Pair' "${work}/rust/parsed.txt"
+  grep -q 'left: 7' "${work}/rust/parsed.txt"
+  grep -q 'right: 9' "${work}/rust/parsed.txt"
+  grep -q 'true' "${work}/rust/parsed.txt"
+
+  mkdir -p "${work}/csharp"
+  cat > "${work}/csharp/tbnf.config.js" <<'JS'
+function rename_type(x)
+{
+    if (x == "list") return "List";
+    return x;
+}
+
+module.exports = { rename_type };
+JS
+  ./dist/TBNF.CLI.AOT "${work}/records.tbnf" -o "${work}/csharp" -lang "Records" -be csharp-antlr
+  (
+    cd "${work}/csharp"
+    antlr4 Records.g4 -package Records
+    cat > Records.csproj <<'XML'
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <NoWarn>3021;8981</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.10.1" />
+  </ItemGroup>
+</Project>
+XML
+    cat > Program.cs <<'CS'
+using System;
+using Antlr4.Runtime;
+
+namespace Records;
+
+public static class Program
+{
+    static Outcome Parse(string text)
+    {
+        var lexer = new RecordsLexer(CharStreams.fromString(text));
+        var parser = new RecordsParser(new CommonTokenStream(lexer));
+        parser.BuildParseTree = false;
+        return parser.start().result;
+    }
+
+    static void AssertContains(string text, string expected)
+    {
+        if (!text.Contains(expected))
+        {
+            throw new Exception($"expected generated C# parse result to contain `{expected}`; got: {text}");
+        }
+    }
+
+    public static void Main()
+    {
+        var shown = Parse("pack").ToString() ?? "";
+        AssertContains(shown, "Packed");
+        AssertContains(shown, "Pair");
+        AssertContains(shown, "7");
+        AssertContains(shown, "9");
+        AssertContains(shown, "True");
+        Console.WriteLine(shown);
+    }
+}
+CS
+    dotnet run --project Records.csproj -f net8.0 > parsed.txt
+  )
+  grep -q 'Packed' "${work}/csharp/parsed.txt"
+  grep -q 'Pair' "${work}/csharp/parsed.txt"
+
+  mkdir -p "${work}/typescript/src"
+  cp ./runtests/typescript_lua/package.json \
+     ./runtests/typescript_lua/pnpm-lock.yaml \
+     "${work}/typescript/"
+  cat > "${work}/typescript/tsconfig.json" <<'JSON'
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "strict": false,
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "target": "ES6",
+    "lib": ["ES6", "DOM"],
+    "outDir": "src",
+    "sourceMap": true,
+    "rootDir": "src"
+  },
+  "exclude": ["node_modules", ".vscode-test", "out"]
+}
+JSON
+  cat > "${work}/typescript/src/tbnf.config.js" <<'JS'
+"use strict";
+
+function rename_type(x) {
+  if (x == "int" || x == "float") return "number";
+  if (x == "str") return "string";
+  if (x == "bool") return "boolean";
+  if (x == "list") return "Array";
+  if (x == "token") return "antlr.Token";
+  return x + "_t";
+}
+
+module.exports = { rename_type };
+JS
+  ./dist/TBNF.CLI.AOT "${work}/records.tbnf" -o "${work}/typescript/src" -lang "Records" --backend typescript-antlr -ae tagged-union
+  (
+    cd "${work}/typescript/src"
+    antlr-ng -Dlanguage=TypeScript Records.g4
+  )
+  cat > "${work}/typescript/src/assert_records.ts" <<'TS'
+import * as antlr from "antlr4ng";
+import { CommonTokenStream } from "antlr4ng";
+import { RecordsLexer } from "./RecordsLexer";
+import { RecordsParser } from "./RecordsParser";
+
+function parse(text: string) {
+  const lexer = new RecordsLexer(antlr.CharStream.fromString(text));
+  const parser = new RecordsParser(new CommonTokenStream(lexer));
+  return parser.start().result;
+}
+
+function assertContains(text: string, expected: string) {
+  if (!text.includes(expected)) {
+    throw new Error(`expected generated TypeScript parse result to contain ${expected}; got: ${text}`);
+  }
+}
+
+const shown = JSON.stringify(parse("pack"));
+assertContains(shown, "Packed");
+assertContains(shown, "left");
+assertContains(shown, "right");
+assertContains(shown, "true");
+console.log(shown);
+TS
+  (
+    cd "${work}/typescript"
+    pnpm install --frozen-lockfile
+    tsc -p .
+    node src/assert_records.js > parsed.txt
+  )
+  grep -q 'Packed' "${work}/typescript/parsed.txt"
+  grep -q 'left' "${work}/typescript/parsed.txt"
 }
 
 suite_rust_json() {
@@ -477,6 +643,67 @@ RS
   )
   grep -q 'Some' "${work}/out/parsed.txt"
   grep -q 'None' "${work}/out/parsed.txt"
+
+  work="${TEST_TMP}/rust-grammar-keywords-comments"
+  rm -rf "${work}"
+  mkdir -p "${work}"
+  cat > "${work}/input.tbnf" <<'TBNF'
+type Stmt
+case Let : (token, token) -> Stmt
+case Print : token -> Stmt
+
+start : stmt stmt { [$1, $2] }
+
+stmt : "let" <ID> ";" { Let($1, $2) }
+     | "print" <ID> ";" { Print($2) }
+
+ignore SPACE, COMMENT
+SPACE = (" " | "\t" | "\r" | "\n")+;
+COMMENT = "/" "/" (!"\n")* "\n";
+ID = [a-z]+;
+TBNF
+
+  ./dist/TBNF.CLI.AOT "${work}/input.tbnf" -o "${work}/out" -lang "Test" -be rust-lrpar
+  (
+    cd "${work}/out"
+    printf '// ignored\nlet alpha; print beta;' | cargo run --quiet > parsed.txt
+  )
+  grep -q 'Let' "${work}/out/parsed.txt"
+  grep -q 'Print' "${work}/out/parsed.txt"
+  grep -q 'alpha' "${work}/out/parsed.txt"
+  grep -q 'beta' "${work}/out/parsed.txt"
+
+  work="${TEST_TMP}/rust-grammar-tuple-unit"
+  rm -rf "${work}"
+  mkdir -p "${work}"
+  cat > "${work}/input.tbnf" <<'TBNF'
+type Boxed(value: int * bool)
+
+start : "tuple" { Boxed((7, false)) }
+TBNF
+
+  ./dist/TBNF.CLI.AOT "${work}/input.tbnf" -o "${work}/out" -lang "Test" -be rust-lrpar
+  (
+    cd "${work}/out"
+    printf 'tuple' | cargo run --quiet > parsed.txt
+  )
+  grep -q 'Boxed' "${work}/out/parsed.txt"
+  grep -q '7' "${work}/out/parsed.txt"
+  grep -q 'false' "${work}/out/parsed.txt"
+
+  work="${TEST_TMP}/rust-grammar-unit"
+  rm -rf "${work}"
+  mkdir -p "${work}"
+  cat > "${work}/input.tbnf" <<'TBNF'
+start : "unit" { () }
+TBNF
+
+  ./dist/TBNF.CLI.AOT "${work}/input.tbnf" -o "${work}/out" -lang "Test" -be rust-lrpar
+  (
+    cd "${work}/out"
+    printf 'unit' | cargo run --quiet > parsed.txt
+  )
+  grep -q '()' "${work}/out/parsed.txt"
 }
 
 suite_rust_recursion() {
@@ -692,7 +919,7 @@ Available suites:
   csharp-lua
   typescript-lua      TypeScript case-class backend
   typescript-lua-tu   TypeScript tagged-union backend
-  grammar-matrix      Same arithmetic grammar with assertions in C#, TypeScript, and Rust
+  grammar-matrix      Cross-backend grammar assertions in C#, TypeScript, and Rust
   rust-json           Rust lrpar JSON end-to-end
   rust-lua            Rust lrpar Lua LR-compatible end-to-end
   rust-grammars       Rust lrpar additional grammar regressions
