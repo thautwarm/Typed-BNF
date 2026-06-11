@@ -57,6 +57,71 @@ suite_pure() {
   sed -n '1,8p' "${out}/Json.bnf"
 }
 
+run_tbnf_case() {
+  local name="$1"
+  local body="$2"
+  local file="${TEST_TMP}/${name}.tbnf"
+  local out="${TEST_TMP}/${name}-out"
+
+  rm -rf "${out}"
+  mkdir -p "${out}"
+  printf '%s\n' "${body}" > "${file}"
+  ./dist/TBNF.CLI.AOT "${file}" -o "${out}" -lang Test -be pure-bnf >/tmp/"${name}".log 2>&1
+  test -f "${out}/Test.bnf"
+}
+
+expect_tbnf_failure() {
+  local name="$1"
+  local body="$2"
+  local pattern="$3"
+  local file="${TEST_TMP}/${name}.tbnf"
+  local out="${TEST_TMP}/${name}-out"
+  local log="${TEST_TMP}/${name}.log"
+
+  rm -rf "${out}"
+  mkdir -p "${out}"
+  printf '%s\n' "${body}" > "${file}"
+
+  set +e
+  bash -c 'log="$1"; shift; "$@" >"${log}" 2>&1' \
+    _ "${log}" ./dist/TBNF.CLI.AOT "${file}" -o "${out}" -lang Test -be pure-bnf \
+    >/dev/null 2>&1
+  local code="$?"
+  set -e
+
+  if [ "${code}" -eq 0 ]; then
+    echo "expected ${name} to fail, but it succeeded" >&2
+    return 1
+  fi
+
+  if ! grep -q "${pattern}" "${log}"; then
+    echo "expected ${name} failure to contain: ${pattern}" >&2
+    sed -n '1,120p' "${log}" >&2
+    return 1
+  fi
+}
+
+suite_typecheck_regressions() {
+  ensure_aot
+  log "type inference regression tests"
+
+  run_tbnf_case field-prune 'type pair(x: int)
+
+pair_rule : "a" { pair(1) }
+start : pair_rule { $1.x }'
+
+  run_tbnf_case extern-generic-field 'extern type box<a>(value: a)
+extern var makeBox : int -> box<int>
+
+start : "a" { let x = makeBox(1) in x.value }'
+
+  expect_tbnf_failure duplicate-poly-parameter 'extern var id : <a, a> a -> a
+start : "a" { id(1) }' "duplicate type variable 'a'"
+
+  expect_tbnf_failure duplicate-type-parameter 'type box<a, a>(value: a)
+start : "a" { 1 }' "duplicate type variable 'a'"
+}
+
 suite_csharp_json() {
   ensure_aot
   log "C# JSON end-to-end"
@@ -110,6 +175,7 @@ Available suites:
   toolchain
   aot
   pure
+  typecheck           Type inference regression tests
   csharp-json
   csharp-lua
   typescript-lua      TypeScript case-class backend
@@ -132,7 +198,9 @@ run_suite() {
       suite_toolchain
       suite_aot
       suite_pure
+      suite_typecheck_regressions
       ;;
+    typecheck|typecheck-regressions|type-inference) suite_typecheck_regressions ;;
     csharp-json) suite_csharp_json ;;
     csharp-lua) suite_csharp_lua ;;
     typescript-lua|typescript-case-class|ts-lua) suite_typescript_lua ;;
@@ -152,6 +220,7 @@ run_suite() {
       suite_toolchain
       suite_aot
       suite_pure
+      suite_typecheck_regressions
       suite_csharp_json
       suite_csharp_lua
       suite_typescript_lua

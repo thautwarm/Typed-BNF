@@ -15,6 +15,15 @@ type Shape =
       fields: list<fieldname * monot> }
 
 type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
+    let checkNoDuplicateTypeVariables vars =
+        let rec go seen vars =
+            match vars with
+            | [] -> ()
+            | var :: _ when Set.contains var seen -> raise <| DuplicateTypeVariable var
+            | var :: rest -> go (Set.add var seen) rest
+
+        go Set.empty vars
+
     (* to access field information *)
     let mutable shapes: Map<typename, Shape> = Map.empty
 
@@ -108,6 +117,8 @@ type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
         if Map.containsKey typename shapes then
             raise <| DuplicateTypeVariable(typename)
         else
+            checkNoDuplicateTypeVariables parameters
+
             match Map.tryFind typename kinds with
             | Some kind ->
                 let got = List.length parameters
@@ -153,7 +164,8 @@ type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
 
     // return a pair: (a:polyt, b:monot) such that
     //       INST(a) ~ b
-    let lookupField t fieldname (tyref: monot) =
+    let lookupField (t: monot) fieldname (tyref: monot) =
+        let t = t.Prune()
         let typename = Op.basename t
 
         match Map.tryFind typename shapes with
@@ -164,7 +176,10 @@ type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
             | Some ft ->
                 let inst_target = TTuple([ t; tyref ])
 
-                let gen_sig = TApp(TConst typename, shape.parameters |> List.map TVar)
+                let gen_sig =
+                    match shape.parameters with
+                    | [] -> TConst typename
+                    | parameters -> TApp(TConst typename, parameters |> List.map TVar)
 
                 let gen_spec = Poly(shape.parameters, TTuple([ gen_sig; ft ]))
 
@@ -222,7 +237,8 @@ type Sigma(UM: Unification.Manager, errorTrace: ErrorTrace) =
 
     member __.KindCheck(t: polyt) =
         match t with
-        | Poly(_, a) ->
+        | Poly(vars, a) ->
+            checkNoDuplicateTypeVariables vars
             checkKind_ a
             t
         | Mono a ->
@@ -307,20 +323,21 @@ let build_analyzer (stmts: definition array) =
         // |> Sigma.RegisterGlobalVariable true decl.ident
 
         | definition.Decltype decl ->
-            let fields = List.map (fun (k, v, _) -> k, v) decl.fields
-            Sigma.RegisterType decl.external decl.hasFields decl.ident decl.parameters fields
-            let mutable newFields = []
+            let newFields =
+                decl.fields
+                |> List.map (fun (fieldname, t, pos) ->
+                    let t = processPolyType decl.parameters t
+                    ignore (Sigma.KindCheckMono t)
+                    fieldname, t, pos)
 
-            for fieldname, t, pos in decl.fields do
-                let t = processPolyType decl.parameters t
-                ignore (Sigma.KindCheckMono t)
-                newFields <- (fieldname, t, pos) :: newFields
+            let fields = List.map (fun (k, v, _) -> k, v) newFields
+            Sigma.RegisterType decl.external decl.hasFields decl.ident decl.parameters fields
 
             if not <| List.isEmpty newFields then
                 return_stmt <-
                     definition.Decltype
                         {| decl with
-                            fields = List.rev newFields |}
+                            fields = newFields |}
         | definition.Defmacro _ -> invalidOp "macro definition must be processed before type checking"
         | definition.Defrule decl when Map.containsKey decl.lhs Omega -> raise <| DuplicateNonterminal(decl.lhs)
         | definition.Defrule decl ->

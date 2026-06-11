@@ -181,6 +181,7 @@ test-scripts/docker-test.sh shell
 # Run tests through docker compose
 test-scripts/docker-test.sh test smoke
 test-scripts/docker-test.sh test all
+test-scripts/docker-test.sh test typecheck
 test-scripts/docker-test.sh test csharp-json
 
 # Execute arbitrary commands in the running container

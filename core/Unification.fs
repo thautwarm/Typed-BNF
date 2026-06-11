@@ -4,6 +4,15 @@ open Grammar
 open Exceptions
 
 type Manager() =
+    let checkNoDuplicateTypeVariables vars =
+        let rec go seen vars =
+            match vars with
+            | [] -> ()
+            | var :: _ when Set.contains var seen -> raise <| DuplicateTypeVariable var
+            | var :: rest -> go (Set.add var seen) rest
+
+        go Set.empty vars
+
     let newTyRef (name: string) =
         let cell = Cell()
         let tref = TRef(cell)
@@ -48,7 +57,9 @@ type Manager() =
         match t with
         | Mono t
         | Poly([], t) -> [], t
-        | Poly(vars, t) -> (* todo: check duplication *)
+        | Poly(vars, t) ->
+            checkNoDuplicateTypeVariables vars
+
             vars
             |> List.map (fun var -> var, newTyRef (var))
             |> fun specializationArgs ->
