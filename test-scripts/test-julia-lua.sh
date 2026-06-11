@@ -1,8 +1,5 @@
-# Julia support is deprecated
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
 
-# mkdir -p ./runtests/julia_lua
-# tbnf ./runtests/weaker-lua.tbnf -o ./runtests/julia_lua -lang "lua" -be julia-fff
-# cd runtests/julia_lua/
-# [ -f lua.fff_parser.jl ] && rm lua.fff_parser.jl
-# julia entry.jl
-# cd ../../
+echo "SKIP: Julia backend is deprecated/unsupported by the current CLI."

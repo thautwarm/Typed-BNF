@@ -1,0 +1,28 @@
+.git
+.github
+.nomake_files
+.vscode
+.idea
+
+# Build outputs
+bin
+obj
+**/bin
+**/obj
+dist
+*.csproj.user
+GeneratedVersion.cs
+
+# JS/TS dependencies and output
+node_modules
+**/node_modules
+*.js.map
+*.vsix
+
+# ANTLR generated runtime caches
+*.interp
+*.tokens
+
+# Misc
+testDir
+deno.lock

@@ -167,6 +167,31 @@ start_rule_qualified_type = "Simple_json_construct.json"
 
 Check out `Backends.*.fs`
 
+## Docker-based development and tests
+
+The repository includes a Docker/Compose development environment with all parser-generator toolchains installed.
+
+```bash
+# Build and start a persistent dev container
+test-scripts/docker-test.sh up
+
+# Run a shell in the container
+test-scripts/docker-test.sh shell
+
+# Run tests through docker compose
+test-scripts/docker-test.sh test smoke
+test-scripts/docker-test.sh test all
+test-scripts/docker-test.sh test csharp-json
+
+# Execute arbitrary commands in the running container
+test-scripts/docker-test.sh exec 'deno run -A build.ts aot'
+
+# Stop the container; named caches are kept
+test-scripts/docker-test.sh down
+```
+
+`all` runs the stable C#/TypeScript suites. Legacy Python/OCaml and Julia backends are listed as skipped because they are not reliable test targets for the current CLI/toolchain.
+
 ## Build from source
 
 ### Prerequisites
