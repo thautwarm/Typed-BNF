@@ -110,13 +110,13 @@ Before writing the nonterminal rules, you can define/declare some values/types, 
 extern var parseInt: token -> int
 ```
 
-And you need to provide the implementation in the backend. For instance, in the Python+Lark backend, you need a file `${LANG}_require.py` to give a function called `parseInt`. You can rename variable names using `tbnf.config.js` (See homepage README for details).
+You need to provide the implementation in the generated backend project. For instance, a C# ANTLR project usually provides a partial parser class, TypeScript projects provide the imported runtime module, and Rust lrpar projects provide `src/externs.rs`. You can rename variables and types using `tbnf.config.js` (see the configuration section below).
 
-```python
-from lark import Token
-def parseInt(x: Token):
-    return int(str(x))
-```
+Concrete implementations are backend-specific. For examples, see:
+
+- `runtests/csharp_simple_json/SimpleJsonRequire.cs` for C# ANTLR.
+- `runtests/typescript_lua_tu/src/LuaRequire.ts` for TypeScript ANTLR.
+- `hello_world/hello-world-rust/src/externs.rs` for Rust lrpar.
 
 #### External type declarations
 
@@ -161,29 +161,68 @@ A lexical rule `LEX` can be defined as a
 For the precedences, users are referred to the [SPEC](#Typed-BNF-Syntax-Specification).
 
 
+## Configuration: `tbnf.config.js`
+
+A `tbnf.config.js` file customizes how Typed BNF names are emitted in backend code. The CLI loads the file passed with `-conf` / `--config`; if no path is provided, it looks for `<outDir>/tbnf.config.js`.
+
+The .NET CLI first reads CommonJS-style `module.exports`, then falls back to top-level declarations when an export is missing. Supported hooks are:
+
+- `rename_var(name)`
+- `rename_type(name)`
+- `rename_ctor(name)`
+- `rename_field(name)`
+- `start_rule_qualified_type` (legacy OCaml Menhir only)
+
+Example:
+
+```javascript
+module.exports = {
+  rename_type(x) {
+    if (x == "list") return "Array";
+    if (x == "int" || x == "float") return "number";
+    if (x == "str") return "string";
+    if (x == "bool") return "boolean";
+    if (x == "token") return "antlr.Token";
+    return x;
+  }
+};
+```
+
+Top-level functions are still accepted as a fallback:
+
+```javascript
+function rename_type(x) {
+  if (x == "str") return "string";
+  return x;
+}
+```
+
 ## CLI Usage
 
 ```bash
-> node tbnf.js --help
-usage: tbnf.js [-h] [-o OUTDIR] [-lang LANGUAGE]
-               [-be {python-lark,ocaml-menhir,csharp-antlr,purebnf}]
-               [-conf CONFIGPATH]
-               tbnfSourcePath
+Usage: tbnf [options] <source-grammar-file>
+Options:
+  --version                 Show version and exit
+  -h, --help                Show this help message and exit
+  -o, --outDir DIR          Specify output directory (default: same as source file)
+  -be, --backend TYPE       Backend to use
+     Possible TYPE values:
+       csharp-antlr         C# backend using ANTLR
+       typescript-antlr     TypeScript backend using ANTLR
+       rust-lrpar           Rust backend using grmtools/lrlex/lrpar
+       pure-bnf             PureBNF backend
 
-Argparse example
-
-positional arguments:
-  tbnfSourcePath
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -o OUTDIR, --outDir OUTDIR
-  -lang LANGUAGE, --language LANGUAGE
-                        name of your own language
-  -be {python-lark,ocaml-menhir,csharp-antlr,purebnf}, --backend {python-lark,ocaml-menhir,csharp-antlr,purebnf}
-  -conf CONFIGPATH, --configPath CONFIGPATH
-                        path to a config file
+  -ae, --adt-encoding TYPE  ADT encoding
+     Possible TYPE values:
+       tagged-union         ADT encoding via tagged unions (default for TypeScript)
+       case-class           ADT encoding via case classes (default for C#)
+  -lang, --language NAME    Language name to generate (default: "mylang")
+  -conf, --config PATH      Path to the 'tbnf.config.js' file (default: <outDir>/tbnf.config.js)
 ```
+
+Current reliable backends are C# ANTLR, TypeScript ANTLR, Rust lrpar, and pure BNF. Python Lark and OCaml Menhir are legacy/deprecated in v0.4; the OCaml backend is currently broken against the current CLI/toolchain. Use the v0.3 branch for the last reliable legacy-backend snapshot.
+
+Rust lrpar emits an owned-value Cargo project. It does not insert implicit clones: if a semantic action reuses a moved value, Rust compilation is expected to fail until the grammar author adds an explicit helper/clone strategy. Rust grammars must also be LR-compatible.
 
 ## Typed BNF Syntax Specification
 

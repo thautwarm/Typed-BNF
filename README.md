@@ -12,6 +12,16 @@ For IDE support, we provide a [VSCode extension](https://marketplace.visualstudi
 
 - [Typed BNF Documentations](https://thautwarm.github.io/Site-33/3-software/tbnf/)
 
+## Features
+
+- Backend-agnostic grammar definitions with typed semantic actions.
+- Type inference for semantic actions, including slots (`$1`), let bindings, lambdas, tuples, lists and record field access.
+- Algebraic data types, records, external values and external types.
+- Parametric nonterminals for reusable grammar fragments such as separated lists.
+- Lexer rules with ranges, literals, references, repetition, optionality, negation and ignored tokens.
+- Backend-specific name mapping through `tbnf.config.js`.
+- Generated parsers for C#, TypeScript and Rust, plus pure BNF output for readable syntax specifications.
+
 ## Overview
 
 So far, we support several different architectures, which unveil the capability of Typed BNF's backend agnostic code generation.
@@ -20,7 +30,7 @@ So far, we support several different architectures, which unveil the capability 
 |---|---|---|---|---|
 | antlr  | antlr4+csharp  | antlr  | ALL(*)   | case classes |
 | antlr     | antlr4+typescript (default) | antlr | ALL(*) | tagged unions |
-| antlr     | antlr4+typescript (`-be case-class`) | antlr | ALL(*) | case classs |
+| antlr     | antlr4+typescript (`-ae case-class`) | antlr | ALL(*) | case classes |
 | lrpar     | grmtools/lrlex/lrpar+rust | lrlex | LR | Rust enums/structs |
 | \*pure bnf     | pure bnf | antlr notation | CFG |  |
 
@@ -37,7 +47,7 @@ You might check the following example/test scripts for detailed usage guide.
 Note that JSON parsers generated for different programming languages come from the same grammar. The Rust
 Lua test uses `runtests/lua_lr.tbnf`, an LR-compatible variant of the ANTLR-oriented `runtests/lua.tbnf`.
 
-Support for Python Lark & OCaml Menhir is deprecated since v0.4, see [v0.3](https://github.com/thautwarm/Typed-BNF/tree/v0.3) for more.
+Support for Python Lark and OCaml Menhir is legacy/deprecated since v0.4; the OCaml backend is currently broken against the current CLI/toolchain. See [v0.3](https://github.com/thautwarm/Typed-BNF/tree/v0.3) for the last reliable legacy-backend snapshot.
 
 ## Usage
 
@@ -69,11 +79,11 @@ Examples:
   tbnf -lang mylanguage mygrammar.tbnf -be csharp-antlr -conf tbnf.config.js
 ```
 
-You might check out [Typed BNF Documentations](https://github.com/thautwarm/Typed-BNF/blob/main/documentations.md).
+You might check out [Typed BNF documentation](https://github.com/thautwarm/Typed-BNF/blob/main/documentation.md).
 
-For TypeScript backends, you will also [antlr-ng](https://github.com/mike-lischke/antlr-ng) compiler and [antlr4ng](https://github.com/mike-lischke/antlr4ng) runtime.
+For TypeScript backends, you will also need the [antlr-ng](https://github.com/mike-lischke/antlr-ng) compiler and [antlr4ng](https://github.com/mike-lischke/antlr4ng) runtime.
 
-For ANTLR backends, you will also need `antlr4` command line tool, install it from `https://github.com/antlr/antlr4-tools`. The Rust lrpar backend generates a Cargo project and requires a Rust toolchain.
+For C# ANTLR output, you will also need the `antlr4` command line tool, install it from `https://github.com/antlr/antlr4-tools`. The Rust lrpar backend generates a Cargo project and requires a Rust toolchain; its grammar must be LR-compatible.
 
 ## A basic example: `JSON`
 
@@ -130,33 +140,41 @@ json : <int> { JInt(parseInt(getStr($1))) }
 
 ## Customizing name mapping
 
-You can put a `tbnf.config.js` in the output directory to define how the names of variables/types/fields/constructors map from Typed BNF to the backend language.
+Put a `tbnf.config.js` in the output directory, or pass one explicitly with `-conf` / `--config`, to define how variables, types, fields and constructors map from Typed BNF names to backend-language names.
 
-For instance, this is what we did for CSharp-Antlr4 JSON example: [link](https://github.com/thautwarm/Typed-BNF/blob/main/runtests/typescript_lua_tu/src/tbnf.config.js).
+The .NET CLI first looks for CommonJS-style exports and falls back to top-level declarations when an export is missing. Supported hooks are `rename_var`, `rename_type`, `rename_ctor`, `rename_field`, and the legacy OCaml-only `start_rule_qualified_type`.
+
+For example, this TypeScript config maps Typed BNF built-ins to TypeScript runtime types:
 
 ```javascript
 "use strict";
 
-function rename_type(x) {
-  if (x == "list") return "Array";
-  if (x == "int") return "number";
-  if (x == "float") return "number";
-  if (x == "str") return "string";
-  if (x == "bool") return "boolean";
-  if (x == "token") return "antlr.Token";
-  return x + "_t";
-}
-
-
 module.exports = {
-  rename_type
+  rename_type(x) {
+    if (x == "list") return "Array";
+    if (x == "int" || x == "float") return "number";
+    if (x == "str") return "string";
+    if (x == "bool") return "boolean";
+    if (x == "token") return "antlr.Token";
+    return x + "_t";
+  }
 };
+```
+
+A top-level function works as a fallback too:
+
+```javascript
+function rename_type(x) {
+  if (x == "str") return "string";
+  return x;
+}
 ```
 
 Key points:
 
 1. Typed BNF has 7 built-in types: `token`, `tuple`, `list`, `int`, `float`, `str` and `bool`.
 2. Typed BNF ships with no built-in functions, which makes it suitable to write portable grammars without ruling out semantic actions.
+3. External values/types declared in a grammar must be implemented in the generated backend project.
 
 <!-- P.S: Unlike other backends, the OCaml-Menhir backend requires some manual works and is tedious in this sense. It requires user to explicitly specify the module-qualified type of the `start` rule, which can be solved by adding a config variable `start_rule_qualified_type` in `tbnf.config.js`. Besides, you must map the type `token` to `tbnf_token`.
 
@@ -209,8 +227,9 @@ test-scripts/docker-test.sh down
 
 - .NET 8.0 SDK
 - Deno
-- Antlr4 (for non-TypeScript backends)
+- Antlr4 (for C# ANTLR output)
 - Antlr4NG & Antlr-NG (for TypeScript backends)
+- Rust and Cargo (for Rust lrpar output)
 
 ### Build Distributions (win-x64/osx-x64/osx-arm64/linux-x64/linux-arm64)
 

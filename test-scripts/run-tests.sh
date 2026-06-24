@@ -127,6 +127,71 @@ start : "a" { id(1) }' "duplicate type variable 'a'"
 start : "a" { 1 }' "duplicate type variable 'a'"
 }
 
+
+suite_config_regressions() {
+  ensure_aot
+  log "tbnf.config.js loading regression tests"
+
+  work="${TEST_TMP}/config-regressions"
+  rm -rf "${work}"
+  mkdir -p "${work}/module" "${work}/top-level"
+
+  cat > "${work}/input.tbnf" <<'TBNF'
+type Box(value: int)
+type Result
+case Wrap : Box -> Result
+
+start : "x" { Wrap(Box(1)) }
+TBNF
+
+  cat > "${work}/module/tbnf.config.js" <<'JS'
+function rename_type(x) {
+  if (x == "Box") return "WrongBox";
+  if (x == "Result") return "WrongResult";
+  return x;
+}
+
+module.exports = {
+  rename_type(x) {
+    if (x == "Box") return "ExportBox";
+    if (x == "Result") return "ExportResult";
+    return x;
+  },
+  rename_ctor(x) {
+    if (x == "Wrap") return "MakeWrap";
+    return x;
+  },
+  rename_field(x) {
+    if (x == "value") return "inner";
+    return x;
+  }
+};
+JS
+
+  ./dist/TBNF.CLI.AOT "${work}/input.tbnf" -o "${work}/module" -lang Config -be csharp-antlr
+  grep -q 'interface ExportResult' "${work}/module/Config.Constructor.cs"
+  grep -q 'record ExportBox(int inner)' "${work}/module/Config.Constructor.cs"
+  grep -q 'record MakeWrap(ExportBox inner)' "${work}/module/Config.Constructor.cs"
+  ! grep -q 'WrongBox' "${work}/module/Config.Constructor.cs"
+
+  cat > "${work}/top-level/tbnf.config.js" <<'JS'
+function rename_type(x) {
+  if (x == "Box") return "TopBox";
+  if (x == "Result") return "TopResult";
+  return x;
+}
+
+function rename_field(x) {
+  if (x == "value") return "payload";
+  return x;
+}
+JS
+
+  ./dist/TBNF.CLI.AOT "${work}/input.tbnf" -o "${work}/top-level" -lang Config -be csharp-antlr
+  grep -q 'interface TopResult' "${work}/top-level/Config.Constructor.cs"
+  grep -q 'record TopBox(int payload)' "${work}/top-level/Config.Constructor.cs"
+}
+
 suite_csharp_json() {
   ensure_aot
   log "C# JSON end-to-end"
@@ -898,6 +963,7 @@ Available suites:
   aot
   pure
   typecheck           Type inference regression tests
+  config              tbnf.config.js loading regression tests
   csharp-json
   csharp-lua
   typescript-lua      TypeScript case-class backend
@@ -929,8 +995,10 @@ run_suite() {
       suite_aot
       suite_pure
       suite_typecheck_regressions
+      suite_config_regressions
       ;;
     typecheck|typecheck-regressions|type-inference) suite_typecheck_regressions ;;
+    config|config-regressions) suite_config_regressions ;;
     csharp-json) suite_csharp_json ;;
     csharp-lua) suite_csharp_lua ;;
     typescript-lua|typescript-case-class|ts-lua) suite_typescript_lua ;;
@@ -966,6 +1034,7 @@ run_suite() {
       suite_aot
       suite_pure
       suite_typecheck_regressions
+      suite_config_regressions
       suite_csharp_json
       suite_csharp_lua
       suite_typescript_lua

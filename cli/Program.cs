@@ -202,29 +202,46 @@ public class Program
         var configPath = options.ConfigPath ?? Path.Combine(options.OutDir!, "tbnf.config.js");
 
         var jsEngine = new Jint.Engine();
-        jsEngine.Execute("module = { exports: {} }");
+        jsEngine.Execute("var module = { exports: {} }; var exports = module.exports;");
         if (File.Exists(configPath))
         {
             jsEngine.Execute(File.ReadAllText(configPath, System.Text.Encoding.UTF8));
-            if (jsEngine.Global.HasProperty("rename_var"))
+
+            bool hasConfigFunction(string name)
             {
-                defaultScope.RenameVar = name => jsEngine.Invoke("rename_var", name).ToString();
+                return Convert.ToBoolean(jsEngine.Evaluate($"(typeof module !== 'undefined' && module.exports && typeof module.exports.{name} === 'function') || typeof {name} === 'function'").ToObject());
             }
-            if (jsEngine.Global.HasProperty("rename_type"))
+
+            Func<string, string> configFunction(string name)
             {
-                defaultScope.RenameType = name => jsEngine.Invoke("rename_type", name).ToString();
+                return arg =>
+                {
+                    jsEngine.SetValue("__tbnf_config_arg", arg);
+                    return jsEngine.Evaluate($"((typeof module !== 'undefined' && module.exports && typeof module.exports.{name} === 'function') ? module.exports.{name} : {name})(__tbnf_config_arg)").ToString();
+                };
             }
-            if (jsEngine.Global.HasProperty("rename_ctor"))
+
+            if (hasConfigFunction("rename_var"))
             {
-                defaultScope.RenameCtor = name => jsEngine.Invoke("rename_ctor", name).ToString();
+                defaultScope.RenameVar = configFunction("rename_var");
             }
-            if (jsEngine.Global.HasProperty("rename_field"))
+            if (hasConfigFunction("rename_type"))
             {
-                defaultScope.RenameField = name => jsEngine.Invoke("rename_field", name).ToString();
+                defaultScope.RenameType = configFunction("rename_type");
             }
-            if (jsEngine.Global.HasProperty("start_rule_qualified_type"))
+            if (hasConfigFunction("rename_ctor"))
             {
-                defaultScope.StartRuleQualifiedType = jsEngine.GetValue("start_rule_qualified_type").ToString();
+                defaultScope.RenameCtor = configFunction("rename_ctor");
+            }
+            if (hasConfigFunction("rename_field"))
+            {
+                defaultScope.RenameField = configFunction("rename_field");
+            }
+
+            const string startRuleExpr = "(typeof module !== 'undefined' && module.exports && typeof module.exports.start_rule_qualified_type !== 'undefined') ? module.exports.start_rule_qualified_type : (typeof start_rule_qualified_type !== 'undefined' ? start_rule_qualified_type : undefined)";
+            if (Convert.ToBoolean(jsEngine.Evaluate($"typeof ({startRuleExpr}) !== 'undefined'").ToObject()))
+            {
+                defaultScope.StartRuleQualifiedType = jsEngine.Evaluate(startRuleExpr).ToString();
             }
         }
 
