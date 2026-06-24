@@ -26,19 +26,13 @@ So far, we support several different architectures, which unveil the capability 
 
 (**PL** = programming language; **PGEN** = parser generator; **pure bnf** means it is the pure BNF for readable syntax specification )
 
-You might check the following test scripts for detailed usage guide.
+You might check the following example/test scripts for detailed usage guide.
 - `test-scripts/test_typescript_lua_tu.sh`: Lua parser in TypeScript. (Algebraic) Data types are encoded using tagged unions.
 - `test-scripts/test_typescript_lua.sh`: Lua parser in TypeScript. (Algebraic) Data types are encoded using case classes.
 - `test-scripts/test-csharp-lua.sh`: Lua parser in CSharp.
 - `test-scripts/test-csharp-json.sh`: JSON parser in CSharp.
-- `test-scripts/run-tests.sh grammar-matrix`: same arithmetic grammar generated and asserted in C#, TypeScript, and Rust.
-- `test-scripts/test-rust-json-example.sh`: `hello_world/Json.tbnf` as a committed Rust Cargo example.
-- `test-scripts/run-tests.sh rust-json`: JSON parser in Rust via grmtools/lrlex/lrpar.
-- `test-scripts/run-tests.sh rust-json-example`: the Rust `hello_world` JSON example.
-- `test-scripts/run-tests.sh rust-lua`: Lua LR-compatible parser variant in Rust via grmtools/lrlex/lrpar.
-- `test-scripts/run-tests.sh rust-grammars`: extra Rust lrpar grammar regressions.
-- `test-scripts/run-tests.sh rust-recursion`: Rust recursive boxing regressions.
-- `test-scripts/run-tests.sh rust-functions`: Rust function-value and extern-call regressions.
+- `test-scripts/test-rust-json-example.sh`: committed Rust Cargo example generated from `hello_world/Json.tbnf`.
+- `test-scripts/run-tests.sh grammar-matrix`: same grammar generated and asserted in C#, TypeScript, and Rust.
 
 Note that JSON parsers generated for different programming languages come from the same grammar. The Rust
 Lua test uses `runtests/lua_lr.tbnf`, an LR-compatible variant of the ANTLR-oriented `runtests/lua.tbnf`.
@@ -51,7 +45,7 @@ Download the single executable file `tbnf-VERSION-TARGET` (e.g., `tbnf-0.4.0-win
 
 ```bash
 Usage: tbnf [options] <source-grammar-file>
-Version: 0.4.2
+Version: 0.4.3
 Options:
   --version                 Show version and exit
   -h, --help                Show this help message and exit
@@ -195,13 +189,10 @@ test-scripts/docker-test.sh test all
 test-scripts/docker-test.sh test typecheck
 test-scripts/docker-test.sh test csharp-json
 test-scripts/docker-test.sh test grammar-matrix
-test-scripts/docker-test.sh test rust-json
-test-scripts/docker-test.sh test rust-json-example
-test-scripts/docker-test.sh test rust-lua
-test-scripts/docker-test.sh test rust-grammars
-test-scripts/docker-test.sh test rust-recursion
-test-scripts/docker-test.sh test rust-functions
 test-scripts/docker-test.sh test 'rust-*'
+
+# List all available suites
+test-scripts/docker-test.sh list
 
 # Execute arbitrary commands in the running container
 test-scripts/docker-test.sh exec 'deno run -A build.ts aot'
@@ -210,7 +201,7 @@ test-scripts/docker-test.sh exec 'deno run -A build.ts aot'
 test-scripts/docker-test.sh down
 ```
 
-`all` runs the stable C#/TypeScript suites. Legacy Python/OCaml and Julia backends are listed as skipped because they are not reliable test targets for the current CLI/toolchain.
+`all` runs the stable suites, including C#/TypeScript and the cross-backend grammar matrix. Use `rust-*` for the full Rust backend regression suite. Legacy Python/OCaml and Julia backends are listed as skipped because they are not reliable test targets for the current CLI/toolchain.
 
 ## Build from source
 

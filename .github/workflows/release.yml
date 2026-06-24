@@ -49,7 +49,7 @@ jobs:
           deno-version: v2.x
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
@@ -60,11 +60,11 @@ jobs:
         id: get_version
         run: |
           if [[ "${{ github.event_name }}" == "push" ]]; then
-            VERSION=${GITHUB_REF#refs/tags/v}
+            VERSION="${GITHUB_REF#refs/tags/v}"
           else
-            VERSION=${{ github.event.inputs.version }}
+            VERSION="${{ github.event.inputs.version }}"
           fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
         shell: bash
 
       - name: Build AOT binary for ${{ matrix.rid }}
@@ -112,11 +112,11 @@ jobs:
         id: get_version
         run: |
           if [[ "${{ github.event_name }}" == "push" ]]; then
-            VERSION=${GITHUB_REF#refs/tags/v}
+            VERSION="${GITHUB_REF#refs/tags/v}"
           else
-            VERSION=${{ github.event.inputs.version }}
+            VERSION="${{ github.event.inputs.version }}"
           fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
         shell: bash
 
       - name: Download all artifacts
