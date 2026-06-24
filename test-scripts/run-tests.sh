@@ -496,6 +496,12 @@ TS
   grep -q 'left' "${work}/typescript/parsed.txt"
 }
 
+suite_rust_json_example() {
+  ensure_aot
+  log "Rust lrpar hello_world JSON example"
+  bash test-scripts/test-rust-json-example.sh
+}
+
 suite_rust_json() {
   ensure_aot
   log "Rust lrpar JSON end-to-end"
@@ -921,6 +927,7 @@ Available suites:
   typescript-lua-tu   TypeScript tagged-union backend
   grammar-matrix      Cross-backend grammar assertions in C#, TypeScript, and Rust
   rust-json           Rust lrpar JSON end-to-end
+  rust-json-example   Rust lrpar hello_world JSON example
   rust-lua            Rust lrpar Lua LR-compatible end-to-end
   rust-grammars       Rust lrpar additional grammar regressions
   rust-recursion      Rust lrpar recursive Boxing regressions
@@ -953,12 +960,14 @@ run_suite() {
     typescript-lua-tu|typescript-tagged-union|ts-lua-tu) suite_typescript_lua_tu ;;
     grammar-matrix|cross-grammar|cross-backend-grammar) suite_grammar_matrix ;;
     rust-json|rust-lrpar-json) suite_rust_json ;;
+    rust-json-example|rust-lrpar-json-example) suite_rust_json_example ;;
     rust-lua|rust-lrpar-lua) suite_rust_lua ;;
     rust-grammars|rust-lrpar-grammars) suite_rust_grammars ;;
     rust-recursion|rust-lrpar-recursion) suite_rust_recursion ;;
     rust-functions|rust-lrpar-functions) suite_rust_functions ;;
     rust|rust-*)
       suite_rust_json
+      suite_rust_json_example
       suite_rust_lua
       suite_rust_grammars
       suite_rust_recursion

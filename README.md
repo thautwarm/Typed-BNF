@@ -32,9 +32,13 @@ You might check the following test scripts for detailed usage guide.
 - `test-scripts/test-csharp-lua.sh`: Lua parser in CSharp.
 - `test-scripts/test-csharp-json.sh`: JSON parser in CSharp.
 - `test-scripts/run-tests.sh grammar-matrix`: same arithmetic grammar generated and asserted in C#, TypeScript, and Rust.
+- `test-scripts/test-rust-json-example.sh`: `hello_world/Json.tbnf` as a committed Rust Cargo example.
 - `test-scripts/run-tests.sh rust-json`: JSON parser in Rust via grmtools/lrlex/lrpar.
+- `test-scripts/run-tests.sh rust-json-example`: the Rust `hello_world` JSON example.
 - `test-scripts/run-tests.sh rust-lua`: Lua LR-compatible parser variant in Rust via grmtools/lrlex/lrpar.
 - `test-scripts/run-tests.sh rust-grammars`: extra Rust lrpar grammar regressions.
+- `test-scripts/run-tests.sh rust-recursion`: Rust recursive boxing regressions.
+- `test-scripts/run-tests.sh rust-functions`: Rust function-value and extern-call regressions.
 
 Note that JSON parsers generated for different programming languages come from the same grammar. The Rust
 Lua test uses `runtests/lua_lr.tbnf`, an LR-compatible variant of the ANTLR-oriented `runtests/lua.tbnf`.
@@ -192,8 +196,12 @@ test-scripts/docker-test.sh test typecheck
 test-scripts/docker-test.sh test csharp-json
 test-scripts/docker-test.sh test grammar-matrix
 test-scripts/docker-test.sh test rust-json
+test-scripts/docker-test.sh test rust-json-example
 test-scripts/docker-test.sh test rust-lua
 test-scripts/docker-test.sh test rust-grammars
+test-scripts/docker-test.sh test rust-recursion
+test-scripts/docker-test.sh test rust-functions
+test-scripts/docker-test.sh test 'rust-*'
 
 # Execute arbitrary commands in the running container
 test-scripts/docker-test.sh exec 'deno run -A build.ts aot'

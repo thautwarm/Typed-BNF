@@ -1,0 +1,18 @@
+[package]
+name = "json_rust"
+version = "0.1.0"
+edition = "2021"
+
+[build-dependencies]
+cfgrammar = "0.14.2"
+lrlex = "0.14.2"
+lrpar = "0.14.2"
+
+[dependencies]
+cfgrammar = "0.14.2"
+lrlex = "0.14.2"
+lrpar = "0.14.2"
+
+[lib]
+name = "json_rust"
+path = "src/lib.rs"
