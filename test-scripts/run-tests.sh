@@ -497,7 +497,6 @@ TS
 }
 
 suite_rust_json_example() {
-  ensure_aot
   log "Rust lrpar hello_world JSON example"
   bash test-scripts/test-rust-json-example.sh
 }
@@ -524,30 +523,8 @@ suite_rust_json() {
 }
 
 suite_rust_lua() {
-  ensure_aot
-  log "Rust lrpar Lua LR-compatible end-to-end"
-  work="${TEST_TMP}/rust-lua-lr"
-  rm -rf "${work}"
-  mkdir -p "${work}"
-
-  ./dist/TBNF.CLI.AOT ./runtests/lua_lr.tbnf -o "${work}/" -lang "Lua" -be rust-lrpar
-  cp ./runtests/rust_lua/externs.rs "${work}/src/externs.rs"
-
-  cat > "${work}/sample.lua" <<'LUA'
-local x = 1 + 2 * 3
-f(x)
-return x
-LUA
-
-  (
-    cd "${work}"
-    cargo run --quiet < sample.lua > parsed.txt
-  )
-
-  grep -q 'Assignment' "${work}/parsed.txt"
-  grep -q 'CallFunc' "${work}/parsed.txt"
-  grep -q 'ReturnStmt' "${work}/parsed.txt"
-  grep -q 'Bin' "${work}/parsed.txt"
+  log "Rust lrpar Lua LR-compatible committed fixture"
+  bash test-scripts/test-rust-lua.sh
 }
 
 suite_rust_grammars() {
@@ -928,7 +905,7 @@ Available suites:
   grammar-matrix      Cross-backend grammar assertions in C#, TypeScript, and Rust
   rust-json           Rust lrpar JSON end-to-end
   rust-json-example   Rust lrpar hello_world JSON example
-  rust-lua            Rust lrpar Lua LR-compatible end-to-end
+  rust-lua            Rust lrpar Lua LR-compatible committed fixture
   rust-grammars       Rust lrpar additional grammar regressions
   rust-recursion      Rust lrpar recursive Boxing regressions
   rust-functions      Rust lrpar function-value and extern-call regressions
