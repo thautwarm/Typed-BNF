@@ -26,13 +26,13 @@ For IDE support, we provide a [VSCode extension](https://marketplace.visualstudi
 
 So far, we support several different architectures, which unveil the capability of Typed BNF's backend agnostic code generation.
 
-| architecture   | backend(PGEN + PL)   | lexer Impl  | parser capability  | [ADT](https://en.wikipedia.org/wiki/Algebraic_data_type) encoding  |
-|---|---|---|---|---|
-| antlr  | antlr4+csharp  | antlr  | ALL(*)   | case classes |
-| antlr     | antlr4+typescript (default) | antlr | ALL(*) | tagged unions |
-| antlr     | antlr4+typescript (`-ae case-class`) | antlr | ALL(*) | case classes |
-| lrpar     | grmtools/lrlex/lrpar+rust | lrlex | LR | Rust enums/structs |
-| \*pure bnf     | pure bnf | antlr notation | CFG |  |
+| backend(PL + PGEN + Lexer)   | architecture   | parser capability  | [ADT](https://en.wikipedia.org/wiki/Algebraic_data_type) encoding  |
+|---|---|---|---|
+| csharp + antlr4 + antlr  | antlr  | ALL(*)   | case classes |
+| typescript + antlr4ng + antlr (default) | antlr | ALL(*) | tagged unions |
+| typescript + antlr4ng + antlr (`-ae case-class`) | antlr | ALL(*) | case classes |
+| rust + grmtools/lrpar + lrlex | lrpar | LR | Rust enums/structs |
+| pure bnf + none + antlr notation | \*pure bnf | CFG |  |
 
 (**PL** = programming language; **PGEN** = parser generator; **pure bnf** means it is the pure BNF for readable syntax specification )
 
