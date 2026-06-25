@@ -22,10 +22,10 @@ jobs:
           - os: ubuntu-latest
             rid: linux-x64
             artifact_name: tbnf-linux-x64
-          - os: ubuntu-latest
+          - os: ubuntu-24.04-arm
             rid: linux-arm64
             artifact_name: tbnf-linux-arm64
-          - os: macos-latest
+          - os: macos-15-intel
             rid: osx-x64
             artifact_name: tbnf-osx-x64
           - os: macos-latest
@@ -44,18 +44,9 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install ANTLR4 Tools
-        run: pip install antlr4-tools
+      - name: Install NativeAOT toolchain dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: sudo apt-get update && sudo apt-get install -y clang zlib1g-dev
 
       - name: Get version
         id: get_version
@@ -69,11 +60,20 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
         shell: bash
 
-      - name: Build AOT binary for ${{ matrix.rid }}
-        run: deno run -A build.ts aot
+      - name: Generate version source
+        run: |
+          cat > cli/GeneratedVersion.cs <<CS
+          namespace TypedBNF;
+          public static class GeneratedVersion
+          {
+            public const string Version = "${VERSION}";
+          }
+          CS
         shell: bash
-        env:
-          RID: ${{ matrix.rid }}
+
+      - name: Build AOT binary for ${{ matrix.rid }}
+        run: dotnet publish ./cli.aot/TBNF.CLI.AOT.csproj -c Release -f net8.0 -r "${{ matrix.rid }}" --self-contained true -o dist
+        shell: bash
 
       - name: Rename and version binary
         run: |
