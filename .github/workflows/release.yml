@@ -16,6 +16,7 @@ jobs:
     name: Build TBNF for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-latest
@@ -65,6 +66,7 @@ jobs:
             VERSION="${{ github.event.inputs.version }}"
           fi
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
         shell: bash
 
       - name: Build AOT binary for ${{ matrix.rid }}
@@ -75,20 +77,40 @@ jobs:
 
       - name: Rename and version binary
         run: |
+          set -eux
+          ls -lah dist
+
           if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            cp dist/TBNF.CLI.AOT.exe dist/tbnf-${{ env.VERSION }}-${{ matrix.rid }}.exe
-            cp dist/TBNF.CLI.AOT.exe dist/${{ matrix.artifact_name }}
+            versioned="dist/tbnf-${VERSION}-${{ matrix.rid }}.exe"
+            candidates=(dist/TBNF.CLI.AOT.exe dist/TBNF.CLI.exe)
           else
-            cp dist/TBNF.CLI.AOT dist/tbnf-${{ env.VERSION }}-${{ matrix.rid }}
-            cp dist/TBNF.CLI.AOT dist/${{ matrix.artifact_name }}
+            versioned="dist/tbnf-${VERSION}-${{ matrix.rid }}"
+            candidates=(dist/TBNF.CLI.AOT dist/TBNF.CLI dist/TBNF.CLI.AOT.exe dist/TBNF.CLI.exe)
           fi
+
+          src=""
+          for candidate in "${candidates[@]}"; do
+            if [[ -f "$candidate" ]]; then
+              src="$candidate"
+              break
+            fi
+          done
+
+          if [[ -z "$src" ]]; then
+            echo "No CLI binary found in dist/" >&2
+            find dist -maxdepth 2 -type f -print >&2 || true
+            exit 1
+          fi
+
+          cp "$src" "$versioned"
+          cp "$src" "dist/${{ matrix.artifact_name }}"
         shell: bash
 
       - name: Upload versioned artifact
         uses: actions/upload-artifact@v4
         with:
-          name: tbnf-${{ env.VERSION }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
-          path: dist/tbnf-${{ env.VERSION }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
+          name: tbnf-${{ steps.get_version.outputs.version }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
+          path: dist/tbnf-${{ steps.get_version.outputs.version }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
           if-no-files-found: error
 
       - name: Upload generic artifact
@@ -117,6 +139,7 @@ jobs:
             VERSION="${{ github.event.inputs.version }}"
           fi
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
         shell: bash
 
       - name: Download all artifacts
@@ -128,26 +151,26 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ env.VERSION }}
-          name: TBNF v${{ env.VERSION }}
+          tag_name: v${{ steps.get_version.outputs.version }}
+          name: TBNF v${{ steps.get_version.outputs.version }}
           draft: false
           prerelease: false
           generate_release_notes: true
           files: |
-            artifacts/tbnf-${{ env.VERSION }}-linux-x64/tbnf-${{ env.VERSION }}-linux-x64
-            artifacts/tbnf-${{ env.VERSION }}-linux-arm64/tbnf-${{ env.VERSION }}-linux-arm64
-            artifacts/tbnf-${{ env.VERSION }}-osx-x64/tbnf-${{ env.VERSION }}-osx-x64
-            artifacts/tbnf-${{ env.VERSION }}-osx-arm64/tbnf-${{ env.VERSION }}-osx-arm64
-            artifacts/tbnf-${{ env.VERSION }}-win-x64.exe/tbnf-${{ env.VERSION }}-win-x64.exe
+            artifacts/tbnf-${{ steps.get_version.outputs.version }}-linux-x64/tbnf-${{ steps.get_version.outputs.version }}-linux-x64
+            artifacts/tbnf-${{ steps.get_version.outputs.version }}-linux-arm64/tbnf-${{ steps.get_version.outputs.version }}-linux-arm64
+            artifacts/tbnf-${{ steps.get_version.outputs.version }}-osx-x64/tbnf-${{ steps.get_version.outputs.version }}-osx-x64
+            artifacts/tbnf-${{ steps.get_version.outputs.version }}-osx-arm64/tbnf-${{ steps.get_version.outputs.version }}-osx-arm64
+            artifacts/tbnf-${{ steps.get_version.outputs.version }}-win-x64.exe/tbnf-${{ steps.get_version.outputs.version }}-win-x64.exe
           body: |
-            # TBNF v${{ env.VERSION }}
-            
+            # TBNF v${{ steps.get_version.outputs.version }}
+
             Backend-agnostic BNF grammar with type inference and semantic actions.
-            
+
             ## Binaries
-            
-            - [Linux x64](https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/tbnf-${{ env.VERSION }}-linux-x64)
-            - [Linux ARM64](https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/tbnf-${{ env.VERSION }}-linux-arm64)
-            - [macOS x64](https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/tbnf-${{ env.VERSION }}-osx-x64)
-            - [macOS ARM64](https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/tbnf-${{ env.VERSION }}-osx-arm64)
-            - [Windows x64](https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/tbnf-${{ env.VERSION }}-win-x64.exe) 
+
+            - [Linux x64](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/tbnf-${{ steps.get_version.outputs.version }}-linux-x64)
+            - [Linux ARM64](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/tbnf-${{ steps.get_version.outputs.version }}-linux-arm64)
+            - [macOS x64](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/tbnf-${{ steps.get_version.outputs.version }}-osx-x64)
+            - [macOS ARM64](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/tbnf-${{ steps.get_version.outputs.version }}-osx-arm64)
+            - [Windows x64](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/tbnf-${{ steps.get_version.outputs.version }}-win-x64.exe)
