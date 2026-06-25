@@ -99,9 +99,9 @@ jobs:
           chmod +x "$RUNNER_TEMP/bflat/bflat"
         shell: bash
 
-      - name: Build managed assemblies for bflat
+      - name: Publish managed assemblies for bflat
         if: matrix.builder == 'bflat'
-        run: dotnet build cli/TBNF.CLI.csproj -c Release -f net8.0 --nologo
+        run: dotnet publish cli/TBNF.CLI.csproj -c Release -f net8.0 --use-current-runtime --self-contained true -p:PublishSingleFile=false -o dist/managed --nologo
         shell: bash
 
       - name: Build bflat binary
@@ -113,11 +113,11 @@ jobs:
           export LD_LIBRARY_PATH="$RUNNER_TEMP/bflat:$RUNNER_TEMP/bflat/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
           "$RUNNER_TEMP/bflat/bflat" build \
             cli/*.cs cli/Grammar/*.cs \
-            -r cli/bin/Release/net8.0/TBNF.Core.dll \
-            -r cli/bin/Release/net8.0/Antlr4.Runtime.Standard.dll \
-            -r cli/bin/Release/net8.0/FSharp.Core.dll \
-            -r cli/bin/Release/net8.0/Jint.dll \
-            -r cli/bin/Release/net8.0/Acornima.dll \
+            -r dist/managed/TBNF.Core.dll \
+            -r dist/managed/Antlr4.Runtime.Standard.dll \
+            -r dist/managed/FSharp.Core.dll \
+            -r dist/managed/Jint.dll \
+            -r dist/managed/Acornima.dll \
             -o "$out" \
             --target Exe \
             --os "${{ matrix.bflat_os }}" \
@@ -135,7 +135,6 @@ jobs:
           dotnet publish ./cli.aot/TBNF.CLI.AOT.csproj \
             -c Release \
             -f net8.0 \
-            -r "${{ matrix.rid }}" \
             --self-contained true \
             -o dist
           src="dist/TBNF.CLI.AOT"
