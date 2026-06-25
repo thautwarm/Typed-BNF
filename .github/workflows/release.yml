@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    name: Build TBNF for ${{ matrix.os }}
+    name: Build ${{ matrix.rid }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -22,18 +22,37 @@ jobs:
           - os: ubuntu-latest
             rid: linux-x64
             artifact_name: tbnf-linux-x64
+            builder: bflat
+            bflat_os: linux
+            bflat_arch: x64
+            bflat_libc: glibc
+            suffix: ''
           - os: ubuntu-latest
             rid: linux-arm64
             artifact_name: tbnf-linux-arm64
-          - os: macos-latest
-            rid: osx-x64
-            artifact_name: tbnf-osx-x64
-          - os: macos-latest
-            rid: osx-arm64
-            artifact_name: tbnf-osx-arm64
-          - os: windows-latest
+            builder: bflat
+            bflat_os: linux
+            bflat_arch: arm64
+            bflat_libc: glibc
+            suffix: ''
+          - os: ubuntu-latest
             rid: win-x64
             artifact_name: tbnf-win-x64.exe
+            builder: bflat
+            bflat_os: windows
+            bflat_arch: x64
+            bflat_libc: shcrt
+            suffix: '.exe'
+          - os: macos-15-intel
+            rid: osx-x64
+            artifact_name: tbnf-osx-x64
+            builder: nativeaot
+            suffix: ''
+          - os: macos-15
+            rid: osx-arm64
+            artifact_name: tbnf-osx-arm64
+            builder: nativeaot
+            suffix: ''
 
     steps:
       - name: Checkout code
@@ -43,19 +62,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-
-      - name: Setup Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install ANTLR4 Tools
-        run: pip install antlr4-tools
 
       - name: Get version
         id: get_version
@@ -69,48 +75,85 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
         shell: bash
 
-      - name: Build AOT binary for ${{ matrix.rid }}
-        run: deno run -A build.ts aot
+      - name: Generate version source
+        run: |
+          cat > cli/GeneratedVersion.cs <<CS
+          namespace TypedBNF;
+          public static class GeneratedVersion
+          {
+            public const string Version = "${VERSION}";
+          }
+          CS
         shell: bash
-        env:
-          RID: ${{ matrix.rid }}
 
-      - name: Rename and version binary
+      - name: Install bflat
+        if: matrix.builder == 'bflat'
         run: |
           set -eux
-          ls -lah dist
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libc++abi1
+          mkdir -p "$RUNNER_TEMP/bflat"
+          curl -fsSL "https://github.com/bflattened/bflat/releases/download/v8.0.2/bflat-8.0.2-linux-glibc-x64.tar.gz" \
+            -o "$RUNNER_TEMP/bflat.tar.gz"
+          tar -xzf "$RUNNER_TEMP/bflat.tar.gz" -C "$RUNNER_TEMP/bflat"
+          chmod +x "$RUNNER_TEMP/bflat/bflat"
+        shell: bash
 
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            versioned="dist/tbnf-${VERSION}-${{ matrix.rid }}.exe"
-            candidates=(dist/TBNF.CLI.AOT.exe dist/TBNF.CLI.exe)
-          else
-            versioned="dist/tbnf-${VERSION}-${{ matrix.rid }}"
-            candidates=(dist/TBNF.CLI.AOT dist/TBNF.CLI dist/TBNF.CLI.AOT.exe dist/TBNF.CLI.exe)
-          fi
+      - name: Build managed assemblies for bflat
+        if: matrix.builder == 'bflat'
+        run: dotnet build cli/TBNF.CLI.csproj -c Release -f net8.0 --nologo
+        shell: bash
 
-          src=""
-          for candidate in "${candidates[@]}"; do
-            if [[ -f "$candidate" ]]; then
-              src="$candidate"
-              break
-            fi
-          done
+      - name: Build bflat binary
+        if: matrix.builder == 'bflat'
+        run: |
+          set -eux
+          mkdir -p dist
+          out="dist/tbnf-${VERSION}-${{ matrix.rid }}${{ matrix.suffix }}"
+          export LD_LIBRARY_PATH="$RUNNER_TEMP/bflat:$RUNNER_TEMP/bflat/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+          "$RUNNER_TEMP/bflat/bflat" build \
+            cli/*.cs cli/Grammar/*.cs \
+            -r cli/bin/Release/net8.0/TBNF.Core.dll \
+            -r cli/bin/Release/net8.0/Antlr4.Runtime.Standard.dll \
+            -r cli/bin/Release/net8.0/FSharp.Core.dll \
+            -r cli/bin/Release/net8.0/Jint.dll \
+            -r cli/bin/Release/net8.0/Acornima.dll \
+            -o "$out" \
+            --target Exe \
+            --os "${{ matrix.bflat_os }}" \
+            --arch "${{ matrix.bflat_arch }}" \
+            --libc "${{ matrix.bflat_libc }}" \
+            --no-globalization \
+            --no-debug-info
+          cp "$out" "dist/${{ matrix.artifact_name }}"
+        shell: bash
 
-          if [[ -z "$src" ]]; then
-            echo "No CLI binary found in dist/" >&2
-            find dist -maxdepth 2 -type f -print >&2 || true
-            exit 1
-          fi
-
-          cp "$src" "$versioned"
+      - name: Build NativeAOT macOS binary
+        if: matrix.builder == 'nativeaot'
+        run: |
+          set -eux
+          dotnet publish ./cli.aot/TBNF.CLI.AOT.csproj \
+            -c Release \
+            -f net8.0 \
+            -r "${{ matrix.rid }}" \
+            --self-contained true \
+            -o dist
+          src="dist/TBNF.CLI.AOT"
+          out="dist/tbnf-${VERSION}-${{ matrix.rid }}"
+          test -f "$src"
+          cp "$src" "$out"
           cp "$src" "dist/${{ matrix.artifact_name }}"
+        shell: bash
+
+      - name: List packaged files
+        run: ls -lah dist
         shell: bash
 
       - name: Upload versioned artifact
         uses: actions/upload-artifact@v4
         with:
-          name: tbnf-${{ steps.get_version.outputs.version }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
-          path: dist/tbnf-${{ steps.get_version.outputs.version }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
+          name: tbnf-${{ steps.get_version.outputs.version }}-${{ matrix.rid }}${{ matrix.suffix }}
+          path: dist/tbnf-${{ steps.get_version.outputs.version }}-${{ matrix.rid }}${{ matrix.suffix }}
           if-no-files-found: error
 
       - name: Upload generic artifact
@@ -125,7 +168,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # This is needed for creating releases
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
