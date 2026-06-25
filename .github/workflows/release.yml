@@ -101,7 +101,7 @@ jobs:
 
       - name: Publish managed assemblies for bflat
         if: matrix.builder == 'bflat'
-        run: dotnet publish cli/TBNF.CLI.csproj -c Release -f net8.0 --use-current-runtime --self-contained true -p:PublishSingleFile=false -o dist/managed --nologo
+        run: dotnet publish cli/TBNF.CLI.csproj -c Release -f net8.0 -p:PublishSingleFile=false -o dist/managed --nologo
         shell: bash
 
       - name: Build bflat binary
@@ -135,7 +135,6 @@ jobs:
           dotnet publish ./cli.aot/TBNF.CLI.AOT.csproj \
             -c Release \
             -f net8.0 \
-            --self-contained true \
             -o dist
           src="dist/TBNF.CLI.AOT"
           out="dist/tbnf-${VERSION}-${{ matrix.rid }}"
