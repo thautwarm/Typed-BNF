@@ -9,104 +9,14 @@ on:
       version:
         description: 'Version to release (without v prefix)'
         required: true
-        default: '0.4.0'
+        default: '0.4.4'
 
 jobs:
-  build:
-    name: Build TBNF for ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: ubuntu-latest
-            rid: linux-x64
-            artifact_name: tbnf-linux-x64
-          - os: ubuntu-24.04-arm
-            rid: linux-arm64
-            artifact_name: tbnf-linux-arm64
-          - os: macos-15-intel
-            rid: osx-x64
-            artifact_name: tbnf-osx-x64
-          - os: macos-latest
-            rid: osx-arm64
-            artifact_name: tbnf-osx-arm64
-          - os: windows-latest
-            rid: win-x64
-            artifact_name: tbnf-win-x64.exe
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup .NET 8
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Get version
-        id: get_version
-        run: |
-          if [[ "${{ github.event_name }}" == "push" ]]; then
-            VERSION="${GITHUB_REF#refs/tags/v}"
-          else
-            VERSION="${{ github.event.inputs.version }}"
-          fi
-          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-        shell: bash
-
-      - name: Generate version source
-        run: |
-          cat > cli/GeneratedVersion.cs <<CS
-          namespace TypedBNF;
-          public static class GeneratedVersion
-          {
-            public const string Version = "${VERSION}";
-          }
-          CS
-        shell: bash
-
-      - name: Build self-contained binary for ${{ matrix.rid }}
-        run: dotnet publish ./cli/TBNF.CLI.csproj -c Release -f net8.0 -r "${{ matrix.rid }}" --self-contained true -p:PublishSingleFile=true -o dist
-        shell: bash
-
-      - name: Rename and version binary
-        run: |
-          ls -lah dist
-          rid="${{ matrix.rid }}"
-          if [[ "$rid" == win-* ]]; then
-            src="dist/TBNF.CLI.exe"
-            versioned="dist/tbnf-${VERSION}-${rid}.exe"
-          else
-            src="dist/TBNF.CLI"
-            versioned="dist/tbnf-${VERSION}-${rid}"
-          fi
-          test -f "$src"
-          cp "$src" "$versioned"
-          cp "$src" "dist/${{ matrix.artifact_name }}"
-        shell: bash
-
-      - name: Upload versioned artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: tbnf-${{ steps.get_version.outputs.version }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
-          path: dist/tbnf-${{ steps.get_version.outputs.version }}-${{ matrix.rid }}${{ endsWith(matrix.artifact_name, '.exe') && '.exe' || '' }}
-          if-no-files-found: error
-
-      - name: Upload generic artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.artifact_name }}
-          path: dist/${{ matrix.artifact_name }}
-          if-no-files-found: error
-
   release:
     name: Create Release
-    needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # This is needed for creating releases
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -119,17 +29,10 @@ jobs:
           else
             VERSION="${{ github.event.inputs.version }}"
           fi
-          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
         shell: bash
 
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-
       - name: Create Release
-        id: create_release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.get_version.outputs.version }}
@@ -137,21 +40,21 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
-          files: |
-            artifacts/tbnf-${{ steps.get_version.outputs.version }}-linux-x64/tbnf-${{ steps.get_version.outputs.version }}-linux-x64
-            artifacts/tbnf-${{ steps.get_version.outputs.version }}-linux-arm64/tbnf-${{ steps.get_version.outputs.version }}-linux-arm64
-            artifacts/tbnf-${{ steps.get_version.outputs.version }}-osx-x64/tbnf-${{ steps.get_version.outputs.version }}-osx-x64
-            artifacts/tbnf-${{ steps.get_version.outputs.version }}-osx-arm64/tbnf-${{ steps.get_version.outputs.version }}-osx-arm64
-            artifacts/tbnf-${{ steps.get_version.outputs.version }}-win-x64.exe/tbnf-${{ steps.get_version.outputs.version }}-win-x64.exe
           body: |
             # TBNF v${{ steps.get_version.outputs.version }}
-            
+
             Backend-agnostic BNF grammar with type inference and semantic actions.
-            
-            ## Binaries
-            
-            - [Linux x64](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/tbnf-${{ steps.get_version.outputs.version }}-linux-x64)
-            - [Linux ARM64](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/tbnf-${{ steps.get_version.outputs.version }}-linux-arm64)
-            - [macOS x64](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/tbnf-${{ steps.get_version.outputs.version }}-osx-x64)
-            - [macOS ARM64](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/tbnf-${{ steps.get_version.outputs.version }}-osx-arm64)
-            - [Windows x64](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/tbnf-${{ steps.get_version.outputs.version }}-win-x64.exe)
+
+            ## Highlights
+
+            - Add the Rust `rust-lrpar` backend using `grmtools`, `lrlex`, and `lrpar`.
+            - Add committed Rust JSON and LR-compatible Lua examples/fixtures.
+            - Add Docker/Docker Compose based development and test workflow, plus GitHub CI.
+
+            ## Fixes and improvements
+
+            - Fix type inference/unification regressions around record field access and duplicate type variable checks.
+            - Support CommonJS-style `module.exports` in `tbnf.config.js`, with fallback to legacy top-level hooks.
+            - Expand grammar regression coverage across C#, TypeScript, and Rust backends.
+            - Improve documentation for features, backend status, Rust limitations, and legacy backend notes.
+            - Mark Python Lark and OCaml Menhir as legacy/deprecated; OCaml Menhir is currently broken against the current CLI/toolchain.
