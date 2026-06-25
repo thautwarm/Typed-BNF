@@ -44,10 +44,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install NativeAOT toolchain dependencies
-        if: startsWith(matrix.os, 'ubuntu')
-        run: sudo apt-get update && sudo apt-get install -y clang zlib1g-dev
-
       - name: Get version
         id: get_version
         run: |
@@ -71,8 +67,8 @@ jobs:
           CS
         shell: bash
 
-      - name: Build AOT binary for ${{ matrix.rid }}
-        run: dotnet publish ./cli.aot/TBNF.CLI.AOT.csproj -c Release -f net8.0 -r "${{ matrix.rid }}" --self-contained true -o dist
+      - name: Build self-contained binary for ${{ matrix.rid }}
+        run: dotnet publish ./cli/TBNF.CLI.csproj -c Release -f net8.0 -r "${{ matrix.rid }}" --self-contained true -p:PublishSingleFile=true -o dist
         shell: bash
 
       - name: Rename and version binary
@@ -80,10 +76,10 @@ jobs:
           ls -lah dist
           rid="${{ matrix.rid }}"
           if [[ "$rid" == win-* ]]; then
-            src="dist/TBNF.CLI.AOT.exe"
+            src="dist/TBNF.CLI.exe"
             versioned="dist/tbnf-${VERSION}-${rid}.exe"
           else
-            src="dist/TBNF.CLI.AOT"
+            src="dist/TBNF.CLI"
             versioned="dist/tbnf-${VERSION}-${rid}"
           fi
           test -f "$src"
