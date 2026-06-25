@@ -63,6 +63,19 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Force .NET 8 SDK
+        run: |
+          cat > global.json <<'JSON'
+          {
+            "sdk": {
+              "version": "8.0.100",
+              "rollForward": "latestFeature"
+            }
+          }
+          JSON
+          dotnet --version
+        shell: bash
+
       - name: Get version
         id: get_version
         run: |
