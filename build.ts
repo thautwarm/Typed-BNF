@@ -194,6 +194,7 @@ NM.target(
   {
     name: exeAOT,
     virtual: false,
+    rebuild: 'always',
     deps: {
       generatedVersion,
       cliSources: NM.Path.glob("cli/**/*.{cs,csproj}", { exclude: ['**/bin/**', '**/obj/**'] }),
