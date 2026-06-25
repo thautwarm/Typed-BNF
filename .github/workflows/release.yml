@@ -22,37 +22,23 @@ jobs:
           - os: ubuntu-latest
             rid: linux-x64
             artifact_name: tbnf-linux-x64
-            builder: bflat
-            bflat_os: linux
-            bflat_arch: x64
-            bflat_libc: glibc
             suffix: ''
-          - os: ubuntu-latest
+          - os: ubuntu-24.04-arm
             rid: linux-arm64
             artifact_name: tbnf-linux-arm64
-            builder: bflat
-            bflat_os: linux
-            bflat_arch: arm64
-            bflat_libc: glibc
             suffix: ''
-          - os: ubuntu-latest
-            rid: win-x64
-            artifact_name: tbnf-win-x64.exe
-            builder: bflat
-            bflat_os: windows
-            bflat_arch: x64
-            bflat_libc: shcrt
-            suffix: '.exe'
           - os: macos-15-intel
             rid: osx-x64
             artifact_name: tbnf-osx-x64
-            builder: nativeaot
             suffix: ''
           - os: macos-15
             rid: osx-arm64
             artifact_name: tbnf-osx-arm64
-            builder: nativeaot
             suffix: ''
+          - os: windows-latest
+            rid: win-x64
+            artifact_name: tbnf-win-x64.exe
+            suffix: '.exe'
 
     steps:
       - name: Checkout code
@@ -76,6 +62,15 @@ jobs:
           dotnet --version
         shell: bash
 
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Install NativeAOT toolchain dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: sudo apt-get update && sudo apt-get install -y clang zlib1g-dev
+
       - name: Get version
         id: get_version
         run: |
@@ -88,76 +83,32 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
         shell: bash
 
-      - name: Generate version source
-        run: |
-          cat > cli/GeneratedVersion.cs <<CS
-          namespace TypedBNF;
-          public static class GeneratedVersion
-          {
-            public const string Version = "${VERSION}";
-          }
-          CS
-        shell: bash
-
-      - name: Install bflat
-        if: matrix.builder == 'bflat'
+      - name: Build native AOT binary via NoMake
         run: |
           set -eux
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libc++abi1
-          mkdir -p "$RUNNER_TEMP/bflat"
-          curl -fsSL "https://github.com/bflattened/bflat/releases/download/v8.0.2/bflat-8.0.2-linux-glibc-x64.tar.gz" \
-            -o "$RUNNER_TEMP/bflat.tar.gz"
-          tar -xzf "$RUNNER_TEMP/bflat.tar.gz" -C "$RUNNER_TEMP/bflat"
-          chmod +x "$RUNNER_TEMP/bflat/bflat"
+          rm -rf dist .nomake_files/targets
+          deno run -A build.ts aot
         shell: bash
 
-      - name: Publish managed assemblies for bflat
-        if: matrix.builder == 'bflat'
-        run: dotnet publish cli/TBNF.CLI.csproj -c Release -f net8.0 -p:PublishSingleFile=false -o dist/managed --nologo
-        shell: bash
-
-      - name: Build bflat binary
-        if: matrix.builder == 'bflat'
+      - name: Rename and version binary
         run: |
           set -eux
-          mkdir -p dist
-          out="dist/tbnf-${VERSION}-${{ matrix.rid }}${{ matrix.suffix }}"
-          export LD_LIBRARY_PATH="$RUNNER_TEMP/bflat:$RUNNER_TEMP/bflat/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-          "$RUNNER_TEMP/bflat/bflat" build \
-            cli/*.cs cli/Grammar/*.cs \
-            -r dist/managed/TBNF.Core.dll \
-            -r dist/managed/Antlr4.Runtime.Standard.dll \
-            -r dist/managed/FSharp.Core.dll \
-            -r dist/managed/Jint.dll \
-            -r dist/managed/Acornima.dll \
-            -o "$out" \
-            --target Exe \
-            --os "${{ matrix.bflat_os }}" \
-            --arch "${{ matrix.bflat_arch }}" \
-            --libc "${{ matrix.bflat_libc }}" \
-            --no-globalization \
-            --no-debug-info
-          cp "$out" "dist/${{ matrix.artifact_name }}"
-        shell: bash
-
-      - name: Build NativeAOT macOS binary
-        if: matrix.builder == 'nativeaot'
-        run: |
-          set -eux
-          dotnet publish ./cli.aot/TBNF.CLI.AOT.csproj \
-            -c Release \
-            -f net8.0 \
-            -o dist
-          src="dist/TBNF.CLI.AOT"
-          out="dist/tbnf-${VERSION}-${{ matrix.rid }}"
+          ls -lah dist
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            src="dist/TBNF.CLI.AOT.exe"
+          else
+            src="dist/TBNF.CLI.AOT"
+          fi
+          versioned="dist/tbnf-${VERSION}-${{ matrix.rid }}${{ matrix.suffix }}"
           test -f "$src"
-          cp "$src" "$out"
+          cp "$src" "$versioned"
           cp "$src" "dist/${{ matrix.artifact_name }}"
         shell: bash
 
-      - name: List packaged files
-        run: ls -lah dist
+      - name: Smoke-test packaged binary
+        run: |
+          set -eux
+          "dist/${{ matrix.artifact_name }}" --version
         shell: bash
 
       - name: Upload versioned artifact
@@ -209,6 +160,7 @@ jobs:
           name: TBNF v${{ steps.get_version.outputs.version }}
           draft: false
           prerelease: false
+          overwrite_files: true
           generate_release_notes: true
           files: |
             artifacts/tbnf-${{ steps.get_version.outputs.version }}-linux-x64/tbnf-${{ steps.get_version.outputs.version }}-linux-x64
